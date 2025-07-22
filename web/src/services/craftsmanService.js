@@ -1,107 +1,71 @@
 import api from './api';
 
-class CraftsmanService {
-  // Get craftsman profile
-  async getProfile() {
+export const craftsmanService = {
+  // Get all craftsmen with filters
+  getCraftsmen: async (filters = {}) => {
     try {
-      const response = await api.get('/craftsman/profile');
+      const params = new URLSearchParams();
+      
+      if (filters.page) params.append('page', filters.page);
+      if (filters.per_page) params.append('per_page', filters.per_page);
+      if (filters.category_id) params.append('category_id', filters.category_id);
+      if (filters.city) params.append('city', filters.city);
+      if (filters.search) params.append('search', filters.search);
+      
+      const response = await api.get(`/craftsmen/?${params.toString()}`);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get craftsman by ID
+  getCraftsman: async (id) => {
+    try {
+      const response = await api.get(`/craftsmen/${id}`);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get all categories
+  getCategories: async () => {
+    try {
+      const response = await api.get('/craftsmen/categories');
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Search craftsmen
+  searchCraftsmen: async (query) => {
+    try {
+      const response = await api.get(`/craftsmen/?search=${encodeURIComponent(query)}`);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get craftsmen by category
+  getCraftsmenByCategory: async (categoryId) => {
+    try {
+      const response = await api.get(`/craftsmen/?category_id=${categoryId}`);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get craftsmen by city
+  getCraftsmenByCity: async (city) => {
+    try {
+      const response = await api.get(`/craftsmen/?city=${encodeURIComponent(city)}`);
       return response;
     } catch (error) {
       throw error;
     }
   }
-
-  // Update craftsman profile
-  async updateProfile(profileData) {
-    try {
-      const response = await api.put('/craftsman/profile', profileData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Get craftsman services
-  async getServices() {
-    try {
-      const response = await api.get('/craftsman/services');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Add new service
-  async addService(serviceData) {
-    try {
-      const response = await api.post('/craftsman/services', serviceData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Get craftsman quotes
-  async getQuotes(params = {}) {
-    try {
-      const queryParams = new URLSearchParams(params).toString();
-      const response = await api.get(`/craftsman/quotes?${queryParams}`);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Respond to quote
-  async respondToQuote(quoteId, responseData) {
-    try {
-      const response = await api.post(`/craftsman/quotes/${quoteId}/respond`, responseData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Get craftsman reviews
-  async getReviews(params = {}) {
-    try {
-      const queryParams = new URLSearchParams(params).toString();
-      const response = await api.get(`/craftsman/reviews?${queryParams}`);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Get craftsman statistics
-  async getStatistics() {
-    try {
-      const response = await api.get('/craftsman/statistics');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Get availability
-  async getAvailability() {
-    try {
-      const response = await api.get('/craftsman/availability');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Update availability
-  async updateAvailability(availabilityData) {
-    try {
-      const response = await api.put('/craftsman/availability', availabilityData);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-}
-
-export default new CraftsmanService();
+};

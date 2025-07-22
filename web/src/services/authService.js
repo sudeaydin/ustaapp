@@ -1,134 +1,83 @@
-import api, { setAuthToken, clearAuth } from './api';
+import api from './api';
 
-class AuthService {
+export const authService = {
   // Login
-  async login(email, password) {
+  login: async (email, password) => {
     try {
       const response = await api.post('/auth/login', {
         email,
         password
       });
       
-      if (response.success && response.access_token) {
-        setAuthToken(response.access_token);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        return response;
+      if (response.success && response.data.access_token) {
+        localStorage.setItem('authToken', response.data.access_token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Set token in axios header
+        api.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
       }
       
-      throw new Error(response.message || 'Giriş başarısız');
+      return response;
     } catch (error) {
       throw error;
     }
-  }
+  },
 
   // Register
-  async register(userData) {
+  register: async (userData) => {
     try {
       const response = await api.post('/auth/register', userData);
       
-      if (response.success && response.access_token) {
-        setAuthToken(response.access_token);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        return response;
+      if (response.success && response.data.access_token) {
+        localStorage.setItem('authToken', response.data.access_token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Set token in axios header
+        api.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
       }
       
-      throw new Error(response.message || 'Kayıt başarısız');
+      return response;
     } catch (error) {
       throw error;
     }
-  }
+  },
+
+  // Get Profile
+  getProfile: async () => {
+    try {
+      const response = await api.get('/auth/profile');
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Update Profile
+  updateProfile: async (userData) => {
+    try {
+      const response = await api.put('/auth/profile', userData);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
 
   // Logout
-  async logout() {
-    try {
-      await api.post('/auth/logout');
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      clearAuth();
-    }
-  }
+  logout: () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    delete api.defaults.headers.Authorization;
+  },
 
-  // Get current user
-  getCurrentUser() {
-    try {
-      const user = localStorage.getItem('user');
-      return user ? JSON.parse(user) : null;
-    } catch (error) {
-      console.error('Error parsing user data:', error);
-      return null;
-    }
-  }
+  // Get current user from localStorage
+  getCurrentUser: () => {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  },
 
   // Check if user is authenticated
-  isAuthenticated() {
+  isAuthenticated: () => {
     const token = localStorage.getItem('authToken');
-    const user = this.getCurrentUser();
-    return !!(token && user);
+    return !!token;
   }
-
-  // Refresh token
-  async refreshToken() {
-    try {
-      const response = await api.post('/auth/refresh');
-      
-      if (response.success && response.access_token) {
-        setAuthToken(response.access_token);
-        return response.access_token;
-      }
-      
-      throw new Error('Token refresh failed');
-    } catch (error) {
-      clearAuth();
-      throw error;
-    }
-  }
-
-  // Forgot password
-  async forgotPassword(email) {
-    try {
-      const response = await api.post('/auth/forgot-password', { email });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Reset password
-  async resetPassword(token, newPassword) {
-    try {
-      const response = await api.post('/auth/reset-password', {
-        token,
-        password: newPassword
-      });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Verify email
-  async verifyEmail(token) {
-    try {
-      const response = await api.post('/auth/verify-email', { token });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Change password
-  async changePassword(oldPassword, newPassword) {
-    try {
-      const response = await api.post('/auth/change-password', {
-        old_password: oldPassword,
-        new_password: newPassword
-      });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-}
-
-export default new AuthService();
+};

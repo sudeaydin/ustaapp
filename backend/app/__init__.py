@@ -38,21 +38,13 @@ def create_app(config_name='default'):
     from app.models import user, craftsman, customer, category, service, quote, message, review
     
     # Register blueprints
-    from app.routes.auth import auth_bp
-    from app.routes.craftsman import craftsman_bp
-    from app.routes.customer import customer_bp
-    from app.routes.service import service_bp
-    from app.routes.quote import quote_bp
-    from app.routes.message import message_bp
-    from app.routes.review import review_bp
+    from app.routes.auth_simple import auth_bp
+    from app.routes.craftsman_simple import craftsman_bp
+    from app.routes.quote_simple import quote_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
-    app.register_blueprint(craftsman_bp, url_prefix='/api/craftsman')
-    app.register_blueprint(customer_bp, url_prefix='/api/customer')
-    app.register_blueprint(service_bp, url_prefix='/api/services')
+    app.register_blueprint(craftsman_bp, url_prefix='/api/craftsmen')
     app.register_blueprint(quote_bp, url_prefix='/api/quotes')
-    app.register_blueprint(message_bp, url_prefix='/api/messages')
-    app.register_blueprint(review_bp, url_prefix='/api/reviews')
     
     # Health check endpoint
     @app.route('/api/health')

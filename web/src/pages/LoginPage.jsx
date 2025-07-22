@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login, error, isLoading } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [step, setStep] = useState(1); // 1: email, 2: password
@@ -21,8 +21,12 @@ export const LoginPage = () => {
     } else {
       try {
         setFormError(null);
-        await login(email, password);
-        navigate('/dashboard');
+        const result = await login(email, password);
+        if (result.success) {
+          navigate('/home');
+        } else {
+          setFormError(result.message || 'Giriş başarısız');
+        }
       } catch (err) {
         setFormError(err.message || 'Giriş başarısız');
       }

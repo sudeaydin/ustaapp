@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { craftsmanService } from '../services/craftsmanService';
 
 const mockCraftsmen = [
   {
@@ -47,12 +48,39 @@ export const CraftsmanListPage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [craftsmen, setCraftsmen] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const categories = ['all', 'Elektrikçi', 'Tesisatçı', 'Boyacı', 'Marangoz', 'Temizlik'];
 
-  const filteredCraftsmen = mockCraftsmen.filter(craftsman => {
-    const matchesSearch = craftsman.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         craftsman.business.toLowerCase().includes(searchTerm.toLowerCase());
+  // Load craftsmen from API
+  useEffect(() => {
+    const loadCraftsmen = async () => {
+      try {
+        setLoading(true);
+        const response = await craftsmanService.getCraftsmen();
+        if (response.success) {
+          setCraftsmen(response.data.craftsmen || []);
+        } else {
+          // Fallback to mock data if API fails
+          setCraftsmen(mockCraftsmen);
+        }
+      } catch (error) {
+        console.error('Error loading craftsmen:', error);
+        // Fallback to mock data
+        setCraftsmen(mockCraftsmen);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCraftsmen();
+  }, []);
+
+  const filteredCraftsmen = craftsmen.filter(craftsman => {
+    const matchesSearch = craftsman.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         craftsman.business_name?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || craftsman.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -114,8 +142,13 @@ export const CraftsmanListPage = () => {
 
       {/* Craftsmen List */}
       <div className="max-w-md mx-auto px-4 py-4">
-        <div className="space-y-4">
-          {filteredCraftsmen.map(craftsman => (
+        {loading ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredCraftsmen.map(craftsman => (
             <div 
               key={craftsman.id}
               onClick={() => navigate(`/craftsman/${craftsman.id}`)}
@@ -189,6 +222,7 @@ export const CraftsmanListPage = () => {
             <h3 className="text-lg font-medium text-gray-900 mb-1">Sonuç bulunamadı</h3>
             <p className="text-gray-500">Arama kriterlerinizi değiştirip tekrar deneyin</p>
           </div>
+        )}
         )}
       </div>
     </div>

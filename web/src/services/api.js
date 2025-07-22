@@ -46,45 +46,26 @@ api.interceptors.response.use(
       
       // Return error message from server
       return Promise.reject({
-        message: data.error || data.message || 'Bir hata oluştu',
+        message: data.message || 'Bir hata oluştu',
         status,
-        data
+        success: false
       });
     } else if (error.request) {
       // Network error
       return Promise.reject({
-        message: 'Sunucuya bağlanılamıyor. İnternet bağlantınızı kontrol edin.',
-        status: 0
+        message: 'Sunucu ile bağlantı kurulamadı',
+        status: 0,
+        success: false
       });
     } else {
       // Other error
       return Promise.reject({
-        message: error.message || 'Beklenmeyen bir hata oluştu',
-        status: 0
+        message: 'Beklenmeyen bir hata oluştu',
+        status: 0,
+        success: false
       });
     }
   }
 );
 
 export default api;
-
-// Helper functions
-export const setAuthToken = (token) => {
-  if (token) {
-    localStorage.setItem('authToken', token);
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-  } else {
-    localStorage.removeItem('authToken');
-    delete api.defaults.headers.Authorization;
-  }
-};
-
-export const getAuthToken = () => {
-  return localStorage.getItem('authToken');
-};
-
-export const clearAuth = () => {
-  localStorage.removeItem('authToken');
-  localStorage.removeItem('user');
-  delete api.defaults.headers.Authorization;
-};

@@ -1,187 +1,8 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import authService from '../services/authService';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authService } from '../services/authService';
 
-// Initial state
-const initialState = {
-  user: null,
-  isAuthenticated: false,
-  isLoading: true,
-  error: null
-};
-
-// Action types
-const AUTH_ACTIONS = {
-  LOGIN_START: 'LOGIN_START',
-  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-  LOGIN_FAILURE: 'LOGIN_FAILURE',
-  LOGOUT: 'LOGOUT',
-  REGISTER_START: 'REGISTER_START',
-  REGISTER_SUCCESS: 'REGISTER_SUCCESS',
-  REGISTER_FAILURE: 'REGISTER_FAILURE',
-  CLEAR_ERROR: 'CLEAR_ERROR',
-  SET_LOADING: 'SET_LOADING'
-};
-
-// Reducer
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case AUTH_ACTIONS.LOGIN_START:
-    case AUTH_ACTIONS.REGISTER_START:
-      return {
-        ...state,
-        isLoading: true,
-        error: null
-      };
-      
-    case AUTH_ACTIONS.LOGIN_SUCCESS:
-    case AUTH_ACTIONS.REGISTER_SUCCESS:
-      return {
-        ...state,
-        user: action.payload.user,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null
-      };
-      
-    case AUTH_ACTIONS.LOGIN_FAILURE:
-    case AUTH_ACTIONS.REGISTER_FAILURE:
-      return {
-        ...state,
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: action.payload
-      };
-      
-    case AUTH_ACTIONS.LOGOUT:
-      return {
-        ...state,
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null
-      };
-      
-    case AUTH_ACTIONS.CLEAR_ERROR:
-      return {
-        ...state,
-        error: null
-      };
-      
-    case AUTH_ACTIONS.SET_LOADING:
-      return {
-        ...state,
-        isLoading: action.payload
-      };
-      
-    default:
-      return state;
-  }
-};
-
-// Create context
 const AuthContext = createContext();
 
-// Auth provider component
-export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // Check authentication on mount
-  useEffect(() => {
-    const checkAuth = () => {
-      try {
-        const user = authService.getCurrentUser();
-        const isAuthenticated = authService.isAuthenticated();
-        
-        if (isAuthenticated && user) {
-          dispatch({
-            type: AUTH_ACTIONS.LOGIN_SUCCESS,
-            payload: { user }
-          });
-        } else {
-          dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
-        }
-      } catch (error) {
-        console.error('Auth check error:', error);
-        dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  // Login function
-  const login = async (email, password) => {
-    dispatch({ type: AUTH_ACTIONS.LOGIN_START });
-    
-    try {
-      const response = await authService.login(email, password);
-      dispatch({
-        type: AUTH_ACTIONS.LOGIN_SUCCESS,
-        payload: response
-      });
-      return response;
-    } catch (error) {
-      dispatch({
-        type: AUTH_ACTIONS.LOGIN_FAILURE,
-        payload: error.message || 'Giriş başarısız'
-      });
-      throw error;
-    }
-  };
-
-  // Register function
-  const register = async (userData) => {
-    dispatch({ type: AUTH_ACTIONS.REGISTER_START });
-    
-    try {
-      const response = await authService.register(userData);
-      dispatch({
-        type: AUTH_ACTIONS.REGISTER_SUCCESS,
-        payload: response
-      });
-      return response;
-    } catch (error) {
-      dispatch({
-        type: AUTH_ACTIONS.REGISTER_FAILURE,
-        payload: error.message || 'Kayıt başarısız'
-      });
-      throw error;
-    }
-  };
-
-  // Logout function
-  const logout = async () => {
-    try {
-      await authService.logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      dispatch({ type: AUTH_ACTIONS.LOGOUT });
-    }
-  };
-
-  // Clear error function
-  const clearError = () => {
-    dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR });
-  };
-
-  const value = {
-    ...state,
-    login,
-    register,
-    logout,
-    clearError
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-// Custom hook to use auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -190,4 +11,80 @@ export const useAuth = () => {
   return context;
 };
 
-export default AuthContext;
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if user is logged in on app start
+    const token = localStorage.getItem('authToken');
+    const userData = authService.getCurrentUser();
+    
+    if (token && userData) {
+      setUser(userData);
+    }
+    setLoading(false);
+  }, []);
+
+  const login = async (email, password) => {
+    try {
+      const response = await authService.login(email, password);
+      if (response.success) {
+        setUser(response.data.user);
+        return { success: true };
+      }
+      return { success: false, message: response.message };
+    } catch (error) {
+      return { success: false, message: error.message || 'Giriş yapılamadı' };
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      const response = await authService.register(userData);
+      if (response.success) {
+        setUser(response.data.user);
+        return { success: true };
+      }
+      return { success: false, message: response.message };
+    } catch (error) {
+      return { success: false, message: error.message || 'Kayıt olunamadı' };
+    }
+  };
+
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+  };
+
+  const updateProfile = async (userData) => {
+    try {
+      const response = await authService.updateProfile(userData);
+      if (response.success) {
+        // Update user in context
+        const updatedUser = authService.getCurrentUser();
+        setUser(updatedUser);
+        return { success: true };
+      }
+      return { success: false, message: response.message };
+    } catch (error) {
+      return { success: false, message: error.message || 'Profil güncellenemedi' };
+    }
+  };
+
+  const value = {
+    user,
+    login,
+    register,
+    logout,
+    updateProfile,
+    loading,
+    isAuthenticated: !!user
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

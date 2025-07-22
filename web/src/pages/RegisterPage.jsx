@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-  const { register, error, isLoading } = useAuth();
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,13 +31,18 @@ export const RegisterPage = () => {
       const payload = {
         email: formData.email,
         password: formData.password,
+        confirm_password: formData.password,
         phone: formData.phone,
         first_name: formData.firstName,
         last_name: formData.lastName,
         user_type: formData.userType
       };
-      await register(payload);
-      navigate('/dashboard');
+      const result = await register(payload);
+      if (result.success) {
+        navigate('/home');
+      } else {
+        setFormError(result.message || 'Kayıt başarısız');
+      }
     } catch (err) {
       setFormError(err.message || 'Kayıt başarısız');
     }
