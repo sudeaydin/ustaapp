@@ -21,8 +21,8 @@ class Category(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    services = db.relationship('Service', backref='category', lazy='dynamic')
-    craftsmen = db.relationship('Craftsman', secondary='craftsman_categories', backref='categories', lazy='dynamic')
+    # services = db.relationship('Service', backref='category', lazy='dynamic')
+    # craftsmen = db.relationship('Craftsman', secondary='craftsman_categories', backref='categories', lazy='dynamic')
     
     def to_dict(self):
         return {

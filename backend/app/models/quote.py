@@ -16,7 +16,7 @@ class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), nullable=False)
     craftsman_id = db.Column(db.Integer, db.ForeignKey('craftsmen.id'), nullable=False)
-    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=True)
+    # service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=True)
     
     # Quote details
     status = db.Column(db.String(20), default='pending')
@@ -49,7 +49,7 @@ class Quote(db.Model):
     completed_at = db.Column(db.DateTime)
     
     # Relationships
-    messages = db.relationship('Message', backref='quote', lazy='dynamic')
+    # messages = db.relationship('Message', backref='quote', lazy='dynamic')
     
     def to_dict(self, include_details=False):
         data = {

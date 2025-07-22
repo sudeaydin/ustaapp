@@ -229,11 +229,11 @@ def create_sample_data():
         title='Elektrik Panosu Onarımı',
         description='Evimizde elektrik panosu arızalı, sürekli sigortalar atıyor. Kontrol edilip onarılmasını istiyorum.',
         location='Kadıköy, İstanbul',
-        preferred_date=datetime.utcnow() + timedelta(days=2),
+        preferred_date=datetime.now() + timedelta(days=2),
         budget_min=Decimal('200.00'),
         budget_max=Decimal('500.00'),
         status='pending',
-        created_at=datetime.utcnow()
+        created_at=datetime.now()
     )
     db.session.add(quote)
     

@@ -46,7 +46,6 @@ def create_quote():
         quote = Quote(
             customer_id=customer.id,
             craftsman_id=data['craftsman_id'],
-            service_id=data.get('service_id'),
             title=data['title'],
             description=data['description'],
             location=data['location'],
