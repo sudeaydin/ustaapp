@@ -35,7 +35,7 @@ def create_app(config_name='default'):
     })
     
     # Import models (for migration discovery)
-    from app.models import user, craftsman, customer, category, service, quote, message, review
+    from app.models import user, craftsman, customer, category, quote
     
     # Register blueprints
     from app.routes.auth_simple import auth_bp

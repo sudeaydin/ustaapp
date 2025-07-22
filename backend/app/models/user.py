@@ -16,7 +16,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     phone = db.Column(db.String(20), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
-    user_type = db.Column(db.Enum(UserType), nullable=False)
+    user_type = db.Column(db.String(20), nullable=False)
     
     # Profile fields
     first_name = db.Column(db.String(50), nullable=False)

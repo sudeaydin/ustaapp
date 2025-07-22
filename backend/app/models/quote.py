@@ -16,11 +16,13 @@ class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), nullable=False)
     craftsman_id = db.Column(db.Integer, db.ForeignKey('craftsmen.id'), nullable=False)
-    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
+    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=True)
     
     # Quote details
-    status = db.Column(db.Enum(QuoteStatus), default=QuoteStatus.PENDING)
+    status = db.Column(db.String(20), default='pending')
+    title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    location = db.Column(db.String(200))
     
     # Budget from customer
     budget_min = db.Column(db.Float)
