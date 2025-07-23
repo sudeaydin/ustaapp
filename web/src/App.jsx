@@ -25,6 +25,9 @@ import CraftsmanProfilePage from './pages/CraftsmanProfilePage';
 import ReviewFormPage from './pages/ReviewFormPage';
 import JobRequestFormPage from './pages/JobRequestFormPage';
 import JobListPage from './pages/JobListPage';
+import JobDetailPage from './pages/JobDetailPage';
+import ProposalFormPage from './pages/ProposalFormPage';
+import JobProgressPage from './pages/JobProgressPage';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -65,6 +68,9 @@ function App() {
               <Route path="/review/:jobId" element={<ReviewFormPage />} />
               <Route path="/job-request/new" element={<JobRequestFormPage />} />
               <Route path="/jobs" element={<JobListPage />} />
+              <Route path="/job/:jobId" element={<JobDetailPage />} />
+              <Route path="/job/:jobId/proposal" element={<ProposalFormPage />} />
+              <Route path="/job/:jobId/progress" element={<JobProgressPage />} />
             </Routes>
           </div>
         </AuthProvider>

@@ -1204,66 +1204,7 @@ def get_skill_categories():
     ]
     return jsonify(categories)
 
-@app.route('/api/profile', methods=['GET'])
-def get_profile():
-    """Get user profile"""
-    # Mock profile data
-    profile = {
-        'id': 1,
-        'name': 'Ahmet Yılmaz',
-        'business_name': 'Yılmaz Elektrik',
-        'email': 'ahmet@yilmazelektrik.com',
-        'phone': '+90 555 123 4567',
-        'city': 'İstanbul',
-        'district': 'Kadıköy',
-        'address': 'Kadıköy Merkez, İstanbul',
-        'description': '8 yıllık deneyimim ile profesyonel hizmet veriyorum.',
-        'hourly_rate': 150,
-        'experience_years': 8,
-        'website': 'www.yilmazelektrik.com',
-        'service_areas': ['Kadıköy', 'Üsküdar', 'Ataşehir', 'Maltepe', 'Kartal'],
-        'working_hours': {
-            'monday': '09:00-18:00',
-            'tuesday': '09:00-18:00',
-            'wednesday': '09:00-18:00',
-            'thursday': '09:00-18:00',
-            'friday': '09:00-18:00',
-            'saturday': '09:00-15:00',
-            'sunday': 'Kapalı'
-        },
-        'skills': [101, 102, 103, 104],  # Skill IDs
-        'certifications': [
-            'Elektrik Tesisatı Yeterlilik Belgesi',
-            'LED Aydınlatma Uzmanı Sertifikası',
-            'Akıllı Ev Sistemleri Eğitimi'
-        ]
-    }
-    return jsonify(profile)
-
-@app.route('/api/profile', methods=['PUT'])
-def update_profile():
-    """Update user profile"""
-    try:
-        data = request.get_json()
-        
-        # Validate required fields
-        required_fields = ['name', 'email', 'phone', 'city', 'district']
-        for field in required_fields:
-            if field not in data or not data[field]:
-                return jsonify({'error': f'{field} is required'}), 400
-        
-        # Mock update - in real app, save to database
-        print(f"Updating profile: {data}")
-        
-        # Return success response
-        return jsonify({
-            'success': True,
-            'message': 'Profile updated successfully',
-            'data': data
-        })
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+# Duplicate routes removed - they already exist above in the file
 
 # Rating & Review System Endpoints
 @app.route('/api/reviews', methods=['POST'])
