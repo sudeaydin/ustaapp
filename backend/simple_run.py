@@ -330,6 +330,174 @@ def get_unread_count():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Quote endpoints
+@app.route('/api/quotes', methods=['GET'])
+def get_quotes():
+    try:
+        # Mock quotes data
+        quotes = [
+            {
+                'id': 1,
+                'customer_id': 2,
+                'customer_name': 'Müşteri',
+                'craftsman_id': 1,
+                'craftsman_name': 'Ahmet Yılmaz',
+                'craftsman_business': 'Yılmaz Elektrik',
+                'service_category': 'Elektrikçi',
+                'title': 'Ev elektrik tesisatı',
+                'description': 'Evimde elektrik tesisatı yenilenmesi gerekiyor. 3+1 daire, yaklaşık 120m2.',
+                'location': 'İstanbul, Kadıköy',
+                'budget_min': 2000,
+                'budget_max': 3500,
+                'status': 'pending',
+                'created_at': '2025-01-23T10:00:00Z',
+                'deadline': '2025-01-30T00:00:00Z'
+            },
+            {
+                'id': 2,
+                'customer_id': 3,
+                'customer_name': 'Ali Veli',
+                'craftsman_id': 1,
+                'craftsman_name': 'Ahmet Yılmaz',
+                'craftsman_business': 'Yılmaz Elektrik',
+                'service_category': 'Elektrikçi',
+                'title': 'Ofis aydınlatma',
+                'description': 'Ofiste LED aydınlatma sistemi kurulumu.',
+                'location': 'İstanbul, Beşiktaş',
+                'budget_min': 1500,
+                'budget_max': 2500,
+                'status': 'quoted',
+                'created_at': '2025-01-22T14:30:00Z',
+                'deadline': '2025-01-28T00:00:00Z',
+                'quote_price': 2000,
+                'quote_description': 'LED panel ve spot aydınlatma kurulumu, malzeme dahil.',
+                'quoted_at': '2025-01-22T16:00:00Z'
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': {'quotes': quotes}
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/quotes/request', methods=['POST'])
+def request_quote():
+    try:
+        data = request.get_json()
+        
+        # Required fields
+        required_fields = ['craftsman_id', 'title', 'description', 'location']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'{field} alanı zorunludur'}), 400
+        
+        # Mock quote request creation
+        new_quote = {
+            'id': 100 + hash(data.get('title')) % 1000,
+            'customer_id': data.get('customer_id', 2),
+            'customer_name': 'Müşteri',
+            'craftsman_id': data.get('craftsman_id'),
+            'craftsman_name': 'Usta',
+            'craftsman_business': 'İşletme',
+            'service_category': data.get('service_category', 'Genel'),
+            'title': data.get('title'),
+            'description': data.get('description'),
+            'location': data.get('location'),
+            'budget_min': data.get('budget_min'),
+            'budget_max': data.get('budget_max'),
+            'status': 'pending',
+            'created_at': '2025-01-23T10:45:00Z',
+            'deadline': data.get('deadline', '2025-01-30T00:00:00Z')
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Teklif talebi başarıyla gönderildi',
+            'data': new_quote
+        }), 201
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/quotes/<int:quote_id>/respond', methods=['POST'])
+def respond_to_quote(quote_id):
+    try:
+        data = request.get_json()
+        
+        # Required fields
+        required_fields = ['quote_price', 'quote_description']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'{field} alanı zorunludur'}), 400
+        
+        # Validate price
+        try:
+            price = float(data.get('quote_price'))
+            if price <= 0:
+                return jsonify({'success': False, 'message': 'Fiyat 0\'dan büyük olmalıdır'}), 400
+        except (ValueError, TypeError):
+            return jsonify({'success': False, 'message': 'Geçerli bir fiyat girin'}), 400
+        
+        # Mock quote response
+        quote_response = {
+            'id': quote_id,
+            'status': 'quoted',
+            'quote_price': price,
+            'quote_description': data.get('quote_description'),
+            'quoted_at': '2025-01-23T10:50:00Z',
+            'estimated_duration': data.get('estimated_duration'),
+            'materials_included': data.get('materials_included', True)
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Teklif başarıyla gönderildi',
+            'data': quote_response
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/quotes/<int:quote_id>/accept', methods=['POST'])
+def accept_quote(quote_id):
+    try:
+        # Mock quote acceptance
+        accepted_quote = {
+            'id': quote_id,
+            'status': 'accepted',
+            'accepted_at': '2025-01-23T11:00:00Z',
+            'message': 'Teklif kabul edildi! Usta ile iletişime geçebilirsiniz.'
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Teklif kabul edildi',
+            'data': accepted_quote
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/quotes/<int:quote_id>/reject', methods=['POST'])
+def reject_quote(quote_id):
+    try:
+        data = request.get_json()
+        
+        # Mock quote rejection
+        rejected_quote = {
+            'id': quote_id,
+            'status': 'rejected',
+            'rejected_at': '2025-01-23T11:00:00Z',
+            'rejection_reason': data.get('reason', 'Müşteri teklifi reddetti')
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Teklif reddedildi',
+            'data': rejected_quote
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 if __name__ == '__main__':
     print("🚀 Basit backend başlatılıyor...")
     print("📍 URL: http://localhost:5001")

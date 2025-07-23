@@ -4,7 +4,7 @@ export const quoteService = {
   // Create a new quote request
   createQuote: async (quoteData) => {
     try {
-      const response = await api.post('/quotes/', quoteData);
+      const response = await api.post('/quotes/request', quoteData);
       return response;
     } catch (error) {
       throw error;
@@ -14,7 +14,7 @@ export const quoteService = {
   // Get user's quotes
   getQuotes: async () => {
     try {
-      const response = await api.get('/quotes/');
+      const response = await api.get('/quotes');
       return response;
     } catch (error) {
       throw error;
@@ -44,14 +44,20 @@ export const quoteService = {
     }
   },
 
-  // Accept quote (craftsman accepts the job)
-  acceptQuote: async (id, message, price, estimatedDuration) => {
+  // Respond to quote (craftsman provides quote)
+  respondToQuote: async (id, quoteData) => {
     try {
-      const response = await api.put(`/quotes/${id}/accept`, {
-        craftsman_message: message,
-        price,
-        estimated_duration: estimatedDuration
-      });
+      const response = await api.post(`/quotes/${id}/respond`, quoteData);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Accept quote (customer accepts the quote)
+  acceptQuote: async (id) => {
+    try {
+      const response = await api.post(`/quotes/${id}/accept`);
       return response;
     } catch (error) {
       throw error;
@@ -59,10 +65,10 @@ export const quoteService = {
   },
 
   // Reject quote
-  rejectQuote: async (id, message) => {
+  rejectQuote: async (id, reason) => {
     try {
-      const response = await api.put(`/quotes/${id}/reject`, {
-        craftsman_message: message
+      const response = await api.post(`/quotes/${id}/reject`, {
+        reason: reason
       });
       return response;
     } catch (error) {
