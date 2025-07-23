@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ReviewReplyModal from '../components/ReviewReplyModal';
 
 export const CraftsmanProfilePage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,10 @@ export const CraftsmanProfilePage = () => {
   const [activeTab, setActiveTab] = useState('about');
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [showReplyModal, setShowReplyModal] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [reviewStats, setReviewStats] = useState({});
 
   // Mock Craftsman Data
   const [craftsman] = useState({
@@ -137,7 +142,20 @@ Hizmet verdiğim alanlar:
   useEffect(() => {
     // Simulate loading
     setTimeout(() => setLoading(false), 1000);
+    loadReviews();
   }, [id]);
+
+  const loadReviews = async () => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/reviews/craftsman/${id || 1}`);
+      const data = await response.json();
+      
+      setReviews(data.reviews || []);
+      setReviewStats(data.stats || {});
+    } catch (error) {
+      console.error('Error loading reviews:', error);
+    }
+  };
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -153,11 +171,44 @@ Hizmet verdiğim alanlar:
   };
 
   const getRatingDistribution = () => {
-    const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
-    reviews.forEach(review => {
-      distribution[review.rating]++;
-    });
-    return distribution;
+    return reviewStats.rating_distribution || { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  };
+
+  const handleReplyClick = (review) => {
+    setSelectedReview(review);
+    setShowReplyModal(true);
+  };
+
+  const handleReplySubmit = (reviewId, replyData) => {
+    setReviews(prev => prev.map(review => 
+      review.id === reviewId 
+        ? { ...review, craftsman_reply: replyData.reply, reply_date: replyData.reply_date }
+        : review
+    ));
+  };
+
+  const handleHelpfulVote = async (reviewId, isHelpful) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/reviews/${reviewId}/helpful`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ is_helpful: isHelpful })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setReviews(prev => prev.map(review => 
+          review.id === reviewId 
+            ? { ...review, helpful_votes: result.helpful_votes }
+            : review
+        ));
+      }
+    } catch (error) {
+      console.error('Error voting helpful:', error);
+    }
   };
 
   if (loading) {
@@ -466,11 +517,15 @@ Hizmet verdiğim alanlar:
                 <div className="bg-gray-50 rounded-lg p-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-gray-900 mb-2">{craftsman.rating}</div>
-                      <div className="flex items-center justify-center space-x-1 mb-2">
-                        {renderStars(craftsman.rating)}
+                      <div className="text-4xl font-bold text-gray-900 mb-2">
+                        {reviewStats.average_rating || 0}
                       </div>
-                      <div className="text-gray-600">{craftsman.review_count} değerlendirme</div>
+                      <div className="flex items-center justify-center space-x-1 mb-2">
+                        {renderStars(reviewStats.average_rating || 0)}
+                      </div>
+                      <div className="text-gray-600">
+                        {reviewStats.total_reviews || 0} değerlendirme
+                      </div>
                     </div>
                     <div className="space-y-2">
                       {Object.entries(getRatingDistribution()).reverse().map(([rating, count]) => (
@@ -479,7 +534,11 @@ Hizmet verdiğim alanlar:
                           <div className="flex-1 bg-gray-200 rounded-full h-2">
                             <div 
                               className="bg-yellow-400 h-2 rounded-full" 
-                              style={{ width: `${(count / reviews.length) * 100}%` }}
+                              style={{ 
+                                width: reviewStats.total_reviews > 0 
+                                  ? `${(count / reviewStats.total_reviews) * 100}%` 
+                                  : '0%' 
+                              }}
                             ></div>
                           </div>
                           <span className="text-sm text-gray-600 w-8">{count}</span>
@@ -491,40 +550,99 @@ Hizmet verdiğim alanlar:
 
                 {/* Reviews List */}
                 <div className="space-y-4">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="border border-gray-200 rounded-lg p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-3 mb-2">
-                            <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                              <span className="text-gray-600 font-medium text-sm">
-                                {review.customer.charAt(0)}
-                              </span>
-                            </div>
-                            <div>
-                              <div className="font-medium text-gray-900">{review.customer}</div>
-                              <div className="flex items-center space-x-2">
-                                <div className="flex items-center space-x-1">
-                                  {renderStars(review.rating)}
+                  {reviews.length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">Henüz değerlendirme yok</h3>
+                      <p className="text-gray-600">İlk değerlendirme geldiğinde burada görünecek.</p>
+                    </div>
+                  ) : (
+                    reviews.map((review) => (
+                      <div key={review.id} className="border border-gray-200 rounded-lg p-6">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-2">
+                              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span className="text-gray-600 font-medium text-sm">
+                                  {review.customer_name.charAt(0)}
+                                </span>
+                              </div>
+                              <div>
+                                <div className="font-medium text-gray-900">{review.customer_name}</div>
+                                <div className="flex items-center space-x-2">
+                                  <div className="flex items-center space-x-1">
+                                    {renderStars(review.rating)}
+                                  </div>
+                                  <span className="text-sm text-gray-500">
+                                    • {new Date(review.created_at).toLocaleDateString('tr-TR')}
+                                  </span>
+                                  {review.service_category && (
+                                    <span className="text-sm text-blue-600">• {review.service_category}</span>
+                                  )}
                                 </div>
-                                <span className="text-sm text-gray-500">• {review.date}</span>
-                                <span className="text-sm text-blue-600">• {review.service}</span>
                               </div>
                             </div>
                           </div>
+                          {user?.user_type === 'craftsman' && !review.craftsman_reply && (
+                            <button
+                              onClick={() => handleReplyClick(review)}
+                              className="px-3 py-1 text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+                            >
+                              💬 Yanıtla
+                            </button>
+                          )}
+                        </div>
+                        
+                        <p className="text-gray-700 mb-3">{review.comment}</p>
+                        
+                        {/* Craftsman Reply */}
+                        {review.craftsman_reply && (
+                          <div className="mt-4 bg-blue-50 rounded-lg p-4">
+                            <div className="flex items-start space-x-3">
+                              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-2 mb-2">
+                                  <span className="font-medium text-blue-900">Usta Yanıtı</span>
+                                  <span className="text-sm text-blue-600">
+                                    {new Date(review.reply_date).toLocaleDateString('tr-TR')}
+                                  </span>
+                                </div>
+                                <p className="text-blue-800">{review.craftsman_reply}</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="flex items-center space-x-4 text-sm text-gray-500 mt-3">
+                          <button 
+                            onClick={() => handleHelpfulVote(review.id, true)}
+                            className="flex items-center space-x-1 hover:text-blue-600 transition-colors"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                            </svg>
+                            <span>Faydalı ({review.helpful_votes})</span>
+                          </button>
+                          {review.is_verified && (
+                            <span className="flex items-center space-x-1 text-green-600">
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                              </svg>
+                              <span>Doğrulanmış</span>
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <p className="text-gray-700 mb-3">{review.comment}</p>
-                      <div className="flex items-center space-x-4 text-sm text-gray-500">
-                        <button className="flex items-center space-x-1 hover:text-blue-600 transition-colors">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                          </svg>
-                          <span>Faydalı ({review.helpful_votes})</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             )}
@@ -723,6 +841,17 @@ Hizmet verdiğim alanlar:
           </div>
         </div>
       )}
+
+      {/* Review Reply Modal */}
+      <ReviewReplyModal
+        review={selectedReview}
+        isOpen={showReplyModal}
+        onClose={() => {
+          setShowReplyModal(false);
+          setSelectedReview(null);
+        }}
+        onReply={handleReplySubmit}
+      />
     </div>
   );
 };

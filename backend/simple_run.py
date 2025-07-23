@@ -1265,6 +1265,218 @@ def update_profile():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Rating & Review System Endpoints
+@app.route('/api/reviews', methods=['POST'])
+def create_review():
+    """Create a new review (only for completed jobs)"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['job_id', 'craftsman_id', 'customer_id', 'rating', 'comment']
+        for field in required_fields:
+            if field not in data or not data[field]:
+                return jsonify({'error': f'{field} is required'}), 400
+        
+        # Validate rating range
+        rating = data.get('rating')
+        if not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
+            return jsonify({'error': 'Rating must be between 1 and 5'}), 400
+        
+        # Check if job is completed (mock check)
+        job_id = data.get('job_id')
+        # In real app, check database for job status
+        print(f"Creating review for job {job_id}")
+        
+        # Mock review creation
+        review_data = {
+            'id': len(mock_reviews) + 1,
+            'job_id': job_id,
+            'craftsman_id': data.get('craftsman_id'),
+            'customer_id': data.get('customer_id'),
+            'customer_name': data.get('customer_name', 'Anonim Müşteri'),
+            'rating': rating,
+            'comment': data.get('comment'),
+            'service_category': data.get('service_category', ''),
+            'created_at': datetime.now().isoformat(),
+            'is_verified': True,
+            'helpful_votes': 0,
+            'photos': data.get('photos', []),
+            'craftsman_reply': None,
+            'reply_date': None
+        }
+        
+        mock_reviews.append(review_data)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Review created successfully',
+            'data': review_data
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/reviews/craftsman/<int:craftsman_id>', methods=['GET'])
+def get_craftsman_reviews(craftsman_id):
+    """Get all reviews for a craftsman"""
+    try:
+        craftsman_reviews = [r for r in mock_reviews if r['craftsman_id'] == craftsman_id]
+        
+        # Calculate rating statistics
+        if craftsman_reviews:
+            total_rating = sum(r['rating'] for r in craftsman_reviews)
+            avg_rating = round(total_rating / len(craftsman_reviews), 1)
+            
+            # Rating distribution
+            rating_dist = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+            for review in craftsman_reviews:
+                rating_dist[int(review['rating'])] += 1
+        else:
+            avg_rating = 0
+            rating_dist = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+        
+        return jsonify({
+            'reviews': craftsman_reviews,
+            'stats': {
+                'total_reviews': len(craftsman_reviews),
+                'average_rating': avg_rating,
+                'rating_distribution': rating_dist
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/reviews/<int:review_id>/helpful', methods=['POST'])
+def toggle_review_helpful(review_id):
+    """Toggle helpful vote for a review"""
+    try:
+        data = request.get_json()
+        is_helpful = data.get('is_helpful', True)
+        
+        # Find review
+        review = next((r for r in mock_reviews if r['id'] == review_id), None)
+        if not review:
+            return jsonify({'error': 'Review not found'}), 404
+        
+        # Update helpful votes (simplified - in real app track user votes)
+        if is_helpful:
+            review['helpful_votes'] += 1
+        else:
+            review['helpful_votes'] = max(0, review['helpful_votes'] - 1)
+        
+        return jsonify({
+            'success': True,
+            'helpful_votes': review['helpful_votes']
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/reviews/<int:review_id>/reply', methods=['POST'])
+def reply_to_review(review_id):
+    """Craftsman reply to a review"""
+    try:
+        data = request.get_json()
+        reply = data.get('reply', '').strip()
+        
+        if not reply:
+            return jsonify({'error': 'Reply cannot be empty'}), 400
+        
+        # Find review
+        review = next((r for r in mock_reviews if r['id'] == review_id), None)
+        if not review:
+            return jsonify({'error': 'Review not found'}), 404
+        
+        # Add reply
+        review['craftsman_reply'] = reply
+        review['reply_date'] = datetime.now().isoformat()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Reply added successfully',
+            'data': {
+                'reply': reply,
+                'reply_date': review['reply_date']
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/jobs/<int:job_id>/can-review', methods=['GET'])
+def can_review_job(job_id):
+    """Check if a job can be reviewed"""
+    try:
+        # Mock job status check
+        # In real app, check if job is completed and not already reviewed
+        job_status = 'completed'  # Mock status
+        already_reviewed = any(r['job_id'] == job_id for r in mock_reviews)
+        
+        can_review = job_status == 'completed' and not already_reviewed
+        
+        return jsonify({
+            'can_review': can_review,
+            'job_status': job_status,
+            'already_reviewed': already_reviewed
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Mock reviews data
+mock_reviews = [
+    {
+        'id': 1,
+        'job_id': 1,
+        'craftsman_id': 1,
+        'customer_id': 1,
+        'customer_name': 'Mehmet K.',
+        'rating': 5,
+        'comment': 'Çok profesyonel ve titiz çalışıyor. LED aydınlatma sistemi için aldığım hizmet mükemmeldi. Kesinlikle tavsiye ederim.',
+        'service_category': 'LED Aydınlatma',
+        'created_at': '2025-01-20T10:30:00',
+        'is_verified': True,
+        'helpful_votes': 8,
+        'photos': [],
+        'craftsman_reply': 'Teşekkür ederim! Müşteri memnuniyeti bizim önceliğimizdir.',
+        'reply_date': '2025-01-20T15:45:00'
+    },
+    {
+        'id': 2,
+        'job_id': 2,
+        'craftsman_id': 1,
+        'customer_id': 2,
+        'customer_name': 'Ayşe D.',
+        'rating': 5,
+        'comment': 'Elektrik panosu arızası için çağırdım. Çok hızlı geldi ve sorunu kısa sürede çözdü. Fiyatı da uygundu.',
+        'service_category': 'Elektrik Onarımı',
+        'created_at': '2025-01-18T14:20:00',
+        'is_verified': True,
+        'helpful_votes': 5,
+        'photos': [],
+        'craftsman_reply': None,
+        'reply_date': None
+    },
+    {
+        'id': 3,
+        'job_id': 3,
+        'craftsman_id': 1,
+        'customer_id': 3,
+        'customer_name': 'Can S.',
+        'rating': 4,
+        'comment': 'İyi iş çıkardı ama biraz geç geldi. Sonuç olarak memnunum.',
+        'service_category': 'Ev Elektrik Tesisatı',
+        'created_at': '2025-01-15T16:10:00',
+        'is_verified': True,
+        'helpful_votes': 2,
+        'photos': [],
+        'craftsman_reply': 'Gecikme için özür dilerim. Trafikte kaldım ama kaliteli hizmet vermeye çalıştım.',
+        'reply_date': '2025-01-15T18:30:00'
+    }
+]
+
 if __name__ == '__main__':
     print("🚀 Real-time backend başlatılıyor...")
     print("📍 URL: http://localhost:5001")

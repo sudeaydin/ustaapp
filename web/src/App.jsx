@@ -22,7 +22,7 @@ import CraftsmenSearchPage from './pages/CraftsmenSearchPage';
 import CraftsmanJobHistoryPage from './pages/CraftsmanJobHistoryPage';
 import CustomerJobHistoryPage from './pages/CustomerJobHistoryPage';
 import CraftsmanProfilePage from './pages/CraftsmanProfilePage';
-import ProfileEditPage from './pages/ProfileEditPage';
+import ReviewFormPage from './pages/ReviewFormPage';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -60,7 +60,7 @@ function App() {
               <Route path="/craftsman/jobs" element={<CraftsmanJobHistoryPage />} />
               <Route path="/customer/jobs" element={<CustomerJobHistoryPage />} />
               <Route path="/craftsman/:id" element={<CraftsmanProfilePage />} />
-              <Route path="/profile/edit" element={<ProfileEditPage />} />
+              <Route path="/review/:jobId" element={<ReviewFormPage />} />
             </Routes>
           </div>
         </AuthProvider>
