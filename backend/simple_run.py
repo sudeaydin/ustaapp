@@ -1,9 +1,29 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
+import os
+from werkzeug.utils import secure_filename
+import uuid
+from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:3000', 'http://localhost:5173'])
+
+# File upload configuration
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
+
+# Create upload directory if it doesn't exist
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(os.path.join(UPLOAD_FOLDER, 'profiles'), exist_ok=True)
+os.makedirs(os.path.join(UPLOAD_FOLDER, 'projects'), exist_ok=True)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Health check
 @app.route('/api/health')
@@ -495,6 +515,148 @@ def reject_quote(quote_id):
             'message': 'Teklif reddedildi',
             'data': rejected_quote
         }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# File upload endpoints
+@app.route('/api/upload/profile', methods=['POST'])
+def upload_profile_image():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        if not allowed_file(file.filename):
+            return jsonify({'success': False, 'message': 'Geçersiz dosya formatı. PNG, JPG, JPEG, GIF, WEBP desteklenir'}), 400
+        
+        # Generate unique filename
+        filename = secure_filename(file.filename)
+        unique_filename = f"{uuid.uuid4()}_{filename}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'profiles', unique_filename)
+        
+        # Save file
+        file.save(filepath)
+        
+        # Generate URL
+        file_url = f"/api/uploads/profiles/{unique_filename}"
+        
+        return jsonify({
+            'success': True,
+            'message': 'Profil fotoğrafı başarıyla yüklendi',
+            'data': {
+                'filename': unique_filename,
+                'url': file_url,
+                'uploaded_at': datetime.now().isoformat()
+            }
+        }), 201
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/upload/project', methods=['POST'])
+def upload_project_image():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        if not allowed_file(file.filename):
+            return jsonify({'success': False, 'message': 'Geçersiz dosya formatı. PNG, JPG, JPEG, GIF, WEBP desteklenir'}), 400
+        
+        # Generate unique filename
+        filename = secure_filename(file.filename)
+        unique_filename = f"{uuid.uuid4()}_{filename}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'projects', unique_filename)
+        
+        # Save file
+        file.save(filepath)
+        
+        # Generate URL
+        file_url = f"/api/uploads/projects/{unique_filename}"
+        
+        return jsonify({
+            'success': True,
+            'message': 'Proje fotoğrafı başarıyla yüklendi',
+            'data': {
+                'filename': unique_filename,
+                'url': file_url,
+                'uploaded_at': datetime.now().isoformat()
+            }
+        }), 201
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/uploads/<folder>/<filename>')
+def serve_uploaded_file(folder, filename):
+    try:
+        if folder not in ['profiles', 'projects']:
+            return jsonify({'success': False, 'message': 'Geçersiz klasör'}), 404
+        
+        return send_from_directory(
+            os.path.join(app.config['UPLOAD_FOLDER'], folder), 
+            filename
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'message': 'Dosya bulunamadı'}), 404
+
+@app.route('/api/upload/multiple', methods=['POST'])
+def upload_multiple_images():
+    try:
+        if 'files' not in request.files:
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        files = request.files.getlist('files')
+        upload_type = request.form.get('type', 'project')  # 'profile' or 'project'
+        
+        if not files or all(f.filename == '' for f in files):
+            return jsonify({'success': False, 'message': 'Dosya seçilmedi'}), 400
+        
+        uploaded_files = []
+        errors = []
+        
+        for file in files:
+            if file.filename == '':
+                continue
+                
+            if not allowed_file(file.filename):
+                errors.append(f"{file.filename}: Geçersiz dosya formatı")
+                continue
+            
+            try:
+                # Generate unique filename
+                filename = secure_filename(file.filename)
+                unique_filename = f"{uuid.uuid4()}_{filename}"
+                folder = 'profiles' if upload_type == 'profile' else 'projects'
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], folder, unique_filename)
+                
+                # Save file
+                file.save(filepath)
+                
+                # Generate URL
+                file_url = f"/api/uploads/{folder}/{unique_filename}"
+                
+                uploaded_files.append({
+                    'original_name': filename,
+                    'filename': unique_filename,
+                    'url': file_url,
+                    'uploaded_at': datetime.now().isoformat()
+                })
+            except Exception as e:
+                errors.append(f"{file.filename}: {str(e)}")
+        
+        return jsonify({
+            'success': True,
+            'message': f'{len(uploaded_files)} dosya başarıyla yüklendi',
+            'data': {
+                'uploaded_files': uploaded_files,
+                'errors': errors
+            }
+        }), 201
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
