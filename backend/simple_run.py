@@ -1206,6 +1206,145 @@ def get_skill_categories():
 
 # Duplicate routes removed - they already exist above in the file
 
+# Messaging System Endpoints
+@app.route('/api/conversations', methods=['GET'])
+def get_conversations():
+    """Get user's conversations"""
+    try:
+        # Mock conversations data
+        conversations = [
+            {
+                'id': 1,
+                'participant': {
+                    'id': 2,
+                    'name': 'Ahmet Yılmaz',
+                    'avatar': None,
+                    'user_type': 'craftsman',
+                    'business_name': 'Yılmaz Elektrik'
+                },
+                'last_message': {
+                    'content': 'LED aydınlatma işi için malzemeler geldi, yarın başlayabilirim.',
+                    'created_at': '2025-01-21T16:30:00',
+                    'sender_id': 2
+                },
+                'unread_count': 2,
+                'job_title': 'LED Aydınlatma Montajı'
+            },
+            {
+                'id': 2,
+                'participant': {
+                    'id': 3,
+                    'name': 'Mehmet Kaya',
+                    'avatar': None,
+                    'user_type': 'craftsman',
+                    'business_name': 'Kaya Tesisatçılık'
+                },
+                'last_message': {
+                    'content': 'Banyo tesisatı için önce keşif yapmam lazım. Uygun olduğunuz zaman?',
+                    'created_at': '2025-01-21T14:15:00',
+                    'sender_id': 3
+                },
+                'unread_count': 0,
+                'job_title': 'Banyo Tesisatı Yenileme'
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': conversations
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/conversations/<int:conversation_id>/messages', methods=['GET'])
+def get_messages(conversation_id):
+    """Get messages for a conversation"""
+    try:
+        # Mock messages data
+        messages_data = {
+            1: [
+                {
+                    'id': 1,
+                    'content': 'Merhaba, LED aydınlatma işi için teklif vermiştim. Ne zaman başlayabiliriz?',
+                    'sender_id': 2,
+                    'sender_name': 'Ahmet Yılmaz',
+                    'created_at': '2025-01-21T10:00:00',
+                    'message_type': 'text'
+                },
+                {
+                    'id': 2,
+                    'content': 'Merhaba Ahmet Bey, teklifi kabul ettim. Bu hafta içinde başlayabilir misiniz?',
+                    'sender_id': 1,
+                    'sender_name': 'Müşteri',
+                    'created_at': '2025-01-21T10:15:00',
+                    'message_type': 'text'
+                }
+            ],
+            2: [
+                {
+                    'id': 8,
+                    'content': 'Banyo tesisatı için önce keşif yapmam lazım. Uygun olduğunuz zaman?',
+                    'sender_id': 3,
+                    'sender_name': 'Mehmet Kaya',
+                    'created_at': '2025-01-21T14:15:00',
+                    'message_type': 'text'
+                }
+            ]
+        }
+        
+        messages = messages_data.get(conversation_id, [])
+        
+        return jsonify({
+            'success': True,
+            'data': messages
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/messages', methods=['POST'])
+def send_message():
+    """Send a new message"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['conversation_id', 'content']
+        for field in required_fields:
+            if field not in data or not data[field]:
+                return jsonify({'error': f'{field} is required'}), 400
+        
+        # Mock message creation
+        message = {
+            'id': 999,  # In real app, generate unique ID
+            'content': data['content'],
+            'sender_id': 1,  # Current user ID
+            'sender_name': 'Müşteri',
+            'created_at': datetime.now().isoformat(),
+            'message_type': 'text'
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Message sent successfully',
+            'data': message
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/conversations/<int:conversation_id>/mark-read', methods=['POST'])
+def mark_conversation_read(conversation_id):
+    """Mark conversation as read"""
+    try:
+        # In real app, update database
+        print(f"Marking conversation {conversation_id} as read")
+        
+        return jsonify({
+            'success': True,
+            'message': 'Conversation marked as read'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # Rating & Review System Endpoints
 @app.route('/api/reviews', methods=['POST'])
 def create_review():
