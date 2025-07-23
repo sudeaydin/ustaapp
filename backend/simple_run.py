@@ -57,6 +57,53 @@ def get_craftsmen():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Categories endpoint
+@app.route('/api/search/categories', methods=['GET'])
+def get_categories():
+    try:
+        categories = [
+            {'id': 1, 'name': 'Elektrikçi', 'icon': '⚡', 'color': 'bg-yellow-100'},
+            {'id': 2, 'name': 'Tesisatçı', 'icon': '🔧', 'color': 'bg-blue-100'},
+            {'id': 3, 'name': 'Boyacı', 'icon': '🎨', 'color': 'bg-green-100'},
+            {'id': 4, 'name': 'Temizlik', 'icon': '🧽', 'color': 'bg-purple-100'},
+            {'id': 5, 'name': 'Marangoz', 'icon': '🔨', 'color': 'bg-orange-100'},
+            {'id': 6, 'name': 'Bahçıvan', 'icon': '🌱', 'color': 'bg-green-100'}
+        ]
+        return jsonify({'success': True, 'data': categories}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# Popular craftsmen endpoint
+@app.route('/api/search/popular', methods=['GET'])
+def get_popular():
+    try:
+        popular_craftsmen = [
+            {
+                'id': 1,
+                'name': 'Ahmet Yılmaz',
+                'business_name': 'Yılmaz Elektrik',
+                'category': 'Elektrikçi',
+                'average_rating': 4.8,
+                'total_reviews': 25,
+                'city': 'İstanbul'
+            },
+            {
+                'id': 2,
+                'name': 'Mehmet Demir',
+                'business_name': 'Demir Tesisatçılık',
+                'category': 'Tesisatçı',
+                'average_rating': 4.9,
+                'total_reviews': 32,
+                'city': 'İstanbul'
+            }
+        ]
+        return jsonify({
+            'success': True, 
+            'data': {'top_craftsmen': popular_craftsmen}
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # Login endpoint
 @app.route('/api/auth/login', methods=['POST'])
 def login():
