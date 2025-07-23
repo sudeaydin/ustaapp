@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -22,7 +22,7 @@ def create_app(config_name='default'):
     jwt.init_app(app)
     
     # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['http://localhost:3001', 'http://localhost:3000'], 
+    CORS(app, origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'], 
          allow_headers=['Content-Type', 'Authorization'],
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
