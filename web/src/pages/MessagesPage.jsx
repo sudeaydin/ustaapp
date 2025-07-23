@@ -138,10 +138,9 @@ export const MessagesPage = () => {
           ) : (
             <div className="divide-y divide-gray-200">
               {conversations.map((conversation) => (
-                <button
+                <div
                   key={conversation.partner_id}
-                  onClick={() => navigate(`/messages/${conversation.partner_id}`)}
-                  className="w-full p-4 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                  className="p-4 hover:bg-gray-50"
                 >
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -168,16 +167,33 @@ export const MessagesPage = () => {
                           </span>
                         )}
                       </div>
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 ${
-                        conversation.partner_type === 'craftsman' 
-                          ? 'bg-blue-100 text-blue-800' 
-                          : 'bg-green-100 text-green-800'
-                      }`}>
-                        {conversation.partner_type === 'craftsman' ? 'Usta' : 'Müşteri'}
-                      </span>
+                      <div className="flex items-center justify-between mt-2">
+                        <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                          conversation.partner_type === 'craftsman' 
+                            ? 'bg-blue-100 text-blue-800' 
+                            : 'bg-green-100 text-green-800'
+                        }`}>
+                          {conversation.partner_type === 'craftsman' ? 'Usta' : 'Müşteri'}
+                        </span>
+                        
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => navigate(`/messages/${conversation.partner_id}`)}
+                            className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+                          >
+                            📝 Mesajlar
+                          </button>
+                          <button
+                            onClick={() => navigate(`/chat/${conversation.partner_id}`)}
+                            className="px-3 py-1 text-xs bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                          >
+                            ⚡ Anlık Chat
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           )}
