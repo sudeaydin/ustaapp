@@ -66,17 +66,38 @@ export const StartPage = () => {
           </div>
         </div>
 
-        {/* Start button */}
-        <button 
-          onClick={() => navigate('/register')}
-          className="all-[unset] box-border absolute w-[335px] h-[61px] top-[634px] left-5 overflow-hidden cursor-pointer"
-        >
-          <div className="relative w-[337px] h-[63px] -top-px -left-px bg-[#004cff] rounded-2xl hover:bg-[#0040d9] transition-colors duration-200">
-            <div className="absolute top-[17px] left-[89px] font-['Nunito_Sans-Light',Helvetica] font-light text-[#f3f3f3] text-[22px] text-center tracking-[0] leading-[31px] whitespace-nowrap">
-              Hadi başlayalım!
+        {/* User type selection buttons */}
+        <div className="absolute top-[580px] left-5 w-[335px] space-y-4">
+          <button 
+            onClick={() => navigate('/register/customer')}
+            className="w-full h-[61px] bg-green-500 hover:bg-green-600 rounded-2xl transition-colors duration-200 flex items-center justify-center"
+          >
+            <div className="font-['Nunito_Sans-Light',Helvetica] font-light text-white text-[20px] text-center">
+              👤 Müşteri Olarak Kayıt Ol
             </div>
+          </button>
+          
+          <button 
+            onClick={() => navigate('/register/craftsman')}
+            className="w-full h-[61px] bg-blue-500 hover:bg-blue-600 rounded-2xl transition-colors duration-200 flex items-center justify-center"
+          >
+            <div className="font-['Nunito_Sans-Light',Helvetica] font-light text-white text-[20px] text-center">
+              🔧 Usta Olarak Kayıt Ol
+            </div>
+          </button>
+          
+          <div className="text-center mt-4">
+            <p className="text-gray-600 text-sm">
+              Zaten hesabınız var mı?{' '}
+              <button 
+                onClick={() => navigate('/login')}
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Giriş Yapın
+              </button>
+            </p>
           </div>
-        </button>
+        </div>
       </div>
     </div>
   );
