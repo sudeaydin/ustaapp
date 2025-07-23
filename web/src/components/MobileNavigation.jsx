@@ -29,10 +29,10 @@ export const MobileNavigation = () => {
       activeIcon: '💬'
     },
     {
-      icon: '📋',
-      label: 'İşlerim',
-      path: '/customer/jobs',
-      activeIcon: '📋'
+      icon: '📊',
+      label: 'Analitik',
+      path: '/analytics',
+      activeIcon: '📊'
     },
     {
       icon: '👤',
@@ -63,8 +63,8 @@ export const MobileNavigation = () => {
     },
     {
       icon: '📊',
-      label: 'İstatistik',
-      path: '/craftsman/stats',
+      label: 'Analitik',
+      path: '/analytics',
       activeIcon: '📊'
     },
     {
