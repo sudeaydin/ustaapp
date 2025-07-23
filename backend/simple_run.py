@@ -197,19 +197,45 @@ def login():
         email = data.get('email')
         password = data.get('password')
         
-        # Basit test login
-        if email == 'test@test.com' and password == '123456':
+        # Test kullanıcıları
+        test_users = {
+            'customer@test.com': {
+                'id': 1,
+                'password': '123456',
+                'first_name': 'Ahmet',
+                'last_name': 'Müşteri',
+                'user_type': 'customer'
+            },
+            'craftsman@test.com': {
+                'id': 2,
+                'password': '123456',
+                'first_name': 'Mehmet',
+                'last_name': 'Usta',
+                'user_type': 'craftsman'
+            },
+            'test@test.com': {
+                'id': 3,
+                'password': '123456',
+                'first_name': 'Test',
+                'last_name': 'User',
+                'user_type': 'customer'
+            }
+        }
+        
+        # Test login
+        if email in test_users and test_users[email]['password'] == password:
+            user = test_users[email]
             return jsonify({
                 'success': True,
                 'message': 'Giriş başarılı',
                 'data': {
-                    'access_token': 'test-token-123',
+                    'access_token': f'test-token-{user["id"]}',
                     'user': {
-                        'id': 1,
+                        'id': user['id'],
                         'email': email,
-                        'first_name': 'Test',
-                        'last_name': 'User',
-                        'user_type': 'customer'
+                        'first_name': user['first_name'],
+                        'last_name': user['last_name'],
+                        'user_type': user['user_type']
                     }
                 }
             }), 200

@@ -16,6 +16,8 @@ import ProfileEditPage from './pages/ProfileEditPage';
 import RealTimeChatPage from './pages/RealTimeChatPage';
 import CraftsmanRegisterPage from './pages/CraftsmanRegisterPage';
 import CustomerRegisterPage from './pages/CustomerRegisterPage';
+import CraftsmanDashboard from './pages/CraftsmanDashboard';
+import CustomerDashboard from './pages/CustomerDashboard';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -47,6 +49,8 @@ function App() {
               <Route path="/chat/:partnerId" element={<RealTimeChatPage />} />
               <Route path="/register/craftsman" element={<CraftsmanRegisterPage />} />
               <Route path="/register/customer" element={<CustomerRegisterPage />} />
+              <Route path="/dashboard/craftsman" element={<CraftsmanDashboard />} />
+              <Route path="/dashboard/customer" element={<CustomerDashboard />} />
             </Routes>
           </div>
         </AuthProvider>

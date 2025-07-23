@@ -23,7 +23,15 @@ export const LoginPage = () => {
         setFormError(null);
         const result = await login(email, password);
         if (result.success) {
-          navigate('/home');
+          // User type'a göre yönlendirme
+          const userData = JSON.parse(localStorage.getItem('authUser'));
+          if (userData?.user_type === 'craftsman') {
+            navigate('/dashboard/craftsman');
+          } else if (userData?.user_type === 'customer') {
+            navigate('/dashboard/customer');
+          } else {
+            navigate('/home'); // fallback
+          }
         } else {
           setFormError(result.message || 'Giriş başarısız');
         }
