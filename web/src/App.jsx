@@ -11,6 +11,7 @@ import { HomePage } from './pages/HomePage';
 import { CraftsmanListPage } from './pages/CraftsmanListPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { MessagesPage } from './pages/MessagesPage';
+import TestUploadPage from './pages/TestUploadPage';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/messages" element={<MessagesPage />} />
               <Route path="/messages/:partnerId" element={<MessagesPage />} />
+              <Route path="/test-upload" element={<TestUploadPage />} />
             </Routes>
           </div>
         </AuthProvider>
