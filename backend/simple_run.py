@@ -189,6 +189,147 @@ def login():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Message endpoints
+@app.route('/api/messages', methods=['GET'])
+def get_messages():
+    try:
+        # Mock conversation data
+        messages = [
+            {
+                'id': 1,
+                'sender_id': 1,
+                'sender_name': 'Ahmet Yılmaz',
+                'sender_type': 'craftsman',
+                'receiver_id': 2,
+                'receiver_name': 'Müşteri',
+                'receiver_type': 'customer',
+                'message': 'Merhaba, elektrik işiniz için yardımcı olabilirim.',
+                'timestamp': '2025-01-23T10:30:00Z',
+                'is_read': False
+            },
+            {
+                'id': 2,
+                'sender_id': 2,
+                'sender_name': 'Müşteri',
+                'sender_type': 'customer',
+                'receiver_id': 1,
+                'receiver_name': 'Ahmet Yılmaz',
+                'receiver_type': 'craftsman',
+                'message': 'Merhaba, evimde elektrik sorunu var. Ne zaman müsaitsiniz?',
+                'timestamp': '2025-01-23T10:35:00Z',
+                'is_read': True
+            },
+            {
+                'id': 3,
+                'sender_id': 1,
+                'sender_name': 'Ahmet Yılmaz',
+                'sender_type': 'craftsman',
+                'receiver_id': 2,
+                'receiver_name': 'Müşteri',
+                'receiver_type': 'customer',
+                'message': 'Yarın sabah 09:00\'da müsait miyim?',
+                'timestamp': '2025-01-23T10:40:00Z',
+                'is_read': False
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': {'messages': messages}
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/messages/send', methods=['POST'])
+def send_message():
+    try:
+        data = request.get_json()
+        
+        # Required fields
+        required_fields = ['receiver_id', 'message']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'{field} alanı zorunludur'}), 400
+        
+        # Mock message creation
+        new_message = {
+            'id': 100 + hash(data.get('message')) % 1000,
+            'sender_id': data.get('sender_id', 1),
+            'sender_name': 'Gönderen',
+            'sender_type': 'customer',
+            'receiver_id': data.get('receiver_id'),
+            'receiver_name': 'Alıcı',
+            'receiver_type': 'craftsman',
+            'message': data.get('message'),
+            'timestamp': '2025-01-23T10:45:00Z',
+            'is_read': False
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Mesaj gönderildi',
+            'data': new_message
+        }), 201
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/messages/conversations', methods=['GET'])
+def get_conversations():
+    try:
+        # Mock conversations data
+        conversations = [
+            {
+                'id': 1,
+                'other_user': {
+                    'id': 1,
+                    'name': 'Ahmet Yılmaz',
+                    'user_type': 'craftsman',
+                    'business_name': 'Yılmaz Elektrik'
+                },
+                'last_message': {
+                    'message': 'Yarın sabah 09:00\'da müsait miyim?',
+                    'timestamp': '2025-01-23T10:40:00Z',
+                    'is_read': False
+                },
+                'unread_count': 2
+            },
+            {
+                'id': 2,
+                'other_user': {
+                    'id': 2,
+                    'name': 'Mehmet Demir',
+                    'user_type': 'craftsman',
+                    'business_name': 'Demir Tesisatçılık'
+                },
+                'last_message': {
+                    'message': 'Teklifi hazırladım, inceleyebilirsiniz.',
+                    'timestamp': '2025-01-23T09:30:00Z',
+                    'is_read': True
+                },
+                'unread_count': 0
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': {'conversations': conversations}
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/messages/unread-count', methods=['GET'])
+def get_unread_count():
+    try:
+        # Mock unread count
+        unread_count = 3
+        
+        return jsonify({
+            'success': True,
+            'data': {'unread_count': unread_count}
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 if __name__ == '__main__':
     print("🚀 Basit backend başlatılıyor...")
     print("📍 URL: http://localhost:5001")

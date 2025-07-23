@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import messageService from '../services/messageService';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -62,15 +63,9 @@ export const HomePage = () => {
 
   const fetchUnreadCount = async () => {
     try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('/api/messages/unread-count', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      if (data.success) {
-        setUnreadCount(data.data.unread_count);
+      const response = await messageService.getUnreadCount();
+      if (response.success) {
+        setUnreadCount(response.data.unread_count);
       }
     } catch (error) {
       console.error('Unread count fetch error:', error);

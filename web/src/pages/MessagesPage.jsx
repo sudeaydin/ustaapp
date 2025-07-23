@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import messageService from '../services/messageService';
 
 export const MessagesPage = () => {
   const navigate = useNavigate();
@@ -23,16 +24,9 @@ export const MessagesPage = () => {
   const fetchConversations = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('/api/messages/conversations', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      const data = await response.json();
-      if (data.success) {
-        setConversations(data.data);
+      const response = await messageService.getConversations();
+      if (response.success) {
+        setConversations(response.data.conversations);
       }
     } catch (error) {
       console.error('Conversations fetch error:', error);
@@ -73,26 +67,17 @@ export const MessagesPage = () => {
 
     try {
       setSending(true);
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('/api/messages/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          receiver_id: selectedPartner.id,
-          content: newMessage.trim()
-        })
+      const response = await messageService.sendMessage({
+        receiver_id: selectedPartner.id,
+        message: newMessage.trim()
       });
       
-      const data = await response.json();
-      if (data.success) {
-        setCurrentConversation(prev => [...prev, data.data]);
+      if (response.success) {
+        setCurrentConversation(prev => [...prev, response.data]);
         setNewMessage('');
         fetchConversations(); // Refresh conversations list
       } else {
-        alert(data.message || 'Mesaj gönderilemedi');
+        alert(response.message || 'Mesaj gönderilemedi');
       }
     } catch (error) {
       alert('Bir hata oluştu');
