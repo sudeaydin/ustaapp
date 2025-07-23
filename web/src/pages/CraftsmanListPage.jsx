@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { craftsmanService } from '../services/craftsmanService';
 
 export const CraftsmanListPage = () => {
   const navigate = useNavigate();
@@ -38,35 +39,18 @@ export const CraftsmanListPage = () => {
   const fetchCraftsmen = async (page = 1) => {
     try {
       setLoading(true);
-      const params = new URLSearchParams({
-        page: page.toString(),
-        per_page: '10'
-      });
+      const filterParams = {
+        page: page,
+        per_page: 10,
+        search: searchQuery.trim() || undefined,
+        ...filters
+      };
 
-      if (searchQuery.trim()) {
-        params.append('q', searchQuery.trim());
-      }
-
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value !== '' && value !== null && value !== undefined) {
-          params.append(key, value.toString());
-        }
-      });
-
-      const response = await fetch(`/api/search/craftsmen?${params}`);
-      const data = await response.json();
+      const response = await craftsmanService.getCraftsmen(filterParams);
       
-      if (data.success) {
-        setCraftsmen(data.data.craftsmen);
-        setPagination(data.data.pagination);
-      } else {
-        // Fallback to basic endpoint
-        const basicResponse = await fetch(`/api/craftsmen?page=${page}`);
-        const basicData = await basicResponse.json();
-        if (basicData.success) {
-          setCraftsmen(basicData.data.craftsmen);
-          setPagination(basicData.data.pagination);
-        }
+      if (response.success) {
+        setCraftsmen(response.data.craftsmen);
+        setPagination(response.data.pagination);
       }
     } catch (error) {
       console.error('Craftsmen fetch error:', error);

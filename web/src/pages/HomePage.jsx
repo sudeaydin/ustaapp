@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -19,10 +20,9 @@ export const HomePage = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/search/categories');
-      const data = await response.json();
-      if (data.success) {
-        setCategories(data.data.slice(0, 6)); // Show first 6 categories
+      const response = await api.get('/search/categories');
+      if (response.success) {
+        setCategories(response.data.slice(0, 6)); // Show first 6 categories
       }
     } catch (error) {
       console.error('Categories fetch error:', error);
@@ -40,10 +40,9 @@ export const HomePage = () => {
 
   const fetchFeaturedCraftsmen = async () => {
     try {
-      const response = await fetch('/api/search/popular');
-      const data = await response.json();
-      if (data.success) {
-        setFeaturedCraftsmen(data.data.top_craftsmen || []);
+      const response = await api.get('/search/popular');
+      if (response.success) {
+        setFeaturedCraftsmen(response.data.top_craftsmen || []);
       }
     } catch (error) {
       console.error('Featured craftsmen fetch error:', error);
