@@ -34,6 +34,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
+import MobileNavigation from './components/MobileNavigation';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -94,6 +95,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
+            <MobileNavigation />
           </div>
         </AuthProvider>
       </Router>
