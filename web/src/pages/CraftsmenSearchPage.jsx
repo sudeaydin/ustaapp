@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { CATEGORIES, getCategoryById, getSkillById, getAllSkills } from '../data/categories';
 import { useAuth } from '../context/AuthContext';
 
 export const CraftsmenSearchPage = () => {
@@ -10,6 +11,9 @@ export const CraftsmenSearchPage = () => {
   // Search and Filter States
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
+  const [selectedSkills, setSelectedSkills] = useState(
+    searchParams.get('skills')?.split(',').filter(Boolean).map(Number) || []
+  );
   const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || '');
   const [selectedDistrict, setSelectedDistrict] = useState(searchParams.get('district') || '');
   const [priceRange, setPriceRange] = useState({
@@ -19,27 +23,17 @@ export const CraftsmenSearchPage = () => {
   const [minRating, setMinRating] = useState(searchParams.get('min_rating') || '');
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'rating');
   
+  // Skill Filter States
+  const [showSkillModal, setShowSkillModal] = useState(false);
+  const [skillFilterCategory, setSkillFilterCategory] = useState(null);
+  
   // Data States
   const [craftsmen, setCraftsmen] = useState([]);
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState(new Set());
   const [showFilters, setShowFilters] = useState(false);
 
-  // Static Data
-  const categories = [
-    'Elektrikçi',
-    'Tesisatçı', 
-    'Boyacı',
-    'Marangoz',
-    'Tadilat',
-    'Temizlik',
-    'Klima Teknisyeni',
-    'Cam Balkon',
-    'Döşemeci',
-    'Bahçıvan',
-    'Cam Ustası',
-    'Seramik Ustası'
-  ];
+  // Static Data - Using CATEGORIES from categories.js
 
   const cities = [
     'İstanbul',
@@ -63,6 +57,7 @@ export const CraftsmenSearchPage = () => {
       name: 'Ahmet Yılmaz',
       business_name: 'Yılmaz Elektrik',
       category: 'Elektrikçi',
+      skills: [101, 102, 103, 104], // Elektrik Tesisatı, LED Aydınlatma, Ev Otomasyonu, Panel Montajı
       city: 'İstanbul',
       district: 'Kadıköy',
       rating: 4.8,
@@ -80,7 +75,8 @@ export const CraftsmenSearchPage = () => {
       id: 2,
       name: 'Mehmet Kaya',
       business_name: 'Kaya Tadilat',
-      category: 'Tadilat',
+      category: 'Marangoz',
+      skills: [401, 402, 406], // Mobilya Yapımı, Kapı-Pencere, Tadilat
       city: 'İstanbul',
       district: 'Şişli',
       rating: 4.9,
@@ -98,7 +94,8 @@ export const CraftsmenSearchPage = () => {
       id: 3,
       name: 'Ali Demir',
       business_name: 'Demir Klima',
-      category: 'Klima Teknisyeni',
+      category: 'Teknisyen',
+      skills: [204, 705], // Klima Montajı, Klima Servisi
       city: 'İstanbul',
       district: 'Beşiktaş',
       rating: 4.7,
@@ -116,7 +113,8 @@ export const CraftsmenSearchPage = () => {
       id: 4,
       name: 'Fatma Öz',
       business_name: 'Öz Temizlik',
-      category: 'Temizlik',
+      category: 'Temizlikçi',
+      skills: [501, 502, 503], // Ev Temizliği, Ofis Temizliği, Cam Temizliği
       city: 'İstanbul',
       district: 'Kadıköy',
       rating: 4.6,
@@ -135,6 +133,7 @@ export const CraftsmenSearchPage = () => {
       name: 'Hasan Çelik',
       business_name: 'Çelik Tesisatçılık',
       category: 'Tesisatçı',
+      skills: [201, 202, 203, 205], // Su Tesisatı, Doğalgaz, Kalorifer, Sıhhi Tesisat
       city: 'İstanbul',
       district: 'Üsküdar',
       rating: 4.5,
@@ -153,6 +152,7 @@ export const CraftsmenSearchPage = () => {
       name: 'Ayşe Kara',
       business_name: 'Kara Boyacılık',
       category: 'Boyacı',
+      skills: [301, 302, 303], // İç Boyama, Dış Boyama, Dekoratif Boyama
       city: 'İstanbul',
       district: 'Bakırköy',
       rating: 4.4,
@@ -165,6 +165,44 @@ export const CraftsmenSearchPage = () => {
       response_time: '4 saat',
       completed_jobs: 56,
       tags: ['Kaliteli', 'Uygun Fiyat']
+    },
+    {
+      id: 7,
+      name: 'Osman Güler',
+      business_name: 'Güler Bahçıvanlık',
+      category: 'Bahçıvan',
+      skills: [601, 602, 603, 605], // Bahçe Düzenleme, Çim Ekimi, Ağaç Budama, Sulama Sistemi
+      city: 'İstanbul',
+      district: 'Sarıyer',
+      rating: 4.7,
+      review_count: 156,
+      hourly_rate: 110,
+      experience_years: 9,
+      description: 'Bahçe düzenleme, peyzaj tasarımı, çim ekimi ve sulama sistemleri kurulumu.',
+      avatar: null,
+      is_verified: true,
+      response_time: '3 saat',
+      completed_jobs: 98,
+      tags: ['Deneyimli', 'Güvenilir', 'Yaratıcı']
+    },
+    {
+      id: 8,
+      name: 'Kemal Arslan',
+      business_name: 'Arslan Nakliyat',
+      category: 'Nakliyeci',
+      skills: [801, 802, 803], // Ev Taşıma, Ofis Taşıma, Eşya Taşıma
+      city: 'İstanbul',
+      district: 'Pendik',
+      rating: 4.3,
+      review_count: 67,
+      hourly_rate: 90,
+      experience_years: 5,
+      description: 'Ev taşıma, ofis taşıma, eşya nakliye hizmetleri. Güvenli ve hızlı taşıma.',
+      avatar: null,
+      is_verified: false,
+      response_time: '1 saat',
+      completed_jobs: 34,
+      tags: ['Hızlı', 'Güvenli', 'Uygun Fiyat']
     }
   ];
 
@@ -175,17 +213,33 @@ export const CraftsmenSearchPage = () => {
     // Search query filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(craftsman => 
-        craftsman.name.toLowerCase().includes(query) ||
-        craftsman.business_name.toLowerCase().includes(query) ||
-        craftsman.category.toLowerCase().includes(query) ||
-        craftsman.description.toLowerCase().includes(query)
-      );
+      filtered = filtered.filter(craftsman => {
+        // Basic text search
+        const textMatch = craftsman.name.toLowerCase().includes(query) ||
+          craftsman.business_name.toLowerCase().includes(query) ||
+          craftsman.category.toLowerCase().includes(query) ||
+          craftsman.description.toLowerCase().includes(query);
+        
+        // Skill name search
+        const skillMatch = craftsman.skills?.some(skillId => {
+          const skill = getSkillById(skillId);
+          return skill && skill.name.toLowerCase().includes(query);
+        });
+        
+        return textMatch || skillMatch;
+      });
     }
 
     // Category filter
     if (selectedCategory) {
       filtered = filtered.filter(craftsman => craftsman.category === selectedCategory);
+    }
+
+    // Skills filter
+    if (selectedSkills.length > 0) {
+      filtered = filtered.filter(craftsman => 
+        selectedSkills.some(skillId => craftsman.skills?.includes(skillId))
+      );
     }
 
     // Location filters
@@ -235,6 +289,7 @@ export const CraftsmenSearchPage = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.set('q', searchQuery);
     if (selectedCategory) params.set('category', selectedCategory);
+    if (selectedSkills.length > 0) params.set('skills', selectedSkills.join(','));
     if (selectedCity) params.set('city', selectedCity);
     if (selectedDistrict) params.set('district', selectedDistrict);
     if (priceRange.min) params.set('min_price', priceRange.min);
@@ -249,7 +304,7 @@ export const CraftsmenSearchPage = () => {
   useEffect(() => {
     setCraftsmen(filterCraftsmen());
     updateURLParams();
-  }, [searchQuery, selectedCategory, selectedCity, selectedDistrict, priceRange, minRating, sortBy]);
+  }, [searchQuery, selectedCategory, selectedSkills, selectedCity, selectedDistrict, priceRange, minRating, sortBy]);
 
   // Handlers
   const handleSearch = (e) => {
@@ -260,6 +315,7 @@ export const CraftsmenSearchPage = () => {
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedCategory('');
+    setSelectedSkills([]);
     setSelectedCity('');
     setSelectedDistrict('');
     setPriceRange({ min: '', max: '' });
@@ -276,6 +332,27 @@ export const CraftsmenSearchPage = () => {
       newFavorites.add(craftsmanId);
     }
     setFavorites(newFavorites);
+  };
+
+  // Skill filter handlers
+  const handleSkillToggle = (skillId) => {
+    setSelectedSkills(prev => 
+      prev.includes(skillId) 
+        ? prev.filter(id => id !== skillId)
+        : [...prev, skillId]
+    );
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category.name);
+    setSkillFilterCategory(category);
+  };
+
+  const getSelectedSkillsDisplay = () => {
+    return selectedSkills.map(skillId => {
+      const skill = getSkillById(skillId);
+      return skill ? skill.name : '';
+    }).filter(Boolean);
   };
 
   const renderStars = (rating) => {
@@ -374,10 +451,58 @@ export const CraftsmenSearchPage = () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                   >
                     <option value="">Tüm Kategoriler</option>
-                    {categories.map(category => (
-                      <option key={category} value={category}>{category}</option>
+                    {CATEGORIES.map(category => (
+                      <option key={category.id} value={category.name}>
+                        {category.icon} {category.name}
+                      </option>
                     ))}
                   </select>
+                </div>
+
+                {/* Skills Filter */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Yetenekler
+                    </label>
+                    <button
+                      onClick={() => setShowSkillModal(true)}
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
+                      🎯 Yetenek Seç
+                    </button>
+                  </div>
+                  
+                  {selectedSkills.length > 0 ? (
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap gap-2">
+                        {getSelectedSkillsDisplay().map((skillName, index) => (
+                          <span
+                            key={index}
+                            className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                          >
+                            {skillName}
+                            <button
+                              onClick={() => handleSkillToggle(selectedSkills[index])}
+                              className="ml-1 text-blue-600 hover:text-blue-800"
+                            >
+                              ×
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setSelectedSkills([])}
+                        className="text-xs text-red-600 hover:text-red-800"
+                      >
+                        Tümünü Temizle
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-500 italic">
+                      Yetenek seçilmedi
+                    </p>
+                  )}
                 </div>
 
                 {/* Location */}
@@ -560,6 +685,28 @@ export const CraftsmenSearchPage = () => {
                             {craftsman.description}
                           </p>
 
+                          {/* Skills */}
+                          {craftsman.skills && craftsman.skills.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {craftsman.skills.slice(0, 4).map(skillId => {
+                                const skill = getSkillById(skillId);
+                                return skill ? (
+                                  <span
+                                    key={skillId}
+                                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium"
+                                  >
+                                    {skill.name}
+                                  </span>
+                                ) : null;
+                              })}
+                              {craftsman.skills.length > 4 && (
+                                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                                  +{craftsman.skills.length - 4} daha
+                                </span>
+                              )}
+                            </div>
+                          )}
+
                           {/* Tags */}
                           <div className="flex flex-wrap gap-2 mb-4">
                             {craftsman.tags.map((tag, index) => (
@@ -612,6 +759,139 @@ export const CraftsmenSearchPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Skill Selection Modal */}
+      {showSkillModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-medium text-gray-900">🎯 Yetenek Filtresi</h3>
+                <button
+                  onClick={() => setShowSkillModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Categories */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                {CATEGORIES.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => setSkillFilterCategory(skillFilterCategory?.id === category.id ? null : category)}
+                    className={`p-4 rounded-lg border-2 transition-colors ${
+                      skillFilterCategory?.id === category.id
+                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                    }`}
+                  >
+                    <div className="text-2xl mb-2">{category.icon}</div>
+                    <div className="font-medium text-sm">{category.name}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {category.skills.length} yetenek
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Skills for selected category */}
+              {skillFilterCategory && (
+                <div>
+                  <h4 className="text-lg font-medium text-gray-900 mb-4">
+                    {skillFilterCategory.icon} {skillFilterCategory.name} Yetenekleri
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {skillFilterCategory.skills.map((skill) => {
+                      const isSelected = selectedSkills.includes(skill.id);
+                      return (
+                        <div
+                          key={skill.id}
+                          className={`p-4 rounded-lg border-2 cursor-pointer transition-colors ${
+                            isSelected
+                              ? 'border-green-500 bg-green-50'
+                              : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                          }`}
+                          onClick={() => handleSkillToggle(skill.id)}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="font-medium text-gray-900 mb-2">{skill.name}</div>
+                              <p className="text-sm text-gray-600">{skill.description}</p>
+                            </div>
+                            <div className="ml-3">
+                              {isSelected ? (
+                                <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                              ) : (
+                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Selected Skills Summary */}
+              {selectedSkills.length > 0 && (
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                  <h5 className="font-medium text-gray-900 mb-2">
+                    Seçili Yetenekler ({selectedSkills.length})
+                  </h5>
+                  <div className="flex flex-wrap gap-2">
+                    {getSelectedSkillsDisplay().map((skillName, index) => (
+                      <span
+                        key={index}
+                        className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                      >
+                        {skillName}
+                        <button
+                          onClick={() => handleSkillToggle(selectedSkills[index])}
+                          className="ml-2 text-blue-600 hover:text-blue-800"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-between space-x-3 mt-6 pt-6 border-t">
+                <button
+                  onClick={() => setSelectedSkills([])}
+                  className="px-6 py-2 text-red-600 hover:text-red-800 transition-colors"
+                >
+                  Tümünü Temizle
+                </button>
+                <div className="space-x-3">
+                  <button
+                    onClick={() => setShowSkillModal(false)}
+                    className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    İptal
+                  </button>
+                  <button
+                    onClick={() => setShowSkillModal(false)}
+                    className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  >
+                    Uygula ({selectedSkills.length} Yetenek)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
