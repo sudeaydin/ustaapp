@@ -232,7 +232,8 @@ def setup_database():
                 'title': 'Salon aydınlatması',
                 'description': 'Salonda LED aydınlatma sistemi kurulumu istiyorum.',
                 'location': 'Kadıköy, İstanbul',
-                'budget': 1500.00,
+                'budget_min': 1000.00,
+                'budget_max': 1500.00,
                 'status': 'pending'
             },
             {
@@ -241,7 +242,8 @@ def setup_database():
                 'title': 'Ev temizliği',
                 'description': '3+1 daire genel temizlik hizmeti.',
                 'location': 'Beşiktaş, İstanbul',
-                'budget': 300.00,
+                'budget_min': 250.00,
+                'budget_max': 300.00,
                 'status': 'accepted'
             }
         ]
@@ -253,7 +255,8 @@ def setup_database():
                 title=quote_data['title'],
                 description=quote_data['description'],
                 location=quote_data['location'],
-                budget=quote_data['budget'],
+                budget_min=quote_data['budget_min'],
+                budget_max=quote_data['budget_max'],
                 status=quote_data['status'],
                 created_at=datetime.now()
             )
@@ -261,45 +264,7 @@ def setup_database():
         
         print("📝 Created sample quotes")
         
-        # Create sample messages
-        messages_data = [
-            {
-                'sender_id': created_users[0].id,  # Ayşe (customer)
-                'receiver_id': created_users[2].id,  # Ahmet Elektrik
-                'content': 'Merhaba Ahmet Usta, salon aydınlatması için ne zaman müsaitsiniz?',
-                'is_read': False
-            },
-            {
-                'sender_id': created_users[2].id,  # Ahmet Elektrik
-                'receiver_id': created_users[0].id,  # Ayşe
-                'content': 'Merhaba, yarın öğleden sonra uygun olur. Saat 14:00 civarı gelebilirim.',
-                'is_read': True
-            },
-            {
-                'sender_id': created_users[1].id,  # Mehmet (customer)
-                'receiver_id': created_users[4].id,  # Fatma Temizlik
-                'content': 'Fatma Hanım, bu hafta temizlik için müsait misiniz?',
-                'is_read': False
-            }
-        ]
-        
-        # Insert messages using raw SQL
-        with db.engine.connect() as conn:
-            for msg_data in messages_data:
-                sql = """
-                INSERT INTO messages (sender_id, receiver_id, content, is_read, created_at)
-                VALUES (:sender_id, :receiver_id, :content, :is_read, :created_at)
-                """
-                conn.execute(db.text(sql), {
-                    'sender_id': msg_data['sender_id'],
-                    'receiver_id': msg_data['receiver_id'],
-                    'content': msg_data['content'],
-                    'is_read': msg_data['is_read'],
-                    'created_at': datetime.now()
-                })
-            conn.commit()
-        
-        print("💬 Created sample messages")
+        print("💬 Sample messages will be created when messaging system is used")
         
         # Commit all changes
         db.session.commit()
@@ -314,7 +279,7 @@ def setup_database():
         print(f"- Customers: {len([u for u in users_data if u['user_type'] == 'customer'])}")
         print(f"- Craftsmen: {len([u for u in users_data if u['user_type'] == 'craftsman'])}")
         print(f"Quotes: {len(quotes_data)}")
-        print(f"Messages: {len(messages_data)}")
+        print(f"Messages: Ready for real-time messaging")
         
         print("\n🔐 TEST LOGIN CREDENTIALS:")
         print("="*30)
