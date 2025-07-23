@@ -36,6 +36,8 @@ import LandingPage from './pages/LandingPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import TestingPage from './pages/TestingPage';
+import PaymentPage from './pages/PaymentPage';
+import PaymentHistory from './components/PaymentHistory';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -76,12 +78,14 @@ function App() {
               <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
               <Route path="/testing" element={<ProtectedRoute><TestingPage /></ProtectedRoute>} />
+              <Route path="/payment-history" element={<ProtectedRoute><PaymentHistory /></ProtectedRoute>} />
               
               {/* 👤 Customer Only Routes */}
               <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
               <Route path="/customer/jobs" element={<CustomerRoute><CustomerJobHistoryPage /></CustomerRoute>} />
               <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
               <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
+              <Route path="/payment/:jobId" element={<CustomerRoute><PaymentPage /></CustomerRoute>} />
               
               {/* 🔨 Craftsman Only Routes */}
               <Route path="/dashboard/craftsman" element={<CraftsmanRoute><CraftsmanDashboard /></CraftsmanRoute>} />

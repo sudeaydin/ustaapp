@@ -151,6 +151,16 @@ export const CustomerDashboard = () => {
               </button>
 
               <button
+                onClick={() => navigate('/payment-history')}
+                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+                title="Ödeme Geçmişi"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+              </button>
+
+              <button
                 onClick={() => navigate('/profile')}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
               >
@@ -410,6 +420,14 @@ export const CustomerDashboard = () => {
                       )}
                     </div>
                     <div className="ml-4 flex flex-col space-y-2">
+                      {(job.status === 'completed' || job.status === 'approved') && !job.paid && (
+                        <button 
+                          onClick={() => navigate(`/payment/${job.id}`)}
+                          className="px-3 py-1 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors"
+                        >
+                          💳 Öde
+                        </button>
+                      )}
                       {job.status === 'completed' && !job.rating && (
                         <button className="px-3 py-1 bg-yellow-500 text-white text-sm rounded-lg hover:bg-yellow-600 transition-colors">
                           Puanla
@@ -460,6 +478,16 @@ export const CustomerDashboard = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
               <span className="text-sm font-medium text-gray-900">Profil Düzenle</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/payment-history')}
+              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center"
+            >
+              <svg className="w-8 h-8 text-green-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+              <span className="text-sm font-medium text-gray-900">Ödeme Geçmişi</span>
             </button>
 
             <button

@@ -23,16 +23,16 @@ export const MobileNavigation = () => {
       activeIcon: '🔍'
     },
     {
+      icon: '💳',
+      label: 'Ödemeler',
+      path: '/payment-history',
+      activeIcon: '💳'
+    },
+    {
       icon: '💬',
       label: 'Mesajlar',
       path: '/messages',
       activeIcon: '💬'
-    },
-    {
-      icon: '📊',
-      label: 'Analitik',
-      path: '/analytics',
-      activeIcon: '📊'
     },
     {
       icon: '👤',
