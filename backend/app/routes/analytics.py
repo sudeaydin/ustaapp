@@ -7,7 +7,7 @@ from app.models.craftsman import Craftsman
 from app.models.quote import Quote
 from app.models.payment import Payment
 from app.models.review import Review
-from app.models.message import Message
+# from app.models.message import Message  # Not needed for current analytics
 from datetime import datetime, timedelta
 from sqlalchemy import func, and_
 import logging
