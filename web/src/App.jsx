@@ -18,6 +18,7 @@ import CraftsmanRegisterPage from './pages/CraftsmanRegisterPage';
 import CustomerRegisterPage from './pages/CustomerRegisterPage';
 import CraftsmanDashboard from './pages/CraftsmanDashboard';
 import CustomerDashboard from './pages/CustomerDashboard';
+import CraftsmenSearchPage from './pages/CraftsmenSearchPage';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -51,6 +52,7 @@ function App() {
               <Route path="/register/customer" element={<CustomerRegisterPage />} />
               <Route path="/dashboard/craftsman" element={<CraftsmanDashboard />} />
               <Route path="/dashboard/customer" element={<CustomerDashboard />} />
+              <Route path="/craftsmen" element={<CraftsmenSearchPage />} />
             </Routes>
           </div>
         </AuthProvider>
