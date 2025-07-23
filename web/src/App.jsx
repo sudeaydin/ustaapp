@@ -33,6 +33,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
+import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -51,32 +52,41 @@ function App() {
         <AuthProvider>
           <div className="App">
             <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/start" element={<StartPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/craftsmen" element={<CraftsmanListPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/messages" element={<MessagesPage />} />
-              <Route path="/messages/:partnerId" element={<MessagesPage />} />
-              <Route path="/test-upload" element={<TestUploadPage />} />
-              <Route path="/profile/edit" element={<ProfileEditPage />} />
-              <Route path="/chat/:partnerId" element={<RealTimeChatPage />} />
-              <Route path="/register/craftsman" element={<CraftsmanRegisterPage />} />
-              <Route path="/register/customer" element={<CustomerRegisterPage />} />
-              <Route path="/dashboard/craftsman" element={<CraftsmanDashboard />} />
-              <Route path="/dashboard/customer" element={<CustomerDashboard />} />
-              <Route path="/craftsmen" element={<CraftsmenSearchPage />} />
-              <Route path="/craftsman/jobs" element={<CraftsmanJobHistoryPage />} />
-              <Route path="/customer/jobs" element={<CustomerJobHistoryPage />} />
-              <Route path="/craftsman/:id" element={<CraftsmanProfilePage />} />
-              <Route path="/review/:jobId" element={<ReviewFormPage />} />
-              <Route path="/job-request/new" element={<JobRequestFormPage />} />
-              <Route path="/jobs" element={<JobListPage />} />
-              <Route path="/job/:jobId" element={<JobDetailPage />} />
-              <Route path="/job/:jobId/proposal" element={<ProposalFormPage />} />
-              <Route path="/job/:jobId/progress" element={<JobProgressPage />} />
+              {/* 🌐 Public Routes - Anyone can access */}
+              <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+              <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+              <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />
+              <Route path="/craftsman/:id" element={<PublicRoute><CraftsmanProfilePage /></PublicRoute>} />
+              
+              {/* 🔒 Protected Routes - Login required */}
+              <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+              <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+              <Route path="/messages/:partnerId" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+              <Route path="/job/:jobId" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
+              <Route path="/job/:jobId/progress" element={<ProtectedRoute><JobProgressPage /></ProtectedRoute>} />
+              
+              {/* 👤 Customer Only Routes */}
+              <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
+              <Route path="/customer/jobs" element={<CustomerRoute><CustomerJobHistoryPage /></CustomerRoute>} />
+              <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
+              <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
+              
+              {/* 🔨 Craftsman Only Routes */}
+              <Route path="/dashboard/craftsman" element={<CraftsmanRoute><CraftsmanDashboard /></CraftsmanRoute>} />
+              <Route path="/craftsman/jobs" element={<CraftsmanRoute><CraftsmanJobHistoryPage /></CraftsmanRoute>} />
+              <Route path="/job/:jobId/proposal" element={<CraftsmanRoute><ProposalFormPage /></CraftsmanRoute>} />
+              
+              {/* 📋 Legacy/Dev Routes */}
+              <Route path="/start" element={<PublicRoute><StartPage /></PublicRoute>} />
+              <Route path="/home" element={<PublicRoute><HomePage /></PublicRoute>} />
+              <Route path="/jobs" element={<ProtectedRoute><JobListPage /></ProtectedRoute>} />
+              <Route path="/test-upload" element={<ProtectedRoute><TestUploadPage /></ProtectedRoute>} />
+              <Route path="/profile/edit" element={<ProtectedRoute><ProfileEditPage /></ProtectedRoute>} />
+              <Route path="/chat/:partnerId" element={<ProtectedRoute><RealTimeChatPage /></ProtectedRoute>} />
+              <Route path="/register/craftsman" element={<PublicRoute><CraftsmanRegisterPage /></PublicRoute>} />
+              <Route path="/register/customer" element={<PublicRoute><CustomerRegisterPage /></PublicRoute>} />
+              <Route path="/craftsmen" element={<PublicRoute><CraftsmenSearchPage /></PublicRoute>} />
               <Route path="/messages" element={<MessagesPage />} />
               <Route path="/messages/:conversationId" element={<MessagesPage />} />
               <Route path="/login" element={<LoginPage />} />
