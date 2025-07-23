@@ -34,6 +34,8 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
 import AnalyticsPage from './pages/AnalyticsPage';
+import NotificationsPage from './pages/NotificationsPage';
+import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
 
@@ -52,7 +54,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AuthProvider>
-          <div className="App">
+          <NotificationProvider>
+            <div className="App">
             <Routes>
               {/* 🌐 Public Routes - Anyone can access */}
               <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
@@ -68,6 +71,7 @@ function App() {
               <Route path="/job/:jobId" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
               <Route path="/job/:jobId/progress" element={<ProtectedRoute><JobProgressPage /></ProtectedRoute>} />
               <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+              <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
               
               {/* 👤 Customer Only Routes */}
               <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
@@ -98,7 +102,8 @@ function App() {
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
             <MobileNavigation />
-          </div>
+            </div>
+          </NotificationProvider>
         </AuthProvider>
       </Router>
     </QueryClientProvider>
