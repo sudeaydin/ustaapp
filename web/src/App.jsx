@@ -35,9 +35,11 @@ import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import NotificationsPage from './pages/NotificationsPage';
+import TestingPage from './pages/TestingPage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -55,7 +57,8 @@ function App() {
       <Router>
         <AuthProvider>
           <NotificationProvider>
-            <div className="App">
+            <ErrorBoundary>
+              <div className="App">
             <Routes>
               {/* 🌐 Public Routes - Anyone can access */}
               <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
@@ -72,6 +75,7 @@ function App() {
               <Route path="/job/:jobId/progress" element={<ProtectedRoute><JobProgressPage /></ProtectedRoute>} />
               <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+              <Route path="/testing" element={<ProtectedRoute><TestingPage /></ProtectedRoute>} />
               
               {/* 👤 Customer Only Routes */}
               <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
@@ -102,7 +106,8 @@ function App() {
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
             <MobileNavigation />
-            </div>
+              </div>
+            </ErrorBoundary>
           </NotificationProvider>
         </AuthProvider>
       </Router>
