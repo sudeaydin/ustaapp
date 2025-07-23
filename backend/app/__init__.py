@@ -27,16 +27,22 @@ def create_app(config_name='default'):
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
     # Import models
-    from app.models import user, craftsman, customer, category, quote
+    from app.models import user, craftsman, customer, category, quote, payment, notification
     
     # Register new API blueprints
     from app.routes.profile import profile_bp
     from app.routes.messages import messages_bp
     from app.routes.search import search_bp
+    from app.routes.payment import payment_bp
+    from app.routes.notification import notification_bp
+    from app.routes.analytics import analytics_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
     app.register_blueprint(search_bp, url_prefix='/api/search')
+    app.register_blueprint(payment_bp, url_prefix='/api/payment')
+    app.register_blueprint(notification_bp, url_prefix='/api/notifications')
+    app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     
     # Basic endpoints
     @app.route('/api/health')

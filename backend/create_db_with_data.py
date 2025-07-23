@@ -17,6 +17,8 @@ from app.models.customer import Customer
 from app.models.craftsman import Craftsman
 from app.models.category import Category
 from app.models.quote import Quote
+from app.models.payment import Payment
+from app.models.notification import Notification
 from werkzeug.security import generate_password_hash
 
 def create_sample_data():
