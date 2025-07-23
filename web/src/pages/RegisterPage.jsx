@@ -660,17 +660,23 @@ export const RegisterPage = () => {
               type="button"
               onClick={handleNext}
               disabled={loading}
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {loading ? (
-                <div className="flex items-center">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                  Kaydediliyor...
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Kaydediliyor...</span>
                 </div>
               ) : step === 3 ? (
-                'Hesap Oluştur'
+                <div className="flex items-center justify-center space-x-2">
+                  <span>✨</span>
+                  <span>Hesap Oluştur</span>
+                </div>
               ) : (
-                'Devam'
+                <div className="flex items-center justify-center space-x-2">
+                  <span>➡️</span>
+                  <span>Devam</span>
+                </div>
               )}
             </button>
           </div>
