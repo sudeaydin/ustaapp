@@ -374,12 +374,12 @@ export const CustomerDashboard = () => {
               <h3 className="text-lg font-medium text-gray-900">
                 🔧 Son İşlerim
               </h3>
-              <Link
-                to="/jobs"
-                className="text-sm text-green-600 hover:text-green-800 font-medium"
-              >
-                Tümünü Gör →
-              </Link>
+                              <Link
+                  to="/customer/jobs"
+                  className="text-sm text-green-600 hover:text-green-800 font-medium"
+                >
+                  Tümünü Gör →
+                </Link>
             </div>
           </div>
           <div className="p-6">
@@ -460,13 +460,13 @@ export const CustomerDashboard = () => {
             </button>
 
             <button
-              onClick={() => navigate('/quotes')}
+              onClick={() => navigate('/customer/jobs')}
               className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center"
             >
               <svg className="w-8 h-8 text-yellow-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <span className="text-sm font-medium text-gray-900">Tekliflerim</span>
+              <span className="text-sm font-medium text-gray-900">Geçmiş İşlemler</span>
             </button>
           </div>
         </div>

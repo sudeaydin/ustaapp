@@ -230,7 +230,7 @@ export const CraftsmanDashboard = () => {
                   📋 Son Teklif Talepleri
                 </h3>
                 <Link
-                  to="/quotes"
+                  to="/craftsman/jobs"
                   className="text-sm text-blue-600 hover:text-blue-800 font-medium"
                 >
                   Tümünü Gör →
@@ -274,7 +274,7 @@ export const CraftsmanDashboard = () => {
                   🔧 Son İşler
                 </h3>
                 <Link
-                  to="/jobs"
+                  to="/craftsman/jobs"
                   className="text-sm text-blue-600 hover:text-blue-800 font-medium"
                 >
                   Tümünü Gör →
@@ -337,13 +337,13 @@ export const CraftsmanDashboard = () => {
             </button>
 
             <button
-              onClick={() => navigate('/quotes')}
+              onClick={() => navigate('/craftsman/jobs')}
               className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center"
             >
               <svg className="w-8 h-8 text-yellow-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <span className="text-sm font-medium text-gray-900">Teklifler</span>
+              <span className="text-sm font-medium text-gray-900">Geçmiş İşlemler</span>
             </button>
 
             <button
