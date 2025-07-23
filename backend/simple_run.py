@@ -1474,6 +1474,348 @@ mock_reviews = [
         'photos': [],
         'craftsman_reply': 'Gecikme için özür dilerim. Trafikte kaldım ama kaliteli hizmet vermeye çalıştım.',
         'reply_date': '2025-01-15T18:30:00'
+         }
+ ]
+
+# Job Request System
+@app.route('/api/job-requests', methods=['POST'])
+def create_job_request():
+    """Create a new job request"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['title', 'description', 'category', 'budget', 'location', 'customer_id']
+        for field in required_fields:
+            if field not in data or not data[field]:
+                return jsonify({'error': f'{field} is required'}), 400
+        
+        # Create job request
+        job_request = {
+            'id': len(mock_job_requests) + 1,
+            'title': data.get('title'),
+            'description': data.get('description'),
+            'category': data.get('category'),
+            'skills_needed': data.get('skills_needed', []),
+            'budget': data.get('budget'),
+            'budget_type': data.get('budget_type', 'fixed'),  # fixed, hourly, negotiable
+            'location': data.get('location'),
+            'address': data.get('address', ''),
+            'urgency': data.get('urgency', 'normal'),  # urgent, normal, flexible
+            'preferred_date': data.get('preferred_date'),
+            'customer_id': data.get('customer_id'),
+            'customer_name': data.get('customer_name', 'Müşteri'),
+            'customer_phone': data.get('customer_phone', ''),
+            'status': 'open',  # open, in_progress, completed, cancelled
+            'created_at': datetime.now().isoformat(),
+            'expires_at': data.get('expires_at'),
+            'photos': data.get('photos', []),
+            'proposal_count': 0,
+            'view_count': 0
+        }
+        
+        mock_job_requests.append(job_request)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Job request created successfully',
+            'data': job_request
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/job-requests', methods=['GET'])
+def get_job_requests():
+    """Get job requests with filters"""
+    try:
+        # Get query parameters
+        category = request.args.get('category')
+        location = request.args.get('location')
+        budget_min = request.args.get('budget_min', type=int)
+        budget_max = request.args.get('budget_max', type=int)
+        urgency = request.args.get('urgency')
+        status = request.args.get('status', 'open')
+        
+        # Filter job requests
+        filtered_jobs = []
+        for job in mock_job_requests:
+            if status and job['status'] != status:
+                continue
+            if category and job['category'] != category:
+                continue
+            if location and location.lower() not in job['location'].lower():
+                continue
+            if budget_min and job['budget'] < budget_min:
+                continue
+            if budget_max and job['budget'] > budget_max:
+                continue
+            if urgency and job['urgency'] != urgency:
+                continue
+            
+            filtered_jobs.append(job)
+        
+        # Sort by creation date (newest first)
+        filtered_jobs.sort(key=lambda x: x['created_at'], reverse=True)
+        
+        return jsonify({
+            'success': True,
+            'data': filtered_jobs,
+            'total': len(filtered_jobs)
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/job-requests/<int:job_id>', methods=['GET'])
+def get_job_request(job_id):
+    """Get single job request details"""
+    try:
+        job = next((j for j in mock_job_requests if j['id'] == job_id), None)
+        if not job:
+            return jsonify({'error': 'Job request not found'}), 404
+        
+        # Increment view count
+        job['view_count'] += 1
+        
+        return jsonify({
+            'success': True,
+            'data': job
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/job-requests/<int:job_id>/proposals', methods=['POST'])
+def create_proposal(job_id):
+    """Create a proposal for a job request"""
+    try:
+        data = request.get_json()
+        
+        # Find job request
+        job = next((j for j in mock_job_requests if j['id'] == job_id), None)
+        if not job:
+            return jsonify({'error': 'Job request not found'}), 404
+        
+        if job['status'] != 'open':
+            return jsonify({'error': 'Job is no longer accepting proposals'}), 400
+        
+        # Validate required fields
+        required_fields = ['craftsman_id', 'price', 'message']
+        for field in required_fields:
+            if field not in data or not data[field]:
+                return jsonify({'error': f'{field} is required'}), 400
+        
+        # Create proposal
+        proposal = {
+            'id': len(mock_proposals) + 1,
+            'job_id': job_id,
+            'craftsman_id': data.get('craftsman_id'),
+            'craftsman_name': data.get('craftsman_name', 'Usta'),
+            'craftsman_rating': data.get('craftsman_rating', 0),
+            'craftsman_avatar': data.get('craftsman_avatar'),
+            'price': data.get('price'),
+            'price_type': data.get('price_type', 'fixed'),
+            'message': data.get('message'),
+            'estimated_duration': data.get('estimated_duration', ''),
+            'availability': data.get('availability', ''),
+            'status': 'pending',  # pending, accepted, rejected
+            'created_at': datetime.now().isoformat(),
+            'expires_at': data.get('expires_at')
+        }
+        
+        mock_proposals.append(proposal)
+        
+        # Update job proposal count
+        job['proposal_count'] += 1
+        
+        return jsonify({
+            'success': True,
+            'message': 'Proposal submitted successfully',
+            'data': proposal
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/job-requests/<int:job_id>/proposals', methods=['GET'])
+def get_job_proposals(job_id):
+    """Get all proposals for a job request"""
+    try:
+        proposals = [p for p in mock_proposals if p['job_id'] == job_id]
+        
+        # Sort by creation date (newest first)
+        proposals.sort(key=lambda x: x['created_at'], reverse=True)
+        
+        return jsonify({
+            'success': True,
+            'data': proposals,
+            'total': len(proposals)
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/proposals/<int:proposal_id>/accept', methods=['POST'])
+def accept_proposal(proposal_id):
+    """Accept a proposal"""
+    try:
+        # Find proposal
+        proposal = next((p for p in mock_proposals if p['id'] == proposal_id), None)
+        if not proposal:
+            return jsonify({'error': 'Proposal not found'}), 404
+        
+        # Find job
+        job = next((j for j in mock_job_requests if j['id'] == proposal['job_id']), None)
+        if not job:
+            return jsonify({'error': 'Job not found'}), 404
+        
+        # Accept proposal
+        proposal['status'] = 'accepted'
+        
+        # Update job status
+        job['status'] = 'in_progress'
+        job['accepted_proposal_id'] = proposal_id
+        job['craftsman_id'] = proposal['craftsman_id']
+        
+        # Reject other proposals
+        for p in mock_proposals:
+            if p['job_id'] == proposal['job_id'] and p['id'] != proposal_id:
+                p['status'] = 'rejected'
+        
+        return jsonify({
+            'success': True,
+            'message': 'Proposal accepted successfully',
+            'data': proposal
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/proposals/<int:proposal_id>/reject', methods=['POST'])
+def reject_proposal(proposal_id):
+    """Reject a proposal"""
+    try:
+        # Find proposal
+        proposal = next((p for p in mock_proposals if p['id'] == proposal_id), None)
+        if not proposal:
+            return jsonify({'error': 'Proposal not found'}), 404
+        
+        # Reject proposal
+        proposal['status'] = 'rejected'
+        
+        return jsonify({
+            'success': True,
+            'message': 'Proposal rejected',
+            'data': proposal
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Mock job requests data
+mock_job_requests = [
+    {
+        'id': 1,
+        'title': 'Ev LED Aydınlatma Sistemi Kurulumu',
+        'description': '120m² dairemde LED aydınlatma sistemi kurmak istiyorum. Salon, yatak odaları ve mutfak için modern LED spot ve şerit led sistemi. Dimmer özellikli olması tercihim.',
+        'category': 'Elektrikçi',
+        'skills_needed': ['LED Aydınlatma', 'Elektrik Tesisatı'],
+        'budget': 3500,
+        'budget_type': 'fixed',
+        'location': 'Kadıköy, İstanbul',
+        'address': 'Kadıköy Merkez',
+        'urgency': 'normal',
+        'preferred_date': '2025-01-25',
+        'customer_id': 1,
+        'customer_name': 'Ayşe Demir',
+        'customer_phone': '+90 555 123 4567',
+        'status': 'open',
+        'created_at': '2025-01-21T10:30:00',
+        'expires_at': '2025-01-28T23:59:59',
+        'photos': [],
+        'proposal_count': 3,
+        'view_count': 12
+    },
+    {
+        'id': 2,
+        'title': 'Banyo Tesisatı Yenileme',
+        'description': 'Ana banyo tesisatını tamamen yenilemek istiyorum. Su boruları eski, sıcak su sistemi çalışmıyor. Duş kabini ve lavabo montajı da gerekli.',
+        'category': 'Tesisatçı',
+        'skills_needed': ['Su Tesisatı', 'Banyo Montajı'],
+        'budget': 2800,
+        'budget_type': 'negotiable',
+        'location': 'Üsküdar, İstanbul',
+        'address': 'Üsküdar Çengelköy',
+        'urgency': 'urgent',
+        'preferred_date': '2025-01-23',
+        'customer_id': 2,
+        'customer_name': 'Mehmet Kaya',
+        'customer_phone': '+90 555 987 6543',
+        'status': 'open',
+        'created_at': '2025-01-21T14:15:00',
+        'expires_at': '2025-01-25T23:59:59',
+        'photos': [],
+        'proposal_count': 5,
+        'view_count': 18
+    },
+    {
+        'id': 3,
+        'title': 'Klima Montajı ve Bakımı',
+        'description': '2 adet split klima montajı ve mevcut 1 klimanın bakımı yapılacak. 18000 BTU salon için, 12000 BTU yatak odası için.',
+        'category': 'Klima Teknisyeni',
+        'skills_needed': ['Klima Montajı', 'Klima Bakımı'],
+        'budget': 1500,
+        'budget_type': 'fixed',
+        'location': 'Maltepe, İstanbul',
+        'address': 'Maltepe Bağlarbaşı',
+        'urgency': 'flexible',
+        'preferred_date': '2025-01-30',
+        'customer_id': 3,
+        'customer_name': 'Zeynep Özkan',
+        'customer_phone': '+90 555 456 7890',
+        'status': 'open',
+        'created_at': '2025-01-20T16:45:00',
+        'expires_at': '2025-02-05T23:59:59',
+        'photos': [],
+        'proposal_count': 2,
+        'view_count': 8
+    }
+]
+
+# Mock proposals data
+mock_proposals = [
+    {
+        'id': 1,
+        'job_id': 1,
+        'craftsman_id': 1,
+        'craftsman_name': 'Ahmet Yılmaz',
+        'craftsman_rating': 4.8,
+        'craftsman_avatar': None,
+        'price': 3200,
+        'price_type': 'fixed',
+        'message': 'LED aydınlatma konusunda 8 yıllık deneyimim var. Kaliteli malzeme kullanıyorum ve 2 yıl garanti veriyorum. İşi 2 günde tamamlarım.',
+        'estimated_duration': '2 gün',
+        'availability': 'Bu hafta uygun',
+        'status': 'pending',
+        'created_at': '2025-01-21T11:15:00',
+        'expires_at': '2025-01-25T23:59:59'
+    },
+    {
+        'id': 2,
+        'job_id': 1,
+        'craftsman_id': 2,
+        'craftsman_name': 'Mustafa Kılıç',
+        'craftsman_rating': 4.6,
+        'craftsman_avatar': None,
+        'price': 3800,
+        'price_type': 'fixed',
+        'message': 'Premium LED ürünleri kullanıyorum. Akıllı ev sistemleri entegrasyonu da yapabilirim. 5 yıl garanti.',
+        'estimated_duration': '3 gün',
+        'availability': 'Gelecek hafta',
+        'status': 'pending',
+        'created_at': '2025-01-21T13:30:00',
+        'expires_at': '2025-01-25T23:59:59'
     }
 ]
 
