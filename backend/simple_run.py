@@ -104,6 +104,62 @@ def get_popular():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Register endpoint
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    try:
+        data = request.get_json()
+        
+        # Required fields validation
+        required_fields = ['email', 'password', 'first_name', 'last_name', 'phone', 'user_type']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'{field} alanı zorunludur'}), 400
+        
+        # Email validation
+        email = data.get('email')
+        if '@' not in email or '.' not in email:
+            return jsonify({'success': False, 'message': 'Geçerli bir email adresi girin'}), 400
+        
+        # Password validation
+        password = data.get('password')
+        if len(password) < 6:
+            return jsonify({'success': False, 'message': 'Şifre en az 6 karakter olmalıdır'}), 400
+        
+        # User type validation
+        user_type = data.get('user_type')
+        if user_type not in ['customer', 'craftsman']:
+            return jsonify({'success': False, 'message': 'Kullanıcı tipi customer veya craftsman olmalıdır'}), 400
+        
+        # Mock user creation (normally would save to database)
+        user_id = 100 + hash(email) % 1000  # Simple ID generation
+        
+        # Create mock user data
+        user_data = {
+            'id': user_id,
+            'email': email,
+            'first_name': data.get('first_name'),
+            'last_name': data.get('last_name'),
+            'phone': data.get('phone'),
+            'user_type': user_type,
+            'created_at': '2025-01-23T10:30:00Z'
+        }
+        
+        # Generate access token
+        access_token = f'token_{user_id}_{hash(email)}'
+        
+        return jsonify({
+            'success': True,
+            'message': 'Kayıt başarılı! Hoş geldiniz!',
+            'data': {
+                'access_token': access_token,
+                'user': user_data
+            }
+        }), 201
+        
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Kayıt sırasında hata: {str(e)}'}), 500
+
 # Login endpoint
 @app.route('/api/auth/login', methods=['POST'])
 def login():
