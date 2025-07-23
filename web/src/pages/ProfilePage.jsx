@@ -167,12 +167,20 @@ export const ProfilePage = () => {
               </svg>
             </button>
             <h1 className="text-xl font-semibold text-gray-900">Profil</h1>
-            <button 
-              onClick={() => setEditing(!editing)}
-              className="text-blue-600 font-medium"
-            >
-              {editing ? 'İptal' : 'Düzenle'}
-            </button>
+            <div className="flex space-x-2">
+              <button 
+                onClick={() => navigate('/profile/edit')}
+                className="px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                ✏️ Düzenle
+              </button>
+              <button 
+                onClick={() => setEditing(!editing)}
+                className="text-blue-600 font-medium text-sm"
+              >
+                {editing ? 'İptal' : 'Hızlı'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

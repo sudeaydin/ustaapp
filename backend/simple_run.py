@@ -660,6 +660,189 @@ def upload_multiple_images():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Profile management endpoints
+@app.route('/api/profile', methods=['GET'])
+def get_profile():
+    try:
+        # Mock user profile data
+        profile = {
+            'id': 1,
+            'username': 'test_user',
+            'email': 'test@example.com',
+            'first_name': 'Test',
+            'last_name': 'User',
+            'phone': '+90 555 123 4567',
+            'address': 'Test Mahallesi, Test Sokak No:1',
+            'city': 'İstanbul',
+            'district': 'Kadıköy',
+            'profile_image': '/api/uploads/profiles/default_profile.png',
+            'user_type': 'customer', # 'customer' or 'craftsman'
+            'created_at': '2025-01-01T00:00:00Z',
+            'updated_at': '2025-01-23T10:00:00Z',
+            # Craftsman specific fields
+            'business_name': 'Test İşletmesi',
+            'description': 'Profesyonel hizmet veren deneyimli usta',
+            'category': 'Elektrikçi',
+            'hourly_rate': 150,
+            'experience_years': 5,
+            'is_available': True,
+            'rating': 4.8,
+            'total_jobs': 127,
+            'skills': ['Elektrik tesisatı', 'LED aydınlatma', 'Pano montajı'],
+            'certifications': ['Elektrik Ustalık Belgesi', 'İSG Sertifikası'],
+            'work_areas': ['İstanbul', 'Kadıköy', 'Üsküdar', 'Beşiktaş']
+        }
+        
+        return jsonify({
+            'success': True,
+            'data': profile
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/profile', methods=['PUT'])
+def update_profile():
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        if not data:
+            return jsonify({'success': False, 'message': 'Veri gönderilmedi'}), 400
+        
+        # Mock profile update
+        updated_profile = {
+            'id': 1,
+            'username': data.get('username', 'test_user'),
+            'email': data.get('email', 'test@example.com'),
+            'first_name': data.get('first_name', 'Test'),
+            'last_name': data.get('last_name', 'User'),
+            'phone': data.get('phone', '+90 555 123 4567'),
+            'address': data.get('address', ''),
+            'city': data.get('city', ''),
+            'district': data.get('district', ''),
+            'profile_image': data.get('profile_image', '/api/uploads/profiles/default_profile.png'),
+            'user_type': data.get('user_type', 'customer'),
+            'updated_at': '2025-01-23T11:00:00Z',
+            # Craftsman fields
+            'business_name': data.get('business_name', ''),
+            'description': data.get('description', ''),
+            'category': data.get('category', ''),
+            'hourly_rate': data.get('hourly_rate', 0),
+            'experience_years': data.get('experience_years', 0),
+            'is_available': data.get('is_available', True),
+            'skills': data.get('skills', []),
+            'certifications': data.get('certifications', []),
+            'work_areas': data.get('work_areas', [])
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Profil başarıyla güncellendi',
+            'data': updated_profile
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/profile/password', methods=['PUT'])
+def change_password():
+    try:
+        data = request.get_json()
+        
+        # Required fields
+        required_fields = ['current_password', 'new_password']
+        for field in required_fields:
+            if not data.get(field):
+                return jsonify({'success': False, 'message': f'{field} alanı zorunludur'}), 400
+        
+        current_password = data.get('current_password')
+        new_password = data.get('new_password')
+        confirm_password = data.get('confirm_password')
+        
+        # Validate current password (mock)
+        if current_password != 'test123':
+            return jsonify({'success': False, 'message': 'Mevcut şifre yanlış'}), 400
+        
+        # Validate new password
+        if len(new_password) < 6:
+            return jsonify({'success': False, 'message': 'Yeni şifre en az 6 karakter olmalıdır'}), 400
+        
+        # Validate password confirmation
+        if confirm_password and new_password != confirm_password:
+            return jsonify({'success': False, 'message': 'Şifreler eşleşmiyor'}), 400
+        
+        # Mock password change
+        return jsonify({
+            'success': True,
+            'message': 'Şifre başarıyla değiştirildi'
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/profile/avatar', methods=['PUT'])
+def update_avatar():
+    try:
+        data = request.get_json()
+        
+        if not data.get('profile_image'):
+            return jsonify({'success': False, 'message': 'Profil fotoğrafı URL\'si gerekli'}), 400
+        
+        # Mock avatar update
+        updated_profile = {
+            'id': 1,
+            'profile_image': data.get('profile_image'),
+            'updated_at': '2025-01-23T11:00:00Z'
+        }
+        
+        return jsonify({
+            'success': True,
+            'message': 'Profil fotoğrafı başarıyla güncellendi',
+            'data': updated_profile
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/profile/skills', methods=['PUT'])
+def update_skills():
+    try:
+        data = request.get_json()
+        
+        skills = data.get('skills', [])
+        if not isinstance(skills, list):
+            return jsonify({'success': False, 'message': 'Yetenekler liste formatında olmalıdır'}), 400
+        
+        # Mock skills update
+        return jsonify({
+            'success': True,
+            'message': 'Yetenekler başarıyla güncellendi',
+            'data': {
+                'skills': skills,
+                'updated_at': '2025-01-23T11:00:00Z'
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/profile/availability', methods=['PUT'])
+def update_availability():
+    try:
+        data = request.get_json()
+        
+        is_available = data.get('is_available')
+        if is_available is None:
+            return jsonify({'success': False, 'message': 'Müsaitlik durumu belirtilmedi'}), 400
+        
+        # Mock availability update
+        return jsonify({
+            'success': True,
+            'message': f'Müsaitlik durumu {"açık" if is_available else "kapalı"} olarak güncellendi',
+            'data': {
+                'is_available': is_available,
+                'updated_at': '2025-01-23T11:00:00Z'
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 if __name__ == '__main__':
     print("🚀 Basit backend başlatılıyor...")
     print("📍 URL: http://localhost:5001")
