@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit, join_room, leave_room
 import os
 from werkzeug.utils import secure_filename
 import uuid
@@ -7,7 +8,15 @@ from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key-here'
 CORS(app, origins=['http://localhost:3000', 'http://localhost:5173'])
+
+# Initialize SocketIO
+socketio = SocketIO(app, cors_allowed_origins=['http://localhost:3000', 'http://localhost:5173'])
+
+# Store active users and their rooms
+active_users = {}
+user_rooms = {}
 
 # File upload configuration
 UPLOAD_FOLDER = 'uploads'
@@ -843,8 +852,215 @@ def update_availability():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# Socket.IO Event Handlers
+@socketio.on('connect')
+def handle_connect():
+    print(f'Client connected: {request.sid}')
+    emit('connected', {'message': 'Successfully connected to chat server'})
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print(f'Client disconnected: {request.sid}')
+    # Remove user from active users
+    user_id = None
+    for uid, sid in active_users.items():
+        if sid == request.sid:
+            user_id = uid
+            break
+    
+    if user_id:
+        del active_users[user_id]
+        if user_id in user_rooms:
+            del user_rooms[user_id]
+        
+        # Notify other users that this user went offline
+        emit('user_offline', {'user_id': user_id}, broadcast=True)
+
+@socketio.on('join_chat')
+def handle_join_chat(data):
+    try:
+        user_id = data.get('user_id')
+        username = data.get('username', f'User{user_id}')
+        
+        if not user_id:
+            emit('error', {'message': 'User ID is required'})
+            return
+        
+        # Store user info
+        active_users[user_id] = request.sid
+        
+        print(f'User {username} (ID: {user_id}) joined chat')
+        
+        # Notify user of successful join
+        emit('joined_chat', {
+            'user_id': user_id,
+            'username': username,
+            'message': 'Successfully joined chat'
+        })
+        
+        # Notify other users that this user is online
+        emit('user_online', {
+            'user_id': user_id,
+            'username': username
+        }, broadcast=True, include_self=False)
+        
+    except Exception as e:
+        print(f'Join chat error: {e}')
+        emit('error', {'message': 'Failed to join chat'})
+
+@socketio.on('join_conversation')
+def handle_join_conversation(data):
+    try:
+        user_id = data.get('user_id')
+        partner_id = data.get('partner_id')
+        
+        if not user_id or not partner_id:
+            emit('error', {'message': 'User ID and Partner ID are required'})
+            return
+        
+        # Create room name (consistent for both users)
+        room_name = f"chat_{min(user_id, partner_id)}_{max(user_id, partner_id)}"
+        
+        # Join the room
+        join_room(room_name)
+        
+        # Store user's current room
+        user_rooms[user_id] = room_name
+        
+        print(f'User {user_id} joined conversation room: {room_name}')
+        
+        emit('joined_conversation', {
+            'room': room_name,
+            'partner_id': partner_id,
+            'message': 'Joined conversation'
+        })
+        
+    except Exception as e:
+        print(f'Join conversation error: {e}')
+        emit('error', {'message': 'Failed to join conversation'})
+
+@socketio.on('leave_conversation')
+def handle_leave_conversation(data):
+    try:
+        user_id = data.get('user_id')
+        
+        if user_id in user_rooms:
+            room_name = user_rooms[user_id]
+            leave_room(room_name)
+            del user_rooms[user_id]
+            
+            print(f'User {user_id} left conversation room: {room_name}')
+            
+            emit('left_conversation', {
+                'room': room_name,
+                'message': 'Left conversation'
+            })
+        
+    except Exception as e:
+        print(f'Leave conversation error: {e}')
+        emit('error', {'message': 'Failed to leave conversation'})
+
+@socketio.on('send_message')
+def handle_send_message(data):
+    try:
+        user_id = data.get('user_id')
+        partner_id = data.get('partner_id')
+        message = data.get('message')
+        username = data.get('username', f'User{user_id}')
+        
+        if not all([user_id, partner_id, message]):
+            emit('error', {'message': 'User ID, Partner ID, and message are required'})
+            return
+        
+        # Create room name
+        room_name = f"chat_{min(user_id, partner_id)}_{max(user_id, partner_id)}"
+        
+        # Create message object
+        message_data = {
+            'id': str(uuid.uuid4()),
+            'sender_id': user_id,
+            'sender_name': username,
+            'receiver_id': partner_id,
+            'message': message,
+            'timestamp': datetime.now().isoformat(),
+            'room': room_name
+        }
+        
+        print(f'Message from {username} to {partner_id}: {message}')
+        
+        # Send message to room (both users)
+        emit('new_message', message_data, room=room_name)
+        
+        # Also send to partner if they're online but not in room
+        if partner_id in active_users:
+            partner_sid = active_users[partner_id]
+            emit('message_notification', {
+                'sender_id': user_id,
+                'sender_name': username,
+                'message': message,
+                'timestamp': message_data['timestamp']
+            }, room=partner_sid)
+        
+    except Exception as e:
+        print(f'Send message error: {e}')
+        emit('error', {'message': 'Failed to send message'})
+
+@socketio.on('typing_start')
+def handle_typing_start(data):
+    try:
+        user_id = data.get('user_id')
+        partner_id = data.get('partner_id')
+        username = data.get('username', f'User{user_id}')
+        
+        if not all([user_id, partner_id]):
+            return
+        
+        room_name = f"chat_{min(user_id, partner_id)}_{max(user_id, partner_id)}"
+        
+        # Notify partner that user is typing
+        emit('user_typing', {
+            'user_id': user_id,
+            'username': username,
+            'typing': True
+        }, room=room_name, include_self=False)
+        
+    except Exception as e:
+        print(f'Typing start error: {e}')
+
+@socketio.on('typing_stop')
+def handle_typing_stop(data):
+    try:
+        user_id = data.get('user_id')
+        partner_id = data.get('partner_id')
+        username = data.get('username', f'User{user_id}')
+        
+        if not all([user_id, partner_id]):
+            return
+        
+        room_name = f"chat_{min(user_id, partner_id)}_{max(user_id, partner_id)}"
+        
+        # Notify partner that user stopped typing
+        emit('user_typing', {
+            'user_id': user_id,
+            'username': username,
+            'typing': False
+        }, room=room_name, include_self=False)
+        
+    except Exception as e:
+        print(f'Typing stop error: {e}')
+
+@socketio.on('get_online_users')
+def handle_get_online_users():
+    try:
+        online_user_ids = list(active_users.keys())
+        emit('online_users', {'users': online_user_ids})
+    except Exception as e:
+        print(f'Get online users error: {e}')
+        emit('error', {'message': 'Failed to get online users'})
+
 if __name__ == '__main__':
-    print("🚀 Basit backend başlatılıyor...")
+    print("🚀 Real-time backend başlatılıyor...")
     print("📍 URL: http://localhost:5001")
     print("✅ Health check: http://localhost:5001/api/health")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    print("💬 Socket.IO: ws://localhost:5001")
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
