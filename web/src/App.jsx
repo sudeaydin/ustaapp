@@ -31,6 +31,7 @@ import JobProgressPage from './pages/JobProgressPage';
 import MessagesPage from './pages/MessagesPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -78,6 +79,8 @@ function App() {
               <Route path="/messages/:conversationId" element={<MessagesPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
           </div>
         </AuthProvider>
