@@ -32,14 +32,33 @@ export const QuoteRequestPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    
-    // Show success message and navigate
-    alert('Teklif talebiniz başarıyla gönderildi! Usta en kısa sürede size dönüş yapacak.');
-    navigate('/dashboard');
+    try {
+      const quoteData = {
+        craftsman_id: parseInt(craftsmanId),
+        title: formData.title,
+        description: formData.description,
+        location: formData.location,
+        budget_min: formData.budgetMin ? parseInt(formData.budgetMin) : undefined,
+        budget_max: formData.budgetMax ? parseInt(formData.budgetMax) : undefined,
+        preferred_date: formData.preferredDate,
+        preferred_time: formData.preferredTime,
+        urgency: formData.urgency,
+        contact_method: formData.contactMethod
+      };
+      
+      const response = await quoteService.createQuote(quoteData);
+      
+      if (response.success) {
+        alert('Teklif talebiniz başarıyla gönderildi! Usta en kısa sürede size dönüş yapacak.');
+        navigate('/home');
+      } else {
+        alert(response.message || 'Teklif talebi gönderilirken bir hata oluştu.');
+      }
+    } catch (error) {
+      alert(error.message || 'Teklif talebi gönderilirken bir hata oluştu.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
