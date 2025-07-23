@@ -114,6 +114,13 @@ export const CraftsmanDashboard = () => {
               </button>
 
               <button
+                onClick={() => navigate('/profile/edit')}
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              >
+                ⚙️ Profil Düzenle
+              </button>
+
+              <button
                 onClick={() => navigate('/profile')}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
               >
