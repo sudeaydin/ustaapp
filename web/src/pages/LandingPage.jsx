@@ -170,32 +170,42 @@ export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200">
+      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-lg shadow-gray-900/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-18">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">U</span>
+            <div className="flex items-center space-x-3">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 transform rotate-3 hover:rotate-0 transition-all duration-300">
+                  <span className="text-white font-bold text-xl">U</span>
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse"></div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Ustam
-              </span>
+              <div>
+                <span className="text-2xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Ustam
+                </span>
+                <div className="text-xs text-gray-500 font-medium -mt-1">Platform</div>
+              </div>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Özellikler
+              <a href="#features" className="relative text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium group">
+                <span>Özellikler</span>
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300"></div>
               </a>
-              <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Nasıl Çalışır
+              <a href="#how-it-works" className="relative text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium group">
+                <span>Nasıl Çalışır</span>
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300"></div>
               </a>
-              <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Yorumlar
+              <a href="#testimonials" className="relative text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium group">
+                <span>Yorumlar</span>
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300"></div>
               </a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">
-                İletişim
+              <a href="#contact" className="relative text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium group">
+                <span>İletişim</span>
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300"></div>
               </a>
             </div>
 
@@ -203,15 +213,17 @@ export const LandingPage = () => {
             <div className="hidden md:flex items-center space-x-4">
               <button
                 onClick={handleLogin}
-                className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                className="px-5 py-2.5 text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium relative group"
               >
-                {user ? 'Dashboard' : 'Giriş Yap'}
+                <span>{user ? 'Dashboard' : 'Giriş Yap'}</span>
+                <div className="absolute inset-0 rounded-lg bg-gray-100 opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10"></div>
               </button>
               <button
                 onClick={handleGetStarted}
-                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105"
+                className="relative px-8 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 group overflow-hidden"
               >
-                {user ? 'Dashboard' : 'Başla'}
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative z-10">{user ? '🚀 Dashboard' : '✨ Başla'}</span>
               </button>
             </div>
 
@@ -269,24 +281,37 @@ export const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative pt-24 pb-20 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-yellow-400/20 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-indigo-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+          </div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Column - Content */}
             <div>
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 border border-blue-200/50 text-blue-800 rounded-full text-sm font-semibold mb-8 shadow-lg shadow-blue-500/10 animate-bounce">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 animate-pulse"></div>
                 🚀 Türkiye'nin #1 Usta Bulma Platformu
+                <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full ml-3 animate-pulse"></div>
               </div>
               
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Güvenilir Usta
+              <h1 className="text-5xl lg:text-7xl font-black text-gray-900 mb-8 leading-tight tracking-tight">
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent drop-shadow-sm">
+                  Güvenilir
                 </span>
                 <br />
-                Bulmak Artık
+                <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 bg-clip-text text-transparent drop-shadow-sm">
+                  Usta Bulmak
+                </span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  Çok Kolay!
+                <span className="bg-gradient-to-r from-pink-600 via-red-500 to-orange-500 bg-clip-text text-transparent drop-shadow-sm">
+                  Artık Çok Kolay!
                 </span>
               </h1>
               
@@ -297,18 +322,32 @@ export const LandingPage = () => {
                 <strong> en kaliteli hizmeti</strong> alın.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row gap-6 mb-10">
                 <button
                   onClick={handleGetStarted}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
+                  className="group relative px-10 py-5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-2xl font-bold text-lg hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-500 transform hover:scale-105 shadow-2xl shadow-purple-500/25 hover:shadow-purple-500/40 overflow-hidden"
                 >
-                  🚀 Hemen Başla
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <span className="relative z-10 flex items-center justify-center space-x-2">
+                    <span>🚀</span>
+                    <span>Hemen Başla</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
                 </button>
                 <button
                   onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}
-                  className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold text-lg hover:border-blue-500 hover:text-blue-600 transition-all"
+                  className="group px-10 py-5 border-2 border-gray-300 bg-white/80 backdrop-blur-sm text-gray-700 rounded-2xl font-semibold text-lg hover:border-purple-500 hover:text-purple-600 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  📺 Nasıl Çalışır?
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>📺</span>
+                    <span>Nasıl Çalışır?</span>
+                    <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </span>
                 </button>
               </div>
 
@@ -339,72 +378,95 @@ export const LandingPage = () => {
             <div className="relative">
               <div className="relative z-10">
                 {/* Main mockup */}
-                <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl shadow-purple-500/20 p-8 transform rotate-2 hover:rotate-0 transition-all duration-700 border border-white/20 hover:shadow-3xl hover:shadow-purple-500/30">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-4 h-4 bg-gradient-to-r from-red-400 to-red-500 rounded-full shadow-sm"></div>
+                    <div className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-sm"></div>
+                    <div className="w-4 h-4 bg-gradient-to-r from-green-400 to-green-500 rounded-full shadow-sm"></div>
+                    <div className="flex-1 h-2 bg-gray-100 rounded-full ml-4">
+                      <div className="h-full w-3/4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+                    </div>
                   </div>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span className="text-2xl">⚡</span>
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-4">
+                      <div className="relative">
+                        <div className="w-16 h-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-2xl flex items-center justify-center shadow-lg">
+                          <span className="text-3xl">⚡</span>
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center shadow-lg">
+                          <span className="text-xs text-white">✓</span>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Ahmet Elektrikçi</h4>
-                        <div className="flex items-center space-x-1">
-                          <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
-                          <span className="text-sm text-gray-600">(4.9)</span>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-gray-900 text-lg">Ahmet Elektrikçi</h4>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <div className="flex space-x-1">
+                            {[...Array(5)].map((_, i) => (
+                              <div key={i} className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-sm"></div>
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-600 font-medium">(4.9)</span>
+                          <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium">Aktif</span>
                         </div>
                       </div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <p className="text-sm text-gray-700">
-                        "Elektrik arızanızı 24 saat içinde çözerim. 15 yıllık deneyim!"
+                    <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-4 border border-gray-100">
+                      <p className="text-gray-700 font-medium leading-relaxed">
+                        "Elektrik arızanızı 24 saat içinde çözerim. 15 yıllık deneyim ile güvenilir hizmet!"
                       </p>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-green-600">150₺/saat</span>
-                      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-2xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">150₺</span>
+                        <span className="text-gray-600 font-medium">/saat</span>
+                      </div>
+                      <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                         💬 Mesaj Gönder
                       </button>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating elements */}
-                <div className="absolute -top-4 -left-4 bg-green-500 text-white p-3 rounded-full shadow-lg animate-bounce">
-                  <span className="text-xl">✅</span>
+                {/* Enhanced floating elements */}
+                <div className="absolute -top-6 -left-6 bg-gradient-to-r from-green-400 to-emerald-500 text-white p-4 rounded-2xl shadow-2xl shadow-green-500/30 animate-bounce">
+                  <span className="text-2xl">✅</span>
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-purple-500 text-white p-3 rounded-full shadow-lg animate-pulse">
-                  <span className="text-xl">💬</span>
+                <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-2xl shadow-2xl shadow-purple-500/30 animate-pulse">
+                  <span className="text-2xl">💬</span>
                 </div>
-                <div className="absolute top-1/2 -left-8 bg-yellow-500 text-white p-2 rounded-full shadow-lg">
-                  <span className="text-sm">⭐</span>
+                <div className="absolute top-1/2 -left-10 bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-3 rounded-xl shadow-2xl shadow-yellow-500/30 animate-bounce animation-delay-500">
+                  <span className="text-lg">⭐</span>
+                </div>
+                <div className="absolute top-1/4 -right-8 bg-gradient-to-r from-blue-400 to-cyan-500 text-white p-3 rounded-xl shadow-2xl shadow-blue-500/30 animate-pulse animation-delay-1000">
+                  <span className="text-lg">🚀</span>
                 </div>
               </div>
 
-              {/* Background decorations */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl transform rotate-6 opacity-20"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-600 rounded-2xl transform -rotate-3 opacity-10"></div>
+              {/* Enhanced background decorations */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-3xl transform rotate-6 opacity-10 blur-sm"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-500 to-red-400 rounded-3xl transform -rotate-3 opacity-5 blur-sm"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 rounded-3xl transform rotate-1 opacity-5 blur-lg"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-gradient-to-r from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white text-2xl mb-4">
-                  {stat.icon}
+              <div key={index} className="group text-center">
+                <div className="relative mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl text-white text-3xl shadow-2xl shadow-purple-500/25 group-hover:shadow-purple-500/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                    {stat.icon}
+                  </div>
+                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl"></div>
                 </div>
-                <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                <div className="text-4xl lg:text-5xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3 group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-medium">
+                <div className="text-gray-600 font-semibold text-lg group-hover:text-gray-800 transition-colors duration-300">
                   {stat.label}
                 </div>
               </div>
@@ -414,26 +476,57 @@ export const LandingPage = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              🎯 Popüler Hizmet Kategorileri
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 border border-blue-200/50 text-blue-800 rounded-full text-sm font-semibold mb-6 shadow-lg shadow-blue-500/10">
+              <span className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 animate-pulse"></span>
+              Popüler Kategoriler
+              <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full ml-3 animate-pulse"></span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                🎯 Hizmet Kategorileri
+              </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              İhtiyacınız olan her alanda uzman ustalar sizi bekliyor
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+              İhtiyacınız olan her alanda <strong>uzman ustalar</strong> sizi bekliyor
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {categories.map((category, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all transform hover:scale-105 cursor-pointer"
+                className="group bg-white/80 backdrop-blur-sm rounded-2xl p-8 text-center hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 cursor-pointer border border-white/20 relative overflow-hidden"
               >
-                <div className="text-4xl mb-3">{category.icon}</div>
-                <h3 className="font-semibold text-gray-900 mb-2">{category.name}</h3>
-                <p className="text-sm text-gray-600">{category.jobs} aktif usta</p>
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                
+                <div className="relative z-10">
+                  <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300 group-hover:rotate-12">
+                    {category.icon}
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg group-hover:text-purple-600 transition-colors duration-300">
+                    {category.name}
+                  </h3>
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse"></div>
+                    <p className="text-sm text-gray-600 font-semibold group-hover:text-gray-800 transition-colors duration-300">
+                      {category.jobs} aktif usta
+                    </p>
+                  </div>
+                  
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-gradient-to-r group-hover:from-blue-400 group-hover:via-purple-400 group-hover:to-pink-400 transition-all duration-300"></div>
+                </div>
               </div>
             ))}
           </div>
