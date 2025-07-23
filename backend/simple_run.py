@@ -135,6 +135,6 @@ def login():
 
 if __name__ == '__main__':
     print("🚀 Basit backend başlatılıyor...")
-    print("📍 URL: http://localhost:5000")
-    print("✅ Health check: http://localhost:5000/api/health")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    print("📍 URL: http://localhost:5001")
+    print("✅ Health check: http://localhost:5001/api/health")
+    app.run(host='0.0.0.0', port=5001, debug=True)
