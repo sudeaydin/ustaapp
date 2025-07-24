@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from app.utils.auth_utils import get_current_user_id
 from app import db
 from app.models.job import Job, JobStatus, JobUrgency
 from app.models.user import User
@@ -17,7 +18,7 @@ job_bp = Blueprint('job', __name__)
 def get_jobs():
     """Get jobs with filtering options"""
     try:
-        user_id = get_jwt_identity()
+        user_id = get_current_user_id()
         user = User.query.get(user_id)
         
         if not user:

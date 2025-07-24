@@ -107,12 +107,12 @@ class Job(db.Model):
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
             'customer': {
                 'id': self.customer.id,
-                'name': f"{self.customer.first_name} {self.customer.last_name}",
+                'name': f"{self.customer.user.first_name} {self.customer.user.last_name}",
                 'user_id': self.customer.user_id
             } if self.customer else None,
             'assigned_craftsman': {
                 'id': self.assigned_craftsman.id,
-                'name': f"{self.assigned_craftsman.first_name} {self.assigned_craftsman.last_name}",
+                'name': f"{self.assigned_craftsman.user.first_name} {self.assigned_craftsman.user.last_name}",
                 'user_id': self.assigned_craftsman.user_id,
                 'skills': self.assigned_craftsman.skills
             } if self.assigned_craftsman else None
