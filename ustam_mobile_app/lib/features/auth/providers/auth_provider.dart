@@ -50,6 +50,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> _checkAuthStatus() async {
     state = state.copyWith(isLoading: true);
     
+    // Simulate loading time
+    await Future.delayed(const Duration(milliseconds: 500));
+    
     final token = _prefs.getString('authToken');
     final userJson = _prefs.getString('user');
     
@@ -62,7 +65,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
         isLoading: false,
       );
     } else {
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(
+        isAuthenticated: false,
+        isLoading: false,
+      );
     }
   }
 
