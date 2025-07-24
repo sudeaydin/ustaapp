@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Colors (matching web version)
-  static const Color primaryColor = Color(0xFF2563EB);
-  static const Color primaryDark = Color(0xFF1D4ED8);
-  static const Color primaryLight = Color(0xFF3B82F6);
+  // Colors - Modern & Vibrant
+  static const Color primaryColor = Color(0xFF6366F1); // Indigo
+  static const Color primaryDark = Color(0xFF4F46E5);
+  static const Color primaryLight = Color(0xFF8B5CF6);
   
-  static const Color secondaryColor = Color(0xFF10B981);
-  static const Color accentColor = Color(0xFFF59E0B);
+  static const Color secondaryColor = Color(0xFF06D6A0); // Emerald
+  static const Color accentColor = Color(0xFFFF6B6B); // Coral
+  
+  // Gradient Colors
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Color(0xFFFFFFFF), Color(0xFFF8FAFC)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
   
   static const Color backgroundColor = Color(0xFFF8FAFC);
   static const Color surfaceColor = Color(0xFFFFFFFF);
