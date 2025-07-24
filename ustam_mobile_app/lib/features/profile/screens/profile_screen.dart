@@ -88,7 +88,7 @@ class ProfileScreen extends ConsumerWidget {
                     onTap: () {},
                   ),
                   _buildProfileOption(
-                    icon: Icons.notifications_outline,
+                    icon: Icons.notifications_outlined,
                     title: 'Bildirimler',
                     subtitle: 'Bildirim tercihlerini yönet',
                     onTap: () {},
