@@ -1,6 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: process.env.NODE_ENV === 'production' 
+  BASE_URL: (typeof window !== 'undefined' && import.meta?.env?.MODE === 'production') || 
+            (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production')
     ? 'https://api.ustalar.com' 
     : 'http://localhost:5000',
   TIMEOUT: 10000,

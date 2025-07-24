@@ -10,8 +10,8 @@ const useWebSocket = () => {
 
   useEffect(() => {
     if (user) {
-      // Initialize WebSocket connection
-      socketRef.current = io(process.env.REACT_APP_API_URL || 'http://localhost:5000', {
+      // Initialize WebSocket connection - Using Vite's import.meta.env
+      socketRef.current = io(import.meta.env.VITE_API_URL || 'http://localhost:5000', {
         auth: {
           token: localStorage.getItem('token')
         },
