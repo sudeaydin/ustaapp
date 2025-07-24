@@ -2,11 +2,13 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_socketio import SocketIO
 import os
 
 # Initialize extensions
 db = SQLAlchemy()
 jwt = JWTManager()
+socketio = SocketIO()
 
 def create_app(config_name='default'):
     app = Flask(__name__)
@@ -20,6 +22,7 @@ def create_app(config_name='default'):
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
+    socketio.init_app(app, cors_allowed_origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'])
     
     # CORS ayarları - Frontend ile backend arasında iletişim için
     CORS(app, origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'], 
@@ -27,7 +30,7 @@ def create_app(config_name='default'):
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
     # Import models
-    from app.models import user, craftsman, customer, category, quote, payment, notification
+    from app.models import user, craftsman, customer, category, quote, payment, notification, job
     
     # Register new API blueprints
     from app.routes.profile import profile_bp
@@ -36,6 +39,7 @@ def create_app(config_name='default'):
     from app.routes.payment import payment_bp
     from app.routes.notification import notification_bp
     from app.routes.analytics import analytics_bp
+    from app.routes.job import job_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -43,6 +47,11 @@ def create_app(config_name='default'):
     app.register_blueprint(payment_bp, url_prefix='/api/payment')
     app.register_blueprint(notification_bp, url_prefix='/api/notifications')
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
+    app.register_blueprint(job_bp, url_prefix='/api/jobs')
+    
+    # Initialize SocketIO events
+    from app.socketio_events import init_socketio_events
+    init_socketio_events(socketio)
     
     # Basic endpoints
     @app.route('/api/health')
