@@ -5,12 +5,8 @@ import { AuthProvider } from './context/AuthContext';
 
 // Import pages
 import { StartPage } from './pages/StartPage';
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
 import { HomePage } from './pages/HomePage';
 import { CraftsmanListPage } from './pages/CraftsmanListPage';
-import { ProfilePage } from './pages/ProfilePage';
-import { MessagesPage } from './pages/MessagesPage';
 import TestUploadPage from './pages/TestUploadPage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import RealTimeChatPage from './pages/RealTimeChatPage';
