@@ -16,40 +16,11 @@ import '../../features/notifications/screens/notifications_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authProvider);
-  
   return GoRouter(
-    initialLocation: '/splash',
-    refreshListenable: ValueNotifier(authState),
+    initialLocation: '/login',
     redirect: (context, state) {
-      final isAuthenticated = authState.isAuthenticated;
-      final isLoading = authState.isLoading;
-      
-      // Show splash while loading
-      if (isLoading) {
-        return '/splash';
-      }
-      
-      // Redirect unauthenticated users to login
-      if (!isAuthenticated) {
-        if (state.uri.path == '/login' || 
-            state.uri.path == '/register' || 
-            state.uri.path == '/splash') {
-          return null; // No redirect needed
-        }
-        return '/login';
-      }
-      
-      // Redirect authenticated users away from auth pages
-      if (isAuthenticated) {
-        if (state.uri.path == '/login' || 
-            state.uri.path == '/register' || 
-            state.uri.path == '/splash') {
-          return '/home';
-        }
-      }
-      
-      return null; // No redirect needed
+      // Simplified redirect logic - just go to login if not authenticated
+      return null;
     },
     routes: [
       // Splash Screen
