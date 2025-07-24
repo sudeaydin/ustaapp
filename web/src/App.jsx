@@ -38,6 +38,8 @@ import NotificationsPage from './pages/NotificationsPage';
 import TestingPage from './pages/TestingPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentHistory from './components/PaymentHistory';
+import LandingPage from './pages/LandingPage';
+import SearchPage from './pages/SearchPage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -67,6 +69,7 @@ function App() {
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
               <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/craftsman/:id" element={<PublicRoute><CraftsmanProfilePage /></PublicRoute>} />
               
               {/* 🔒 Protected Routes - Login required */}
