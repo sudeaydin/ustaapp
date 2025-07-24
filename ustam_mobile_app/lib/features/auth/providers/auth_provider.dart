@@ -80,15 +80,38 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // For now, simulate login
       await Future.delayed(const Duration(seconds: 1));
       
+      // Mock users
+      Map<String, dynamic>? user;
+      
       if (email == 'customer@example.com' && password == 'password123') {
-        final token = 'mock_token_${DateTime.now().millisecondsSinceEpoch}';
-        final user = {
+        user = {
           'id': 1,
           'email': email,
           'user_type': 'customer',
-          'first_name': 'Test',
+          'first_name': 'Ahmet',
+          'last_name': 'Müşteri',
+        };
+      } else if (email == 'craftsman@example.com' && password == 'password123') {
+        user = {
+          'id': 2,
+          'email': email,
+          'user_type': 'craftsman',
+          'first_name': 'Mehmet',
+          'last_name': 'Usta',
+          'specialty': 'Elektrikçi',
+        };
+      } else if (email == 'admin@example.com' && password == 'admin123') {
+        user = {
+          'id': 3,
+          'email': email,
+          'user_type': 'admin',
+          'first_name': 'Admin',
           'last_name': 'User',
         };
+      }
+      
+      if (user != null) {
+        final token = 'mock_token_${DateTime.now().millisecondsSinceEpoch}';
         
         await _prefs.setString('authToken', token);
         await _prefs.setString('user', '{}'); // JSON encode user data
