@@ -30,6 +30,7 @@ class HomeScreen extends ConsumerWidget {
                   break;
                 case 'logout':
                   ref.read(authProvider.notifier).logout();
+                  context.go('/login');
                   break;
               }
             },
@@ -334,6 +335,7 @@ class HomeScreen extends ConsumerWidget {
             ),
             onTap: () {
               // Navigate to job detail
+              context.go('/jobs');
             },
           ),
         );

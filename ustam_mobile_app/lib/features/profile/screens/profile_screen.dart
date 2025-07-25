@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../auth/providers/auth_provider.dart';
 
@@ -79,37 +80,37 @@ class ProfileScreen extends ConsumerWidget {
                     icon: Icons.person_outline,
                     title: 'Kişisel Bilgiler',
                     subtitle: 'Ad, soyad, telefon bilgilerini düzenle',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Kişisel Bilgiler', 'Kişisel bilgilerinizi buradan düzenleyebilirsiniz.'),
                   ),
                   _buildProfileOption(
                     icon: Icons.security,
                     title: 'Güvenlik',
                     subtitle: 'Şifre değiştir, güvenlik ayarları',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Güvenlik', 'Şifrenizi değiştirebilir ve güvenlik ayarlarınızı yönetebilirsiniz.'),
                   ),
                   _buildProfileOption(
                     icon: Icons.notifications_outlined,
                     title: 'Bildirimler',
                     subtitle: 'Bildirim tercihlerini yönet',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Bildirimler', 'Bildirim tercihlerinizi buradan ayarlayabilirsiniz.'),
                   ),
                   _buildProfileOption(
                     icon: Icons.payment,
                     title: 'Ödeme Yöntemleri',
                     subtitle: 'Kart bilgileri ve ödeme geçmişi',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Ödeme Yöntemleri', 'Kart bilgilerinizi ve ödeme geçmişinizi görüntüleyebilirsiniz.'),
                   ),
                   _buildProfileOption(
                     icon: Icons.help_outline,
                     title: 'Yardım ve Destek',
                     subtitle: 'SSS, iletişim, geri bildirim',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Yardım ve Destek', 'Sık sorulan sorular ve destek bilgileri burada yer alır.'),
                   ),
                   _buildProfileOption(
                     icon: Icons.info_outline,
                     title: 'Hakkında',
                     subtitle: 'Uygulama sürümü ve yasal bilgiler',
-                    onTap: () {},
+                    onTap: () => _showInfoDialog(context, 'Hakkında', 'Ustam v1.0.0\n\nTürkiye\'nin en güvenilir usta bulma platformu.'),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(
@@ -155,6 +156,22 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
+  void _showInfoDialog(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Tamam'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showLogoutDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
@@ -170,6 +187,7 @@ class ProfileScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.pop(context);
               ref.read(authProvider.notifier).logout();
+              context.go('/login');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,

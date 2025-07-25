@@ -79,7 +79,10 @@ class JobsScreen extends ConsumerWidget {
                       Text('${DateTime.now().day + index}.${DateTime.now().month}.2024'),
                       const Spacer(),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Navigate to job detail page
+                          _showJobDetail(context, index);
+                        },
                         child: const Text('Detayları Gör'),
                       ),
                     ],
@@ -95,6 +98,79 @@ class JobsScreen extends ConsumerWidget {
           // Add new job request
         },
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showJobDetail(BuildContext context, int index) {
+    final jobs = [
+      {
+        'title': 'Elektrik Tesisatı Sorunu',
+        'description': 'Evimde elektrik kesintisi var, acil müdahale gerekiyor.',
+        'price': '500-800 TL',
+        'location': 'Kadıköy, İstanbul',
+        'date': '15.12.2024',
+        'status': 'Yeni'
+      },
+      {
+        'title': 'Su Tesisatı Tamiri',
+        'description': 'Mutfak lavabosunda su kaçağı mevcut.',
+        'price': '300-500 TL',
+        'location': 'Beşiktaş, İstanbul',
+        'date': '14.12.2024',
+        'status': 'Devam Ediyor'
+      },
+      {
+        'title': 'Daire Boyası',
+        'description': '2+1 daire tamamen boyanacak.',
+        'price': '2000-3000 TL',
+        'location': 'Şişli, İstanbul',
+        'date': '13.12.2024',
+        'status': 'Tamamlandı'
+      },
+    ];
+
+    final job = jobs[index % jobs.length];
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(job['title']!),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('📝 ${job['description']}'),
+            const SizedBox(height: 8),
+            Text('💰 Bütçe: ${job['price']}'),
+            const SizedBox(height: 8),
+            Text('📍 Konum: ${job['location']}'),
+            const SizedBox(height: 8),
+            Text('📅 Tarih: ${job['date']}'),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Text('📊 Durum: '),
+                _buildStatusChip(job['status']!),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Kapat'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('İş detayları güncellendi')),
+              );
+            },
+            child: const Text('İşlem Yap'),
+          ),
+        ],
       ),
     );
   }
