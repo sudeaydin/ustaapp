@@ -85,7 +85,7 @@ class HomeScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
-            _buildRecentActivity(isCustomer),
+            _buildRecentActivity(context, isCustomer),
             
             const SizedBox(height: 24),
             
@@ -303,7 +303,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildRecentActivity(bool isCustomer) {
+  Widget _buildRecentActivity(BuildContext context, bool isCustomer) {
     return Column(
       children: List.generate(3, (index) {
         return Card(
