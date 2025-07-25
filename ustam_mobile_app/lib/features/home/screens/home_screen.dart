@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -228,46 +229,63 @@ class HomeScreen extends ConsumerWidget {
   }) {
     return StatefulBuilder(
       builder: (context, setState) {
-        bool isHovered = false;
         bool isPressed = false;
+        bool isHovered = false;
         
         return MouseRegion(
           onEnter: (_) => setState(() => isHovered = true),
           onExit: (_) => setState(() => isHovered = false),
           child: GestureDetector(
             onTapDown: (_) => setState(() => isPressed = true),
-            onTapUp: (_) => setState(() => isPressed = false),
+            onTapUp: (_) {
+              setState(() => isPressed = false);
+              // Mobile için kısa hover efekti
+              setState(() => isHovered = true);
+              Future.delayed(const Duration(milliseconds: 150), () {
+                if (mounted) setState(() => isHovered = false);
+              });
+            },
             onTapCancel: () => setState(() => isPressed = false),
-            onTap: onTap,
+            onTap: () {
+              // Haptic feedback for mobile
+              HapticFeedback.lightImpact();
+              onTap();
+            },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
               transform: Matrix4.identity()
-                ..scale(isPressed ? 0.95 : (isHovered ? 1.05 : 1.0)),
+                ..scale(isPressed ? 0.92 : (isHovered ? 1.08 : 1.0)),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: isHovered 
-                    ? [color.withOpacity(0.2), color.withOpacity(0.1)]
-                    : [color.withOpacity(0.15), color.withOpacity(0.08)],
+                  colors: isPressed
+                    ? [color.withOpacity(0.3), color.withOpacity(0.15)]
+                    : isHovered 
+                      ? [color.withOpacity(0.25), color.withOpacity(0.12)]
+                      : [color.withOpacity(0.15), color.withOpacity(0.08)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isHovered ? color.withOpacity(0.4) : color.withOpacity(0.2),
-                  width: isHovered ? 2 : 1,
+                  color: isPressed 
+                    ? color.withOpacity(0.6)
+                    : isHovered 
+                      ? color.withOpacity(0.4) 
+                      : color.withOpacity(0.2),
+                  width: isPressed ? 3 : (isHovered ? 2 : 1),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(isHovered ? 0.25 : 0.15),
-                    blurRadius: isHovered ? 20 : 12,
-                    offset: Offset(0, isHovered ? 8 : 4),
-                    spreadRadius: isHovered ? 2 : 0,
+                    color: color.withOpacity(isPressed ? 0.4 : (isHovered ? 0.3 : 0.15)),
+                    blurRadius: isPressed ? 25 : (isHovered ? 20 : 12),
+                    offset: Offset(0, isPressed ? 2 : (isHovered ? 8 : 4)),
+                    spreadRadius: isPressed ? 0 : (isHovered ? 2 : 0),
                   ),
-                  if (isHovered) BoxShadow(
-                    color: Colors.white.withOpacity(0.8),
-                    blurRadius: 15,
-                    offset: const Offset(-4, -4),
+                  if (isHovered || isPressed) BoxShadow(
+                    color: Colors.white.withOpacity(isPressed ? 0.9 : 0.7),
+                    blurRadius: isPressed ? 20 : 15,
+                    offset: Offset(isPressed ? -2 : -4, isPressed ? -2 : -4),
                   ),
                 ],
               ),
@@ -280,28 +298,34 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: isHovered 
-                    ? [color.withOpacity(0.3), color.withOpacity(0.2)]
-                    : [color.withOpacity(0.2), color.withOpacity(0.1)],
+                  colors: isPressed
+                    ? [color.withOpacity(0.4), color.withOpacity(0.3)]
+                    : isHovered 
+                      ? [color.withOpacity(0.35), color.withOpacity(0.25)]
+                      : [color.withOpacity(0.2), color.withOpacity(0.1)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: isHovered ? [
+                boxShadow: (isHovered || isPressed) ? [
                   BoxShadow(
-                    color: color.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+                    color: color.withOpacity(isPressed ? 0.4 : 0.3),
+                    blurRadius: isPressed ? 15 : 10,
+                    offset: Offset(0, isPressed ? 2 : 4),
                   ),
                 ] : null,
               ),
               child: AnimatedScale(
                 duration: const Duration(milliseconds: 200),
-                scale: isHovered ? 1.1 : 1.0,
+                scale: isPressed ? 0.9 : (isHovered ? 1.15 : 1.0),
                 child: Icon(
                   icon, 
                   size: 28, 
-                  color: isHovered ? color : color.withOpacity(0.8),
+                  color: isPressed 
+                    ? color.withOpacity(0.9)
+                    : isHovered 
+                      ? color 
+                      : color.withOpacity(0.8),
                 ),
               ),
             ),
@@ -309,9 +333,13 @@ class HomeScreen extends ConsumerWidget {
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 200),
               style: TextStyle(
-                fontSize: isHovered ? 26 : 24,
+                fontSize: isPressed ? 28 : (isHovered ? 26 : 24),
                 fontWeight: FontWeight.bold,
-                color: isHovered ? color : color.withOpacity(0.9),
+                color: isPressed 
+                  ? color.withOpacity(0.95)
+                  : isHovered 
+                    ? color 
+                    : color.withOpacity(0.9),
               ),
               child: Text(value),
             ),
@@ -319,8 +347,12 @@ class HomeScreen extends ConsumerWidget {
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 200),
               style: TextStyle(
-                fontSize: isHovered ? 12 : 11,
-                color: isHovered ? Colors.grey[700] : Colors.grey[600],
+                fontSize: isPressed ? 13 : (isHovered ? 12 : 11),
+                color: isPressed 
+                  ? Colors.grey[800]
+                  : isHovered 
+                    ? Colors.grey[700] 
+                    : Colors.grey[600],
                 fontWeight: FontWeight.w500,
               ),
               child: Text(
