@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Colors - Modern & Vibrant
-  static const Color primaryColor = Color(0xFF6366F1); // Indigo
-  static const Color primaryDark = Color(0xFF4F46E5);
-  static const Color primaryLight = Color(0xFF8B5CF6);
+  // Colors - Blue & Orange System
+  static const Color primaryColor = Color(0xFF1E88E5); // Bright Blue
+  static const Color primaryDark = Color(0xFF1565C0);
+  static const Color primaryLight = Color(0xFF42A5F5);
   
-  static const Color secondaryColor = Color(0xFF06D6A0); // Emerald
-  static const Color accentColor = Color(0xFFFF6B6B); // Coral
+  static const Color secondaryColor = Color(0xFFFF7043); // Bright Orange
+  static const Color secondaryDark = Color(0xFFE64A19);
+  static const Color secondaryLight = Color(0xFFFF8A65);
+  
+  static const Color accentColor = Color(0xFFFFAB91); // Light Orange
   
   // Gradient Colors
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+    colors: [
+      Color(0xFF1E88E5), // Bright Blue
+      Color(0xFF42A5F5), // Light Blue
+      Color(0xFF64B5F6), // Lighter Blue
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient secondaryGradient = LinearGradient(
+    colors: [
+      Color(0xFFFF7043), // Bright Orange
+      Color(0xFFFF8A65), // Light Orange
+      Color(0xFFFFAB91), // Lighter Orange
+    ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
