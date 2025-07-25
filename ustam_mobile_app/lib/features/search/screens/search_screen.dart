@@ -167,7 +167,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     ),
                   ],
                 ),
-              ],
             ),
           ),
           
@@ -347,8 +346,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               },
             ),
           ),
-          ],
-        ),
+        ],
+      ),
     );
   }
 }
