@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,12 +26,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _handleLogin() async {
+  Future<void> _handleLogin(String userType) async {
     if (!_formKey.currentState!.validate()) return;
+
+    // Haptic feedback
+    HapticFeedback.lightImpact();
 
     final success = await ref.read(authProvider.notifier).login(
       _emailController.text.trim(),
       _passwordController.text,
+      userType: userType,
     );
 
     if (success && mounted) {
@@ -210,78 +215,74 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                     
-                    // Login Button
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.primaryGradient,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.primaryColor.withOpacity(0.4),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                            spreadRadius: 1,
+                    // Şifremi Unuttum Link
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Şifre sıfırlama özelliği yakında eklenecek'),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Şifremi Unuttum',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 14,
                           ),
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.8),
-                            blurRadius: 10,
-                            offset: const Offset(-4, -4),
-                          ),
-                          BoxShadow(
-                            color: AppTheme.primaryColor.withOpacity(0.1),
-                            blurRadius: 5,
-                            offset: const Offset(2, 2),
-                          ),
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 32),
+                    
+                    // Login Buttons
+                    _buildLoginButton(
+                      context: context,
+                      title: 'BİREYSEL GİRİŞ',
+                      subtitle: 'Müşteri olarak giriş yap',
+                      icon: Icons.home_outlined,
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF1E88E5), // Bright Blue
+                          Color(0xFF42A5F5), // Light Blue
+                          Color(0xFF64B5F6), // Lighter Blue
                         ],
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                          width: 1,
-                        ),
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                      child: ElevatedButton(
-                        onPressed: authState.isLoading ? null : _handleLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: authState.isLoading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                ),
-                              )
-                            : const Text('Giriş Yap'),
+                      shadowColor: const Color(0xFF1E88E5),
+                      onPressed: authState.isLoading ? null : () => _handleLogin('customer'),
+                      isLoading: authState.isLoading,
+                    ),
+                    
+                    const SizedBox(height: 16),
+                    
+                    _buildLoginButton(
+                      context: context,
+                      title: 'KURUMSAL GİRİŞ',
+                      subtitle: 'Usta/Zanaatkar olarak giriş yap',
+                      icon: Icons.build_circle_outlined,
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFFF7043), // Bright Orange
+                          Color(0xFFFF8A65), // Light Orange
+                          Color(0xFFFFAB91), // Lighter Orange
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
+                      shadowColor: const Color(0xFFFF7043),
+                      onPressed: authState.isLoading ? null : () => _handleLogin('craftsman'),
+                      isLoading: authState.isLoading,
                     ),
                   ],
                 ),
               ),
               
               const SizedBox(height: 24),
-              
-              // Forgot Password
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: Implement forgot password
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Şifre sıfırlama özelliği yakında eklenecek'),
-                      ),
-                    );
-                  },
-                  child: const Text('Şifremi Unuttum'),
-                ),
-              ),
               
               const SizedBox(height: 32),
               
@@ -360,6 +361,151 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ),
           ),
         ),
+    );
+  }
+
+  Widget _buildLoginButton({
+    required BuildContext context,
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Gradient gradient,
+    required Color shadowColor,
+    required VoidCallback? onPressed,
+    required bool isLoading,
+  }) {
+    return StatefulBuilder(
+      builder: (context, setState) {
+        bool isPressed = false;
+        bool isHovered = false;
+        
+        return MouseRegion(
+          onEnter: (_) => setState(() => isHovered = true),
+          onExit: (_) => setState(() => isHovered = false),
+          child: GestureDetector(
+            onTapDown: (_) => setState(() => isPressed = true),
+            onTapUp: (_) {
+              setState(() => isPressed = false);
+              // Mobile hover effect
+              setState(() => isHovered = true);
+              Future.delayed(const Duration(milliseconds: 150), () {
+                if (mounted) setState(() => isHovered = false);
+              });
+            },
+            onTapCancel: () => setState(() => isPressed = false),
+            onTap: onPressed,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              transform: Matrix4.identity()
+                ..scale(isPressed ? 0.95 : (isHovered ? 1.02 : 1.0)),
+              width: double.infinity,
+              height: 70,
+              decoration: BoxDecoration(
+                gradient: gradient,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: shadowColor.withOpacity(isPressed ? 0.6 : (isHovered ? 0.4 : 0.3)),
+                    blurRadius: isPressed ? 25 : (isHovered ? 20 : 15),
+                    offset: Offset(0, isPressed ? 2 : (isHovered ? 8 : 6)),
+                    spreadRadius: isPressed ? 0 : (isHovered ? 2 : 1),
+                  ),
+                  if (isHovered || isPressed) BoxShadow(
+                    color: Colors.white.withOpacity(isPressed ? 0.9 : 0.7),
+                    blurRadius: isPressed ? 20 : 15,
+                    offset: Offset(isPressed ? -2 : -4, isPressed ? -2 : -4),
+                  ),
+                ],
+                border: Border.all(
+                  color: Colors.white.withOpacity(isPressed ? 0.4 : (isHovered ? 0.3 : 0.2)),
+                  width: isPressed ? 2 : 1,
+                ),
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: onPressed,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    child: isLoading
+                        ? const Center(
+                            child: SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              ),
+                            ),
+                          )
+                        : Row(
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(isPressed ? 0.3 : (isHovered ? 0.25 : 0.2)),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: AnimatedScale(
+                                  duration: const Duration(milliseconds: 200),
+                                  scale: isPressed ? 0.9 : (isHovered ? 1.1 : 1.0),
+                                  child: Icon(
+                                    icon,
+                                    color: Colors.white,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AnimatedDefaultTextStyle(
+                                      duration: const Duration(milliseconds: 200),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: isPressed ? 17 : (isHovered ? 16 : 15),
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 0.5,
+                                      ),
+                                      child: Text(title),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    AnimatedDefaultTextStyle(
+                                      duration: const Duration(milliseconds: 200),
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(0.9),
+                                        fontSize: isPressed ? 13 : (isHovered ? 12 : 11),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      child: Text(subtitle),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              AnimatedRotation(
+                                duration: const Duration(milliseconds: 200),
+                                turns: isPressed ? 0.05 : (isHovered ? -0.05 : 0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white.withOpacity(0.8),
+                                  size: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

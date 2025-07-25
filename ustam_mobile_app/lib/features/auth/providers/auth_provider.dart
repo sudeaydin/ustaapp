@@ -72,7 +72,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<bool> login(String email, String password, {String? userType}) async {
     state = state.copyWith(isLoading: true, error: null);
     
     try {
@@ -80,34 +80,53 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // For now, simulate login
       await Future.delayed(const Duration(seconds: 1));
       
-      // Mock users
+      // Mock users - validate userType matches
       Map<String, dynamic>? user;
       
       if (email == 'customer@example.com' && password == 'password123') {
-        user = {
-          'id': 1,
-          'email': email,
-          'user_type': 'customer',
-          'first_name': 'Ahmet',
-          'last_name': 'Müşteri',
-        };
+        if (userType == null || userType == 'customer') {
+          user = {
+            'id': 1,
+            'email': email,
+            'user_type': 'customer',
+            'first_name': 'Ahmet',
+            'last_name': 'Müşteri',
+          };
+        }
       } else if (email == 'craftsman@example.com' && password == 'password123') {
-        user = {
-          'id': 2,
-          'email': email,
-          'user_type': 'craftsman',
-          'first_name': 'Mehmet',
-          'last_name': 'Usta',
-          'specialty': 'Elektrikçi',
-        };
+        if (userType == null || userType == 'craftsman') {
+          user = {
+            'id': 2,
+            'email': email,
+            'user_type': 'craftsman',
+            'first_name': 'Mehmet',
+            'last_name': 'Usta',
+            'specialty': 'Elektrikçi',
+          };
+        }
       } else if (email == 'admin@example.com' && password == 'admin123') {
-        user = {
-          'id': 3,
-          'email': email,
-          'user_type': 'admin',
-          'first_name': 'Admin',
-          'last_name': 'User',
-        };
+        if (userType == null || userType == 'admin') {
+          user = {
+            'id': 3,
+            'email': email,
+            'user_type': 'admin',
+            'first_name': 'Admin',
+            'last_name': 'User',
+          };
+        }
+      }
+      
+      // Additional validation for userType mismatch
+      if (user == null && userType != null) {
+        String errorMessage = userType == 'customer' 
+          ? 'Bu hesap bireysel kullanıcı hesabı değil'
+          : 'Bu hesap usta/zanaatkar hesabı değil';
+        
+        state = state.copyWith(
+          isLoading: false,
+          error: errorMessage,
+        );
+        return false;
       }
       
       if (user != null) {
