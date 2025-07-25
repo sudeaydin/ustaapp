@@ -1,31 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class JobsScreen extends ConsumerWidget {
   const JobsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('İşlerim'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              // Show filter options
-            },
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Column(
+          children: [
+            // Custom 3D AppBar
+            Container(
+              decoration: BoxDecoration(
+                gradient: AppTheme.primaryGradient,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.primaryColor.withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.work_outline,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text(
+                          'İşlerim',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.filter_list, color: Colors.white),
+                          onPressed: () {
+                            // Show filter options
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Body Content
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
         itemCount: 8,
         itemBuilder: (context, index) {
-          return Card(
+          return Container(
             margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              gradient: AppTheme.cardGradient,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.shadowDark,
+                  offset: const Offset(6, 6),
+                  blurRadius: 15,
+                  spreadRadius: 0,
+                ),
+                BoxShadow(
+                  color: AppTheme.shadowLight,
+                  offset: const Offset(-6, -6),
+                  blurRadius: 15,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -78,12 +153,41 @@ class JobsScreen extends ConsumerWidget {
                       const SizedBox(width: 4),
                       Text('${DateTime.now().day + index}.${DateTime.now().month}.2024'),
                       const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          // Navigate to job detail page
-                          _showJobDetail(context, index);
-                        },
-                        child: const Text('Detayları Gör'),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [AppTheme.primaryColor, AppTheme.primaryLight],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppTheme.primaryColor.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            // Navigate to job detail page
+                            _showJobDetail(context, index);
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Detayları Gör',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -92,12 +196,40 @@ class JobsScreen extends ConsumerWidget {
             ),
           );
         },
+              ),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add new job request
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          gradient: AppTheme.primaryGradient,
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.primaryColor.withOpacity(0.4),
+              blurRadius: 15,
+              offset: const Offset(0, 6),
+              spreadRadius: 1,
+            ),
+            BoxShadow(
+              color: Colors.white.withOpacity(0.8),
+              blurRadius: 8,
+              offset: const Offset(-3, -3),
+            ),
+          ],
+        ),
+        child: FloatingActionButton(
+          onPressed: () {
+            // Add new job request
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Yeni iş talebi özelliği yakında!')),
+            );
+          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: const Icon(Icons.add, color: Colors.white, size: 28),
+        ),
       ),
     );
   }

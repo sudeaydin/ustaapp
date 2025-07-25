@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
@@ -16,72 +18,151 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Usta Ara'),
-      ),
-      body: Column(
-        children: [
-          // Search Header
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                // Search Bar
-                TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Usta ara...',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Column(
+          children: [
+            // Custom 3D AppBar with Search
+            Container(
+              decoration: BoxDecoration(
+                gradient: AppTheme.primaryGradient,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.primaryColor.withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      // Header
+                      Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.search,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          const Text(
+                            'Usta Ara',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      // Search Bar
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Usta ara...',
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(16),
+                            prefixIcon: Icon(Icons.search, color: AppTheme.primaryColor),
+                            suffixIcon: _searchController.text.isNotEmpty
+                                ? IconButton(
+                                    icon: Icon(Icons.clear, color: AppTheme.primaryColor),
+                                    onPressed: () {
+                                      _searchController.clear();
+                                      setState(() {});
+                                    },
+                                  )
+                                : null,
+                          ),
+                          onChanged: (value) => setState(() {}),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                
-                const SizedBox(height: 16),
-                
-                // Filters
-                Row(
+              ),
+            ),
+            // Filters Section
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
                   children: [
                     Expanded(
-                      child: DropdownButtonFormField<String>(
-                        value: _selectedCategory,
-                        decoration: const InputDecoration(
-                          labelText: 'Kategori',
-                          border: OutlineInputBorder(),
+                      child: Container(
+                        decoration: AppTheme.neuomorphicDecoration,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: DropdownButtonFormField<String>(
+                            value: _selectedCategory,
+                            decoration: const InputDecoration(
+                              labelText: 'Kategori',
+                              border: InputBorder.none,
+                            ),
+                            items: const [
+                              DropdownMenuItem(value: 'all', child: Text('Tümü')),
+                              DropdownMenuItem(value: 'elektrik', child: Text('Elektrik')),
+                              DropdownMenuItem(value: 'tesisatci', child: Text('Tesisatçı')),
+                              DropdownMenuItem(value: 'boyaci', child: Text('Boyacı')),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedCategory = value!;
+                              });
+                            },
+                          ),
                         ),
-                        items: const [
-                          DropdownMenuItem(value: 'all', child: Text('Tümü')),
-                          DropdownMenuItem(value: 'elektrik', child: Text('Elektrik')),
-                          DropdownMenuItem(value: 'tesisatci', child: Text('Tesisatçı')),
-                          DropdownMenuItem(value: 'boyaci', child: Text('Boyacı')),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedCategory = value!;
-                          });
-                        },
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: DropdownButtonFormField<String>(
-                        value: _selectedCity,
-                        decoration: const InputDecoration(
-                          labelText: 'Şehir',
-                          border: OutlineInputBorder(),
+                      child: Container(
+                        decoration: AppTheme.neuomorphicDecoration,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: DropdownButtonFormField<String>(
+                            value: _selectedCity,
+                            decoration: const InputDecoration(
+                              labelText: 'Şehir',
+                              border: InputBorder.none,
+                            ),
+                            items: const [
+                              DropdownMenuItem(value: 'all', child: Text('Tümü')),
+                              DropdownMenuItem(value: 'istanbul', child: Text('İstanbul')),
+                              DropdownMenuItem(value: 'ankara', child: Text('Ankara')),
+                              DropdownMenuItem(value: 'izmir', child: Text('İzmir')),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedCity = value!;
+                              });
+                            },
+                          ),
                         ),
-                        items: const [
-                          DropdownMenuItem(value: 'all', child: Text('Tümü')),
-                          DropdownMenuItem(value: 'istanbul', child: Text('İstanbul')),
-                          DropdownMenuItem(value: 'ankara', child: Text('Ankara')),
-                          DropdownMenuItem(value: 'izmir', child: Text('İzmir')),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedCity = value!;
-                          });
-                        },
                       ),
                     ),
                   ],
@@ -96,22 +177,55 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               padding: const EdgeInsets.all(16),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return Card(
+                return Container(
                   margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.cardGradient,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppTheme.shadowDark,
+                        offset: const Offset(6, 6),
+                        blurRadius: 15,
+                        spreadRadius: 0,
+                      ),
+                      BoxShadow(
+                        color: AppTheme.shadowLight,
+                        offset: const Offset(-6, -6),
+                        blurRadius: 15,
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.blue.shade100,
-                              child: Icon(
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primaryColor.withOpacity(0.3),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
                                 Icons.person,
                                 size: 30,
-                                color: Colors.blue,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(width: 16),
@@ -176,18 +290,52 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: OutlinedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.chat),
-                                label: const Text('Mesaj Gönder'),
+                              child: Container(
+                                decoration: AppTheme.neuomorphicDecoration,
+                                child: OutlinedButton.icon(
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Mesaj özelliği yakında!')),
+                                    );
+                                  },
+                                  icon: Icon(Icons.chat, color: AppTheme.primaryColor),
+                                  label: Text('Mesaj Gönder', style: TextStyle(color: AppTheme.primaryColor)),
+                                  style: OutlinedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    side: BorderSide.none,
+                                    elevation: 0,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
-                              child: ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.request_quote),
-                                label: const Text('Teklif İste'),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: AppTheme.primaryGradient,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppTheme.primaryColor.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Teklif özelliği yakında!')),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.request_quote, color: Colors.white),
+                                  label: const Text('Teklif İste', style: TextStyle(color: Colors.white)),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                    shadowColor: Colors.transparent,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -199,8 +347,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               },
             ),
           ),
-        ],
-      ),
+            ],
+          ),
+        ),
     );
   }
 }
