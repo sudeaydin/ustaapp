@@ -226,61 +226,116 @@ class HomeScreen extends ConsumerWidget {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withOpacity(0.1), color.withOpacity(0.05)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+    return StatefulBuilder(
+      builder: (context, setState) {
+        bool isHovered = false;
+        bool isPressed = false;
+        
+        return MouseRegion(
+          onEnter: (_) => setState(() => isHovered = true),
+          onExit: (_) => setState(() => isHovered = false),
+          child: GestureDetector(
+            onTapDown: (_) => setState(() => isPressed = true),
+            onTapUp: (_) => setState(() => isPressed = false),
+            onTapCancel: () => setState(() => isPressed = false),
+            onTap: onTap,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              transform: Matrix4.identity()
+                ..scale(isPressed ? 0.95 : (isHovered ? 1.05 : 1.0)),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: isHovered 
+                    ? [color.withOpacity(0.2), color.withOpacity(0.1)]
+                    : [color.withOpacity(0.15), color.withOpacity(0.08)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isHovered ? color.withOpacity(0.4) : color.withOpacity(0.2),
+                  width: isHovered ? 2 : 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withOpacity(isHovered ? 0.25 : 0.15),
+                    blurRadius: isHovered ? 20 : 12,
+                    offset: Offset(0, isHovered ? 8 : 4),
+                    spreadRadius: isHovered ? 2 : 0,
+                  ),
+                  if (isHovered) BoxShadow(
+                    color: Colors.white.withOpacity(0.8),
+                    blurRadius: 15,
+                    offset: const Offset(-4, -4),
+                  ),
+                ],
+              ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Container(
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  colors: isHovered 
+                    ? [color.withOpacity(0.3), color.withOpacity(0.2)]
+                    : [color.withOpacity(0.2), color.withOpacity(0.1)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: isHovered ? [
+                  BoxShadow(
+                    color: color.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ] : null,
               ),
-              child: Icon(icon, size: 28, color: color),
+              child: AnimatedScale(
+                duration: const Duration(milliseconds: 200),
+                scale: isHovered ? 1.1 : 1.0,
+                child: Icon(
+                  icon, 
+                  size: 28, 
+                  color: isHovered ? color : color.withOpacity(0.8),
+                ),
+              ),
             ),
             const SizedBox(height: 12),
-            Text(
-              value,
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
               style: TextStyle(
-                fontSize: 24,
+                fontSize: isHovered ? 26 : 24,
                 fontWeight: FontWeight.bold,
-                color: color,
+                color: isHovered ? color : color.withOpacity(0.9),
               ),
+              child: Text(value),
             ),
             const SizedBox(height: 4),
-            Text(
-              title,
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
               style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey[600],
+                fontSize: isHovered ? 12 : 11,
+                color: isHovered ? Colors.grey[700] : Colors.grey[600],
                 fontWeight: FontWeight.w500,
               ),
-              textAlign: TextAlign.center,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
-      ),
-        ),
-      );
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildQuickActions(BuildContext context, bool isCustomer) {
