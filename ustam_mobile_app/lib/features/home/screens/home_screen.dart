@@ -177,7 +177,6 @@ class HomeScreen extends ConsumerWidget {
         ),
       ),
     );
-    );
   }
 
   Widget _buildStatsSection(bool isCustomer) {
