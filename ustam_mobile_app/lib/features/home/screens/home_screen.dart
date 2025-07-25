@@ -424,25 +424,25 @@ class HomeScreen extends ConsumerWidget {
           _buildActionCard(
             title: 'Yeni İş Talebi',
             icon: Icons.add_circle_outline,
-            color: Colors.blue,
+            color: AppTheme.primaryColor,
             onTap: () => context.push('/job-request/new'),
           ),
           _buildActionCard(
             title: 'Usta Ara',
             icon: Icons.search,
-            color: Colors.green,
+            color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
           ),
           _buildActionCard(
             title: 'Mesajlarım',
             icon: Icons.chat_bubble_outline,
-            color: Colors.purple,
+            color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
           _buildActionCard(
             title: 'Ödeme Geçmişi',
             icon: Icons.payment,
-            color: Colors.orange,
+            color: AppTheme.secondaryLight,
             onTap: () => context.push('/payment-history'),
           ),
         ],
@@ -459,25 +459,25 @@ class HomeScreen extends ConsumerWidget {
           _buildActionCard(
             title: 'Tekliflerim',
             icon: Icons.assignment_outlined,
-            color: Colors.blue,
+            color: AppTheme.primaryColor,
             onTap: () => context.go('/jobs'),
           ),
           _buildActionCard(
             title: 'Yeni Teklifler',
             icon: Icons.notification_add,
-            color: Colors.green,
+            color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
           ),
           _buildActionCard(
             title: 'Mesajlarım',
             icon: Icons.chat_bubble_outline,
-            color: Colors.purple,
+            color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
           _buildActionCard(
             title: 'Portföyüm',
             icon: Icons.photo_library_outlined,
-            color: Colors.orange,
+            color: AppTheme.secondaryLight,
             onTap: () => context.go('/profile'),
           ),
         ],
@@ -553,10 +553,10 @@ class HomeScreen extends ConsumerWidget {
 
   Widget _buildPopularCategories(BuildContext context) {
     final categories = [
-      {'name': 'Elektrik', 'icon': Icons.electrical_services, 'color': Colors.yellow},
-      {'name': 'Su Tesisatı', 'icon': Icons.plumbing, 'color': Colors.blue},
-      {'name': 'Boyacı', 'icon': Icons.format_paint, 'color': Colors.red},
-      {'name': 'Temizlik', 'icon': Icons.cleaning_services, 'color': Colors.green},
+      {'name': 'Elektrik', 'icon': Icons.electrical_services, 'color': AppTheme.secondaryColor},
+      {'name': 'Su Tesisatı', 'icon': Icons.plumbing, 'color': AppTheme.primaryColor},
+      {'name': 'Boyacı', 'icon': Icons.format_paint, 'color': AppTheme.secondaryLight},
+      {'name': 'Temizlik', 'icon': Icons.cleaning_services, 'color': AppTheme.primaryLight},
     ];
 
     return SizedBox(
