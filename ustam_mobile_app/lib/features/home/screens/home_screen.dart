@@ -127,7 +127,7 @@ class HomeScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Stats Cards
-                    _buildStatsSection(isCustomer),
+                    _buildStatsSection(context, isCustomer),
                     
                     const SizedBox(height: 24),
                     
@@ -179,7 +179,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatsSection(bool isCustomer) {
+  Widget _buildStatsSection(BuildContext context, bool isCustomer) {
     return Row(
       children: [
         Expanded(
