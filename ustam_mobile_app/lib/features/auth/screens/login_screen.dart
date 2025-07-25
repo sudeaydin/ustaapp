@@ -48,7 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           gradient: AppTheme.backgroundGradient,
         ),
         child: SafeArea(
-        child: SingleChildScrollView(
+          child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -358,7 +358,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ],
           ),
         ),
-      ),
+          ),
+        ),
     );
   }
 }
