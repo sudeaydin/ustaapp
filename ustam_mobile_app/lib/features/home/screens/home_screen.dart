@@ -242,7 +242,7 @@ class HomeScreen extends ConsumerWidget {
               // Mobile için kısa hover efekti
               setState(() => isHovered = true);
               Future.delayed(const Duration(milliseconds: 150), () {
-                if (mounted) setState(() => isHovered = false);
+                setState(() => isHovered = false);
               });
             },
             onTapCancel: () => setState(() => isPressed = false),

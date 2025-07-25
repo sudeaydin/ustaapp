@@ -389,7 +389,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               // Mobile hover effect
               setState(() => isHovered = true);
               Future.delayed(const Duration(milliseconds: 150), () {
-                if (mounted) setState(() => isHovered = false);
+                setState(() => isHovered = false);
               });
             },
             onTapCancel: () => setState(() => isPressed = false),
