@@ -135,8 +135,47 @@ Hizmet verdiğim alanlar:
     }
   ]);
 
-
   useEffect(() => {
+    // Set reviews data
+    setReviews([
+      {
+        id: 1,
+        customer: 'Mehmet K.',
+        rating: 5,
+        comment: 'Çok profesyonel ve titiz çalışıyor. LED aydınlatma sistemi için aldığım hizmet mükemmeldi. Kesinlikle tavsiye ederim.',
+        date: '2025-01-20',
+        service: 'LED Aydınlatma',
+        helpful_votes: 8
+      },
+      {
+        id: 2,
+        customer: 'Ayşe D.',
+        rating: 5,
+        comment: 'Elektrik panosu arızası için çağırdım. Çok hızlı geldi ve sorunu kısa sürede çözdü. Fiyatı da uygundu.',
+        date: '2025-01-18',
+        service: 'Elektrik Onarımı',
+        helpful_votes: 5
+      },
+      {
+        id: 3,
+        customer: 'Can S.',
+        rating: 4,
+        comment: 'İyi iş çıkardı ama biraz geç geldi. Sonuç olarak memnunum.',
+        date: '2025-01-15',
+        service: 'Ev Elektrik Tesisatı',
+        helpful_votes: 2
+      },
+      {
+        id: 4,
+        customer: 'Zeynep T.',
+        rating: 5,
+        comment: 'Akıllı ev sistemleri konusunda çok bilgili. Evimizi tamamen otomatikleştirdi. Harika!',
+        date: '2025-01-12',
+        service: 'Ev Otomasyonu',
+        helpful_votes: 12
+      }
+    ]);
+    
     // Simulate loading
     setTimeout(() => setLoading(false), 1000);
     loadReviews();

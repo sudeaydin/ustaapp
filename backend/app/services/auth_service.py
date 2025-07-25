@@ -57,7 +57,7 @@ class AuthService:
             return None, "Geçersiz email veya şifre"
         
         # Create access token
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         
         return {
             'access_token': access_token,

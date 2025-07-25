@@ -83,7 +83,7 @@ def create_app(config_name='default'):
                 return jsonify({'success': False, 'message': 'Geçersiz email veya şifre'}), 401
             
             # Create token
-            access_token = create_access_token(identity=user.id)
+            access_token = create_access_token(identity=str(user.id))
             
             return jsonify({
                 'success': True,
@@ -164,7 +164,7 @@ def create_app(config_name='default'):
             db.session.commit()
             
             # Create token
-            access_token = create_access_token(identity=user.id)
+            access_token = create_access_token(identity=str(user.id))
             
             return jsonify({
                 'success': True,

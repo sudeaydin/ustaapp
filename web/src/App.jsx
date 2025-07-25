@@ -5,8 +5,12 @@ import { AuthProvider } from './context/AuthContext';
 
 // Import pages
 import { StartPage } from './pages/StartPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import { HomePage } from './pages/HomePage';
 import { CraftsmanListPage } from './pages/CraftsmanListPage';
+import ProfilePage from './pages/ProfilePage';
+import MessagesPage from './pages/MessagesPage';
 import TestUploadPage from './pages/TestUploadPage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import RealTimeChatPage from './pages/RealTimeChatPage';
@@ -24,14 +28,11 @@ import JobListPage from './pages/JobListPage';
 import JobDetailPage from './pages/JobDetailPage';
 import ProposalFormPage from './pages/ProposalFormPage';
 import JobProgressPage from './pages/JobProgressPage';
-import MessagesPage from './pages/MessagesPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ProfilePage from './pages/ProfilePage';
-import LandingPage from './pages/LandingPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import TestingPage from './pages/TestingPage';
+import LandingPage from './pages/LandingPage';
+import SearchPage from './pages/SearchPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentHistory from './components/PaymentHistory';
 import { NotificationProvider } from './context/NotificationContext';
@@ -63,6 +64,7 @@ function App() {
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
               <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/craftsman/:id" element={<PublicRoute><CraftsmanProfilePage /></PublicRoute>} />
               
               {/* 🔒 Protected Routes - Login required */}

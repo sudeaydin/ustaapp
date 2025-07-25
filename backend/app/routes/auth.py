@@ -112,7 +112,7 @@ def register():
         db.session.commit()
         
         # Create access token
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         
         return jsonify({
             'success': True,
@@ -167,7 +167,7 @@ def login():
         db.session.commit()
         
         # Create access token
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         
         return jsonify({
             'success': True,
