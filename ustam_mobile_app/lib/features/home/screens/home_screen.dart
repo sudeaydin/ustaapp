@@ -15,92 +15,168 @@ class HomeScreen extends ConsumerWidget {
     final isCustomer = user?['user_type'] == 'customer';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Merhaba, ${user?['first_name'] ?? 'Kullanıcı'}'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () => context.push('/notifications'),
-          ),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              switch (value) {
-                case 'profile':
-                  context.go('/profile');
-                  break;
-                case 'logout':
-                  ref.read(authProvider.notifier).logout();
-                  context.go('/login');
-                  break;
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'profile',
-                child: Row(
-                  children: [
-                    Icon(Icons.person_outlined),
-                    SizedBox(width: 8),
-                    Text('Profil'),
-                  ],
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'logout',
-                child: Row(
-                  children: [
-                    Icon(Icons.logout),
-                    SizedBox(width: 8),
-                    Text('Çıkış Yap'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Stats Cards
-            _buildStatsSection(isCustomer),
-            
-            const SizedBox(height: 24),
-            
-            // Quick Actions
-            Text(
-              'Hızlı İşlemler',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 16),
-            _buildQuickActions(context, isCustomer),
-            
-            const SizedBox(height: 24),
-            
-            // Recent Activity
-            Text(
-              isCustomer ? 'Son İşlerim' : 'Son Tekliflerim',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 16),
-            _buildRecentActivity(context, isCustomer),
-            
-            const SizedBox(height: 24),
-            
-            // Popular Categories (for customers)
-            if (isCustomer) ...[
-              Text(
-                'Popüler Kategoriler',
-                style: Theme.of(context).textTheme.headlineSmall,
+            // Custom AppBar with 3D effect
+            Container(
+              decoration: BoxDecoration(
+                gradient: AppTheme.primaryGradient,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.primaryColor.withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              _buildPopularCategories(context),
-            ],
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      // Logo
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(-2, -2),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.build_circle,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      // Title
+                      Expanded(
+                        child: Text(
+                          'Merhaba, ${user?['first_name'] ?? 'Kullanıcı'}! 👋',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      // Menu Button
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: PopupMenuButton<String>(
+                          icon: const Icon(Icons.more_vert, color: Colors.white),
+                          onSelected: (value) {
+                            switch (value) {
+                              case 'profile':
+                                context.go('/profile');
+                                break;
+                              case 'logout':
+                                ref.read(authProvider.notifier).logout();
+                                context.go('/login');
+                                break;
+                            }
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 'profile',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.person_outlined),
+                                  SizedBox(width: 8),
+                                  Text('Profil'),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 'logout',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.logout),
+                                  SizedBox(width: 8),
+                                  Text('Çıkış Yap'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Body Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Stats Cards
+                    _buildStatsSection(isCustomer),
+                    
+                    const SizedBox(height: 24),
+                    
+                    // Quick Actions
+                    Text(
+                      'Hızlı İşlemler',
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildQuickActions(context, isCustomer),
+                    
+                    const SizedBox(height: 24),
+                    
+                    // Recent Activity
+                    Text(
+                      isCustomer ? 'Son İşlerim' : 'Son Tekliflerim',
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildRecentActivity(context, isCustomer),
+                    
+                    const SizedBox(height: 24),
+                    
+                    // Popular Categories (for customers)
+                    if (isCustomer) ...[
+                      Text(
+                        'Popüler Kategoriler',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _buildPopularCategories(context),
+                    ],
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
     );
   }
 

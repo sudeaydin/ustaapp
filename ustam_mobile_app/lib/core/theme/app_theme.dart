@@ -22,9 +22,20 @@ class AppTheme {
     end: Alignment.bottomCenter,
   );
   
-  static const Color backgroundColor = Color(0xFFF8FAFC);
+  static const Color backgroundColor = Color(0xFFF1F5F9);
   static const Color surfaceColor = Color(0xFFFFFFFF);
   static const Color cardColor = Color(0xFFFFFFFF);
+  
+  // 3D Effect Colors
+  static const Color shadowLight = Color(0xFFFFFFFF);
+  static const Color shadowDark = Color(0xFFE2E8F0);
+  
+  // Background Gradient
+  static const LinearGradient backgroundGradient = LinearGradient(
+    colors: [Color(0xFFF8FAFC), Color(0xFFE2E8F0)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
   
   static const Color textPrimary = Color(0xFF1F2937);
   static const Color textSecondary = Color(0xFF6B7280);
@@ -36,6 +47,45 @@ class AppTheme {
   
   static const Color borderColor = Color(0xFFE5E7EB);
   static const Color dividerColor = Color(0xFFE5E7EB);
+
+  // 3D Button Styles
+  static BoxDecoration get neuomorphicDecoration => BoxDecoration(
+    color: surfaceColor,
+    borderRadius: BorderRadius.circular(16),
+    boxShadow: [
+      BoxShadow(
+        color: shadowDark,
+        offset: const Offset(6, 6),
+        blurRadius: 12,
+        spreadRadius: 0,
+      ),
+      BoxShadow(
+        color: shadowLight,
+        offset: const Offset(-6, -6),
+        blurRadius: 12,
+        spreadRadius: 0,
+      ),
+    ],
+  );
+
+  static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
+    color: backgroundColor,
+    borderRadius: BorderRadius.circular(16),
+    boxShadow: [
+      BoxShadow(
+        color: shadowDark,
+        offset: const Offset(3, 3),
+        blurRadius: 6,
+        spreadRadius: 0,
+      ),
+      BoxShadow(
+        color: shadowLight,
+        offset: const Offset(-3, -3),
+        blurRadius: 6,
+        spreadRadius: 0,
+      ),
+    ],
+  );
 
   // Light Theme
   static ThemeData get lightTheme {
