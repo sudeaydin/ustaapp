@@ -17,24 +17,60 @@ class AppTheme {
   );
   
   static const LinearGradient cardGradient = LinearGradient(
-    colors: [Color(0xFFFFFFFF), Color(0xFFF8FAFC)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFFFFFFF), 
+      Color(0xFFFBFCFE), 
+      Color(0xFFF6F8FB)
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.0, 0.4, 1.0],
   );
   
   static const Color backgroundColor = Color(0xFFF1F5F9);
-  static const Color surfaceColor = Color(0xFFFFFFFF);
-  static const Color cardColor = Color(0xFFFFFFFF);
+  static const Color surfaceColor = Color(0xFFFBFCFE);
+  static const Color cardColor = Color(0xFFFBFCFE);
   
-  // 3D Effect Colors
+  // 3D Effect Colors - More sophisticated
   static const Color shadowLight = Color(0xFFFFFFFF);
-  static const Color shadowDark = Color(0xFFE2E8F0);
+  static const Color shadowDark = Color(0xFFD1D9E6);
+  static const Color shadowMedium = Color(0xFFE8EDF5);
   
-  // Background Gradient
+  // Enhanced Background Gradients
   static const LinearGradient backgroundGradient = LinearGradient(
-    colors: [Color(0xFFF8FAFC), Color(0xFFE2E8F0)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFF8FAFC), 
+      Color(0xFFEEF2F7), 
+      Color(0xFFE2E8F0)
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.0, 0.5, 1.0],
+  );
+  
+  // Status Button Gradients
+  static const LinearGradient activeGradient = LinearGradient(
+    colors: [Color(0xFF10B981), Color(0xFF059669)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient pendingGradient = LinearGradient(
+    colors: [Color(0xFFF59E0B), Color(0xFFD97706)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient completedGradient = LinearGradient(
+    colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient cancelledGradient = LinearGradient(
+    colors: [Color(0xFFEF4444), Color(0xFFDC2626)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
   
   static const Color textPrimary = Color(0xFF1F2937);

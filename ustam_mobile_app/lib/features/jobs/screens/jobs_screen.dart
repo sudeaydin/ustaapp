@@ -308,30 +308,61 @@ class JobsScreen extends ConsumerWidget {
   }
 
   Widget _buildStatusChip(String status) {
-    Color color;
+    LinearGradient gradient;
+    IconData icon;
+    
     switch (status) {
       case 'Yeni':
-        color = Colors.orange;
+        gradient = AppTheme.pendingGradient;
+        icon = Icons.new_releases;
         break;
       case 'Devam Ediyor':
-        color = Colors.blue;
+        gradient = AppTheme.activeGradient;
+        icon = Icons.trending_up;
         break;
       case 'Tamamlandı':
-        color = Colors.green;
+        gradient = AppTheme.completedGradient;
+        icon = Icons.check_circle;
         break;
       case 'İptal':
-        color = Colors.red;
+        gradient = AppTheme.cancelledGradient;
+        icon = Icons.cancel;
         break;
       default:
-        color = Colors.grey;
+        gradient = const LinearGradient(colors: [Colors.grey, Colors.grey]);
+        icon = Icons.help;
     }
 
-    return Chip(
-      label: Text(
-        status,
-        style: const TextStyle(fontSize: 12, color: Colors.white),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: gradient.colors.first.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      backgroundColor: color,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: Colors.white),
+            const SizedBox(width: 4),
+            Text(
+              status,
+              style: const TextStyle(
+                fontSize: 12, 
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -184,28 +184,34 @@ class HomeScreen extends ConsumerWidget {
       children: [
         Expanded(
           child: _buildStatCard(
+            context: context,
             title: isCustomer ? 'Toplam İşlerim' : 'Toplam Tekliflerim',
             value: '12',
             icon: Icons.work_outline,
             color: Colors.blue,
+            onTap: () => context.go('/jobs'),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: _buildStatCard(
+            context: context,
             title: isCustomer ? 'Aktif İşler' : 'Bekleyen Teklifler',
             value: '3',
             icon: Icons.pending_actions,
             color: Colors.orange,
+            onTap: () => context.go('/jobs'),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: _buildStatCard(
+            context: context,
             title: isCustomer ? 'Tamamlanan' : 'Kazanılan',
             value: '9',
             icon: Icons.check_circle_outline,
             color: Colors.green,
+            onTap: () => context.go('/jobs'),
           ),
         ),
       ],
@@ -213,12 +219,16 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildStatCard({
+    required BuildContext context,
     required String title,
     required String value,
     required IconData icon,
     required Color color,
+    required VoidCallback onTap,
   }) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [color.withOpacity(0.1), color.withOpacity(0.05)],
@@ -269,7 +279,8 @@ class HomeScreen extends ConsumerWidget {
           ],
         ),
       ),
-    );
+        ),
+      );
   }
 
   Widget _buildQuickActions(BuildContext context, bool isCustomer) {
