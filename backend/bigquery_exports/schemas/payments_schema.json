@@ -1,0 +1,72 @@
+[
+  {
+    "name": "payment_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "transaction_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "job_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "customer_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "craftsman_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "amount",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "platform_fee",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "craftsman_amount",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "payment_method",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "payment_provider",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "currency",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "completed_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

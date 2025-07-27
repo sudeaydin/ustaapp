@@ -1,0 +1,92 @@
+[
+  {
+    "name": "craftsman_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "business_name",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "business_type",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "description",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "hourly_rate",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "min_job_price",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "service_radius",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "average_rating",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_reviews",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "completion_rate",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_available",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_verified",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_featured",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "verification_level",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "updated_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

@@ -40,6 +40,8 @@ def create_app(config_name='default'):
     from app.routes.notification import notification_bp
     from app.routes.analytics import analytics_bp
     from app.routes.job import job_bp
+    from app.routes.production_api import production_api
+    from app.routes.mobile_api import mobile_api
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -48,6 +50,10 @@ def create_app(config_name='default'):
     app.register_blueprint(notification_bp, url_prefix='/api/notifications')
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')
+    
+    # Production and Mobile APIs
+    app.register_blueprint(production_api, url_prefix='/api/v2')
+    app.register_blueprint(mobile_api, url_prefix='/api/mobile')
     
     # Initialize SocketIO events
     from app.socketio_events import init_socketio_events

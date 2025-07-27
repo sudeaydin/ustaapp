@@ -1,0 +1,67 @@
+[
+  {
+    "name": "category_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "name",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "name_en",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "slug",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "description",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "icon",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "color",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_active",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_featured",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "sort_order",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_craftsmen",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

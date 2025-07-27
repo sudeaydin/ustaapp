@@ -1,0 +1,52 @@
+[
+  {
+    "name": "notification_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "title",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "type",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "related_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "related_type",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_read",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_sent",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "read_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

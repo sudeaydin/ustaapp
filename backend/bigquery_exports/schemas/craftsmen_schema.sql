@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `ustam_analytics.craftsmen` (
+  craftsman_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  business_name STRING,
+  business_type STRING,
+  description STRING,
+  hourly_rate NUMERIC,
+  min_job_price NUMERIC,
+  service_radius INTEGER,
+  average_rating NUMERIC,
+  total_reviews INTEGER,
+  total_jobs INTEGER,
+  completion_rate NUMERIC,
+  is_available BOOLEAN,
+  is_verified BOOLEAN,
+  is_featured BOOLEAN,
+  verification_level STRING,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+);
