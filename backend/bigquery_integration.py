@@ -328,6 +328,112 @@ class UstamBigQueryExporter:
             logger.info(f"Jobs data exported: {len(data)} records -> {filepath}")
             return filepath, len(data)
     
+    def export_categories_data(self):
+        """Export categories data for BigQuery"""
+        with self.app.app_context():
+            categories = Category.query.all()
+            
+            data = []
+            for category in categories:
+                data.append({
+                    'category_id': category.id,
+                    'name': category.name,
+                    'name_en': category.name_en,
+                    'slug': category.slug,
+                    'description': category.description,
+                    'icon': category.icon,
+                    'color': category.color,
+                    'image_url': category.image_url,
+                    'meta_title': category.meta_title,
+                    'meta_description': category.meta_description,
+                    'is_active': category.is_active,
+                    'is_featured': category.is_featured,
+                    'sort_order': category.sort_order,
+                    'total_jobs': category.total_jobs,
+                    'total_craftsmen': category.total_craftsmen,
+                    'created_at': category.created_at.isoformat() if category.created_at else None
+                })
+            
+            filename = f"categories_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            filepath = os.path.join(self.export_dir, filename)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                for record in data:
+                    f.write(json.dumps(record, ensure_ascii=False) + '\n')
+            
+            logger.info(f"Categories data exported: {len(data)} records -> {filepath}")
+            return filepath, len(data)
+
+    def export_customers_data(self):
+        """Export customers data for BigQuery"""
+        with self.app.app_context():
+            customers = Customer.query.all()
+            
+            data = []
+            for customer in customers:
+                data.append({
+                    'customer_id': customer.id,
+                    'user_id': customer.user_id,
+                    'company_name': customer.company_name,
+                    'tax_number': customer.tax_number,
+                    'billing_address': customer.billing_address,
+                    'preferred_contact_method': customer.preferred_contact_method,
+                    'notification_preferences': customer.notification_preferences,
+                    'total_jobs': customer.total_jobs,
+                    'total_spent': float(customer.total_spent) if customer.total_spent else 0.0,
+                    'average_rating': float(customer.average_rating) if customer.average_rating else 0.0,
+                    'created_at': customer.created_at.isoformat() if customer.created_at else None,
+                    'updated_at': customer.updated_at.isoformat() if customer.updated_at else None
+                })
+            
+            filename = f"customers_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            filepath = os.path.join(self.export_dir, filename)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                for record in data:
+                    f.write(json.dumps(record, ensure_ascii=False) + '\n')
+            
+            logger.info(f"Customers data exported: {len(data)} records -> {filepath}")
+            return filepath, len(data)
+
+    def export_craftsmen_data(self):
+        """Export craftsmen data for BigQuery"""
+        with self.app.app_context():
+            craftsmen = Craftsman.query.all()
+            
+            data = []
+            for craftsman in craftsmen:
+                data.append({
+                    'craftsman_id': craftsman.id,
+                    'user_id': craftsman.user_id,
+                    'business_name': craftsman.business_name,
+                    'business_type': craftsman.business_type,
+                    'description': craftsman.description,
+                    'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+                    'min_job_price': float(craftsman.min_job_price) if craftsman.min_job_price else None,
+                    'service_radius': craftsman.service_radius,
+                    'average_rating': float(craftsman.average_rating) if craftsman.average_rating else 0.0,
+                    'total_reviews': craftsman.total_reviews,
+                    'total_jobs': craftsman.total_jobs,
+                    'completion_rate': float(craftsman.completion_rate) if craftsman.completion_rate else 0.0,
+                    'is_available': craftsman.is_available,
+                    'is_verified': craftsman.is_verified,
+                    'is_featured': craftsman.is_featured,
+                    'verification_level': craftsman.verification_level,
+                    'created_at': craftsman.created_at.isoformat() if craftsman.created_at else None,
+                    'updated_at': craftsman.updated_at.isoformat() if craftsman.updated_at else None
+                })
+            
+            filename = f"craftsmen_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            filepath = os.path.join(self.export_dir, filename)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                for record in data:
+                    f.write(json.dumps(record, ensure_ascii=False) + '\n')
+            
+            logger.info(f"Craftsmen data exported: {len(data)} records -> {filepath}")
+            return filepath, len(data)
+
     def export_all_data(self):
         """Export all data for BigQuery"""
         exports = {}
@@ -339,15 +445,33 @@ class UstamBigQueryExporter:
         except Exception as e:
             logger.error(f"Failed to export users: {str(e)}")
         
+        # Export categories
+        try:
+            filepath, count = self.export_categories_data()
+            exports['categories'] = {'file': filepath, 'count': count}
+        except Exception as e:
+            logger.error(f"Failed to export categories: {str(e)}")
+        
+        # Export customers
+        try:
+            filepath, count = self.export_customers_data()
+            exports['customers'] = {'file': filepath, 'count': count}
+        except Exception as e:
+            logger.error(f"Failed to export customers: {str(e)}")
+        
+        # Export craftsmen
+        try:
+            filepath, count = self.export_craftsmen_data()
+            exports['craftsmen'] = {'file': filepath, 'count': count}
+        except Exception as e:
+            logger.error(f"Failed to export craftsmen: {str(e)}")
+        
         # Export jobs
         try:
             filepath, count = self.export_jobs_data()
             exports['jobs'] = {'file': filepath, 'count': count}
         except Exception as e:
             logger.error(f"Failed to export jobs: {str(e)}")
-        
-        # Export other tables...
-        # (Add similar methods for customers, craftsmen, etc.)
         
         return exports
     
