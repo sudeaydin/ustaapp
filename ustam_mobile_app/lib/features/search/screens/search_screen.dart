@@ -34,7 +34,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/search/categories'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        if (data['success']) {
+        print('Categories response: $data'); // Debug için
+        if (data['success'] && data['data'] != null) {
           setState(() {
             _categories = List<Map<String, dynamic>>.from(data['data']);
           });
@@ -50,7 +51,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/search/locations'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        if (data['success']) {
+        print('Cities response: $data'); // Debug için
+        if (data['success'] && data['data'] != null && data['data']['cities'] != null) {
           setState(() {
             _cities = List<String>.from(data['data']['cities']);
           });
@@ -84,11 +86,22 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        if (data['success']) {
+        print('Search response: $data'); // Debug için
+        if (data['success'] && data['data'] != null && data['data']['craftsmen'] != null) {
           setState(() {
             _craftsmen = List<Map<String, dynamic>>.from(data['data']['craftsmen']);
           });
+        } else {
+          print('No craftsmen found in response');
+          setState(() {
+            _craftsmen = [];
+          });
         }
+      } else {
+        print('Search failed with status: ${response.statusCode}');
+        setState(() {
+          _craftsmen = [];
+        });
       }
     } catch (e) {
       print('Error performing search: $e');
