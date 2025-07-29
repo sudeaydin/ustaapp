@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../core/theme/app_theme.dart';
-import '../providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final String userType;
+  
+  const LoginScreen({super.key, required this.userType});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -17,495 +14,321 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
   bool _obscurePassword = true;
 
   @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _handleLogin(String userType) async {
-    if (!_formKey.currentState!.validate()) return;
-
-    // Haptic feedback
-    HapticFeedback.lightImpact();
-
-    final success = await ref.read(authProvider.notifier).login(
-      _emailController.text.trim(),
-      _passwordController.text,
-      userType: userType,
-    );
-
-    if (success && mounted) {
-      context.go('/home');
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppTheme.backgroundGradient,
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
+      backgroundColor: const Color(0xFFF8FAFC),
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 60),
-              
-              // Logo and Title
-              Center(
-                child: Column(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 40),
+                
+                // Header
+                Row(
                   children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.primaryGradient,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.primaryColor.withOpacity(0.4),
-                            blurRadius: 25,
-                            offset: const Offset(0, 12),
-                            spreadRadius: 2,
-                          ),
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.8),
-                            blurRadius: 15,
-                            offset: const Offset(-8, -8),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            width: 90,
-                            height: 90,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.build_circle,
-                                size: 40,
-                                color: Colors.white,
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'USTAM',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 2,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF1E293B)),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    const Expanded(
+                      child: Text(
+                        'Giriş Yap',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1E293B),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Hoş Geldiniz',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Hesabınıza giriş yapın',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Colors.grey[600],
-                      ),
-                    ),
+                    const SizedBox(width: 48), // Balance the back button
                   ],
                 ),
-              ),
-              
-              const SizedBox(height: 48),
-              
-              // Login Form
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    // Email Field
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        labelText: 'E-posta',
-                        prefixIcon: Icon(Icons.email_outlined),
+                const SizedBox(height: 8),
+                Text(
+                  '${widget.userType == 'craftsman' ? 'Usta' : 'Müşteri'} hesabınıza giriş yapın',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF64748B),
+                  ),
+                ),
+                
+                const SizedBox(height: 40),
+                
+                // Email Field
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFFE2E8F0)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.02),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'E-posta gerekli';
-                        }
-                        if (!value.contains('@')) {
-                          return 'Geçerli bir e-posta girin';
-                        }
-                        return null;
-                      },
+                    ],
+                  ),
+                  child: TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'E-posta',
+                      labelStyle: TextStyle(color: Color(0xFF64748B)),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(20),
+                      prefixIcon: Icon(Icons.email_outlined, color: Color(0xFF64748B)),
                     ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Password Field
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Şifre',
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'E-posta gerekli';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Geçerli bir e-posta girin';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Password Field
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFFE2E8F0)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.02),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Şifre gerekli';
-                        }
-                        if (value.length < 6) {
-                          return 'Şifre en az 6 karakter olmalı';
-                        }
-                        return null;
-                      },
-                    ),
-                    
-                    const SizedBox(height: 24),
-                    
-                    // Error Message
-                    if (authState.error != null)
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.red.shade50,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.red.shade200),
+                    ],
+                  ),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
+                      labelText: 'Şifre',
+                      labelStyle: const TextStyle(color: Color(0xFF64748B)),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.all(20),
+                      prefixIcon: const Icon(Icons.lock_outlined, color: Color(0xFF64748B)),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                          color: const Color(0xFF64748B),
                         ),
-                        child: Text(
-                          authState.error!,
-                          style: TextStyle(
-                            color: Colors.red.shade700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    
-                    // Şifremi Unuttum Link
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Şifre sıfırlama özelliği yakında eklenecek'),
-                            ),
-                          );
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
                         },
-                        child: Text(
-                          'Şifremi Unuttum',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 14,
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Şifre gerekli';
+                      }
+                      if (value.length < 6) {
+                        return 'Şifre en az 6 karakter olmalı';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                
+                const SizedBox(height: 8),
+                
+                // Forgot Password
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigate to forgot password
+                    },
+                    child: const Text(
+                      'Şifremi unuttum',
+                      style: TextStyle(
+                        color: Color(0xFF3B82F6),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                
+                const SizedBox(height: 32),
+                
+                // Login Button
+                Container(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF3B82F6),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
+                        : const Text(
+                            'Giriş Yap',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
+                  ),
+                ),
+                
+                const SizedBox(height: 24),
+                
+                // Divider
+                Row(
+                  children: [
+                    const Expanded(child: Divider(color: Color(0xFFE2E8F0))),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'veya',
+                        style: TextStyle(
+                          color: Color(0xFF64748B),
+                          fontSize: 14,
                         ),
                       ),
                     ),
-                    
-                    const SizedBox(height: 32),
-                    
-                    // Login Buttons
-                    _buildLoginButton(
-                      context: context,
-                      title: 'BİREYSEL GİRİŞ',
-                      subtitle: 'Müşteri olarak giriş yap',
-                      icon: Icons.home_outlined,
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF1E88E5), // Bright Blue
-                          Color(0xFF42A5F5), // Light Blue
-                          Color(0xFF64B5F6), // Lighter Blue
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      shadowColor: const Color(0xFF1E88E5),
-                      onPressed: authState.isLoading ? null : () => _handleLogin('customer'),
-                      isLoading: authState.isLoading,
-                    ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    _buildLoginButton(
-                      context: context,
-                      title: 'KURUMSAL GİRİŞ',
-                      subtitle: 'Usta/Zanaatkar olarak giriş yap',
-                      icon: Icons.build_circle_outlined,
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFFFF7043), // Bright Orange
-                          Color(0xFFFF8A65), // Light Orange
-                          Color(0xFFFFAB91), // Lighter Orange
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      shadowColor: const Color(0xFFFF7043),
-                      onPressed: authState.isLoading ? null : () => _handleLogin('craftsman'),
-                      isLoading: authState.isLoading,
-                    ),
+                    const Expanded(child: Divider(color: Color(0xFFE2E8F0))),
                   ],
                 ),
-              ),
-              
-              const SizedBox(height: 24),
-              
-              const SizedBox(height: 32),
-              
-              // Divider
-              Row(
-                children: [
-                  const Expanded(child: Divider()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'veya',
+                
+                const SizedBox(height: 24),
+                
+                // Register Link
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Hesabınız yok mu? ',
                       style: TextStyle(
-                        color: Colors.grey[600],
+                        color: Color(0xFF64748B),
                         fontSize: 14,
                       ),
                     ),
-                  ),
-                  const Expanded(child: Divider()),
-                ],
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // Register Button
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: OutlinedButton(
-                  onPressed: () => context.go('/register'),
-                  child: const Text('Hesap Oluştur'),
-                ),
-              ),
-              
-              const SizedBox(height: 24),
-              
-              // Demo Credentials
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.blue.shade200),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Demo Hesapları:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue.shade700,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Müşteri: customer@example.com / password123',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue.shade600,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    Text(
-                      'Usta: craftsman@example.com / password123',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue.shade600,
-                        fontFamily: 'monospace',
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to register
+                      },
+                      child: const Text(
+                        'Kayıt Ol',
+                        style: TextStyle(
+                          color: Color(0xFF3B82F6),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+                
+                const SizedBox(height: 40),
+                
+                // Test Credentials Info
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEFF6FF),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFFDBEAFE)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(Icons.info_outline, color: Color(0xFF3B82F6), size: 20),
+                          SizedBox(width: 8),
+                          Text(
+                            'Test Hesabı',
+                            style: TextStyle(
+                              color: Color(0xFF1E40AF),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        widget.userType == 'craftsman' 
+                            ? 'E-posta: ahmet@test.com\nŞifre: 123456'
+                            : 'E-posta: customer@test.com\nŞifre: 123456',
+                        style: const TextStyle(
+                          color: Color(0xFF1E40AF),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-          ),
-        ),
+      ),
     );
   }
 
-  Widget _buildLoginButton({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required Gradient gradient,
-    required Color shadowColor,
-    required VoidCallback? onPressed,
-    required bool isLoading,
-  }) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        bool isPressed = false;
-        bool isHovered = false;
+  void _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        // Login logic here
+        await Future.delayed(const Duration(seconds: 2)); // Simulate API call
         
-        return MouseRegion(
-          onEnter: (_) => setState(() => isHovered = true),
-          onExit: (_) => setState(() => isHovered = false),
-          child: GestureDetector(
-            onTapDown: (_) => setState(() => isPressed = true),
-            onTapUp: (_) {
-              setState(() => isPressed = false);
-              // Mobile hover effect
-              setState(() => isHovered = true);
-              Future.delayed(const Duration(milliseconds: 150), () {
-                setState(() => isHovered = false);
-              });
-            },
-            onTapCancel: () => setState(() => isPressed = false),
-            onTap: onPressed,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              transform: Matrix4.identity()
-                ..scale(isPressed ? 0.95 : (isHovered ? 1.02 : 1.0)),
-              width: double.infinity,
-              height: 70,
-              decoration: BoxDecoration(
-                gradient: gradient,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: shadowColor.withOpacity(isPressed ? 0.6 : (isHovered ? 0.4 : 0.3)),
-                    blurRadius: isPressed ? 25 : (isHovered ? 20 : 15),
-                    offset: Offset(0, isPressed ? 2 : (isHovered ? 8 : 6)),
-                    spreadRadius: isPressed ? 0 : (isHovered ? 2 : 1),
-                  ),
-                  if (isHovered || isPressed) BoxShadow(
-                    color: Colors.white.withOpacity(isPressed ? 0.9 : 0.7),
-                    blurRadius: isPressed ? 20 : 15,
-                    offset: Offset(isPressed ? -2 : -4, isPressed ? -2 : -4),
-                  ),
-                ],
-                border: Border.all(
-                  color: Colors.white.withOpacity(isPressed ? 0.4 : (isHovered ? 0.3 : 0.2)),
-                  width: isPressed ? 2 : 1,
-                ),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(20),
-                  onTap: onPressed,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    child: isLoading
-                        ? const Center(
-                            child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                              ),
-                            ),
-                          )
-                        : Row(
-                            children: [
-                              AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(isPressed ? 0.3 : (isHovered ? 0.25 : 0.2)),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: AnimatedScale(
-                                  duration: const Duration(milliseconds: 200),
-                                  scale: isPressed ? 0.9 : (isHovered ? 1.1 : 1.0),
-                                  child: Icon(
-                                    icon,
-                                    color: Colors.white,
-                                    size: 24,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AnimatedDefaultTextStyle(
-                                      duration: const Duration(milliseconds: 200),
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: isPressed ? 17 : (isHovered ? 16 : 15),
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 0.5,
-                                      ),
-                                      child: Text(title),
-                                    ),
-                                    const SizedBox(height: 2),
-                                    AnimatedDefaultTextStyle(
-                                      duration: const Duration(milliseconds: 200),
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.9),
-                                        fontSize: isPressed ? 13 : (isHovered ? 12 : 11),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      child: Text(subtitle),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              AnimatedRotation(
-                                duration: const Duration(milliseconds: 200),
-                                turns: isPressed ? 0.05 : (isHovered ? -0.05 : 0),
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white.withOpacity(0.8),
-                                  size: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
-                ),
-              ),
+        if (mounted) {
+          // Navigate to main app
+          Navigator.pushReplacementNamed(context, '/home');
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Giriş başarısız: $e'),
+              backgroundColor: Colors.red,
             ),
-          ),
-        );
-      },
-    );
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
   }
 }
