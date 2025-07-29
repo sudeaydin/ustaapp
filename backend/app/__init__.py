@@ -22,10 +22,10 @@ def create_app(config_name='default'):
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
-    socketio.init_app(app, cors_allowed_origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'])
+    socketio.init_app(app, cors_allowed_origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:8081', 'http://localhost:8080'])
     
     # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001'], 
+    CORS(app, origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:8081', 'http://localhost:8080'], 
          allow_headers=['Content-Type', 'Authorization'],
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
