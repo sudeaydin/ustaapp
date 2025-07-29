@@ -35,9 +35,9 @@ class AppTheme {
   
   static const LinearGradient cardGradient = LinearGradient(
     colors: [
-      Color(0xFFFFFFFF), 
-      Color(0xFFFBFCFE), 
-      Color(0xFFF6F8FB)
+      Color(0xFFFFFFFF), // Pure white
+      Color(0xFFFDFEFF), // Almost white  
+      Color(0xFFFAFBFC)  // Very light gray
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -45,8 +45,8 @@ class AppTheme {
   );
   
   static const Color backgroundColor = Color(0xFFF1F5F9);
-  static const Color surfaceColor = Color(0xFFFBFCFE);
-  static const Color cardColor = Color(0xFFFBFCFE);
+  static const Color surfaceColor = Color(0xFFFFFFFF); // Pure white
+  static const Color cardColor = Color(0xFFFFFFFF); // Pure white
   
   // 3D Effect Colors - More sophisticated
   static const Color shadowLight = Color(0xFFFFFFFF);
@@ -90,9 +90,9 @@ class AppTheme {
     end: Alignment.bottomRight,
   );
   
-  static const Color textPrimary = Color(0xFF1F2937);
-  static const Color textSecondary = Color(0xFF6B7280);
-  static const Color textTertiary = Color(0xFF9CA3AF);
+  static const Color textPrimary = Color(0xFF111827); // Much darker
+  static const Color textSecondary = Color(0xFF374151); // Darker gray
+  static const Color textTertiary = Color(0xFF6B7280); // Medium gray
   
   static const Color errorColor = Color(0xFFEF4444);
   static const Color warningColor = Color(0xFFF59E0B);
