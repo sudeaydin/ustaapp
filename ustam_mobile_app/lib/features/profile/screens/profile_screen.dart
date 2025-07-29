@@ -44,17 +44,31 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildInfoRow(String label, String value, {IconData? icon}) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFE2E8F0)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: const Color(0xFF64748B)),
-            const SizedBox(width: 12),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEFF6FF),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, size: 20, color: const Color(0xFF3B82F6)),
+            ),
+            const SizedBox(width: 16),
           ],
           Expanded(
             child: Column(
@@ -68,13 +82,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
                   value,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     color: Color(0xFF1E293B),
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -92,32 +106,47 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
             decoration: BoxDecoration(
               color: color ?? Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: const Color(0xFFE2E8F0)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.02),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Row(
               children: [
-                Icon(
-                  icon,
-                  size: 20,
-                  color: color != null ? Colors.white : const Color(0xFF64748B),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: color != null ? Colors.white : const Color(0xFF1E293B),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color != null ? Colors.white.withOpacity(0.2) : const Color(0xFFEFF6FF),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    icon,
+                    size: 20,
+                    color: color != null ? Colors.white : const Color(0xFF3B82F6),
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: color != null ? Colors.white : const Color(0xFF1E293B),
+                    ),
+                  ),
+                ),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -150,7 +179,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         slivers: [
           // Modern App Bar - Figma Design
           SliverAppBar(
-            expandedHeight: 160,
+            expandedHeight: 200,
             floating: false,
             pinned: true,
             backgroundColor: Colors.white,
@@ -166,21 +195,25 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       Color(0xFF1E40AF),
                     ],
                   ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
+                  ),
                 ),
                 child: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Avatar - Figma Style (sadece craftsman için)
                         if (_profileData?['user_type'] == 'craftsman')
                           Container(
-                            width: 70,
-                            height: 70,
+                            width: 80,
+                            height: 80,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                              border: Border.all(color: Colors.white, width: 3),
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(color: Colors.white, width: 4),
                               image: _profileData?['avatar'] != null && 
                                      _profileData!['avatar'].toString().isNotEmpty && 
                                      _profileData!['avatar'].toString() != 'null'
@@ -195,41 +228,42 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     _profileData!['avatar'].toString() == 'null'
                                 ? const Icon(
                                     Icons.person,
-                                    size: 35,
+                                    size: 40,
                                     color: Colors.white,
                                   )
                                 : null,
                           ),
                         if (_profileData?['user_type'] == 'craftsman')
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 12),
                         Text(
                           '${_profileData?['first_name'] ?? ''} ${_profileData?['last_name'] ?? ''}',
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 4),
                         Text(
                           _profileData?['email'] ?? '',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
                             color: Colors.white70,
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 12),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.white.withOpacity(0.3)),
                           ),
                           child: Text(
                             _profileData?['user_type'] == 'customer' ? 'Müşteri' : 'Usta',
                             style: const TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white,
                             ),
                           ),
@@ -253,7 +287,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // Profile Content - Figma Design
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -261,63 +295,70 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   const Text(
                     'Kişisel Bilgiler',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF1E293B),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   _buildInfoRow('Telefon', _profileData?['phone'] ?? 'Belirtilmemiş', icon: Icons.phone),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   _buildInfoRow('E-posta', _profileData?['email'] ?? 'Belirtilmemiş', icon: Icons.email),
 
                   // Craftsman Specific Info
                   if (_profileData?['user_type'] == 'craftsman' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
                     const Text(
                       'İşletme Bilgileri',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                         color: Color(0xFF1E293B),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     _buildInfoRow('İşletme Adı', _profileData!['profile']['business_name'] ?? 'Belirtilmemiş', icon: Icons.business),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('Saatlik Ücret', '${_profileData!['profile']['hourly_rate'] ?? 0}₺', icon: Icons.attach_money),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('Deneyim', '${_profileData!['profile']['experience_years'] ?? 0} yıl', icon: Icons.work),
 
                     // Skills Section - Figma Style
                     if (_profileData!['profile']['skills'] != null && (_profileData!['profile']['skills'] as List).isNotEmpty) ...[
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 32),
                       const Text(
                         'Yetenekler',
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                           color: Color(0xFF1E293B),
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 16),
                       Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: const Color(0xFFE2E8F0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.02),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
+                          spacing: 12,
+                          runSpacing: 12,
                           children: (_profileData!['profile']['skills'] as List).map((skill) {
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFEFF6FF),
                                 borderRadius: BorderRadius.circular(20),
@@ -328,16 +369,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 children: [
                                   const Icon(
                                     Icons.psychology,
-                                    size: 14,
+                                    size: 16,
                                     color: Color(0xFF1E40AF),
                                   ),
-                                  const SizedBox(width: 4),
+                                  const SizedBox(width: 8),
                                   Text(
                                     skill.toString(),
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: Color(0xFF1E40AF),
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],
@@ -351,34 +392,34 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
                   // Customer Specific Info
                   if (_profileData?['user_type'] == 'customer' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
                     const Text(
                       'Adres Bilgileri',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                         color: Color(0xFF1E293B),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     _buildInfoRow('Adres', _profileData!['profile']['address'] ?? 'Belirtilmemiş', icon: Icons.home),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
                   ],
 
                   // Action Buttons - Figma Style
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 40),
                   const Text(
                     'Hesap Ayarları',
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF1E293B),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   _buildActionButton(
                     'Profili Düzenle',
                     Icons.edit,

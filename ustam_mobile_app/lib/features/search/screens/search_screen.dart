@@ -24,9 +24,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    _loadCategories();
-    _loadCities();
-    _performSearch();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadCategories();
+      _loadCities();
+      _performSearch();
+    });
   }
 
   Future<void> _loadCategories() async {
@@ -34,7 +36,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/search/categories'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('Categories response: $data'); // Debug için
+        print('Categories response: $data');
         if (data['success'] && data['data'] != null) {
           setState(() {
             _categories = List<Map<String, dynamic>>.from(data['data']);
@@ -51,7 +53,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final response = await http.get(Uri.parse('http://localhost:5000/api/search/locations'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('Cities response: $data'); // Debug için
+        print('Cities response: $data');
         if (data['success'] && data['data'] != null && data['data']['cities'] != null) {
           setState(() {
             _cities = List<String>.from(data['data']['cities']);
@@ -86,7 +88,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('Search response: $data'); // Debug için
+        print('Search response: $data');
         if (data['success'] && data['data'] != null && data['data']['craftsmen'] != null) {
           setState(() {
             _craftsmen = List<Map<String, dynamic>>.from(data['data']['craftsmen']);
@@ -131,28 +133,63 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header with Search - Figma Design
+            // Modern Header - Figma Design
             Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF3B82F6),
+                    Color(0xFF1E40AF),
+                  ],
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
+                    // Header Title
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back, color: Colors.white),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        const Expanded(
+                          child: Text(
+                            'Usta Ara',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     // Search Bar - Modern Design
                     Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFFE2E8F0)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: TextField(
                         controller: _searchController,
@@ -160,8 +197,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           hintText: 'Usta, hizmet veya kategori ara...',
                           hintStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.all(16),
-                          prefixIcon: Icon(Icons.search, color: Colors.grey[600], size: 20),
+                          contentPadding: const EdgeInsets.all(20),
+                          prefixIcon: Container(
+                            margin: const EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF3B82F6),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(Icons.search, color: Colors.white, size: 20),
+                          ),
                           suffixIcon: _searchController.text.isNotEmpty
                               ? IconButton(
                                   icon: Icon(Icons.clear, color: Colors.grey[600], size: 20),
@@ -180,7 +225,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 16),
                     // Filter Toggle Button - Figma Style
                     Row(
                       children: [
@@ -190,7 +235,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xFF64748B),
+                              color: Colors.white70,
                             ),
                           ),
                         ),
@@ -201,23 +246,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             });
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFEFF6FF),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFFDBEAFE)),
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(25),
+                              border: Border.all(color: Colors.white.withOpacity(0.3)),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.filter_list, size: 16, color: const Color(0xFF1E40AF)),
-                                const SizedBox(width: 4),
-                                Text(
+                                Icon(Icons.filter_list, size: 18, color: Colors.white),
+                                const SizedBox(width: 8),
+                                const Text(
                                   'Filtreler',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF1E40AF),
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ],
@@ -234,15 +279,26 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             // Filters Section - Collapsible
             if (_showFilters)
               Container(
-                color: Colors.white,
-                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
                               border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
@@ -272,7 +328,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
                               border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
@@ -306,7 +362,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       children: [
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
                               border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
@@ -343,7 +399,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             _performSearch();
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             decoration: BoxDecoration(
                               color: const Color(0xFFF1F5F9),
                               borderRadius: BorderRadius.circular(12),
@@ -378,23 +434,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: 80,
-                                height: 80,
+                                width: 100,
+                                height: 100,
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFF1F5F9),
-                                  borderRadius: BorderRadius.circular(40),
+                                  borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Icon(
                                   Icons.search_off,
-                                  size: 40,
+                                  size: 50,
                                   color: const Color(0xFF94A3B8),
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 20),
                               const Text(
                                 'Sonuç Bulunamadı',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xFF475569),
                                 ),
@@ -420,24 +476,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               margin: const EdgeInsets.only(bottom: 16),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 2),
+                                    blurRadius: 15,
+                                    offset: const Offset(0, 5),
                                   ),
                                 ],
                               ),
                               child: Material(
                                 color: Colors.transparent,
                                 child: InkWell(
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: BorderRadius.circular(20),
                                   onTap: () {
                                     // Navigate to craftsman detail
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(16),
+                                    padding: const EdgeInsets.all(20),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -445,10 +501,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                           children: [
                                             // Avatar - Figma Style
                                             Container(
-                                              width: 60,
-                                              height: 60,
+                                              width: 70,
+                                              height: 70,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(30),
+                                                borderRadius: BorderRadius.circular(35),
                                                 image: DecorationImage(
                                                   image: NetworkImage(
                                                     craftsman['avatar'] ?? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
@@ -457,7 +513,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(width: 12),
+                                            const SizedBox(width: 16),
                                             Expanded(
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,15 +524,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                         child: Text(
                                                           craftsman['name'] ?? '',
                                                           style: const TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.bold,
                                                             color: Color(0xFF1E293B),
                                                           ),
                                                         ),
                                                       ),
                                                       if (craftsman['is_verified'] == true)
                                                         Container(
-                                                          padding: const EdgeInsets.all(4),
+                                                          padding: const EdgeInsets.all(6),
                                                           decoration: BoxDecoration(
                                                             color: const Color(0xFF3B82F6),
                                                             borderRadius: BorderRadius.circular(12),
@@ -497,7 +553,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                       color: Color(0xFF64748B),
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 4),
+                                                  const SizedBox(height: 8),
                                                   Row(
                                                     children: [
                                                       Icon(
@@ -520,23 +576,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(height: 12),
+                                        const SizedBox(height: 16),
                                         // Skills - Figma Style
                                         if (craftsman['skills'] != null && (craftsman['skills'] as List).isNotEmpty)
                                           Wrap(
                                             spacing: 8,
-                                            runSpacing: 4,
+                                            runSpacing: 8,
                                             children: (craftsman['skills'] as List).take(3).map((skill) {
                                               return Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                                 decoration: BoxDecoration(
                                                   color: const Color(0xFFEFF6FF),
-                                                  borderRadius: BorderRadius.circular(12),
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  border: Border.all(color: const Color(0xFFDBEAFE)),
                                                 ),
                                                 child: Text(
                                                   skill.toString(),
                                                   style: const TextStyle(
-                                                    fontSize: 10,
+                                                    fontSize: 12,
                                                     color: Color(0xFF1E40AF),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -544,7 +601,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               );
                                             }).toList(),
                                           ),
-                                        const SizedBox(height: 12),
+                                        const SizedBox(height: 16),
                                         Row(
                                           children: [
                                             _buildStarRating(craftsman['average_rating']?.toDouble() ?? 0.0),
@@ -558,12 +615,19 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                             ),
                                             const Spacer(),
                                             if (craftsman['hourly_rate'] != null)
-                                              Text(
-                                                '${craftsman['hourly_rate']}₺/saat',
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xFF059669),
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFF10B981),
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),
+                                                child: Text(
+                                                  '${craftsman['hourly_rate']}₺/saat',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                           ],
