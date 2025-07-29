@@ -374,6 +374,14 @@ class AppTheme {
         onError: Colors.white,
       ),
       
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color(0xFF1F2937),
+        selectedItemColor: primaryLight,
+        unselectedItemColor: textTertiary,
+        type: BottomNavigationBarType.fixed,
+        elevation: 8,
+      ),
+      
       // Dark theme specific overrides would go here
     );
   }
