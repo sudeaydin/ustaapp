@@ -115,11 +115,95 @@ def seed_data():
                 }
             },
             {
+                'email': 'veli@test.com',
+                'password': '123456',
+                'first_name': 'Veli',
+                'last_name': 'Özkan',
+                'phone': '+90 555 456 7891',
+                'user_type': 'craftsman',
+                'craftsman_data': {
+                    'business_name': 'Özkan Marangoz',
+                    'description': '10 yıllık deneyimim ile ahşap işleri, mobilya yapımı ve restorasyon konularında uzman hizmet veriyorum.',
+                    'city': 'İstanbul',
+                    'district': 'Üsküdar',
+                    'address': 'Üsküdar Merkez, İstanbul',
+                    'hourly_rate': 180.0,
+                    'experience_years': 10,
+                    'skills': ['Mobilya Yapımı', 'Ahşap Restorasyon', 'Dekoratif İşler', 'Kapı Pencere'],
+                    'certifications': ['Marangoz Ustalık Belgesi', 'Restorasyon Uzmanı'],
+                    'working_hours': {'monday': '08:00-17:00', 'tuesday': '08:00-17:00', 'wednesday': '08:00-17:00'},
+                    'service_areas': ['Üsküdar', 'Kadıköy', 'Ataşehir'],
+                    'website': 'www.ozkanmarangoz.com',
+                    'response_time': '4 saat',
+                    'is_available': True,
+                    'average_rating': 4.6,
+                    'total_reviews': 156,
+                    'is_verified': True,
+                    'avatar': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+                }
+            },
+            {
+                'email': 'ayse@test.com',
+                'password': '123456',
+                'first_name': 'Ayşe',
+                'last_name': 'Yıldız',
+                'phone': '+90 555 567 8902',
+                'user_type': 'craftsman',
+                'craftsman_data': {
+                    'business_name': 'Yıldız Temizlik',
+                    'description': '5 yıllık deneyimim ile ev ve ofis temizliği, derinlemesine temizlik konularında profesyonel hizmet veriyorum.',
+                    'city': 'İstanbul',
+                    'district': 'Ataşehir',
+                    'address': 'Ataşehir Merkez, İstanbul',
+                    'hourly_rate': 80.0,
+                    'experience_years': 5,
+                    'skills': ['Ev Temizliği', 'Ofis Temizliği', 'Derinlemesine Temizlik', 'Halı Yıkama'],
+                    'certifications': ['Temizlik Uzmanı Sertifikası', 'Sağlık Bakanlığı Onaylı'],
+                    'working_hours': {'monday': '09:00-18:00', 'tuesday': '09:00-18:00', 'wednesday': '09:00-18:00'},
+                    'service_areas': ['Ataşehir', 'Kadıköy', 'Maltepe'],
+                    'website': 'www.yildiztemizlik.com',
+                    'response_time': '1 saat',
+                    'is_available': True,
+                    'average_rating': 4.5,
+                    'total_reviews': 98,
+                    'is_verified': False,
+                    'avatar': 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+                }
+            },
+            {
+                'email': 'mustafa@test.com',
+                'password': '123456',
+                'first_name': 'Mustafa',
+                'last_name': 'Çelik',
+                'phone': '+90 555 678 9013',
+                'user_type': 'craftsman',
+                'craftsman_data': {
+                    'business_name': 'Çelik Bahçıvanlık',
+                    'description': '20 yıllık deneyimim ile bahçe tasarımı, peyzaj ve bitki bakımı konularında uzman hizmet veriyorum.',
+                    'city': 'İstanbul',
+                    'district': 'Sarıyer',
+                    'address': 'Sarıyer Merkez, İstanbul',
+                    'hourly_rate': 120.0,
+                    'experience_years': 20,
+                    'skills': ['Bahçe Tasarımı', 'Peyzaj', 'Bitki Bakımı', 'Ağaç Budama'],
+                    'certifications': ['Peyzaj Mimarı', 'Bahçıvan Ustalık Belgesi'],
+                    'working_hours': {'monday': '08:00-17:00', 'tuesday': '08:00-17:00', 'wednesday': '08:00-17:00'},
+                    'service_areas': ['Sarıyer', 'Beşiktaş', 'Şişli'],
+                    'website': 'www.celikbahcivanlik.com',
+                    'response_time': '2 saat',
+                    'is_available': True,
+                    'average_rating': 4.9,
+                    'total_reviews': 234,
+                    'is_verified': True,
+                    'avatar': 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+                }
+            },
+            {
                 'email': 'customer@test.com',
                 'password': '123456',
                 'first_name': 'Ayşe',
                 'last_name': 'Kara',
-                'phone': '+90 555 456 7890',
+                'phone': '+90 555 456 7894',
                 'user_type': 'customer',
                 'customer_data': {
                     'address': 'Kadıköy Merkez, İstanbul',
@@ -182,6 +266,9 @@ def seed_data():
         print("👨‍🔧 Usta: ahmet@test.com / 123456")
         print("👨‍🔧 Usta: mehmet@test.com / 123456")
         print("👨‍🔧 Usta: ali@test.com / 123456")
+        print("👨‍🔧 Usta: veli@test.com / 123456")
+        print("👨‍🔧 Usta: ayse@test.com / 123456")
+        print("👨‍🔧 Usta: mustafa@test.com / 123456")
         print("👤 Müşteri: customer@test.com / 123456")
 
 if __name__ == '__main__':
