@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../../core/theme/app_theme.dart';
 
@@ -12,330 +14,544 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  String _selectedCategory = 'all';
-  String _selectedCity = 'all';
+  String _selectedCategory = '';
+  String _selectedCity = '';
+  String _selectedSortBy = 'rating';
+  bool _showFilters = false;
+  bool _isLoading = false;
+  List<Map<String, dynamic>> _craftsmen = [];
+  List<Map<String, dynamic>> _categories = [];
+  List<String> _cities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCategories();
+    _loadCities();
+    _performSearch();
+  }
+
+  Future<void> _loadCategories() async {
+    try {
+      final response = await http.get(Uri.parse('http://localhost:5001/api/search/categories'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success']) {
+          setState(() {
+            _categories = List<Map<String, dynamic>>.from(data['data']);
+          });
+        }
+      }
+    } catch (e) {
+      print('Error loading categories: $e');
+    }
+  }
+
+  Future<void> _loadCities() async {
+    try {
+      final response = await http.get(Uri.parse('http://localhost:5001/api/search/locations'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success']) {
+          setState(() {
+            _cities = List<String>.from(data['data']['cities']);
+          });
+        }
+      }
+    } catch (e) {
+      print('Error loading cities: $e');
+    }
+  }
+
+  Future<void> _performSearch() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final queryParams = <String, String>{};
+      if (_searchController.text.isNotEmpty) {
+        queryParams['q'] = _searchController.text;
+      }
+      if (_selectedCategory.isNotEmpty) {
+        queryParams['category'] = _selectedCategory;
+      }
+      if (_selectedCity.isNotEmpty) {
+        queryParams['city'] = _selectedCity;
+      }
+      queryParams['sort_by'] = _selectedSortBy;
+
+      final uri = Uri.parse('http://localhost:5001/api/search/craftsmen').replace(queryParameters: queryParams);
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success']) {
+          setState(() {
+            _craftsmen = List<Map<String, dynamic>>.from(data['data']['craftsmen']);
+          });
+        }
+      }
+    } catch (e) {
+      print('Error performing search: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Widget _buildStarRating(double rating) {
+    return Row(
+      children: List.generate(5, (index) {
+        return Icon(
+          index < rating ? Icons.star : Icons.star_border,
+          color: Colors.amber,
+          size: 16,
+        );
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppTheme.backgroundGradient,
-        ),
+      backgroundColor: Colors.grey[50],
+      body: SafeArea(
         child: Column(
           children: [
-            // Custom 3D AppBar with Search
+            // Header with Search
             Container(
               decoration: BoxDecoration(
-                gradient: AppTheme.primaryGradient,
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primaryColor.withOpacity(0.3),
-                    blurRadius: 15,
-                    offset: const Offset(0, 5),
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      // Header
-                      Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 40,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    // Search Bar
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Usta, hizmet veya kategori ara...',
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.all(16),
+                          prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
+                          suffixIcon: _searchController.text.isNotEmpty
+                              ? IconButton(
+                                  icon: Icon(Icons.clear, color: Colors.grey[600]),
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    _performSearch();
+                                  },
+                                )
+                              : null,
+                        ),
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        onSubmitted: (value) {
+                          _performSearch();
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Filter Toggle Button
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '${_craftsmen.length} Usta Bulundu',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showFilters = !_showFilters;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.blue[50],
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.blue[200]!),
                             ),
-                            child: const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 20,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.filter_list, size: 16, color: Colors.blue[700]),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Filtreler',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blue[700],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          const Text(
-                            'Usta Ara',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      // Search Bar
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            hintText: 'Usta ara...',
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.all(16),
-                            prefixIcon: Icon(Icons.search, color: AppTheme.primaryColor),
-                            suffixIcon: _searchController.text.isNotEmpty
-                                ? IconButton(
-                                    icon: Icon(Icons.clear, color: AppTheme.primaryColor),
-                                    onPressed: () {
-                                      _searchController.clear();
-                                      setState(() {});
-                                    },
-                                  )
-                                : null,
-                          ),
-                          onChanged: (value) => setState(() {}),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            // Filters Section
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: AppTheme.neuomorphicDecoration,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedCategory,
-                          decoration: const InputDecoration(
-                            labelText: 'Kategori',
-                            border: InputBorder.none,
-                          ),
-                          items: const [
-                            DropdownMenuItem(value: 'all', child: Text('Tümü')),
-                            DropdownMenuItem(value: 'elektrik', child: Text('Elektrik')),
-                            DropdownMenuItem(value: 'tesisatci', child: Text('Tesisatçı')),
-                            DropdownMenuItem(value: 'boyaci', child: Text('Boyacı')),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedCategory = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Container(
-                      decoration: AppTheme.neuomorphicDecoration,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedCity,
-                          decoration: const InputDecoration(
-                            labelText: 'Şehir',
-                            border: InputBorder.none,
-                          ),
-                          items: const [
-                            DropdownMenuItem(value: 'all', child: Text('Tümü')),
-                            DropdownMenuItem(value: 'istanbul', child: Text('İstanbul')),
-                            DropdownMenuItem(value: 'ankara', child: Text('Ankara')),
-                            DropdownMenuItem(value: 'izmir', child: Text('İzmir')),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedCity = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Results
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                      gradient: AppTheme.cardGradient,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.shadowDark,
-                          offset: const Offset(6, 6),
-                          blurRadius: 15,
-                          spreadRadius: 0,
-                        ),
-                        BoxShadow(
-                          color: AppTheme.shadowLight,
-                          offset: const Offset(-6, -6),
-                          blurRadius: 15,
-                          spreadRadius: 0,
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+                  ],
+                ),
+              ),
+            ),
+
+            // Filters Section
+            if (_showFilters)
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: _selectedCategory.isEmpty ? null : _selectedCategory,
+                                hint: const Text('Kategori'),
+                                isExpanded: true,
+                                items: [
+                                  const DropdownMenuItem(value: '', child: Text('Tüm Kategoriler')),
+                                  ..._categories.map((category) => DropdownMenuItem(
+                                    value: category['name'],
+                                    child: Text(category['name']),
+                                  )),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCategory = value ?? '';
+                                  });
+                                  _performSearch();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: _selectedCity.isEmpty ? null : _selectedCity,
+                                hint: const Text('Şehir'),
+                                isExpanded: true,
+                                items: [
+                                  const DropdownMenuItem(value: '', child: Text('Tüm Şehirler')),
+                                  ..._cities.map((city) => DropdownMenuItem(
+                                    value: city,
+                                    child: Text(city),
+                                  )),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCity = value ?? '';
+                                  });
+                                  _performSearch();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: _selectedSortBy,
+                                hint: const Text('Sıralama'),
+                                isExpanded: true,
+                                items: const [
+                                  DropdownMenuItem(value: 'rating', child: Text('Puana Göre')),
+                                  DropdownMenuItem(value: 'rate', child: Text('Fiyata Göre')),
+                                  DropdownMenuItem(value: 'name', child: Text('İsme Göre')),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedSortBy = value!;
+                                  });
+                                  _performSearch();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedCategory = '';
+                              _selectedCity = '';
+                              _selectedSortBy = 'rating';
+                              _searchController.clear();
+                            });
+                            _performSearch();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Text(
+                              'Temizle',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+            // Results
+            Expanded(
+              child: _isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : _craftsmen.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppTheme.primaryColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: const Icon(
-                                  Icons.person,
-                                  size: 30,
-                                  color: Colors.white,
+                              Icon(
+                                Icons.search_off,
+                                size: 64,
+                                color: Colors.grey[400],
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Sonuç Bulunamadı',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey[600],
                                 ),
                               ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Mehmet Usta ${index + 1}',
-                                      style: Theme.of(context).textTheme.titleLarge,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
+                              const SizedBox(height: 8),
+                              Text(
+                                'Arama kriterlerinize uygun usta bulunamadı.',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[500],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: _craftsmen.length,
+                          itemBuilder: (context, index) {
+                            final craftsman = _craftsmen[index];
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.05),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(16),
+                                  onTap: () {
+                                    // Navigate to craftsman detail
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Icon(Icons.star, size: 16, color: Colors.amber),
-                                        const SizedBox(width: 4),
-                                        Text('4.${8 + (index % 2)}', style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.w500)),
-                                        const SizedBox(width: 8),
-                                        Text('(${20 + index * 3} değerlendirme)', style: TextStyle(color: AppTheme.textSecondary)),
+                                        Row(
+                                          children: [
+                                            // Avatar
+                                            Container(
+                                              width: 60,
+                                              height: 60,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(30),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    craftsman['avatar'] ?? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          craftsman['name'] ?? '',
+                                                          style: const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      if (craftsman['is_verified'] == true)
+                                                        Container(
+                                                          padding: const EdgeInsets.all(4),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.blue[500],
+                                                            borderRadius: BorderRadius.circular(12),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.verified,
+                                                            color: Colors.white,
+                                                            size: 16,
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    craftsman['business_name'] ?? '',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.location_on,
+                                                        size: 14,
+                                                        color: Colors.grey[500],
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                      Text(
+                                                        '${craftsman['city'] ?? ''}, ${craftsman['district'] ?? ''}',
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.grey[500],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 12),
+                                        // Skills
+                                        if (craftsman['skills'] != null && (craftsman['skills'] as List).isNotEmpty)
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 4,
+                                            children: (craftsman['skills'] as List).take(3).map((skill) {
+                                              return Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.blue[50],
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                                child: Text(
+                                                  skill.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.blue[700],
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        const SizedBox(height: 12),
+                                        Row(
+                                          children: [
+                                            _buildStarRating(craftsman['average_rating']?.toDouble() ?? 0.0),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              '${craftsman['total_reviews'] ?? 0} değerlendirme',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey[500],
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            if (craftsman['hourly_rate'] != null)
+                                              Text(
+                                                '${craftsman['hourly_rate']}₺/saat',
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          
-                          const SizedBox(height: 12),
-                          
-                          Text(
-                            'Elektrik tesisatı konusunda ${5 + index} yıllık deneyimim var. Kaliteli ve güvenilir hizmet.',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          
-                          const SizedBox(height: 12),
-                          
-                          Row(
-                            children: [
-                              Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
-                              const SizedBox(width: 4),
-                              Text('İstanbul, Kadıköy', style: TextStyle(color: AppTheme.textSecondary)),
-                              const Spacer(),
-                              Text(
-                                '₺150-300/saat',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          
-                          const SizedBox(height: 12),
-                          
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: AppTheme.neuomorphicDecoration,
-                                  child: OutlinedButton.icon(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Mesaj özelliği yakında!')),
-                                      );
-                                    },
-                                    icon: Icon(Icons.chat, color: AppTheme.primaryColor),
-                                    label: Text('Mesaj Gönder', style: TextStyle(color: AppTheme.primaryColor)),
-                                    style: OutlinedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      side: BorderSide.none,
-                                      elevation: 0,
-                                    ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: AppTheme.primaryGradient,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: AppTheme.primaryColor.withOpacity(0.3),
-                                        blurRadius: 10,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: ElevatedButton.icon(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Teklif özelliği yakında!')),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.request_quote, color: Colors.white),
-                                    label: const Text('Teklif İste', style: TextStyle(color: Colors.white)),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 0,
-                                      shadowColor: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+                            );
+                          },
+                        ),
             ),
           ],
         ),
