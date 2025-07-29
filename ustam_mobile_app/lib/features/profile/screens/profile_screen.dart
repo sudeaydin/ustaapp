@@ -301,7 +301,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.psychology_outline, color: Colors.purple[600]),
+                              Icon(Icons.psychology, color: Colors.purple[600]),
                               const SizedBox(width: 8),
                               const Text(
                                 'Yetenekler',
