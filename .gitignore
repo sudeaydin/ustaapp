@@ -87,3 +87,5 @@ instance/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+flutter_linux_3.24.5-stable.tar.xz
+flutter/
