@@ -31,7 +31,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Future<void> _loadCategories() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5001/api/search/categories'));
+      final response = await http.get(Uri.parse('http://localhost:5000/api/search/categories'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success']) {
@@ -47,7 +47,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Future<void> _loadCities() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5001/api/search/locations'));
+      final response = await http.get(Uri.parse('http://localhost:5000/api/search/locations'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success']) {
@@ -79,7 +79,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       }
       queryParams['sort_by'] = _selectedSortBy;
 
-      final uri = Uri.parse('http://localhost:5001/api/search/craftsmen').replace(queryParameters: queryParams);
+      final uri = Uri.parse('http://localhost:5000/api/search/craftsmen').replace(queryParameters: queryParams);
       final response = await http.get(uri);
 
       if (response.statusCode == 200) {

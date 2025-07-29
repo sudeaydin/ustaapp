@@ -22,7 +22,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Future<void> _loadProfile() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5001/api/profile/'));
+      final response = await http.get(Uri.parse('http://localhost:5000/api/profile/'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success']) {
