@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../../../core/theme/app_theme.dart';
-
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
@@ -107,7 +105,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         return Icon(
           index < rating ? Icons.star : Icons.star_border,
           color: Colors.amber,
-          size: 16,
+          size: 14,
         );
       }),
     );
@@ -116,11 +114,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
         child: Column(
           children: [
-            // Header with Search
+            // Header with Search - Figma Design
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -136,22 +134,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Search Bar
+                    // Search Bar - Modern Design
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey[100],
+                        color: const Color(0xFFF1F5F9),
                         borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: const Color(0xFFE2E8F0)),
                       ),
                       child: TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
                           hintText: 'Usta, hizmet veya kategori ara...',
+                          hintStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.all(16),
-                          prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
+                          prefixIcon: Icon(Icons.search, color: Colors.grey[600], size: 20),
                           suffixIcon: _searchController.text.isNotEmpty
                               ? IconButton(
-                                  icon: Icon(Icons.clear, color: Colors.grey[600]),
+                                  icon: Icon(Icons.clear, color: Colors.grey[600], size: 20),
                                   onPressed: () {
                                     _searchController.clear();
                                     _performSearch();
@@ -168,16 +168,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    // Filter Toggle Button
+                    // Filter Toggle Button - Figma Style
                     Row(
                       children: [
                         Expanded(
                           child: Text(
                             '${_craftsmen.length} Usta Bulundu',
                             style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF64748B),
                             ),
                           ),
                         ),
@@ -190,21 +190,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.blue[50],
+                              color: const Color(0xFFEFF6FF),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.blue[200]!),
+                              border: Border.all(color: const Color(0xFFDBEAFE)),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.filter_list, size: 16, color: Colors.blue[700]),
+                                Icon(Icons.filter_list, size: 16, color: const Color(0xFF1E40AF)),
                                 const SizedBox(width: 4),
                                 Text(
                                   'Filtreler',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.blue[700],
+                                    color: Color(0xFF1E40AF),
                                   ),
                                 ),
                               ],
@@ -218,7 +218,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
             ),
 
-            // Filters Section
+            // Filters Section - Collapsible
             if (_showFilters)
               Container(
                 color: Colors.white,
@@ -231,13 +231,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey[300]!),
+                              border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: _selectedCategory.isEmpty ? null : _selectedCategory,
-                                hint: const Text('Kategori'),
+                                hint: const Text('Kategori', style: TextStyle(fontSize: 14)),
                                 isExpanded: true,
                                 items: [
                                   const DropdownMenuItem(value: '', child: Text('Tüm Kategoriler')),
@@ -261,13 +261,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey[300]!),
+                              border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: _selectedCity.isEmpty ? null : _selectedCity,
-                                hint: const Text('Şehir'),
+                                hint: const Text('Şehir', style: TextStyle(fontSize: 14)),
                                 isExpanded: true,
                                 items: [
                                   const DropdownMenuItem(value: '', child: Text('Tüm Şehirler')),
@@ -295,13 +295,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey[300]!),
+                              border: Border.all(color: const Color(0xFFE2E8F0)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: _selectedSortBy,
-                                hint: const Text('Sıralama'),
+                                hint: const Text('Sıralama', style: TextStyle(fontSize: 14)),
                                 isExpanded: true,
                                 items: const [
                                   DropdownMenuItem(value: 'rating', child: Text('Puana Göre')),
@@ -332,7 +332,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
-                              color: Colors.grey[100],
+                              color: const Color(0xFFF1F5F9),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Text(
@@ -340,7 +340,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.grey,
+                                color: Color(0xFF64748B),
                               ),
                             ),
                           ),
@@ -351,37 +351,47 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
               ),
 
-            // Results
+            // Results - Figma Card Design
             Expanded(
               child: _isLoading
                   ? const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3B82F6)),
+                      ),
                     )
                   : _craftsmen.isEmpty
                       ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.search_off,
-                                size: 64,
-                                color: Colors.grey[400],
+                              Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF1F5F9),
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                                child: Icon(
+                                  Icons.search_off,
+                                  size: 40,
+                                  color: const Color(0xFF94A3B8),
+                                ),
                               ),
                               const SizedBox(height: 16),
-                              Text(
+                              const Text(
                                 'Sonuç Bulunamadı',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.grey[600],
+                                  color: Color(0xFF475569),
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text(
+                              const Text(
                                 'Arama kriterlerinize uygun usta bulunamadı.',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.grey[500],
+                                  color: Color(0xFF64748B),
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -420,7 +430,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                       children: [
                                         Row(
                                           children: [
-                                            // Avatar
+                                            // Avatar - Figma Style
                                             Container(
                                               width: 60,
                                               height: 60,
@@ -447,6 +457,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                           style: const TextStyle(
                                                             fontSize: 16,
                                                             fontWeight: FontWeight.w600,
+                                                            color: Color(0xFF1E293B),
                                                           ),
                                                         ),
                                                       ),
@@ -454,7 +465,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                         Container(
                                                           padding: const EdgeInsets.all(4),
                                                           decoration: BoxDecoration(
-                                                            color: Colors.blue[500],
+                                                            color: const Color(0xFF3B82F6),
                                                             borderRadius: BorderRadius.circular(12),
                                                           ),
                                                           child: const Icon(
@@ -468,9 +479,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                   const SizedBox(height: 4),
                                                   Text(
                                                     craftsman['business_name'] ?? '',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 14,
-                                                      color: Colors.grey[600],
+                                                      color: Color(0xFF64748B),
                                                     ),
                                                   ),
                                                   const SizedBox(height: 4),
@@ -479,14 +490,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                       Icon(
                                                         Icons.location_on,
                                                         size: 14,
-                                                        color: Colors.grey[500],
+                                                        color: const Color(0xFF94A3B8),
                                                       ),
                                                       const SizedBox(width: 4),
                                                       Text(
                                                         '${craftsman['city'] ?? ''}, ${craftsman['district'] ?? ''}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontSize: 12,
-                                                          color: Colors.grey[500],
+                                                          color: Color(0xFF94A3B8),
                                                         ),
                                                       ),
                                                     ],
@@ -497,7 +508,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                           ],
                                         ),
                                         const SizedBox(height: 12),
-                                        // Skills
+                                        // Skills - Figma Style
                                         if (craftsman['skills'] != null && (craftsman['skills'] as List).isNotEmpty)
                                           Wrap(
                                             spacing: 8,
@@ -506,14 +517,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               return Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                                 decoration: BoxDecoration(
-                                                  color: Colors.blue[50],
+                                                  color: const Color(0xFFEFF6FF),
                                                   borderRadius: BorderRadius.circular(12),
                                                 ),
                                                 child: Text(
                                                   skill.toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
-                                                    color: Colors.blue[700],
+                                                    color: Color(0xFF1E40AF),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
@@ -527,9 +538,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                             const SizedBox(width: 8),
                                             Text(
                                               '${craftsman['total_reviews'] ?? 0} değerlendirme',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.grey[500],
+                                                color: Color(0xFF94A3B8),
                                               ),
                                             ),
                                             const Spacer(),
@@ -539,7 +550,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600,
-                                                  color: Colors.green,
+                                                  color: Color(0xFF059669),
                                                 ),
                                               ),
                                           ],
