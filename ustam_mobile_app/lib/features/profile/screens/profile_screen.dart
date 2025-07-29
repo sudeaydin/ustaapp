@@ -173,33 +173,35 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Avatar - Figma Style
-                        Container(
-                          width: 70,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(35),
-                            border: Border.all(color: Colors.white, width: 3),
-                            image: _profileData?['avatar'] != null && 
-                                   _profileData!['avatar'].toString().isNotEmpty && 
-                                   _profileData!['avatar'].toString() != 'null'
-                                ? DecorationImage(
-                                    image: NetworkImage(_profileData!['avatar']),
-                                    fit: BoxFit.cover,
+                        // Avatar - Figma Style (sadece craftsman için)
+                        if (_profileData?['user_type'] == 'craftsman')
+                          Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              border: Border.all(color: Colors.white, width: 3),
+                              image: _profileData?['avatar'] != null && 
+                                     _profileData!['avatar'].toString().isNotEmpty && 
+                                     _profileData!['avatar'].toString() != 'null'
+                                  ? DecorationImage(
+                                      image: NetworkImage(_profileData!['avatar']),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
+                            ),
+                            child: _profileData?['avatar'] == null || 
+                                    _profileData!['avatar'].toString().isEmpty ||
+                                    _profileData!['avatar'].toString() == 'null'
+                                ? const Icon(
+                                    Icons.person,
+                                    size: 35,
+                                    color: Colors.white,
                                   )
                                 : null,
                           ),
-                          child: _profileData?['avatar'] == null || 
-                                  _profileData!['avatar'].toString().isEmpty ||
-                                  _profileData!['avatar'].toString() == 'null'
-                              ? const Icon(
-                                  Icons.person,
-                                  size: 35,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        ),
-                        const SizedBox(height: 8),
+                        if (_profileData?['user_type'] == 'craftsman')
+                          const SizedBox(height: 8),
                         Text(
                           '${_profileData?['first_name'] ?? ''} ${_profileData?['last_name'] ?? ''}',
                           style: const TextStyle(
