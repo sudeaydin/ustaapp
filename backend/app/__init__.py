@@ -22,12 +22,13 @@ def create_app(config_name='default'):
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
-    socketio.init_app(app, cors_allowed_origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:8081', 'http://localhost:8080', '*'])
+    socketio.init_app(app, cors_allowed_origins=['*'])
     
     # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['http://localhost:5173', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:8081', 'http://localhost:8080', '*'], 
+    CORS(app, origins=['*'], 
          allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         supports_credentials=True)
     
     # Import models
     from app.models import user, craftsman, customer, category, quote, payment, notification, job
