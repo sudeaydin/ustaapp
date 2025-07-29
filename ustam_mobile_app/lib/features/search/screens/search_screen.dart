@@ -239,9 +239,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                       children: [
                                         Icon(Icons.star, size: 16, color: Colors.amber),
                                         const SizedBox(width: 4),
-                                        Text('4.${8 + (index % 2)}'),
+                                        Text('4.${8 + (index % 2)}', style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.w500)),
                                         const SizedBox(width: 8),
-                                        Text('(${20 + index * 3} değerlendirme)'),
+                                        Text('(${20 + index * 3} değerlendirme)', style: TextStyle(color: AppTheme.textSecondary)),
                                       ],
                                     ),
                                   ],
@@ -261,9 +261,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           
                           Row(
                             children: [
-                              Icon(Icons.location_on, size: 16, color: Colors.grey),
+                              Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
                               const SizedBox(width: 4),
-                              Text('İstanbul, Kadıköy'),
+                              Text('İstanbul, Kadıköy', style: TextStyle(color: AppTheme.textSecondary)),
                               const Spacer(),
                               Text(
                                 '₺150-300/saat',

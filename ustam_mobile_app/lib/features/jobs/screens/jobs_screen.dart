@@ -127,13 +127,13 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.person, size: 16, color: Colors.grey),
+                      Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('Mehmet K.'),
+                      Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
                       const SizedBox(width: 16),
-                      Icon(Icons.location_on, size: 16, color: Colors.grey),
+                      Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('İstanbul'),
+                      Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Text(
                         '₺${[1500, 2000, 1800, 1200][index % 4]}',
@@ -149,9 +149,9 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                      Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('${DateTime.now().day + index}.${DateTime.now().month}.2024'),
+                      Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Container(
                         decoration: BoxDecoration(
