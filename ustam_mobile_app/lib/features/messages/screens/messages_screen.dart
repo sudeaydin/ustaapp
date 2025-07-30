@@ -4,7 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MessagesScreen extends ConsumerStatefulWidget {
-  const MessagesScreen({super.key});
+  final String? userType;
+  
+  const MessagesScreen({super.key, this.userType});
 
   @override
   ConsumerState<MessagesScreen> createState() => _MessagesScreenState();
@@ -32,6 +34,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       
       if (userType == 'craftsman') {
         print('✅ SharedPrefs: Navigating to craftsman dashboard');
+        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+        return;
+      }
+      
+      // Check widget userType parameter
+      if (widget.userType == 'craftsman') {
+        print('✅ Widget param: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
       } else {
         print('❌ Fallback: Navigating to customer dashboard');

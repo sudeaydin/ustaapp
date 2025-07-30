@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../messages/screens/messages_screen.dart';
 
 class CraftsmanDashboard extends ConsumerStatefulWidget {
   const CraftsmanDashboard({super.key});
@@ -251,7 +252,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               Navigator.pushNamed(context, '/business-profile');
               break;
             case 2:
-              Navigator.pushNamed(context, '/messages');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MessagesScreen(userType: 'craftsman'),
+                ),
+              );
               break;
             case 3:
               Navigator.pushNamed(context, '/profile');
