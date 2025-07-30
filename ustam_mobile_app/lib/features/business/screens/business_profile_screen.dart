@@ -22,6 +22,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   List<String> _selectedSkills = [];
   List<String> _selectedServiceAreas = [];
   bool _isLoading = false;
+  int _currentIndex = 1; // Business profile is second tab for craftsman
 
   final List<String> _cities = ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya'];
   final List<String> _districts = ['Kadıköy', 'Ataşehir', 'Üsküdar', 'Beşiktaş', 'Şişli'];
@@ -57,10 +58,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E293B)),
-          onPressed: () => Navigator.pop(context),
-        ),
+        automaticallyImplyLeading: false, // Hide back button
         title: const Text(
           'İşletmem',
           style: TextStyle(
@@ -96,34 +94,45 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Profile Photo Section
-                Center(
+                // Business Stats Section
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF3B82F6),
+                        Color(0xFF1E40AF),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(60),
-                          border: Border.all(color: const Color(0xFFE2E8F0), width: 3),
-                          image: const DecorationImage(
-                            image: NetworkImage('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'),
-                            fit: BoxFit.cover,
-                          ),
+                      const Text(
+                        'İşletme İstatistikleri',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      TextButton(
-                        onPressed: () {
-                          // Change profile photo
-                        },
-                        child: const Text(
-                          'Fotoğraf Değiştir',
-                          style: TextStyle(
-                            color: Color(0xFF3B82F6),
-                            fontWeight: FontWeight.w600,
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildStatItem('Tamamlanan İş', '127'),
                           ),
-                        ),
+                          Expanded(
+                            child: _buildStatItem('Ortalama Puan', '4.8'),
+                          ),
+                          Expanded(
+                            child: _buildStatItem('Müşteri Memnuniyeti', '%98'),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -131,9 +140,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                 
                 const SizedBox(height: 32),
                 
-                // Basic Information
+                // Business Details Section
                 const Text(
-                  'Temel Bilgiler',
+                  'İşletme Detayları',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -143,68 +152,43 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                 const SizedBox(height: 16),
                 
                 _buildTextField(
-                  label: 'İşletme Adı',
                   controller: _businessNameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'İşletme adı gerekli';
-                    }
-                    return null;
-                  },
+                  label: 'İşletme Adı',
+                  hint: 'İşletme adınızı girin',
                 ),
                 
                 const SizedBox(height: 16),
                 
                 _buildTextField(
-                  label: 'Açıklama',
                   controller: _descriptionController,
-                  maxLines: 4,
-                  hint: 'İşletmeniz hakkında detaylı bilgi verin...',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Açıklama gerekli';
-                    }
-                    return null;
-                  },
+                  label: 'İşletme Açıklaması',
+                  hint: 'İşletmeniz hakkında bilgi verin',
+                  maxLines: 3,
                 ),
                 
                 const SizedBox(height: 16),
                 
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildDropdownField(
-                        label: 'Şehir',
-                        value: _selectedCity,
-                        items: _cities,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedCity = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildDropdownField(
-                        label: 'İlçe',
-                        value: _selectedDistrict,
-                        items: _districts,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedDistrict = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                _buildTextField(
+                  controller: _hourlyRateController,
+                  label: 'Saatlik Ücret (₺)',
+                  hint: 'Saatlik ücretinizi girin',
+                  keyboardType: TextInputType.number,
                 ),
                 
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 
-                // Pricing & Experience
+                _buildTextField(
+                  controller: _experienceController,
+                  label: 'Deneyim (Yıl)',
+                  hint: 'Deneyim yılınızı girin',
+                  keyboardType: TextInputType.number,
+                ),
+                
+                const SizedBox(height: 32),
+                
+                // Location Section
                 const Text(
-                  'Fiyatlandırma & Deneyim',
+                  'Konum Bilgileri',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -213,61 +197,31 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                 ),
                 const SizedBox(height: 16),
                 
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildTextField(
-                        label: 'Saatlik Ücret (₺)',
-                        controller: _hourlyRateController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Saatlik ücret gerekli';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildTextField(
-                        label: 'Deneyim (Yıl)',
-                        controller: _experienceController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Deneyim yılı gerekli';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
+                _buildDropdownField(
+                  label: 'Şehir',
+                  value: _selectedCity,
+                  items: _cities,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCity = value ?? '';
+                    });
+                  },
                 ),
                 
                 const SizedBox(height: 16),
                 
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildTextField(
-                        label: 'Yanıt Süresi',
-                        controller: _responseTimeController,
-                        hint: 'Örn: 4 saat',
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildTextField(
-                        label: 'Website',
-                        controller: _websiteController,
-                        hint: 'www.example.com',
-                      ),
-                    ),
-                  ],
+                _buildDropdownField(
+                  label: 'İlçe',
+                  value: _selectedDistrict,
+                  items: _districts,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedDistrict = value ?? '';
+                    });
+                  },
                 ),
                 
-                const SizedBox(height: 24),
+                const SizedBox(height: 32),
                 
                 // Skills Section
                 const Text(
@@ -278,254 +232,150 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                     color: Color(0xFF1E293B),
                   ),
                 ),
-                const SizedBox(height: 12),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
+                const SizedBox(height: 16),
+                
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _availableSkills.map((skill) {
+                    final isSelected = _selectedSkills.contains(skill);
+                    return FilterChip(
+                      label: Text(skill),
+                      selected: isSelected,
+                      onSelected: (selected) {
+                        setState(() {
+                          if (selected) {
+                            _selectedSkills.add(skill);
+                          } else {
+                            _selectedSkills.remove(skill);
+                          }
+                        });
+                      },
+                      backgroundColor: Colors.white,
+                      selectedColor: const Color(0xFFEFF6FF),
+                      checkmarkColor: const Color(0xFF3B82F6),
+                      labelStyle: TextStyle(
+                        color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFF64748B),
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Mevcut Yetenekler',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E293B),
-                        ),
+                      side: BorderSide(
+                        color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFFE2E8F0),
                       ),
-                      const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _selectedSkills.map((skill) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFEFF6FF),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFFDBEAFE)),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  skill,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF1E40AF),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedSkills.remove(skill);
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 14,
-                                    color: Color(0xFF1E40AF),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Yetenek Ekle',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E293B),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _availableSkills.where((skill) => !_selectedSkills.contains(skill)).map((skill) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _selectedSkills.add(skill);
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF1F5F9),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: const Color(0xFFE2E8F0)),
-                              ),
-                              child: Text(
-                                skill,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF64748B),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
+                    );
+                  }).toList(),
                 ),
                 
-                const SizedBox(height: 24),
+                const SizedBox(height: 32),
                 
-                // Service Areas
+                // Contact Information
                 const Text(
-                  'Hizmet Verdiği Bölgeler',
+                  'İletişim Bilgileri',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1E293B),
                   ),
                 ),
-                const SizedBox(height: 12),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Mevcut Bölgeler',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E293B),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _selectedServiceAreas.map((area) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF0F9FF),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: const Color(0xFFBAE6FD)),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  area,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF0369A1),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedServiceAreas.remove(area);
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 14,
-                                    color: Color(0xFF0369A1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Bölge Ekle',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E293B),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _districts.where((district) => !_selectedServiceAreas.contains(district)).map((district) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _selectedServiceAreas.add(district);
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF1F5F9),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: const Color(0xFFE2E8F0)),
-                              ),
-                              child: Text(
-                                district,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF64748B),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 16),
+                
+                _buildTextField(
+                  controller: _websiteController,
+                  label: 'Website',
+                  hint: 'Website adresinizi girin',
                 ),
                 
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
+                
+                _buildTextField(
+                  controller: _responseTimeController,
+                  label: 'Yanıt Süresi',
+                  hint: 'Ortalama yanıt sürenizi girin',
+                ),
+                
+                const SizedBox(height: 100), // Extra padding for bottom navigation
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+              break;
+            case 1:
+              // Already on business profile
+              break;
+            case 2:
+              Navigator.pushReplacementNamed(context, '/messages');
+              break;
+            case 3:
+              Navigator.pushReplacementNamed(context, '/profile');
+              break;
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF3B82F6),
+        unselectedItemColor: const Color(0xFF64748B),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Ana Sayfa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'İşletmem',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Mesajlar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profilim',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String title, String value) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12,
+            color: Colors.white70,
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildTextField({
-    required String label,
     required TextEditingController controller,
-    int maxLines = 1,
-    String? hint,
+    required String label,
+    required String hint,
     TextInputType? keyboardType,
+    int maxLines = 1,
     String? Function(String?)? validator,
   }) {
     return Column(

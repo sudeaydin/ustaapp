@@ -140,7 +140,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       subtitle: '3 yeni mesaj',
                       color: const Color(0xFF3B82F6),
                       onTap: () {
-                        // Navigate to messages
+                        Navigator.pushNamed(context, '/messages');
                       },
                     ),
                   ),
@@ -152,7 +152,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       subtitle: '5 yeni bildirim',
                       color: const Color(0xFFF59E0B),
                       onTap: () {
-                        // Navigate to notifications
+                        Navigator.pushNamed(context, '/notifications');
                       },
                     ),
                   ),
@@ -170,7 +170,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       subtitle: '2 yeni teklif',
                       color: const Color(0xFF10B981),
                       onTap: () {
-                        // Navigate to quotes
+                        Navigator.pushNamed(context, '/quotes');
                       },
                     ),
                   ),
@@ -182,7 +182,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       subtitle: 'Profil yönetimi',
                       color: const Color(0xFF8B5CF6),
                       onTap: () {
-                        // Navigate to business profile
+                        Navigator.pushNamed(context, '/business-profile');
                       },
                     ),
                   ),
