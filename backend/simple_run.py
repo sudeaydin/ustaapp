@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
 import os
 from werkzeug.utils import secure_filename
 import uuid
@@ -9,7 +10,11 @@ import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
+app.config['JWT_SECRET_KEY'] = 'your-jwt-secret-key-here'
 CORS(app, origins=['http://localhost:3000', 'http://localhost:5173'])
+
+# Initialize JWT
+jwt = JWTManager(app)
 
 # Initialize SocketIO
 socketio = SocketIO(app, cors_allowed_origins=['http://localhost:3000', 'http://localhost:5173'])
@@ -697,6 +702,7 @@ def upload_multiple_images():
 
 # Profile management endpoints
 @app.route('/api/profile', methods=['GET'])
+@jwt_required()
 def get_profile():
     try:
         # Mock user profile data

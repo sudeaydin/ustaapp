@@ -69,14 +69,14 @@ class WelcomeScreen extends ConsumerWidget {
                 // Giriş Butonları
                 Column(
                   children: [
-                    // Usta Giriş Butonu
+                    // Müşteri Giriş Butonu
                     Container(
                       width: double.infinity,
                       height: 56,
                       margin: const EdgeInsets.only(bottom: 16),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/login-craftsman');
+                          Navigator.pushNamed(context, '/login');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -89,10 +89,10 @@ class WelcomeScreen extends ConsumerWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person, size: 24),
+                            Icon(Icons.home, size: 24),
                             SizedBox(width: 12),
                             Text(
-                              'Usta Girişi',
+                              'Müşteri Girişi',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -103,14 +103,14 @@ class WelcomeScreen extends ConsumerWidget {
                       ),
                     ),
                     
-                    // Müşteri Giriş Butonu
+                    // Usta Giriş Butonu
                     Container(
                       width: double.infinity,
                       height: 56,
                       margin: const EdgeInsets.only(bottom: 24),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/login');
+                          Navigator.pushNamed(context, '/login-craftsman');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
@@ -124,10 +124,10 @@ class WelcomeScreen extends ConsumerWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home, size: 24),
+                            Icon(Icons.person, size: 24),
                             SizedBox(width: 12),
                             Text(
-                              'Müşteri Girişi',
+                              'Usta Girişi',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,

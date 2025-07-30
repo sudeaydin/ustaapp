@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -24,7 +25,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Future<void> _loadProfile() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/profile/'));
+      // Get auth token from SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('authToken');
+      
+      if (token == null) {
+        print('No auth token found');
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
+      final response = await http.get(
+        Uri.parse('http://localhost:5000/api/profile/'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      
+      print('Profile API Response: ${response.statusCode} - ${response.body}');
+      
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success']) {
@@ -32,7 +54,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             _profileData = data['data'];
             _isLoading = false;
           });
+        } else {
+          print('API Error: ${data['message']}');
+          setState(() {
+            _isLoading = false;
+          });
         }
+      } else {
+        print('HTTP Error: ${response.statusCode} - ${response.body}');
+        setState(() {
+          _isLoading = false;
+        });
       }
     } catch (e) {
       print('Error loading profile: $e');
