@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -503,7 +504,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           switch (index) {
             case 0:
               // Navigate to appropriate dashboard based on user type
-              if (_profileData?['user_type'] == 'craftsman') {
+              final authState = ref.read(authProvider);
+              if (authState.user?['user_type'] == 'craftsman' || _profileData?['user_type'] == 'craftsman') {
                 Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
               } else {
                 Navigator.pushReplacementNamed(context, '/customer-dashboard');

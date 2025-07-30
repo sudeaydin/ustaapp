@@ -360,22 +360,26 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFE2E8F0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.02),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -410,6 +414,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             ),
           ],
         ),
+          ),
+        ),
       ),
     );
   }
@@ -423,7 +429,6 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     required String amount,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -436,6 +441,15 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           ),
         ],
       ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            // Job detail sayfasına git
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           Container(
@@ -524,6 +538,9 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           ),
         ],
       ),
-    );
-  }
+            ),
+          ),
+        ),
+      );
+    }
 }
