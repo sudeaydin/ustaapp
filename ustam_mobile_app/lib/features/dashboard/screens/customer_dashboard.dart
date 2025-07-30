@@ -275,7 +275,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     required VoidCallback onTap,
   }) {
     return Container(
-      height: 120,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -297,6 +296,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
