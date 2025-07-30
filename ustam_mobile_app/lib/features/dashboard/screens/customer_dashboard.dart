@@ -98,26 +98,37 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             Row(
               children: [
                 Expanded(
-                  child: _buildActionCard(
-                    title: 'Usta Ara',
-                    subtitle: 'Hizmet al',
-                    icon: Icons.search,
-                    color: const Color(0xFF3B82F6),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/search');
-                    },
+                  child: SizedBox(
+                    height: 120,
+                    child: _buildActionCard(
+                      title: 'Usta Ara',
+                      subtitle: 'Hizmet al',
+                      icon: Icons.search,
+                      color: const Color(0xFF3B82F6),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/search');
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _buildActionCard(
-                    title: 'Mesajlar',
-                    subtitle: '${3} yeni',
-                    icon: Icons.message,
-                    color: const Color(0xFF10B981),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/messages');
-                    },
+                  child: SizedBox(
+                    height: 120,
+                    child: _buildActionCard(
+                      title: 'Mesajlar',
+                      subtitle: '${3} yeni',
+                      icon: Icons.message,
+                      color: const Color(0xFF10B981),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MessagesScreen(userType: 'customer'),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -128,26 +139,32 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             Row(
               children: [
                 Expanded(
-                  child: _buildActionCard(
-                    title: 'Bildirimler',
-                    subtitle: '${5} yeni',
-                    icon: Icons.notifications,
-                    color: const Color(0xFFF59E0B),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/notifications');
-                    },
+                  child: SizedBox(
+                    height: 120,
+                    child: _buildActionCard(
+                      title: 'Bildirimler',
+                      subtitle: '${5} yeni',
+                      icon: Icons.notifications,
+                      color: const Color(0xFFF59E0B),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/notifications');
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _buildActionCard(
-                    title: 'Profilim',
-                    subtitle: 'Ayarlar',
-                    icon: Icons.person,
-                    color: const Color(0xFF8B5CF6),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
+                  child: SizedBox(
+                    height: 120,
+                    child: _buildActionCard(
+                      title: 'Profilim',
+                      subtitle: 'Ayarlar',
+                      icon: Icons.person,
+                      color: const Color(0xFF8B5CF6),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                    ),
                   ),
                 ),
               ],

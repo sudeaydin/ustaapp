@@ -17,7 +17,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
   
   Future<void> _navigateToHomeDashboard() async {
     try {
-      // Try auth provider first
+      // Check widget userType parameter first (most reliable when coming from dashboards)
+      if (widget.userType == 'craftsman') {
+        print('✅ Widget param: Navigating to craftsman dashboard');
+        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+        return;
+      }
+      
+      // Try auth provider second
       final authState = ref.read(authProvider);
       print('🔍 Messages Screen - Auth State: ${authState.user}');
       
@@ -38,14 +45,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
         return;
       }
       
-      // Check widget userType parameter
-      if (widget.userType == 'craftsman') {
-        print('✅ Widget param: Navigating to craftsman dashboard');
-        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
-      } else {
-        print('❌ Fallback: Navigating to customer dashboard');
-        Navigator.pushReplacementNamed(context, '/customer-dashboard');
-      }
+      print('❌ Fallback: Navigating to customer dashboard');
+      Navigator.pushReplacementNamed(context, '/customer-dashboard');
     } catch (e) {
       print('⚠️ Error in navigation: $e');
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
