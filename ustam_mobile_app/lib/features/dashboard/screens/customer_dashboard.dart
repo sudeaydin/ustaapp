@@ -271,7 +271,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               craftsman: 'Mehmet Özkan',
               price: '₺300',
               status: 'Kabul Edildi',
-              statusColor: const Color(0xFF10B981),
+              statusColor: AppColors.primaryPurple,
             ),
             
             const SizedBox(height: 32),
@@ -291,7 +291,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               title: 'Temizlik Hizmeti',
               subtitle: 'Ahmet Yılmaz - 400₺',
               status: 'Tamamlandı',
-              statusColor: const Color(0xFF10B981),
+              statusColor: AppColors.primaryPurple,
               icon: Icons.cleaning_services,
             ),
             
