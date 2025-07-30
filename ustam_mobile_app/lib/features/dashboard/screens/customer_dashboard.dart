@@ -35,11 +35,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               // Welcome Section
               Container(
                 width: double.infinity,
@@ -179,7 +180,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 statusColor: const Color(0xFFF59E0B),
                 icon: Icons.build,
               ),
-              const SizedBox(height: 20), // Bottom padding
+              const SizedBox(height: 100), // Extra bottom padding for navigation
             ],
           ),
         ),

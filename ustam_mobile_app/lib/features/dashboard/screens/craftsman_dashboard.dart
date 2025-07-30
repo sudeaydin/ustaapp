@@ -232,7 +232,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 statusColor: const Color(0xFFF59E0B),
                 amount: '₺200',
               ),
-              const SizedBox(height: 20), // Bottom padding
+              const SizedBox(height: 100), // Extra bottom padding for navigation
             ],
           ),
         ),
