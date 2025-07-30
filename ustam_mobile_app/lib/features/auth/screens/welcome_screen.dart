@@ -89,7 +89,7 @@ class WelcomeScreen extends ConsumerWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home, size: 24),
+                            Icon(Icons.person, size: 24),
                             SizedBox(width: 12),
                             Text(
                               'Müşteri Girişi',
@@ -124,7 +124,7 @@ class WelcomeScreen extends ConsumerWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person, size: 24),
+                            Icon(Icons.build, size: 24),
                             SizedBox(width: 12),
                             Text(
                               'Usta Girişi',
