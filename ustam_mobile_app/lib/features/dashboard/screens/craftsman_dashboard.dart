@@ -248,13 +248,13 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               // Already on dashboard
               break;
             case 1:
-              Navigator.pushReplacementNamed(context, '/business-profile');
+              Navigator.pushNamed(context, '/business-profile');
               break;
             case 2:
-              Navigator.pushReplacementNamed(context, '/messages');
+              Navigator.pushNamed(context, '/messages');
               break;
             case 3:
-              Navigator.pushReplacementNamed(context, '/profile');
+              Navigator.pushNamed(context, '/profile');
               break;
           }
         },

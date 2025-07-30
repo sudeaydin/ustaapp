@@ -20,6 +20,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   List<Map<String, dynamic>> _craftsmen = [];
   List<Map<String, dynamic>> _categories = [];
   List<String> _cities = [];
+  int _currentIndex = 1; // Search is second tab
 
   @override
   void initState() {
@@ -672,6 +673,52 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              break;
+            case 1:
+              // Already on search
+              break;
+            case 2:
+              Navigator.pushReplacementNamed(context, '/messages');
+              break;
+            case 3:
+              Navigator.pushReplacementNamed(context, '/profile');
+              break;
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF3B82F6),
+        unselectedItemColor: const Color(0xFF64748B),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Ana Sayfa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Arama',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Mesajlar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profilim',
+          ),
+        ],
       ),
     );
   }

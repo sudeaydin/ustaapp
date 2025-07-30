@@ -227,13 +227,13 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               // Already on dashboard
               break;
             case 1:
-              Navigator.pushReplacementNamed(context, '/search');
+              Navigator.pushNamed(context, '/search');
               break;
             case 2:
-              Navigator.pushReplacementNamed(context, '/messages');
+              Navigator.pushNamed(context, '/messages');
               break;
             case 3:
-              Navigator.pushReplacementNamed(context, '/profile');
+              Navigator.pushNamed(context, '/profile');
               break;
           }
         },
