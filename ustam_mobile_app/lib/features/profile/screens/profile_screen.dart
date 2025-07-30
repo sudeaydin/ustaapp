@@ -30,16 +30,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
       
+      print('🔍 Checking user type from SharedPreferences: $userType');
+      
       if (userType == 'craftsman') {
+        print('✅ Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
       } else if (userType == 'customer') {
+        print('✅ Navigating to customer dashboard');
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       } else {
+        print('⚠️ No user type found, defaulting to customer dashboard');
         // Default fallback to customer dashboard
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       }
     } catch (e) {
-      print('Error navigating to dashboard: $e');
+      print('❌ Error navigating to dashboard: $e');
       // Default fallback
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
@@ -53,8 +58,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       
       if (token == null) {
         print('No auth token found');
+        // Even without token, try to get user type for navigation
+        final userType = prefs.getString('user_type');
+        print('🔍 User type from SharedPreferences: $userType');
+        
         setState(() {
           _isLoading = false;
+          // Set minimal profile data for navigation to work
+          _profileData = {
+            'user_type': userType ?? 'customer',
+            'first_name': 'Kullanıcı',
+            'last_name': '',
+            'email': 'Bilinmiyor'
+          };
         });
         return;
       }
@@ -525,11 +541,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           switch (index) {
             case 0:
               // Navigate to appropriate dashboard based on user type
+              print('🏠 Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
+              
               if (_profileData?['user_type'] == 'craftsman') {
+                print('✅ Craftsman dashboard\'a yönlendiriliyor');
                 Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
               } else if (_profileData?['user_type'] == 'customer') {
+                print('✅ Customer dashboard\'a yönlendiriliyor');
                 Navigator.pushReplacementNamed(context, '/customer-dashboard');
               } else {
+                print('⚠️ Profile data\'da user type bulunamadı, SharedPreferences kontrol ediliyor');
                 // Fallback - check user type from SharedPreferences
                 _navigateToCorrectDashboard();
               }

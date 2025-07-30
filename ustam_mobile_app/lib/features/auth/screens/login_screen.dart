@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String userType;
@@ -448,18 +449,36 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       });
 
       try {
-        // Login logic here
-        await Future.delayed(const Duration(seconds: 2)); // Simulate API call
+        final authNotifier = ref.read(authProvider.notifier);
         
-        if (mounted) {
+        print('🔐 Login attempt - User type: ${widget.userType}');
+        print('📧 Email: ${_emailController.text}');
+        
+        // Login with auth provider
+        final success = await authNotifier.login(
+          _emailController.text,
+          _passwordController.text,
+          widget.userType,
+        );
+        
+        if (success && mounted) {
+          print('✅ Login successful, navigating to dashboard');
           // Navigate to appropriate dashboard
           if (widget.userType == 'craftsman') {
             Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
           } else {
             Navigator.pushReplacementNamed(context, '/customer-dashboard');
           }
+        } else if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Giriş başarısız'),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       } catch (e) {
+        print('❌ Login error: $e');
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
