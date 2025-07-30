@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/theme/app_colors.dart';
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
@@ -8,14 +9,11 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF3B82F6),
-              Color(0xFF1E40AF),
-            ],
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(
+            AppColors.primaryGradient,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
         child: SafeArea(
@@ -25,77 +23,223 @@ class WelcomeScreen extends ConsumerWidget {
               children: [
                 const Spacer(),
                 
-                // Logo ve App Adı
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
+                // Logo - Splash ile aynı tasarım
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Outer glow effect
+                    Container(
+                      width: 160,
+                      height: 160,
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [
+                            AppColors.accentYellow.withOpacity(0.3),
+                            Colors.transparent,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(80),
                       ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.build,
-                    size: 60,
-                    color: Color(0xFF3B82F6),
-                  ),
+                    ),
+                    // Main logo container
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.getGradient([
+                          AppColors.cardBackground,
+                          AppColors.surfaceColor,
+                        ]),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: AppColors.accentYellow.withOpacity(0.3),
+                          width: 3,
+                        ),
+                        boxShadow: [
+                          AppColors.getElevatedShadow(blurRadius: 25),
+                          BoxShadow(
+                            color: AppColors.accentYellow.withOpacity(0.2),
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Cartoon-style tool icon
+                          Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              gradient: AppColors.getGradient(AppColors.warningGradient),
+                              borderRadius: BorderRadius.circular(18),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.accentYellow.withOpacity(0.4),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.engineering_rounded,
+                              size: 35,
+                              color: AppColors.textWhite,
+                            ),
+                          ),
+                          // Sparkle effects
+                          Positioned(
+                            top: 12,
+                            right: 12,
+                            child: Container(
+                              width: 18,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                color: AppColors.accentYellow,
+                                borderRadius: BorderRadius.circular(9),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.accentYellow.withOpacity(0.6),
+                                    blurRadius: 8,
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.star,
+                                size: 10,
+                                color: AppColors.textWhite,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 18,
+                            left: 18,
+                            child: Container(
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                color: AppColors.accentPink,
+                                borderRadius: BorderRadius.circular(6),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.accentPink.withOpacity(0.6),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Ustam',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                const SizedBox(height: 20),
+                // Main title with shadow effect
+                Stack(
+                  children: [
+                    // Shadow text
+                    Text(
+                      '🔧 Ustam',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 3
+                          ..color = AppColors.textWhite.withOpacity(0.3),
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    // Main text
+                    const Text(
+                      '🔧 Ustam',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textWhite,
+                        letterSpacing: 2,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Usta bul, işini yaptır',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
+                const SizedBox(height: 12),
+                // Subtitle with modern styling
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.textWhite.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: AppColors.textWhite.withOpacity(0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: const Text(
+                    'Usta bul, işini yaptır',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.textWhite,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
                   ),
                 ),
                 
                 const Spacer(),
                 
-                // Giriş Butonları
+                // Giriş Butonları - Modern Design
                 Column(
                   children: [
                     // Müşteri Giriş Butonu
                     Container(
                       width: double.infinity,
-                      height: 56,
-                      margin: const EdgeInsets.only(bottom: 16),
+                      height: 50,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [AppColors.cardBackground, AppColors.surfaceColor],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [AppColors.getElevatedShadow()],
+                      ),
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF3B82F6),
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          elevation: 0,
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person, size: 24),
-                            SizedBox(width: 12),
-                            Text(
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryBlue.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.person_rounded, size: 20, color: AppColors.primaryBlue),
+                            ),
+                            const SizedBox(width: 12),
+                            const Text(
                               'Müşteri Girişi',
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
                               ),
                             ),
                           ],
@@ -106,31 +250,41 @@ class WelcomeScreen extends ConsumerWidget {
                     // Usta Giriş Butonu
                     Container(
                       width: double.infinity,
-                      height: 56,
-                      margin: const EdgeInsets.only(bottom: 24),
+                      height: 50,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.textWhite.withOpacity(0.3), width: 2),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/login-craftsman');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
+                          shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
-                            side: const BorderSide(color: Colors.white, width: 2),
                           ),
-                          elevation: 0,
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.build, size: 24),
-                            SizedBox(width: 12),
-                            Text(
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: AppColors.textWhite.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(Icons.engineering_rounded, size: 20, color: AppColors.textWhite),
+                            ),
+                            const SizedBox(width: 12),
+                            const Text(
                               'Usta Girişi',
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textWhite,
                               ),
                             ),
                           ],
@@ -144,12 +298,12 @@ class WelcomeScreen extends ConsumerWidget {
                 const Text(
                   'Hizmet şartları ve gizlilik politikası',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     color: Colors.white60,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
               ],
             ),
           ),

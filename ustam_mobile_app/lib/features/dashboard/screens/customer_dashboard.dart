@@ -444,7 +444,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     size: 20,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   title,
                   style: const TextStyle(
@@ -455,7 +455,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 1),
                 Text(
                   subtitle,
                   style: TextStyle(
