@@ -41,179 +41,179 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              // Welcome Section
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xFF3B82F6),
-                      Color(0xFF1E40AF),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Hoş Geldiniz!',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Hangi hizmete ihtiyacınız var?',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
-                      ),
-                    ),
+            // Welcome Section
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF3B82F6),
+                    Color(0xFF1E40AF),
                   ],
                 ),
+                borderRadius: BorderRadius.circular(20),
               ),
-              
-              const SizedBox(height: 24),
-              
-              // Quick Actions
-              const Text(
-                'Hızlı İşlemler',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
-                ),
-              ),
-              const SizedBox(height: 16),
-              
-              Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: _buildActionCard(
-                      title: 'Usta Ara',
-                      subtitle: 'Hizmet al',
-                      icon: Icons.search,
-                      color: const Color(0xFF3B82F6),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
+                  const Text(
+                    'Hoş Geldiniz!',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildActionCard(
-                      title: 'Mesajlar',
-                      subtitle: '${3} yeni',
-                      icon: Icons.message,
-                      color: const Color(0xFF10B981),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/messages');
-                      },
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Hangi hizmete ihtiyacınız var?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
                     ),
                   ),
                 ],
               ),
-              
-              const SizedBox(height: 12),
-              
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildActionCard(
-                      title: 'Bildirimler',
-                      subtitle: '${5} yeni',
-                      icon: Icons.notifications,
-                      color: const Color(0xFFF59E0B),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/notifications');
-                      },
-                    ),
+            ),
+            
+            const SizedBox(height: 24),
+            
+            // Quick Actions
+            const Text(
+              'Hızlı İşlemler',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1E293B),
+              ),
+            ),
+            const SizedBox(height: 16),
+            
+            Row(
+              children: [
+                Expanded(
+                  child: _buildActionCard(
+                    title: 'Usta Ara',
+                    subtitle: 'Hizmet al',
+                    icon: Icons.search,
+                    color: const Color(0xFF3B82F6),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/search');
+                    },
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildActionCard(
-                      title: 'Profilim',
-                      subtitle: 'Ayarlar',
-                      icon: Icons.person,
-                      color: const Color(0xFF8B5CF6),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                    ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildActionCard(
+                    title: 'Mesajlar',
+                    subtitle: '${3} yeni',
+                    icon: Icons.message,
+                    color: const Color(0xFF10B981),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/messages');
+                    },
                   ),
-                ],
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // My Quotes Section
-              const Text(
-                'Aldığım Teklifler',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
                 ),
-              ),
-              const SizedBox(height: 16),
-              
-              _buildQuoteCard(
-                title: 'Ev Temizliği',
-                craftsman: 'Ahmet Yılmaz',
-                price: '₺150',
-                status: 'Beklemede',
-                statusColor: const Color(0xFFF59E0B),
-              ),
-              
-              const SizedBox(height: 12),
-              
-              _buildQuoteCard(
-                title: 'Mobilya Montajı',
-                craftsman: 'Mehmet Özkan',
-                price: '₺300',
-                status: 'Kabul Edildi',
-                statusColor: const Color(0xFF10B981),
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // Recent Activity
-              const Text(
-                'Son Aktiviteler',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
+              ],
+            ),
+            
+            const SizedBox(height: 12),
+            
+            Row(
+              children: [
+                Expanded(
+                  child: _buildActionCard(
+                    title: 'Bildirimler',
+                    subtitle: '${5} yeni',
+                    icon: Icons.notifications,
+                    color: const Color(0xFFF59E0B),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/notifications');
+                    },
+                  ),
                 ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildActionCard(
+                    title: 'Profilim',
+                    subtitle: 'Ayarlar',
+                    icon: Icons.person,
+                    color: const Color(0xFF8B5CF6),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                  ),
+                ),
+              ],
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // My Quotes Section
+            const Text(
+              'Aldığım Teklifler',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1E293B),
               ),
-              const SizedBox(height: 16),
-              
-              _buildActivityCard(
-                title: 'Temizlik Hizmeti',
-                subtitle: 'Ahmet Yılmaz - 400₺',
-                status: 'Tamamlandı',
-                statusColor: const Color(0xFF10B981),
-                icon: Icons.cleaning_services,
+            ),
+            const SizedBox(height: 16),
+            
+            _buildQuoteCard(
+              title: 'Ev Temizliği',
+              craftsman: 'Ahmet Yılmaz',
+              price: '₺150',
+              status: 'Beklemede',
+              statusColor: const Color(0xFFF59E0B),
+            ),
+            
+            const SizedBox(height: 12),
+            
+            _buildQuoteCard(
+              title: 'Mobilya Montajı',
+              craftsman: 'Mehmet Özkan',
+              price: '₺300',
+              status: 'Kabul Edildi',
+              statusColor: const Color(0xFF10B981),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // Recent Activity
+            const Text(
+              'Son Aktiviteler',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1E293B),
               ),
-              
-              const SizedBox(height: 12),
-              
-              _buildActivityCard(
-                title: 'Mobilya Montajı',
-                subtitle: 'Mehmet Özkan - 600₺',
-                status: 'Devam Ediyor',
-                statusColor: const Color(0xFFF59E0B),
-                icon: Icons.build,
-              ),
-              const SizedBox(height: 150), // Extra bottom padding for navigation
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            
+            _buildActivityCard(
+              title: 'Temizlik Hizmeti',
+              subtitle: 'Ahmet Yılmaz - 400₺',
+              status: 'Tamamlandı',
+              statusColor: const Color(0xFF10B981),
+              icon: Icons.cleaning_services,
+            ),
+            
+            const SizedBox(height: 12),
+            
+            _buildActivityCard(
+              title: 'Mobilya Montajı',
+              subtitle: 'Mehmet Özkan - 600₺',
+              status: 'Devam Ediyor',
+              statusColor: const Color(0xFFF59E0B),
+              icon: Icons.build,
+            ),
+            
+            const SizedBox(height: 150), // Extra bottom padding for navigation
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
