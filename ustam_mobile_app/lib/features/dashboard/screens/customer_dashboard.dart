@@ -359,22 +359,22 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded),
               activeIcon: Icon(Icons.home_rounded, size: 28),
-              label: '🏠 Ana Sayfa',
+              label: 'Ana Sayfa',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search_rounded),
               activeIcon: Icon(Icons.search_rounded, size: 28),
-              label: '🔍 Arama',
+              label: 'Arama',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble_rounded),
               activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
-              label: '💬 Mesajlar',
+              label: 'Mesajlar',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_rounded),
               activeIcon: Icon(Icons.person_rounded, size: 28),
-              label: '👤 Profilim',
+              label: 'Profilim',
             ),
           ],
         ),
