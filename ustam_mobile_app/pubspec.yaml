@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,7 +69,7 @@ dependencies:
   
   # Forms & Validation
   flutter_form_builder: ^9.2.1
-  form_builder_validators: ^10.0.1
+  form_builder_validators: ^11.0.0
   
   # Image & Media
   image_picker: ^1.1.2
@@ -84,7 +86,6 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   
   # Utils
-  intl: ^0.20.2
   url_launcher: ^6.3.0
   share_plus: ^10.0.2
   
