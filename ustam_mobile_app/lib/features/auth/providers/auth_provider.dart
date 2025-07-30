@@ -3,7 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // SharedPreferences provider
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-  throw UnimplementedError();
+  // This will be overridden in main.dart with actual SharedPreferences instance
+  throw UnimplementedError('SharedPreferences not initialized');
 });
 
 // Auth state model
