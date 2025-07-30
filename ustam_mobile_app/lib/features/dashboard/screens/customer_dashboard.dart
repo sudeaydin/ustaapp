@@ -152,6 +152,37 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               
               const SizedBox(height: 32),
               
+              // My Quotes Section
+              const Text(
+                'Aldığım Teklifler',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
+              const SizedBox(height: 16),
+              
+              _buildQuoteCard(
+                title: 'Ev Temizliği',
+                craftsman: 'Ahmet Yılmaz',
+                price: '₺150',
+                status: 'Beklemede',
+                statusColor: const Color(0xFFF59E0B),
+              ),
+              
+              const SizedBox(height: 12),
+              
+              _buildQuoteCard(
+                title: 'Mobilya Montajı',
+                craftsman: 'Mehmet Özkan',
+                price: '₺300',
+                status: 'Kabul Edildi',
+                statusColor: const Color(0xFF10B981),
+              ),
+              
+              const SizedBox(height: 32),
+              
               // Recent Activity
               const Text(
                 'Son Aktiviteler',
@@ -180,7 +211,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 statusColor: const Color(0xFFF59E0B),
                 icon: Icons.build,
               ),
-              const SizedBox(height: 100), // Extra bottom padding for navigation
+              const SizedBox(height: 120), // Extra bottom padding for navigation
             ],
           ),
         ),
@@ -299,6 +330,100 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildQuoteCard({
+    required String title,
+    required String craftsman,
+    required String price,
+    required String status,
+    required Color statusColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: const Color(0xFFEFF6FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(
+              Icons.receipt_long,
+              color: Color(0xFF3B82F6),
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E293B),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  craftsman,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF64748B),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                price,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF10B981),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: statusColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
