@@ -470,7 +470,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     'Çıkış Yap',
                     Icons.logout,
                     () {
-                      // Logout
+                      // Clear auth data and navigate to welcome
+                      Navigator.pushNamedAndRemoveUntil(
+                        context, 
+                        '/welcome', 
+                        (route) => false
+                      );
                     },
                     color: const Color(0xFFEF4444),
                   ),

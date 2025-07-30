@@ -245,7 +245,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           });
           switch (index) {
             case 0:
-              // Already on dashboard
+              // Already on craftsman dashboard
               break;
             case 1:
               Navigator.pushNamed(context, '/business-profile');
