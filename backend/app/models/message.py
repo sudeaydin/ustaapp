@@ -2,49 +2,48 @@ from app import db
 from datetime import datetime
 
 class Message(db.Model):
-    """Messages between customers and craftsmen"""
     __tablename__ = 'messages'
     
     id = db.Column(db.Integer, primary_key=True)
+    
+    # Message Details
     quote_id = db.Column(db.Integer, db.ForeignKey('quotes.id'), nullable=False)
     sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    
-    # Message content
+    receiver_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    message_type = db.Column(db.String(20), default='text')  # text, image, file
     
-    # File attachments
-    attachments = db.Column(db.JSON)  # List of file URLs
-    
-    # Status
+    # Message Status
     is_read = db.Column(db.Boolean, default=False)
-    is_system = db.Column(db.Boolean, default=False)  # System messages
+    message_type = db.Column(db.String(20), default='text')  # text, image, file
     
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    read_at = db.Column(db.DateTime)
     
     # Relationships
-    sender = db.relationship('User', backref='sent_messages')
+    quote = db.relationship('Quote', backref='messages')
+    sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
+    receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
     
     def to_dict(self):
         return {
             'id': self.id,
             'quote_id': self.quote_id,
             'sender_id': self.sender_id,
+            'receiver_id': self.receiver_id,
             'content': self.content,
-            'message_type': self.message_type,
-            'attachments': self.attachments or [],
             'is_read': self.is_read,
-            'is_system': self.is_system,
+            'message_type': self.message_type,
             'created_at': self.created_at.isoformat() if self.created_at else None,
-            'read_at': self.read_at.isoformat() if self.read_at else None,
             'sender': {
                 'id': self.sender.id,
-                'first_name': self.sender.first_name,
-                'last_name': self.sender.last_name,
-                'profile_image': self.sender.profile_image
-            } if self.sender else None
+                'name': f"{self.sender.first_name} {self.sender.last_name}",
+                'user_type': self.sender.user_type,
+            } if self.sender else None,
+            'receiver': {
+                'id': self.receiver.id,
+                'name': f"{self.receiver.first_name} {self.receiver.last_name}",
+                'user_type': self.receiver.user_type,
+            } if self.receiver else None,
         }
     
     def mark_as_read(self):

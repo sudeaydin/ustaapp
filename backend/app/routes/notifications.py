@@ -4,9 +4,9 @@ from app import db
 from app.models.notification import Notification
 from app.models.user import User
 
-notification_bp = Blueprint('notification', __name__)
+notifications_bp = Blueprint('notifications', __name__)
 
-@notification_bp.route('/api/notifications', methods=['GET'])
+@notifications_bp.route('/api/notifications', methods=['GET'])
 @jwt_required()
 def get_notifications():
     """Get notifications for current user"""
@@ -47,7 +47,7 @@ def get_notifications():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
-@notification_bp.route('/api/notifications/<int:notification_id>/read', methods=['PUT'])
+@notifications_bp.route('/api/notifications/<int:notification_id>/read', methods=['PUT'])
 @jwt_required()
 def mark_notification_read(notification_id):
     """Mark a notification as read"""
@@ -69,7 +69,7 @@ def mark_notification_read(notification_id):
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
-@notification_bp.route('/api/notifications/mark-all-read', methods=['PUT'])
+@notifications_bp.route('/api/notifications/mark-all-read', methods=['PUT'])
 @jwt_required()
 def mark_all_notifications_read():
     """Mark all notifications as read for current user"""
@@ -94,7 +94,7 @@ def mark_all_notifications_read():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
-@notification_bp.route('/api/notifications/<int:notification_id>', methods=['DELETE'])
+@notifications_bp.route('/api/notifications/<int:notification_id>', methods=['DELETE'])
 @jwt_required()
 def delete_notification(notification_id):
     """Delete a notification"""
@@ -118,7 +118,7 @@ def delete_notification(notification_id):
         db.session.rollback()
         return jsonify({'success': False, 'message': str(e)}), 500
 
-@notification_bp.route('/api/notifications/unread-count', methods=['GET'])
+@notifications_bp.route('/api/notifications/unread-count', methods=['GET'])
 @jwt_required()
 def get_unread_count():
     """Get unread notification count for current user"""

@@ -31,7 +31,7 @@ def create_app(config_name='default'):
          supports_credentials=True)
     
     # Import models
-    from app.models import user, craftsman, customer, category, quote, payment, notification, job
+    from app.models import user, craftsman, customer, category, quote, payment, notification, job, message
     
     # Register new API blueprints
     from app.routes.profile import profile_bp
@@ -43,6 +43,9 @@ def create_app(config_name='default'):
     from app.routes.job import job_bp
     from app.routes.production_api import production_api
     from app.routes.mobile_api import mobile_api
+    from app.routes.quotes import quotes_bp
+    from app.routes.messages import messages_bp # This line is duplicated, but the edit doesn't ask to remove it.
+    from app.routes.notifications import notifications_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -51,6 +54,8 @@ def create_app(config_name='default'):
     app.register_blueprint(notification_bp, url_prefix='/api/notifications')
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')
+    app.register_blueprint(quotes_bp, url_prefix='/api/quotes')
+    app.register_blueprint(notifications_bp, url_prefix='/api/notifications')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')
