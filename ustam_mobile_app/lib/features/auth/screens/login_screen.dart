@@ -245,14 +245,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ],
                     ),
                   ),
-                const SizedBox(height: 8),
-                Text(
-                  '${widget.userType == 'craftsman' ? 'Usta' : 'Müşteri'} hesabınıza giriş yapın',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF64748B),
-                  ),
-                ),
+                  
+                  const SizedBox(height: 32),
                 
                 const SizedBox(height: 40),
                 
