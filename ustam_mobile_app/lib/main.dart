@@ -9,6 +9,11 @@ import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
 import 'features/profile/screens/profile_screen.dart';
 import 'features/quote/screens/quote_form_screen.dart';
+import 'features/craftsman/screens/craftsman_detail_screen.dart';
+import 'features/business/screens/business_profile_screen.dart';
+import 'features/messages/screens/messages_screen.dart';
+import 'features/messages/screens/chat_screen.dart';
+import 'features/notifications/screens/notifications_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -41,6 +46,17 @@ class MyApp extends StatelessWidget {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return QuoteFormScreen(craftsman: args['craftsman']);
         },
+        '/craftsman-detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return CraftsmanDetailScreen(craftsman: args['craftsman']);
+        },
+        '/business-profile': (context) => const BusinessProfileScreen(),
+        '/messages': (context) => const MessagesScreen(),
+        '/chat': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return ChatScreen(conversation: args['conversation']);
+        },
+        '/notifications': (context) => const NotificationsScreen(),
       },
     );
   }
