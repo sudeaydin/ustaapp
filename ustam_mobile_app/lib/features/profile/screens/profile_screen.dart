@@ -469,13 +469,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   _buildActionButton(
                     'Çıkış Yap',
                     Icons.logout,
-                    () {
+                    () async {
                       // Clear auth data and navigate to welcome
-                      Navigator.pushNamedAndRemoveUntil(
-                        context, 
-                        '/welcome', 
-                        (route) => false
-                      );
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.remove('authToken');
+                      await prefs.remove('userType');
+                      await prefs.remove('userId');
+                      
+                      if (mounted) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context, 
+                          '/welcome', 
+                          (route) => false
+                        );
+                      }
                     },
                     color: const Color(0xFFEF4444),
                   ),
