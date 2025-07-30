@@ -8,6 +8,7 @@ import 'features/dashboard/screens/customer_dashboard.dart';
 import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
 import 'features/profile/screens/profile_screen.dart';
+import 'features/quote/screens/quote_form_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -36,6 +37,10 @@ class MyApp extends StatelessWidget {
         '/craftsman-dashboard': (context) => const CraftsmanDashboard(),
         '/search': (context) => const SearchScreen(),
         '/profile': (context) => const ProfileScreen(),
+        '/quote-form': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return QuoteFormScreen(craftsman: args['craftsman']);
+        },
       },
     );
   }

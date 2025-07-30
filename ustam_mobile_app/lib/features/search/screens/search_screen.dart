@@ -632,6 +632,35 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               ),
                                           ],
                                         ),
+                                        const SizedBox(height: 16),
+                                        // Teklif Al Button
+                                        Container(
+                                          width: double.infinity,
+                                          height: 48,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              // Navigate to quote form
+                                              Navigator.pushNamed(context, '/quote-form', arguments: {
+                                                'craftsman': craftsman,
+                                              });
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(0xFF3B82F6),
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              elevation: 0,
+                                            ),
+                                            child: const Text(
+                                              'Teklif Al',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
