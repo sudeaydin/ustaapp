@@ -458,7 +458,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         final success = await authNotifier.login(
           _emailController.text,
           _passwordController.text,
-          widget.userType,
+          userType: widget.userType,
         );
         
         if (success && mounted) {

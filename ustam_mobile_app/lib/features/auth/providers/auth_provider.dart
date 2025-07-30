@@ -94,7 +94,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // Mock users - validate userType matches
       Map<String, dynamic>? user;
       
-      if (email == 'customer@example.com' && password == 'password123') {
+      if (email == 'customer@test.com' && password == '123456') {
         if (userType == null || userType == 'customer') {
           user = {
             'id': 1,
@@ -104,13 +104,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
             'last_name': 'Müşteri',
           };
         }
-      } else if (email == 'craftsman@example.com' && password == 'password123') {
+      } else if (email == 'ahmet@test.com' && password == '123456') {
         if (userType == null || userType == 'craftsman') {
           user = {
             'id': 2,
             'email': email,
             'user_type': 'craftsman',
-            'first_name': 'Mehmet',
+            'first_name': 'Ahmet',
             'last_name': 'Usta',
             'specialty': 'Elektrikçi',
           };
