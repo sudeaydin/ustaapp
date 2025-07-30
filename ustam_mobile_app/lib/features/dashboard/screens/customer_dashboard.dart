@@ -205,14 +205,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             const SizedBox(height: 12),
             
             _buildActivityCard(
-              title: 'Mobilya Montajı',
-              subtitle: 'Mehmet Özkan - 600₺',
+              title: 'Devam Eden İş',
+              subtitle: 'Mobilya Montajı',
               status: 'Devam Ediyor',
               statusColor: const Color(0xFFF59E0B),
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 350), // Increased bottom padding for navigation
+            const SizedBox(height: 120), // Reduced bottom padding for navigation
           ],
         ),
       ),
