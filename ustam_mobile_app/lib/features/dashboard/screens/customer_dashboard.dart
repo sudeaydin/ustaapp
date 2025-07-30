@@ -311,7 +311,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     size: 24,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(height: 8),
                 Text(
                   title,
                   style: const TextStyle(
