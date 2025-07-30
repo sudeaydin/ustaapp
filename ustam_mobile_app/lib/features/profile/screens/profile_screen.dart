@@ -25,6 +25,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     });
   }
 
+  Future<void> _navigateToCorrectDashboard() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userType = prefs.getString('user_type');
+      
+      if (userType == 'craftsman') {
+        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+      } else if (userType == 'customer') {
+        Navigator.pushReplacementNamed(context, '/customer-dashboard');
+      } else {
+        // Default fallback to customer dashboard
+        Navigator.pushReplacementNamed(context, '/customer-dashboard');
+      }
+    } catch (e) {
+      print('Error navigating to dashboard: $e');
+      // Default fallback
+      Navigator.pushReplacementNamed(context, '/customer-dashboard');
+    }
+  }
+
   Future<void> _loadProfile() async {
     try {
       // Get auth token from SharedPreferences
@@ -507,8 +527,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               // Navigate to appropriate dashboard based on user type
               if (_profileData?['user_type'] == 'craftsman') {
                 Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
-              } else {
+              } else if (_profileData?['user_type'] == 'customer') {
                 Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              } else {
+                // Fallback - check user type from SharedPreferences
+                _navigateToCorrectDashboard();
               }
               break;
             case 1:

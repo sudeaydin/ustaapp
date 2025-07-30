@@ -38,7 +38,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +46,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             // Welcome Section
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
@@ -232,7 +232,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 100), // Optimized bottom padding for navigation
+            const SizedBox(height: 80), // Fixed bottom padding for navigation
           ],
         ),
       ),

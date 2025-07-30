@@ -18,7 +18,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
       backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -233,7 +233,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 statusColor: const Color(0xFFF59E0B),
                 amount: '₺200',
               ),
-              const SizedBox(height: 120), // Extra bottom padding for navigation
+              const SizedBox(height: 80), // Fixed bottom padding for navigation
             ],
           ),
         ),
@@ -386,9 +386,9 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -417,9 +417,9 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 fontSize: 12,
                 color: Color(0xFF64748B),
               ),
+                ),
+              ],
             ),
-          ],
-        ),
           ),
         ),
       ),
@@ -456,8 +456,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
+            child: Row(
+              children: [
           Container(
             width: 50,
             height: 50,
@@ -541,10 +541,10 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 ),
               ),
             ],
+              ),
+            ],
           ),
-        ],
-      ),
-            ),
+        ),
           ),
         ),
       );

@@ -74,13 +74,21 @@ def get_profile():
                     except:
                         working_hours = {}
                 
+                # Parse service areas from JSON string
+                service_areas = []
+                if craftsman.service_areas:
+                    try:
+                        service_areas = json.loads(craftsman.service_areas) if isinstance(craftsman.service_areas, str) else craftsman.service_areas
+                    except:
+                        service_areas = []
+                
                 profile_data['profile'] = {
                     'business_name': craftsman.business_name,
                     'description': craftsman.description,
                     'address': craftsman.address,
                     'city': craftsman.city,
                     'district': craftsman.district,
-                    'hourly_rate': str(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+                    'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else 0,
                     'average_rating': craftsman.average_rating or 0,
                     'total_reviews': craftsman.total_reviews or 0,
                     'is_available': craftsman.is_available,
@@ -89,7 +97,7 @@ def get_profile():
                     'skills': skills,
                     'certifications': certifications,
                     'working_hours': working_hours,
-                    'service_areas': craftsman.service_areas or [],
+                    'service_areas': service_areas,
                     'website': craftsman.website,
                     'response_time': craftsman.response_time,
                     'created_at': craftsman.created_at.isoformat() if craftsman.created_at else None
