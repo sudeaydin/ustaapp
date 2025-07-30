@@ -474,7 +474,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       // Clear auth data and navigate to welcome
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.remove('authToken');
-                      await prefs.remove('userType');
+                      await prefs.remove('user');
+                      await prefs.remove('user_type');
                       await prefs.remove('userId');
                       await prefs.remove('userEmail');
                       await prefs.remove('userName');
