@@ -212,7 +212,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 300), // Increased bottom padding for navigation
+            const SizedBox(height: 350), // Increased bottom padding for navigation
           ],
         ),
       ),

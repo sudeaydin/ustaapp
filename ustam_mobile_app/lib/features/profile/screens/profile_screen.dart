@@ -475,6 +475,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       await prefs.remove('authToken');
                       await prefs.remove('userType');
                       await prefs.remove('userId');
+                      await prefs.remove('userEmail');
+                      await prefs.remove('userName');
                       
                       if (mounted) {
                         Navigator.pushNamedAndRemoveUntil(
@@ -500,10 +502,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           });
           switch (index) {
             case 0:
-              Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              // Navigate to appropriate dashboard based on user type
+              if (_profileData?['user_type'] == 'craftsman') {
+                Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+              } else {
+                Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              }
               break;
             case 1:
-              Navigator.pushReplacementNamed(context, '/search');
+              if (_profileData?['user_type'] == 'craftsman') {
+                Navigator.pushReplacementNamed(context, '/business-profile');
+              } else {
+                Navigator.pushReplacementNamed(context, '/search');
+              }
               break;
             case 2:
               Navigator.pushReplacementNamed(context, '/messages');
@@ -519,20 +530,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         unselectedItemColor: const Color(0xFF64748B),
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Ana Sayfa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Arama',
+            icon: const Icon(Icons.search),
+            label: _profileData?['user_type'] == 'craftsman' ? 'İşletmem' : 'Arama',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'Mesajlar',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profilim',
           ),

@@ -157,10 +157,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     // Header Title
                     Row(
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back, color: Colors.white),
-                          onPressed: () => Navigator.pop(context),
-                        ),
                         const Expanded(
                           child: Text(
                             'Usta Ara',

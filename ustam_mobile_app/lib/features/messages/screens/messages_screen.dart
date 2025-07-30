@@ -295,9 +295,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           });
           switch (index) {
             case 0:
+              // Navigate to appropriate dashboard based on user type
+              // For now, we'll use customer dashboard as default
               Navigator.pushReplacementNamed(context, '/customer-dashboard');
               break;
             case 1:
+              // Navigate to appropriate second tab based on user type
+              // For now, we'll use search as default
               Navigator.pushReplacementNamed(context, '/search');
               break;
             case 2:
