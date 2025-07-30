@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -492,6 +493,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
+                                      mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
@@ -513,6 +515,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                             const SizedBox(width: 16),
                                             Expanded(
                                               child: Column(
+                                                mainAxisSize: MainAxisSize.min,
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Row(
@@ -678,7 +681,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           });
           switch (index) {
             case 0:
-              Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              // Navigate to appropriate dashboard based on user type
+              final authState = ref.read(authProvider);
+              if (authState.user?['user_type'] == 'craftsman') {
+                Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+              } else {
+                Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              }
               break;
             case 1:
               // Already on search
