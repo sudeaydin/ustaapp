@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MessagesScreen extends ConsumerStatefulWidget {
@@ -10,7 +11,37 @@ class MessagesScreen extends ConsumerStatefulWidget {
 }
 
 class _MessagesScreenState extends ConsumerState<MessagesScreen> {
-  int _currentIndex = 2; // Messages is third tab
+  int _currentIndex = 2;
+  
+  Future<void> _navigateToHomeDashboard() async {
+    try {
+      // Try auth provider first
+      final authState = ref.read(authProvider);
+      print('🔍 Messages Screen - Auth State: ${authState.user}');
+      
+      if (authState.user != null && authState.user?['user_type'] == 'craftsman') {
+        print('✅ Auth Provider: Navigating to craftsman dashboard');
+        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+        return;
+      }
+      
+      // Fallback: Check SharedPreferences directly
+      final prefs = await SharedPreferences.getInstance();
+      final userType = prefs.getString('user_type');
+      print('🔍 Messages Screen - SharedPrefs User Type: $userType');
+      
+      if (userType == 'craftsman') {
+        print('✅ SharedPrefs: Navigating to craftsman dashboard');
+        Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+      } else {
+        print('❌ Fallback: Navigating to customer dashboard');
+        Navigator.pushReplacementNamed(context, '/customer-dashboard');
+      }
+    } catch (e) {
+      print('⚠️ Error in navigation: $e');
+      Navigator.pushReplacementNamed(context, '/customer-dashboard');
+    }
+  } // Messages is third tab
   final List<Map<String, dynamic>> _conversations = [
     {
       'id': '1',
@@ -85,12 +116,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           switch (index) {
             case 0:
               // Navigate to appropriate dashboard based on user type
-              final authState = ref.read(authProvider);
-              if (authState.user?['user_type'] == 'craftsman') {
-                Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
-              } else {
-                Navigator.pushReplacementNamed(context, '/customer-dashboard');
-              }
+              _navigateToHomeDashboard();
               break;
             case 1:
               Navigator.pushReplacementNamed(context, '/search');
