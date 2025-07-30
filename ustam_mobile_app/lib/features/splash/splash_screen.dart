@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/theme/app_colors.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -72,14 +73,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF3B82F6),
-              Color(0xFF1E40AF),
-            ],
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(
+            AppColors.primaryGradient,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
         child: SafeArea(
@@ -87,31 +85,122 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo Animation
+                // Logo Animation - Cartoon Style
                 AnimatedBuilder(
                   animation: _logoScale,
                   builder: (context, child) {
                     return Transform.scale(
                       scale: _logoScale.value,
-                      child: Container(
-                        width: 140,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(35),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 30,
-                              offset: const Offset(0, 15),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Outer glow effect
+                          Container(
+                            width: 180,
+                            height: 180,
+                            decoration: BoxDecoration(
+                              gradient: RadialGradient(
+                                colors: [
+                                  AppColors.accentYellow.withOpacity(0.3),
+                                  Colors.transparent,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(90),
                             ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.build,
-                          size: 70,
-                          color: Color(0xFF3B82F6),
-                        ),
+                          ),
+                          // Main logo container
+                          Container(
+                            width: 140,
+                            height: 140,
+                            decoration: BoxDecoration(
+                              gradient: AppColors.getGradient([
+                                AppColors.cardBackground,
+                                AppColors.surfaceColor,
+                              ]),
+                              borderRadius: BorderRadius.circular(35),
+                              border: Border.all(
+                                color: AppColors.accentYellow.withOpacity(0.3),
+                                width: 3,
+                              ),
+                              boxShadow: [
+                                AppColors.getElevatedShadow(blurRadius: 25),
+                                BoxShadow(
+                                  color: AppColors.accentYellow.withOpacity(0.2),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // Cartoon-style tool icon
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.getGradient(AppColors.warningGradient),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.accentYellow.withOpacity(0.4),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: const Icon(
+                                    Icons.engineering_rounded,
+                                    size: 40,
+                                    color: AppColors.textWhite,
+                                  ),
+                                ),
+                                // Sparkle effects
+                                Positioned(
+                                  top: 15,
+                                  right: 15,
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.accentYellow,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.accentYellow.withOpacity(0.6),
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.star,
+                                      size: 12,
+                                      color: AppColors.textWhite,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 20,
+                                  left: 20,
+                                  child: Container(
+                                    width: 15,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.accentPink,
+                                      borderRadius: BorderRadius.circular(7.5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.accentPink.withOpacity(0.6),
+                                          blurRadius: 6,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -119,7 +208,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 
                 const SizedBox(height: 40),
                 
-                // App Title Animation
+                // App Title Animation - Modern & Cartoon
                 AnimatedBuilder(
                   animation: _textOpacity,
                   builder: (context, child) {
@@ -127,22 +216,61 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       opacity: _textOpacity.value,
                       child: Column(
                         children: [
-                          const Text(
-                            'Ustam',
-                            style: TextStyle(
-                              fontSize: 42,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              letterSpacing: 2,
-                            ),
+                          // Main title with shadow effect
+                          Stack(
+                            children: [
+                              // Shadow text
+                              Text(
+                                '🔧 Ustam',
+                                style: TextStyle(
+                                  fontSize: 46,
+                                  fontWeight: FontWeight.bold,
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 3
+                                    ..color = AppColors.textWhite.withOpacity(0.3),
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              // Main text
+                              const Text(
+                                '🔧 Ustam',
+                                style: TextStyle(
+                                  fontSize: 46,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textWhite,
+                                  letterSpacing: 2,
+                                  shadows: [
+                                    Shadow(
+                                      offset: Offset(2, 2),
+                                      blurRadius: 4,
+                                      color: Colors.black26,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 12),
-                          const Text(
-                            'Usta bul, işini yaptır',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w500,
+                          const SizedBox(height: 16),
+                          // Subtitle with modern styling
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: AppColors.textWhite.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: AppColors.textWhite.withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: const Text(
+                              '✨ Usta bul, işini yaptır ✨',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.textWhite,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
                             ),
                           ),
                         ],
@@ -153,13 +281,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 
                 const SizedBox(height: 80),
                 
-                // Loading Indicator
-                const SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: CircularProgressIndicator(
+                // Loading Indicator - Modern Style
+                Container(
+                  width: 50,
+                  height: 50,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.textWhite.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
+                      color: AppColors.textWhite.withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
+                  child: const CircularProgressIndicator(
                     strokeWidth: 3,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
                   ),
                 ),
               ],
