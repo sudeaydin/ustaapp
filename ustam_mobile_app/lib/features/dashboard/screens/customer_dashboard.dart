@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
+import '../../../core/theme/app_colors.dart';
 
 class CustomerDashboard extends ConsumerStatefulWidget {
   const CustomerDashboard({super.key});
@@ -15,25 +16,42 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardBackground,
         elevation: 0,
-        automaticallyImplyLeading: false, // Back button'ı gizle
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: AppColors.getGradient(AppColors.primaryGradient),
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+        ),
         title: const Text(
-          'Ana Sayfa',
+          '🏠 Ana Sayfa',
           style: TextStyle(
-            color: Color(0xFF1E293B),
+            color: AppColors.textWhite,
             fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Color(0xFF1E293B)),
-            onPressed: () {
-              Navigator.pushNamed(context, '/notifications');
-            },
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            decoration: BoxDecoration(
+              color: AppColors.textWhite.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.notifications_outlined, color: AppColors.textWhite),
+              onPressed: () {
+                Navigator.pushNamed(context, '/notifications');
+              },
+            ),
           ),
         ],
       ),
@@ -43,39 +61,72 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Section
+            // Welcome Section - Modern ve Çizgifilmsel
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF3B82F6),
-                    Color(0xFF1E40AF),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(20),
+                gradient: AppColors.getGradient(AppColors.successGradient),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [AppColors.getElevatedShadow()],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Hoş Geldiniz!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.textWhite.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: const Text(
+                          '👋',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hoş Geldiniz!',
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textWhite,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Hangi hizmete ihtiyacınız var?',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.textWhite,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Hangi hizmete ihtiyacınız var?',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.textWhite.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      '✨ Profesyonel ustalarla tanışın',
+                      style: TextStyle(
+                        color: AppColors.textWhite,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
@@ -84,14 +135,31 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             
             const SizedBox(height: 24),
             
-            // Quick Actions
-            const Text(
-              'Hızlı İşlemler',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1E293B),
-              ),
+            // Quick Actions - Modern Başlık
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: AppColors.getGradient(AppColors.accentGradient),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.flash_on,
+                    color: AppColors.textWhite,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                const Text(
+                  'Hızlı İşlemler',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             
@@ -103,8 +171,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     child: _buildActionCard(
                       title: 'Usta Ara',
                       subtitle: 'Hizmet al',
-                      icon: Icons.search,
-                      color: const Color(0xFF3B82F6),
+                      icon: Icons.search_rounded,
+                      color: AppColors.primaryBlue,
                       onTap: () {
                         Navigator.pushNamed(context, '/search');
                       },
@@ -118,8 +186,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     child: _buildActionCard(
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
-                      icon: Icons.message,
-                      color: const Color(0xFF10B981),
+                      icon: Icons.chat_bubble_rounded,
+                      color: AppColors.primaryGreen,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -144,8 +212,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     child: _buildActionCard(
                       title: 'Bildirimler',
                       subtitle: '${5} yeni',
-                      icon: Icons.notifications,
-                      color: const Color(0xFFF59E0B),
+                      icon: Icons.notifications_active_rounded,
+                      color: AppColors.accentYellow,
                       onTap: () {
                         Navigator.pushNamed(context, '/notifications');
                       },
@@ -159,8 +227,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     child: _buildActionCard(
                       title: 'Profilim',
                       subtitle: 'Ayarlar',
-                      icon: Icons.person,
-                      color: const Color(0xFF8B5CF6),
+                      icon: Icons.person_rounded,
+                      color: AppColors.primaryPurple,
                       onTap: () {
                         Navigator.pushNamed(context, '/profile');
                       },
@@ -236,56 +304,75 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          switch (index) {
-            case 0:
-              // Already on dashboard
-              break;
-            case 1:
-              Navigator.pushNamed(context, '/search');
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MessagesScreen(userType: 'customer'),
-                ),
-              );
-              break;
-            case 3:
-              Navigator.pushNamed(context, '/profile');
-              break;
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF3B82F6),
-        unselectedItemColor: const Color(0xFF64748B),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Ana Sayfa',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(
+            AppColors.primaryGradient,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Arama',
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Mesajlar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profilim',
-          ),
-        ],
+          boxShadow: [AppColors.getElevatedShadow()],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+            switch (index) {
+              case 0:
+                // Already on dashboard
+                break;
+              case 1:
+                Navigator.pushNamed(context, '/search');
+                break;
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MessagesScreen(userType: 'customer'),
+                  ),
+                );
+                break;
+              case 3:
+                Navigator.pushNamed(context, '/profile');
+                break;
+            }
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: AppColors.textWhite,
+          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              activeIcon: Icon(Icons.home_rounded, size: 28),
+              label: '🏠 Ana Sayfa',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_rounded),
+              activeIcon: Icon(Icons.search_rounded, size: 28),
+              label: '🔍 Arama',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_rounded),
+              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
+              label: '💬 Mesajlar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_rounded),
+              activeIcon: Icon(Icons.person_rounded, size: 28),
+              label: '👤 Profilim',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -299,58 +386,76 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.cardBackground,
+            color.withOpacity(0.05),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
         boxShadow: [
+          AppColors.getCardShadow(),
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: color.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 40,
-                  height: 40,
+                  width: 48,
+                  height: 48,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [color, color.withOpacity(0.7)],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: color.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Icon(
                     icon,
-                    color: color,
-                    size: 20,
+                    color: AppColors.textWhite,
+                    size: 24,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 12),
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E293B),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    color: Color(0xFF64748B),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w500,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
