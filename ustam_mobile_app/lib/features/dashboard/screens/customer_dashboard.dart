@@ -58,6 +58,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
