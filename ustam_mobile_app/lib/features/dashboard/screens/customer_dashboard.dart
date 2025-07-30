@@ -39,6 +39,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Welcome Section
@@ -212,7 +213,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 120), // Reduced bottom padding for navigation
+            const SizedBox(height: 100), // Optimized bottom padding for navigation
           ],
         ),
       ),
@@ -294,6 +295,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -373,6 +375,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           const SizedBox(width: 16),
           Expanded(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -395,6 +398,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             ),
           ),
           Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
@@ -467,6 +471,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           const SizedBox(width: 16),
           Expanded(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../auth/providers/auth_provider.dart';
 
 class MessagesScreen extends ConsumerStatefulWidget {
   const MessagesScreen({super.key});
@@ -83,7 +84,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           });
           switch (index) {
             case 0:
-              Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              // Navigate to appropriate dashboard based on user type
+              final authState = ref.read(authProvider);
+              if (authState.user?['user_type'] == 'craftsman') {
+                Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+              } else {
+                Navigator.pushReplacementNamed(context, '/customer-dashboard');
+              }
               break;
             case 1:
               Navigator.pushReplacementNamed(context, '/search');

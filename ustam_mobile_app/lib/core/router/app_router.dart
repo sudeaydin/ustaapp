@@ -32,7 +32,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Auth Routes
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => const LoginScreen(userType: 'customer'),
       ),
       GoRoute(
         path: '/register',
