@@ -19,16 +19,23 @@ import 'features/notifications/screens/notifications_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final sharedPreferences = await SharedPreferences.getInstance();
   
-  runApp(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  try {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    
+    runApp(
+      ProviderScope(
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  } catch (e) {
+    print('Error initializing SharedPreferences: $e');
+    // Fallback without SharedPreferences for web debugging
+    runApp(const MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {

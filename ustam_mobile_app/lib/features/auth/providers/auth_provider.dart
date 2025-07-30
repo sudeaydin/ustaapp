@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 // SharedPreferences provider
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
@@ -57,14 +58,23 @@ class AuthNotifier extends StateNotifier<AuthState> {
     final token = _prefs.getString('authToken');
     final userJson = _prefs.getString('user');
     
-    if (token != null && userJson != null) {
-      // Parse user data and validate token
-      state = state.copyWith(
-        isAuthenticated: true,
-        token: token,
-        // user: jsonDecode(userJson),
-        isLoading: false,
-      );
+    if (token != null && userJson != null && userJson != '{}') {
+      try {
+        // Parse user data and validate token
+        final userData = jsonDecode(userJson) as Map<String, dynamic>;
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: token,
+          user: userData,
+          isLoading: false,
+        );
+      } catch (e) {
+        print('Error parsing user data: $e');
+        state = state.copyWith(
+          isAuthenticated: false,
+          isLoading: false,
+        );
+      }
     } else {
       state = state.copyWith(
         isAuthenticated: false,
@@ -134,7 +144,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         final token = 'mock_token_${DateTime.now().millisecondsSinceEpoch}';
         
         await _prefs.setString('authToken', token);
-        await _prefs.setString('user', '{}'); // JSON encode user data
+        await _prefs.setString('user', jsonEncode(user)); // JSON encode user data
+        await _prefs.setString('user_type', user['user_type']); // Store user_type separately
         
         state = state.copyWith(
           isAuthenticated: true,
@@ -183,7 +194,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       };
       
       await _prefs.setString('authToken', token);
-      await _prefs.setString('user', '{}'); // JSON encode user data
+      await _prefs.setString('user', jsonEncode(user)); // JSON encode user data
+      await _prefs.setString('user_type', userType); // Store user_type separately
       
       state = state.copyWith(
         isAuthenticated: true,
@@ -205,6 +217,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> logout() async {
     await _prefs.remove('authToken');
     await _prefs.remove('user');
+    await _prefs.remove('user_type');
     
     state = const AuthState();
   }

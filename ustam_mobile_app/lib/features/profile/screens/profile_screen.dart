@@ -474,7 +474,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       // Clear auth data and navigate to welcome
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.remove('authToken');
-                      await prefs.remove('userType');
+                      await prefs.remove('user');
+                      await prefs.remove('user_type');
                       await prefs.remove('userId');
                       await prefs.remove('userEmail');
                       await prefs.remove('userName');
@@ -504,8 +505,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           switch (index) {
             case 0:
               // Navigate to appropriate dashboard based on user type
-              final authState = ref.read(authProvider);
-              if (authState.user?['user_type'] == 'craftsman' || _profileData?['user_type'] == 'craftsman') {
+              if (_profileData?['user_type'] == 'craftsman') {
                 Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
               } else {
                 Navigator.pushReplacementNamed(context, '/customer-dashboard');

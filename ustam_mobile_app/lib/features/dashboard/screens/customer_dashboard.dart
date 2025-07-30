@@ -316,40 +316,44 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           borderRadius: BorderRadius.circular(16),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 48,
-                  height: 48,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: color.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(
                     icon,
                     color: color,
-                    size: 24,
+                    size: 20,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF1E293B),
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   subtitle,
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     color: Color(0xFF64748B),
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
