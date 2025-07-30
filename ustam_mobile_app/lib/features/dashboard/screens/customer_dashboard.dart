@@ -18,6 +18,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        automaticallyImplyLeading: false, // Back button'ı gizle
         title: const Text(
           'Ana Sayfa',
           style: TextStyle(
@@ -35,12 +36,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
               // Welcome Section
               Container(
                 width: double.infinity,
@@ -211,7 +211,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 statusColor: const Color(0xFFF59E0B),
                 icon: Icons.build,
               ),
-              const SizedBox(height: 120), // Extra bottom padding for navigation
+              const SizedBox(height: 150), // Extra bottom padding for navigation
             ],
           ),
         ),
@@ -227,13 +227,13 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               // Already on dashboard
               break;
             case 1:
-              Navigator.pushNamed(context, '/search');
+              Navigator.pushReplacementNamed(context, '/search');
               break;
             case 2:
-              Navigator.pushNamed(context, '/messages');
+              Navigator.pushReplacementNamed(context, '/messages');
               break;
             case 3:
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushReplacementNamed(context, '/profile');
               break;
           }
         },

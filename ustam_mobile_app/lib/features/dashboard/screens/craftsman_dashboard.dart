@@ -248,13 +248,13 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               // Already on dashboard
               break;
             case 1:
-              Navigator.pushNamed(context, '/search');
+              Navigator.pushReplacementNamed(context, '/business-profile');
               break;
             case 2:
-              Navigator.pushNamed(context, '/messages');
+              Navigator.pushReplacementNamed(context, '/messages');
               break;
             case 3:
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushReplacementNamed(context, '/profile');
               break;
           }
         },
@@ -270,8 +270,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             label: 'Ana Sayfa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Arama',
+            icon: Icon(Icons.business),
+            label: 'İşletmem',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
