@@ -56,18 +56,21 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Section - Modern ve Çizgifilmsel
+            // Welcome Section - Mor renk ile güzel
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: AppColors.getGradient(AppColors.successGradient),
-                borderRadius: BorderRadius.circular(24),
+                gradient: AppColors.getGradient([
+                  AppColors.primaryPurple,
+                  AppColors.primaryPurple.withOpacity(0.8),
+                ]),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [AppColors.getElevatedShadow()],
               ),
               child: Column(
@@ -77,14 +80,16 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                           color: AppColors.textWhite.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: const Text(
-                          '👋',
-                          style: TextStyle(fontSize: 24),
+                        child: const Icon(
+                          Icons.home_rounded,
+                          color: AppColors.textWhite,
+                          size: 26,
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -95,7 +100,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Text(
                               'Hoş Geldiniz!',
                               style: TextStyle(
-                                fontSize: 26,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textWhite,
                               ),
@@ -104,7 +109,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Text(
                               'Hangi hizmete ihtiyacınız var?',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: AppColors.textWhite,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -187,7 +192,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
                       icon: Icons.chat_bubble_rounded,
-                      color: AppColors.primaryGreen,
+                      color: AppColors.primaryPurple,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -300,7 +305,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 80), // Fixed bottom padding for navigation
+            const SizedBox(height: 60), // Fixed bottom padding for navigation
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/theme/app_colors.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -17,22 +18,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       title: 'Usta Bul',
       subtitle: 'İhtiyacınız olan ustayı kolayca bulun',
       description: 'Deneyimli ve güvenilir ustalar ile tanışın. İşinizi profesyonel ellere teslim edin.',
-      icon: Icons.search,
-      color: const Color(0xFF3B82F6),
+      icon: Icons.search_rounded,
+      color: AppColors.primaryBlue,
     ),
     OnboardingPage(
       title: 'Teklif Al',
       subtitle: 'Hızlı ve uygun fiyatlı teklifler',
       description: 'Birden fazla ustadan teklif alın, en uygun fiyatı seçin.',
-      icon: Icons.price_check,
-      color: const Color(0xFF10B981),
+      icon: Icons.request_quote_rounded,
+      color: AppColors.primaryPurple,
     ),
     OnboardingPage(
       title: 'Güvenle Çalış',
       subtitle: 'Güvenli ve kaliteli hizmet',
       description: 'Değerlendirmeler ve referanslar ile güvenle çalışın.',
-      icon: Icons.verified,
-      color: const Color(0xFFF59E0B),
+      icon: Icons.verified_rounded,
+      color: AppColors.accentYellow,
     ),
   ];
 
