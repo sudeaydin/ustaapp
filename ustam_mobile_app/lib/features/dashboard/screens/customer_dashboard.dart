@@ -56,7 +56,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             // Welcome Section - Splash ile aynı gradient
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: AppColors.getGradient(
                   AppColors.primaryGradient,
@@ -81,17 +81,17 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   Row(
                     children: [
                       Container(
-                        width: 50,
-                        height: 50,
+                        width: 45,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: AppColors.textWhite.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: const Icon(
-                          Icons.home_rounded,
-                          color: AppColors.textWhite,
-                          size: 26,
-                        ),
+                                                  child: const Icon(
+                            Icons.home_rounded,
+                            color: AppColors.textWhite,
+                            size: 22,
+                          ),
                       ),
                       const SizedBox(width: 16),
                       const Expanded(
@@ -101,16 +101,16 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Text(
                               'Hoş Geldiniz!',
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textWhite,
                               ),
                             ),
-                            SizedBox(height: 4),
+                            SizedBox(height: 2),
                             Text(
                               'Hangi hizmete ihtiyacınız var?',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: AppColors.textWhite,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -173,7 +173,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 100,
+                    height: 85,
                     child: _buildActionCard(
                       title: 'Usta Ara',
                       subtitle: 'Hizmet al',
@@ -188,7 +188,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 100,
+                    height: 85,
                     child: _buildActionCard(
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
@@ -214,7 +214,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 100,
+                    height: 85,
                     child: _buildActionCard(
                       title: 'Bildirimler',
                       subtitle: '${5} yeni',
@@ -229,7 +229,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 100,
+                    height: 85,
                     child: _buildActionCard(
                       title: 'Profilim',
                       subtitle: 'Ayarlar',
@@ -244,7 +244,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               ],
             ),
             
-            const SizedBox(height: 32),
+            const SizedBox(height: 20),
             
             // My Quotes Section
             const Text(
@@ -275,7 +275,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               statusColor: AppColors.primaryPurple,
             ),
             
-            const SizedBox(height: 32),
+            const SizedBox(height: 20),
             
             // Recent Activity
             const Text(
@@ -306,7 +306,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               icon: Icons.build,
             ),
             
-            const SizedBox(height: 60), // Fixed bottom padding for navigation
+            const SizedBox(height: 40), // Fixed bottom padding for navigation
           ],
         ),
       ),
@@ -417,14 +417,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           borderRadius: BorderRadius.circular(20),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 36,
-                  height: 36,
+                  width: 32,
+                  height: 32,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [color, color.withOpacity(0.7)],
@@ -441,17 +441,17 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   child: Icon(
                     icon,
                     color: AppColors.textWhite,
-                    size: 18,
+                    size: 16,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
+                                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -459,7 +459,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 Text(
                   subtitle,
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 10,
                     color: AppColors.textSecondary,
                     fontWeight: FontWeight.w500,
                   ),
