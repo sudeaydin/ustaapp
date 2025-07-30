@@ -118,52 +118,70 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 return _buildConversationTile(conversation);
               },
             ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          switch (index) {
-            case 0:
-              // Navigate to appropriate dashboard based on user type
-              _navigateToHomeDashboard();
-              break;
-            case 1:
-              Navigator.pushReplacementNamed(context, '/search');
-              break;
-            case 2:
-              // Already on messages
-              break;
-            case 3:
-              Navigator.pushReplacementNamed(context, '/profile');
-              break;
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF3B82F6),
-        unselectedItemColor: const Color(0xFF64748B),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Ana Sayfa',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient([
+            AppColors.primaryPurple,
+            AppColors.primaryPurple.withOpacity(0.9),
+          ]),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Arama',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Mesajlar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profilim',
-          ),
-        ],
+          boxShadow: [AppColors.getElevatedShadow()],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+            switch (index) {
+              case 0:
+                // Navigate to appropriate dashboard based on user type
+                _navigateToHomeDashboard();
+                break;
+              case 1:
+                Navigator.pushReplacementNamed(context, '/search');
+                break;
+              case 2:
+                // Already on messages
+                break;
+              case 3:
+                Navigator.pushReplacementNamed(context, '/profile');
+                break;
+            }
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: AppColors.textWhite,
+          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              activeIcon: Icon(Icons.home_rounded, size: 28),
+              label: 'Ana Sayfa',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_rounded),
+              activeIcon: Icon(Icons.search_rounded, size: 28),
+              label: 'Arama',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_rounded),
+              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
+              label: 'Mesajlar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_rounded),
+              activeIcon: Icon(Icons.person_rounded, size: 28),
+              label: 'Profilim',
+            ),
+          ],
+        ),
       ),
     );
   }

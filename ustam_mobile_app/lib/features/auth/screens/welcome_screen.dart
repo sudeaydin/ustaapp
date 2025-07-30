@@ -88,48 +88,7 @@ class WelcomeScreen extends ConsumerWidget {
                               color: AppColors.textWhite,
                             ),
                           ),
-                          // Sparkle effects
-                          Positioned(
-                            top: 12,
-                            right: 12,
-                            child: Container(
-                              width: 18,
-                              height: 18,
-                              decoration: BoxDecoration(
-                                color: AppColors.accentYellow,
-                                borderRadius: BorderRadius.circular(9),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.accentYellow.withOpacity(0.6),
-                                    blurRadius: 8,
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.star,
-                                size: 10,
-                                color: AppColors.textWhite,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 18,
-                            left: 18,
-                            child: Container(
-                              width: 12,
-                              height: 12,
-                              decoration: BoxDecoration(
-                                color: AppColors.accentPink,
-                                borderRadius: BorderRadius.circular(6),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.accentPink.withOpacity(0.6),
-                                    blurRadius: 6,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ),
@@ -139,9 +98,9 @@ class WelcomeScreen extends ConsumerWidget {
                 // Main title with shadow effect
                 Stack(
                   children: [
-                    // Shadow text
-                    Text(
-                      '🔧 Ustam',
+                                         // Shadow text
+                     Text(
+                       'Ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -152,9 +111,9 @@ class WelcomeScreen extends ConsumerWidget {
                         letterSpacing: 2,
                       ),
                     ),
-                    // Main text
-                    const Text(
-                      '🔧 Ustam',
+                                         // Main text
+                     const Text(
+                       'Ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,

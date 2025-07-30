@@ -155,48 +155,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                     color: AppColors.textWhite,
                                   ),
                                 ),
-                                // Sparkle effects
-                                Positioned(
-                                  top: 15,
-                                  right: 15,
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.accentYellow,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.accentYellow.withOpacity(0.6),
-                                          blurRadius: 8,
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Icon(
-                                      Icons.star,
-                                      size: 12,
-                                      color: AppColors.textWhite,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 20,
-                                  left: 20,
-                                  child: Container(
-                                    width: 15,
-                                    height: 15,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.accentPink,
-                                      borderRadius: BorderRadius.circular(7.5),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.accentPink.withOpacity(0.6),
-                                          blurRadius: 6,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                
                               ],
                             ),
                           ),
@@ -219,9 +178,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           // Main title with shadow effect
                           Stack(
                             children: [
-                              // Shadow text
-                              Text(
-                                '🔧 Ustam',
+                                                             // Shadow text
+                               Text(
+                                 'Ustam',
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,
@@ -232,23 +191,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   letterSpacing: 2,
                                 ),
                               ),
-                              // Main text
-                              const Text(
-                                '🔧 Ustam',
-                                style: TextStyle(
-                                  fontSize: 46,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textWhite,
-                                  letterSpacing: 2,
-                                  shadows: [
-                                    Shadow(
-                                      offset: Offset(2, 2),
-                                      blurRadius: 4,
-                                      color: Colors.black26,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                                             // Main text
+                               const Text(
+                                 'Ustam',
+                                 style: TextStyle(
+                                   fontSize: 46,
+                                   fontWeight: FontWeight.bold,
+                                   color: AppColors.textWhite,
+                                   letterSpacing: 2,
+                                   shadows: [
+                                     Shadow(
+                                       offset: Offset(2, 2),
+                                       blurRadius: 4,
+                                       color: Colors.black26,
+                                     ),
+                                   ],
+                                 ),
+                               ),
                             ],
                           ),
                           const SizedBox(height: 16),
@@ -263,8 +222,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                 width: 1,
                               ),
                             ),
-                            child: const Text(
-                              '✨ Usta bul, işini yaptır ✨',
+                                                         child: const Text(
+                               'Usta bul, işini yaptır',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.textWhite,

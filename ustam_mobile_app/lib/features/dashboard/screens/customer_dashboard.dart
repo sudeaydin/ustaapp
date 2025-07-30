@@ -417,14 +417,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           borderRadius: BorderRadius.circular(20),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 40,
-                  height: 40,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [color, color.withOpacity(0.7)],
@@ -441,10 +441,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   child: Icon(
                     icon,
                     color: AppColors.textWhite,
-                    size: 20,
+                    size: 18,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 Text(
                   title,
                   style: const TextStyle(

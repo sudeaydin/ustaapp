@@ -553,68 +553,86 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          switch (index) {
-            case 0:
-              // Navigate to appropriate dashboard based on user type
-              print('🏠 Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
-              
-              if (_profileData?['user_type'] == 'craftsman') {
-                print('✅ Craftsman dashboard\'a yönlendiriliyor');
-                Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
-              } else if (_profileData?['user_type'] == 'customer') {
-                print('✅ Customer dashboard\'a yönlendiriliyor');
-                Navigator.pushReplacementNamed(context, '/customer-dashboard');
-              } else {
-                print('⚠️ Profile data\'da user type bulunamadı, SharedPreferences kontrol ediliyor');
-                // Fallback - check user type from SharedPreferences
-                _navigateToCorrectDashboard();
-              }
-              break;
-            case 1:
-              if (_profileData?['user_type'] == 'craftsman') {
-                Navigator.pushReplacementNamed(context, '/business-profile');
-              } else {
-                Navigator.pushReplacementNamed(context, '/search');
-              }
-              break;
-            case 2:
-              Navigator.pushReplacementNamed(context, '/messages');
-              break;
-            case 3:
-              // Already on profile
-              break;
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF3B82F6),
-        unselectedItemColor: const Color(0xFF64748B),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Ana Sayfa',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient([
+            _profileData?['user_type'] == 'craftsman' ? AppColors.accentYellow : AppColors.primaryPurple,
+            (_profileData?['user_type'] == 'craftsman' ? AppColors.accentYellow : AppColors.primaryPurple).withOpacity(0.9),
+          ]),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.search),
-            label: _profileData?['user_type'] == 'craftsman' ? 'İşletmem' : 'Arama',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Mesajlar',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profilim',
-          ),
-        ],
+          boxShadow: [AppColors.getElevatedShadow()],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+            switch (index) {
+              case 0:
+                // Navigate to appropriate dashboard based on user type
+                print('🏠 Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
+                
+                if (_profileData?['user_type'] == 'craftsman') {
+                  print('✅ Craftsman dashboard\'a yönlendiriliyor');
+                  Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
+                } else if (_profileData?['user_type'] == 'customer') {
+                  print('✅ Customer dashboard\'a yönlendiriliyor');
+                  Navigator.pushReplacementNamed(context, '/customer-dashboard');
+                } else {
+                  print('⚠️ Profile data\'da user type bulunamadı, SharedPreferences kontrol ediliyor');
+                  // Fallback - check user type from SharedPreferences
+                  _navigateToCorrectDashboard();
+                }
+                break;
+              case 1:
+                if (_profileData?['user_type'] == 'craftsman') {
+                  Navigator.pushReplacementNamed(context, '/business-profile');
+                } else {
+                  Navigator.pushReplacementNamed(context, '/search');
+                }
+                break;
+              case 2:
+                Navigator.pushReplacementNamed(context, '/messages');
+                break;
+              case 3:
+                // Already on profile
+                break;
+            }
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: AppColors.textWhite,
+          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
+          items: [
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              activeIcon: Icon(Icons.home_rounded, size: 28),
+              label: 'Ana Sayfa',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(_profileData?['user_type'] == 'craftsman' ? Icons.business_rounded : Icons.search_rounded),
+              activeIcon: Icon(_profileData?['user_type'] == 'craftsman' ? Icons.business_rounded : Icons.search_rounded, size: 28),
+              label: _profileData?['user_type'] == 'craftsman' ? 'İşletmem' : 'Arama',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_rounded),
+              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
+              label: 'Mesajlar',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.person_rounded),
+              activeIcon: Icon(Icons.person_rounded, size: 28),
+              label: 'Profilim',
+            ),
+          ],
+        ),
       ),
     );
   }
