@@ -242,7 +242,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     width: double.infinity,
                     height: 56,
                     decoration: BoxDecoration(
-                      gradient: AppColors.getGradient(AppColors.successGradient),
+                      gradient: AppColors.getGradient(AppColors.primaryGradient),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),

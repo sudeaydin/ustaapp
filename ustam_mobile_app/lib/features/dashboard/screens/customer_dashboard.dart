@@ -61,15 +61,16 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Section - Mor renk ile güzel
+            // Welcome Section - Splash ile aynı gradient
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: AppColors.getGradient([
-                  AppColors.primaryPurple,
-                  AppColors.primaryPurple.withOpacity(0.8),
-                ]),
+                gradient: AppColors.getGradient(
+                  AppColors.primaryGradient,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [AppColors.getElevatedShadow()],
               ),
@@ -172,7 +173,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 120,
+                    height: 100,
                     child: _buildActionCard(
                       title: 'Usta Ara',
                       subtitle: 'Hizmet al',
@@ -187,7 +188,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 120,
+                    height: 100,
                     child: _buildActionCard(
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
@@ -213,7 +214,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 120,
+                    height: 100,
                     child: _buildActionCard(
                       title: 'Bildirimler',
                       subtitle: '${5} yeni',
@@ -228,7 +229,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 120,
+                    height: 100,
                     child: _buildActionCard(
                       title: 'Profilim',
                       subtitle: 'Ayarlar',
@@ -416,14 +417,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           borderRadius: BorderRadius.circular(20),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 48,
-                  height: 48,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [color, color.withOpacity(0.7)],
@@ -440,25 +441,25 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   child: Icon(
                     icon,
                     color: AppColors.textWhite,
-                    size: 24,
+                    size: 20,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   subtitle,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     color: AppColors.textSecondary,
                     fontWeight: FontWeight.w500,
                   ),
