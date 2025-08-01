@@ -1,0 +1,52 @@
+[
+  {
+    "name": "customer_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "company_name",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "tax_number",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "preferred_contact_method",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "total_spent",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "average_rating",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "updated_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

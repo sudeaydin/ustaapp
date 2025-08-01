@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Colors - Modern & Vibrant
-  static const Color primaryColor = Color(0xFF6366F1); // Indigo
-  static const Color primaryDark = Color(0xFF4F46E5);
-  static const Color primaryLight = Color(0xFF8B5CF6);
+  // Colors - Blue & Orange System
+  static const Color primaryColor = Color(0xFF1E88E5); // Bright Blue
+  static const Color primaryDark = Color(0xFF1565C0);
+  static const Color primaryLight = Color(0xFF42A5F5);
   
-  static const Color secondaryColor = Color(0xFF06D6A0); // Emerald
-  static const Color accentColor = Color(0xFFFF6B6B); // Coral
+  static const Color secondaryColor = Color(0xFFFF7043); // Bright Orange
+  static const Color secondaryDark = Color(0xFFE64A19);
+  static const Color secondaryLight = Color(0xFFFF8A65);
+  
+  static const Color accentColor = Color(0xFFFFAB91); // Light Orange
   
   // Gradient Colors
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+    colors: [
+      Color(0xFF1E88E5), // Bright Blue
+      Color(0xFF42A5F5), // Light Blue
+      Color(0xFF64B5F6), // Lighter Blue
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient secondaryGradient = LinearGradient(
+    colors: [
+      Color(0xFFFF7043), // Bright Orange
+      Color(0xFFFF8A65), // Light Orange
+      Color(0xFFFFAB91), // Lighter Orange
+    ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
   
   static const LinearGradient cardGradient = LinearGradient(
     colors: [
-      Color(0xFFFFFFFF), 
-      Color(0xFFFBFCFE), 
-      Color(0xFFF6F8FB)
+      Color(0xFFFFFFFF), // Pure white
+      Color(0xFFFDFEFF), // Almost white  
+      Color(0xFFFAFBFC)  // Very light gray
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -28,8 +45,8 @@ class AppTheme {
   );
   
   static const Color backgroundColor = Color(0xFFF1F5F9);
-  static const Color surfaceColor = Color(0xFFFBFCFE);
-  static const Color cardColor = Color(0xFFFBFCFE);
+  static const Color surfaceColor = Color(0xFFFFFFFF); // Pure white
+  static const Color cardColor = Color(0xFFFFFFFF); // Pure white
   
   // 3D Effect Colors - More sophisticated
   static const Color shadowLight = Color(0xFFFFFFFF);
@@ -73,9 +90,9 @@ class AppTheme {
     end: Alignment.bottomRight,
   );
   
-  static const Color textPrimary = Color(0xFF1F2937);
-  static const Color textSecondary = Color(0xFF6B7280);
-  static const Color textTertiary = Color(0xFF9CA3AF);
+  static const Color textPrimary = Color(0xFF111827); // Much darker
+  static const Color textSecondary = Color(0xFF374151); // Darker gray
+  static const Color textTertiary = Color(0xFF6B7280); // Medium gray
   
   static const Color errorColor = Color(0xFFEF4444);
   static const Color warningColor = Color(0xFFF59E0B);

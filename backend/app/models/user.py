@@ -22,12 +22,22 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     profile_image = db.Column(db.String(255))
+    date_of_birth = db.Column(db.Date)
+    gender = db.Column(db.String(10))
+    
+    # Location fields
+    city = db.Column(db.String(100))
+    district = db.Column(db.String(100))
+    address = db.Column(db.Text)
+    latitude = db.Column(db.Numeric(10, 8))
+    longitude = db.Column(db.Numeric(11, 8))
     
     # Status fields
     is_active = db.Column(db.Boolean, default=True)
     is_verified = db.Column(db.Boolean, default=False)
     phone_verified = db.Column(db.Boolean, default=False)
     email_verified = db.Column(db.Boolean, default=False)
+    is_premium = db.Column(db.Boolean, default=False)
     
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -53,15 +63,23 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'phone': self.phone,
-            'user_type': self.user_type.value,
+            'user_type': self.user_type,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'full_name': self.full_name,
             'profile_image': self.profile_image,
+            'date_of_birth': self.date_of_birth.isoformat() if self.date_of_birth else None,
+            'gender': self.gender,
+            'city': self.city,
+            'district': self.district,
+            'address': self.address,
+            'latitude': str(self.latitude) if self.latitude else None,
+            'longitude': str(self.longitude) if self.longitude else None,
             'is_active': self.is_active,
             'is_verified': self.is_verified,
             'phone_verified': self.phone_verified,
             'email_verified': self.email_verified,
+            'is_premium': self.is_premium,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
             'last_login': self.last_login.isoformat() if self.last_login else None

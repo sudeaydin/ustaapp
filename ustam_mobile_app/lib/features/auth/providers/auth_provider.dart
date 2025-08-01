@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 // SharedPreferences provider
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-  throw UnimplementedError();
+  // This will be overridden in main.dart with actual SharedPreferences instance
+  throw UnimplementedError('SharedPreferences not initialized');
 });
 
 // Auth state model
@@ -56,14 +58,23 @@ class AuthNotifier extends StateNotifier<AuthState> {
     final token = _prefs.getString('authToken');
     final userJson = _prefs.getString('user');
     
-    if (token != null && userJson != null) {
-      // Parse user data and validate token
-      state = state.copyWith(
-        isAuthenticated: true,
-        token: token,
-        // user: jsonDecode(userJson),
-        isLoading: false,
-      );
+    if (token != null && userJson != null && userJson != '{}') {
+      try {
+        // Parse user data and validate token
+        final userData = jsonDecode(userJson) as Map<String, dynamic>;
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: token,
+          user: userData,
+          isLoading: false,
+        );
+      } catch (e) {
+        print('Error parsing user data: $e');
+        state = state.copyWith(
+          isAuthenticated: false,
+          isLoading: false,
+        );
+      }
     } else {
       state = state.copyWith(
         isAuthenticated: false,
@@ -83,7 +94,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // Mock users - validate userType matches
       Map<String, dynamic>? user;
       
-      if (email == 'customer@example.com' && password == 'password123') {
+      if (email == 'customer@test.com' && password == '123456') {
         if (userType == null || userType == 'customer') {
           user = {
             'id': 1,
@@ -93,13 +104,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
             'last_name': 'Müşteri',
           };
         }
-      } else if (email == 'craftsman@example.com' && password == 'password123') {
+      } else if (email == 'ahmet@test.com' && password == '123456') {
         if (userType == null || userType == 'craftsman') {
           user = {
             'id': 2,
             'email': email,
             'user_type': 'craftsman',
-            'first_name': 'Mehmet',
+            'first_name': 'Ahmet',
             'last_name': 'Usta',
             'specialty': 'Elektrikçi',
           };
@@ -133,7 +144,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         final token = 'mock_token_${DateTime.now().millisecondsSinceEpoch}';
         
         await _prefs.setString('authToken', token);
-        await _prefs.setString('user', '{}'); // JSON encode user data
+        await _prefs.setString('user', jsonEncode(user)); // JSON encode user data
+        await _prefs.setString('user_type', user['user_type']); // Store user_type separately
         
         state = state.copyWith(
           isAuthenticated: true,
@@ -182,7 +194,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       };
       
       await _prefs.setString('authToken', token);
-      await _prefs.setString('user', '{}'); // JSON encode user data
+      await _prefs.setString('user', jsonEncode(user)); // JSON encode user data
+      await _prefs.setString('user_type', userType); // Store user_type separately
       
       state = state.copyWith(
         isAuthenticated: true,
@@ -204,6 +217,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> logout() async {
     await _prefs.remove('authToken');
     await _prefs.remove('user');
+    await _prefs.remove('user_type');
     
     state = const AuthState();
   }

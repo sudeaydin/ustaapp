@@ -17,6 +17,17 @@ class Craftsman(db.Model):
     city = db.Column(db.String(100))
     district = db.Column(db.String(100))
     hourly_rate = db.Column(Numeric(10, 2))
+    experience_years = db.Column(db.Integer, default=0)
+    
+    # Skills and certifications (stored as JSON)
+    skills = db.Column(db.Text)  # JSON string
+    certifications = db.Column(db.Text)  # JSON string
+    working_hours = db.Column(db.Text)  # JSON string
+    service_areas = db.Column(db.Text)  # JSON string
+    
+    # Contact info
+    website = db.Column(db.String(255))
+    response_time = db.Column(db.String(100))
     
     # Ratings
     average_rating = db.Column(db.Float, default=0.0)
@@ -25,6 +36,9 @@ class Craftsman(db.Model):
     # Status
     is_available = db.Column(db.Boolean, default=True)
     is_verified = db.Column(db.Boolean, default=False)
+    
+    # Avatar
+    avatar = db.Column(db.String(500))
     
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -42,10 +56,18 @@ class Craftsman(db.Model):
             'city': self.city,
             'district': self.district,
             'hourly_rate': str(self.hourly_rate) if self.hourly_rate else None,
+            'experience_years': self.experience_years,
+            'skills': self.skills,
+            'certifications': self.certifications,
+            'working_hours': self.working_hours,
+            'service_areas': self.service_areas,
+            'website': self.website,
+            'response_time': self.response_time,
             'average_rating': self.average_rating,
             'total_reviews': self.total_reviews,
             'is_available': self.is_available,
             'is_verified': self.is_verified,
+            'avatar': self.avatar,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }

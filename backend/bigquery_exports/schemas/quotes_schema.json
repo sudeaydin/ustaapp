@@ -1,0 +1,62 @@
+[
+  {
+    "name": "quote_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "job_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "craftsman_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "price",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "description",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "estimated_duration",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "materials_included",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "warranty_period",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "updated_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "accepted_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]

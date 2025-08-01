@@ -8,13 +8,24 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     name_en = db.Column(db.String(100))  # English name for future use
+    slug = db.Column(db.String(100), unique=True)  # URL-friendly version
     description = db.Column(db.Text)
     icon = db.Column(db.String(255))  # Icon URL or name
     color = db.Column(db.String(7))  # Hex color code
+    image_url = db.Column(db.String(255))  # Category image
+    
+    # SEO fields
+    meta_title = db.Column(db.String(160))
+    meta_description = db.Column(db.String(320))
     
     # Status
     is_active = db.Column(db.Boolean, default=True)
+    is_featured = db.Column(db.Boolean, default=False)
     sort_order = db.Column(db.Integer, default=0)
+    
+    # Statistics
+    total_jobs = db.Column(db.Integer, default=0)
+    total_craftsmen = db.Column(db.Integer, default=0)
     
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -29,11 +40,18 @@ class Category(db.Model):
             'id': self.id,
             'name': self.name,
             'name_en': self.name_en,
+            'slug': self.slug,
             'description': self.description,
             'icon': self.icon,
             'color': self.color,
+            'image_url': self.image_url,
+            'meta_title': self.meta_title,
+            'meta_description': self.meta_description,
             'is_active': self.is_active,
+            'is_featured': self.is_featured,
             'sort_order': self.sort_order,
+            'total_jobs': self.total_jobs,
+            'total_craftsmen': self.total_craftsmen,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }

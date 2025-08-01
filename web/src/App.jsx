@@ -35,6 +35,8 @@ import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/SearchPage';
 import PaymentPage from './pages/PaymentPage';
 import PaymentHistory from './components/PaymentHistory';
+import OnboardingPage from './pages/OnboardingPage';
+import AuthChoicePage from './pages/AuthChoicePage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -60,7 +62,9 @@ function App() {
               <div className="App">
             <Routes>
               {/* 🌐 Public Routes - Anyone can access */}
-              <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              <Route path="/" element={<PublicRoute><OnboardingPage /></PublicRoute>} />
+              <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              <Route path="/auth-choice" element={<PublicRoute><AuthChoicePage /></PublicRoute>} />
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
               <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />

@@ -181,42 +181,83 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildStatsSection(BuildContext context, bool isCustomer) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildStatCard(
-            context: context,
-            title: isCustomer ? 'Toplam İşlerim' : 'Toplam Tekliflerim',
-            value: '12',
-            icon: Icons.work_outline,
-            color: Colors.blue,
-            onTap: () => context.go('/jobs'),
+    if (isCustomer) {
+      // Müşteri için: İş sayısı ve harcama odaklı
+      return Row(
+        children: [
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Yaptırdığım İşler',
+              value: '12',
+              icon: Icons.home_repair_service_outlined,
+              color: AppTheme.primaryColor,
+              onTap: () => context.go('/jobs'),
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatCard(
-            context: context,
-            title: isCustomer ? 'Aktif İşler' : 'Bekleyen Teklifler',
-            value: '3',
-            icon: Icons.pending_actions,
-            color: Colors.orange,
-            onTap: () => context.go('/jobs'),
+          const SizedBox(width: 16),
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Aktif İşler',
+              value: '3',
+              icon: Icons.pending_actions_outlined,
+              color: AppTheme.secondaryColor,
+              onTap: () => context.go('/jobs'),
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatCard(
-            context: context,
-            title: isCustomer ? 'Tamamlanan' : 'Kazanılan',
-            value: '9',
-            icon: Icons.check_circle_outline,
-            color: Colors.green,
-            onTap: () => context.go('/jobs'),
+          const SizedBox(width: 16),
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Toplam Harcama',
+              value: '₺2.4K',
+              icon: Icons.account_balance_wallet_outlined,
+              color: Colors.green,
+              onTap: () => context.go('/jobs'),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      // Usta için: Teklif ve kazanç odaklı
+      return Row(
+        children: [
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Verdiğim Teklifler',
+              value: '28',
+              icon: Icons.request_quote_outlined,
+              color: AppTheme.primaryColor,
+              onTap: () => context.go('/jobs'),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Kazanılan İşler',
+              value: '15',
+              icon: Icons.work_history_outlined,
+              color: AppTheme.secondaryColor,
+              onTap: () => context.go('/jobs'),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: _buildStatCard(
+              context: context,
+              title: 'Toplam Kazanç',
+              value: '₺8.2K',
+              icon: Icons.trending_up_outlined,
+              color: Colors.green,
+              onTap: () => context.go('/jobs'),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   Widget _buildStatCard({
@@ -242,7 +283,7 @@ class HomeScreen extends ConsumerWidget {
               // Mobile için kısa hover efekti
               setState(() => isHovered = true);
               Future.delayed(const Duration(milliseconds: 150), () {
-                if (mounted) setState(() => isHovered = false);
+                setState(() => isHovered = false);
               });
             },
             onTapCancel: () => setState(() => isPressed = false),
@@ -383,25 +424,25 @@ class HomeScreen extends ConsumerWidget {
           _buildActionCard(
             title: 'Yeni İş Talebi',
             icon: Icons.add_circle_outline,
-            color: Colors.blue,
+            color: AppTheme.primaryColor,
             onTap: () => context.push('/job-request/new'),
           ),
           _buildActionCard(
             title: 'Usta Ara',
             icon: Icons.search,
-            color: Colors.green,
+            color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
           ),
           _buildActionCard(
             title: 'Mesajlarım',
             icon: Icons.chat_bubble_outline,
-            color: Colors.purple,
+            color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
           _buildActionCard(
             title: 'Ödeme Geçmişi',
             icon: Icons.payment,
-            color: Colors.orange,
+            color: AppTheme.secondaryLight,
             onTap: () => context.push('/payment-history'),
           ),
         ],
@@ -418,25 +459,25 @@ class HomeScreen extends ConsumerWidget {
           _buildActionCard(
             title: 'Tekliflerim',
             icon: Icons.assignment_outlined,
-            color: Colors.blue,
+            color: AppTheme.primaryColor,
             onTap: () => context.go('/jobs'),
           ),
           _buildActionCard(
             title: 'Yeni Teklifler',
             icon: Icons.notification_add,
-            color: Colors.green,
+            color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
           ),
           _buildActionCard(
             title: 'Mesajlarım',
             icon: Icons.chat_bubble_outline,
-            color: Colors.purple,
+            color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
           _buildActionCard(
             title: 'Portföyüm',
             icon: Icons.photo_library_outlined,
-            color: Colors.orange,
+            color: AppTheme.secondaryLight,
             onTap: () => context.go('/profile'),
           ),
         ],
@@ -499,13 +540,7 @@ class HomeScreen extends ConsumerWidget {
                 ? 'Durum: ${['Beklemede', 'Devam Ediyor', 'Tamamlandı'][index]}'
                 : 'Teklif: ${[1500, 2000, 1200][index]} TL',
             ),
-            trailing: Chip(
-              label: Text(
-                ['Yeni', 'Aktif', 'Bitti'][index],
-                style: const TextStyle(fontSize: 12),
-              ),
-              backgroundColor: [Colors.orange, Colors.blue, Colors.green][index].shade100,
-            ),
+            trailing: _buildStatusChip(['Yeni', 'Aktif', 'Bitti'][index]),
             onTap: () {
               // Navigate to job detail
               context.go('/jobs');
@@ -518,10 +553,10 @@ class HomeScreen extends ConsumerWidget {
 
   Widget _buildPopularCategories(BuildContext context) {
     final categories = [
-      {'name': 'Elektrik', 'icon': Icons.electrical_services, 'color': Colors.yellow},
-      {'name': 'Su Tesisatı', 'icon': Icons.plumbing, 'color': Colors.blue},
-      {'name': 'Boyacı', 'icon': Icons.format_paint, 'color': Colors.red},
-      {'name': 'Temizlik', 'icon': Icons.cleaning_services, 'color': Colors.green},
+      {'name': 'Elektrik', 'icon': Icons.electrical_services, 'color': AppTheme.secondaryColor},
+      {'name': 'Su Tesisatı', 'icon': Icons.plumbing, 'color': AppTheme.primaryColor},
+      {'name': 'Boyacı', 'icon': Icons.format_paint, 'color': AppTheme.secondaryLight},
+      {'name': 'Temizlik', 'icon': Icons.cleaning_services, 'color': AppTheme.primaryLight},
     ];
 
     return SizedBox(
@@ -566,6 +601,52 @@ class HomeScreen extends ConsumerWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildStatusChip(String status) {
+    LinearGradient gradient;
+    Color shadowColor;
+    
+    switch (status.toLowerCase()) {
+      case 'yeni':
+        gradient = AppTheme.pendingGradient;
+        shadowColor = const Color(0xFFF59E0B);
+        break;
+      case 'aktif':
+        gradient = AppTheme.activeGradient;
+        shadowColor = const Color(0xFF10B981);
+        break;
+      case 'bitti':
+        gradient = AppTheme.completedGradient;
+        shadowColor = const Color(0xFF3B82F6);
+        break;
+      default:
+        gradient = AppTheme.pendingGradient;
+        shadowColor = const Color(0xFFF59E0B);
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Text(
+        status,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

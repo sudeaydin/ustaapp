@@ -1,658 +1,615 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { CATEGORIES, getCategoryById, getSkillById } from '../data/categories';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const ProfileEditPage = () => {
+const ProfileEditPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('basic');
-  const [showSkillModal, setShowSkillModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { user, updateUser } = useAuth();
+  const queryClient = useQueryClient();
   
-  // Form states
   const [formData, setFormData] = useState({
-    name: 'Ahmet Yılmaz',
-    business_name: 'Yılmaz Elektrik',
-    email: 'ahmet@yilmazelektrik.com',
-    phone: '+90 555 123 4567',
-    city: 'İstanbul',
-    district: 'Kadıköy',
-    address: 'Kadıköy Merkez, İstanbul',
-    description: `8 yıllık deneyimim ile ev ve işyeri elektrik tesisatı, LED aydınlatma sistemleri, akıllı ev otomasyonu ve elektrik panosu montajı konularında profesyonel hizmet veriyorum.
+    first_name: '',
+    last_name: '',
+    phone: '',
+    avatar: '',
+    // Customer specific
+    address: '',
+    city: '',
+    district: '',
+    // Craftsman specific
+    business_name: '',
+    description: '',
+    hourly_rate: '',
+    experience_years: '',
+    skills: [],
+    certifications: [],
+    working_hours: {},
+    service_areas: [],
+    website: '',
+    response_time: '',
+    is_available: true
+  });
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-Müşteri memnuniyeti önceliğim olup, işlerimi titizlikle ve zamanında teslim ederim. Tüm işlerim için garanti veriyorum.`,
-    hourly_rate: 150,
-    experience_years: 8,
-    website: 'www.yilmazelektrik.com',
-    service_areas: ['Kadıköy', 'Üsküdar', 'Ataşehir', 'Maltepe', 'Kartal'],
-    working_hours: {
-      monday: '09:00-18:00',
-      tuesday: '09:00-18:00',
-      wednesday: '09:00-18:00',
-      thursday: '09:00-18:00',
-      friday: '09:00-18:00',
-      saturday: '09:00-15:00',
-      sunday: 'Kapalı'
+  // Fetch user profile
+  const { data: profileData, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      const response = await fetch('http://localhost:5001/api/profile/', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      return data.success ? data.data : null;
+    },
+    enabled: !!localStorage.getItem('token')
+  });
+
+  // Update profile mutation
+  const updateProfileMutation = useMutation({
+    mutationFn: async (data) => {
+      const response = await fetch('http://localhost:5001/api/profile/', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        setSuccess('Profil başarıyla güncellendi');
+        queryClient.invalidateQueries(['profile']);
+        // Update local user data
+        if (updateUser) {
+          updateUser({ ...user, ...formData });
+        }
+        setTimeout(() => {
+          navigate('/profile');
+        }, 2000);
+      } else {
+        setError(data.message || 'Profil güncellenirken bir hata oluştu');
+      }
+    },
+    onError: () => {
+      setError('Profil güncellenirken bir hata oluştu');
     }
   });
 
-  // Selected skills state
-  const [selectedSkills, setSelectedSkills] = useState([
-    { id: 101, name: 'Elektrik Tesisatı', categoryId: 1, categoryName: 'Elektrikçi' },
-    { id: 102, name: 'LED Aydınlatma', categoryId: 1, categoryName: 'Elektrikçi' },
-    { id: 103, name: 'Ev Otomasyonu', categoryId: 1, categoryName: 'Elektrikçi' },
-    { id: 104, name: 'Panel Montajı', categoryId: 1, categoryName: 'Elektrikçi' }
-  ]);
+  useEffect(() => {
+    if (profileData) {
+      setFormData({
+        first_name: profileData.first_name || '',
+        last_name: profileData.last_name || '',
+        phone: profileData.phone || '',
+        avatar: profileData.avatar || '',
+        // Customer specific
+        address: profileData.profile?.address || '',
+        city: profileData.profile?.city || '',
+        district: profileData.profile?.district || '',
+        // Craftsman specific
+        business_name: profileData.profile?.business_name || '',
+        description: profileData.profile?.description || '',
+        hourly_rate: profileData.profile?.hourly_rate || '',
+        experience_years: profileData.profile?.experience_years || '',
+        skills: profileData.profile?.skills || [],
+        certifications: profileData.profile?.certifications || [],
+        working_hours: profileData.profile?.working_hours || {},
+        service_areas: profileData.profile?.service_areas || [],
+        website: profileData.profile?.website || '',
+        response_time: profileData.profile?.response_time || '',
+        is_available: profileData.profile?.is_available ?? true
+      });
+    }
+  }, [profileData]);
 
-  const [certifications, setCertifications] = useState([
-    'Elektrik Tesisatı Yeterlilik Belgesi',
-    'LED Aydınlatma Uzmanı Sertifikası',
-    'Akıllı Ev Sistemleri Eğitimi'
-  ]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
+    setError('');
+    setSuccess('');
+  };
+
+  const handleSkillChange = (index, value) => {
+    const newSkills = [...formData.skills];
+    newSkills[index] = value;
+    setFormData(prev => ({ ...prev, skills: newSkills }));
+  };
+
+  const addSkill = () => {
+    setFormData(prev => ({ ...prev, skills: [...prev.skills, ''] }));
+  };
+
+  const removeSkill = (index) => {
+    const newSkills = formData.skills.filter((_, i) => i !== index);
+    setFormData(prev => ({ ...prev, skills: newSkills }));
+  };
+
+  const handleCertificationChange = (index, value) => {
+    const newCertifications = [...formData.certifications];
+    newCertifications[index] = value;
+    setFormData(prev => ({ ...prev, certifications: newCertifications }));
+  };
+
+  const addCertification = () => {
+    setFormData(prev => ({ ...prev, certifications: [...prev.certifications, ''] }));
+  };
+
+  const removeCertification = (index) => {
+    const newCertifications = formData.certifications.filter((_, i) => i !== index);
+    setFormData(prev => ({ ...prev, certifications: newCertifications }));
   };
 
   const handleWorkingHoursChange = (day, value) => {
     setFormData(prev => ({
       ...prev,
-      working_hours: {
-        ...prev.working_hours,
-        [day]: value
-      }
+      working_hours: { ...prev.working_hours, [day]: value }
     }));
   };
 
-  const handleServiceAreaAdd = () => {
-    const newArea = prompt('Yeni hizmet alanı ekleyin:');
-    if (newArea && !formData.service_areas.includes(newArea)) {
-      setFormData(prev => ({
-        ...prev,
-        service_areas: [...prev.service_areas, newArea]
-      }));
-    }
+  const handleServiceAreaChange = (index, value) => {
+    const newServiceAreas = [...formData.service_areas];
+    newServiceAreas[index] = value;
+    setFormData(prev => ({ ...prev, service_areas: newServiceAreas }));
   };
 
-  const handleServiceAreaRemove = (area) => {
-    setFormData(prev => ({
-      ...prev,
-      service_areas: prev.service_areas.filter(a => a !== area)
-    }));
+  const addServiceArea = () => {
+    setFormData(prev => ({ ...prev, service_areas: [...prev.service_areas, ''] }));
   };
 
-  const handleSkillAdd = (skill) => {
-    if (!selectedSkills.find(s => s.id === skill.id)) {
-      const category = getCategoryById(skill.categoryId);
-      setSelectedSkills(prev => [...prev, {
-        ...skill,
-        categoryName: category.name,
-        categoryIcon: category.icon
-      }]);
-    }
+  const removeServiceArea = (index) => {
+    const newServiceAreas = formData.service_areas.filter((_, i) => i !== index);
+    setFormData(prev => ({ ...prev, service_areas: newServiceAreas }));
   };
 
-  const handleSkillRemove = (skillId) => {
-    setSelectedSkills(prev => prev.filter(s => s.id !== skillId));
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setSuccess('');
 
-  const handleCertificationAdd = () => {
-    const newCert = prompt('Yeni sertifika ekleyin:');
-    if (newCert && !certifications.includes(newCert)) {
-      setCertifications(prev => [...prev, newCert]);
-    }
-  };
-
-  const handleCertificationRemove = (cert) => {
-    setCertifications(prev => prev.filter(c => c !== cert));
-  };
-
-  const handleSave = async () => {
-    setLoading(true);
     try {
-      // API call to save profile
-      const profileData = {
-        ...formData,
-        skills: selectedSkills.map(s => s.id),
-        certifications
+      const submitData = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        phone: formData.phone,
+        avatar: formData.avatar
       };
-      
-      console.log('Saving profile:', profileData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      alert('✅ Profil başarıyla güncellendi!');
-      navigate('/craftsman/dashboard');
-    } catch (error) {
-      console.error('Profile save error:', error);
-      alert('❌ Profil güncellenirken hata oluştu!');
+
+      // Add user type specific data
+      if (user?.user_type === 'customer') {
+        submitData.address = formData.address;
+        submitData.city = formData.city;
+        submitData.district = formData.district;
+      } else if (user?.user_type === 'craftsman') {
+        submitData.business_name = formData.business_name;
+        submitData.description = formData.description;
+        submitData.hourly_rate = formData.hourly_rate;
+        submitData.experience_years = formData.experience_years;
+        submitData.skills = formData.skills.filter(skill => skill.trim());
+        submitData.certifications = formData.certifications.filter(cert => cert.trim());
+        submitData.working_hours = formData.working_hours;
+        submitData.service_areas = formData.service_areas.filter(area => area.trim());
+        submitData.website = formData.website;
+        submitData.response_time = formData.response_time;
+        submitData.is_available = formData.is_available;
+      }
+
+      updateProfileMutation.mutate(submitData);
+    } catch (err) {
+      setError('Bir hata oluştu');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  const renderDayName = (day) => {
-    const dayNames = {
-      monday: 'Pazartesi',
-      tuesday: 'Salı',
-      wednesday: 'Çarşamba',
-      thursday: 'Perşembe',
-      friday: 'Cuma',
-      saturday: 'Cumartesi',
-      sunday: 'Pazar'
-    };
-    return dayNames[day];
-  };
+  if (isLoadingProfile) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Profil yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => navigate(-1)}
-                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                <span>Geri</span>
-              </button>
-              <h1 className="text-2xl font-bold text-gray-900">⚙️ Profil Düzenle</h1>
-            </div>
-            
             <button
-              onClick={handleSave}
-              disabled={loading}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => navigate(-1)}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
             >
-              {loading ? (
-                <div className="flex items-center space-x-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Kaydediliyor...</span>
-                </div>
-              ) : (
-                '💾 Kaydet'
-              )}
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Geri
             </button>
+            <h1 className="text-2xl font-bold text-gray-900">Profil Düzenle</h1>
+            <div className="w-20"></div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-6">
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-sm mb-6">
-          <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
-              <button
-                onClick={() => setActiveTab('basic')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'basic'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                👤 Temel Bilgiler
-              </button>
-              <button
-                onClick={() => setActiveTab('skills')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'skills'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                🎯 Yetenekler ({selectedSkills.length})
-              </button>
-              <button
-                onClick={() => setActiveTab('business')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'business'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                💼 İş Bilgileri
-              </button>
-              <button
-                onClick={() => setActiveTab('schedule')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'schedule'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                ⏰ Çalışma Saatleri
-              </button>
-            </nav>
+      {/* Form */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Success/Error Messages */}
+          {success && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl">
+              {success}
+            </div>
+          )}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+              {error}
+            </div>
+          )}
+
+          {/* Basic Information */}
+          <div className="bg-white rounded-2xl p-6 shadow-soft">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">Temel Bilgiler</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Ad *
+                </label>
+                <input
+                  type="text"
+                  name="first_name"
+                  value={formData.first_name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Soyad *
+                </label>
+                <input
+                  type="text"
+                  name="last_name"
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Telefon
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Avatar URL
+                </label>
+                <input
+                  type="url"
+                  name="avatar"
+                  value={formData.avatar}
+                  onChange={handleChange}
+                  placeholder="https://example.com/avatar.jpg"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="p-6">
-            {activeTab === 'basic' && (
-              <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Ad Soyad *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      İşletme Adı
-                    </label>
-                    <input
-                      type="text"
-                      name="business_name"
-                      value={formData.business_name}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
+          {/* Customer Specific Fields */}
+          {user?.user_type === 'customer' && (
+            <div className="bg-white rounded-2xl p-6 shadow-soft">
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">Adres Bilgileri</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Adres
+                  </label>
+                  <textarea
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    rows={3}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      E-posta *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Telefon *
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Şehir *
+                      Şehir
                     </label>
                     <input
                       type="text"
                       name="city"
                       value={formData.city}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      required
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      İlçe *
+                      İlçe
                     </label>
                     <input
                       type="text"
                       name="district"
                       value={formData.district}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      required
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Adres
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Hakkımda
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    rows={6}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Kendinizi ve hizmetlerinizi tanıtın..."
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Website
-                  </label>
-                  <input
-                    type="url"
-                    name="website"
-                    value={formData.website}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="www.ornek.com"
-                  />
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'skills' && (
-              <div className="space-y-6">
-                {/* Selected Skills */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-medium text-gray-900">🎯 Seçili Yeteneklerim</h3>
-                    <button
-                      onClick={() => setShowSkillModal(true)}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                    >
-                      ➕ Yetenek Ekle
-                    </button>
-                  </div>
-                  
-                  {selectedSkills.length > 0 ? (
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {selectedSkills.map((skill) => (
-                        <div key={skill.id} className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center space-x-2 mb-2">
-                                <span className="text-lg">{skill.categoryIcon || '⭐'}</span>
-                                <span className="font-medium text-gray-900">{skill.name}</span>
-                              </div>
-                              <p className="text-sm text-gray-600 mb-2">{skill.description}</p>
-                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                                {skill.categoryName}
-                              </span>
-                            </div>
-                            <button
-                              onClick={() => handleSkillRemove(skill.id)}
-                              className="ml-3 p-1 text-red-500 hover:text-red-700 transition-colors"
-                            >
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 bg-gray-50 rounded-lg">
-                      <p className="text-gray-500 mb-4">Henüz yetenek eklenmemiş</p>
-                      <button
-                        onClick={() => setShowSkillModal(true)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                      >
-                        İlk Yeteneğini Ekle
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Certifications */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-medium text-gray-900">🏅 Sertifikalarım</h3>
-                    <button
-                      onClick={handleCertificationAdd}
-                      className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-                    >
-                      ➕ Sertifika Ekle
-                    </button>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {certifications.map((cert, index) => (
-                      <div key={index} className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3">
-                        <div className="flex items-center space-x-2">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-gray-900">{cert}</span>
-                        </div>
-                        <button
-                          onClick={() => handleCertificationRemove(cert)}
-                          className="p-1 text-red-500 hover:text-red-700 transition-colors"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'business' && (
-              <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Saatlik Ücret (₺)
-                    </label>
-                    <input
-                      type="number"
-                      name="hourly_rate"
-                      value={formData.hourly_rate}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      min="0"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Deneyim (Yıl)
-                    </label>
-                    <input
-                      type="number"
-                      name="experience_years"
-                      value={formData.experience_years}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      min="0"
-                    />
-                  </div>
-                </div>
-
-                {/* Service Areas */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Hizmet Verdiğim Bölgeler
-                    </label>
-                    <button
-                      onClick={handleServiceAreaAdd}
-                      className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-                    >
-                      ➕ Bölge Ekle
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {formData.service_areas.map((area, index) => (
-                      <span
-                        key={index}
-                        className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                      >
-                        {area}
-                        <button
-                          onClick={() => handleServiceAreaRemove(area)}
-                          className="ml-2 text-red-500 hover:text-red-700"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'schedule' && (
-              <div className="space-y-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">⏰ Çalışma Saatleri</h3>
-                <div className="space-y-4">
-                  {Object.entries(formData.working_hours).map(([day, hours]) => (
-                    <div key={day} className="flex items-center space-x-4">
-                      <div className="w-24 font-medium text-gray-700">
-                        {renderDayName(day)}
-                      </div>
-                      <div className="flex-1">
-                        <select
-                          value={hours}
-                          onChange={(e) => handleWorkingHoursChange(day, e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
-                          <option value="Kapalı">Kapalı</option>
-                          <option value="09:00-18:00">09:00 - 18:00</option>
-                          <option value="08:00-17:00">08:00 - 17:00</option>
-                          <option value="10:00-19:00">10:00 - 19:00</option>
-                          <option value="09:00-15:00">09:00 - 15:00</option>
-                          <option value="08:00-12:00">08:00 - 12:00</option>
-                          <option value="13:00-18:00">13:00 - 18:00</option>
-                          <option value="24 Saat">24 Saat Açık</option>
-                        </select>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Skill Selection Modal */}
-      {showSkillModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-medium text-gray-900">🎯 Yetenek Seçimi</h3>
-                <button
-                  onClick={() => setShowSkillModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Categories */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                {CATEGORIES.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(selectedCategory?.id === category.id ? null : category)}
-                    className={`p-4 rounded-lg border-2 transition-colors ${
-                      selectedCategory?.id === category.id
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-gray-200 hover:border-gray-300 text-gray-700'
-                    }`}
-                  >
-                    <div className="text-2xl mb-2">{category.icon}</div>
-                    <div className="font-medium text-sm">{category.name}</div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Skills for selected category */}
-              {selectedCategory && (
-                <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-4">
-                    {selectedCategory.icon} {selectedCategory.name} Yetenekleri
-                  </h4>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {selectedCategory.skills.map((skill) => {
-                      const isSelected = selectedSkills.find(s => s.id === skill.id);
-                      return (
-                        <div
-                          key={skill.id}
-                          className={`p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                            isSelected
-                              ? 'border-green-500 bg-green-50'
-                              : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
-                          }`}
-                          onClick={() => {
-                            if (isSelected) {
-                              handleSkillRemove(skill.id);
-                            } else {
-                              handleSkillAdd({ ...skill, categoryId: selectedCategory.id });
-                            }
-                          }}
-                        >
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="font-medium text-gray-900 mb-2">{skill.name}</div>
-                              <p className="text-sm text-gray-600">{skill.description}</p>
-                            </div>
-                            <div className="ml-3">
-                              {isSelected ? (
-                                <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                </svg>
-                              ) : (
-                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex justify-end space-x-3 mt-6 pt-6 border-t">
-                <button
-                  onClick={() => setShowSkillModal(false)}
-                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Kapat
-                </button>
               </div>
             </div>
+          )}
+
+          {/* Craftsman Specific Fields */}
+          {user?.user_type === 'craftsman' && (
+            <>
+              <div className="bg-white rounded-2xl p-6 shadow-soft">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">İşletme Bilgileri</h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      İşletme Adı *
+                    </label>
+                    <input
+                      type="text"
+                      name="business_name"
+                      value={formData.business_name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Açıklama
+                    </label>
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      rows={4}
+                      placeholder="Hizmetleriniz hakkında detaylı bilgi verin..."
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Saatlik Ücret (₺)
+                      </label>
+                      <input
+                        type="number"
+                        name="hourly_rate"
+                        value={formData.hourly_rate}
+                        onChange={handleChange}
+                        min="0"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Deneyim (Yıl)
+                      </label>
+                      <input
+                        type="number"
+                        name="experience_years"
+                        value={formData.experience_years}
+                        onChange={handleChange}
+                        min="0"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Yanıt Süresi
+                      </label>
+                      <input
+                        type="text"
+                        name="response_time"
+                        value={formData.response_time}
+                        onChange={handleChange}
+                        placeholder="2 saat"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Website
+                    </label>
+                    <input
+                      type="url"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      placeholder="https://example.com"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      name="is_available"
+                      checked={formData.is_available}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label className="ml-2 block text-sm text-gray-700">
+                      Müsait
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Skills */}
+              <div className="bg-white rounded-2xl p-6 shadow-soft">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Yetenekler</h2>
+                
+                <div className="space-y-4">
+                  {formData.skills.map((skill, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={skill}
+                        onChange={(e) => handleSkillChange(index, e.target.value)}
+                        placeholder="Yetenek adı"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeSkill(index)}
+                        className="px-3 py-3 text-red-600 hover:text-red-800"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                  
+                  <button
+                    type="button"
+                    onClick={addSkill}
+                    className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+                  >
+                    + Yetenek Ekle
+                  </button>
+                </div>
+              </div>
+
+              {/* Certifications */}
+              <div className="bg-white rounded-2xl p-6 shadow-soft">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Sertifikalar</h2>
+                
+                <div className="space-y-4">
+                  {formData.certifications.map((certification, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={certification}
+                        onChange={(e) => handleCertificationChange(index, e.target.value)}
+                        placeholder="Sertifika adı"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeCertification(index)}
+                        className="px-3 py-3 text-red-600 hover:text-red-800"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                  
+                  <button
+                    type="button"
+                    onClick={addCertification}
+                    className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+                  >
+                    + Sertifika Ekle
+                  </button>
+                </div>
+              </div>
+
+              {/* Service Areas */}
+              <div className="bg-white rounded-2xl p-6 shadow-soft">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Hizmet Bölgeleri</h2>
+                
+                <div className="space-y-4">
+                  {formData.service_areas.map((area, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={area}
+                        onChange={(e) => handleServiceAreaChange(index, e.target.value)}
+                        placeholder="İlçe adı"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeServiceArea(index)}
+                        className="px-3 py-3 text-red-600 hover:text-red-800"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                  
+                  <button
+                    type="button"
+                    onClick={addServiceArea}
+                    className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+                  >
+                    + Hizmet Bölgesi Ekle
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Submit Button */}
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+            >
+              İptal
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Kaydediliyor...' : 'Kaydet'}
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </div>
     </div>
   );
 };

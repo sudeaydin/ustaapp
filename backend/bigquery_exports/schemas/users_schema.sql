@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `ustam_analytics.users` (
+  user_id INTEGER NOT NULL,
+  email STRING NOT NULL,
+  phone STRING,
+  user_type STRING NOT NULL,
+  first_name STRING,
+  last_name STRING,
+  date_of_birth DATE,
+  gender STRING,
+  city STRING,
+  district STRING,
+  latitude FLOAT,
+  longitude FLOAT,
+  is_active BOOLEAN,
+  is_verified BOOLEAN,
+  phone_verified BOOLEAN,
+  email_verified BOOLEAN,
+  is_premium BOOLEAN,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP,
+  last_login TIMESTAMP
+);

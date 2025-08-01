@@ -1,0 +1,72 @@
+[
+  {
+    "name": "review_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "job_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "customer_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "craftsman_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "rating",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "title",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "comment",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "quality_rating",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "punctuality_rating",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "communication_rating",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "value_rating",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_verified",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "is_featured",
+    "type": "BOOLEAN",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE"
+  }
+]
