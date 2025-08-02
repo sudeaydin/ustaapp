@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🌐 Ustam Frontend Setup"
+echo "🌐 ustam Frontend Setup"
 echo "======================"
 
 # Install dependencies

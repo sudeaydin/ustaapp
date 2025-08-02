@@ -90,7 +90,7 @@ def create_production_data():
         city='İstanbul',
         district='Kadıköy'
     )
-    admin_user.set_password('UstamAdmin2024!')
+    admin_user.set_password('ustamAdmin2024!')
     db.session.add(admin_user)
     
     # Create service categories
@@ -278,7 +278,7 @@ def create_system_settings():
     """Create system settings for production"""
     
     settings = [
-        ('app_name', 'Ustam', 'Application name', 'string', True),
+        ('app_name', 'ustam', 'Application name', 'string', True),
         ('app_version', '1.0.0', 'Application version', 'string', True),
         ('maintenance_mode', 'false', 'Maintenance mode status', 'boolean', True),
         ('platform_fee_rate', '0.05', 'Platform fee rate (5%)', 'float', False),
@@ -339,7 +339,7 @@ def print_database_info():
             print(f"   • {table_name}: {count} records")
     
     print("\n🔑 DEFAULT LOGIN CREDENTIALS:")
-    print("   • Admin: admin@ustam.com / UstamAdmin2024!")
+    print("   • Admin: admin@ustam.com / ustamAdmin2024!")
     print("   • Demo Customer: demo.musteri@ustam.com / demo123")
     print("   • Demo Craftsman: demo.usta@ustam.com / demo123")
     
@@ -370,7 +370,7 @@ def backup_existing_database():
 def main():
     """Main setup function"""
     
-    print("🔨 USTAM - PRODUCTION DATABASE SETUP")
+    print("🔨 ustam - PRODUCTION DATABASE SETUP")
     print("="*50)
     
     # Backup existing database
@@ -386,7 +386,7 @@ def main():
         create_system_settings()
         
         print("\n🎉 Production database setup completed successfully!")
-        print("Your Ustam application is ready for production deployment.")
+        print("Your ustam application is ready for production deployment.")
         
     except Exception as e:
         print(f"\n❌ Error during database setup: {str(e)}")

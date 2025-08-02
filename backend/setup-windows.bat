@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 Ustam Backend Setup (Windows)
+echo 🚀 ustam Backend Setup (Windows)
 echo =================================
 
 REM Check if virtual environment exists

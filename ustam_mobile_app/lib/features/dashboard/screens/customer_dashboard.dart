@@ -56,7 +56,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.fromLTRB(14, 8, 14, 20), // extra bottom padding added,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +173,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 85,
                     child: _buildActionCard(
                       title: 'Usta Ara',
                       subtitle: 'Hizmet al',
@@ -188,7 +187,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 85,
                     child: _buildActionCard(
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
@@ -214,7 +212,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 85,
                     child: _buildActionCard(
                       title: 'Bildirimler',
                       subtitle: '${5} yeni',
@@ -229,7 +226,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: SizedBox(
-                    height: 85,
                     child: _buildActionCard(
                       title: 'Profilim',
                       subtitle: 'Ayarlar',

@@ -1,4 +1,4 @@
-// filepath: /Users/asiyanmuhammedicloud.com/Documents/Native/Ustam/ustaapp/mobile/app/index.js
+// filepath: /Users/asiyanmuhammedicloud.com/Documents/Native/ustam/ustaapp/mobile/app/index.js
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';

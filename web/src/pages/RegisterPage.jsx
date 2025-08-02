@@ -600,7 +600,7 @@ export const RegisterPage = () => {
           <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl font-bold text-white">U</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">UstamApp</h1>
+          <h1 className="text-3xl font-bold text-gray-900">ustamApp</h1>
           <p className="text-gray-600 mt-2">Hesap oluşturun</p>
         </div>
 
@@ -698,7 +698,7 @@ export const RegisterPage = () => {
         {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-sm text-gray-500">
-            © 2025 UstamApp. Tüm hakları saklıdır.
+            © 2025 ustamApp. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

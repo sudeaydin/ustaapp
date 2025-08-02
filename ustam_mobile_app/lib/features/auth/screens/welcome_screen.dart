@@ -100,7 +100,7 @@ class WelcomeScreen extends ConsumerWidget {
                   children: [
                                          // Shadow text
                      Text(
-                       'Ustam',
+                       'ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class WelcomeScreen extends ConsumerWidget {
                     ),
                                          // Main text
                      const Text(
-                       'Ustam',
+                       'ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,

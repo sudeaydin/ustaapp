@@ -1,11 +1,11 @@
 @echo off
-echo 🏗️  USTAM PROJECT SETUP (Windows)
+echo 🏗️  ustam PROJECT SETUP (Windows)
 echo ===================================
 echo.
 
 REM Check if we're in the right directory
 if not exist "setup-windows.bat" (
-    echo ❌ Please run this script from the Ustam project root directory
+    echo ❌ Please run this script from the ustam project root directory
     pause
     exit /b 1
 )
@@ -27,7 +27,7 @@ call setup-windows.bat
 cd ..
 
 echo.
-echo 🎉 USTAM PROJECT SETUP COMPLETE!
+echo 🎉 ustam PROJECT SETUP COMPLETE!
 echo ================================
 echo.
 echo 🚀 To start the application:

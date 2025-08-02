@@ -92,7 +92,7 @@ const LandingPage = () => {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-bold text-blue-600">🔨 Ustam</span>
+                <span className="text-2xl font-bold text-blue-600">🔨 ustam</span>
               </Link>
             </div>
 
@@ -261,7 +261,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Neden Ustam'ı Seçmelisiniz?
+              Neden ustam'ı Seçmelisiniz?
             </h2>
             <p className="mt-4 text-xl text-gray-600">
               Size en iyi hizmeti sunmak için özenle tasarladığımız özellikler
@@ -338,7 +338,7 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center mb-4">
-                <span className="text-2xl font-bold">🔨 Ustam</span>
+                <span className="text-2xl font-bold">🔨 ustam</span>
               </div>
               <p className="text-gray-400 mb-4">
                 Türkiye'nin en güvenilir usta bulma platformu. 
@@ -364,7 +364,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Ustam. Tüm hakları saklıdır.</p>
+            <p>&copy; 2025 ustam. Tüm hakları saklıdır.</p>
           </div>
         </div>
       </footer>

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # ================================================
-# USTAM APP - PRODUCTION DEPLOYMENT SCRIPT
+# ustam APP - PRODUCTION DEPLOYMENT SCRIPT
 # ================================================
 # This script sets up the production environment
-# and deploys the Ustam application
+# and deploys the ustam application
 
 set -e  # Exit on any error
 
-echo "🔨 USTAM - PRODUCTION DEPLOYMENT"
+echo "🔨 ustam - PRODUCTION DEPLOYMENT"
 echo "=================================="
 
 # Colors for output
@@ -257,7 +257,7 @@ setup_systemd() {
     # Create Gunicorn service
     cat > /tmp/ustam.service << EOF
 [Unit]
-Description=Ustam Flask Application
+Description=ustam Flask Application
 After=network.target
 
 [Service]
@@ -421,7 +421,7 @@ print_summary() {
     echo ""
     echo "🔑 Default Admin Credentials:"
     echo "   • Email: admin@ustam.com"
-    echo "   • Password: UstamAdmin2024!"
+    echo "   • Password: ustamAdmin2024!"
     echo ""
     log_warning "Remember to change the default admin password!"
 }

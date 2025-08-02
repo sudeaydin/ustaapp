@@ -1,4 +1,4 @@
-// Test utilities for Ustam application
+// Test utilities for ustam application
 export const TestUtils = {
   // Form validation helpers
   validateEmail: (email) => {

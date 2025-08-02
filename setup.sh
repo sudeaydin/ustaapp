@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "🏗️  USTAM PROJECT SETUP"
+echo "🏗️  ustam PROJECT SETUP"
 echo "======================="
 echo ""
 
 # Check if we're in the right directory
 if [ ! -f "setup.sh" ]; then
-    echo "❌ Please run this script from the Ustam project root directory"
+    echo "❌ Please run this script from the ustam project root directory"
     exit 1
 fi
 
@@ -29,7 +29,7 @@ chmod +x setup.sh
 cd ..
 
 echo ""
-echo "🎉 USTAM PROJECT SETUP COMPLETE!"
+echo "🎉 ustam PROJECT SETUP COMPLETE!"
 echo "================================"
 echo ""
 echo "🚀 To start the application:"

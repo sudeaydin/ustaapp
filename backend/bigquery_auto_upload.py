@@ -15,7 +15,7 @@ import logging
 # Add the backend directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bigquery_integration import UstamBigQueryExporter
+from bigquery_integration import ustamBigQueryExporter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -226,7 +226,7 @@ class AutoBigQueryUploader:
     
     def full_upload(self):
         """Complete upload process: export data and upload to BigQuery"""
-        print("🚀 USTAM - AUTOMATIC BIGQUERY UPLOAD")
+        print("🚀 ustam - AUTOMATIC BIGQUERY UPLOAD")
         print("="*50)
         
         # Step 1: Check prerequisites
@@ -241,7 +241,7 @@ class AutoBigQueryUploader:
         
         # Step 2: Export data
         print("\n📤 Exporting data from SQLite...")
-        exporter = UstamBigQueryExporter()
+        exporter = ustamBigQueryExporter()
         exports = exporter.export_all_data()
         
         if not exports:

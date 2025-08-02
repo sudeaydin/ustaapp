@@ -10,7 +10,7 @@ const AuthChoicePage = () => {
           <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl text-white">🔨</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Ustam'a Hoş Geldiniz</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">ustam'a Hoş Geldiniz</h1>
           <p className="text-gray-600">Hesabınıza giriş yapın veya yeni hesap oluşturun</p>
         </div>
 

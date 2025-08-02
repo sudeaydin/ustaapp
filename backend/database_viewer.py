@@ -72,7 +72,7 @@ def create_viewer_app():
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Ustam - Database Viewer</title>
+            <title>ustam - Database Viewer</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
@@ -100,7 +100,7 @@ def create_viewer_app():
         </head>
         <body>
             <div class="header">
-                <h1>🔨 Ustam - Database Viewer</h1>
+                <h1>🔨 ustam - Database Viewer</h1>
                 <p>Production Database Administration Tool</p>
             </div>
             
@@ -212,7 +212,7 @@ def create_viewer_app():
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>{{ table_name }} - Ustam Database</title>
+            <title>{{ table_name }} - ustam Database</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
@@ -327,7 +327,7 @@ def create_viewer_app():
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>SQL Query - Ustam Database</title>
+            <title>SQL Query - ustam Database</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
@@ -391,7 +391,7 @@ def create_viewer_app():
 
 def main():
     """Run the database viewer"""
-    print("🔨 USTAM - DATABASE VIEWER")
+    print("🔨 ustam - DATABASE VIEWER")
     print("="*50)
     print("Starting web-based database viewer...")
     print("Open your browser and go to: http://localhost:5001")

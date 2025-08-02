@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 USTAM - AUTOMATIC BIGQUERY UPLOAD
+echo 🚀 ustam - AUTOMATIC BIGQUERY UPLOAD
 echo ==================================================
 echo.
 

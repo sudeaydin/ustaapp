@@ -1,4 +1,4 @@
-# 🔨 Ustam - Güvenilir Usta Bulma Platformu
+# 🔨 ustam - Güvenilir Usta Bulma Platformu
 
 Modern, güvenilir ve kullanıcı dostu usta bulma platformu. React.js frontend ve Flask backend ile geliştirilmiştir.
 
