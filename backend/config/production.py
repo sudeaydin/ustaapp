@@ -54,7 +54,7 @@ class ProductionConfig:
     # SMS settings
     SMS_API_KEY = os.environ.get('SMS_API_KEY')
     SMS_API_SECRET = os.environ.get('SMS_API_SECRET')
-    SMS_SENDER = os.environ.get('SMS_SENDER', 'USTAM')
+    SMS_SENDER = os.environ.get('SMS_SENDER', 'ustam')
     
     # Payment settings
     IYZICO_API_KEY = os.environ.get('IYZICO_API_KEY')
@@ -142,11 +142,11 @@ class ProductionConfig:
             app.logger.addHandler(file_handler)
             
             app.logger.setLevel(getattr(logging, ProductionConfig.LOG_LEVEL))
-            app.logger.info('Ustam application startup')
+            app.logger.info('ustam application startup')
 
 # Environment variables template for production
 PRODUCTION_ENV_TEMPLATE = """
-# Production Environment Variables for Ustam App
+# Production Environment Variables for ustam App
 # Copy this to .env file and fill in the actual values
 
 # Basic Settings
@@ -170,7 +170,7 @@ MAIL_DEFAULT_SENDER=noreply@ustam.com
 # SMS Configuration
 SMS_API_KEY=your-sms-api-key
 SMS_API_SECRET=your-sms-api-secret
-SMS_SENDER=USTAM
+SMS_SENDER=ustam
 
 # Payment Gateway (Iyzico)
 IYZICO_API_KEY=your-iyzico-api-key

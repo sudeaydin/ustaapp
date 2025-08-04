@@ -1,8 +1,8 @@
 -- ================================================
--- USTAM APP - PRODUCTION DATABASE SCHEMA
+-- ustam APP - PRODUCTION DATABASE SCHEMA
 -- ================================================
 -- Created: 2024
--- Purpose: Complete database schema for Ustam application
+-- Purpose: Complete database schema for ustam application
 
 -- Enable foreign key constraints (SQLite)
 PRAGMA foreign_keys = ON;
@@ -555,7 +555,7 @@ CREATE INDEX idx_audit_logs_created ON audit_logs(created_at);
 
 -- Insert default system settings
 INSERT OR IGNORE INTO system_settings (key, value, description, type, is_public) VALUES
-('app_name', 'Ustam', 'Application name', 'string', true),
+('app_name', 'ustam', 'Application name', 'string', true),
 ('app_version', '1.0.0', 'Application version', 'string', true),
 ('maintenance_mode', 'false', 'Maintenance mode status', 'boolean', true),
 ('platform_fee_rate', '0.05', 'Platform fee rate (5%)', 'float', false),

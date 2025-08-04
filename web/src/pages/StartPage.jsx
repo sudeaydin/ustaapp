@@ -15,7 +15,7 @@ export const StartPage = () => {
 
         {/* App title */}
         <div className="absolute top-[389px] left-[108px] font-['Raleway-Bold',Helvetica] font-bold text-[#202020] text-[52px] text-center tracking-[-0.52px] leading-[normal] whitespace-nowrap">
-          Ustam
+          ustam
         </div>
 
         {/* Subtitle */}

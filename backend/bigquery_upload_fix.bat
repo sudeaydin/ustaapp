@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 USTAM - FIXED AUTOMATIC BIGQUERY UPLOAD
+echo 🚀 ustam - FIXED AUTOMATIC BIGQUERY UPLOAD
 echo This script will find Google Cloud SDK automatically
 echo ==================================================
 echo.

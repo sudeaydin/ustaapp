@@ -1,6 +1,6 @@
-# 🚀 USTAM - PRODUCTION DEPLOYMENT GUIDE
+# 🚀 ustam - PRODUCTION DEPLOYMENT GUIDE
 
-Bu rehber, Ustam uygulamasını production ortamında nasıl deploy edeceğinizi adım adım açıklar.
+Bu rehber, ustam uygulamasını production ortamında nasıl deploy edeceğinizi adım adım açıklar.
 
 ## 📋 İçindekiler
 
@@ -249,7 +249,7 @@ echo "0 12 * * * /usr/bin/certbot renew --quiet" | sudo crontab -
 
 ```ini
 [Unit]
-Description=Ustam Flask Application
+Description=ustam Flask Application
 After=network.target
 
 [Service]
@@ -488,6 +488,6 @@ sudo certbot renew --dry-run
 
 ---
 
-🔨 **Ustam Production Deployment Guide v1.0**
+🔨 **ustam Production Deployment Guide v1.0**
 
 Bu rehber ile uygulamanız production ortamında güvenli ve stabil bir şekilde çalışacaktır.

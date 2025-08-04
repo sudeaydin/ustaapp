@@ -105,16 +105,16 @@ class AppTheme {
   static BoxDecoration get neuomorphicDecoration => BoxDecoration(
     color: surfaceColor,
     borderRadius: BorderRadius.circular(16),
-    boxShadow: [
+    boxShadow: const [
       BoxShadow(
         color: shadowDark,
-        offset: const Offset(6, 6),
+        offset: Offset(6, 6),
         blurRadius: 12,
         spreadRadius: 0,
       ),
       BoxShadow(
         color: shadowLight,
-        offset: const Offset(-6, -6),
+        offset: Offset(-6, -6),
         blurRadius: 12,
         spreadRadius: 0,
       ),
@@ -124,16 +124,16 @@ class AppTheme {
   static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
     color: backgroundColor,
     borderRadius: BorderRadius.circular(16),
-    boxShadow: [
+    boxShadow: const [
       BoxShadow(
         color: shadowDark,
-        offset: const Offset(3, 3),
+        offset: Offset(3, 3),
         blurRadius: 6,
         spreadRadius: 0,
       ),
       BoxShadow(
         color: shadowLight,
-        offset: const Offset(-3, -3),
+        offset: Offset(-3, -3),
         blurRadius: 6,
         spreadRadius: 0,
       ),
@@ -269,7 +269,7 @@ class AppTheme {
       ),
       
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardColor,
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.1),

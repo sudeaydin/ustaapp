@@ -1,5 +1,5 @@
 @echo off
-echo 🌐 Ustam Frontend Setup (Windows)
+echo 🌐 ustam Frontend Setup (Windows)
 echo =================================
 
 REM Install dependencies

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ustam',
+      title: 'ustam',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Inter',

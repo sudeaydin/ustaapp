@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Ustam Backend Setup"
+echo "🚀 ustam Backend Setup"
 echo "====================="
 
 # Check if virtual environment exists

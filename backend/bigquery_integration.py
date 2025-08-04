@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BigQuery Integration for Ustam App
+BigQuery Integration for ustam App
 Data export, analytics, and business intelligence integration
 """
 
@@ -31,7 +31,7 @@ from app.models.message import Message
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class UstamBigQueryExporter:
+class ustamBigQueryExporter:
     """BigQuery data exporter and analytics integration"""
     
     def __init__(self):
@@ -609,10 +609,10 @@ class UstamBigQueryExporter:
 
 def main():
     """Main function for BigQuery export"""
-    print("🔨 USTAM - BIGQUERY DATA EXPORT")
+    print("🔨 ustam - BIGQUERY DATA EXPORT")
     print("="*50)
     
-    exporter = UstamBigQueryExporter()
+    exporter = ustamBigQueryExporter()
     
     # Generate schemas
     print("📋 Generating BigQuery schemas...")

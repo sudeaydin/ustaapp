@@ -180,7 +180,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             children: [
                                                              // Shadow text
                                Text(
-                                 'Ustam',
+                                 'ustam',
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,
@@ -193,7 +193,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               ),
                                                              // Main text
                                const Text(
-                                 'Ustam',
+                                 'ustam',
                                  style: TextStyle(
                                    fontSize: 46,
                                    fontWeight: FontWeight.bold,

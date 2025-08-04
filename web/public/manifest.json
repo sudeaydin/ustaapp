@@ -1,6 +1,6 @@
 {
-  "name": "Ustam - Güvenilir Usta Bulma Platformu",
-  "short_name": "Ustam",
+  "name": "ustam - Güvenilir Usta Bulma Platformu",
+  "short_name": "ustam",
   "description": "Türkiye'nin en güvenilir usta bulma platformu. Elektrikçiden tesisatçıya, boyacıdan temizlikçiye kadar tüm ev ve işyeri ihtiyaçlarınız için profesyonel hizmet.",
   "start_url": "/",
   "display": "standalone",

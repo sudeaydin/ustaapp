@@ -1,4 +1,4 @@
-# 🚀 USTAM - OTOMATİK BIGQUERY SETUP REHBERİ
+# 🚀 ustam - OTOMATİK BIGQUERY SETUP REHBERİ
 
 Bu rehber ile BigQuery'ye veri yükleme işlemini **tamamen otomatik** hale getirebilirsiniz!
 
@@ -66,7 +66,7 @@ uploader.full_upload()
 Başarılı upload şöyle görünür:
 
 ```
-🚀 USTAM - AUTOMATIC BIGQUERY UPLOAD
+🚀 ustam - AUTOMATIC BIGQUERY UPLOAD
 ==================================================
 🔍 Checking prerequisites...
 INFO:__main__:✅ Google Cloud authentication verified
@@ -194,7 +194,7 @@ SELECT * FROM `your-project.ustam_analytics.revenue_analytics`;
 ```
 1. Task Scheduler açın
 2. "Create Basic Task" tıklayın
-3. Name: "Ustam BigQuery Update"
+3. Name: "ustam BigQuery Update"
 4. Trigger: Daily (günlük)
 5. Action: Start a program
 6. Program: C:\path\to\backend\bigquery_upload.bat

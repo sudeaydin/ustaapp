@@ -1,6 +1,6 @@
-# 🌐 USTAM - CROSS-PLATFORM API GUIDE
+# 🌐 ustam - CROSS-PLATFORM API GUIDE
 
-Bu rehber, Ustam uygulamasının Web, React Native, Flutter ve BigQuery entegrasyonu için API kullanımını açıklar.
+Bu rehber, ustam uygulamasının Web, React Native, Flutter ve BigQuery entegrasyonu için API kullanımını açıklar.
 
 ## 📱 Platform Desteği
 
@@ -259,7 +259,7 @@ const response = await fetch('/api/mobile/settings/mobile', {
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class UstamApiClient {
+class ustamApiClient {
   static const String baseUrl = 'https://api.ustam.com';
   static const String mobileApiUrl = '$baseUrl/api/mobile';
   
@@ -334,7 +334,7 @@ class UstamApiClient {
 ### Flutter Usage Example
 ```dart
 class _HomePageState extends State<HomePage> {
-  final UstamApiClient _apiClient = UstamApiClient();
+  final ustamApiClient _apiClient = ustamApiClient();
   
   @override
   void initState() {
@@ -595,6 +595,6 @@ trackEvent('job_created', {
 
 ---
 
-🔨 **Ustam Cross-Platform API Guide v2.0**
+🔨 **ustam Cross-Platform API Guide v2.0**
 
 Bu rehber ile web, mobile ve analytics entegrasyonunuz sorunsuz çalışacaktır!
