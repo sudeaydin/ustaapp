@@ -32,12 +32,12 @@ export const MessagesPage = () => {
         business_name: 'Yılmaz Elektrik'
       },
       last_message: {
-        content: 'LED aydınlatma işi için malzemeler geldi, yarın başlayabilirim.',
-        created_at: '2025-01-21T16:30:00',
+        content: 'Harika! Ödeme onaylandıktan sonra Perşembe sabahı 9:00\'da başlayabilirim.',
+        created_at: '2025-01-20T16:15:00',
         sender_id: 2
       },
-      unread_count: 2,
-      job_title: 'LED Aydınlatma Montajı'
+      unread_count: 0,
+      job_title: '✅ Kabul Edilmiş - Elektrik Tesisatı'
     },
     {
       id: 2,
@@ -49,12 +49,12 @@ export const MessagesPage = () => {
         business_name: 'Kaya Tesisatçılık'
       },
       last_message: {
-        content: 'Banyo tesisatı için önce keşif yapmam lazım. Uygun olduğunuz zaman?',
+        content: 'Mevcut kabin 80x80 cm. Kaliteli bir marka olsun yeter, öneriniz var mı? Tesisat yaklaşık 15 yıllık.',
         created_at: '2025-01-21T14:15:00',
-        sender_id: 3
+        sender_id: 1
       },
-      unread_count: 0,
-      job_title: 'Banyo Tesisatı Yenileme'
+      unread_count: 1,
+      job_title: '❓ Detay İstenmiş - Duş Kabini'
     },
     {
       id: 3,
@@ -66,92 +66,296 @@ export const MessagesPage = () => {
         business_name: null
       },
       last_message: {
-        content: 'Teşekkürler, işiniz çok güzel oldu. 5 yıldız verdim.',
-        created_at: '2025-01-20T18:45:00',
-        sender_id: 4
+        content: 'Teklif talebiniz iletildi. Usta yanıtını bekleyin...',
+        created_at: '2025-01-21T16:01:00',
+        sender_id: 'system'
       },
       unread_count: 0,
-      job_title: 'Klima Montajı'
+      job_title: '📋 Bekleyen - Salon Boyama'
+    },
+    {
+      id: 4,
+      participant: {
+        id: 2,
+        name: 'Ahmet Yılmaz',
+        avatar: null,
+        user_type: 'craftsman',
+        business_name: 'Yılmaz Elektrik'
+      },
+      last_message: {
+        content: 'Fiyat: ₺800 - Detaylı ev temizliği yapacağım. Tüm malzemeler dahil.',
+        created_at: '2025-01-21T13:30:00',
+        sender_id: 2
+      },
+      unread_count: 1,
+      job_title: '💰 Teklif Verilmiş - Ev Temizliği'
+    },
+    {
+      id: 5,
+      participant: {
+        id: 2,
+        name: 'Ahmet Yılmaz',
+        avatar: null,
+        user_type: 'craftsman',
+        business_name: 'Yılmaz Elektrik'
+      },
+      last_message: {
+        content: 'Anladım, başka bir zamanda tekrar görüşebiliriz. İyi günler!',
+        created_at: '2025-01-19T20:15:00',
+        sender_id: 2
+      },
+      unread_count: 0,
+      job_title: '❌ Reddedilmiş - Mutfak Aydınlatması'
     }
   ];
 
   // Mock messages for active conversation
   const mockMessages = {
+    // Conversation 1: Kabul Edilmiş Teklif (Ödeme Bekleyen)
     1: [
       {
         id: 1,
-        content: 'Merhaba, LED aydınlatma işi için teklif vermiştim. Ne zaman başlayabiliriz?',
-        sender_id: 2,
-        sender_name: 'Ahmet Yılmaz',
-        created_at: '2025-01-21T10:00:00',
-        message_type: 'text'
+        content: `Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: yatak_odası
+Bütçe: 1000-2000 TL
+Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-20T10:00:00',
+        message_type: 'quote_request',
+        quote: {
+          id: 1,
+          status: 'accepted',
+          category: 'Elektrikçi',
+          area_type: 'yatak_odası',
+          budget_range: '1000-2000',
+          description: 'Yatak odası elektrik tesisatı yenilenmesi gerekiyor.'
+        }
       },
       {
         id: 2,
-        content: 'Merhaba Ahmet Bey, teklifi kabul ettim. Bu hafta içinde başlayabilir misiniz?',
-        sender_id: 1,
-        sender_name: 'Müşteri',
-        created_at: '2025-01-21T10:15:00',
-        message_type: 'text'
+        content: `Teklif Yanıtı:
+
+Fiyat: ₺1800
+Tahmini Süre: 2 gün
+Başlangıç: 25.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Elektrik tesisatını tamamen yenileyeceğim. Kaliteli malzeme kullanacağım.`,
+        sender_id: 2,
+        sender_name: 'Ahmet Yılmaz',
+        created_at: '2025-01-20T14:30:00',
+        message_type: 'quote_response',
+        quote: {
+          id: 1,
+          status: 'quoted',
+          quoted_price: 1800,
+          estimated_duration_days: 2
+        }
       },
       {
         id: 3,
-        content: 'Tabii ki! Malzemeleri sipariş ettim, yarın gelecek. Perşembe günü başlayabilirim.',
-        sender_id: 2,
-        sender_name: 'Ahmet Yılmaz',
-        created_at: '2025-01-21T10:30:00',
-        message_type: 'text'
+        content: `Teklif Kararı:
+
+Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-20T16:00:00',
+        message_type: 'quote_decision'
       },
       {
         id: 4,
-        content: 'Perfect! Perşembe günü evde olacağım. Saat kaçta gelmeyi planlıyorsunuz?',
-        sender_id: 1,
-        sender_name: 'Müşteri',
-        created_at: '2025-01-21T11:00:00',
-        message_type: 'text'
-      },
-      {
-        id: 5,
-        content: 'Sabah 9:00 civarında gelebilirim. Size uygun mu?',
+        content: 'Harika! Ödeme onaylandıktan sonra Perşembe sabahı 9:00\'da başlayabilirim.',
         sender_id: 2,
         sender_name: 'Ahmet Yılmaz',
-        created_at: '2025-01-21T11:15:00',
-        message_type: 'text'
-      },
-      {
-        id: 6,
-        content: 'LED aydınlatma malzemeleri geldi! 📦',
-        sender_id: 2,
-        sender_name: 'Ahmet Yılmaz',
-        created_at: '2025-01-21T15:30:00',
-        message_type: 'text'
-      },
-      {
-        id: 7,
-        content: 'LED aydınlatma işi için malzemeler geldi, yarın başlayabilirim.',
-        sender_id: 2,
-        sender_name: 'Ahmet Yılmaz',
-        created_at: '2025-01-21T16:30:00',
+        created_at: '2025-01-20T16:15:00',
         message_type: 'text'
       }
     ],
+    // Conversation 2: Detay İstenmiş
     2: [
       {
-        id: 8,
-        content: 'Banyo tesisatı için önce keşif yapmam lazım. Uygun olduğunuz zaman?',
+        id: 5,
+        content: `Teklif Talebi:
+
+Kategori: Tesisatçı
+Alan: banyo
+Bütçe: 1000-2000 TL
+Açıklama: Duş kabini değişimi ve tesisat kontrolü.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-21T08:00:00',
+        message_type: 'quote_request',
+        quote: {
+          id: 2,
+          status: 'details_requested',
+          category: 'Tesisatçı',
+          area_type: 'banyo',
+          budget_range: '1000-2000',
+          description: 'Duş kabini değişimi ve tesisat kontrolü.'
+        }
+      },
+      {
+        id: 6,
+        content: `Teklif Yanıtı:
+
+Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?`,
         sender_id: 3,
         sender_name: 'Mehmet Kaya',
+        created_at: '2025-01-21T09:00:00',
+        message_type: 'quote_response'
+      },
+      {
+        id: 7,
+        content: 'Mevcut kabin 80x80 cm. Kaliteli bir marka olsun yeter, öneriniz var mı? Tesisat yaklaşık 15 yıllık.',
+        sender_id: 1,
+        sender_name: 'Müşteri',
         created_at: '2025-01-21T14:15:00',
         message_type: 'text'
       }
     ],
+    // Conversation 3: Bekleyen Teklif
     3: [
       {
-        id: 9,
-        content: 'Teşekkürler, işiniz çok güzel oldu. 5 yıldız verdim.',
+        id: 8,
+        content: `Teklif Talebi:
+
+Kategori: Boyacı
+Alan: salon
+Bütçe: 2000-5000 TL
+Açıklama: Salon duvarları boyama işi.
+
+Ek Detaylar: Modern renkler tercih ediyorum, öneriniz var mı?`,
         sender_id: 4,
         sender_name: 'Ali Demir',
-        created_at: '2025-01-20T18:45:00',
+        created_at: '2025-01-21T16:00:00',
+        message_type: 'quote_request',
+        quote: {
+          id: 3,
+          status: 'pending',
+          category: 'Boyacı',
+          area_type: 'salon',
+          budget_range: '2000-5000',
+          description: 'Salon duvarları boyama işi.',
+          additional_details: 'Modern renkler tercih ediyorum, öneriniz var mı?'
+        }
+      },
+      {
+        id: 9,
+        content: 'Teklif talebiniz iletildi. Usta yanıtını bekleyin...',
+        sender_id: 'system',
+        sender_name: 'Sistem',
+        created_at: '2025-01-21T16:01:00',
+        message_type: 'system'
+      }
+    ],
+    // Conversation 4: Teklif Verilmiş (Karar Bekleyen)
+    4: [
+      {
+        id: 10,
+        content: `Teklif Talebi:
+
+Kategori: Temizlik
+Alan: diğer
+Bütçe: 500-1000 TL
+Açıklama: Ev temizliği hizmeti.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-21T12:00:00',
+        message_type: 'quote_request',
+        quote: {
+          id: 4,
+          status: 'quoted',
+          category: 'Temizlik',
+          area_type: 'diğer',
+          budget_range: '500-1000',
+          description: 'Ev temizliği hizmeti.'
+        }
+      },
+      {
+        id: 11,
+        content: `Teklif Yanıtı:
+
+Fiyat: ₺800
+Tahmini Süre: 1 gün
+Başlangıç: 24.01.2025
+Bitiş: 24.01.2025
+
+Notlar: Detaylı ev temizliği yapacağım. Tüm malzemeler dahil.`,
+        sender_id: 2,
+        sender_name: 'Ahmet Yılmaz',
+        created_at: '2025-01-21T13:30:00',
+        message_type: 'quote_response',
+        quote: {
+          id: 4,
+          status: 'quoted',
+          quoted_price: 800,
+          estimated_duration_days: 1
+        }
+      }
+    ],
+    // Conversation 5: Reddedilmiş Teklif
+    5: [
+      {
+        id: 12,
+        content: `Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: mutfak
+Bütçe: 500-1000 TL
+Açıklama: Mutfak aydınlatması yenilenmesi gerekiyor.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-19T14:00:00',
+        message_type: 'quote_request',
+        quote: {
+          id: 5,
+          status: 'rejected',
+          category: 'Elektrikçi',
+          area_type: 'mutfak',
+          budget_range: '500-1000',
+          description: 'Mutfak aydınlatması yenilenmesi gerekiyor.'
+        }
+      },
+      {
+        id: 13,
+        content: `Teklif Yanıtı:
+
+Fiyat: ₺1200
+Tahmini Süre: 1 gün
+Başlangıç: 26.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Mutfak LED aydınlatma sistemi kurulumu 1200 TL.`,
+        sender_id: 2,
+        sender_name: 'Ahmet Yılmaz',
+        created_at: '2025-01-19T18:00:00',
+        message_type: 'quote_response',
+        quote: {
+          id: 5,
+          status: 'quoted',
+          quoted_price: 1200,
+          estimated_duration_days: 1
+        }
+      },
+      {
+        id: 14,
+        content: `Teklif Kararı:
+
+Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.`,
+        sender_id: 1,
+        sender_name: 'Müşteri',
+        created_at: '2025-01-19T20:00:00',
+        message_type: 'quote_decision'
+      },
+      {
+        id: 15,
+        content: 'Anladım, başka bir zamanda tekrar görüşebiliriz. İyi günler!',
+        sender_id: 2,
+        sender_name: 'Ahmet Yılmaz',
+        created_at: '2025-01-19T20:15:00',
         message_type: 'text'
       }
     ]
