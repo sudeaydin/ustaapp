@@ -63,6 +63,14 @@ def create_sample_data():
             'user_type': 'customer'
         },
         {
+            'email': 'customer@test.com',
+            'password': '123456',
+            'first_name': 'Test',
+            'last_name': 'Customer',
+            'phone': '05551234566',
+            'user_type': 'customer'
+        },
+        {
             'email': 'ali@test.com',
             'password': '123456',
             'first_name': 'Ali',
@@ -77,6 +85,14 @@ def create_sample_data():
             'first_name': 'Ahmet',
             'last_name': 'Usta',
             'phone': '05551234569',
+            'user_type': 'craftsman'
+        },
+        {
+            'email': 'ahmet@test.com',
+            'password': '123456',
+            'first_name': 'Ahmet',
+            'last_name': 'Elektrikçi',
+            'phone': '05551234565',
             'user_type': 'craftsman'
         },
         {
@@ -127,6 +143,7 @@ def create_sample_data():
     # Create customer profiles
     customers_data = [
         {'email': 'musteri@test.com', 'address': 'Kadıköy, İstanbul'},
+        {'email': 'customer@test.com', 'address': 'Kadıköy, İstanbul'},
         {'email': 'ali@test.com', 'address': 'Beşiktaş, İstanbul'},
     ]
     
@@ -154,6 +171,19 @@ def create_sample_data():
             'hourly_rate': Decimal('150.00'),
             'average_rating': 4.8,
             'total_reviews': 124,
+            'is_available': True,
+            'is_verified': True
+        },
+        {
+            'email': 'ahmet@test.com',
+            'business_name': 'Ahmet Elektrik Pro',
+            'description': 'Profesyonel elektrik tesisatı ve smart home çözümleri',
+            'address': 'Teknoloji Mah. Elektrik Cad. No:10 Kadıköy/İstanbul',
+            'city': 'İstanbul',
+            'district': 'Kadıköy',
+            'hourly_rate': Decimal('180.00'),
+            'average_rating': 4.9,
+            'total_reviews': 95,
             'is_available': True,
             'is_verified': True
         },
