@@ -213,7 +213,11 @@ def create_sample_data():
             total_reviews=craftsman_data['total_reviews'],
             is_available=craftsman_data['is_available'],
             is_verified=craftsman_data['is_verified'],
-            portfolio_images=json.dumps([]),  # Empty portfolio initially
+            portfolio_images=json.dumps([
+                '/uploads/portfolio/sample1.jpg',
+                '/uploads/portfolio/sample2.jpg',
+                '/uploads/portfolio/sample3.jpg'
+            ] if craftsman_data['email'] in ['usta@test.com', 'mehmet@test.com'] else []),  # Sample portfolio for some craftsmen
             created_at=datetime.utcnow()
         )
         db.session.add(craftsman)
@@ -223,11 +227,11 @@ def create_sample_data():
     db.session.commit()
     print("Craftsmen created.")
     
-    # Create sample quotes
+    # Create sample quotes with different statuses
     customer = Customer.query.filter_by(user_id=created_users['musteri@test.com'].id).first()
-    craftsman = created_craftsmen['usta@test.com']
     
-    quote = Quote(
+    # Quote 1: Pending (just sent)
+    quote1 = Quote(
         customer_id=created_users['musteri@test.com'].id,
         craftsman_id=created_users['usta@test.com'].id,
         category='Elektrikçi',
@@ -241,7 +245,153 @@ def create_sample_data():
         status='pending',
         created_at=datetime.now()
     )
-    db.session.add(quote)
+    db.session.add(quote1)
+    db.session.flush()
+    
+    # Quote 2: Details requested
+    quote2 = Quote(
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['mehmet@test.com'].id,
+        category='Tesisatçı',
+        job_type='Tesisatçı',
+        location='Şişli, İstanbul',
+        area_type='banyo',
+        budget_range='2000-5000',
+        description='Banyo musluğu damlıyor, tamiri gerekiyor.',
+        status='details_requested',
+        created_at=datetime.now() - timedelta(hours=2)
+    )
+    db.session.add(quote2)
+    db.session.flush()
+    
+    # Quote 3: Quoted (awaiting customer decision)
+    quote3 = Quote(
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['kemal@test.com'].id,
+        category='Boyacı',
+        job_type='Boyacı',
+        location='Üsküdar, İstanbul',
+        area_type='yatak_odası',
+        budget_range='1000-2000',
+        description='Yatak odası duvarlarını boyatmak istiyorum.',
+        status='quoted',
+        quoted_price=1500.00,
+        craftsman_notes='Yatak odası boyama işi için 1500 TL teklif ediyorum. İş 2 gün sürecek.',
+        estimated_start_date=datetime.now() + timedelta(days=3),
+        estimated_end_date=datetime.now() + timedelta(days=5),
+        estimated_duration_days=2,
+        created_at=datetime.now() - timedelta(hours=6)
+    )
+    db.session.add(quote3)
+    db.session.flush()
+    
+    # Quote 4: Accepted (ready for payment)
+    quote4 = Quote(
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        category='Temizlik',
+        job_type='Temizlik',
+        location='Beşiktaş, İstanbul',
+        area_type='diğer',
+        budget_range='500-1000',
+        description='Genel ev temizliği yapılmasını istiyorum.',
+        status='accepted',
+        quoted_price=800.00,
+        craftsman_notes='Genel ev temizliği 800 TL. Tüm odalar, mutfak ve banyo dahil.',
+        estimated_start_date=datetime.now() + timedelta(days=1),
+        estimated_end_date=datetime.now() + timedelta(days=1),
+        estimated_duration_days=1,
+        created_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(quote4)
+    db.session.flush()
+    
+    # Create corresponding messages for quotes
+    from app.models.message import Message
+    
+    # Message for quote1 (pending)
+    message1 = Message(
+        quote_id=quote1.id,
+        sender_id=created_users['musteri@test.com'].id,
+        receiver_id=created_users['usta@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote1.category}\nAlan: {quote1.area_type}\nBütçe: {quote1.budget_range} TL\nMetrekare: {quote1.square_meters} m²\nAçıklama: {quote1.description}\n\n{quote1.additional_details}",
+        message_type='quote_request',
+        created_at=datetime.now()
+    )
+    db.session.add(message1)
+    
+    # Message for quote2 (details requested)
+    message2a = Message(
+        quote_id=quote2.id,
+        sender_id=created_users['musteri@test.com'].id,
+        receiver_id=created_users['mehmet@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote2.category}\nAlan: {quote2.area_type}\nBütçe: {quote2.budget_range} TL\nAçıklama: {quote2.description}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(hours=2)
+    )
+    db.session.add(message2a)
+    
+    message2b = Message(
+        quote_id=quote2.id,
+        sender_id=created_users['mehmet@test.com'].id,
+        receiver_id=created_users['musteri@test.com'].id,
+        content="Teklif Yanıtı:\n\nDaha fazla detay istiyorum. Hangi marka musluk kullanıyorsunuz? Kaç yıllık? Sıcak su da mı damlıyor?",
+        message_type='quote_response',
+        created_at=datetime.now() - timedelta(hours=1, minutes=30)
+    )
+    db.session.add(message2b)
+    
+    # Message for quote3 (quoted)
+    message3a = Message(
+        quote_id=quote3.id,
+        sender_id=created_users['musteri@test.com'].id,
+        receiver_id=created_users['kemal@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote3.category}\nAlan: {quote3.area_type}\nBütçe: {quote3.budget_range} TL\nAçıklama: {quote3.description}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(hours=6)
+    )
+    db.session.add(message3a)
+    
+    message3b = Message(
+        quote_id=quote3.id,
+        sender_id=created_users['kemal@test.com'].id,
+        receiver_id=created_users['musteri@test.com'].id,
+        content=f"Teklif Yanıtı:\n\nFiyat: ₺{quote3.quoted_price}\nTahmini Süre: {quote3.estimated_duration_days} gün\nBaşlangıç: {quote3.estimated_start_date.strftime('%d.%m.%Y')}\nBitiş: {quote3.estimated_end_date.strftime('%d.%m.%Y')}\n\nNotlar: {quote3.craftsman_notes}",
+        message_type='quote_response',
+        created_at=datetime.now() - timedelta(hours=5)
+    )
+    db.session.add(message3b)
+    
+    # Message for quote4 (accepted)
+    message4a = Message(
+        quote_id=quote4.id,
+        sender_id=created_users['musteri@test.com'].id,
+        receiver_id=created_users['fatma@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote4.category}\nAlan: {quote4.area_type}\nBütçe: {quote4.budget_range} TL\nAçıklama: {quote4.description}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(message4a)
+    
+    message4b = Message(
+        quote_id=quote4.id,
+        sender_id=created_users['fatma@test.com'].id,
+        receiver_id=created_users['musteri@test.com'].id,
+        content=f"Teklif Yanıtı:\n\nFiyat: ₺{quote4.quoted_price}\nTahmini Süre: {quote4.estimated_duration_days} gün\nBaşlangıç: {quote4.estimated_start_date.strftime('%d.%m.%Y')}\nBitiş: {quote4.estimated_end_date.strftime('%d.%m.%Y')}\n\nNotlar: {quote4.craftsman_notes}",
+        message_type='quote_response',
+        created_at=datetime.now() - timedelta(hours=20)
+    )
+    db.session.add(message4b)
+    
+    message4c = Message(
+        quote_id=quote4.id,
+        sender_id=created_users['musteri@test.com'].id,
+        receiver_id=created_users['fatma@test.com'].id,
+        content="Teklif Kararı:\n\nTeklifinizi kabul ediyorum. Ödeme işlemini gerçekleştireceğim.",
+        message_type='quote_decision',
+        created_at=datetime.now() - timedelta(hours=18)
+    )
+    db.session.add(message4c)
     
     db.session.commit()
     print("Sample quotes created.")

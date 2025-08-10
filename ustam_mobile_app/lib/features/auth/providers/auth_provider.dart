@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // SharedPreferences provider
@@ -87,65 +88,38 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
     
     try {
-      // TODO: Implement actual login API call
-      // For now, simulate login
-      await Future.delayed(const Duration(seconds: 1));
+      // Real API login call
+      final response = await http.post(
+        Uri.parse('http://localhost:5000/api/auth/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+      );
       
-      // Mock users - validate userType matches
-      Map<String, dynamic>? user;
+      final data = jsonDecode(response.body);
       
-      if (email == 'customer@test.com' && password == '123456') {
-        if (userType == null || userType == 'customer') {
-          user = {
-            'id': 1,
-            'email': email,
-            'user_type': 'customer',
-            'first_name': 'Ahmet',
-            'last_name': 'Müşteri',
-          };
-        }
-      } else if (email == 'ahmet@test.com' && password == '123456') {
-        if (userType == null || userType == 'craftsman') {
-          user = {
-            'id': 2,
-            'email': email,
-            'user_type': 'craftsman',
-            'first_name': 'Ahmet',
-            'last_name': 'Usta',
-            'specialty': 'Elektrikçi',
-          };
-        }
-      } else if (email == 'admin@example.com' && password == 'admin123') {
-        if (userType == null || userType == 'admin') {
-          user = {
-            'id': 3,
-            'email': email,
-            'user_type': 'admin',
-            'first_name': 'Admin',
-            'last_name': 'User',
-          };
-        }
-      }
-      
-      // Additional validation for userType mismatch
-      if (user == null && userType != null) {
-        String errorMessage = userType == 'customer' 
-          ? 'Bu hesap bireysel kullanıcı hesabı değil'
-          : 'Bu hesap usta/zanaatkar hesabı değil';
+      if (response.statusCode == 200 && data['success']) {
+        final token = data['data']['access_token'];
+        final user = data['data']['user'];
         
-        state = state.copyWith(
-          isLoading: false,
-          error: errorMessage,
-        );
-        return false;
-      }
-      
-      if (user != null) {
-        final token = 'mock_token_${DateTime.now().millisecondsSinceEpoch}';
+        // Additional validation for userType mismatch if specified
+        if (userType != null && user['user_type'] != userType) {
+          String errorMessage = userType == 'customer' 
+            ? 'Bu hesap bireysel kullanıcı hesabı değil'
+            : 'Bu hesap usta/zanaatkar hesabı değil';
+          
+          state = state.copyWith(
+            isLoading: false,
+            error: errorMessage,
+          );
+          return false;
+        }
         
         await _prefs.setString('authToken', token);
-        await _prefs.setString('user', jsonEncode(user)); // JSON encode user data
-        await _prefs.setString('user_type', user['user_type']); // Store user_type separately
+        await _prefs.setString('user', jsonEncode(user));
+        await _prefs.setString('user_type', user['user_type']);
         
         state = state.copyWith(
           isAuthenticated: true,
@@ -157,7 +131,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return true;
       } else {
         state = state.copyWith(
-          error: 'Geçersiz email veya şifre',
+          error: data['message'] ?? 'Geçersiz email veya şifre',
           isLoading: false,
         );
         return false;

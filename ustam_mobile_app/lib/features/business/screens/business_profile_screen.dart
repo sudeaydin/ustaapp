@@ -66,7 +66,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   Future<void> _loadPortfolioImages() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      final token = prefs.getString('authToken');
       
       if (token == null) return;
       
@@ -132,7 +132,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   Future<void> _uploadImage(File imageFile) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      final token = prefs.getString('authToken');
       
       if (token == null) {
         _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', Colors.red);
@@ -188,7 +188,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
     
     try {
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
+      final token = prefs.getString('authToken');
       
       if (token == null) {
         _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', Colors.red);

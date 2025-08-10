@@ -633,33 +633,68 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                           ],
                                         ),
                                         const SizedBox(height: 16),
-                                        // Teklif Al Button
-                                        Container(
-                                          width: double.infinity,
-                                          height: 48,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              // Navigate to quote form
-                                              Navigator.pushNamed(context, '/quote-form', arguments: {
-                                                'craftsman': craftsman,
-                                              });
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color(0xFF3B82F6),
-                                              foregroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12),
+                                        // Action Buttons
+                                        Row(
+                                          children: [
+                                            // İşletmeyi İncele Button
+                                            Expanded(
+                                              child: Container(
+                                                height: 48,
+                                                child: OutlinedButton(
+                                                  onPressed: () {
+                                                    // Navigate to business profile (will be implemented)
+                                                    Navigator.pushNamed(context, '/craftsman-detail', arguments: {
+                                                      'craftsman': craftsman,
+                                                    });
+                                                  },
+                                                  style: OutlinedButton.styleFrom(
+                                                    foregroundColor: const Color(0xFF3B82F6),
+                                                    side: const BorderSide(color: Color(0xFF3B82F6)),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                  ),
+                                                  child: const Text(
+                                                    'İşletmeyi İncele',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                              elevation: 0,
                                             ),
-                                            child: const Text(
-                                              'Teklif Al',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
+                                            const SizedBox(width: 8),
+                                            // Teklif Al Button
+                                            Expanded(
+                                              child: Container(
+                                                height: 48,
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    // Navigate to quote form
+                                                    Navigator.pushNamed(context, '/quote-form', arguments: {
+                                                      'craftsman': craftsman,
+                                                    });
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: const Color(0xFF3B82F6),
+                                                    foregroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                    elevation: 0,
+                                                  ),
+                                                  child: const Text(
+                                                    'Teklif Al',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
