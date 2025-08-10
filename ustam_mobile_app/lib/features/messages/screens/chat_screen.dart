@@ -1024,8 +1024,8 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
                   'messageType': 'quote_decision',
                 });
               });
-              _scrollToBottom();
-              // TODO: Navigate to payment screen
+                             _scrollToBottom();
+               _showPaymentDialog(quote);
             },
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF059669)),
             child: const Text('Kabul Et'),
@@ -1119,5 +1119,174 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
         );
       }
     });
+  }
+
+  void _showPaymentDialog(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.payment, color: Color(0xFF059669)),
+            const SizedBox(width: 8),
+            const Text('💳 Ödeme'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF0FDF4),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFF059669)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '✅ Teklif Kabul Edildi',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF059669),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildQuoteDetailRow('Tutar', '₺${quote['quoted_price']}'),
+                  _buildQuoteDetailRow('Süre', '${quote['estimated_duration_days']} gün'),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Toplam:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        '₺${quote['quoted_price']}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Color(0xFF059669),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              '💳 Ödeme yönteminizi seçin:',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xFF3B82F6)),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.credit_card, color: Color(0xFF3B82F6)),
+                  SizedBox(width: 8),
+                  Text('Kredi Kartı ile Öde'),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('İptal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _showPaymentSuccessDialog();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF059669),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
+            child: const Text(
+              '💳 Ödeme Yap',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showPaymentSuccessDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.check_circle, color: Color(0xFF059669), size: 28),
+            SizedBox(width: 8),
+            Text('✅ Ödeme Başarılı'),
+          ],
+        ),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.celebration,
+              size: 64,
+              color: Color(0xFF059669),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Ödemeniz başarıyla tamamlandı!',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'İş süreci başladı. Usta ile iletişimde kalabilirsiniz.',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF64748B),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Navigate to job tracking screen
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF059669),
+              minimumSize: const Size(double.infinity, 48),
+            ),
+            child: const Text(
+              'İşi Takip Et',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

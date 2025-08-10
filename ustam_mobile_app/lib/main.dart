@@ -16,6 +16,7 @@ import 'features/business/screens/business_profile_screen.dart';
 import 'features/messages/screens/messages_screen.dart';
 import 'features/messages/screens/chat_screen.dart';
 import 'features/notifications/screens/notifications_screen.dart';
+import 'features/quotes/screens/craftsman_quotes_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
           return ChatScreen(conversation: args['conversation']);
         },
         '/notifications': (context) => const NotificationsScreen(),
+        '/craftsman-quotes': (context) => const CraftsmanQuotesScreen(),
       },
     );
   }

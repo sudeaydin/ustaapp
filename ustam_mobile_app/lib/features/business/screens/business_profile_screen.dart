@@ -81,11 +81,17 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success'] && data['data']['craftsman_profile']?['portfolio_images'] != null) {
-          final portfolioImagesJson = data['data']['craftsman_profile']['portfolio_images'];
-          if (portfolioImagesJson != null && portfolioImagesJson.isNotEmpty) {
-            final List<dynamic> imagesList = json.decode(portfolioImagesJson);
+          final portfolioImagesData = data['data']['craftsman_profile']['portfolio_images'];
+          if (portfolioImagesData != null) {
             setState(() {
-              _portfolioImages = imagesList.cast<String>();
+              if (portfolioImagesData is List) {
+                // Already parsed as list
+                _portfolioImages = portfolioImagesData.cast<String>();
+              } else if (portfolioImagesData is String && portfolioImagesData.isNotEmpty) {
+                // JSON string, need to parse
+                final List<dynamic> imagesList = json.decode(portfolioImagesData);
+                _portfolioImages = imagesList.cast<String>();
+              }
             });
           }
         }
