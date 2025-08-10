@@ -77,7 +77,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
 
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/profile/'),
+        Uri.parse('http://localhost:5000/api/auth/profile'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',

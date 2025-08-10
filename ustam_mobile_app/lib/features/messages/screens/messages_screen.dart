@@ -131,6 +131,19 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'statusIcon': '❌',
       'jobTitle': 'Mutfak Aydınlatması'
     },
+    {
+      'id': '9',
+      'name': 'Serkan Yılmaz',
+      'business_name': 'Yılmaz Boyacılık',
+      'avatar': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'lastMessage': '💰 Fiyat: ₺3500 - Salon boyama işi için teklifim.',
+      'timestamp': '11:00',
+      'unreadCount': 1,
+      'isOnline': true,
+      'status': 'quoted',
+      'statusIcon': '💰',
+      'jobTitle': '💰 Karar Bekleyen - Salon Boyama'
+    },
   ];
   
   final List<Map<String, dynamic>> _craftsmanConversations = [

@@ -497,6 +497,52 @@ Teklifinizi kabul ediyorum. Harika!''',
              'messageType': 'quote_decision',
            },
          ];
+       case '9': // Yeni Örnek - Karar Bekleyen Teklif
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Boyacı
+Alan: salon
+Bütçe: 3000-5000 TL
+Açıklama: Salon duvarları boyama işi.
+
+Ek Detaylar: Modern renkler tercih ediyorum, öneriniz var mı?''',
+             'timestamp': '09:00',
+             'isMe': true,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 9,
+               'status': 'quoted',
+               'category': 'Boyacı',
+               'area_type': 'salon',
+               'budget_range': '3000-5000',
+               'description': 'Salon duvarları boyama işi.',
+               'additional_details': 'Modern renkler tercih ediyorum, öneriniz var mı?'
+             }
+           },
+           {
+             'id': '2',
+             'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺3500
+Tahmini Süre: 3 gün
+Başlangıç: 27.01.2025
+Bitiş: 29.01.2025
+
+Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullanacağım. Renk önerilerim: Açık gri, krem veya beyaz tonları.''',
+             'timestamp': '11:00',
+             'isMe': false,
+             'messageType': 'quote_response',
+             'quote': {
+               'id': 9,
+               'status': 'quoted',
+               'quoted_price': 3500,
+               'estimated_duration_days': 3
+             }
+           },
+         ];
        default:
          return [];
      }
@@ -692,24 +738,68 @@ Teklifinizi kabul ediyorum. Harika!''',
                       ),
                     ),
                   ],
-                  if (message['messageType'] == 'quote_response' && isMe && message['quote']?['status'] == 'quoted') ...[
+                  if (message['messageType'] == 'quote_response' && !isMe && message['quote']?['status'] == 'quoted') ...[
                     Container(
                       margin: const EdgeInsets.only(bottom: 8),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _showQuoteDecisionDialog(message['quote']);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF3B82F6),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: const Text(
-                          'Karar Ver',
-                          style: TextStyle(fontSize: 12),
-                        ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _acceptQuote(message['quote']);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF059669),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                '✅ Kabul Et',
+                                style: TextStyle(fontSize: 11),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _rejectQuote(message['quote']);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFDC2626),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                '❌ Reddet',
+                                style: TextStyle(fontSize: 11),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _requestNewQuote(message['quote']);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF3B82F6),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                '🔄 Yeni Teklif',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -905,5 +995,129 @@ Teklifinizi kabul ediyorum. Harika!''',
         ],
       ),
     );
+  }
+
+  void _acceptQuote(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('✅ Teklif Kabul'),
+        content: const Text('Bu teklifi kabul etmek istediğinizden emin misiniz? Ödeme sayfasına yönlendirileceksiniz.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('İptal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _currentMessages.add({
+                  'id': DateTime.now().millisecondsSinceEpoch.toString(),
+                  'text': '''✅ Teklif Kararı:
+
+Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
+                  'timestamp': _getCurrentTime(),
+                  'isMe': true,
+                  'messageType': 'quote_decision',
+                });
+              });
+              _scrollToBottom();
+              // TODO: Navigate to payment screen
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF059669)),
+            child: const Text('Kabul Et'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _rejectQuote(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('❌ Teklif Reddi'),
+        content: const Text('Bu teklifi reddetmek istediğinizden emin misiniz?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('İptal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _currentMessages.add({
+                  'id': DateTime.now().millisecondsSinceEpoch.toString(),
+                  'text': '''❌ Teklif Kararı:
+
+Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
+                  'timestamp': _getCurrentTime(),
+                  'isMe': true,
+                  'messageType': 'quote_decision',
+                });
+              });
+              _scrollToBottom();
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFDC2626)),
+            child: const Text('Reddet'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _requestNewQuote(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('🔄 Yeni Teklif İsteği'),
+        content: const Text('Yeni bir teklif istemek istediğinizden emin misiniz?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('İptal'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _currentMessages.add({
+                  'id': DateTime.now().millisecondsSinceEpoch.toString(),
+                  'text': '''🔄 Teklif Kararı:
+
+Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
+                  'timestamp': _getCurrentTime(),
+                  'isMe': true,
+                  'messageType': 'quote_decision',
+                });
+              });
+              _scrollToBottom();
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF3B82F6)),
+            child: const Text('Yeni Teklif İste'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 }
