@@ -53,7 +53,19 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
   } // Messages is third tab
-  final List<Map<String, dynamic>> _conversations = [
+  
+  List<Map<String, dynamic>> get _conversations {
+    // Get user type from widget parameter or auth provider
+    final userType = widget.userType ?? ref.read(authProvider).user?['user_type'] ?? 'customer';
+    
+    if (userType == 'craftsman') {
+      return _craftsmanConversations;
+    } else {
+      return _customerConversations;
+    }
+  }
+  
+  final List<Map<String, dynamic>> _customerConversations = [
     {
       'id': '1',
       'name': 'Ahmet Yılmaz',
@@ -118,6 +130,48 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'status': 'rejected',
       'statusIcon': '❌',
       'jobTitle': 'Mutfak Aydınlatması'
+    },
+  ];
+  
+  final List<Map<String, dynamic>> _craftsmanConversations = [
+    {
+      'id': '6',
+      'name': 'Ali Demir',
+      'business_name': 'Müşteri',
+      'avatar': 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'lastMessage': '📋 Salon aydınlatması için teklif talebiniz var.',
+      'timestamp': '15:00',
+      'unreadCount': 1,
+      'isOnline': true,
+      'status': 'pending',
+      'statusIcon': '📋',
+      'jobTitle': 'Bekleyen Teklif - Salon Aydınlatması'
+    },
+    {
+      'id': '7',
+      'name': 'Fatma Yılmaz',
+      'business_name': 'Müşteri',
+      'avatar': 'https://images.unsplash.com/photo-1494790108755-2616c96b6e3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'lastMessage': '❓ Mevcut duş kabinin boyutları 80x80 cm.',
+      'timestamp': '09:00',
+      'unreadCount': 0,
+      'isOnline': false,
+      'status': 'details_requested',
+      'statusIcon': '❓',
+      'jobTitle': 'Detay İstediğim - Duş Kabini'
+    },
+    {
+      'id': '8',
+      'name': 'Mehmet Özkan',
+      'business_name': 'Müşteri',
+      'avatar': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'lastMessage': '✅ Teklifinizi kabul ediyorum. Harika!',
+      'timestamp': '16:00',
+      'unreadCount': 0,
+      'isOnline': true,
+      'status': 'accepted',
+      'statusIcon': '✅',
+      'jobTitle': 'Kabul Edilmiş - Elektrik İşi'
     },
   ];
 

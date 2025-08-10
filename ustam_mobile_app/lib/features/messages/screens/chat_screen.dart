@@ -13,7 +13,25 @@ class ChatScreen extends ConsumerStatefulWidget {
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<Map<String, dynamic>> _messages = [
+  List<Map<String, dynamic>> _currentMessages = [];
+  
+  @override
+  void initState() {
+    super.initState();
+    _loadMessages();
+  }
+  
+  void _loadMessages() {
+    final conversationId = widget.conversation['id'];
+    _currentMessages = _getMessagesForConversation(conversationId);
+  }
+  
+  List<Map<String, dynamic>> get _messages => _currentMessages;
+  
+  List<Map<String, dynamic>> _getMessagesForConversation(String conversationId) {
+    switch (conversationId) {
+      case '1': // Kabul Edilmiş
+        return [
     {
       'id': '1',
       'text': '''📋 Teklif Talebi:
@@ -70,7 +88,419 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
       'isMe': false,
       'messageType': 'text',
     },
-  ];
+        ];
+      case '2': // Detay İstenmiş
+        return [
+          {
+            'id': '1',
+            'text': '''📋 Teklif Talebi:
+
+Kategori: Tesisatçı
+Alan: banyo
+Bütçe: 1000-2000 TL
+Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
+            'timestamp': '08:00',
+            'isMe': true,
+            'messageType': 'quote_request',
+            'quote': {
+              'id': 2,
+              'status': 'details_requested',
+              'category': 'Tesisatçı',
+              'area_type': 'banyo',
+              'budget_range': '1000-2000',
+              'description': 'Duş kabini değişimi ve tesisat kontrolü.'
+            }
+          },
+          {
+            'id': '2',
+            'text': '''❓ Teklif Yanıtı:
+
+Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
+            'timestamp': '09:00',
+            'isMe': false,
+            'messageType': 'quote_response',
+          },
+          {
+            'id': '3',
+            'text': 'Mevcut kabin 80x80 cm. Kaliteli bir marka olsun yeter, öneriniz var mı? Tesisat yaklaşık 15 yıllık.',
+            'timestamp': '14:15',
+            'isMe': true,
+            'messageType': 'text',
+          },
+        ];
+      case '3': // Bekleyen
+        return [
+          {
+            'id': '1',
+            'text': '''📋 Teklif Talebi:
+
+Kategori: Boyacı
+Alan: salon
+Bütçe: 2000-5000 TL
+Açıklama: Salon duvarları boyama işi.
+
+Ek Detaylar: Modern renkler tercih ediyorum, öneriniz var mı?''',
+            'timestamp': '16:00',
+            'isMe': true,
+            'messageType': 'quote_request',
+            'quote': {
+              'id': 3,
+              'status': 'pending',
+              'category': 'Boyacı',
+              'area_type': 'salon',
+              'budget_range': '2000-5000',
+              'description': 'Salon duvarları boyama işi.',
+              'additional_details': 'Modern renkler tercih ediyorum, öneriniz var mı?'
+            }
+          },
+          {
+            'id': '2',
+            'text': 'Teklif talebiniz iletildi. Usta yanıtını bekleyin...',
+            'timestamp': '16:01',
+            'isMe': false,
+            'messageType': 'system',
+          },
+        ];
+      case '4': // Teklif Verilmiş
+        return [
+          {
+            'id': '1',
+            'text': '''📋 Teklif Talebi:
+
+Kategori: Temizlik
+Alan: diğer
+Bütçe: 500-1000 TL
+Açıklama: Ev temizliği hizmeti.''',
+            'timestamp': '12:00',
+            'isMe': true,
+            'messageType': 'quote_request',
+            'quote': {
+              'id': 4,
+              'status': 'quoted',
+              'category': 'Temizlik',
+              'area_type': 'diğer',
+              'budget_range': '500-1000',
+              'description': 'Ev temizliği hizmeti.'
+            }
+          },
+          {
+            'id': '2',
+            'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺800
+Tahmini Süre: 1 gün
+Başlangıç: 24.01.2025
+Bitiş: 24.01.2025
+
+Notlar: Detaylı ev temizliği yapacağım. Tüm malzemeler dahil.''',
+            'timestamp': '13:30',
+            'isMe': false,
+            'messageType': 'quote_response',
+            'quote': {
+              'id': 4,
+              'status': 'quoted',
+              'quoted_price': 800,
+              'estimated_duration_days': 1
+            }
+          },
+        ];
+      case '5': // Reddedilmiş
+        return [
+          {
+            'id': '1',
+            'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: mutfak
+Bütçe: 500-1000 TL
+Açıklama: Mutfak aydınlatması yenilenmesi gerekiyor.''',
+            'timestamp': '14:00',
+            'isMe': true,
+            'messageType': 'quote_request',
+            'quote': {
+              'id': 5,
+              'status': 'rejected',
+              'category': 'Elektrikçi',
+              'area_type': 'mutfak',
+              'budget_range': '500-1000',
+              'description': 'Mutfak aydınlatması yenilenmesi gerekiyor.'
+            }
+          },
+          {
+            'id': '2',
+            'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺1200
+Tahmini Süre: 1 gün
+Başlangıç: 26.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Mutfak LED aydınlatma sistemi kurulumu 1200 TL.''',
+            'timestamp': '18:00',
+            'isMe': false,
+            'messageType': 'quote_response',
+            'quote': {
+              'id': 5,
+              'status': 'quoted',
+              'quoted_price': 1200,
+              'estimated_duration_days': 1
+            }
+          },
+          {
+            'id': '3',
+            'text': '''❌ Teklif Kararı:
+
+Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
+            'timestamp': '20:00',
+            'isMe': true,
+            'messageType': 'quote_decision',
+          },
+          {
+            'id': '4',
+            'text': 'Anladım, başka bir zamanda tekrar görüşebiliriz. İyi günler!',
+            'timestamp': '20:15',
+            'isMe': false,
+            'messageType': 'text',
+          },
+                 ];
+       case '6': // Usta - Bekleyen Teklif
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: salon
+Bütçe: 2000-5000 TL
+Açıklama: Salon aydınlatması tamamen yenilenmeli, spot ve avize montajı.
+
+Ek Detaylar: Modern LED sistemleri tercih ediyorum.''',
+             'timestamp': '15:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 6,
+               'status': 'pending',
+               'category': 'Elektrikçi',
+               'area_type': 'salon',
+               'budget_range': '2000-5000',
+               'description': 'Salon aydınlatması tamamen yenilenmeli, spot ve avize montajı.',
+               'additional_details': 'Modern LED sistemleri tercih ediyorum.'
+             }
+           },
+         ];
+       case '7': // Usta - Detay İstediğim
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Tesisatçı
+Alan: banyo
+Bütçe: 1000-2000 TL
+Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
+             'timestamp': '08:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 7,
+               'status': 'details_requested',
+               'category': 'Tesisatçı',
+               'area_type': 'banyo',
+               'budget_range': '1000-2000',
+               'description': 'Duş kabini değişimi ve tesisat kontrolü.'
+             }
+           },
+           {
+             'id': '2',
+             'text': '''❓ Teklif Yanıtı:
+
+Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
+             'timestamp': '09:00',
+             'isMe': true,
+             'messageType': 'quote_response',
+           },
+           {
+             'id': '3',
+             'text': 'Mevcut duş kabinin boyutları 80x80 cm. Kaliteli bir marka olsun yeter, öneriniz var mı? Tesisat yaklaşık 15 yıllık.',
+             'timestamp': '09:30',
+             'isMe': false,
+             'messageType': 'text',
+           },
+         ];
+       case '8': // Usta - Kabul Edilmiş
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: yatak_odası
+Bütçe: 1000-2000 TL
+Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
+             'timestamp': '10:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 8,
+               'status': 'accepted',
+               'category': 'Elektrikçi',
+               'area_type': 'yatak_odası',
+               'budget_range': '1000-2000',
+               'description': 'Yatak odası elektrik tesisatı yenilenmesi gerekiyor.'
+             }
+           },
+           {
+             'id': '2',
+             'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺1800
+Tahmini Süre: 2 gün
+Başlangıç: 25.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Elektrik tesisatını tamamen yenileyeceğim. Kaliteli malzeme kullanacağım.''',
+             'timestamp': '14:30',
+             'isMe': true,
+             'messageType': 'quote_response',
+             'quote': {
+               'id': 8,
+               'status': 'quoted',
+               'quoted_price': 1800,
+               'estimated_duration_days': 2
+             }
+           },
+           {
+             'id': '3',
+             'text': '''✅ Teklif Kararı:
+
+Teklifinizi kabul ediyorum. Harika!''',
+             'timestamp': '16:00',
+             'isMe': false,
+             'messageType': 'quote_decision',
+           },
+         ];
+       case '6': // Usta - Bekleyen Teklif
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: salon
+Bütçe: 2000-5000 TL
+Açıklama: Salon aydınlatması tamamen yenilenmeli, spot ve avize montajı.
+
+Ek Detaylar: Modern LED sistemleri tercih ediyorum.''',
+             'timestamp': '15:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 6,
+               'status': 'pending',
+               'category': 'Elektrikçi',
+               'area_type': 'salon',
+               'budget_range': '2000-5000',
+               'description': 'Salon aydınlatması tamamen yenilenmeli, spot ve avize montajı.',
+               'additional_details': 'Modern LED sistemleri tercih ediyorum.'
+             }
+           },
+         ];
+       case '7': // Usta - Detay İstediğim
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Tesisatçı
+Alan: banyo
+Bütçe: 1000-2000 TL
+Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
+             'timestamp': '08:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 7,
+               'status': 'details_requested',
+               'category': 'Tesisatçı',
+               'area_type': 'banyo',
+               'budget_range': '1000-2000',
+               'description': 'Duş kabini değişimi ve tesisat kontrolü.'
+             }
+           },
+           {
+             'id': '2',
+             'text': '''❓ Teklif Yanıtı:
+
+Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
+             'timestamp': '09:00',
+             'isMe': true,
+             'messageType': 'quote_response',
+           },
+           {
+             'id': '3',
+             'text': 'Mevcut duş kabinin boyutları 80x80 cm. Kaliteli bir marka olsun yeter, öneriniz var mı? Tesisat yaklaşık 15 yıllık.',
+             'timestamp': '09:30',
+             'isMe': false,
+             'messageType': 'text',
+           },
+         ];
+       case '8': // Usta - Kabul Edilmiş
+         return [
+           {
+             'id': '1',
+             'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: yatak_odası
+Bütçe: 1000-2000 TL
+Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
+             'timestamp': '10:00',
+             'isMe': false,
+             'messageType': 'quote_request',
+             'quote': {
+               'id': 8,
+               'status': 'accepted',
+               'category': 'Elektrikçi',
+               'area_type': 'yatak_odası',
+               'budget_range': '1000-2000',
+               'description': 'Yatak odası elektrik tesisatı yenilenmesi gerekiyor.'
+             }
+           },
+           {
+             'id': '2',
+             'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺1800
+Tahmini Süre: 2 gün
+Başlangıç: 25.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Elektrik tesisatını tamamen yenileyeceğim. Kaliteli malzeme kullanacağım.''',
+             'timestamp': '14:30',
+             'isMe': true,
+             'messageType': 'quote_response',
+             'quote': {
+               'id': 8,
+               'status': 'quoted',
+               'quoted_price': 1800,
+               'estimated_duration_days': 2
+             }
+           },
+           {
+             'id': '3',
+             'text': '''✅ Teklif Kararı:
+
+Teklifinizi kabul ediyorum. Harika!''',
+             'timestamp': '16:00',
+             'isMe': false,
+             'messageType': 'quote_decision',
+           },
+         ];
+       default:
+         return [];
+     }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -311,11 +741,12 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
   void _sendMessage() {
     if (_messageController.text.trim().isNotEmpty) {
       setState(() {
-        _messages.add({
+        _currentMessages.add({
           'id': DateTime.now().millisecondsSinceEpoch.toString(),
           'text': _messageController.text.trim(),
           'timestamp': _getCurrentTime(),
           'isMe': true,
+          'messageType': 'text',
         });
       });
       
