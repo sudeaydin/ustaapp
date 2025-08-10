@@ -67,7 +67,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Teklif Al',
           style: TextStyle(
             color: AppColors.textPrimary,

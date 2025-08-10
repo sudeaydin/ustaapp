@@ -411,7 +411,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             foregroundColor: AppColors.uclaBlue,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
-                              side: const BorderSide(color: AppColors.uclaBlue),
+                              side: BorderSide(color: AppColors.uclaBlue),
                             ),
                             elevation: 0,
                           ),
