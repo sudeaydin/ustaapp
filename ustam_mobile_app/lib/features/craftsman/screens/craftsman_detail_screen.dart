@@ -111,7 +111,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.favorite_border, color: AppColors.cardBackground),
+                icon: Icon(Icons.favorite_border, color: AppColors.cardBackground),
                 onPressed: () {},
               ),
             ],

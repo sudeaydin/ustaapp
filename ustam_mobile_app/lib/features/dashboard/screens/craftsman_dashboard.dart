@@ -77,7 +77,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: IconButton(
-                        icon: const Icon(Icons.notifications_active_rounded, color: AppColors.textWhite),
+                        icon: Icon(Icons.notifications_active_rounded, color: AppColors.textWhite),
                         onPressed: () {
                           Navigator.pushNamed(context, '/notifications');
                         },

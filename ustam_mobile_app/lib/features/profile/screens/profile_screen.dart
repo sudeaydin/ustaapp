@@ -369,7 +369,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.edit, color: AppColors.cardBackground),
+                  icon: Icon(Icons.edit, color: AppColors.cardBackground),
                   onPressed: () {
                     // Navigate to edit profile
                   },

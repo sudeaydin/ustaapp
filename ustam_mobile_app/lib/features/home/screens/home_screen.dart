@@ -81,7 +81,7 @@ class HomeScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: PopupMenuButton<String>(
-                          icon: const Icon(Icons.more_vert, color: AppColors.cardBackground),
+                          icon: Icon(Icons.more_vert, color: AppColors.cardBackground),
                           onSelected: (value) {
                             switch (value) {
                               case 'profile':

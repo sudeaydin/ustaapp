@@ -557,7 +557,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
         backgroundColor: AppColors.cardBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
@@ -600,11 +600,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.call, color: AppColors.textPrimary),
+            icon: Icon(Icons.call, color: AppColors.textPrimary),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: AppColors.textPrimary),
+            icon: Icon(Icons.more_vert, color: AppColors.textPrimary),
             onPressed: () {},
           ),
         ],
@@ -662,7 +662,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, color: AppColors.cardBackground, size: 20),
+                    icon: Icon(Icons.send, color: AppColors.cardBackground, size: 20),
                     onPressed: _sendMessage,
                   ),
                 ),
@@ -1140,7 +1140,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            const Icon(Icons.payment, color: AppColors.success),
+            Icon(Icons.payment, color: AppColors.success),
             const SizedBox(width: 8),
             const Text('Ödeme'),
           ],

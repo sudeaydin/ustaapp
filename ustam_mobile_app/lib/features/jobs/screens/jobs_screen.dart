@@ -62,7 +62,7 @@ class JobsScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: IconButton(
-                          icon: const Icon(Icons.filter_list, color: AppColors.cardBackground),
+                          icon: Icon(Icons.filter_list, color: AppColors.cardBackground),
                           onPressed: () {
                             // Show filter options
                           },
@@ -228,7 +228,7 @@ class JobsScreen extends ConsumerWidget {
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: const Icon(Icons.add, color: AppColors.cardBackground, size: 28),
+          child: Icon(Icons.add, color: AppColors.cardBackground, size: 28),
         ),
       ),
     );

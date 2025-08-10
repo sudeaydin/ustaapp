@@ -309,7 +309,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: const Icon(Icons.mark_email_read, color: AppColors.uclaBlue),
+              leading: Icon(Icons.mark_email_read, color: AppColors.uclaBlue),
               title: const Text('Okundu İşaretle'),
               onTap: () {
                 setState(() {
@@ -319,7 +319,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.delete, color: AppColors.error),
+              leading: Icon(Icons.delete, color: AppColors.error),
               title: const Text('Bildirimi Sil'),
               onTap: () {
                 setState(() {

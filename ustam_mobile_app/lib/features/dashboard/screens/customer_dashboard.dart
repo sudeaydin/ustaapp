@@ -47,7 +47,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
-              icon: const Icon(Icons.notifications_outlined, color: AppColors.textWhite),
+              icon: Icon(Icons.notifications_outlined, color: AppColors.textWhite),
               onPressed: () {
                 Navigator.pushNamed(context, '/notifications');
               },

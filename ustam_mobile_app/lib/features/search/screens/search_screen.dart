@@ -171,7 +171,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.notifications_outlined, color: AppColors.cardBackground),
+                          icon: Icon(Icons.notifications_outlined, color: AppColors.cardBackground),
                           onPressed: () {},
                         ),
                       ],
@@ -204,7 +204,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               color: AppColors.uclaBlue,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.search, color: AppColors.cardBackground, size: 20),
+                            child: Icon(Icons.search, color: AppColors.cardBackground, size: 20),
                           ),
                           suffixIcon: _searchController.text.isNotEmpty
                               ? IconButton(

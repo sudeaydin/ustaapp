@@ -514,7 +514,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                           height: 16,
                           child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.cardBackground),
                         )
-                      : const Icon(Icons.add_a_photo, color: AppColors.cardBackground),
+                      : Icon(Icons.add_a_photo, color: AppColors.cardBackground),
                     label: Text(
                       _isUploading ? 'Yükleniyor...' : 'Görsel Ekle',
                       style: TextStyle(color: AppColors.cardBackground, fontWeight: FontWeight.w600),

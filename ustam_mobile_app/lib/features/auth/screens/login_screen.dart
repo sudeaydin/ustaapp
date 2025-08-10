@@ -118,7 +118,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: IconButton(
-                                icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textWhite),
+                                icon: Icon(Icons.arrow_back_rounded, color: AppColors.textWhite),
                                 onPressed: () => Navigator.pop(context),
                               ),
                             ),

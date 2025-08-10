@@ -205,7 +205,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: AppColors.textPrimary),
+            icon: Icon(Icons.search, color: AppColors.textPrimary),
             onPressed: () {},
           ),
         ],
