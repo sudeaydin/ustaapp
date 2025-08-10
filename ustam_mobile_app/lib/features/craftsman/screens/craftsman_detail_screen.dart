@@ -50,7 +50,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             border: Border.all(color: Colors.white, width: 4),
                             image: DecorationImage(
                               image: NetworkImage(
-                                craftsman['avatar'] ?? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -355,7 +355,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             border: Border.all(color: const Color(0xFFE2E8F0)),
                             image: DecorationImage(
                               image: NetworkImage(
-                                'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                'https://picsum.photos/400/400?random=7',
                               ),
                               fit: BoxFit.cover,
                             ),

@@ -107,7 +107,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                           borderRadius: BorderRadius.circular(30),
                           image: DecorationImage(
                             image: NetworkImage(
-                              widget.craftsman['avatar'] ?? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                              widget.craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
                             ),
                             fit: BoxFit.cover,
                           ),
