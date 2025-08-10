@@ -655,9 +655,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                     ),
                                                   ),
                                                   child: const Text(
-                                                    'İşletmeyi İncele',
+                                                    'Usta Profilini İncele',
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 13,
                                                       fontWeight: FontWeight.w600,
                                                     ),
                                                   ),

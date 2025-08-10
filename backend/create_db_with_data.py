@@ -244,10 +244,10 @@ def create_sample_data():
             is_available=craftsman_data['is_available'],
             is_verified=craftsman_data['is_verified'],
             portfolio_images=json.dumps([
-                '/uploads/portfolio/sample1.jpg',
-                '/uploads/portfolio/sample2.jpg',
-                '/uploads/portfolio/sample3.jpg'
-            ] if craftsman_data['email'] in ['usta@test.com', 'mehmet@test.com'] else []),  # Sample portfolio for some craftsmen
+                'https://picsum.photos/400/300?random=1',
+                'https://picsum.photos/400/300?random=2',
+                'https://picsum.photos/400/300?random=3'
+            ] if craftsman_data['email'] in ['usta@test.com', 'mehmet@test.com', 'ahmet@test.com'] else []),  # Sample portfolio for some craftsmen
             created_at=datetime.utcnow()
         )
         db.session.add(craftsman)
@@ -336,6 +336,27 @@ def create_sample_data():
     db.session.add(quote4)
     db.session.flush()
     
+    # Quote 5: Rejected (customer rejected the quote)
+    quote5 = Quote(
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['usta@test.com'].id,
+        category='Elektrikçi',
+        job_type='Elektrikçi',
+        location='Kadıköy, İstanbul',
+        area_type='mutfak',
+        budget_range='500-1000',
+        description='Mutfak aydınlatması yenilenmesi gerekiyor.',
+        status='rejected',
+        quoted_price=1200.00,
+        craftsman_notes='Mutfak LED aydınlatma sistemi kurulumu 1200 TL.',
+        estimated_start_date=datetime.now() + timedelta(days=7),
+        estimated_end_date=datetime.now() + timedelta(days=8),
+        estimated_duration_days=1,
+        created_at=datetime.now() - timedelta(days=2)
+    )
+    db.session.add(quote5)
+    db.session.flush()
+    
     # Create corresponding messages for quotes
     from app.models.message import Message
     
@@ -422,6 +443,102 @@ def create_sample_data():
         created_at=datetime.now() - timedelta(hours=18)
     )
     db.session.add(message4c)
+    
+    # Messages for quote5 (rejected)
+    message5a = Message(
+        quote_id=quote5.id,
+        sender_id=created_users['customer@test.com'].id,
+        receiver_id=created_users['usta@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote5.category}\nAlan: {quote5.area_type}\nBütçe: {quote5.budget_range} TL\nAçıklama: {quote5.description}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(days=2)
+    )
+    db.session.add(message5a)
+    
+    message5b = Message(
+        quote_id=quote5.id,
+        sender_id=created_users['usta@test.com'].id,
+        receiver_id=created_users['customer@test.com'].id,
+        content=f"Teklif Yanıtı:\n\nFiyat: ₺{quote5.quoted_price}\nTahmini Süre: {quote5.estimated_duration_days} gün\nBaşlangıç: {quote5.estimated_start_date.strftime('%d.%m.%Y')}\nBitiş: {quote5.estimated_end_date.strftime('%d.%m.%Y')}\n\nNotlar: {quote5.craftsman_notes}",
+        message_type='quote_response',
+        created_at=datetime.now() - timedelta(days=1, hours=20)
+    )
+    db.session.add(message5b)
+    
+    message5c = Message(
+        quote_id=quote5.id,
+        sender_id=created_users['customer@test.com'].id,
+        receiver_id=created_users['usta@test.com'].id,
+        content="Teklif Kararı:\n\nTeklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.",
+        message_type='quote_decision',
+        created_at=datetime.now() - timedelta(days=1, hours=18)
+    )
+    db.session.add(message5c)
+    
+    # Add quotes for craftsmen perspective (ustalar için farklı müşterilerden gelen teklifler)
+    
+    # Quote from different customer to ahmet@test.com (pending - usta bekleyen)
+    quote6 = Quote(
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        category='Elektrikçi',
+        job_type='Elektrikçi',
+        location='Beşiktaş, İstanbul',
+        area_type='salon',
+        budget_range='2000-5000',
+        description='Salon aydınlatması tamamen yenilenmeli, spot ve avize montajı.',
+        additional_details='Modern LED sistemleri tercih ediyorum.',
+        status='pending',
+        created_at=datetime.now() - timedelta(hours=3)
+    )
+    db.session.add(quote6)
+    db.session.flush()
+    
+    message6 = Message(
+        quote_id=quote6.id,
+        sender_id=created_users['ali@test.com'].id,
+        receiver_id=created_users['ahmet@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote6.category}\nAlan: {quote6.area_type}\nBütçe: {quote6.budget_range} TL\nAçıklama: {quote6.description}\n\n{quote6.additional_details}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(hours=3)
+    )
+    db.session.add(message6)
+    
+    # Quote to mehmet@test.com (details_requested from craftsman side)
+    quote7 = Quote(
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['mehmet@test.com'].id,
+        category='Tesisatçi',
+        job_type='Tesisatçi',
+        location='Beşiktaş, İstanbul',
+        area_type='banyo',
+        budget_range='1000-2000',
+        description='Duş kabini değişimi ve tesisat kontrolü.',
+        status='details_requested',
+        created_at=datetime.now() - timedelta(hours=8)
+    )
+    db.session.add(quote7)
+    db.session.flush()
+    
+    message7a = Message(
+        quote_id=quote7.id,
+        sender_id=created_users['ali@test.com'].id,
+        receiver_id=created_users['mehmet@test.com'].id,
+        content=f"Teklif Talebi:\n\nKategori: {quote7.category}\nAlan: {quote7.area_type}\nBütçe: {quote7.budget_range} TL\nAçıklama: {quote7.description}",
+        message_type='quote_request',
+        created_at=datetime.now() - timedelta(hours=8)
+    )
+    db.session.add(message7a)
+    
+    message7b = Message(
+        quote_id=quote7.id,
+        sender_id=created_users['mehmet@test.com'].id,
+        receiver_id=created_users['ali@test.com'].id,
+        content="Teklif Yanıtı:\n\nDaha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?",
+        message_type='quote_response',
+        created_at=datetime.now() - timedelta(hours=7)
+    )
+    db.session.add(message7b)
     
     db.session.commit()
     print("Sample quotes created.")
