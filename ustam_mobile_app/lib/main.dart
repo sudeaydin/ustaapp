@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
       title: 'ustam',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'Inter',
         useMaterial3: true,
       ),
       initialRoute: '/',
