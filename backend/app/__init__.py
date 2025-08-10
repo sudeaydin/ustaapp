@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_socketio import SocketIO
 import os
+import json
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -77,6 +78,11 @@ def create_app(config_name='default'):
     @app.route('/')
     def index():
         return {'message': 'Ustalar App API', 'status': 'running'}, 200
+    
+    # Static file serving for uploaded images
+    @app.route('/uploads/<path:filename>')
+    def uploaded_file(filename):
+        return send_from_directory('uploads', filename)
     
     # Auth endpoints - Basit login/register
     @app.route('/api/auth/login', methods=['POST'])
@@ -281,6 +287,92 @@ def create_app(config_name='default'):
                 'is_available': craftsman.is_available,
                 'is_verified': craftsman.is_verified,
                 'created_at': craftsman.created_at.isoformat() if craftsman.created_at else None,
+                'user': {
+                    'email': craftsman.user.email,
+                    'phone': craftsman.user.phone
+                }
+            }
+            
+            return jsonify({
+                'success': True,
+                'data': result
+            }), 200
+            
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': 'Bir hata oluştu'
+            }), 500
+    
+    # Get craftsman business profile with completed jobs and portfolio
+    @app.route('/api/craftsmen/<int:craftsman_id>/business-profile', methods=['GET'])
+    def get_craftsman_business_profile(craftsman_id):
+        from app.models.craftsman import Craftsman
+        from app.models.job import Job, JobStatus
+        from app.models.review import Review
+        
+        try:
+            craftsman = Craftsman.query.get(craftsman_id)
+            
+            if not craftsman:
+                return jsonify({
+                    'success': False,
+                    'message': 'Usta bulunamadı'
+                }), 404
+            
+            # Get completed jobs
+            completed_jobs = Job.query.filter_by(
+                assigned_craftsman_id=craftsman.id,
+                status=JobStatus.COMPLETED.value
+            ).order_by(Job.completed_at.desc()).limit(10).all()
+            
+            # Get reviews
+            reviews = Review.query.filter_by(craftsman_id=craftsman.id).order_by(Review.created_at.desc()).limit(10).all()
+            
+            # Parse portfolio images
+            portfolio_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
+            
+            result = {
+                'id': craftsman.id,
+                'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
+                'business_name': craftsman.business_name,
+                'description': craftsman.description,
+                'address': craftsman.address,
+                'city': craftsman.city,
+                'district': craftsman.district,
+                'hourly_rate': str(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+                'experience_years': craftsman.experience_years,
+                'average_rating': craftsman.average_rating,
+                'total_reviews': craftsman.total_reviews,
+                'is_available': craftsman.is_available,
+                'is_verified': craftsman.is_verified,
+                'avatar': craftsman.avatar,
+                'website': craftsman.website,
+                'working_hours': craftsman.working_hours,
+                'service_areas': craftsman.service_areas,
+                'skills': craftsman.skills,
+                'certifications': craftsman.certifications,
+                'response_time': craftsman.response_time,
+                'portfolio_images': portfolio_images,
+                'completed_jobs': [
+                    {
+                        'id': job.id,
+                        'title': job.title,
+                        'description': job.description,
+                        'category': job.category,
+                        'completed_at': job.completed_at.isoformat() if job.completed_at else None,
+                        'location': job.location
+                    } for job in completed_jobs
+                ],
+                'recent_reviews': [
+                    {
+                        'id': review.id,
+                        'customer_name': f"{review.customer.user.first_name} {review.customer.user.last_name[0]}." if review.customer and review.customer.user else "Anonim",
+                        'rating': review.rating,
+                        'comment': review.comment,
+                        'created_at': review.created_at.isoformat() if review.created_at else None
+                    } for review in reviews
+                ],
                 'user': {
                     'email': craftsman.user.email,
                     'phone': craftsman.user.phone

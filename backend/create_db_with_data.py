@@ -212,6 +212,7 @@ def create_sample_data():
             total_reviews=craftsman_data['total_reviews'],
             is_available=craftsman_data['is_available'],
             is_verified=craftsman_data['is_verified'],
+            portfolio_images=json.dumps([]),  # Empty portfolio initially
             created_at=datetime.utcnow()
         )
         db.session.add(craftsman)

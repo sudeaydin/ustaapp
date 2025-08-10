@@ -1,4 +1,8 @@
-from flask import Blueprint, request, jsonify
+import os
+import json
+import time
+from werkzeug.utils import secure_filename
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash
 from app import db
@@ -7,8 +11,17 @@ from app.models.customer import Customer
 from app.models.craftsman import Craftsman
 from datetime import datetime
 import re
+from app.models.job import Job, JobStatus
+from app.models.quote import Quote
+from app.models.message import Message
+from app.models.notification import Notification
+from app.models.review import Review
+from app.models.payment import Payment
 
 auth_bp = Blueprint('auth', __name__)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+UPLOAD_FOLDER = 'uploads/portfolio'
 
 def validate_email(email):
     """Validate email format"""
@@ -310,7 +323,6 @@ def delete_account():
             customer = Customer.query.filter_by(user_id=user.id).first()
             if customer:
                 # Check for active jobs
-                from app.models.job import Job, JobStatus
                 active_jobs = Job.query.filter(
                     Job.customer_id == customer.id,
                     Job.status.in_([
@@ -331,7 +343,6 @@ def delete_account():
             craftsman = Craftsman.query.filter_by(user_id=user.id).first()
             if craftsman:
                 # Check for active assignments
-                from app.models.job import Job, JobStatus
                 active_assignments = Job.query.filter(
                     Job.assigned_craftsman_id == craftsman.id,
                     Job.status.in_([
@@ -350,29 +361,24 @@ def delete_account():
         # Delete related data (KVKK compliance - complete data removal)
         try:
             # Delete quotes
-            from app.models.quote import Quote
             Quote.query.filter(
                 (Quote.customer_id == user.id) | (Quote.craftsman_id == user.id)
             ).delete()
             
             # Delete messages
-            from app.models.message import Message
             Message.query.filter(
                 (Message.sender_id == user.id) | (Message.receiver_id == user.id)
             ).delete()
             
             # Delete notifications
-            from app.models.notification import Notification
             Notification.query.filter_by(user_id=user.id).delete()
             
             # Delete reviews
-            from app.models.review import Review
             Review.query.filter(
                 (Review.customer_id == user.id) | (Review.craftsman_id == user.id)
             ).delete()
             
             # Delete payments
-            from app.models.payment import Payment
             Payment.query.filter_by(user_id=user.id).delete()
             
             # Delete customer/craftsman specific data
@@ -410,3 +416,121 @@ def delete_account():
             'message': 'Hesap silme işlemi başarısız oldu',
             'code': 'DELETE_ACCOUNT_ERROR'
         }), 500
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@auth_bp.route('/upload-portfolio-image', methods=['POST'])
+@jwt_required()
+def upload_portfolio_image():
+    """Upload portfolio image for craftsman"""
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        if not user or user.user_type != 'craftsman':
+            return jsonify({'error': True, 'message': 'Sadece ustalar görsel yükleyebilir', 'code': 'UNAUTHORIZED'}), 403
+            
+        craftsman = Craftsman.query.filter_by(user_id=current_user_id).first()
+        if not craftsman:
+            return jsonify({'error': True, 'message': 'Usta profili bulunamadı', 'code': 'CRAFTSMAN_NOT_FOUND'}), 404
+        
+        if 'image' not in request.files:
+            return jsonify({'error': True, 'message': 'Görsel dosyası bulunamadı', 'code': 'NO_FILE'}), 400
+            
+        file = request.files['image']
+        if file.filename == '':
+            return jsonify({'error': True, 'message': 'Dosya seçilmedi', 'code': 'NO_FILE_SELECTED'}), 400
+            
+        if file and allowed_file(file.filename):
+            # Create upload directory if it doesn't exist
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            
+            # Generate secure filename
+            filename = secure_filename(file.filename)
+            timestamp = str(int(time.time()))
+            filename = f"{current_user_id}_{timestamp}_{filename}"
+            file_path = os.path.join(UPLOAD_FOLDER, filename)
+            
+            # Save file
+            file.save(file_path)
+            
+            # Update craftsman portfolio images
+            current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
+            image_url = f"/uploads/portfolio/{filename}"
+            current_images.append(image_url)
+            
+            # Limit to 10 images
+            if len(current_images) > 10:
+                # Remove oldest image file
+                oldest_image = current_images.pop(0)
+                try:
+                    old_file_path = os.path.join('uploads/portfolio', os.path.basename(oldest_image))
+                    if os.path.exists(old_file_path):
+                        os.remove(old_file_path)
+                except:
+                    pass
+            
+            craftsman.portfolio_images = json.dumps(current_images)
+            db.session.commit()
+            
+            return jsonify({
+                'success': True, 
+                'message': 'Görsel başarıyla yüklendi',
+                'image_url': image_url,
+                'portfolio_images': current_images
+            })
+        else:
+            return jsonify({'error': True, 'message': 'Geçersiz dosya formatı. PNG, JPG, JPEG, GIF veya WEBP dosyası yükleyin', 'code': 'INVALID_FILE_TYPE'}), 400
+            
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': True, 'message': 'Görsel yükleme başarısız oldu', 'code': 'UPLOAD_ERROR'}), 500
+
+@auth_bp.route('/delete-portfolio-image', methods=['DELETE'])
+@jwt_required()
+def delete_portfolio_image():
+    """Delete portfolio image for craftsman"""
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        if not user or user.user_type != 'craftsman':
+            return jsonify({'error': True, 'message': 'Sadece ustalar görsel silebilir', 'code': 'UNAUTHORIZED'}), 403
+            
+        craftsman = Craftsman.query.filter_by(user_id=current_user_id).first()
+        if not craftsman:
+            return jsonify({'error': True, 'message': 'Usta profili bulunamadı', 'code': 'CRAFTSMAN_NOT_FOUND'}), 404
+        
+        data = request.get_json()
+        image_url = data.get('image_url')
+        
+        if not image_url:
+            return jsonify({'error': True, 'message': 'Görsel URL\'si gerekli', 'code': 'IMAGE_URL_REQUIRED'}), 400
+        
+        current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
+        
+        if image_url in current_images:
+            current_images.remove(image_url)
+            craftsman.portfolio_images = json.dumps(current_images)
+            
+            # Delete physical file
+            try:
+                file_path = os.path.join('uploads/portfolio', os.path.basename(image_url))
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+            except:
+                pass
+            
+            db.session.commit()
+            return jsonify({
+                'success': True, 
+                'message': 'Görsel başarıyla silindi',
+                'portfolio_images': current_images
+            })
+        else:
+            return jsonify({'error': True, 'message': 'Görsel bulunamadı', 'code': 'IMAGE_NOT_FOUND'}), 404
+            
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500

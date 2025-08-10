@@ -39,7 +39,10 @@ class Craftsman(db.Model):
     
     # Avatar
     avatar = db.Column(db.String(500))
-    
+
+    # Portfolio images for business profile
+    portfolio_images = db.Column(db.Text)  # JSON array of image URLs
+
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -68,6 +71,7 @@ class Craftsman(db.Model):
             'is_available': self.is_available,
             'is_verified': self.is_verified,
             'avatar': self.avatar,
+            'portfolio_images': self.portfolio_images,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }

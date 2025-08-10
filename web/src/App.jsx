@@ -39,6 +39,7 @@ import OnboardingPage from './pages/OnboardingPage';
 import AuthChoicePage from './pages/AuthChoicePage';
 import QuoteRequestFormPage from './pages/QuoteRequestFormPage';
 import QuotePaymentPage from './pages/QuotePaymentPage';
+import { CraftsmanBusinessProfilePage } from './pages/CraftsmanBusinessProfilePage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -90,6 +91,7 @@ function App() {
               <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
               <Route path="/quote-request/:craftsmanId" element={<CustomerRoute><QuoteRequestFormPage /></CustomerRoute>} />
               <Route path="/payment/quote/:quoteId" element={<CustomerRoute><QuotePaymentPage /></CustomerRoute>} />
+              <Route path="/craftsman/:id/business-profile" element={<ProtectedRoute><CraftsmanBusinessProfilePage /></ProtectedRoute>} />
               <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
               <Route path="/payment/:jobId" element={<CustomerRoute><PaymentPage /></CustomerRoute>} />
               

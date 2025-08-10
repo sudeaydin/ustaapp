@@ -3,6 +3,208 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ReviewReplyModal from '../components/ReviewReplyModal';
 
+// Business Management Tab Component
+const BusinessManagementTab = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [portfolioImages, setPortfolioImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    loadPortfolioImages();
+  }, []);
+
+  const loadPortfolioImages = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/auth/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      
+      if (data.success && data.data.craftsman_profile?.portfolio_images) {
+        setPortfolioImages(JSON.parse(data.data.craftsman_profile.portfolio_images));
+      }
+    } catch (error) {
+      console.error('Portfolio görselleri yüklenemedi:', error);
+    }
+  };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // File size check (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Dosya boyutu 5MB\'dan küçük olmalıdır');
+      return;
+    }
+
+    setUploading(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/auth/upload-portfolio-image', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setPortfolioImages(data.portfolio_images);
+        alert('Görsel başarıyla yüklendi!');
+      } else {
+        alert(data.message || 'Görsel yükleme başarısız oldu');
+      }
+    } catch (error) {
+      console.error('Görsel yükleme hatası:', error);
+      alert('Görsel yükleme sırasında bir hata oluştu');
+    } finally {
+      setUploading(false);
+      event.target.value = ''; // Reset file input
+    }
+  };
+
+  const handleImageDelete = async (imageUrl) => {
+    if (!confirm('Bu görseli silmek istediğinizden emin misiniz?')) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/auth/delete-portfolio-image', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image_url: imageUrl })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setPortfolioImages(data.portfolio_images);
+        alert('Görsel başarıyla silindi!');
+      } else {
+        alert(data.message || 'Görsel silme başarısız oldu');
+      }
+    } catch (error) {
+      console.error('Görsel silme hatası:', error);
+      alert('Görsel silme sırasında bir hata oluştu');
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      {/* Portfolio Images Section */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-semibold text-gray-900">İşletme Portföy Görselleri</h3>
+          <label className={`px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 transition-colors ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            {uploading ? 'Yükleniyor...' : '📷 Görsel Ekle'}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={uploading}
+              className="hidden"
+            />
+          </label>
+        </div>
+
+        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+          <p className="text-sm text-gray-600">
+            💡 <strong>İpucu:</strong> İşletmenize ait görselleri, tamamladığınız işleri ve çalışma alanınızı gösteren fotoğrafları yükleyebilirsiniz. 
+            Bu görseller müşterilerin sizinle çalışma kararı vermesinde etkili olacaktır.
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            • Maksimum 10 görsel yükleyebilirsiniz<br/>
+            • Desteklenen formatlar: PNG, JPG, JPEG, GIF, WEBP<br/>
+            • Maksimum dosya boyutu: 5MB
+          </p>
+        </div>
+
+        {portfolioImages.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {portfolioImages.map((image, index) => (
+              <div key={index} className="relative group">
+                <img
+                  src={`http://localhost:5000${image}`}
+                  alt={`Portfolyo ${index + 1}`}
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+                <button
+                  onClick={() => handleImageDelete(image)}
+                  className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-gray-50 rounded-lg">
+            <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="text-gray-500 mb-4">Henüz portfolyo görseli eklenmemiş</p>
+            <p className="text-sm text-gray-400">İşletmenizi tanıtmak için görseller ekleyin</p>
+          </div>
+        )}
+      </div>
+
+      {/* Business Statistics */}
+      <div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">İşletme İstatistikleri</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border rounded-lg p-4 text-center">
+            <div className="text-2xl font-bold text-blue-600">127</div>
+            <div className="text-sm text-gray-500">Tamamlanan İş</div>
+          </div>
+          <div className="bg-white border rounded-lg p-4 text-center">
+            <div className="text-2xl font-bold text-green-600">4.8</div>
+            <div className="text-sm text-gray-500">Ortalama Puan</div>
+          </div>
+          <div className="bg-white border rounded-lg p-4 text-center">
+            <div className="text-2xl font-bold text-purple-600">89</div>
+            <div className="text-sm text-gray-500">Müşteri Sayısı</div>
+          </div>
+          <div className="bg-white border rounded-lg p-4 text-center">
+            <div className="text-2xl font-bold text-orange-600">8</div>
+            <div className="text-sm text-gray-500">Yıl Deneyim</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Business Information Management */}
+      <div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">İşletme Bilgileri</h3>
+        <div className="bg-white border rounded-lg p-6">
+          <p className="text-gray-600 mb-4">
+            İşletme bilgilerinizi güncellemek için profil düzenleme sayfasını kullanabilirsiniz.
+          </p>
+          <button 
+            onClick={() => navigate('/profile/edit')}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Profili Düzenle
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const CraftsmanProfilePage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -350,6 +552,7 @@ Hizmet verdiğim alanlar:
             {[
               { id: 'about', label: 'Hakkında' },
               { id: 'portfolio', label: 'Portföy' },
+              { id: 'business', label: 'İşletmem' },
               { id: 'reviews', label: 'Değerlendirmeler' },
               { id: 'contact', label: 'İletişim' }
             ].map((tab) => (
@@ -535,6 +738,10 @@ Hizmet verdiğim alanlar:
               ))}
             </div>
           </div>
+        )}
+
+        {activeTab === 'business' && (
+          <BusinessManagementTab />
         )}
 
         {activeTab === 'contact' && (
