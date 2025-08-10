@@ -188,7 +188,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       subtitle: '2 yeni teklif',
                       color: const Color(0xFF10B981),
                       onTap: () {
-                        Navigator.pushNamed(context, '/quotes');
+                        // Navigate to business profile for now (quotes list will be added later)
+                        Navigator.pushNamed(context, '/business-profile');
                       },
                     ),
                   ),

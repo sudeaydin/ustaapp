@@ -533,4 +533,35 @@ def delete_portfolio_image():
             
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
+                 return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
+
+@auth_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def get_profile():
+    """Get user profile with craftsman/customer data"""
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        if not user:
+            return jsonify({'error': True, 'message': 'Kullanıcı bulunamadı', 'code': 'USER_NOT_FOUND'}), 404
+        
+        profile_data = user.to_dict()
+        
+        # Add specific profile data based on user type
+        if user.user_type == 'craftsman':
+            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
+            if craftsman:
+                profile_data['craftsman_profile'] = craftsman.to_dict(include_user=False)
+        elif user.user_type == 'customer':
+            customer = Customer.query.filter_by(user_id=user.id).first()
+            if customer:
+                profile_data['customer_profile'] = customer.to_dict(include_user=False)
+        
+        return jsonify({
+            'success': True,
+            'data': profile_data
+        })
+        
+    except Exception as e:
+        return jsonify({'error': True, 'message': 'Profil bilgileri alınamadı', 'code': 'PROFILE_ERROR'}), 500

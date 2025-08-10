@@ -5,6 +5,7 @@ Database initialization script with sample data
 
 import os
 import sys
+import json
 from datetime import datetime, timedelta
 from decimal import Decimal
 
