@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DeleteAccountModal from '../components/DeleteAccountModal';
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const ProfilePage = () => {
   const [editForm, setEditForm] = useState({});
   const [activeTab, setActiveTab] = useState('info');
   const [showAvatarUpload, setShowAvatarUpload] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Determine if viewing own profile or someone else's
   const isOwnProfile = !userId || userId === user?.id?.toString();
@@ -495,6 +497,71 @@ export const ProfilePage = () => {
     </div>
   );
 
+  const renderSettingsTab = () => (
+    <div className="space-y-6">
+      {/* Account Settings */}
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">🔐 Hesap Ayarları</h3>
+        
+        <div className="space-y-4">
+          <div className="border-b border-gray-200 pb-4">
+            <h4 className="font-medium text-gray-700 mb-2">Şifre Değiştir</h4>
+            <p className="text-sm text-gray-600 mb-3">Hesabınızın güvenliği için düzenli olarak şifrenizi değiştirin</p>
+            <button
+              onClick={() => navigate('/profile/change-password')}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Şifre Değiştir
+            </button>
+          </div>
+          
+          <div className="border-b border-gray-200 pb-4">
+            <h4 className="font-medium text-gray-700 mb-2">Bildirim Ayarları</h4>
+            <p className="text-sm text-gray-600 mb-3">E-posta ve push bildirim tercihlerinizi yönetin</p>
+            <button
+              onClick={() => navigate('/profile/notifications')}
+              className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              Bildirim Ayarları
+            </button>
+          </div>
+          
+          <div className="border-b border-gray-200 pb-4">
+            <h4 className="font-medium text-gray-700 mb-2">Gizlilik Ayarları</h4>
+            <p className="text-sm text-gray-600 mb-3">Profil görünürlüğü ve gizlilik tercihlerinizi ayarlayın</p>
+            <button
+              onClick={() => navigate('/profile/privacy')}
+              className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              Gizlilik Ayarları
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Danger Zone */}
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <h3 className="text-lg font-medium text-red-800 mb-4">⚠️ Tehlikeli Bölge</h3>
+        
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-medium text-red-700 mb-2">Hesabımı Sil</h4>
+            <p className="text-sm text-red-600 mb-4">
+              Hesabınızı kalıcı olarak silmek istiyorsanız bu butonu kullanabilirsiniz. 
+              <strong> Bu işlem geri alınamaz</strong> ve tüm verileriniz KVKK gereği sistemden tamamen kaldırılacaktır.
+            </p>
+            <button
+              onClick={() => setShowDeleteModal(true)}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium"
+            >
+              🗑️ Hesabımı Sil
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -662,6 +729,18 @@ export const ProfilePage = () => {
                       </button>
                     </>
                   )}
+                  {isOwnProfile && (
+                    <button
+                      onClick={() => setActiveTab('settings')}
+                      className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                        activeTab === 'settings'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
+                    >
+                      ⚙️ Ayarlar
+                    </button>
+                  )}
                 </nav>
               </div>
 
@@ -669,6 +748,7 @@ export const ProfilePage = () => {
                 {activeTab === 'info' && renderInfoTab()}
                 {activeTab === 'portfolio' && renderPortfolioTab()}
                 {activeTab === 'stats' && renderStatsTab()}
+                {activeTab === 'settings' && renderSettingsTab()}
               </div>
             </div>
           </div>
@@ -724,6 +804,12 @@ export const ProfilePage = () => {
           </div>
         </div>
       )}
+
+      {/* Delete Account Modal */}
+      <DeleteAccountModal 
+        isOpen={showDeleteModal} 
+        onClose={() => setShowDeleteModal(false)} 
+      />
     </div>
   );
 };

@@ -9,6 +9,35 @@ export const CustomerJobHistoryPage = () => {
   const [filterStatus, setFilterStatus] = useState('all');
   const [dateRange, setDateRange] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [quotes, setQuotes] = useState([]);
+  const [loadingQuotes, setLoadingQuotes] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === 'quotes') {
+      loadQuotes();
+    }
+  }, [activeTab]);
+
+  const loadQuotes = async () => {
+    try {
+      setLoadingQuotes(true);
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/quote-requests/my-quotes', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setQuotes(data.quotes);
+      }
+    } catch (error) {
+      console.error('Teklifler yüklenirken hata:', error);
+    } finally {
+      setLoadingQuotes(false);
+    }
+  };
 
   // Mock Data
   const [requests] = useState([
@@ -222,6 +251,32 @@ export const CustomerJobHistoryPage = () => {
     }
   };
 
+  const getQuoteStatusColor = (status) => {
+    switch(status) {
+      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      case 'quoted': return 'bg-blue-100 text-blue-800';
+      case 'accepted': return 'bg-green-100 text-green-800';
+      case 'rejected': return 'bg-red-100 text-red-800';
+      case 'details_requested': return 'bg-orange-100 text-orange-800';
+      case 'revision_requested': return 'bg-purple-100 text-purple-800';
+      case 'completed': return 'bg-green-100 text-green-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getQuoteStatusText = (status) => {
+    switch(status) {
+      case 'pending': return 'Beklemede';
+      case 'quoted': return 'Teklif Alındı';
+      case 'accepted': return 'Kabul Edildi';
+      case 'rejected': return 'Reddedildi';
+      case 'details_requested': return 'Detay İstendi';
+      case 'revision_requested': return 'Revizyon İstendi';
+      case 'completed': return 'Tamamlandı';
+      default: return status;
+    }
+  };
+
   const renderStars = (rating) => {
     if (!rating) return null;
     return Array.from({ length: 5 }, (_, i) => (
@@ -327,7 +382,7 @@ export const CustomerJobHistoryPage = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                💰 Aldığım Teklifler ({quotes.length})
+                💰 Tekliflerim ({quotes.length})
               </button>
               <button
                 onClick={() => setActiveTab('reviews')}
@@ -490,74 +545,108 @@ export const CustomerJobHistoryPage = () => {
               </div>
             ) : activeTab === 'quotes' ? (
               <div className="space-y-4">
-                {quotes.map((quote) => (
-                  <div key={quote.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-lg font-medium text-gray-900">{quote.service}</h3>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
-                            {getStatusText(quote.status)}
-                          </span>
+                {loadingQuotes ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                    <p className="text-gray-600 mt-2">Teklifler yükleniyor...</p>
+                  </div>
+                ) : quotes.length > 0 ? (
+                  quotes.map((quote) => (
+                    <div key={quote.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <h3 className="text-lg font-medium text-gray-900">{quote.category}</h3>
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getQuoteStatusColor(quote.status)}`}>
+                              {getQuoteStatusText(quote.status)}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2">{quote.description}</p>
+                          <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
+                            <span>👤 {quote.craftsman?.name}</span>
+                            <span>🏠 {quote.area_type}</span>
+                            <span>📅 {new Date(quote.created_at).toLocaleDateString('tr-TR')}</span>
+                            <span>💰 {quote.budget_range} TL</span>
+                          </div>
+                          {quote.square_meters && (
+                            <div className="text-sm text-gray-600 mb-2">
+                              <span className="font-medium">Metrekare:</span> {quote.square_meters} m²
+                            </div>
+                          )}
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{quote.description}</p>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500 mb-2">
-                          <span>👤 {quote.craftsman} - {quote.business_name}</span>
-                          <span>📅 {quote.date_received}</span>
-                          <span>⏱️ {quote.response_time} yanıt</span>
-                        </div>
-                        <div className="flex items-center space-x-2 mb-2">
-                          {renderStars(Math.floor(quote.craftsman_rating))}
-                          <span className="text-sm text-gray-500">
-                            {quote.craftsman_rating} ({quote.craftsman_reviews} değerlendirme)
-                          </span>
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          <span className="font-medium">Dahil olanlar:</span> {quote.includes.join(', ')}
+                        <div className="text-right">
+                          {quote.quoted_price ? (
+                            <div className="text-lg font-semibold text-green-600 mb-1">
+                              {parseFloat(quote.quoted_price).toLocaleString()} TL
+                            </div>
+                          ) : (
+                            <div className="text-lg font-medium text-gray-500 mb-1">
+                              Beklemede
+                            </div>
+                          )}
+                          <div className="text-sm text-gray-500">
+                            {quote.estimated_start_date && quote.estimated_end_date && (
+                              <div>{quote.estimated_start_date} - {quote.estimated_end_date}</div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-lg font-semibold text-blue-600 mb-1">
-                          {quote.quote_amount.toLocaleString()}₺
-                        </div>
-                        <div className="text-sm text-gray-500">Teklif Tutarı</div>
-                      </div>
-                    </div>
 
-                    <div className="flex items-center space-x-3">
-                      {quote.status === 'pending' && (
-                        <>
-                          <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm">
-                            Kabul Et
-                          </button>
-                          <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm">
-                            Reddet
-                          </button>
-                        </>
+                      {quote.craftsman_notes && (
+                        <div className="bg-blue-50 rounded-lg p-3 mb-4">
+                          <p className="text-sm text-blue-800">{quote.craftsman_notes}</p>
+                        </div>
                       )}
-                      <button
-                        onClick={() => navigate(`/messages/${quote.craftsman}`)}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
-                      >
-                        Mesaj Gönder
-                      </button>
-                      <button
-                        onClick={() => navigate(`/craftsman/${quote.craftsman}`)}
-                        className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm"
-                      >
-                        Profil Görüntüle
-                      </button>
+
+                      <div className="flex items-center space-x-3">
+                        {quote.status === 'quoted' && (
+                          <>
+                            <button 
+                              onClick={() => navigate(`/payment/quote/${quote.id}`)}
+                              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm"
+                            >
+                              Kabul Et & Öde
+                            </button>
+                            <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors text-sm">
+                              Revizyon İste
+                            </button>
+                            <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm">
+                              Reddet
+                            </button>
+                          </>
+                        )}
+                        {quote.status === 'accepted' && (
+                          <button 
+                            onClick={() => navigate(`/payment/quote/${quote.id}`)}
+                            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm"
+                          >
+                            Ödeme Yap
+                          </button>
+                        )}
+                        <button
+                          onClick={() => navigate(`/messages`)}
+                          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                        >
+                          Mesajlaşma
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
 
-                {quotes.length === 0 && (
+                ) : (
                   <div className="text-center py-12">
                     <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                     </svg>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">Teklif bulunamadı</h3>
-                    <p className="text-gray-600">Henüz teklif almadınız.</p>
+                    <p className="text-gray-600">Henüz teklif talebinde bulunmadınız.</p>
+                    <button
+                      onClick={() => navigate('/craftsmen')}
+                      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    >
+                      Usta Ara
+                    </button>
                   </div>
                 )}
               </div>

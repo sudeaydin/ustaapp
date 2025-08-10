@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import QuoteResponseModal from '../components/QuoteResponseModal';
+import CustomerQuoteDecisionModal from '../components/CustomerQuoteDecisionModal';
 
 export const MessagesPage = () => {
   const navigate = useNavigate();
@@ -14,6 +16,9 @@ export const MessagesPage = () => {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef(null);
+  const [showQuoteResponseModal, setShowQuoteResponseModal] = useState(false);
+  const [showCustomerDecisionModal, setShowCustomerDecisionModal] = useState(false);
+  const [selectedQuote, setSelectedQuote] = useState(null);
 
   // Mock conversations data
   const mockConversations = [
@@ -496,14 +501,63 @@ export const MessagesPage = () => {
                         >
                           <div
                             className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                              isMyMessage(message)
+                              message.message_type === 'quote_request' 
+                                ? 'bg-orange-100 border border-orange-200 text-orange-900'
+                                : message.message_type === 'quote_response'
+                                ? 'bg-blue-100 border border-blue-200 text-blue-900'
+                                : message.message_type === 'quote_decision'
+                                ? 'bg-green-100 border border-green-200 text-green-900'
+                                : isMyMessage(message)
                                 ? 'bg-blue-500 text-white'
                                 : 'bg-gray-200 text-gray-900'
                             }`}
                           >
-                            <p className="text-sm">{message.content}</p>
+                            {/* Quote message special handling */}
+                            {message.message_type === 'quote_request' && (
+                              <div className="mb-2">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-orange-600">📋</span>
+                                  <span className="font-medium text-sm">Teklif Talebi</span>
+                                </div>
+                                {!isMyMessage(message) && user?.user_type === 'craftsman' && (
+                                  <button
+                                    onClick={() => {
+                                      setSelectedQuote(message.quote);
+                                      setShowQuoteResponseModal(true);
+                                    }}
+                                    className="mb-2 px-3 py-1 bg-orange-500 text-white text-xs rounded-full hover:bg-orange-600 transition-colors"
+                                  >
+                                    Formu İncele
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                            
+                            {message.message_type === 'quote_response' && (
+                              <div className="mb-2">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-blue-600">💰</span>
+                                  <span className="font-medium text-sm">Teklif Yanıtı</span>
+                                </div>
+                                {!isMyMessage(message) && user?.user_type === 'customer' && message.quote?.status === 'quoted' && (
+                                  <button
+                                    onClick={() => {
+                                      setSelectedQuote(message.quote);
+                                      setShowCustomerDecisionModal(true);
+                                    }}
+                                    className="mb-2 px-3 py-1 bg-blue-500 text-white text-xs rounded-full hover:bg-blue-600 transition-colors"
+                                  >
+                                    Karar Ver
+                                  </button>
+                                )}
+                              </div>
+                            )}
+
+                            <p className="text-sm whitespace-pre-line">{message.content}</p>
                             <p className={`text-xs mt-1 ${
-                              isMyMessage(message) ? 'text-blue-100' : 'text-gray-500'
+                              message.message_type 
+                                ? 'text-gray-500'
+                                : isMyMessage(message) ? 'text-blue-100' : 'text-gray-500'
                             }`}>
                               {formatTime(message.created_at)}
                             </p>
@@ -571,6 +625,28 @@ export const MessagesPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Quote Response Modal */}
+      <QuoteResponseModal
+        isOpen={showQuoteResponseModal}
+        onClose={() => setShowQuoteResponseModal(false)}
+        quote={selectedQuote}
+        onResponse={(updatedQuote) => {
+          // Refresh messages or update quote in state
+          console.log('Quote response:', updatedQuote);
+        }}
+      />
+
+      {/* Customer Quote Decision Modal */}
+      <CustomerQuoteDecisionModal
+        isOpen={showCustomerDecisionModal}
+        onClose={() => setShowCustomerDecisionModal(false)}
+        quote={selectedQuote}
+        onDecision={(updatedQuote) => {
+          // Refresh messages or update quote in state
+          console.log('Customer decision:', updatedQuote);
+        }}
+      />
     </div>
   );
 };

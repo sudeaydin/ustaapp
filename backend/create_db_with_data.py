@@ -133,7 +133,7 @@ def create_sample_data():
         user = created_users[customer_data['email']]
         customer = Customer(
             user_id=user.id,
-            address=customer_data['address'],
+            billing_address=customer_data['address'],
             created_at=datetime.utcnow()
         )
         db.session.add(customer)
@@ -226,14 +226,16 @@ def create_sample_data():
     craftsman = created_craftsmen['usta@test.com']
     
     quote = Quote(
-        customer_id=customer.id,
-        craftsman_id=craftsman.id,
-        title='Elektrik Panosu Onarımı',
-        description='Evimizde elektrik panosu arızalı, sürekli sigortalar atıyor. Kontrol edilip onarılmasını istiyorum.',
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['usta@test.com'].id,
+        category='Elektrikçi',
+        job_type='Elektrikçi',
         location='Kadıköy, İstanbul',
-        preferred_date=datetime.now() + timedelta(days=2),
-        budget_min=Decimal('200.00'),
-        budget_max=Decimal('500.00'),
+        area_type='salon',
+        square_meters=25,
+        budget_range='1000-2000',
+        description='Evimizde elektrik panosu arızalı, sürekli sigortalar atıyor. Kontrol edilip onarılmasını istiyorum.',
+        additional_details='Acil durumda, mümkünse bu hafta içinde halledilebilir mi?',
         status='pending',
         created_at=datetime.now()
     )

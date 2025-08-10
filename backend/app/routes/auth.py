@@ -288,3 +288,125 @@ def change_password():
             'message': 'Şifre güncellenirken bir hata oluştu',
             'code': 'PASSWORD_UPDATE_ERROR'
         }), 500
+
+@auth_bp.route('/delete-account', methods=['DELETE'])
+@jwt_required()
+def delete_account():
+    """Delete user account permanently (KVKK compliance)"""
+    try:
+        current_user_id = get_jwt_identity()
+        
+        # Get user
+        user = User.query.get(current_user_id)
+        if not user:
+            return jsonify({
+                'error': True,
+                'message': 'Kullanıcı bulunamadı',
+                'code': 'USER_NOT_FOUND'
+            }), 404
+        
+        # Check if user has active jobs or payments
+        if user.user_type == UserType.CUSTOMER.value:
+            customer = Customer.query.filter_by(user_id=user.id).first()
+            if customer:
+                # Check for active jobs
+                from app.models.job import Job, JobStatus
+                active_jobs = Job.query.filter(
+                    Job.customer_id == customer.id,
+                    Job.status.in_([
+                        JobStatus.OPEN.value,
+                        JobStatus.ASSIGNED.value,
+                        JobStatus.IN_PROGRESS.value
+                    ])
+                ).first()
+                
+                if active_jobs:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Aktif işleriniz bulunduğu için hesabınızı silemezsiniz. Önce işlerinizi tamamlayın.',
+                        'code': 'ACTIVE_JOBS_EXIST'
+                    }), 400
+        
+        elif user.user_type == UserType.CRAFTSMAN.value:
+            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
+            if craftsman:
+                # Check for active assignments
+                from app.models.job import Job, JobStatus
+                active_assignments = Job.query.filter(
+                    Job.assigned_craftsman_id == craftsman.id,
+                    Job.status.in_([
+                        JobStatus.ASSIGNED.value,
+                        JobStatus.IN_PROGRESS.value
+                    ])
+                ).first()
+                
+                if active_assignments:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Aktif işleriniz bulunduğu için hesabınızı silemezsiniz. Önce işlerinizi tamamlayın.',
+                        'code': 'ACTIVE_ASSIGNMENTS_EXIST'
+                    }), 400
+        
+        # Delete related data (KVKK compliance - complete data removal)
+        try:
+            # Delete quotes
+            from app.models.quote import Quote
+            Quote.query.filter(
+                (Quote.customer_id == user.id) | (Quote.craftsman_id == user.id)
+            ).delete()
+            
+            # Delete messages
+            from app.models.message import Message
+            Message.query.filter(
+                (Message.sender_id == user.id) | (Message.receiver_id == user.id)
+            ).delete()
+            
+            # Delete notifications
+            from app.models.notification import Notification
+            Notification.query.filter_by(user_id=user.id).delete()
+            
+            # Delete reviews
+            from app.models.review import Review
+            Review.query.filter(
+                (Review.customer_id == user.id) | (Review.craftsman_id == user.id)
+            ).delete()
+            
+            # Delete payments
+            from app.models.payment import Payment
+            Payment.query.filter_by(user_id=user.id).delete()
+            
+            # Delete customer/craftsman specific data
+            if user.user_type == UserType.CUSTOMER.value:
+                customer = Customer.query.filter_by(user_id=user.id).first()
+                if customer:
+                    db.session.delete(customer)
+            
+            elif user.user_type == UserType.CRAFTSMAN.value:
+                craftsman = Craftsman.query.filter_by(user_id=user.id).first()
+                if craftsman:
+                    db.session.delete(craftsman)
+            
+            # Finally delete the user
+            db.session.delete(user)
+            db.session.commit()
+            
+            return jsonify({
+                'success': True,
+                'message': 'Hesabınız ve tüm verileriniz başarıyla silindi'
+            })
+            
+        except Exception as delete_error:
+            db.session.rollback()
+            return jsonify({
+                'error': True,
+                'message': 'Hesap silme işlemi sırasında bir hata oluştu',
+                'code': 'DELETE_PROCESS_ERROR'
+            }), 500
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'error': True,
+            'message': 'Hesap silme işlemi başarısız oldu',
+            'code': 'DELETE_ACCOUNT_ERROR'
+        }), 500

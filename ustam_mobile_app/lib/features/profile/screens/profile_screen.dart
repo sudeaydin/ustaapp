@@ -525,6 +525,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     },
                   ),
                   _buildActionButton(
+                    'Hesabımı Sil',
+                    Icons.delete_forever,
+                    () {
+                      _showDeleteAccountDialog();
+                    },
+                    color: const Color(0xFFEF4444),
+                  ),
+                  _buildActionButton(
                     'Çıkış Yap',
                     Icons.logout,
                     () async {
@@ -634,6 +642,166 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDeleteAccountDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String confirmText = '';
+        bool isDeleting = false;
+        
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.red, size: 28),
+                  SizedBox(width: 8),
+                  Text('Hesabımı Sil'),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'KVKK Uyarısı - Önemli Bilgilendirme:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    '• Hesabınız kalıcı olarak silinecektir\n'
+                    '• Tüm kişisel verileriniz sistemden kaldırılacaktır\n'
+                    '• Mesaj geçmişiniz silinecektir\n'
+                    '• Ödeme geçmişiniz silinecektir\n'
+                    '• Bu işlem geri alınamaz',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Hesabınızın kalıcı olarak silinmesini onaylıyor musunuz?',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Onaylamak için "HESABIMI SIL" yazın:',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    onChanged: (value) {
+                      confirmText = value;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'HESABIMI SIL',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isDeleting ? null : () => Navigator.of(context).pop(),
+                  child: const Text('İptal'),
+                ),
+                ElevatedButton(
+                  onPressed: isDeleting ? null : () async {
+                    if (confirmText != 'HESABIMI SIL') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+
+                    setState(() {
+                      isDeleting = true;
+                    });
+
+                    try {
+                      final prefs = await SharedPreferences.getInstance();
+                      final token = prefs.getString('authToken');
+                      
+                      final response = await http.delete(
+                        Uri.parse('http://localhost:5000/api/auth/delete-account'),
+                        headers: {
+                          'Authorization': 'Bearer $token',
+                          'Content-Type': 'application/json',
+                        },
+                      );
+
+                      final data = json.decode(response.body);
+
+                      if (data['success'] == true) {
+                        // Clear all data
+                        await prefs.clear();
+                        
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Hesabınız başarıyla silindi. Güle güle!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          
+                          Navigator.pushNamedAndRemoveUntil(
+                            context, 
+                            '/welcome', 
+                            (route) => false
+                          );
+                        }
+                      } else {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(data['message'] ?? 'Hesap silme işlemi başarısız oldu'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Hesap silme işlemi sırasında bir hata oluştu'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    } finally {
+                      setState(() {
+                        isDeleting = false;
+                      });
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: isDeleting 
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : const Text('Hesabımı Sil'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

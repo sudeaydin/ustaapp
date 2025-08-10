@@ -9,6 +9,8 @@ export const CraftsmanJobHistoryPage = () => {
   const [filterStatus, setFilterStatus] = useState('all');
   const [dateRange, setDateRange] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [quotes, setQuotes] = useState([]);
+  const [loadingQuotes, setLoadingQuotes] = useState(false);
 
   // Mock Data
   const [jobs] = useState([

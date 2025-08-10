@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class QuoteFormScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> craftsman;
@@ -13,52 +16,43 @@ class QuoteFormScreen extends ConsumerStatefulWidget {
 class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   final _formKey = GlobalKey<FormState>();
   String _selectedCategory = '';
-  String _selectedJobType = '';
-  String _selectedLocation = '';
   String _selectedAreaType = '';
-  String _selectedRoomCount = '';
+  String _selectedBudgetRange = '';
   final _squareMetersController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _additionalDetailsController = TextEditingController();
   bool _isLoading = false;
 
   final List<String> _categories = [
-    'Temizlik',
+    'Elektrikçi',
+    'Tesisatçı',
+    'Boyacı',
     'Marangoz',
-    'Elektrik',
-    'Tesisat',
-    'Boya',
-    'Bahçe',
+    'Cam Ustası',
+    'Klima Teknisyeni',
+    'Temizlik',
     'Taşıma',
     'Diğer'
   ];
 
-  final List<String> _jobTypes = [
-    'Tamir',
-    'Montaj',
-    'Temizlik',
-    'Bakım',
-    'Kurulum',
-    'Demontaj',
-    'Diğer'
+  final List<Map<String, String>> _areaTypes = [
+    {'value': 'salon', 'label': 'Salon'},
+    {'value': 'mutfak', 'label': 'Mutfak'},
+    {'value': 'yatak_odası', 'label': 'Yatak Odası'},
+    {'value': 'banyo', 'label': 'Banyo'},
+    {'value': 'balkon', 'label': 'Balkon'},
+    {'value': 'bahçe', 'label': 'Bahçe'},
+    {'value': 'ofis', 'label': 'Ofis'},
+    {'value': 'diger', 'label': 'Diğer'}
   ];
 
-  final List<String> _areaTypes = [
-    'Ev',
-    'İş Yeri',
-    'Ofis',
-    'Dükkan',
-    'Villa',
-    'Apartman',
-    'Diğer'
-  ];
-
-  final List<String> _roomCounts = [
-    '1 Oda',
-    '2 Oda',
-    '3 Oda',
-    '4 Oda',
-    '5+ Oda',
-    'Stüdyo'
+  final List<Map<String, String>> _budgetRanges = [
+    {'value': '0-1000', 'label': '0 - 1.000 TL'},
+    {'value': '1000-2000', 'label': '1.000 - 2.000 TL'},
+    {'value': '2000-5000', 'label': '2.000 - 5.000 TL'},
+    {'value': '5000-10000', 'label': '5.000 - 10.000 TL'},
+    {'value': '10000-20000', 'label': '10.000 - 20.000 TL'},
+    {'value': '20000+', 'label': '20.000+ TL'}
   ];
 
   @override
@@ -162,7 +156,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 
                 // Category Selection
                 _buildDropdownField(
-                  label: 'Kategori',
+                  label: 'İş Kategorisi *',
                   value: _selectedCategory,
                   items: _categories,
                   onChanged: (value) {
@@ -180,49 +174,9 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 
                 const SizedBox(height: 16),
                 
-                // Job Type Selection
-                _buildDropdownField(
-                  label: 'İş Tipi',
-                  value: _selectedJobType,
-                  items: _jobTypes,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedJobType = value!;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'İş tipi seçiniz';
-                    }
-                    return null;
-                  },
-                ),
-                
-                const SizedBox(height: 16),
-                
-                // Location Selection
-                _buildDropdownField(
-                  label: 'Konum',
-                  value: _selectedLocation,
-                  items: ['Kadıköy', 'Ataşehir', 'Üsküdar', 'Beşiktaş', 'Şişli', 'Diğer'],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedLocation = value!;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Konum seçiniz';
-                    }
-                    return null;
-                  },
-                ),
-                
-                const SizedBox(height: 16),
-                
                 // Area Type Selection
-                _buildDropdownField(
-                  label: 'Alan Tipi',
+                _buildDropdownFieldWithMap(
+                  label: 'Çalışılacak Alan *',
                   value: _selectedAreaType,
                   items: _areaTypes,
                   onChanged: (value) {
@@ -232,7 +186,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Alan tipi seçiniz';
+                      return 'Alan türü seçiniz';
                     }
                     return null;
                   },
@@ -240,39 +194,39 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 
                 const SizedBox(height: 16),
                 
-                // Room Count Selection
-                _buildDropdownField(
-                  label: 'Oda Sayısı',
-                  value: _selectedRoomCount,
-                  items: _roomCounts,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedRoomCount = value!;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Oda sayısı seçiniz';
-                    }
-                    return null;
-                  },
-                ),
-                
-                const SizedBox(height: 16),
-                
-                // Square Meters
+                // Square Meters (Optional)
                 _buildTextField(
                   label: 'Metrekare (Opsiyonel)',
                   controller: _squareMetersController,
                   keyboardType: TextInputType.number,
-                  hint: 'Örn: 120',
+                  validator: null,
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Budget Range Selection
+                _buildDropdownFieldWithMap(
+                  label: 'Bütçe Aralığı *',
+                  value: _selectedBudgetRange,
+                  items: _budgetRanges,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedBudgetRange = value!;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Bütçe aralığı seçiniz';
+                    }
+                    return null;
+                  },
                 ),
                 
                 const SizedBox(height: 16),
                 
                 // Description
                 _buildTextField(
-                  label: 'İş Açıklaması',
+                  label: 'İş Açıklaması *',
                   controller: _descriptionController,
                   maxLines: 4,
                   hint: 'Yaptırmak istediğiniz işi detaylı olarak açıklayın...',
@@ -282,6 +236,17 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                     }
                     return null;
                   },
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Additional Details
+                _buildTextField(
+                  label: 'Ek Detaylar (Opsiyonel)',
+                  controller: _additionalDetailsController,
+                  maxLines: 3,
+                  hint: 'Varsa ek bilgiler, özel istekler...',
+                  validator: null,
                 ),
                 
                 const SizedBox(height: 32),
@@ -429,28 +394,70 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
 
   void _submitQuote() async {
     if (_formKey.currentState!.validate()) {
+      if (_selectedCategory.isEmpty || _selectedAreaType.isEmpty || _selectedBudgetRange.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Lütfen zorunlu alanları doldurun'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       setState(() {
         _isLoading = true;
       });
 
       try {
-        // Submit quote logic here
-        await Future.delayed(const Duration(seconds: 2)); // Simulate API call
+        final prefs = await SharedPreferences.getInstance();
+        final token = prefs.getString('authToken');
+        
+        final response = await http.post(
+          Uri.parse('http://localhost:5000/api/quote-requests/request'),
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({
+            'craftsman_id': widget.craftsman['id'],
+            'category': _selectedCategory,
+            'area_type': _selectedAreaType,
+            'square_meters': _squareMetersController.text.isNotEmpty 
+                ? int.tryParse(_squareMetersController.text) 
+                : null,
+            'budget_range': _selectedBudgetRange,
+            'description': _descriptionController.text,
+            'additional_details': _additionalDetailsController.text.isNotEmpty 
+                ? _additionalDetailsController.text 
+                : null,
+          }),
+        );
+
+        final data = json.decode(response.body);
         
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Teklif başarıyla gönderildi!'),
-              backgroundColor: Color(0xFF10B981),
-            ),
-          );
-          Navigator.pop(context);
+          if (data['success'] == true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Teklif talebiniz başarıyla gönderildi!'),
+                backgroundColor: Color(0xFF10B981),
+              ),
+            );
+            Navigator.pushReplacementNamed(context, '/messages');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(data['message'] ?? 'Teklif talebi gönderilirken bir hata oluştu'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Hata: $e'),
+            const SnackBar(
+              content: Text('Teklif talebi gönderilirken bir hata oluştu'),
               backgroundColor: Colors.red,
             ),
           );
@@ -463,5 +470,57 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         }
       }
     }
+  }
+
+  Widget _buildDropdownFieldWithMap({
+    required String label,
+    required String value,
+    required List<Map<String, String>> items,
+    required Function(String?) onChanged,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF1E293B),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE2E8F0)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.02),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: DropdownButtonFormField<String>(
+            value: value.isEmpty ? null : value,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(16),
+            ),
+            items: items.map((item) {
+              return DropdownMenuItem<String>(
+                value: item['value'],
+                child: Text(item['label']!),
+              );
+            }).toList(),
+            onChanged: onChanged,
+            validator: validator,
+          ),
+        ),
+      ],
+    );
   }
 }

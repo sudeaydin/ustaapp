@@ -37,6 +37,8 @@ import PaymentPage from './pages/PaymentPage';
 import PaymentHistory from './components/PaymentHistory';
 import OnboardingPage from './pages/OnboardingPage';
 import AuthChoicePage from './pages/AuthChoicePage';
+import QuoteRequestFormPage from './pages/QuoteRequestFormPage';
+import QuotePaymentPage from './pages/QuotePaymentPage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -86,6 +88,8 @@ function App() {
               <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
               <Route path="/customer/jobs" element={<CustomerRoute><CustomerJobHistoryPage /></CustomerRoute>} />
               <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
+              <Route path="/quote-request/:craftsmanId" element={<CustomerRoute><QuoteRequestFormPage /></CustomerRoute>} />
+              <Route path="/payment/quote/:quoteId" element={<CustomerRoute><QuotePaymentPage /></CustomerRoute>} />
               <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
               <Route path="/payment/:jobId" element={<CustomerRoute><PaymentPage /></CustomerRoute>} />
               
