@@ -19,8 +19,8 @@ class Customer(db.Model):
     # Relationships
     user = db.relationship('User', backref='customer_profile')
     
-    def to_dict(self):
-        return {
+    def to_dict(self, include_user=True):
+        data = {
             'id': self.id,
             'user_id': self.user_id,
             'billing_address': self.billing_address,
@@ -29,3 +29,8 @@ class Customer(db.Model):
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
         }
+        
+        if include_user and self.user:
+            data['user'] = self.user.to_dict()
+            
+        return data
