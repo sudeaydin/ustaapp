@@ -533,7 +533,7 @@ def delete_portfolio_image():
             
     except Exception as e:
         db.session.rollback()
-                 return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
+        return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
 
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
