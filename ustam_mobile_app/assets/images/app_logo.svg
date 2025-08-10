@@ -1,0 +1,35 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="#E9FFF9"/>
+  
+  <!-- Main Circle -->
+  <circle cx="256" cy="256" r="200" fill="#467599"/>
+  
+  <!-- Inner Circle -->
+  <circle cx="256" cy="256" r="160" fill="#9ED8DB"/>
+  
+  <!-- Tool Icon Background -->
+  <circle cx="256" cy="256" r="120" fill="#1D3354"/>
+  
+  <!-- Hammer Icon -->
+  <g transform="translate(256,256)">
+    <!-- Hammer Handle -->
+    <rect x="-8" y="20" width="16" height="80" rx="8" fill="#E9FFF9"/>
+    
+    <!-- Hammer Head -->
+    <rect x="-40" y="-20" width="80" height="40" rx="8" fill="#E9FFF9"/>
+    
+    <!-- Hammer Claw -->
+    <path d="M 40 -20 L 60 -40 L 70 -30 L 50 -10 Z" fill="#E9FFF9"/>
+    <path d="M 40 20 L 60 40 L 70 30 L 50 10 Z" fill="#E9FFF9"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="256" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1D3354">ustam</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="150" cy="150" r="8" fill="#D64045" opacity="0.6"/>
+  <circle cx="362" cy="150" r="6" fill="#D64045" opacity="0.4"/>
+  <circle cx="150" cy="362" r="6" fill="#D64045" opacity="0.4"/>
+  <circle cx="362" cy="362" r="8" fill="#D64045" opacity="0.6"/>
+</svg>
