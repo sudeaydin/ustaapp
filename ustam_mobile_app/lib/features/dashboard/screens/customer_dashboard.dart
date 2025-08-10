@@ -31,7 +31,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ),
         ),
         title: const Text(
-          '🏠 Ana Sayfa',
+          'Ana Sayfa',
           style: TextStyle(
             color: AppColors.textWhite,
             fontWeight: FontWeight.bold,
@@ -128,7 +128,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
-                      '✨ Profesyonel ustalarla tanışın',
+                      'Profesyonel ustalarla tanışın',
                       style: TextStyle(
                         color: AppColors.textWhite,
                         fontWeight: FontWeight.w600,

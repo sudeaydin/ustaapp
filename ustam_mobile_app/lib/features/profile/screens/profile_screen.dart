@@ -31,7 +31,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
       
-      print('🔍 Checking user type from SharedPreferences: $userType');
+      print('Checking user type from SharedPreferences: $userType');
       
       if (userType == 'craftsman') {
         print('✅ Navigating to craftsman dashboard');
@@ -61,7 +61,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         print('No auth token found');
         // Even without token, try to get user type for navigation
         final userType = prefs.getString('user_type');
-        print('🔍 User type from SharedPreferences: $userType');
+        print('User type from SharedPreferences: $userType');
         
         setState(() {
           _isLoading = false;
@@ -250,7 +250,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 SizedBox(height: 24),
                 Text(
-                  '✨ Profil yükleniyor...',
+                  'Profil yükleniyor...',
                   style: TextStyle(
                     color: AppColors.textWhite,
                     fontSize: 16,
@@ -585,7 +585,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             switch (index) {
               case 0:
                 // Navigate to appropriate dashboard based on user type
-                print('🏠 Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
+                print('Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
                 
                 if (_profileData?['user_type'] == 'craftsman') {
                   print('✅ Craftsman dashboard\'a yönlendiriliyor');

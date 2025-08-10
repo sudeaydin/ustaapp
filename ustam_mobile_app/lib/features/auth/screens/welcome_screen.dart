@@ -23,7 +23,7 @@ class WelcomeScreen extends ConsumerWidget {
               children: [
                 const Spacer(),
                 
-                // Logo - Splash ile aynı tasarım
+                // Logo - Professional Design
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -34,7 +34,7 @@ class WelcomeScreen extends ConsumerWidget {
                       decoration: BoxDecoration(
                         gradient: RadialGradient(
                           colors: [
-                            AppColors.accentYellow.withOpacity(0.3),
+                            AppColors.nonPhotoBlue.withOpacity(0.3),
                             Colors.transparent,
                           ],
                         ),
@@ -52,13 +52,13 @@ class WelcomeScreen extends ConsumerWidget {
                         ]),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(
-                          color: AppColors.accentYellow.withOpacity(0.3),
+                          color: AppColors.nonPhotoBlue.withOpacity(0.5),
                           width: 3,
                         ),
                         boxShadow: [
                           AppColors.getElevatedShadow(blurRadius: 25),
                           BoxShadow(
-                            color: AppColors.accentYellow.withOpacity(0.2),
+                            color: AppColors.uclaBlue.withOpacity(0.2),
                             blurRadius: 15,
                             offset: const Offset(0, 5),
                           ),
@@ -67,16 +67,16 @@ class WelcomeScreen extends ConsumerWidget {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          // Cartoon-style tool icon
+                          // Professional tool icon
                           Container(
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                              gradient: AppColors.getGradient(AppColors.warningGradient),
+                              gradient: AppColors.getGradient(AppColors.primaryGradient),
                               borderRadius: BorderRadius.circular(18),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.accentYellow.withOpacity(0.4),
+                                  color: AppColors.uclaBlue.withOpacity(0.4),
                                   blurRadius: 10,
                                   offset: const Offset(0, 3),
                                 ),
@@ -98,9 +98,9 @@ class WelcomeScreen extends ConsumerWidget {
                 // Main title with shadow effect
                 Stack(
                   children: [
-                                         // Shadow text
-                     Text(
-                       'ustam',
+                    // Shadow text
+                    Text(
+                      'ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -111,9 +111,9 @@ class WelcomeScreen extends ConsumerWidget {
                         letterSpacing: 2,
                       ),
                     ),
-                                         // Main text
-                     const Text(
-                       'ustam',
+                    // Main text
+                    const Text(
+                      'ustam',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class WelcomeScreen extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // Subtitle with modern styling
+                // Subtitle with professional styling
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   decoration: BoxDecoration(
@@ -143,7 +143,7 @@ class WelcomeScreen extends ConsumerWidget {
                     ),
                   ),
                   child: const Text(
-                    'Usta bul, işini yaptır',
+                    'Profesyonel Usta Bulucu',
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.textWhite,
@@ -155,18 +155,19 @@ class WelcomeScreen extends ConsumerWidget {
                 
                 const Spacer(),
                 
-                // Giriş Butonları - Modern Design
+                // Login Buttons - Modern Design
                 Column(
                   children: [
-                    // Müşteri Giriş Butonu
+                    // Customer Login Button
                     Container(
                       width: double.infinity,
-                      height: 50,
-                      margin: const EdgeInsets.only(bottom: 12),
+                      height: 56,
+                      margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [AppColors.cardBackground, AppColors.surfaceColor],
-                        ),
+                        gradient: AppColors.getGradient([
+                          AppColors.cardBackground, 
+                          AppColors.surfaceColor
+                        ]),
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [AppColors.getElevatedShadow()],
                       ),
@@ -185,18 +186,22 @@ class WelcomeScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(6),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: AppColors.primaryBlue.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
+                                color: AppColors.uclaBlue.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Icon(Icons.person_rounded, size: 20, color: AppColors.primaryBlue),
+                              child: Icon(
+                                Icons.person_rounded, 
+                                size: 24, 
+                                color: AppColors.uclaBlue
+                              ),
                             ),
-                            const SizedBox(width: 12),
-                            const Text(
+                            const SizedBox(width: 16),
+                            Text(
                               'Müşteri Girişi',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textPrimary,
                               ),
@@ -206,13 +211,16 @@ class WelcomeScreen extends ConsumerWidget {
                       ),
                     ),
                     
-                    // Usta Giriş Butonu
+                    // Craftsman Login Button
                     Container(
                       width: double.infinity,
-                      height: 50,
-                      margin: const EdgeInsets.only(bottom: 16),
+                      height: 56,
+                      margin: const EdgeInsets.only(bottom: 24),
                       decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.textWhite.withOpacity(0.3), width: 2),
+                        border: Border.all(
+                          color: AppColors.textWhite.withOpacity(0.4), 
+                          width: 2
+                        ),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: ElevatedButton(
@@ -230,18 +238,22 @@ class WelcomeScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(6),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: AppColors.textWhite.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Icon(Icons.engineering_rounded, size: 20, color: AppColors.textWhite),
+                              child: Icon(
+                                Icons.engineering_rounded, 
+                                size: 24, 
+                                color: AppColors.textWhite
+                              ),
                             ),
-                            const SizedBox(width: 12),
-                            const Text(
+                            const SizedBox(width: 16),
+                            Text(
                               'Usta Girişi',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textWhite,
                               ),
@@ -253,12 +265,12 @@ class WelcomeScreen extends ConsumerWidget {
                   ],
                 ),
                 
-                // Alt Bilgi
-                const Text(
+                // Footer Text
+                Text(
                   'Hizmet şartları ve gizlilik politikası',
                   style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.white60,
+                    fontSize: 12,
+                    color: AppColors.textWhite.withOpacity(0.7),
                   ),
                   textAlign: TextAlign.center,
                 ),

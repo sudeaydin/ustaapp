@@ -61,7 +61,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 SizedBox(height: 24),
                 Text(
-                  '🔐 Giriş yapılıyor...',
+                  'Giriş yapılıyor...',
                   style: TextStyle(
                     color: AppColors.textWhite,
                     fontSize: 16,
@@ -124,7 +124,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             Expanded(
                               child: Text(
-                                widget.userType == 'craftsman' ? '🔧 Usta Girişi' : '👤 Müşteri Girişi',
+                                widget.userType == 'craftsman' ? 'Usta Girişi' : '👤 Müşteri Girişi',
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -145,8 +145,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ),
                           child: Text(
                             widget.userType == 'craftsman' 
-                              ? '✨ Usta hesabınızla giriş yapın'
-                              : '✨ Müşteri hesabınızla giriş yapın',
+                              ? 'Usta hesabınızla giriş yapın'
+                              : 'Müşteri hesabınızla giriş yapın',
                             style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.textWhite,
@@ -256,7 +256,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       child: const Text(
-                        '🚀 Giriş Yap',
+                        'Giriş Yap',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -299,7 +299,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               );
                             },
                             child: const Text(
-                              '✨ Kayıt Ol',
+                              'Kayıt Ol',
                               style: TextStyle(
                                 color: AppColors.textWhite,
                                 fontSize: 16,
@@ -367,7 +367,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       try {
         final authNotifier = ref.read(authProvider.notifier);
         
-        print('🔐 Login attempt - User type: ${widget.userType}');
+        print('Login attempt - User type: ${widget.userType}');
         print('📧 Email: ${_emailController.text}');
         
         // Login with auth provider

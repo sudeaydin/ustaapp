@@ -85,7 +85,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo Animation - Cartoon Style
+                // Logo Animation - Professional & Modern
                 AnimatedBuilder(
                   animation: _logoScale,
                   builder: (context, child) {
@@ -101,7 +101,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  AppColors.accentYellow.withOpacity(0.3),
+                                  AppColors.nonPhotoBlue.withOpacity(0.3),
                                   Colors.transparent,
                                 ],
                               ),
@@ -119,13 +119,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               ]),
                               borderRadius: BorderRadius.circular(35),
                               border: Border.all(
-                                color: AppColors.accentYellow.withOpacity(0.3),
+                                color: AppColors.nonPhotoBlue.withOpacity(0.5),
                                 width: 3,
                               ),
                               boxShadow: [
                                 AppColors.getElevatedShadow(blurRadius: 25),
                                 BoxShadow(
-                                  color: AppColors.accentYellow.withOpacity(0.2),
+                                  color: AppColors.uclaBlue.withOpacity(0.2),
                                   blurRadius: 15,
                                   offset: const Offset(0, 5),
                                 ),
@@ -134,16 +134,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                // Cartoon-style tool icon
+                                // Professional tool icon
                                 Container(
                                   width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    gradient: AppColors.getGradient(AppColors.warningGradient),
+                                    gradient: AppColors.getGradient(AppColors.primaryGradient),
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: AppColors.accentYellow.withOpacity(0.4),
+                                        color: AppColors.uclaBlue.withOpacity(0.4),
                                         blurRadius: 10,
                                         offset: const Offset(0, 3),
                                       ),
@@ -167,7 +167,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 
                 const SizedBox(height: 40),
                 
-                // App Title Animation - Modern & Cartoon
+                // App Title Animation - Professional & Clean
                 AnimatedBuilder(
                   animation: _textOpacity,
                   builder: (context, child) {
@@ -175,12 +175,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       opacity: _textOpacity.value,
                       child: Column(
                         children: [
-                          // Main title with shadow effect
+                          // Main title with modern styling
                           Stack(
                             children: [
-                                                             // Shadow text
-                               Text(
-                                 'ustam',
+                              // Shadow text
+                              Text(
+                                'ustam',
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,
@@ -191,27 +191,27 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   letterSpacing: 2,
                                 ),
                               ),
-                                                             // Main text
-                               const Text(
-                                 'ustam',
-                                 style: TextStyle(
-                                   fontSize: 46,
-                                   fontWeight: FontWeight.bold,
-                                   color: AppColors.textWhite,
-                                   letterSpacing: 2,
-                                   shadows: [
-                                     Shadow(
-                                       offset: Offset(2, 2),
-                                       blurRadius: 4,
-                                       color: Colors.black26,
-                                     ),
-                                   ],
-                                 ),
-                               ),
+                              // Main text
+                              const Text(
+                                'ustam',
+                                style: TextStyle(
+                                  fontSize: 46,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textWhite,
+                                  letterSpacing: 2,
+                                  shadows: [
+                                    Shadow(
+                                      offset: Offset(2, 2),
+                                      blurRadius: 4,
+                                      color: Colors.black26,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 16),
-                          // Subtitle with modern styling
+                          // Subtitle with professional styling
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                             decoration: BoxDecoration(
@@ -222,8 +222,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                 width: 1,
                               ),
                             ),
-                                                         child: const Text(
-                               'Usta bul, işini yaptır',
+                            child: const Text(
+                              'Profesyonel Usta Bulucu',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.textWhite,

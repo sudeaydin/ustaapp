@@ -27,7 +27,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       
       // Try auth provider second
       final authState = ref.read(authProvider);
-      print('🔍 Messages Screen - Auth State: ${authState.user}');
+      print('Messages Screen - Auth State: ${authState.user}');
       
       if (authState.user != null && authState.user?['user_type'] == 'craftsman') {
         print('✅ Auth Provider: Navigating to craftsman dashboard');
@@ -38,7 +38,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       // Fallback: Check SharedPreferences directly
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
-      print('🔍 Messages Screen - SharedPrefs User Type: $userType');
+      print('Messages Screen - SharedPrefs User Type: $userType');
       
       if (userType == 'craftsman') {
         print('✅ SharedPrefs: Navigating to craftsman dashboard');
@@ -84,7 +84,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Mehmet Kaya',
       'business_name': 'Kaya Tesisatçılık',
       'avatar': 'https://picsum.photos/400/400?random=2',
-      'lastMessage': '❓ Mevcut kabin 80x80 cm. Kaliteli bir marka olsun yeter.',
+      'lastMessage': 'Mevcut kabin 80x80 cm. Kaliteli bir marka olsun yeter.',
       'timestamp': '14:15',
       'unreadCount': 1,
       'isOnline': false,
@@ -97,7 +97,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Ali Demir',
       'business_name': 'Müşteri',
       'avatar': 'https://picsum.photos/400/400?random=3',
-      'lastMessage': '📋 Teklif talebiniz iletildi. Usta yanıtını bekleyin...',
+      'lastMessage': 'Teklif talebiniz iletildi. Usta yanıtını bekleyin...',
       'timestamp': '16:01',
       'unreadCount': 0,
       'isOnline': true,
@@ -110,7 +110,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Fatma Çelik',
       'business_name': 'Çelik Temizlik',
       'avatar': 'https://picsum.photos/400/400?random=10',
-      'lastMessage': '💰 Fiyat: ₺800 - Detaylı ev temizliği yapacağım.',
+      'lastMessage': 'Fiyat: ₺800 - Detaylı ev temizliği yapacağım.',
       'timestamp': '13:30',
       'unreadCount': 1,
       'isOnline': true,
@@ -136,13 +136,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Serkan Yılmaz',
       'business_name': 'Yılmaz Boyacılık',
       'avatar': 'https://picsum.photos/400/400?random=6',
-      'lastMessage': '💰 Fiyat: ₺3500 - Salon boyama işi için teklifim.',
+      'lastMessage': 'Fiyat: ₺3500 - Salon boyama işi için teklifim.',
       'timestamp': '11:00',
       'unreadCount': 1,
       'isOnline': true,
       'status': 'quoted',
       'statusIcon': '💰',
-      'jobTitle': '💰 Karar Bekleyen - Salon Boyama'
+      'jobTitle': 'Karar Bekleyen - Salon Boyama'
     },
   ];
   
@@ -152,7 +152,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Ali Demir',
       'business_name': 'Müşteri',
       'avatar': 'https://picsum.photos/400/400?random=3',
-      'lastMessage': '📋 Salon aydınlatması için teklif talebiniz var.',
+      'lastMessage': 'Salon aydınlatması için teklif talebiniz var.',
       'timestamp': '15:00',
       'unreadCount': 1,
       'isOnline': true,
@@ -165,7 +165,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       'name': 'Fatma Yılmaz',
       'business_name': 'Müşteri',
       'avatar': 'https://picsum.photos/400/400?random=11',
-      'lastMessage': '❓ Mevcut duş kabinin boyutları 80x80 cm.',
+      'lastMessage': 'Mevcut duş kabinin boyutları 80x80 cm.',
       'timestamp': '09:00',
       'unreadCount': 0,
       'isOnline': false,

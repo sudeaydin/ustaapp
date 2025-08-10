@@ -474,7 +474,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        '💡 İpucu:',
+                        'İpucu:',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF1E293B),

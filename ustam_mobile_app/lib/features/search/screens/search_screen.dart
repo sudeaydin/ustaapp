@@ -648,8 +648,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                     });
                                                   },
                                                   style: OutlinedButton.styleFrom(
-                                                    foregroundColor: const Color(0xFF3B82F6),
-                                                    side: const BorderSide(color: Color(0xFF3B82F6)),
+                                                    foregroundColor: AppColors.uclaBlue,
+                                                    side: BorderSide(color: AppColors.uclaBlue, width: 2),
                                                     shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(12),
                                                     ),
@@ -677,12 +677,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                     });
                                                   },
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor: const Color(0xFF3B82F6),
+                                                    backgroundColor: AppColors.poppy,
                                                     foregroundColor: Colors.white,
+                                                    elevation: 4,
+                                                    shadowColor: AppColors.poppy.withOpacity(0.3),
                                                     shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(12),
                                                     ),
-                                                    elevation: 0,
                                                   ),
                                                   child: const Text(
                                                     'Teklif Al',

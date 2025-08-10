@@ -242,7 +242,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetailRow('💰 Bütçe', '${quote['budget_range']} TL'),
+                  _buildDetailRow('Bütçe', '${quote['budget_range']} TL'),
                   _buildDetailRow('📝 Açıklama', quote['description']),
                   if (quote['quoted_price'] != null)
                     _buildDetailRow('💵 Verdiğim Teklif', '₺${quote['quoted_price']}'),
@@ -265,7 +265,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      '💬 Yanıtım:',
+                      'Yanıtım:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF1E40AF),
@@ -292,7 +292,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => _requestDetails(quote),
-                      child: const Text('❓ Detay İste'),
+                      child: const Text('Detay İste'),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -302,7 +302,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF059669),
                       ),
-                      child: const Text('💰 Teklif Ver'),
+                      child: const Text('Teklif Ver'),
                     ),
                   ),
                 ],
@@ -418,7 +418,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('❓ Detay İste'),
+        title: const Text('Detay İste'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -460,7 +460,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('💰 Teklif Ver'),
+        title: const Text('Teklif Ver'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

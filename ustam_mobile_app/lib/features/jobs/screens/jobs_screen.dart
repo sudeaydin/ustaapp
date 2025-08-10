@@ -274,7 +274,7 @@ class JobsScreen extends ConsumerWidget {
           children: [
             Text('📝 ${job['description']}'),
             const SizedBox(height: 8),
-            Text('💰 Bütçe: ${job['price']}'),
+            Text('Bütçe: ${job['price']}'),
             const SizedBox(height: 8),
             Text('📍 Konum: ${job['location']}'),
             const SizedBox(height: 8),
@@ -282,7 +282,7 @@ class JobsScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                const Text('📊 Durum: '),
+                const Text('Durum: '),
                 _buildStatusChip(job['status']!),
               ],
             ),

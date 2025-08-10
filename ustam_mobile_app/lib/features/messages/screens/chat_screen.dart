@@ -34,7 +34,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         return [
     {
       'id': '1',
-      'text': '''📋 Teklif Talebi:
+      'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: yatak_odası
@@ -54,7 +54,7 @@ Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
     },
     {
       'id': '2',
-      'text': '''💰 Teklif Yanıtı:
+      'text': '''Teklif Yanıtı:
 
 Fiyat: ₺1800
 Tahmini Süre: 2 gün
@@ -93,7 +93,7 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
         return [
           {
             'id': '1',
-            'text': '''📋 Teklif Talebi:
+            'text': '''Teklif Talebi:
 
 Kategori: Tesisatçı
 Alan: banyo
@@ -113,7 +113,7 @@ Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
           },
           {
             'id': '2',
-            'text': '''❓ Teklif Yanıtı:
+            'text': '''Teklif Yanıtı:
 
 Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
             'timestamp': '09:00',
@@ -132,7 +132,7 @@ Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka 
         return [
           {
             'id': '1',
-            'text': '''📋 Teklif Talebi:
+            'text': '''Teklif Talebi:
 
 Kategori: Boyacı
 Alan: salon
@@ -165,7 +165,7 @@ Ek Detaylar: Modern renkler tercih ediyorum, öneriniz var mı?''',
         return [
           {
             'id': '1',
-            'text': '''📋 Teklif Talebi:
+            'text': '''Teklif Talebi:
 
 Kategori: Temizlik
 Alan: diğer
@@ -185,7 +185,7 @@ Açıklama: Ev temizliği hizmeti.''',
           },
           {
             'id': '2',
-            'text': '''💰 Teklif Yanıtı:
+            'text': '''Teklif Yanıtı:
 
 Fiyat: ₺800
 Tahmini Süre: 1 gün
@@ -208,7 +208,7 @@ Notlar: Detaylı ev temizliği yapacağım. Tüm malzemeler dahil.''',
         return [
           {
             'id': '1',
-            'text': '''📋 Teklif Talebi:
+            'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: mutfak
@@ -228,7 +228,7 @@ Açıklama: Mutfak aydınlatması yenilenmesi gerekiyor.''',
           },
           {
             'id': '2',
-            'text': '''💰 Teklif Yanıtı:
+            'text': '''Teklif Yanıtı:
 
 Fiyat: ₺1200
 Tahmini Süre: 1 gün
@@ -267,7 +267,7 @@ Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: salon
@@ -293,7 +293,7 @@ Ek Detaylar: Modern LED sistemleri tercih ediyorum.''',
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Tesisatçı
 Alan: banyo
@@ -313,7 +313,7 @@ Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
            },
            {
              'id': '2',
-             'text': '''❓ Teklif Yanıtı:
+             'text': '''Teklif Yanıtı:
 
 Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
              'timestamp': '09:00',
@@ -332,7 +332,7 @@ Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka 
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: yatak_odası
@@ -352,7 +352,7 @@ Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
            },
            {
              'id': '2',
-             'text': '''💰 Teklif Yanıtı:
+             'text': '''Teklif Yanıtı:
 
 Fiyat: ₺1800
 Tahmini Süre: 2 gün
@@ -384,7 +384,7 @@ Teklifinizi kabul ediyorum. Harika!''',
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: salon
@@ -410,7 +410,7 @@ Ek Detaylar: Modern LED sistemleri tercih ediyorum.''',
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Tesisatçı
 Alan: banyo
@@ -430,7 +430,7 @@ Açıklama: Duş kabini değişimi ve tesisat kontrolü.''',
            },
            {
              'id': '2',
-             'text': '''❓ Teklif Yanıtı:
+             'text': '''Teklif Yanıtı:
 
 Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka tercih ediyorsunuz? Tesisat ne kadar eski?''',
              'timestamp': '09:00',
@@ -449,7 +449,7 @@ Daha fazla detay istiyorum. Mevcut duş kabininin boyutları nedir? Hangi marka 
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Elektrikçi
 Alan: yatak_odası
@@ -469,7 +469,7 @@ Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
            },
            {
              'id': '2',
-             'text': '''💰 Teklif Yanıtı:
+             'text': '''Teklif Yanıtı:
 
 Fiyat: ₺1800
 Tahmini Süre: 2 gün
@@ -501,7 +501,7 @@ Teklifinizi kabul ediyorum. Harika!''',
          return [
            {
              'id': '1',
-             'text': '''📋 Teklif Talebi:
+             'text': '''Teklif Talebi:
 
 Kategori: Boyacı
 Alan: salon
@@ -524,7 +524,7 @@ Ek Detaylar: Modern renkler tercih ediyorum, öneriniz var mı?''',
            },
            {
              'id': '2',
-             'text': '''💰 Teklif Yanıtı:
+             'text': '''Teklif Yanıtı:
 
 Fiyat: ₺3500
 Tahmini Süre: 3 gün
@@ -749,15 +749,18 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 _acceptQuote(message['quote']);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF059669),
+                                backgroundColor: AppColors.success,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                elevation: 3,
+                                shadowColor: AppColors.success.withOpacity(0.3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                               child: const Text(
-                                '✅ Kabul Et',
-                                style: TextStyle(fontSize: 11),
+                                'Kabul Et',
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -768,15 +771,18 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 _rejectQuote(message['quote']);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFDC2626),
+                                backgroundColor: AppColors.error,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                elevation: 3,
+                                shadowColor: AppColors.error.withOpacity(0.3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                               child: const Text(
-                                '❌ Reddet',
-                                style: TextStyle(fontSize: 11),
+                                'Reddet',
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -787,15 +793,18 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 _requestNewQuote(message['quote']);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF3B82F6),
+                                backgroundColor: AppColors.info,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                elevation: 3,
+                                shadowColor: AppColors.info.withOpacity(0.3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                               child: const Text(
-                                '🔄 Yeni Teklif',
-                                style: TextStyle(fontSize: 10),
+                                'Yeni Teklif',
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -899,7 +908,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('📋 Teklif Detayları'),
+        title: const Text('Teklif Detayları'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -933,7 +942,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('💰 Teklif Kararı'),
+        title: const Text('Teklif Kararı'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1078,7 +1087,7 @@ Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('🔄 Yeni Teklif İsteği'),
+        title: const Text('Yeni Teklif İsteği'),
         content: const Text('Yeni bir teklif istemek istediğinizden emin misiniz?'),
         actions: [
           TextButton(
@@ -1132,7 +1141,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
           children: [
             const Icon(Icons.payment, color: Color(0xFF059669)),
             const SizedBox(width: 8),
-            const Text('💳 Ödeme'),
+            const Text('Ödeme'),
           ],
         ),
         content: Column(
@@ -1185,7 +1194,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
             ),
             const SizedBox(height: 16),
             const Text(
-              '💳 Ödeme yönteminizi seçin:',
+              'Ödeme yönteminizi seçin:',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
@@ -1221,7 +1230,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
             child: const Text(
-              '💳 Ödeme Yap',
+              'Ödeme Yap',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
