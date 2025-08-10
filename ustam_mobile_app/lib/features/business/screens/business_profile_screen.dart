@@ -543,7 +543,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 image: DecorationImage(
-                                  image: NetworkImage('http://localhost:5000${_portfolioImages[index]}'),
+                                  image: NetworkImage(_portfolioImages[index].startsWith('http') 
+                                    ? _portfolioImages[index] 
+                                    : 'http://localhost:5000${_portfolioImages[index]}'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
