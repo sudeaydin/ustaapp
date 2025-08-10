@@ -16,27 +16,59 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   final List<Map<String, dynamic>> _messages = [
     {
       'id': '1',
-      'text': 'Merhaba, temizlik hizmeti için teklif alabilir miyim?',
-      'timestamp': '14:30',
+      'text': '''📋 Teklif Talebi:
+
+Kategori: Elektrikçi
+Alan: yatak_odası
+Bütçe: 1000-2000 TL
+Açıklama: Yatak odası elektrik tesisatı yenilenmesi gerekiyor.''',
+      'timestamp': '10:00',
       'isMe': true,
+      'messageType': 'quote_request',
+      'quote': {
+        'id': 1,
+        'status': 'accepted',
+        'category': 'Elektrikçi',
+        'area_type': 'yatak_odası',
+        'budget_range': '1000-2000',
+        'description': 'Yatak odası elektrik tesisatı yenilenmesi gerekiyor.'
+      }
     },
     {
       'id': '2',
-      'text': 'Merhaba! Tabii ki, hangi tür temizlik hizmeti istiyorsunuz?',
-      'timestamp': '14:32',
+      'text': '''💰 Teklif Yanıtı:
+
+Fiyat: ₺1800
+Tahmini Süre: 2 gün
+Başlangıç: 25.01.2025
+Bitiş: 26.01.2025
+
+Notlar: Elektrik tesisatını tamamen yenileyeceğim. Kaliteli malzeme kullanacağım.''',
+      'timestamp': '14:30',
       'isMe': false,
+      'messageType': 'quote_response',
+      'quote': {
+        'id': 1,
+        'status': 'quoted',
+        'quoted_price': 1800,
+        'estimated_duration_days': 2
+      }
     },
     {
       'id': '3',
-      'text': 'Ev temizliği, 3+1 daire. Ne kadar ücret alıyorsunuz?',
-      'timestamp': '14:33',
+      'text': '''✅ Teklif Kararı:
+
+Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
+      'timestamp': '16:00',
       'isMe': true,
+      'messageType': 'quote_decision',
     },
     {
       'id': '4',
-      'text': '3+1 daire için 400₺ alıyoruz. Hangi gün uygun?',
-      'timestamp': '14:35',
+      'text': 'Harika! Ödeme onaylandıktan sonra Perşembe sabahı 9:00\'da başlayabilirim.',
+      'timestamp': '16:15',
       'isMe': false,
+      'messageType': 'text',
     },
   ];
 
@@ -191,12 +223,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: isMe ? const Color(0xFF3B82F6) : Colors.white,
+                color: _getMessageBackgroundColor(message, isMe),
                 borderRadius: BorderRadius.circular(20).copyWith(
                   bottomLeft: isMe ? const Radius.circular(20) : const Radius.circular(4),
                   bottomRight: isMe ? const Radius.circular(4) : const Radius.circular(20),
                 ),
-                border: isMe ? null : Border.all(color: const Color(0xFFE2E8F0)),
+                border: _getMessageBorder(message, isMe),
                 boxShadow: isMe ? null : [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.02),
@@ -208,11 +240,54 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Quote message action buttons
+                  if (message['messageType'] == 'quote_request' && !isMe) ...[
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _showQuoteFormDialog(message['quote']);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFEA580C),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: const Text(
+                          'Formu İncele',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (message['messageType'] == 'quote_response' && isMe && message['quote']?['status'] == 'quoted') ...[
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _showQuoteDecisionDialog(message['quote']);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: const Color(0xFF3B82F6),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: const Text(
+                          'Karar Ver',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ],
                   Text(
                     message['text'],
                     style: TextStyle(
                       fontSize: 14,
-                      color: isMe ? Colors.white : const Color(0xFF1E293B),
+                      color: _getMessageTextColor(message, isMe),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -262,5 +337,142 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   String _getCurrentTime() {
     final now = DateTime.now();
     return '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+  }
+
+  Color _getMessageBackgroundColor(Map<String, dynamic> message, bool isMe) {
+    if (message['messageType'] == 'quote_request') {
+      return const Color(0xFFFED7AA); // Orange background
+    } else if (message['messageType'] == 'quote_response') {
+      return const Color(0xFFBFDBFE); // Blue background
+    } else if (message['messageType'] == 'quote_decision') {
+      return const Color(0xFFBBF7D0); // Green background
+    }
+    return isMe ? const Color(0xFF3B82F6) : Colors.white;
+  }
+
+  Border? _getMessageBorder(Map<String, dynamic> message, bool isMe) {
+    if (message['messageType'] == 'quote_request') {
+      return Border.all(color: const Color(0xFFEA580C));
+    } else if (message['messageType'] == 'quote_response') {
+      return Border.all(color: const Color(0xFF3B82F6));
+    } else if (message['messageType'] == 'quote_decision') {
+      return Border.all(color: const Color(0xFF059669));
+    }
+    return isMe ? null : Border.all(color: const Color(0xFFE2E8F0));
+  }
+
+  Color _getMessageTextColor(Map<String, dynamic> message, bool isMe) {
+    if (message['messageType'] == 'quote_request') {
+      return const Color(0xFF9A3412);
+    } else if (message['messageType'] == 'quote_response') {
+      return const Color(0xFF1E40AF);
+    } else if (message['messageType'] == 'quote_decision') {
+      return const Color(0xFF065F46);
+    }
+    return isMe ? Colors.white : const Color(0xFF1E293B);
+  }
+
+  void _showQuoteFormDialog(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('📋 Teklif Detayları'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildQuoteDetailRow('Kategori', quote['category'] ?? ''),
+            _buildQuoteDetailRow('Alan', quote['area_type'] ?? ''),
+            _buildQuoteDetailRow('Bütçe', '${quote['budget_range']} TL'),
+            _buildQuoteDetailRow('Açıklama', quote['description'] ?? ''),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Kapat'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Navigate to quote response screen
+            },
+            child: const Text('Teklif Ver'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showQuoteDecisionDialog(Map<String, dynamic>? quote) {
+    if (quote == null) return;
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('💰 Teklif Kararı'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildQuoteDetailRow('Fiyat', '₺${quote['quoted_price']}'),
+            _buildQuoteDetailRow('Süre', '${quote['estimated_duration_days']} gün'),
+            const SizedBox(height: 16),
+            const Text('Bu teklifi kabul ediyor musunuz?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('İptal'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Reject quote
+            },
+            child: const Text('Reddet'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Accept quote and navigate to payment
+            },
+            child: const Text('Kabul Et'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuoteDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(
+              '$label:',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF475569),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Color(0xFF1E293B),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
