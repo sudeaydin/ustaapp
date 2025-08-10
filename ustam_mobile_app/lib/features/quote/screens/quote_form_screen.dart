@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import '../../../core/theme/app_colors.dart';
 
 class QuoteFormScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> craftsman;
@@ -378,7 +379,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(16),
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.textMuted),
+              hintStyle: TextStyle(color: AppColors.textMuted),
             ),
             validator: validator,
           ),

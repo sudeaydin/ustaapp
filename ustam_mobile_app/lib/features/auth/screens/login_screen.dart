@@ -171,8 +171,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(color: AppColors.textPrimary),
-                      decoration: const InputDecoration(
+                      style: TextStyle(color: AppColors.textPrimary),
+                      decoration: InputDecoration(
                         labelText: '📧 E-posta',
                         labelStyle: TextStyle(color: AppColors.textSecondary),
                         border: InputBorder.none,
@@ -204,13 +204,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: TextFormField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
-                      style: const TextStyle(color: AppColors.textPrimary),
+                      style: TextStyle(color: AppColors.textPrimary),
                       decoration: InputDecoration(
                         labelText: '🔒 Şifre',
-                        labelStyle: const TextStyle(color: AppColors.textSecondary),
+                        labelStyle: TextStyle(color: AppColors.textSecondary),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.all(20),
-                        prefixIcon: const Icon(Icons.lock_rounded, color: AppColors.uclaBlue),
+                                                  prefixIcon: Icon(Icons.lock_rounded, color: AppColors.uclaBlue),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,

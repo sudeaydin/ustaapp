@@ -647,7 +647,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         hintText: 'Mesajınızı yazın...',
-                        hintStyle: TextStyle(color: AppColors.textMuted),
+                        hintStyle: const TextStyle(color: AppColors.textMuted),
                       ),
                       maxLines: null,
                     ),

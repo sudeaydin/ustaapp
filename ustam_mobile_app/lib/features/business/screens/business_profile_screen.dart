@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
+import '../../../core/theme/app_colors.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class BusinessProfileScreen extends ConsumerStatefulWidget {
@@ -184,7 +185,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Sil', style: TextStyle(color: AppColors.error)),
+            child: Text('Sil', style: TextStyle(color: AppColors.error)),
           ),
         ],
       ),
@@ -516,7 +517,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       : const Icon(Icons.add_a_photo, color: AppColors.cardBackground),
                     label: Text(
                       _isUploading ? 'Yükleniyor...' : 'Görsel Ekle',
-                      style: const TextStyle(color: AppColors.cardBackground, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: AppColors.cardBackground, fontWeight: FontWeight.w600),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.uclaBlue,
@@ -754,7 +755,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(16),
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.textMuted),
+              hintStyle: TextStyle(color: AppColors.textMuted),
             ),
             validator: validator,
           ),

@@ -19,6 +19,7 @@ class AppColors {
   static const Color backgroundLight = mintGreen;         // Main background
   static const Color backgroundDark = delftBlue;          // Dark background
   static const Color cardBackground = Color(0xFFFFFFFF);  // Card background
+  static const Color cardBackground70 = Color(0xB3FFFFFF); // Card background with 70% opacity
   static const Color surfaceColor = Color(0xFFF5FFFE);    // Surface color
   static const Color overlayColor = Color(0x1A1D3354);    // Overlay with delft blue
 
