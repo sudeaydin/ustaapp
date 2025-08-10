@@ -97,7 +97,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       title: 'Aktif İşler',
                       value: '5',
                       icon: Icons.work,
-                      color: const Color(0xFF3B82F6),
+                      color: AppColors.uclaBlue,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -106,7 +106,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       title: 'Bu Ay Kazanç',
                       value: '₺2,450',
                       icon: Icons.attach_money,
-                      color: const Color(0xFF10B981),
+                      color: AppColors.success,
                     ),
                   ),
                 ],
@@ -144,7 +144,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 16),
@@ -156,7 +156,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       icon: Icons.message,
                       title: 'Mesajlar',
                       subtitle: '3 yeni mesaj',
-                      color: const Color(0xFF3B82F6),
+                      color: AppColors.uclaBlue,
                       onTap: () {
                         Navigator.pushNamed(context, '/messages');
                       },
@@ -186,7 +186,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       icon: Icons.assignment,
                       title: 'Teklifler',
                       subtitle: '2 yeni teklif',
-                      color: const Color(0xFF10B981),
+                      color: AppColors.success,
                       onTap: () {
                         Navigator.pushNamed(context, '/craftsman-quotes');
                       },
@@ -215,7 +215,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 16),
@@ -225,7 +225,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 location: 'Kadıköy, İstanbul',
                 date: 'Bugün',
                 status: 'Devam Ediyor',
-                statusColor: const Color(0xFF3B82F6),
+                statusColor: AppColors.uclaBlue,
                 amount: '₺150',
               ),
               
@@ -236,7 +236,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 location: 'Ataşehir, İstanbul',
                 date: 'Dün',
                 status: 'Tamamlandı',
-                statusColor: const Color(0xFF10B981),
+                statusColor: AppColors.success,
                 amount: '₺300',
               ),
               
@@ -333,12 +333,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -353,7 +353,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   icon,
@@ -383,7 +383,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             title,
             style: const TextStyle(
               fontSize: 12,
-              color: Color(0xFF64748B),
+              color: AppColors.textLight,
             ),
           ),
         ],
@@ -400,12 +400,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -425,7 +425,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
                 icon,
@@ -439,7 +439,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 4),
@@ -447,7 +447,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               subtitle,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF64748B),
+                color: AppColors.textLight,
               ),
                 ),
               ],
@@ -468,12 +468,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -513,7 +513,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E293B),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -522,14 +522,14 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     const Icon(
                       Icons.location_on,
                       size: 14,
-                      color: Color(0xFF64748B),
+                      color: AppColors.textLight,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       location,
                       style: const TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF64748B),
+                        color: AppColors.textLight,
                       ),
                     ),
                   ],
@@ -539,7 +539,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   date,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF64748B),
+                    color: AppColors.textLight,
                   ),
                 ),
               ],
@@ -569,7 +569,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF10B981),
+                  color: AppColors.success,
                 ),
               ),
             ],

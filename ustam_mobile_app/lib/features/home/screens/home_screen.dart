@@ -46,11 +46,11 @@ class HomeScreen extends ConsumerWidget {
                         width: 45,
                         height: 45,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: AppColors.cardBackground.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.white.withOpacity(0.3),
+                              color: AppColors.cardBackground.withOpacity(0.3),
                               blurRadius: 8,
                               offset: const Offset(-2, -2),
                             ),
@@ -58,7 +58,7 @@ class HomeScreen extends ConsumerWidget {
                         ),
                         child: const Icon(
                           Icons.build_circle,
-                          color: Colors.white,
+                          color: AppColors.cardBackground,
                           size: 24,
                         ),
                       ),
@@ -70,18 +70,18 @@ class HomeScreen extends ConsumerWidget {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: AppColors.cardBackground,
                           ),
                         ),
                       ),
                       // Menu Button
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: AppColors.cardBackground.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: PopupMenuButton<String>(
-                          icon: const Icon(Icons.more_vert, color: Colors.white),
+                          icon: const Icon(Icons.more_vert, color: AppColors.cardBackground),
                           onSelected: (value) {
                             switch (value) {
                               case 'profile':
@@ -215,7 +215,7 @@ class HomeScreen extends ConsumerWidget {
               title: 'Toplam Harcama',
               value: '₺2.4K',
               icon: Icons.account_balance_wallet_outlined,
-              color: Colors.green,
+              color: AppColors.success,
               onTap: () => context.go('/jobs'),
             ),
           ),
@@ -253,7 +253,7 @@ class HomeScreen extends ConsumerWidget {
               title: 'Toplam Kazanç',
               value: '₺8.2K',
               icon: Icons.trending_up_outlined,
-              color: Colors.green,
+              color: AppColors.success,
               onTap: () => context.go('/jobs'),
             ),
           ),
@@ -329,7 +329,7 @@ class HomeScreen extends ConsumerWidget {
                     spreadRadius: isPressed ? 0 : (isHovered ? 2 : 0),
                   ),
                   if (isHovered || isPressed) BoxShadow(
-                    color: Colors.white.withOpacity(isPressed ? 0.9 : 0.7),
+                    color: AppColors.cardBackground.withOpacity(isPressed ? 0.9 : 0.7),
                     blurRadius: isPressed ? 20 : 15,
                     offset: Offset(isPressed ? -2 : -4, isPressed ? -2 : -4),
                   ),
@@ -529,10 +529,10 @@ class HomeScreen extends ConsumerWidget {
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.blue.shade100,
+              backgroundColor: AppColors.uclaBlue.shade100,
               child: Icon(
                 isCustomer ? Icons.work : Icons.person,
-                color: Colors.blue,
+                color: AppColors.uclaBlue,
               ),
             ),
             title: Text(
@@ -621,11 +621,11 @@ class HomeScreen extends ConsumerWidget {
         break;
       case 'aktif':
         gradient = AppTheme.activeGradient;
-        shadowColor = const Color(0xFF10B981);
+        shadowColor = AppColors.success;
         break;
       case 'bitti':
         gradient = AppTheme.completedGradient;
-        shadowColor = const Color(0xFF3B82F6);
+        shadowColor = AppColors.uclaBlue;
         break;
       default:
         gradient = AppTheme.pendingGradient;
@@ -648,7 +648,7 @@ class HomeScreen extends ConsumerWidget {
       child: Text(
         status,
         style: const TextStyle(
-          color: Colors.white,
+          color: AppColors.cardBackground,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),

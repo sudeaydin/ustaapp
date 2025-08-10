@@ -191,21 +191,21 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardBackground,
         elevation: 0,
         title: const Text(
           'Mesajlar',
           style: TextStyle(
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Color(0xFF1E293B)),
+            icon: const Icon(Icons.search, color: AppColors.textPrimary),
             onPressed: () {},
           ),
         ],
@@ -297,13 +297,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: const Color(0xFFF1F5F9),
+              color: AppColors.surfaceColor,
               borderRadius: BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.message_outlined,
               size: 60,
-              color: Color(0xFF94A3B8),
+              color: AppColors.textMuted,
             ),
           ),
           const SizedBox(height: 24),
@@ -312,7 +312,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF475569),
+              color: AppColors.textSecondary,
             ),
           ),
           const SizedBox(height: 8),
@@ -320,7 +320,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             'Teklif gönderdiğiniz ustalardan\nmesajlar burada görünecek',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF64748B),
+              color: AppColors.textLight,
             ),
             textAlign: TextAlign.center,
           ),
@@ -333,7 +333,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 Navigator.pushNamed(context, '/search');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF3B82F6),
+                backgroundColor: AppColors.uclaBlue,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -358,12 +358,12 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -404,9 +404,9 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                           width: 16,
                           height: 16,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF10B981),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.white, width: 2),
+                            color: AppColors.success,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: AppColors.cardBackground, width: 2),
                           ),
                         ),
                       ),
@@ -428,7 +428,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xFF1E293B),
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
@@ -436,7 +436,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                   conversation['business_name'],
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFF64748B),
+                                    color: AppColors.textLight,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
@@ -452,7 +452,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                         conversation['jobTitle'] ?? '',
                                         style: const TextStyle(
                                           fontSize: 11,
-                                          color: Color(0xFF475569),
+                                          color: AppColors.textSecondary,
                                           fontWeight: FontWeight.w500,
                                         ),
                                         overflow: TextOverflow.ellipsis,
@@ -470,7 +470,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 conversation['timestamp'],
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Color(0xFF94A3B8),
+                                  color: AppColors.textMuted,
                                 ),
                               ),
                               if (conversation['unreadCount'] > 0) ...[
@@ -478,14 +478,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF3B82F6),
-                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.uclaBlue,
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     conversation['unreadCount'].toString(),
                                     style: const TextStyle(
                                       fontSize: 10,
-                                      color: Colors.white,
+                                      color: AppColors.cardBackground,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -501,8 +501,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                         style: TextStyle(
                           fontSize: 14,
                           color: conversation['unreadCount'] > 0 
-                              ? const Color(0xFF1E293B)
-                              : const Color(0xFF64748B),
+                              ? AppColors.textPrimary
+                              : AppColors.textLight,
                           fontWeight: conversation['unreadCount'] > 0 
                               ? FontWeight.w500
                               : FontWeight.normal,

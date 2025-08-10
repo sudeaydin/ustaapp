@@ -248,7 +248,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 16),
@@ -279,7 +279,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 16),
@@ -480,12 +480,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -497,12 +497,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: const Color(0xFFEFF6FF),
+              color: AppColors.mintGreen,
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
               Icons.receipt_long,
-              color: Color(0xFF3B82F6),
+              color: AppColors.uclaBlue,
               size: 24,
             ),
           ),
@@ -517,7 +517,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E293B),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -525,7 +525,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   craftsman,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF64748B),
+                    color: AppColors.textLight,
                   ),
                 ),
               ],
@@ -540,7 +540,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF10B981),
+                  color: AppColors.success,
                 ),
               ),
               const SizedBox(height: 4),
@@ -576,12 +576,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -593,12 +593,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: const Color(0xFFF1F5F9),
+              color: AppColors.surfaceColor,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
               icon,
-              color: const Color(0xFF64748B),
+              color: AppColors.textLight,
               size: 24,
             ),
           ),
@@ -613,7 +613,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E293B),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -621,7 +621,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   subtitle,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF64748B),
+                    color: AppColors.textLight,
                   ),
                 ),
               ],

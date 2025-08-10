@@ -117,12 +117,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -134,10 +134,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0xFFEFF6FF),
+                color: AppColors.mintGreen,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(icon, size: 20, color: const Color(0xFF3B82F6)),
+              child: Icon(icon, size: 20, color: AppColors.uclaBlue),
             ),
             const SizedBox(width: 16),
           ],
@@ -149,7 +149,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   label,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF94A3B8),
+                    color: AppColors.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -158,7 +158,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   value,
                   style: const TextStyle(
                     fontSize: 16,
-                    color: Color(0xFF1E293B),
+                    color: AppColors.textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -184,10 +184,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             decoration: BoxDecoration(
               color: color ?? Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0xFFE2E8F0)),
+              border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.02),
+                  color: AppColors.shadowLight,
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -198,13 +198,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: color != null ? Colors.white.withOpacity(0.2) : const Color(0xFFEFF6FF),
+                    color: color != null ? Colors.white.withOpacity(0.2) : AppColors.mintGreen,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
                     icon,
                     size: 20,
-                    color: color != null ? Colors.white : const Color(0xFF3B82F6),
+                    color: color != null ? Colors.white : AppColors.uclaBlue,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -214,14 +214,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: color != null ? Colors.white : const Color(0xFF1E293B),
+                      color: color != null ? Colors.white : AppColors.textPrimary,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
-                  color: color != null ? Colors.white : const Color(0xFF94A3B8),
+                  color: color != null ? Colors.white : AppColors.textMuted,
                 ),
               ],
             ),
@@ -265,7 +265,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // Modern App Bar - Figma Design (sadece craftsman için)
@@ -274,7 +274,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               expandedHeight: 200,
               floating: false,
               pinned: true,
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.cardBackground,
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
@@ -283,8 +283,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Color(0xFF3B82F6),
-                        Color(0xFF1E40AF),
+                        AppColors.uclaBlue,
+                        AppColors.delftBlue,
                       ],
                     ),
                     borderRadius: BorderRadius.only(
@@ -306,7 +306,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             height: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
-                              border: Border.all(color: Colors.white, width: 4),
+                              border: Border.all(color: AppColors.cardBackground, width: 4),
                               image: _profileData?['avatar'] != null && 
                                      _profileData!['avatar'].toString().isNotEmpty && 
                                      _profileData!['avatar'].toString() != 'null'
@@ -322,7 +322,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 ? const Icon(
                                     Icons.person,
                                     size: 40,
-                                    color: Colors.white,
+                                    color: AppColors.cardBackground,
                                   )
                                 : null,
                           ),
@@ -332,7 +332,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: AppColors.cardBackground,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -340,23 +340,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             _profileData?['email'] ?? '',
                             style: const TextStyle(
                               fontSize: 14,
-                              color: Colors.white70,
+                              color: AppColors.cardBackground70,
                             ),
                           ),
                           const SizedBox(height: 12),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                              color: AppColors.cardBackground.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white.withOpacity(0.3)),
+                              border: Border.all(color: AppColors.cardBackground.withOpacity(0.3)),
                             ),
                             child: const Text(
                               'Usta',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: AppColors.cardBackground,
                               ),
                             ),
                           ),
@@ -369,7 +369,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.white),
+                  icon: const Icon(Icons.edit, color: AppColors.cardBackground),
                   onPressed: () {
                     // Navigate to edit profile
                   },
@@ -390,7 +390,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -406,7 +406,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -428,19 +428,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1E293B),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 16),
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.cardBackground,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                          border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.02),
+                              color: AppColors.shadowLight,
                               blurRadius: 8,
                               offset: const Offset(0, 2),
                             ),
@@ -453,9 +453,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             return Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFEFF6FF),
+                                color: AppColors.mintGreen,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: const Color(0xFFDBEAFE)),
+                                border: Border.all(color: AppColors.mintGreen),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -463,14 +463,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   const Icon(
                                     Icons.psychology,
                                     size: 16,
-                                    color: Color(0xFF1E40AF),
+                                    color: AppColors.delftBlue,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     skill.toString(),
                                     style: const TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF1E40AF),
+                                      color: AppColors.delftBlue,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -491,7 +491,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -509,7 +509,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -533,7 +533,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     () {
                       _showDeleteAccountDialog();
                     },
-                    color: const Color(0xFFEF4444),
+                    color: AppColors.error,
                   ),
                   _buildActionButton(
                     'Çıkış Yap',
@@ -556,7 +556,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         );
                       }
                     },
-                    color: const Color(0xFFEF4444),
+                    color: AppColors.error,
                   ),
                 ],
               ),
@@ -660,7 +660,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             return AlertDialog(
               title: const Row(
                 children: [
-                  Icon(Icons.warning, color: Colors.red, size: 28),
+                  Icon(Icons.warning, color: AppColors.error, size: 28),
                   SizedBox(width: 8),
                   Text('Hesabımı Sil'),
                 ],
@@ -673,7 +673,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     'KVKK Uyarısı - Önemli Bilgilendirme:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.red,
+                      color: AppColors.error,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -683,7 +683,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     '• Mesaj geçmişiniz silinecektir\n'
                     '• Ödeme geçmişiniz silinecektir\n'
                     '• Bu işlem geri alınamaz',
-                    style: TextStyle(fontSize: 12, color: Colors.red),
+                    style: TextStyle(fontSize: 12, color: AppColors.error),
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -718,7 +718,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
-                          backgroundColor: Colors.red,
+                          backgroundColor: AppColors.error,
                         ),
                       );
                       return;
@@ -750,7 +750,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Hesabınız başarıyla silindi. Güle güle!'),
-                              backgroundColor: Colors.green,
+                              backgroundColor: AppColors.success,
                             ),
                           );
                           
@@ -765,7 +765,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(data['message'] ?? 'Hesap silme işlemi başarısız oldu'),
-                              backgroundColor: Colors.red,
+                              backgroundColor: AppColors.error,
                             ),
                           );
                         }
@@ -775,7 +775,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Hesap silme işlemi sırasında bir hata oluştu'),
-                            backgroundColor: Colors.red,
+                            backgroundColor: AppColors.error,
                           ),
                         );
                       }
@@ -786,7 +786,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: AppColors.error,
                     foregroundColor: Colors.white,
                   ),
                   child: isDeleting 

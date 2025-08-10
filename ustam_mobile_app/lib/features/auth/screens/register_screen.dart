@@ -54,7 +54,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final authState = ref.watch(authProvider);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.cardBackground,
       appBar: AppBar(
         title: const Text('Hesap Oluştur'),
         backgroundColor: Colors.transparent,
@@ -80,7 +80,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       child: const Icon(
                         Icons.person_add,
                         size: 30,
-                        color: Colors.white,
+                        color: AppColors.cardBackground,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -110,7 +110,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
                         children: [
@@ -281,14 +281,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         padding: const EdgeInsets.all(12),
                         margin: const EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
-                          color: Colors.red.shade50,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.red.shade200),
+                          color: AppColors.error.shade50,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.error.shade200),
                         ),
                         child: Text(
                           authState.error!,
                           style: TextStyle(
-                            color: Colors.red.shade700,
+                            color: AppColors.error.shade700,
                             fontSize: 14,
                           ),
                         ),

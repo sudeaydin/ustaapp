@@ -552,12 +552,12 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E293B)),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
@@ -583,14 +583,14 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   Text(
                     widget.conversation['business_name'],
                     style: const TextStyle(
                       fontSize: 12,
-                      color: Color(0xFF64748B),
+                      color: AppColors.textLight,
                     ),
                   ),
                 ],
@@ -600,11 +600,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.call, color: Color(0xFF1E293B)),
+            icon: const Icon(Icons.call, color: AppColors.textPrimary),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Color(0xFF1E293B)),
+            icon: const Icon(Icons.more_vert, color: AppColors.textPrimary),
             onPressed: () {},
           ),
         ],
@@ -628,9 +628,9 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.cardBackground,
               border: Border(
-                top: BorderSide(color: const Color(0xFFE2E8F0)),
+                top: BorderSide(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
               ),
             ),
             child: Row(
@@ -638,7 +638,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF1F5F9),
+                      color: AppColors.surfaceColor,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: TextField(
@@ -647,7 +647,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         hintText: 'Mesajınızı yazın...',
-                        hintStyle: TextStyle(color: Color(0xFF94A3B8)),
+                        hintStyle: TextStyle(color: AppColors.textMuted),
                       ),
                       maxLines: null,
                     ),
@@ -658,11 +658,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF3B82F6),
+                    color: AppColors.uclaBlue,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, color: Colors.white, size: 20),
+                    icon: const Icon(Icons.send, color: AppColors.cardBackground, size: 20),
                     onPressed: _sendMessage,
                   ),
                 ),
@@ -708,7 +708,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                 border: _getMessageBorder(message, isMe),
                 boxShadow: isMe ? null : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
+                    color: AppColors.shadowLight,
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -756,7 +756,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: AppColors.success.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               child: const Text(
@@ -778,7 +778,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: AppColors.error.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               child: const Text(
@@ -800,7 +800,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: AppColors.info.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                               child: const Text(
@@ -825,7 +825,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     message['timestamp'],
                     style: TextStyle(
                       fontSize: 10,
-                      color: isMe ? Colors.white70 : const Color(0xFF94A3B8),
+                      color: isMe ? Colors.white70 : AppColors.textMuted,
                     ),
                   ),
                 ],
@@ -878,29 +878,29 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     } else if (message['messageType'] == 'quote_decision') {
       return const Color(0xFFBBF7D0); // Green background
     }
-    return isMe ? const Color(0xFF3B82F6) : Colors.white;
+    return isMe ? AppColors.uclaBlue : Colors.white;
   }
 
   Border? _getMessageBorder(Map<String, dynamic> message, bool isMe) {
     if (message['messageType'] == 'quote_request') {
       return Border.all(color: const Color(0xFFEA580C));
     } else if (message['messageType'] == 'quote_response') {
-      return Border.all(color: const Color(0xFF3B82F6));
+      return Border.all(color: AppColors.uclaBlue);
     } else if (message['messageType'] == 'quote_decision') {
-      return Border.all(color: const Color(0xFF059669));
+      return Border.all(color: AppColors.success);
     }
-    return isMe ? null : Border.all(color: const Color(0xFFE2E8F0));
+    return isMe ? null : Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3));
   }
 
   Color _getMessageTextColor(Map<String, dynamic> message, bool isMe) {
     if (message['messageType'] == 'quote_request') {
       return const Color(0xFF9A3412);
     } else if (message['messageType'] == 'quote_response') {
-      return const Color(0xFF1E40AF);
+      return AppColors.delftBlue;
     } else if (message['messageType'] == 'quote_decision') {
       return const Color(0xFF065F46);
     }
-    return isMe ? Colors.white : const Color(0xFF1E293B);
+    return isMe ? Colors.white : AppColors.textPrimary;
   }
 
   void _showQuoteFormDialog(Map<String, dynamic>? quote) {
@@ -990,7 +990,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               '$label:',
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF475569),
+                color: AppColors.textSecondary,
               ),
             ),
           ),
@@ -998,7 +998,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
             child: Text(
               value,
               style: const TextStyle(
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -1037,7 +1037,7 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
                              _scrollToBottom();
                _showPaymentDialog(quote);
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF059669)),
+            style: AppColors.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(AppColors.success)),
             child: const Text('Kabul Et'),
           ),
         ],
@@ -1111,7 +1111,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               });
               _scrollToBottom();
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF3B82F6)),
+            style: AppColors.getPrimaryButtonStyle(),
             child: const Text('Yeni Teklif İste'),
           ),
         ],
@@ -1140,7 +1140,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            const Icon(Icons.payment, color: Color(0xFF059669)),
+            const Icon(Icons.payment, color: AppColors.success),
             const SizedBox(width: 8),
             const Text('Ödeme'),
           ],
@@ -1153,8 +1153,8 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: const Color(0xFFF0FDF4),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFF059669)),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.success),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1163,7 +1163,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
                     '✅ Teklif Kabul Edildi',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF059669),
+                      color: AppColors.success,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -1185,7 +1185,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color: Color(0xFF059669),
+                          color: AppColors.success,
                         ),
                       ),
                     ],
@@ -1203,12 +1203,12 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               width: double.infinity,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFF3B82F6)),
-                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: AppColors.uclaBlue),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: const Row(
                 children: [
-                  Icon(Icons.credit_card, color: Color(0xFF3B82F6)),
+                  Icon(Icons.credit_card, color: AppColors.uclaBlue),
                   SizedBox(width: 8),
                   Text('Kredi Kartı ile Öde'),
                 ],
@@ -1226,9 +1226,8 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               Navigator.pop(context);
               _showPaymentSuccessDialog();
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF059669),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            style: AppColors.getPrimaryButtonStyle().copyWith(
+              backgroundColor: MaterialStateProperty.all(AppColors.success),
             ),
             child: const Text(
               'Ödeme Yap',
@@ -1247,7 +1246,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: const Row(
           children: [
-            Icon(Icons.check_circle, color: Color(0xFF059669), size: 28),
+            Icon(Icons.check_circle, color: AppColors.success, size: 28),
             SizedBox(width: 8),
             Text('✅ Ödeme Başarılı'),
           ],
@@ -1258,7 +1257,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
             Icon(
               Icons.celebration,
               size: 64,
-              color: Color(0xFF059669),
+              color: AppColors.success,
             ),
             SizedBox(height: 16),
             Text(
@@ -1274,7 +1273,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               'İş süreci başladı. Usta ile iletişimde kalabilirsiniz.',
               style: TextStyle(
                 fontSize: 14,
-                color: Color(0xFF64748B),
+                color: AppColors.textLight,
               ),
               textAlign: TextAlign.center,
             ),
@@ -1287,7 +1286,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               // TODO: Navigate to job tracking screen
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF059669),
+              backgroundColor: AppColors.success,
               minimumSize: const Size(double.infinity, 48),
             ),
             child: const Text(

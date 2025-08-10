@@ -132,7 +132,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -143,8 +143,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFF3B82F6),
-                    Color(0xFF1E40AF),
+                    AppColors.uclaBlue,
+                    AppColors.delftBlue,
                   ],
                 ),
                 borderRadius: BorderRadius.only(
@@ -165,13 +165,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: AppColors.cardBackground,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+                          icon: const Icon(Icons.notifications_outlined, color: AppColors.cardBackground),
                           onPressed: () {},
                         ),
                       ],
@@ -180,11 +180,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     // Search Bar - Modern Design
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.cardBackground,
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: AppColors.shadowMedium,
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),
@@ -201,10 +201,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             margin: const EdgeInsets.all(12),
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF3B82F6),
+                              color: AppColors.uclaBlue,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.search, color: Colors.white, size: 20),
+                            child: const Icon(Icons.search, color: AppColors.cardBackground, size: 20),
                           ),
                           suffixIcon: _searchController.text.isNotEmpty
                               ? IconButton(
@@ -234,7 +234,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white70,
+                              color: AppColors.cardBackground70,
                             ),
                           ),
                         ),
@@ -247,21 +247,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                              color: AppColors.cardBackground.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(25),
-                              border: Border.all(color: Colors.white.withOpacity(0.3)),
+                              border: Border.all(color: AppColors.cardBackground.withOpacity(0.3)),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.filter_list, size: 18, color: Colors.white),
+                                Icon(Icons.filter_list, size: 18, color: AppColors.cardBackground),
                                 const SizedBox(width: 8),
                                 const Text(
                                   'Filtreler',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white,
+                                    color: AppColors.cardBackground,
                                   ),
                                 ),
                               ],
@@ -281,11 +281,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.cardBackground,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: AppColors.shadowLight,
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
@@ -299,7 +299,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              border: Border.all(color: const Color(0xFFE2E8F0)),
+                              border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
@@ -329,7 +329,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              border: Border.all(color: const Color(0xFFE2E8F0)),
+                              border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
@@ -363,7 +363,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              border: Border.all(color: const Color(0xFFE2E8F0)),
+                              border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: DropdownButtonHideUnderline(
@@ -400,7 +400,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF1F5F9),
+                              color: AppColors.surfaceColor,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Text(
@@ -408,7 +408,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textLight,
                               ),
                             ),
                           ),
@@ -424,7 +424,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               child: _isLoading
                   ? const Center(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF3B82F6)),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.uclaBlue),
                       ),
                     )
                   : _craftsmen.isEmpty
@@ -436,13 +436,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFFF1F5F9),
+                                  color: AppColors.surfaceColor,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Icon(
                                   Icons.search_off,
                                   size: 50,
-                                  color: const Color(0xFF94A3B8),
+                                  color: AppColors.textMuted,
                                 ),
                               ),
                               const SizedBox(height: 20),
@@ -451,7 +451,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF475569),
+                                  color: AppColors.textSecondary,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -459,7 +459,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 'Arama kriterlerinize uygun usta bulunamadı.',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xFF64748B),
+                                  color: AppColors.textLight,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -474,11 +474,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             return Container(
                               margin: const EdgeInsets.only(bottom: 16),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.cardBackground,
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
+                                    color: AppColors.shadowLight,
                                     blurRadius: 15,
                                     offset: const Offset(0, 5),
                                   ),
@@ -527,7 +527,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                           style: const TextStyle(
                                                             fontSize: 18,
                                                             fontWeight: FontWeight.bold,
-                                                            color: Color(0xFF1E293B),
+                                                            color: AppColors.textPrimary,
                                                           ),
                                                         ),
                                                       ),
@@ -535,12 +535,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                         Container(
                                                           padding: const EdgeInsets.all(6),
                                                           decoration: BoxDecoration(
-                                                            color: const Color(0xFF3B82F6),
+                                                            color: AppColors.uclaBlue,
                                                             borderRadius: BorderRadius.circular(12),
                                                           ),
                                                           child: const Icon(
                                                             Icons.verified,
-                                                            color: Colors.white,
+                                                            color: AppColors.cardBackground,
                                                             size: 16,
                                                           ),
                                                         ),
@@ -551,7 +551,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                     craftsman['business_name'] ?? '',
                                                     style: const TextStyle(
                                                       fontSize: 14,
-                                                      color: Color(0xFF64748B),
+                                                      color: AppColors.textLight,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 8),
@@ -560,14 +560,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                       Icon(
                                                         Icons.location_on,
                                                         size: 14,
-                                                        color: const Color(0xFF94A3B8),
+                                                        color: AppColors.textMuted,
                                                       ),
                                                       const SizedBox(width: 4),
                                                       Text(
                                                         '${craftsman['city'] ?? ''}, ${craftsman['district'] ?? ''}',
                                                         style: const TextStyle(
                                                           fontSize: 12,
-                                                          color: Color(0xFF94A3B8),
+                                                          color: AppColors.textMuted,
                                                         ),
                                                       ),
                                                     ],
@@ -587,15 +587,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               return Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                                 decoration: BoxDecoration(
-                                                  color: const Color(0xFFEFF6FF),
+                                                  color: AppColors.mintGreen,
                                                   borderRadius: BorderRadius.circular(20),
-                                                  border: Border.all(color: const Color(0xFFDBEAFE)),
+                                                  border: Border.all(color: AppColors.mintGreen),
                                                 ),
                                                 child: Text(
                                                   skill.toString(),
                                                   style: const TextStyle(
                                                     fontSize: 12,
-                                                    color: Color(0xFF1E40AF),
+                                                    color: AppColors.delftBlue,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
@@ -611,7 +611,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               '${craftsman['total_reviews'] ?? 0} değerlendirme',
                                               style: const TextStyle(
                                                 fontSize: 12,
-                                                color: Color(0xFF94A3B8),
+                                                color: AppColors.textMuted,
                                               ),
                                             ),
                                             const Spacer(),
@@ -619,7 +619,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                                 decoration: BoxDecoration(
-                                                  color: const Color(0xFF10B981),
+                                                  color: AppColors.success,
                                                   borderRadius: BorderRadius.circular(20),
                                                 ),
                                                 child: Text(
@@ -627,7 +627,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.white,
+                                                    color: AppColors.cardBackground,
                                                   ),
                                                 ),
                                               ),
@@ -738,9 +738,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           }
         },
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF3B82F6),
-        unselectedItemColor: const Color(0xFF64748B),
+        backgroundColor: AppColors.cardBackground,
+        selectedItemColor: AppColors.uclaBlue,
+        unselectedItemColor: AppColors.textLight,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
         items: const [

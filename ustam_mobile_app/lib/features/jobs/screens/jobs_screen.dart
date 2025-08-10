@@ -36,12 +36,12 @@ class JobsScreen extends ConsumerWidget {
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: AppColors.cardBackground.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Icon(
                           Icons.work_outline,
-                          color: Colors.white,
+                          color: AppColors.cardBackground,
                           size: 20,
                         ),
                       ),
@@ -52,17 +52,17 @@ class JobsScreen extends ConsumerWidget {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: AppColors.cardBackground,
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: AppColors.cardBackground.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: IconButton(
-                          icon: const Icon(Icons.filter_list, color: Colors.white),
+                          icon: const Icon(Icons.filter_list, color: AppColors.cardBackground),
                           onPressed: () {
                             // Show filter options
                           },
@@ -183,7 +183,7 @@ class JobsScreen extends ConsumerWidget {
                           child: const Text(
                             'Detayları Gör',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.cardBackground,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -213,7 +213,7 @@ class JobsScreen extends ConsumerWidget {
               spreadRadius: 1,
             ),
             BoxShadow(
-              color: Colors.white.withOpacity(0.8),
+              color: AppColors.cardBackground.withOpacity(0.8),
               blurRadius: 8,
               offset: const Offset(-3, -3),
             ),
@@ -228,7 +228,7 @@ class JobsScreen extends ConsumerWidget {
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: const Icon(Icons.add, color: Colors.white, size: 28),
+          child: const Icon(Icons.add, color: AppColors.cardBackground, size: 28),
         ),
       ),
     );
@@ -350,13 +350,13 @@ class JobsScreen extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 14, color: Colors.white),
+            Icon(icon, size: 14, color: AppColors.cardBackground),
             const SizedBox(width: 4),
             Text(
               status,
               style: const TextStyle(
                 fontSize: 12, 
-                color: Colors.white,
+                color: AppColors.cardBackground,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -200,7 +200,7 @@ class WelcomeScreen extends ConsumerWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: AppColors.uclaBlue.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(12),
                               ),
                               child: Icon(
                                 Icons.person_rounded, 
@@ -252,7 +252,7 @@ class WelcomeScreen extends ConsumerWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: AppColors.textWhite.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(12),
                               ),
                               child: Icon(
                                 Icons.engineering_rounded, 

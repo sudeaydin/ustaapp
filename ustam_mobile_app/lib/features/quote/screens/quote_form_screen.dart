@@ -58,18 +58,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E293B)),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Teklif Al',
           style: TextStyle(
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -87,12 +87,12 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.cardBackground,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
+                    border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
+                        color: AppColors.shadowLight,
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -123,7 +123,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF1E293B),
+                                color: AppColors.textPrimary,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -131,7 +131,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                               widget.craftsman['business_name'] ?? '',
                               style: const TextStyle(
                                 fontSize: 14,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textLight,
                               ),
                             ),
                           ],
@@ -149,7 +149,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1E293B),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -257,13 +257,8 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _submitQuote,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF3B82F6),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      elevation: 0,
+                    style: AppColors.getPrimaryButtonStyle().copyWith(
+                      minimumSize: MaterialStateProperty.all(const Size(double.infinity, 56)),
                     ),
                     child: _isLoading
                         ? const SizedBox(
@@ -306,18 +301,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.cardBackground,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
+            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: AppColors.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -358,18 +353,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.cardBackground,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
+            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: AppColors.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -383,7 +378,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(16),
               hintText: hint,
-              hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
+              hintStyle: const TextStyle(color: AppColors.textMuted),
             ),
             validator: validator,
           ),
@@ -398,7 +393,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Lütfen zorunlu alanları doldurun'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
         return;
@@ -440,7 +435,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Teklif talebiniz başarıyla gönderildi!'),
-                backgroundColor: Color(0xFF10B981),
+                backgroundColor: AppColors.success,
               ),
             );
             Navigator.pushReplacementNamed(context, '/messages');
@@ -448,7 +443,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(data['message'] ?? 'Teklif talebi gönderilirken bir hata oluştu'),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.error,
               ),
             );
           }
@@ -458,7 +453,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Teklif talebi gönderilirken bir hata oluştu'),
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -487,18 +482,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.cardBackground,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
+            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: AppColors.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),

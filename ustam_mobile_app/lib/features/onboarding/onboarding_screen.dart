@@ -219,7 +219,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         _currentPage == _pages.length - 1 
                             ? Icons.check_rounded
                             : Icons.arrow_forward_rounded,
-                        color: Colors.white,
+                        color: AppColors.cardBackground,
                         size: 28,
                       ),
                     ),

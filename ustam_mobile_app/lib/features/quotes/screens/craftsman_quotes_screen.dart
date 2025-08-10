@@ -63,18 +63,18 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.cardBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E293B)),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Tekliflerim',
           style: TextStyle(
-            color: Color(0xFF1E293B),
+            color: AppColors.textPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -100,7 +100,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
           Icon(
             Icons.receipt_long_outlined,
             size: 80,
-            color: Color(0xFF94A3B8),
+            color: AppColors.textMuted,
           ),
           SizedBox(height: 16),
           Text(
@@ -108,7 +108,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF475569),
+              color: AppColors.textSecondary,
             ),
           ),
           SizedBox(height: 8),
@@ -116,7 +116,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             'Müşterilerden gelen teklif talepleri\nburada görünecek',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF64748B),
+              color: AppColors.textLight,
             ),
             textAlign: TextAlign.center,
           ),
@@ -129,12 +129,12 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: _getStatusBorderColor(quote['status'])),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -178,7 +178,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   _formatDate(quote['created_at']),
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF64748B),
+                    color: AppColors.textLight,
                   ),
                 ),
               ],
@@ -192,14 +192,14 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF3B82F6),
+                    color: AppColors.uclaBlue,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Text(
                       quote['customer_name'][0],
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: AppColors.cardBackground,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -215,14 +215,14 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF1E293B),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       Text(
                         '${quote['category']} - ${quote['area_type']}',
                         style: const TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF64748B),
+                          color: AppColors.textLight,
                         ),
                       ),
                     ],
@@ -236,8 +236,8 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFF8FAFC),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.backgroundLight,
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,9 +257,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEFF6FF),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFF3B82F6)),
+                  color: AppColors.mintGreen,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.uclaBlue),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,7 +268,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                       'Yanıtım:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1E40AF),
+                        color: AppColors.delftBlue,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -276,7 +276,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                       quote['my_response'],
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF1E293B),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ],
@@ -299,8 +299,8 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => _giveQuote(quote),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF059669),
+                      style: AppColors.getPrimaryButtonStyle().copyWith(
+                        backgroundColor: MaterialStateProperty.all(AppColors.success),
                       ),
                       child: const Text('Teklif Ver'),
                     ),
@@ -326,7 +326,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               label,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF64748B),
+                color: AppColors.textLight,
               ),
             ),
           ),
@@ -335,7 +335,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               value,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF1E293B),
+                color: AppColors.textPrimary,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -348,11 +348,11 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
   Color _getStatusBorderColor(String status) {
     switch (status) {
       case 'pending': return const Color(0xFFEA580C);
-      case 'details_requested': return const Color(0xFF3B82F6);
-      case 'quoted': return const Color(0xFF059669);
-      case 'accepted': return const Color(0xFF059669);
+      case 'details_requested': return AppColors.uclaBlue;
+      case 'quoted': return AppColors.success;
+      case 'accepted': return AppColors.success;
       case 'rejected': return const Color(0xFFDC2626);
-      default: return const Color(0xFFE2E8F0);
+      default: return AppColors.nonPhotoBlue.withOpacity(0.3);
     }
   }
 
@@ -363,18 +363,18 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
       case 'quoted': return const Color(0xFFBBF7D0);
       case 'accepted': return const Color(0xFFBBF7D0);
       case 'rejected': return const Color(0xFFFECACA);
-      default: return const Color(0xFFF1F5F9);
+      default: return AppColors.surfaceColor;
     }
   }
 
   Color _getStatusTextColor(String status) {
     switch (status) {
       case 'pending': return const Color(0xFF9A3412);
-      case 'details_requested': return const Color(0xFF1E40AF);
+      case 'details_requested': return AppColors.delftBlue;
       case 'quoted': return const Color(0xFF065F46);
       case 'accepted': return const Color(0xFF065F46);
       case 'rejected': return const Color(0xFF991B1B);
-      default: return const Color(0xFF475569);
+      default: return AppColors.textSecondary;
     }
   }
 
@@ -444,7 +444,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               Navigator.pop(context);
               // TODO: Send detail request
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF3B82F6)),
+            style: AppColors.getPrimaryButtonStyle(),
             child: const Text('Detay İste'),
           ),
         ],
@@ -513,7 +513,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               Navigator.pop(context);
               // TODO: Submit quote
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF059669)),
+            style: AppColors.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(AppColors.success)),
             child: const Text('Teklif Gönder'),
           ),
         ],

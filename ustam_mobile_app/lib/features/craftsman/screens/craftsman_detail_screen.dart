@@ -9,7 +9,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: AppColors.backgroundLight,
       body: CustomScrollView(
         slivers: [
           // Modern App Bar - Figma Design
@@ -17,7 +17,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             expandedHeight: 300,
             floating: false,
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.cardBackground,
             elevation: 0,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
@@ -26,8 +26,8 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xFF3B82F6),
-                      Color(0xFF1E40AF),
+                      AppColors.uclaBlue,
+                      AppColors.delftBlue,
                     ],
                   ),
                   borderRadius: BorderRadius.only(
@@ -47,7 +47,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           height: 120,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(60),
-                            border: Border.all(color: Colors.white, width: 4),
+                            border: Border.all(color: AppColors.cardBackground, width: 4),
                             image: DecorationImage(
                               image: NetworkImage(
                                 craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
@@ -62,7 +62,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: AppColors.cardBackground,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -70,7 +70,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           craftsman['business_name'] ?? '',
                           style: const TextStyle(
                             fontSize: 16,
-                            color: Colors.white70,
+                            color: AppColors.cardBackground70,
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -81,18 +81,18 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
+                                  color: AppColors.cardBackground.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(Icons.verified, color: Colors.white, size: 16),
+                                    Icon(Icons.verified, color: AppColors.cardBackground, size: 16),
                                     SizedBox(width: 4),
                                     Text(
                                       'Doğrulanmış',
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: AppColors.cardBackground,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -110,7 +110,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.favorite_border, color: Colors.white),
+                icon: const Icon(Icons.favorite_border, color: AppColors.cardBackground),
                 onPressed: () {},
               ),
             ],
@@ -140,7 +140,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           title: 'Tamamlanan İş',
                           value: '${craftsman['total_reviews'] ?? 0}',
                           icon: Icons.check_circle,
-                          color: const Color(0xFF10B981),
+                          color: AppColors.success,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -149,7 +149,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           title: 'Saatlik Ücret',
                           value: '${craftsman['hourly_rate'] ?? 0}₺',
                           icon: Icons.attach_money,
-                          color: const Color(0xFF3B82F6),
+                          color: AppColors.uclaBlue,
                         ),
                       ),
                     ],
@@ -163,7 +163,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -171,12 +171,12 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: AppColors.shadowLight,
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -186,7 +186,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                       craftsman['description'] ?? 'Bu usta hakkında bilgi bulunmuyor.',
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF64748B),
+                        color: AppColors.textLight,
                         height: 1.5,
                       ),
                     ),
@@ -200,7 +200,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -208,12 +208,12 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: AppColors.shadowLight,
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -226,9 +226,9 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFEFF6FF),
+                            color: AppColors.mintGreen,
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: const Color(0xFFDBEAFE)),
+                            border: Border.all(color: AppColors.mintGreen),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -236,14 +236,14 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               const Icon(
                                 Icons.psychology,
                                 size: 16,
-                                color: Color(0xFF1E40AF),
+                                color: AppColors.delftBlue,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 skill.toString(),
                                 style: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xFF1E40AF),
+                                  color: AppColors.delftBlue,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -262,7 +262,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -270,12 +270,12 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: AppColors.shadowLight,
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -287,7 +287,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           children: [
                             const Icon(
                               Icons.location_on,
-                              color: Color(0xFF3B82F6),
+                              color: AppColors.uclaBlue,
                               size: 20,
                             ),
                             const SizedBox(width: 8),
@@ -296,7 +296,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1E293B),
+                                color: AppColors.textPrimary,
                               ),
                             ),
                           ],
@@ -336,7 +336,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -350,9 +350,9 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           width: 150,
                           margin: const EdgeInsets.only(right: 12),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColors.cardBackground,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0xFFE2E8F0)),
+                            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
                             image: DecorationImage(
                               image: NetworkImage(
                                 'https://picsum.photos/400/400?random=7',
@@ -380,7 +380,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF3B82F6),
+                              backgroundColor: AppColors.uclaBlue,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
@@ -406,11 +406,11 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             // Navigate to messages
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: const Color(0xFF3B82F6),
+                            backgroundColor: AppColors.cardBackground,
+                            foregroundColor: AppColors.uclaBlue,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
-                              side: const BorderSide(color: Color(0xFF3B82F6)),
+                              side: const BorderSide(color: AppColors.uclaBlue),
                             ),
                             elevation: 0,
                           ),
@@ -437,12 +437,12 @@ class CraftsmanDetailScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: AppColors.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -454,7 +454,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
               icon,
@@ -476,7 +476,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             title,
             style: const TextStyle(
               fontSize: 12,
-              color: Color(0xFF64748B),
+              color: AppColors.textLight,
             ),
             textAlign: TextAlign.center,
           ),
