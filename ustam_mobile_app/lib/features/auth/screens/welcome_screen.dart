@@ -82,10 +82,21 @@ class WelcomeScreen extends ConsumerWidget {
                                 ),
                               ],
                             ),
-                            child: const Icon(
-                              Icons.engineering_rounded,
-                              size: 35,
-                              color: AppColors.textWhite,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: Image.asset(
+                                'assets/images/app_logo.png',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(
+                                    Icons.engineering_rounded,
+                                    size: 35,
+                                    color: AppColors.textWhite,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                           
