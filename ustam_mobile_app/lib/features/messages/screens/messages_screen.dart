@@ -223,8 +223,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: AppColors.getGradient([
-            AppColors.primaryPurple,
-            AppColors.primaryPurple.withOpacity(0.9),
+            AppColors.nonPhotoBlue,
+            AppColors.nonPhotoBlue.withOpacity(0.9),
           ]),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),

@@ -177,7 +177,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         labelStyle: TextStyle(color: AppColors.textSecondary),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.all(20),
-                        prefixIcon: Icon(Icons.email_rounded, color: AppColors.primaryBlue),
+                        prefixIcon: Icon(Icons.email_rounded, color: AppColors.uclaBlue),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -210,7 +210,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         labelStyle: const TextStyle(color: AppColors.textSecondary),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.all(20),
-                        prefixIcon: const Icon(Icons.lock_rounded, color: AppColors.primaryBlue),
+                        prefixIcon: const Icon(Icons.lock_rounded, color: AppColors.uclaBlue),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,

@@ -27,7 +27,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: AppColors.getGradient(AppColors.warningGradient),
+                  gradient: AppColors.getGradient(AppColors.accentGradient),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [AppColors.getElevatedShadow()],
                 ),
@@ -257,7 +257,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(AppColors.warningGradient),
+          gradient: AppColors.getGradient(AppColors.accentGradient),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

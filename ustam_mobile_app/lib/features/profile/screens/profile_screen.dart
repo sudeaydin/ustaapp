@@ -567,8 +567,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: AppColors.getGradient([
-            _profileData?['user_type'] == 'craftsman' ? AppColors.accentYellow : AppColors.primaryPurple,
-            (_profileData?['user_type'] == 'craftsman' ? AppColors.accentYellow : AppColors.primaryPurple).withOpacity(0.9),
+            _profileData?['user_type'] == 'craftsman' ? AppColors.poppy : AppColors.nonPhotoBlue,
+            (_profileData?['user_type'] == 'craftsman' ? AppColors.poppy : AppColors.nonPhotoBlue).withOpacity(0.9),
           ]),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),

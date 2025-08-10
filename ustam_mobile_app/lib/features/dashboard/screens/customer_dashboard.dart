@@ -177,7 +177,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Usta Ara',
                       subtitle: 'Hizmet al',
                       icon: Icons.search_rounded,
-                      color: AppColors.primaryBlue,
+                      color: AppColors.uclaBlue,
                       onTap: () {
                         Navigator.pushNamed(context, '/search');
                       },
@@ -191,7 +191,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Mesajlar',
                       subtitle: '${3} yeni',
                       icon: Icons.chat_bubble_rounded,
-                      color: AppColors.primaryPurple,
+                      color: AppColors.nonPhotoBlue,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -216,7 +216,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Bildirimler',
                       subtitle: '${5} yeni',
                       icon: Icons.notifications_active_rounded,
-                      color: AppColors.accentYellow,
+                      color: AppColors.poppy,
                       onTap: () {
                         Navigator.pushNamed(context, '/notifications');
                       },
@@ -230,7 +230,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Profilim',
                       subtitle: 'Ayarlar',
                       icon: Icons.person_rounded,
-                      color: AppColors.primaryPurple,
+                      color: AppColors.nonPhotoBlue,
                       onTap: () {
                         Navigator.pushNamed(context, '/profile');
                       },
@@ -268,7 +268,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               craftsman: 'Mehmet Özkan',
               price: '₺300',
               status: 'Kabul Edildi',
-              statusColor: AppColors.primaryPurple,
+              statusColor: AppColors.nonPhotoBlue,
             ),
             
             const SizedBox(height: 20),
@@ -288,7 +288,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               title: 'Temizlik Hizmeti',
               subtitle: 'Ahmet Yılmaz - 400₺',
               status: 'Tamamlandı',
-              statusColor: AppColors.primaryPurple,
+              statusColor: AppColors.nonPhotoBlue,
               icon: Icons.cleaning_services,
             ),
             
