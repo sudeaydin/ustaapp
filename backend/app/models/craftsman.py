@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 from decimal import Decimal
 from sqlalchemy import Numeric
+import json
 
 class Craftsman(db.Model):
     """Craftsman profile extending User"""
@@ -71,7 +72,7 @@ class Craftsman(db.Model):
             'is_available': self.is_available,
             'is_verified': self.is_verified,
             'avatar': self.avatar,
-            'portfolio_images': self.portfolio_images,
+            'portfolio_images': json.loads(self.portfolio_images) if self.portfolio_images else [],
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }

@@ -541,27 +541,41 @@ def get_profile():
     """Get user profile with craftsman/customer data"""
     try:
         current_user_id = get_jwt_identity()
+        print(f"🔍 Profile request for user ID: {current_user_id}")
+        
         user = User.query.get(current_user_id)
         
         if not user:
+            print(f"❌ User not found with ID: {current_user_id}")
             return jsonify({'error': True, 'message': 'Kullanıcı bulunamadı', 'code': 'USER_NOT_FOUND'}), 404
         
+        print(f"✅ User found: {user.email}, type: {user.user_type}")
         profile_data = user.to_dict()
         
         # Add specific profile data based on user type
         if user.user_type == 'craftsman':
             craftsman = Craftsman.query.filter_by(user_id=user.id).first()
             if craftsman:
+                print(f"✅ Craftsman profile found for {user.email}")
                 profile_data['craftsman_profile'] = craftsman.to_dict(include_user=False)
+            else:
+                print(f"❌ No craftsman profile found for {user.email}")
         elif user.user_type == 'customer':
             customer = Customer.query.filter_by(user_id=user.id).first()
             if customer:
+                print(f"✅ Customer profile found for {user.email}")
                 profile_data['customer_profile'] = customer.to_dict(include_user=False)
+            else:
+                print(f"❌ No customer profile found for {user.email}")
         
+        print(f"✅ Returning profile data for {user.email}")
         return jsonify({
             'success': True,
             'data': profile_data
         })
         
     except Exception as e:
+        print(f"❌ Profile API Error: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': True, 'message': 'Profil bilgileri alınamadı', 'code': 'PROFILE_ERROR'}), 500
