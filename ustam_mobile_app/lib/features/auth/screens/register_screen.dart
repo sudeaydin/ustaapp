@@ -217,7 +217,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _firstNameController,
                     label: 'first_name'.tr(locale),
-                    prefixIcon: Icons.person_outline,
+                    prefixIcon: const Icon(Icons.person_outline),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'first_name'.tr(locale) + ' gerekli';
@@ -232,7 +232,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _lastNameController,
                     label: 'last_name'.tr(locale),
-                    prefixIcon: Icons.person_outline,
+                    prefixIcon: const Icon(Icons.person_outline),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'last_name'.tr(locale) + ' gerekli';
@@ -247,7 +247,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _emailController,
                     label: 'email'.tr(locale),
-                    prefixIcon: Icons.email_outlined,
+                    prefixIcon: const Icon(Icons.email_outlined),
                     type: TextFieldType.email,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -266,7 +266,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _phoneController,
                     label: 'phone'.tr(locale),
-                    prefixIcon: Icons.phone_outlined,
+                    prefixIcon: const Icon(Icons.phone_outlined),
                     type: TextFieldType.phone,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -282,7 +282,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _passwordController,
                     label: 'password'.tr(locale),
-                    prefixIcon: Icons.lock_outline,
+                    prefixIcon: const Icon(Icons.lock_outline),
                     type: TextFieldType.password,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -301,7 +301,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   CustomTextField(
                     controller: _confirmPasswordController,
                     label: 'confirm_password'.tr(locale),
-                    prefixIcon: Icons.lock_outline,
+                    prefixIcon: const Icon(Icons.lock_outline),
                     type: TextFieldType.password,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
