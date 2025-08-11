@@ -6,4 +6,6 @@ export 'custom_card.dart';
 export 'custom_text_field.dart';
 export 'custom_app_bar.dart';
 export 'loading_widget.dart';
+export 'cached_image_widget.dart';
 export '../utils/error_handler.dart';
+export '../utils/image_utils.dart';

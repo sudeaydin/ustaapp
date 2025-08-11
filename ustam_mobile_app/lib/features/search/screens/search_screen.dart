@@ -484,18 +484,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                         Row(
                                           children: [
                                             // Avatar - Figma Style
-                                            Container(
-                                              width: 70,
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(35),
-                                                image: DecorationImage(
-                                                  image: NetworkImage(
-                                                    craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                            CachedAvatarWidget(
+                                              imageUrl: craftsman['avatar'],
+                                              name: craftsman['name'],
+                                              size: 70,
                                             ),
                                             const SizedBox(width: 16),
                                             Expanded(
