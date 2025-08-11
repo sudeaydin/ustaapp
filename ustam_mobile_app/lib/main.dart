@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'core/providers/app_providers.dart';
 import 'core/providers/theme_provider.dart';
@@ -75,6 +76,11 @@ class MyApp extends ConsumerWidget {
       supportedLocales: const [
         Locale('tr', 'TR'),
         Locale('en', 'US'),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       initialRoute: '/',
       routes: {
