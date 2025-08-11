@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { AnalyticsManager } from './utils/analytics';
 import { AccessibilityManager, SkipLink } from './utils/accessibility';
 
@@ -93,9 +94,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Router>
-          <AuthProvider>
-            <NotificationProvider>
+        <LanguageProvider>
+          <Router>
+            <AuthProvider>
+              <NotificationProvider>
             <ErrorBoundary>
               <AnalyticsTracker />
               <AccessibilityInitializer />
@@ -159,9 +161,10 @@ function App() {
                 <MobileNavigation />
               </div>
             </ErrorBoundary>
-            </NotificationProvider>
-          </AuthProvider>
-        </Router>
+              </NotificationProvider>
+            </AuthProvider>
+          </Router>
+        </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

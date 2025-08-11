@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import DarkModeToggle from './ui/DarkModeToggle';
+import LanguageSelector from './ui/LanguageSelector';
 
 const WebHeader = () => {
   const { user, logout } = useAuth();
+  const { isDarkMode } = useTheme();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -14,14 +20,14 @@ const WebHeader = () => {
   };
 
   const navigation = [
-    { name: 'Ana Sayfa', href: '/', current: false },
-    { name: 'Usta Bul', href: '/craftsmen', current: false },
-    { name: 'Kategoriler', href: '/categories', current: false },
-    { name: 'Hakkımızda', href: '/about', current: false },
+    { name: t('nav.home'), href: '/', current: false },
+    { name: t('nav.findCraftsman'), href: '/craftsmen', current: false },
+    { name: t('nav.categories'), href: '/categories', current: false },
+    { name: t('nav.about'), href: '/about', current: false },
   ];
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center px-4 py-4 sm:px-6 lg:px-8">
           {/* Logo */}
@@ -30,7 +36,7 @@ const WebHeader = () => {
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">🔨</span>
               </div>
-              <span className="text-2xl font-bold text-gray-900">ustam</span>
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">ustam</span>
             </Link>
           </div>
 
@@ -40,7 +46,7 @@ const WebHeader = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors"
               >
                 {item.name}
               </Link>
@@ -49,6 +55,12 @@ const WebHeader = () => {
 
           {/* Desktop User Menu */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Language Selector */}
+            <LanguageSelector />
+            
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle />
+            
             {user ? (
               <div className="relative">
                 <button
@@ -67,34 +79,34 @@ const WebHeader = () => {
                 </button>
 
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border">
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 border border-gray-200 dark:border-gray-700">
                     <Link
                       to={user.user_type === 'customer' ? '/dashboard/customer' : '/dashboard/craftsman'}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Dashboard
+                      {t('nav.dashboard')}
                     </Link>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Profil
+                      {t('nav.profile')}
                     </Link>
                     <Link
                       to="/messages"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Mesajlar
+                      {t('nav.messages')}
                     </Link>
                     <hr className="my-1" />
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
-                      Çıkış Yap
+                      {t('nav.logout')}
                     </button>
                   </div>
                 )}
