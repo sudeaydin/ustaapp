@@ -448,13 +448,13 @@ extension ApiServiceExtensions on ApiService {
   // Legal compliance methods
   Future<ApiResponse<Map<String, dynamic>>> getLegalDocument(String documentType) {
     return get<Map<String, dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/documents/$documentType',
+      '${AppConfig.apiUrl}/legal/documents/$documentType',
     );
   }
 
   Future<ApiResponse<Map<String, dynamic>>> recordConsent(String consentType, bool granted, String version) {
     return postWithOptions<Map<String, dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/consent',
+      '${AppConfig.apiUrl}/legal/consent',
       body: {
         'consent_type': consentType,
         'granted': granted,
@@ -466,28 +466,28 @@ extension ApiServiceExtensions on ApiService {
 
   Future<ApiResponse<List<dynamic>>> getUserConsents() {
     return get<List<dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/consents',
+      '${AppConfig.apiUrl}/legal/consents',
       requiresAuth: true,
     );
   }
 
   Future<ApiResponse<Map<String, dynamic>>> requestDataExport() {
     return postWithOptions<Map<String, dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/data-export',
+      '${AppConfig.apiUrl}/legal/data-export',
       requiresAuth: true,
     );
   }
 
   Future<ApiResponse<Map<String, dynamic>>> requestAccountDeletion() {
     return postWithOptions<Map<String, dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/delete-account',
+      '${AppConfig.apiUrl}/legal/delete-account',
       requiresAuth: true,
     );
   }
 
   Future<ApiResponse<Map<String, dynamic>>> validateAge(DateTime birthDate) {
     return post<Map<String, dynamic>>(
-      '${AppConfig.apiBaseUrl}/legal/validate-age',
+      '${AppConfig.apiUrl}/legal/validate-age',
       {
         'birth_date': birthDate.toIso8601String(),
       },

@@ -68,9 +68,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> with AccessibilityM
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         print('Cities response: $data');
-        if (data['success'] && data['data'] != null && data['data']['cities'] != null) {
+        if (data['success'] && data['data'] != null) {
           setState(() {
-            _cities = List<String>.from(data['data']['cities']);
+            _cities = List<String>.from(data['data']);
           });
         }
       }
