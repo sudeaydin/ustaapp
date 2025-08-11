@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { PageSEO } from '../utils/seo';
 
 export const CraftsmanBusinessProfilePage = () => {
   const navigate = useNavigate();
@@ -80,6 +81,10 @@ export const CraftsmanBusinessProfilePage = () => {
   }
 
   return (
+    <PageSEO 
+      pageType="craftsman" 
+      data={craftsman}
+    >
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm">
@@ -403,5 +408,6 @@ export const CraftsmanBusinessProfilePage = () => {
       {/* Bottom padding for fixed button */}
       <div className="h-20"></div>
     </div>
+    </PageSEO>
   );
 };

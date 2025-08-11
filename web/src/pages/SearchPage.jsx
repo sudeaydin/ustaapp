@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAnalytics } from '../utils/analytics';
+import { PageSEO } from '../utils/seo';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

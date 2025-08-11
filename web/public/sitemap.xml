@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://ustamapp.com/</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ustamapp.com/icons/icon-512x512.png</image:loc>
+      <image:title>UstamApp Logo</image:title>
+      <image:caption>Türkiye'nin en güvenilir usta bulucu platformu</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Landing Page -->
+  <url>
+    <loc>https://ustamapp.com/landing</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Search & Browse Pages -->
+  <url>
+    <loc>https://ustamapp.com/search</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/craftsmen</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Category Pages -->
+  <url>
+    <loc>https://ustamapp.com/search?category=Elektrik</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Tesisat</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Boyama</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Temizlik</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Klima</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Tamirat</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Location Pages -->
+  <url>
+    <loc>https://ustamapp.com/search?city=Istanbul</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?city=Ankara</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?city=Izmir</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?city=Bursa</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?city=Antalya</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Combined Category + Location Pages (High Value) -->
+  <url>
+    <loc>https://ustamapp.com/search?category=Elektrik&amp;city=Istanbul</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Tesisat&amp;city=Istanbul</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Elektrik&amp;city=Ankara</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/search?category=Tesisat&amp;city=Ankara</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sample Craftsman Profile Pages -->
+  <url>
+    <loc>https://ustamapp.com/craftsman/1</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/craftsman/2</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/craftsman/3</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Business Profile Pages -->
+  <url>
+    <loc>https://ustamapp.com/craftsman/1/business-profile</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/craftsman/2/business-profile</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Static Pages -->
+  <url>
+    <loc>https://ustamapp.com/about</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/contact</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/privacy</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/terms</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ustamapp.com/help</loc>
+    <lastmod>2024-01-15T10:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,58 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+Allow: /search
+Allow: /craftsmen
+Allow: /craftsman/*
+Allow: /categories
+Allow: /locations
+
+# Disallow sensitive areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /messages/
+Disallow: /payment/
+Disallow: /auth/
+Disallow: /login
+Disallow: /register
+Disallow: /testing
+Disallow: /analytics
+
+# Allow important static files
+Allow: /icons/
+Allow: /images/
+Allow: /uploads/
+Allow: /manifest.json
+Allow: /sw.js
+
+# Sitemap location
+Sitemap: https://ustamapp.com/sitemap.xml
+
+# Crawl delay (be respectful)
+Crawl-delay: 1
+
+# Special rules for different bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Block unwanted bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
