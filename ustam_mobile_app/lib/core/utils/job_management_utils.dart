@@ -164,6 +164,65 @@ class Job {
     this.progressUpdates,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'customer_id': customerId,
+      'craftsman_id': craftsmanId,
+      'quote_id': quoteId,
+      'status': status?.name,
+      'priority': priority?.name,
+      'category': category,
+      'subcategory': subcategory,
+      'address': address,
+      'city': city,
+      'district': district,
+      'latitude': latitude,
+      'longitude': longitude,
+      'estimated_cost': estimatedCost,
+      'final_cost': finalCost,
+      'materials_cost': materialsCost,
+      'labor_cost': laborCost,
+      'additional_costs': additionalCosts,
+      'estimated_duration': estimatedDuration,
+      'actual_duration': actualDuration,
+      'scheduled_start': scheduledStart?.toIso8601String(),
+      'actual_start': actualStart?.toIso8601String(),
+      'scheduled_end': scheduledEnd?.toIso8601String(),
+      'actual_end': actualEnd?.toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'accepted_at': acceptedAt?.toIso8601String(),
+      'started_at': startedAt?.toIso8601String(),
+      'completed_at': completedAt?.toIso8601String(),
+      'is_emergency': isEmergency,
+      'emergency_level': emergencyLevel,
+      'emergency_contact': emergencyContact,
+      'emergency_notes': emergencyNotes,
+      'completion_percentage': completionPercentage,
+      'quality_score': qualityScore,
+      'customer_satisfaction': customerSatisfaction,
+      'special_requirements': specialRequirements,
+      'images': images,
+      'documents': documents,
+      'notes': notes,
+      'cancellation_reason': cancellationReason,
+      'warranty_period_months': warrantyPeriodMonths,
+      'warranty_start_date': warrantyStartDate?.toIso8601String(),
+      'warranty_end_date': warrantyEndDate?.toIso8601String(),
+      'warranty_terms': warrantyTerms,
+      'warranty_status': warrantyStatus?.name,
+      'is_overdue': isOverdue,
+      'customer': customer,
+      'craftsman': craftsman,
+      'materials': materials?.map((m) => m.toMap()).toList(),
+      'time_entries': timeEntries?.map((t) => t.toMap()).toList(),
+      'progress_updates': progressUpdates?.map((p) => p.toMap()).toList(),
+    };
+  }
+
   factory Job.fromJson(Map<String, dynamic> json) {
     return Job(
       id: json['id'],
@@ -278,6 +337,34 @@ class JobMaterial {
     required this.updatedAt,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'job_id': jobId,
+      'name': name,
+      'description': description,
+      'category': category,
+      'brand': brand,
+      'model': model,
+      'quantity': quantity,
+      'unit': unit,
+      'unit_cost': unitCost,
+      'total_cost': totalCost,
+      'supplier': supplier,
+      'supplier_contact': supplierContact,
+      'status': status?.name,
+      'ordered_at': orderedAt?.toIso8601String(),
+      'expected_delivery': expectedDelivery?.toIso8601String(),
+      'delivered_at': deliveredAt?.toIso8601String(),
+      'used_at': usedAt?.toIso8601String(),
+      'notes': notes,
+      'receipt_url': receiptUrl,
+      'warranty_info': warrantyInfo,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
+
   factory JobMaterial.fromJson(Map<String, dynamic> json) {
     return JobMaterial(
       id: json['id'],
@@ -349,6 +436,29 @@ class TimeEntry {
     this.craftsman,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'job_id': jobId,
+      'craftsman_id': craftsmanId,
+      'start_time': startTime.toIso8601String(),
+      'end_time': endTime?.toIso8601String(),
+      'duration_minutes': durationMinutes,
+      'entry_type': entryType?.name,
+      'description': description,
+      'location': location,
+      'hourly_rate': hourlyRate,
+      'billable_duration': billableDuration,
+      'total_cost': totalCost,
+      'is_billable': isBillable,
+      'notes': notes,
+      'images': images,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'craftsman': craftsman,
+    };
+  }
+
   factory TimeEntry.fromJson(Map<String, dynamic> json) {
     return TimeEntry(
       id: json['id'],
@@ -410,6 +520,22 @@ class JobProgressUpdate {
     required this.createdAt,
     this.craftsman,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'job_id': jobId,
+      'craftsman_id': craftsmanId,
+      'title': title,
+      'description': description,
+      'completion_percentage': completionPercentage,
+      'images': images,
+      'videos': videos,
+      'is_visible_to_customer': isVisibleToCustomer,
+      'created_at': createdAt.toIso8601String(),
+      'craftsman': craftsman,
+    };
+  }
 
   factory JobProgressUpdate.fromJson(Map<String, dynamic> json) {
     return JobProgressUpdate(
