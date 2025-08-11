@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
+import '../../../core/utils/legal_utils.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -526,6 +527,35 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     Icons.lock,
                     () {
                       // Navigate to change password
+                    },
+                  ),
+                  _buildActionButton(
+                    'Yasal Belgeler',
+                    Icons.gavel,
+                    () {
+                      Navigator.pushNamed(context, '/legal');
+                    },
+                  ),
+                  _buildActionButton(
+                    'Onay Tercihleri',
+                    Icons.settings,
+                    () async {
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => const ConsentPreferencesSheet(),
+                      );
+                    },
+                  ),
+                  _buildActionButton(
+                    'KVKK Hakları',
+                    Icons.privacy_tip,
+                    () async {
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => const GDPRRightsSheet(),
+                      );
                     },
                   ),
                   _buildActionButton(

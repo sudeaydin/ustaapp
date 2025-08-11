@@ -421,6 +421,55 @@ extension ApiServiceExtensions on ApiService {
     );
   }
 
+  // Legal compliance methods
+  Future<ApiResponse<Map<String, dynamic>>> getLegalDocument(String documentType) {
+    return get<Map<String, dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/documents/$documentType',
+    );
+  }
+
+  Future<ApiResponse<Map<String, dynamic>>> recordConsent(String consentType, bool granted, String version) {
+    return post<Map<String, dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/consent',
+      body: {
+        'consent_type': consentType,
+        'granted': granted,
+        'version': version,
+      },
+      requiresAuth: true,
+    );
+  }
+
+  Future<ApiResponse<List<dynamic>>> getUserConsents() {
+    return get<List<dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/consents',
+      requiresAuth: true,
+    );
+  }
+
+  Future<ApiResponse<Map<String, dynamic>>> requestDataExport() {
+    return post<Map<String, dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/data-export',
+      requiresAuth: true,
+    );
+  }
+
+  Future<ApiResponse<Map<String, dynamic>>> requestAccountDeletion() {
+    return post<Map<String, dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/delete-account',
+      requiresAuth: true,
+    );
+  }
+
+  Future<ApiResponse<Map<String, dynamic>>> validateAge(DateTime birthDate) {
+    return post<Map<String, dynamic>>(
+      '${AppConfig.apiBaseUrl}/legal/validate-age',
+      body: {
+        'birth_date': birthDate.toIso8601String(),
+      },
+    );
+  }
+
   // Track API call performance
   void _trackApiCall(String url, String method, int statusCode, int duration) {
     try {

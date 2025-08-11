@@ -23,6 +23,7 @@ import 'features/notifications/screens/notifications_screen.dart';
 import 'features/quotes/screens/craftsman_quotes_screen.dart';
 import 'features/analytics/screens/analytics_screen.dart';
 import 'features/accessibility/screens/accessibility_test_screen.dart';
+import 'features/legal/screens/legal_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
         '/craftsman-quotes': (context) => const CraftsmanQuotesScreen(),
         '/analytics': (context) => const AnalyticsScreen(),
         '/accessibility-test': (context) => const AccessibilityTestScreen(),
+        '/legal': (context) => const LegalScreen(),
       },
       // Track navigation events
       navigatorObservers: [

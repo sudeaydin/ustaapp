@@ -39,6 +39,12 @@ export const MobileNavigation = () => {
       label: 'Profil',
       path: '/profile',
       activeIcon: '👤'
+    },
+    {
+      icon: '⚖️',
+      label: 'Yasal',
+      path: '/legal',
+      activeIcon: '⚖️'
     }
   ];
 
@@ -72,6 +78,12 @@ export const MobileNavigation = () => {
       label: 'Profil',
       path: '/profile',
       activeIcon: '👤'
+    },
+    {
+      icon: '⚖️',
+      label: 'Yasal',
+      path: '/legal',
+      activeIcon: '⚖️'
     }
   ];
 

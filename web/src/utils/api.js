@@ -285,6 +285,35 @@ export const api = {
   getCostEstimate: (jobData) =>
     apiClient.post('/api/analytics/cost-estimate', jobData, { requiresAuth: true }),
 
+  // Legal compliance methods
+  getLegalDocument: (documentType) =>
+    apiClient.get(`/api/legal/documents/${documentType}`),
+
+  recordConsent: (consentType, granted, version = '1.0') =>
+    apiClient.post('/api/legal/consent', {
+      consent_type: consentType,
+      granted,
+      version
+    }, { requiresAuth: true }),
+
+  getUserConsents: () =>
+    apiClient.get('/api/legal/consents', { requiresAuth: true }),
+
+  requestDataExport: () =>
+    apiClient.post('/api/legal/data-export', {}, { requiresAuth: true }),
+
+  requestAccountDeletion: () =>
+    apiClient.post('/api/legal/delete-account', {}, { requiresAuth: true }),
+
+  validateAge: (birthDate) =>
+    apiClient.post('/api/legal/validate-age', { birth_date: birthDate }),
+
+  getCommunicationRules: () =>
+    apiClient.get('/api/legal/communication-rules'),
+
+  getDocumentVersions: () =>
+    apiClient.get('/api/legal/document-versions'),
+
   // Track API call performance
   _trackApiCall(endpoint, method, statusCode, duration) {
     try {

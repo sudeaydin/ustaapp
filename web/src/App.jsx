@@ -43,10 +43,13 @@ import AuthChoicePage from './pages/AuthChoicePage';
 import QuoteRequestFormPage from './pages/QuoteRequestFormPage';
 import QuotePaymentPage from './pages/QuotePaymentPage';
 import { CraftsmanBusinessProfilePage } from './pages/CraftsmanBusinessProfilePage';
+import LegalPage from './pages/LegalPage';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
 import ErrorBoundary from './components/ErrorBoundary';
+import CookieConsentBanner from './components/common/CookieConsentBanner';
+import UserAgreementChecker from './components/legal/UserAgreementChecker';
 
 // Create QueryClient
 const queryClient = new QueryClient({
@@ -89,71 +92,67 @@ function App() {
       <Router>
         <AuthProvider>
           <NotificationProvider>
-                    <ErrorBoundary>
-          <AnalyticsTracker />
-          <AccessibilityInitializer />
-          <SkipLink href="#main-content" />
-          <div className="App">
-            <main id="main-content" role="main">
-            <Routes>
-              {/* 🌐 Public Routes - Anyone can access */}
-              <Route path="/" element={<PublicRoute><OnboardingPage /></PublicRoute>} />
-              <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
-              <Route path="/auth-choice" element={<PublicRoute><AuthChoicePage /></PublicRoute>} />
-              <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-              <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-              <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/craftsman/:id" element={<PublicRoute><CraftsmanProfilePage /></PublicRoute>} />
-              
-              {/* 🔒 Protected Routes - Login required */}
-              <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-              <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
-              <Route path="/messages/:partnerId" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
-              <Route path="/job/:jobId" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
-              <Route path="/job/:jobId/progress" element={<ProtectedRoute><JobProgressPage /></ProtectedRoute>} />
-              <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
-              <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
-              <Route path="/testing" element={<ProtectedRoute><TestingPage /></ProtectedRoute>} />
-              <Route path="/accessibility-test" element={<ProtectedRoute><AccessibilityTestPage /></ProtectedRoute>} />
-              <Route path="/payment-history" element={<ProtectedRoute><PaymentHistory /></ProtectedRoute>} />
-              
-              {/* 👤 Customer Only Routes */}
-              <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
-              <Route path="/customer/jobs" element={<CustomerRoute><CustomerJobHistoryPage /></CustomerRoute>} />
-              <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
-              <Route path="/quote-request/:craftsmanId" element={<CustomerRoute><QuoteRequestFormPage /></CustomerRoute>} />
-              <Route path="/payment/quote/:quoteId" element={<CustomerRoute><QuotePaymentPage /></CustomerRoute>} />
-              <Route path="/craftsman/:id/business-profile" element={<ProtectedRoute><CraftsmanBusinessProfilePage /></ProtectedRoute>} />
-              <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
-              <Route path="/payment/:jobId" element={<CustomerRoute><PaymentPage /></CustomerRoute>} />
-              
-              {/* 🔨 Craftsman Only Routes */}
-              <Route path="/dashboard/craftsman" element={<CraftsmanRoute><CraftsmanDashboard /></CraftsmanRoute>} />
-              <Route path="/craftsman/jobs" element={<CraftsmanRoute><CraftsmanJobHistoryPage /></CraftsmanRoute>} />
-              <Route path="/job/:jobId/proposal" element={<CraftsmanRoute><ProposalFormPage /></CraftsmanRoute>} />
-              
-              {/* 📋 Legacy/Dev Routes */}
-              <Route path="/start" element={<PublicRoute><StartPage /></PublicRoute>} />
-              <Route path="/home" element={<PublicRoute><HomePage /></PublicRoute>} />
-              <Route path="/jobs" element={<ProtectedRoute><JobListPage /></ProtectedRoute>} />
-              <Route path="/test-upload" element={<ProtectedRoute><TestUploadPage /></ProtectedRoute>} />
-              <Route path="/profile/edit" element={<ProtectedRoute><ProfileEditPage /></ProtectedRoute>} />
-              <Route path="/chat/:partnerId" element={<ProtectedRoute><RealTimeChatPage /></ProtectedRoute>} />
-              <Route path="/register/craftsman" element={<PublicRoute><CraftsmanRegisterPage /></PublicRoute>} />
-              <Route path="/register/customer" element={<PublicRoute><CustomerRegisterPage /></PublicRoute>} />
-              <Route path="/craftsmen" element={<PublicRoute><CraftsmenSearchPage /></PublicRoute>} />
-              <Route path="/messages" element={<MessagesPage />} />
-              <Route path="/messages/:conversationId" element={<MessagesPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/profile/:userId" element={<ProfilePage />} />
-                          </Routes>
-            </main>
-            <MobileNavigation />
-          </div>
-        </ErrorBoundary>
+            <ErrorBoundary>
+              <AnalyticsTracker />
+              <AccessibilityInitializer />
+              <SkipLink href="#main-content" />
+              <CookieConsentBanner />
+              <UserAgreementChecker />
+              <div className="App">
+                <main id="main-content" role="main">
+                  <Routes>
+                    {/* 🌐 Public Routes - Anyone can access */}
+                    <Route path="/" element={<PublicRoute><OnboardingPage /></PublicRoute>} />
+                    <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
+                    <Route path="/auth-choice" element={<PublicRoute><AuthChoicePage /></PublicRoute>} />
+                    <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+                    <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+                    <Route path="/register/craftsman" element={<PublicRoute><CraftsmanRegisterPage /></PublicRoute>} />
+                    <Route path="/register/customer" element={<PublicRoute><CustomerRegisterPage /></PublicRoute>} />
+                    <Route path="/craftsmen" element={<PublicRoute><CraftsmanListPage /></PublicRoute>} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/craftsman/:id" element={<PublicRoute><CraftsmanProfilePage /></PublicRoute>} />
+                    <Route path="/legal" element={<PublicRoute><LegalPage /></PublicRoute>} />
+                    
+                    {/* 🔒 Protected Routes - Login required */}
+                    <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                    <Route path="/profile/edit" element={<ProtectedRoute><ProfileEditPage /></ProtectedRoute>} />
+                    <Route path="/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+                    <Route path="/messages/:partnerId" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
+                    <Route path="/chat/:partnerId" element={<ProtectedRoute><RealTimeChatPage /></ProtectedRoute>} />
+                    <Route path="/job/:jobId" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
+                    <Route path="/job/:jobId/progress" element={<ProtectedRoute><JobProgressPage /></ProtectedRoute>} />
+                    <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+                    <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+                    <Route path="/testing" element={<ProtectedRoute><TestingPage /></ProtectedRoute>} />
+                    <Route path="/accessibility-test" element={<ProtectedRoute><AccessibilityTestPage /></ProtectedRoute>} />
+                    <Route path="/payment-history" element={<ProtectedRoute><PaymentHistory /></ProtectedRoute>} />
+                    <Route path="/jobs" element={<ProtectedRoute><JobListPage /></ProtectedRoute>} />
+                    <Route path="/test-upload" element={<ProtectedRoute><TestUploadPage /></ProtectedRoute>} />
+                    
+                    {/* 👤 Customer Only Routes */}
+                    <Route path="/dashboard/customer" element={<CustomerRoute><CustomerDashboard /></CustomerRoute>} />
+                    <Route path="/customer/jobs" element={<CustomerRoute><CustomerJobHistoryPage /></CustomerRoute>} />
+                    <Route path="/job-request/new" element={<CustomerRoute><JobRequestFormPage /></CustomerRoute>} />
+                    <Route path="/quote-request/:craftsmanId" element={<CustomerRoute><QuoteRequestFormPage /></CustomerRoute>} />
+                    <Route path="/payment/quote/:quoteId" element={<CustomerRoute><QuotePaymentPage /></CustomerRoute>} />
+                    <Route path="/craftsman/:id/business-profile" element={<ProtectedRoute><CraftsmanBusinessProfilePage /></ProtectedRoute>} />
+                    <Route path="/review/:jobId" element={<CustomerRoute><ReviewFormPage /></CustomerRoute>} />
+                    <Route path="/payment/:jobId" element={<CustomerRoute><PaymentPage /></CustomerRoute>} />
+                    
+                    {/* 🔨 Craftsman Only Routes */}
+                    <Route path="/dashboard/craftsman" element={<CraftsmanRoute><CraftsmanDashboard /></CraftsmanRoute>} />
+                    <Route path="/craftsman/jobs" element={<CraftsmanRoute><CraftsmanJobHistoryPage /></CraftsmanRoute>} />
+                    <Route path="/job/:jobId/proposal" element={<CraftsmanRoute><ProposalFormPage /></CraftsmanRoute>} />
+                    
+                    {/* 📋 Legacy/Dev Routes */}
+                    <Route path="/start" element={<PublicRoute><StartPage /></PublicRoute>} />
+                    <Route path="/home" element={<PublicRoute><HomePage /></PublicRoute>} />
+                  </Routes>
+                </main>
+                <MobileNavigation />
+              </div>
+            </ErrorBoundary>
           </NotificationProvider>
         </AuthProvider>
       </Router>
