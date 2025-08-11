@@ -13,7 +13,6 @@ class Craftsman(db.Model):
         Index('idx_craftsman_city_available', 'city', 'is_available'),
         Index('idx_craftsman_rating', 'average_rating'),
         Index('idx_craftsman_verified_available', 'is_verified', 'is_available'),
-        Index('idx_craftsman_specialties', 'specialties'),
         Index('idx_craftsman_hourly_rate', 'hourly_rate'),
         Index('idx_craftsman_created_at', 'created_at'),
     )

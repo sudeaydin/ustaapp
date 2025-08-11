@@ -82,7 +82,7 @@ class EmergencyServiceSchema(Schema):
 # Job Management Routes
 
 @job_management_bp.route('/jobs', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_jobs():
     """Get jobs for user"""
@@ -141,7 +141,7 @@ def get_jobs():
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>', methods=['GET'])
-@rate_limit(requests_per_minute=120)
+@rate_limit(max_requests=120)
 @require_auth
 def get_job_detail(job_id):
     """Get detailed job information"""
@@ -181,7 +181,7 @@ def get_job_detail(job_id):
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def update_job(job_id):
     """Update job details"""
@@ -235,7 +235,7 @@ def update_job(job_id):
 # Material Management Routes
 
 @job_management_bp.route('/jobs/<int:job_id>/materials', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_job_materials(job_id):
     """Get materials for a job"""
@@ -272,7 +272,7 @@ def get_job_materials(job_id):
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/materials', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def add_job_material(job_id):
     """Add material to job"""
@@ -315,7 +315,7 @@ def add_job_material(job_id):
         }), 500
 
 @job_management_bp.route('/materials/<int:material_id>/status', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def update_material_status(material_id):
     """Update material status"""
@@ -375,7 +375,7 @@ def update_material_status(material_id):
 # Time Tracking Routes
 
 @job_management_bp.route('/jobs/<int:job_id>/time/start', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def start_time_tracking(job_id):
     """Start time tracking for a job"""
@@ -427,7 +427,7 @@ def start_time_tracking(job_id):
         }), 500
 
 @job_management_bp.route('/time-entries/<int:entry_id>/end', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def end_time_tracking(entry_id):
     """End time tracking entry"""
@@ -468,7 +468,7 @@ def end_time_tracking(entry_id):
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/time-summary', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_job_time_summary(job_id):
     """Get time summary for a job"""
@@ -501,7 +501,7 @@ def get_job_time_summary(job_id):
         }), 500
 
 @job_management_bp.route('/craftsman/time-summary', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_craftsman_time_summary():
     """Get time summary for craftsman"""
@@ -530,7 +530,7 @@ def get_craftsman_time_summary():
 # Progress Tracking Routes
 
 @job_management_bp.route('/jobs/<int:job_id>/progress', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def add_progress_update(job_id):
     """Add progress update to job"""
@@ -573,7 +573,7 @@ def add_progress_update(job_id):
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/progress', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_job_progress(job_id):
     """Get progress updates for a job"""
@@ -612,7 +612,7 @@ def get_job_progress(job_id):
 # Warranty Management Routes
 
 @job_management_bp.route('/warranties', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_warranties():
     """Get active warranties for user"""
@@ -634,7 +634,7 @@ def get_warranties():
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/warranty-claim', methods=['POST'])
-@rate_limit(requests_per_minute=10)
+@rate_limit(max_requests=10)
 @require_auth
 def create_warranty_claim(job_id):
     """Create warranty claim"""
@@ -682,7 +682,7 @@ def create_warranty_claim(job_id):
         }), 500
 
 @job_management_bp.route('/warranty-claims', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_warranty_claims():
     """Get warranty claims for user"""
@@ -704,7 +704,7 @@ def get_warranty_claims():
         }), 500
 
 @job_management_bp.route('/warranty-claims/<int:claim_id>/process', methods=['PUT'])
-@rate_limit(requests_per_minute=20)
+@rate_limit(max_requests=20)
 @require_auth
 def process_warranty_claim(claim_id):
     """Process warranty claim (craftsman response)"""
@@ -756,7 +756,7 @@ def process_warranty_claim(claim_id):
 # Emergency Service Routes
 
 @job_management_bp.route('/emergency-services', methods=['POST'])
-@rate_limit(requests_per_minute=5)  # Limited for emergency requests
+@rate_limit(max_requests=5)  # Limited for emergency requests
 @require_auth
 def create_emergency_request():
     """Create emergency service request"""
@@ -788,7 +788,7 @@ def create_emergency_request():
         }), 500
 
 @job_management_bp.route('/emergency-services/nearby', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def get_nearby_emergencies():
     """Get nearby emergency requests for craftsman"""
@@ -810,7 +810,7 @@ def get_nearby_emergencies():
         }), 500
 
 @job_management_bp.route('/emergency-services/<int:emergency_id>/assign', methods=['PUT'])
-@rate_limit(requests_per_minute=20)
+@rate_limit(max_requests=20)
 @require_auth
 def assign_emergency_service(emergency_id):
     """Assign emergency service to craftsman"""
@@ -839,7 +839,7 @@ def assign_emergency_service(emergency_id):
         }), 500
 
 @job_management_bp.route('/emergency-services/<int:emergency_id>/status', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def update_emergency_status(emergency_id):
     """Update emergency service status"""
@@ -891,7 +891,7 @@ def update_emergency_status(emergency_id):
 # Analytics and Reporting Routes
 
 @job_management_bp.route('/analytics/performance', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_performance_metrics():
     """Get job performance metrics"""
@@ -914,7 +914,7 @@ def get_performance_metrics():
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/cost-breakdown', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_cost_breakdown(job_id):
     """Get detailed cost breakdown for job"""
@@ -947,7 +947,7 @@ def get_cost_breakdown(job_id):
         }), 500
 
 @job_management_bp.route('/jobs/<int:job_id>/timeline', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_job_timeline(job_id):
     """Get job timeline with all events"""
@@ -982,7 +982,7 @@ def get_job_timeline(job_id):
 # Utility Routes
 
 @job_management_bp.route('/constants', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_job_constants():
     """Get job management constants"""
     try:
@@ -1008,7 +1008,7 @@ def get_job_constants():
         }), 500
 
 @job_management_bp.route('/emergency-services/statistics', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_emergency_statistics():
     """Get emergency service statistics"""

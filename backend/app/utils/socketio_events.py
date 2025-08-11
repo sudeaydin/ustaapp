@@ -9,6 +9,12 @@ import logging
 # Store active connections
 active_connections = {}
 
+def init_socketio_events(socketio_instance):
+    """Initialize SocketIO event handlers"""
+    # Events are already registered via decorators
+    # This function is for any additional initialization if needed
+    pass
+
 @socketio.on('connect')
 def handle_connect(auth):
     """Handle client connection"""

@@ -43,7 +43,7 @@ class MarketComparisonSchema(Schema):
 # Dashboard Routes
 @analytics_dashboard_bp.route('/dashboard', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=100, window=3600)
+@rate_limit(max_requests=100, window_minutes=60)
 def get_dashboard():
     """Get comprehensive dashboard data"""
     try:
@@ -78,7 +78,7 @@ def get_dashboard():
 
 @analytics_dashboard_bp.route('/craftsman/<int:craftsman_id>/overview', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def get_craftsman_overview(craftsman_id):
     """Get craftsman overview metrics"""
     try:
@@ -109,7 +109,7 @@ def get_craftsman_overview(craftsman_id):
 
 @analytics_dashboard_bp.route('/customer/<int:customer_id>/history', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def get_customer_history(customer_id):
     """Get customer history analytics"""
     try:
@@ -141,7 +141,7 @@ def get_customer_history(customer_id):
 # Trend Analysis Routes
 @analytics_dashboard_bp.route('/trends/platform', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_platform_trends():
     """Get platform-wide trends"""
     try:
@@ -172,7 +172,7 @@ def get_platform_trends():
 
 @analytics_dashboard_bp.route('/trends/categories', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def get_category_trends():
     """Get category trends"""
     try:
@@ -190,7 +190,7 @@ def get_category_trends():
 
 @analytics_dashboard_bp.route('/trends/geographic', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def get_geographic_trends():
     """Get geographic trends"""
     try:
@@ -209,7 +209,7 @@ def get_geographic_trends():
 # Performance Reports Routes
 @analytics_dashboard_bp.route('/reports/custom', methods=['POST'])
 @jwt_required()
-@rate_limit(requests=20, window=3600)
+@rate_limit(max_requests=20, window_minutes=60)
 def generate_custom_report():
     """Generate custom performance report"""
     try:
@@ -241,7 +241,7 @@ def generate_custom_report():
 
 @analytics_dashboard_bp.route('/reports/craftsman/<int:craftsman_id>', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_craftsman_report(craftsman_id):
     """Get detailed craftsman performance report"""
     try:
@@ -275,7 +275,7 @@ def get_craftsman_report(craftsman_id):
 
 @analytics_dashboard_bp.route('/reports/customer/<int:customer_id>', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_customer_report(customer_id):
     """Get detailed customer behavior report"""
     try:
@@ -310,7 +310,7 @@ def get_customer_report(customer_id):
 # Cost Calculator Routes
 @analytics_dashboard_bp.route('/cost-calculator', methods=['POST'])
 @jwt_required()
-@rate_limit(requests=100, window=3600)
+@rate_limit(max_requests=100, window_minutes=60)
 def calculate_job_cost():
     """Calculate job cost estimation"""
     try:
@@ -331,7 +331,7 @@ def calculate_job_cost():
 
 @analytics_dashboard_bp.route('/cost-calculator/market-comparison', methods=['POST'])
 @jwt_required()
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def get_market_comparison():
     """Get market price comparison"""
     try:
@@ -352,7 +352,7 @@ def get_market_comparison():
 
 @analytics_dashboard_bp.route('/cost-calculator/pricing-recommendations/<int:craftsman_id>', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_pricing_recommendations(craftsman_id):
     """Get pricing recommendations for craftsman"""
     try:
@@ -378,7 +378,7 @@ def get_pricing_recommendations(craftsman_id):
 # Business Metrics Routes
 @analytics_dashboard_bp.route('/business/conversion-funnel', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_conversion_funnel():
     """Get conversion funnel metrics"""
     try:
@@ -402,7 +402,7 @@ def get_conversion_funnel():
 
 @analytics_dashboard_bp.route('/business/revenue', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_revenue_analytics():
     """Get detailed revenue analytics"""
     try:
@@ -426,7 +426,7 @@ def get_revenue_analytics():
 
 @analytics_dashboard_bp.route('/business/engagement', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=30, window=3600)
+@rate_limit(max_requests=30, window_minutes=60)
 def get_engagement_metrics():
     """Get user engagement metrics"""
     try:
@@ -451,7 +451,7 @@ def get_engagement_metrics():
 # Activity and Recent Data Routes
 @analytics_dashboard_bp.route('/activity/recent', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=100, window=3600)
+@rate_limit(max_requests=100, window_minutes=60)
 def get_recent_activity():
     """Get recent activity for user"""
     try:
@@ -478,7 +478,7 @@ def get_recent_activity():
 
 # Analytics Constants Routes
 @analytics_dashboard_bp.route('/constants', methods=['GET'])
-@rate_limit(requests=10, window=3600)
+@rate_limit(max_requests=10, window_minutes=60)
 def get_analytics_constants():
     """Get analytics dashboard constants"""
     try:
@@ -506,7 +506,7 @@ def get_analytics_constants():
 # Performance Comparison Routes
 @analytics_dashboard_bp.route('/performance/compare', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=20, window=3600)
+@rate_limit(max_requests=20, window_minutes=60)
 def compare_performance():
     """Compare user performance against benchmarks"""
     try:
@@ -548,7 +548,7 @@ def compare_performance():
 # Export Routes
 @analytics_dashboard_bp.route('/export/dashboard', methods=['POST'])
 @jwt_required()
-@rate_limit(requests=10, window=3600)
+@rate_limit(max_requests=10, window_minutes=60)
 def export_dashboard():
     """Export dashboard data"""
     try:
@@ -590,7 +590,7 @@ def export_dashboard():
 # Real-time Metrics Routes
 @analytics_dashboard_bp.route('/realtime/metrics', methods=['GET'])
 @jwt_required()
-@rate_limit(requests=200, window=3600)
+@rate_limit(max_requests=200, window_minutes=60)
 def get_realtime_metrics():
     """Get real-time dashboard metrics"""
     try:
@@ -672,7 +672,7 @@ def get_realtime_metrics():
 
 # Analytics Health Check
 @analytics_dashboard_bp.route('/health', methods=['GET'])
-@rate_limit(requests=50, window=3600)
+@rate_limit(max_requests=50, window_minutes=60)
 def analytics_health_check():
     """Health check for analytics dashboard"""
     try:

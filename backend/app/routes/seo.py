@@ -7,7 +7,7 @@ from app.utils.security import rate_limit
 seo_bp = Blueprint('seo', __name__)
 
 @seo_bp.route('/sitemap.xml', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_sitemap():
     """Generate and serve dynamic sitemap"""
     try:
@@ -29,7 +29,7 @@ def get_sitemap():
         )
 
 @seo_bp.route('/robots.txt', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_robots():
     """Generate and serve robots.txt"""
     try:
@@ -51,7 +51,7 @@ def get_robots():
         )
 
 @seo_bp.route('/meta/<page_type>', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_meta_tags(page_type):
     """Get SEO meta tags for specific page types"""
     try:
@@ -100,7 +100,7 @@ def get_meta_tags(page_type):
         }), 500
 
 @seo_bp.route('/structured-data/<data_type>', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_structured_data(data_type):
     """Get structured data for specific content types"""
     try:
@@ -139,7 +139,7 @@ def get_structured_data(data_type):
         }), 500
 
 @seo_bp.route('/breadcrumbs', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def generate_breadcrumbs():
     """Generate breadcrumb structured data"""
     try:
@@ -166,7 +166,7 @@ def generate_breadcrumbs():
         }), 500
 
 @seo_bp.route('/popular-terms', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_popular_terms():
     """Get popular search terms for SEO"""
     try:
@@ -183,7 +183,7 @@ def get_popular_terms():
         }), 500
 
 @seo_bp.route('/category-content/<category>', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_category_content(category):
     """Get SEO-optimized content for category pages"""
     try:
@@ -200,7 +200,7 @@ def get_category_content(category):
         }), 500
 
 @seo_bp.route('/location-content/<city>', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_location_content(city):
     """Get SEO-optimized content for location pages"""
     try:
@@ -217,7 +217,7 @@ def get_location_content(city):
         }), 500
 
 @seo_bp.route('/optimize-url', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def optimize_url():
     """Create SEO-friendly URL slug"""
     try:

@@ -10,7 +10,7 @@ from app.utils.security import rate_limit, require_auth
 accessibility_bp = Blueprint('accessibility', __name__)
 
 @accessibility_bp.route('/validate/alt-text', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def validate_alt_text():
     """Validate alt text for accessibility compliance"""
     try:
@@ -32,7 +32,7 @@ def validate_alt_text():
         }), 500
 
 @accessibility_bp.route('/validate/color-contrast', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def validate_color_contrast():
     """Validate color contrast for WCAG compliance"""
     try:
@@ -60,7 +60,7 @@ def validate_color_contrast():
         }), 500
 
 @accessibility_bp.route('/validate/heading-structure', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def validate_heading_structure():
     """Validate heading hierarchy in content"""
     try:
@@ -87,7 +87,7 @@ def validate_heading_structure():
         }), 500
 
 @accessibility_bp.route('/validate/form', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def validate_form_accessibility():
     """Validate form accessibility"""
     try:
@@ -108,7 +108,7 @@ def validate_form_accessibility():
         }), 500
 
 @accessibility_bp.route('/generate/alt-text-suggestions', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def generate_alt_text_suggestions():
     """Generate alt text suggestions"""
     try:
@@ -134,7 +134,7 @@ def generate_alt_text_suggestions():
         }), 500
 
 @accessibility_bp.route('/generate/aria-labels', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def generate_aria_labels():
     """Generate ARIA labels for content"""
     try:
@@ -162,7 +162,7 @@ def generate_aria_labels():
         }), 500
 
 @accessibility_bp.route('/optimize/content', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def optimize_content():
     """Optimize content for accessibility"""
     try:
@@ -199,7 +199,7 @@ def optimize_content():
         }), 500
 
 @accessibility_bp.route('/report/page', methods=['POST'])
-@rate_limit(requests_per_minute=20)
+@rate_limit(max_requests=20)
 @require_auth
 def generate_page_report():
     """Generate accessibility report for a page"""
@@ -228,7 +228,7 @@ def generate_page_report():
         }), 500
 
 @accessibility_bp.route('/report/color-palette', methods=['POST'])
-@rate_limit(requests_per_minute=20)
+@rate_limit(max_requests=20)
 @require_auth
 def generate_color_palette_report():
     """Generate accessibility report for color palette"""
@@ -256,7 +256,7 @@ def generate_color_palette_report():
         }), 500
 
 @accessibility_bp.route('/check/app-colors', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def check_app_color_accessibility():
     """Check accessibility of app's color palette"""
     try:
@@ -291,7 +291,7 @@ def check_app_color_accessibility():
         }), 500
 
 @accessibility_bp.route('/guidelines', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_accessibility_guidelines():
     """Get accessibility guidelines and best practices"""
     try:
@@ -345,7 +345,7 @@ def get_accessibility_guidelines():
         }), 500
 
 @accessibility_bp.route('/tools/contrast-checker', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def contrast_checker_tool():
     """Interactive contrast checker tool"""
     try:

@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.utils.auth_utils import get_current_user_id
 from app import db
-from app.models.job import Job, JobStatus, JobUrgency
+from app.models.job import Job, JobStatus, JobPriority
 from app.models.user import User
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
@@ -160,7 +160,7 @@ def create_job():
             longitude=data.get('longitude'),
             budget_min=data.get('budget_min'),
             budget_max=data.get('budget_max'),
-            urgency=data.get('urgency', JobUrgency.NORMAL.value),
+            urgency=data.get('urgency', JobPriority.NORMAL.value),
             customer_id=customer.id,
             preferred_start_date=datetime.fromisoformat(data['preferred_start_date']) if data.get('preferred_start_date') else None,
             preferred_end_date=datetime.fromisoformat(data['preferred_end_date']) if data.get('preferred_end_date') else None,

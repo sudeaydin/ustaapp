@@ -73,7 +73,7 @@ class NotificationPreferencesSchema(Schema):
 # Push Notification Routes
 
 @enhanced_notifications_bp.route('/device-token', methods=['POST'])
-@rate_limit(requests_per_minute=10)
+@rate_limit(max_requests=10)
 @require_auth
 def register_device_token():
     """Register or update device token for push notifications"""
@@ -117,7 +117,7 @@ def register_device_token():
         }), 500
 
 @enhanced_notifications_bp.route('/send', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def send_notification():
     """Send notification to users"""
@@ -170,7 +170,7 @@ def send_notification():
         }), 500
 
 @enhanced_notifications_bp.route('/preferences', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_notification_preferences():
     """Get user's notification preferences"""
@@ -192,7 +192,7 @@ def get_notification_preferences():
         }), 500
 
 @enhanced_notifications_bp.route('/preferences', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def update_notification_preferences():
     """Update user's notification preferences"""
@@ -226,7 +226,7 @@ def update_notification_preferences():
 # Location Sharing Routes
 
 @enhanced_notifications_bp.route('/location/share', methods=['POST'])
-@rate_limit(requests_per_minute=10)
+@rate_limit(max_requests=10)
 @require_auth
 def create_location_share():
     """Create location sharing session"""
@@ -263,7 +263,7 @@ def create_location_share():
         }), 500
 
 @enhanced_notifications_bp.route('/location/share/<share_id>/update', methods=['PUT'])
-@rate_limit(requests_per_minute=120)  # High rate limit for location updates
+@rate_limit(max_requests=120)  # High rate limit for location updates
 @require_auth
 def update_location(share_id):
     """Update location for sharing session"""
@@ -302,7 +302,7 @@ def update_location(share_id):
         }), 500
 
 @enhanced_notifications_bp.route('/location/share/<share_id>/stop', methods=['PUT'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def stop_location_share(share_id):
     """Stop location sharing session"""
@@ -325,7 +325,7 @@ def stop_location_share(share_id):
 # Calendar Integration Routes
 
 @enhanced_notifications_bp.route('/calendar/event', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def create_calendar_event():
     """Create calendar event for job"""
@@ -377,7 +377,7 @@ def create_calendar_event():
         }), 500
 
 @enhanced_notifications_bp.route('/calendar/events/<event_id>.ics', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def download_calendar_event(event_id):
     """Download calendar event as iCal file"""
     try:
@@ -414,7 +414,7 @@ END:VCALENDAR"""
 # Emergency Notification Routes
 
 @enhanced_notifications_bp.route('/emergency/broadcast', methods=['POST'])
-@rate_limit(requests_per_minute=5)
+@rate_limit(max_requests=5)
 @require_auth
 def broadcast_emergency():
     """Broadcast emergency to nearby craftsmen"""
@@ -460,7 +460,7 @@ def broadcast_emergency():
 # Notification Analytics Routes
 
 @enhanced_notifications_bp.route('/analytics', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_notification_analytics():
     """Get notification analytics"""
@@ -482,7 +482,7 @@ def get_notification_analytics():
         }), 500
 
 @enhanced_notifications_bp.route('/interaction', methods=['POST'])
-@rate_limit(requests_per_minute=120)
+@rate_limit(max_requests=120)
 @require_auth
 def track_notification_interaction():
     """Track notification interaction"""
@@ -517,7 +517,7 @@ def track_notification_interaction():
 # Scheduled Notifications Routes
 
 @enhanced_notifications_bp.route('/schedule', methods=['POST'])
-@rate_limit(requests_per_minute=20)
+@rate_limit(max_requests=20)
 @require_auth
 def schedule_notification():
     """Schedule a notification for future delivery"""
@@ -564,7 +564,7 @@ def schedule_notification():
 # Utility Routes
 
 @enhanced_notifications_bp.route('/test', methods=['POST'])
-@rate_limit(requests_per_minute=5)
+@rate_limit(max_requests=5)
 @require_auth
 def test_notification():
     """Send test notification to current user"""
@@ -593,7 +593,7 @@ def test_notification():
         }), 500
 
 @enhanced_notifications_bp.route('/cleanup', methods=['POST'])
-@rate_limit(requests_per_minute=5)
+@rate_limit(max_requests=5)
 @require_auth
 def cleanup_notifications():
     """Clean up old notifications (admin only)"""
@@ -628,7 +628,7 @@ def cleanup_notifications():
         }), 500
 
 @enhanced_notifications_bp.route('/constants', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_notification_constants():
     """Get notification constants and types"""
     try:
@@ -673,7 +673,7 @@ def get_notification_constants():
 # Topic Subscription Routes (for FCM topics)
 
 @enhanced_notifications_bp.route('/topics/subscribe', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def subscribe_to_topic():
     """Subscribe user to notification topic"""
@@ -712,7 +712,7 @@ def subscribe_to_topic():
         }), 500
 
 @enhanced_notifications_bp.route('/topics/unsubscribe', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def unsubscribe_from_topic():
     """Unsubscribe user from notification topic"""

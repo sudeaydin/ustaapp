@@ -17,7 +17,7 @@ from datetime import datetime
 legal_bp = Blueprint('legal', __name__)
 
 @legal_bp.route('/documents/terms-of-service', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_terms_of_service():
     """Get current terms of service"""
     try:
@@ -33,7 +33,7 @@ def get_terms_of_service():
         }), 500
 
 @legal_bp.route('/documents/privacy-policy', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_privacy_policy():
     """Get current privacy policy"""
     try:
@@ -49,7 +49,7 @@ def get_privacy_policy():
         }), 500
 
 @legal_bp.route('/documents/cookie-policy', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_cookie_policy():
     """Get current cookie policy"""
     try:
@@ -65,7 +65,7 @@ def get_cookie_policy():
         }), 500
 
 @legal_bp.route('/documents/user-agreement', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_user_agreement():
     """Get user agreement template"""
     try:
@@ -81,7 +81,7 @@ def get_user_agreement():
         }), 500
 
 @legal_bp.route('/consent/record', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def record_consent():
     """Record user consent"""
@@ -133,7 +133,7 @@ def record_consent():
         }), 500
 
 @legal_bp.route('/consent/status', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 @require_auth
 def get_consent_status():
     """Get user's consent status"""
@@ -173,7 +173,7 @@ def get_consent_status():
         }), 500
 
 @legal_bp.route('/consent/withdraw', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def withdraw_consent():
     """Withdraw user consent"""
@@ -217,7 +217,7 @@ def withdraw_consent():
         }), 500
 
 @legal_bp.route('/data/summary', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def get_data_summary():
     """Get user's data processing summary"""
@@ -243,7 +243,7 @@ def get_data_summary():
         }), 500
 
 @legal_bp.route('/data/export', methods=['POST'])
-@rate_limit(requests_per_minute=5)  # Limited due to resource intensity
+@rate_limit(max_requests=5)  # Limited due to resource intensity
 @require_auth
 def export_user_data():
     """Export all user data (GDPR Article 20)"""
@@ -286,7 +286,7 @@ def export_user_data():
         }), 500
 
 @legal_bp.route('/data/delete-request', methods=['POST'])
-@rate_limit(requests_per_minute=3)  # Very limited for security
+@rate_limit(max_requests=3)  # Very limited for security
 @require_auth
 def request_data_deletion():
     """Request permanent data deletion (GDPR Article 17)"""
@@ -317,7 +317,7 @@ def request_data_deletion():
         }), 500
 
 @legal_bp.route('/compliance/validate-user', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def validate_user_compliance():
     """Validate user's legal compliance status"""
@@ -346,7 +346,7 @@ def validate_user_compliance():
         }), 500
 
 @legal_bp.route('/compliance/update-consent', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def update_consent_preferences():
     """Update user consent preferences"""
@@ -402,7 +402,7 @@ def update_consent_preferences():
         }), 500
 
 @legal_bp.route('/gdpr/data-request', methods=['POST'])
-@rate_limit(requests_per_minute=10)
+@rate_limit(max_requests=10)
 @require_auth
 def handle_gdpr_request():
     """Handle GDPR data subject requests"""
@@ -474,7 +474,7 @@ def handle_gdpr_request():
         }), 500
 
 @legal_bp.route('/compliance/check-age', methods=['POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def validate_age():
     """Validate user age requirement"""
     try:
@@ -501,7 +501,7 @@ def validate_age():
         }), 500
 
 @legal_bp.route('/compliance/mandatory-consent', methods=['POST'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 @require_auth
 def record_mandatory_consent():
     """Record mandatory consent during registration"""
@@ -571,7 +571,7 @@ def record_mandatory_consent():
         }), 500
 
 @legal_bp.route('/compliance/cookie-preferences', methods=['GET', 'POST'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def handle_cookie_preferences():
     """Handle cookie preferences"""
     try:
@@ -617,7 +617,7 @@ def handle_cookie_preferences():
         }), 500
 
 @legal_bp.route('/compliance/communication-rules', methods=['GET'])
-@rate_limit(requests_per_minute=30)
+@rate_limit(max_requests=30)
 def get_communication_rules():
     """Get platform communication rules"""
     try:
@@ -687,7 +687,7 @@ def get_communication_rules():
         }), 500
 
 @legal_bp.route('/compliance/versions', methods=['GET'])
-@rate_limit(requests_per_minute=60)
+@rate_limit(max_requests=60)
 def get_document_versions():
     """Get current versions of all legal documents"""
     try:
@@ -712,7 +712,7 @@ def get_document_versions():
         }), 500
 
 @legal_bp.route('/delete-account', methods=['POST'])
-@rate_limit(requests_per_minute=2)  # Very limited due to severity
+@rate_limit(max_requests=2)  # Very limited due to severity
 @require_auth
 def delete_account():
     """Request account deletion (GDPR/KVKK compliance)"""
@@ -740,8 +740,8 @@ def delete_account():
         }), 500
 
 @legal_bp.route('/communication-rules', methods=['GET'])
-@rate_limit(requests_per_minute=60)
-def get_communication_rules():
+@rate_limit(max_requests=60)
+def get_communication_rules_document():
     """Get communication rules document"""
     try:
         document = LegalDocumentManager.get_document('communication_rules')
@@ -764,8 +764,8 @@ def get_communication_rules():
         }), 500
 
 @legal_bp.route('/validate-age', methods=['POST'])
-@rate_limit(requests_per_minute=30)
-def validate_age():
+@rate_limit(max_requests=30)
+def validate_user_age():
     """Validate user age for legal compliance"""
     try:
         data = request.get_json()
@@ -806,8 +806,8 @@ def validate_age():
         }), 500
 
 @legal_bp.route('/document-versions', methods=['GET'])
-@rate_limit(requests_per_minute=60)
-def get_document_versions():
+@rate_limit(max_requests=60)
+def get_all_document_versions():
     """Get current versions of all legal documents"""
     try:
         return jsonify({
