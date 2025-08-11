@@ -54,8 +54,9 @@ class SearchState {
   final List<String> districts;
   final String selectedSortBy;
   final bool showFilters;
+  final SearchFilters? currentFilters;
 
-  const   SearchState({
+  const SearchState({
     this.craftsmen = const [],
     this.isLoading = false,
     this.error,
@@ -66,6 +67,7 @@ class SearchState {
     this.districts = const [],
     this.selectedSortBy = 'rating',
     this.showFilters = false,
+    this.currentFilters,
   });
 
   SearchState copyWith({
@@ -79,6 +81,7 @@ class SearchState {
     List<String>? districts,
     String? selectedSortBy,
     bool? showFilters,
+    SearchFilters? currentFilters,
   }) {
     return SearchState(
       craftsmen: craftsmen ?? this.craftsmen,
@@ -91,6 +94,7 @@ class SearchState {
       districts: districts ?? this.districts,
       selectedSortBy: selectedSortBy ?? this.selectedSortBy,
       showFilters: showFilters ?? this.showFilters,
+      currentFilters: currentFilters ?? this.currentFilters,
     );
   }
 }
@@ -252,5 +256,21 @@ class SearchNotifier extends StateNotifier<SearchState> {
     } catch (e) {
       // Districts are optional, don't show error
     }
+  }
+
+  // Clear error
+  void clearError() {
+    state = state.copyWith(error: null);
+  }
+
+  // Update filters
+  void updateFilters(SearchFilters filters) {
+    state = state.copyWith(
+      query: filters.query ?? '',
+      selectedCategory: filters.category ?? '',
+      selectedCity: filters.city ?? '',
+      // Store filters for advanced search
+      currentFilters: filters,
+    );
   }
 }

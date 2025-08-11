@@ -380,8 +380,7 @@ class _AdvancedSearchScreenState extends ConsumerState<AdvancedSearchScreen>
   }
 
   Future<void> _performSearch() async {
-    ref.read(searchProvider.notifier).updateFilters(_filters);
-    await ref.read(searchProvider.notifier).searchCraftsmen();
+    await ref.read(searchProvider.notifier).searchCraftsmenWithFilters(_filters);
   }
 
   void _navigateToCraftsmanDetail(dynamic craftsman) {
