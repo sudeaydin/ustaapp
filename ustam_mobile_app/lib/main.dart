@@ -105,7 +105,7 @@ class MyApp extends ConsumerWidget {
           final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
           return SupportScreen(userType: userType);
         },
-        '/advanced-search': (context) => const AdvancedSearchScreen(),
+
         '/reviews': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return ReviewsScreen(

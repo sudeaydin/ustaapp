@@ -274,46 +274,4 @@ class SearchNotifier extends StateNotifier<SearchState> {
     );
   }
 
-  // Search craftsmen with advanced filters
-  Future<void> searchCraftsmenWithFilters(SearchFilters filters) async {
-    state = state.copyWith(isLoading: true, error: null);
-
-    try {
-      final queryParams = filters.toQueryParams();
-      
-      final apiResponse = await ApiService.getInstance().get(
-        '/search/craftsmen',
-        queryParams: queryParams,
-      );
-
-      if (apiResponse.isSuccess && apiResponse.data != null) {
-        final craftsmen = List<Map<String, dynamic>>.from(
-          apiResponse.data!['craftsmen'] ?? []
-        );
-
-        state = state.copyWith(
-          craftsmen: craftsmen,
-          isLoading: false,
-          query: filters.query ?? '',
-          currentFilters: filters,
-        );
-      } else {
-        state = state.copyWith(
-          error: apiResponse.error ?? AppError(
-            type: ErrorType.server,
-            message: 'Gelişmiş arama yapılamadı',
-          ),
-          isLoading: false,
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(
-        error: AppError(
-          type: ErrorType.network,
-          message: 'Ağ bağlantısı hatası',
-        ),
-        isLoading: false,
-      );
-    }
-  }
 }
