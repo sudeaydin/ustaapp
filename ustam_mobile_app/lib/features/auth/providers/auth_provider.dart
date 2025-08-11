@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../../core/config/app_config.dart';
 
 // SharedPreferences provider
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
@@ -90,7 +91,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       // Real API login call
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/auth/login'),
+        Uri.parse(AppConfig.loginUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'email': email,

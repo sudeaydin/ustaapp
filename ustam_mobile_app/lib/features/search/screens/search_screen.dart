@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/config/app_config.dart';
 import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -36,7 +37,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Future<void> _loadCategories() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/search/categories'));
+      final response = await http.get(Uri.parse(AppConfig.searchCategoriesUrl));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         print('Categories response: $data');
@@ -53,7 +54,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Future<void> _loadCities() async {
     try {
-      final response = await http.get(Uri.parse('http://localhost:5000/api/search/locations'));
+      final response = await http.get(Uri.parse(AppConfig.searchLocationsUrl));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         print('Cities response: $data');
@@ -86,7 +87,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       }
       queryParams['sort_by'] = _selectedSortBy;
 
-      final uri = Uri.parse('http://localhost:5000/api/search/craftsmen').replace(queryParameters: queryParams);
+      final uri = Uri.parse(AppConfig.searchCraftsmenUrl).replace(queryParameters: queryParams);
       final response = await http.get(uri);
 
       if (response.statusCode == 200) {

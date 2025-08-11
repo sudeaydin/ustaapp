@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/config/app_config.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -77,7 +78,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
 
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/auth/profile'),
+        Uri.parse(AppConfig.profileUrl),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -733,7 +734,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       final token = prefs.getString('authToken');
                       
                       final response = await http.delete(
-                        Uri.parse('http://localhost:5000/api/auth/delete-account'),
+                        Uri.parse(AppConfig.deleteAccountUrl),
                         headers: {
                           'Authorization': 'Bearer $token',
                           'Content-Type': 'application/json',

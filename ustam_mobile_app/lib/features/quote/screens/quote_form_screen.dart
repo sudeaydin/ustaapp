@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/config/app_config.dart';
 
 class QuoteFormScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> craftsman;
@@ -409,7 +410,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         final token = prefs.getString('authToken');
         
         final response = await http.post(
-          Uri.parse('http://localhost:5000/api/quote-requests/request'),
+          Uri.parse(AppConfig.quoteRequestUrl),
           headers: {
             'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',

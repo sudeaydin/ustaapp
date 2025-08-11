@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/config/app_config.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class BusinessProfileScreen extends ConsumerStatefulWidget {
@@ -72,7 +73,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       if (token == null) return;
       
       final response = await http.get(
-        Uri.parse('http://localhost:5000/api/auth/profile'),
+        Uri.parse(AppConfig.profileUrl),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -148,7 +149,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       
       final request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://localhost:5000/api/auth/upload-portfolio-image'),
+        Uri.parse(AppConfig.uploadPortfolioUrl),
       );
       
       request.headers['Authorization'] = 'Bearer $token';
@@ -203,7 +204,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       }
       
       final response = await http.delete(
-        Uri.parse('http://localhost:5000/api/auth/delete-portfolio-image'),
+        Uri.parse(AppConfig.deletePortfolioUrl),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -552,7 +553,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                                 image: DecorationImage(
                                   image: NetworkImage(_portfolioImages[index].startsWith('http') 
                                     ? _portfolioImages[index] 
-                                    : 'http://localhost:5000${_portfolioImages[index]}'),
+                                    : '${AppConfig.baseUrl}${_portfolioImages[index]}'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
