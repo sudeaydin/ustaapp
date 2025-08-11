@@ -359,30 +359,30 @@ class ApiResponse<T> {
 // API endpoints organized by feature
 class ApiEndpoints {
   // Auth endpoints
-  static const String login = '/api/auth/login';
-  static const String register = '/api/auth/register';
-  static const String profile = '/api/auth/profile';
-  static const String deleteAccount = '/api/auth/delete-account';
-  static const String uploadPortfolio = '/api/auth/upload-portfolio-image';
-  static const String deletePortfolio = '/api/auth/delete-portfolio-image';
+  static const String login = '/auth/login';
+  static const String register = '/auth/register';
+  static const String profile = '/auth/profile';
+  static const String deleteAccount = '/auth/delete-account';
+  static const String uploadPortfolio = '/auth/upload-portfolio-image';
+  static const String deletePortfolio = '/auth/delete-portfolio-image';
   
   // Search endpoints
-  static const String searchCategories = '/api/search/categories';
-  static const String searchLocations = '/api/search/locations';
-  static const String searchCraftsmen = '/api/search/craftsmen';
+  static const String searchCategories = '/search/categories';
+  static const String searchLocations = '/search/locations';
+  static const String searchCraftsmen = '/search/craftsmen';
   
   // Quote endpoints
-  static const String quoteRequest = '/api/quote-requests/request';
-  static const String quoteResponse = '/api/quote-requests/respond';
-  static const String quoteDecision = '/api/quote-requests/decision';
-  static const String myQuotes = '/api/quote-requests/my-quotes';
+  static const String quoteRequest = '/quote-requests/request';
+  static const String quoteResponse = '/quote-requests/respond';
+  static const String quoteDecision = '/quote-requests/decision';
+  static const String myQuotes = '/quote-requests/my-quotes';
   
   // Message endpoints
-  static const String conversations = '/api/messages/conversations';
-  static const String messages = '/api/messages';
+  static const String conversations = '/messages/conversations';
+  static const String messages = '/messages';
   
   // Notification endpoints
-  static const String notifications = '/api/notifications';
+  static const String notifications = '/notifications';
 }
 
 // Convenience methods for common API calls
