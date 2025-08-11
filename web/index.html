@@ -2,28 +2,82 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ustam - Güvenilir Usta Bulma Platformu</title>
-    <meta name="description" content="Türkiye'nin en güvenilir usta bulma platformu. Elektrikçiden tesisatçıya, boyacıdan temizlikçiye kadar tüm ev ve işyeri ihtiyaçlarınız için profesyonel hizmet." />
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#2563eb">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ustam">
-    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="theme-color" content="#467599" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="UstamApp" />
+    <meta name="msapplication-TileColor" content="#467599" />
+    <meta name="msapplication-tap-highlight" content="no" />
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Elektrikçi, tesisatçı, boyacı ve daha birçok alanda profesyonel usta bulun. Güvenli ödeme, hızlı hizmet." />
+    <meta name="keywords" content="usta, elektrikçi, tesisatçı, boyacı, tamir, tadilat, ev tamiri" />
+    <meta name="author" content="UstamApp Team" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="UstamApp - Profesyonel Usta Bulucu" />
+    <meta property="og:description" content="Elektrikçi, tesisatçı, boyacı ve daha birçok alanda profesyonel usta bulun" />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
+    <meta property="og:url" content="https://ustamapp.com" />
+    <meta property="og:site_name" content="UstamApp" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="UstamApp - Profesyonel Usta Bulucu" />
+    <meta name="twitter:description" content="Elektrikçi, tesisatçı, boyacı ve daha birçok alanda profesyonel usta bulun" />
+    <meta name="twitter:image" content="/icons/icon-512x512.png" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.jsx" as="script" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>UstamApp - Profesyonel Usta Bulucu</title>
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- PWA Installation Script -->
+    <script>
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration)
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError)
+            })
+        })
+      }
+      
+      // Handle install prompt
+      let deferredPrompt
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault()
+        deferredPrompt = e
+      })
+    </script>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
