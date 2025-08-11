@@ -1,386 +1,190 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy import or_, and_
 from app import db
-from app.models.user import User
 from app.models.craftsman import Craftsman
-from app.models.category import Category
-from sqlalchemy import or_, and_, func
-import json
+from app.models.user import User
+from app.utils.validators import (
+    validate_query_params, SearchSchema, ResponseHelper, PaginationHelper
+)
 
 search_bp = Blueprint('search', __name__)
 
-@search_bp.route('/craftsmen', methods=['GET'])
-def search_craftsmen():
-    """Search craftsmen with filters"""
+@search_bp.route('/categories', methods=['GET'])
+def get_categories():
+    """Get available categories"""
     try:
-        # Get query parameters
-        query = request.args.get('q', '').strip()
-        category_id = request.args.get('category_id', type=int)
-        category_name = request.args.get('category', '').strip()
-        city = request.args.get('city', '').strip()
-        district = request.args.get('district', '').strip()
-        min_rating = request.args.get('min_rating', type=float)
-        max_rate = request.args.get('max_rate', type=float)
-        is_available = request.args.get('is_available', type=bool)
-        page = request.args.get('page', 1, type=int)
-        per_page = request.args.get('per_page', 12, type=int)
-        sort_by = request.args.get('sort_by', 'rating')  # rating, rate, name, distance
+        # For now, return static categories
+        # In production, this could come from a categories table
+        categories = [
+            {'id': 1, 'name': 'Elektrik', 'icon': 'electrical_services'},
+            {'id': 2, 'name': 'Su Tesisatı', 'icon': 'plumbing'},
+            {'id': 3, 'name': 'Boyacı', 'icon': 'format_paint'},
+            {'id': 4, 'name': 'Marangoz', 'icon': 'carpenter'},
+            {'id': 5, 'name': 'Temizlik', 'icon': 'cleaning_services'},
+            {'id': 6, 'name': 'Bahçıvan', 'icon': 'yard'},
+            {'id': 7, 'name': 'Klima Teknik', 'icon': 'ac_unit'},
+            {'id': 8, 'name': 'Cam Balkon', 'icon': 'window'},
+        ]
         
-        # Start with base query
-        craftsmen_query = Craftsman.query.join(User).filter(User.is_active == True)
-        
-        # Apply filters
-        if query:
-            craftsmen_query = craftsmen_query.filter(
-                or_(
-                    Craftsman.business_name.ilike(f'%{query}%'),
-                    Craftsman.description.ilike(f'%{query}%'),
-                    User.first_name.ilike(f'%{query}%'),
-                    User.last_name.ilike(f'%{query}%'),
-                    Craftsman.skills.ilike(f'%{query}%')
-                )
-            )
-        
-        if category_id:
-            # For now, we'll search in description - later we can add category relationships
-            category = Category.query.get(category_id)
-            if category:
-                craftsmen_query = craftsmen_query.filter(
-                    or_(
-                        Craftsman.description.ilike(f'%{category.name}%'),
-                        Craftsman.skills.ilike(f'%{category.name}%')
-                    )
-                )
-        
-        if category_name:
-            craftsmen_query = craftsmen_query.filter(
-                or_(
-                    Craftsman.description.ilike(f'%{category_name}%'),
-                    Craftsman.skills.ilike(f'%{category_name}%')
-                )
-            )
-        
-        if city:
-            craftsmen_query = craftsmen_query.filter(
-                Craftsman.city.ilike(f'%{city}%')
-            )
-        
-        if district:
-            craftsmen_query = craftsmen_query.filter(
-                Craftsman.district.ilike(f'%{district}%')
-            )
-        
-        if min_rating is not None:
-            craftsmen_query = craftsmen_query.filter(
-                Craftsman.average_rating >= min_rating
-            )
-        
-        if max_rate is not None:
-            craftsmen_query = craftsmen_query.filter(
-                Craftsman.hourly_rate <= max_rate
-            )
-        
-        if is_available is not None:
-            craftsmen_query = craftsmen_query.filter(
-                Craftsman.is_available == is_available
-            )
-        
-        # Apply sorting
-        if sort_by == 'rating':
-            craftsmen_query = craftsmen_query.order_by(
-                Craftsman.average_rating.desc(),
-                Craftsman.is_available.desc()
-            )
-        elif sort_by == 'rate':
-            craftsmen_query = craftsmen_query.order_by(
-                Craftsman.hourly_rate.asc(),
-                Craftsman.average_rating.desc()
-            )
-        elif sort_by == 'name':
-            craftsmen_query = craftsmen_query.order_by(
-                User.first_name.asc(),
-                User.last_name.asc()
-            )
-        else:  # default: rating
-            craftsmen_query = craftsmen_query.order_by(
-                Craftsman.is_available.desc(),
-                Craftsman.average_rating.desc()
-            )
-        
-        # Paginate
-        craftsmen = craftsmen_query.paginate(
-            page=page, per_page=per_page, error_out=False
+        return ResponseHelper.success(
+            data=categories,
+            message='Kategoriler başarıyla getirildi'
         )
         
-        result = []
-        for craftsman in craftsmen.items:
-            # Parse skills from JSON string
-            skills = []
-            if craftsman.skills:
-                try:
-                    skills = json.loads(craftsman.skills) if isinstance(craftsman.skills, str) else craftsman.skills
-                except:
-                    skills = [craftsman.skills] if craftsman.skills else []
-            
-            result.append({
-                'id': craftsman.id,
-                'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
-                'business_name': craftsman.business_name,
-                'description': craftsman.description,
-                'city': craftsman.city,
-                'district': craftsman.district,
-                'hourly_rate': str(craftsman.hourly_rate) if craftsman.hourly_rate else None,
-                'average_rating': craftsman.average_rating or 0,
-                'total_reviews': craftsman.total_reviews or 0,
-                'is_available': craftsman.is_available,
-                'is_verified': craftsman.is_verified,
-                'skills': skills,
-                'experience_years': craftsman.experience_years or 0,
-                'avatar': craftsman.avatar,
-                'user': {
-                    'phone': craftsman.user.phone,
-                    'email': craftsman.user.email
-                }
-            })
+    except Exception as e:
+        return ResponseHelper.server_error('Kategoriler getirilemedi', str(e))
+
+@search_bp.route('/locations', methods=['GET'])
+def get_locations():
+    """Get available locations/cities"""
+    try:
+        # Get unique cities from craftsmen
+        cities = db.session.query(Craftsman.city).distinct().filter(
+            Craftsman.city.isnot(None)
+        ).all()
         
-        return jsonify({
-            'success': True,
-            'data': {
-                'craftsmen': result,
-                'pagination': {
-                    'page': page,
-                    'per_page': per_page,
-                    'total': craftsmen.total,
-                    'pages': craftsmen.pages,
-                    'has_next': craftsmen.has_next,
-                    'has_prev': craftsmen.has_prev
-                }
-            }
-        }), 200
+        city_list = [city[0] for city in cities if city[0]]
+        city_list.sort()
+        
+        # Add some default cities if empty
+        if not city_list:
+            city_list = [
+                'İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya',
+                'Adana', 'Konya', 'Gaziantep', 'Kayseri', 'Mersin'
+            ]
+        
+        return ResponseHelper.success(
+            data=city_list,
+            message='Şehirler başarıyla getirildi'
+        )
         
     except Exception as e:
-        print(f"Search error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Arama sırasında bir hata oluştu'
-        }), 500
+        return ResponseHelper.server_error('Şehirler getirilemedi', str(e))
+
+@search_bp.route('/craftsmen', methods=['GET'])
+@validate_query_params(SearchSchema)
+def search_craftsmen(validated_data):
+    """Search craftsmen with filters and pagination"""
+    try:
+        query = db.session.query(Craftsman).join(User).filter(
+            User.is_active == True,
+            Craftsman.is_available == True
+        )
+        
+        # Apply search filters
+        if validated_data.get('q'):
+            search_term = f"%{validated_data['q']}%"
+            query = query.filter(
+                or_(
+                    User.first_name.ilike(search_term),
+                    User.last_name.ilike(search_term),
+                    Craftsman.business_name.ilike(search_term),
+                    Craftsman.description.ilike(search_term),
+                    Craftsman.specialties.ilike(search_term)
+                )
+            )
+        
+        if validated_data.get('category'):
+            query = query.filter(
+                Craftsman.specialties.ilike(f"%{validated_data['category']}%")
+            )
+        
+        if validated_data.get('city'):
+            query = query.filter(Craftsman.city == validated_data['city'])
+        
+        # Apply sorting
+        sort_by = validated_data.get('sort_by', 'rating')
+        if sort_by == 'rating':
+            query = query.order_by(Craftsman.average_rating.desc())
+        elif sort_by == 'price':
+            query = query.order_by(Craftsman.hourly_rate.asc())
+        elif sort_by == 'reviews':
+            query = query.order_by(Craftsman.total_reviews.desc())
+        else:
+            query = query.order_by(Craftsman.created_at.desc())
+        
+        # Apply pagination
+        page = validated_data.get('page', 1)
+        per_page = validated_data.get('per_page', 20)
+        
+        paginated_result = PaginationHelper.paginate_query(query, page, per_page)
+        
+        # Format craftsmen data
+        craftsmen_data = []
+        for craftsman_dict in paginated_result['items']:
+            craftsman = Craftsman.query.get(craftsman_dict['id'])
+            if craftsman:
+                craftsman_data.append({
+                    'id': craftsman.id,
+                    'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
+                    'business_name': craftsman.business_name,
+                    'description': craftsman.description,
+                    'specialties': craftsman.specialties,
+                    'city': craftsman.city,
+                    'district': craftsman.district,
+                    'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+                    'average_rating': craftsman.average_rating,
+                    'total_reviews': craftsman.total_reviews,
+                    'is_verified': craftsman.is_verified,
+                    'is_available': craftsman.is_available,
+                    'avatar': f"/uploads/avatars/{craftsman.user.id}.jpg" if craftsman.user else None,
+                    'portfolio_images': craftsman.portfolio_images or [],
+                })
+        
+        return ResponseHelper.success(
+            data={
+                'craftsmen': craftsmen_data,
+                'pagination': paginated_result['pagination']
+            },
+            message=f'{len(craftsmen_data)} usta bulundu'
+        )
+        
+    except Exception as e:
+        return ResponseHelper.server_error('Arama sırasında hata oluştu', str(e))
 
 @search_bp.route('/craftsmen/<int:craftsman_id>', methods=['GET'])
 def get_craftsman_detail(craftsman_id):
     """Get detailed craftsman information"""
     try:
-        craftsman = Craftsman.query.join(User).filter(
-            Craftsman.id == craftsman_id,
-            User.is_active == True
-        ).first()
+        craftsman = Craftsman.query.filter_by(id=craftsman_id).first()
         
         if not craftsman:
-            return jsonify({
-                'success': False,
-                'message': 'Usta bulunamadı'
-            }), 404
+            return ResponseHelper.not_found('Usta bulunamadı')
         
-        # Parse skills from JSON string
-        skills = []
-        if craftsman.skills:
-            try:
-                skills = json.loads(craftsman.skills) if isinstance(craftsman.skills, str) else craftsman.skills
-            except:
-                skills = [craftsman.skills] if craftsman.skills else []
+        if not craftsman.user.is_active:
+            return ResponseHelper.not_found('Usta aktif değil')
         
-        # Parse certifications from JSON string
-        certifications = []
-        if craftsman.certifications:
-            try:
-                certifications = json.loads(craftsman.certifications) if isinstance(craftsman.certifications, str) else craftsman.certifications
-            except:
-                certifications = [craftsman.certifications] if craftsman.certifications else []
+        # Get recent jobs/reviews for this craftsman
+        recent_jobs = []  # TODO: Implement when jobs system is ready
         
-        # Parse working hours from JSON string
-        working_hours = {}
-        if craftsman.working_hours:
-            try:
-                working_hours = json.loads(craftsman.working_hours) if isinstance(craftsman.working_hours, str) else craftsman.working_hours
-            except:
-                working_hours = {}
-        
-        result = {
+        craftsman_data = {
             'id': craftsman.id,
             'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
             'business_name': craftsman.business_name,
             'description': craftsman.description,
+            'specialties': craftsman.specialties,
+            'address': craftsman.address,
             'city': craftsman.city,
             'district': craftsman.district,
-            'address': craftsman.address,
-            'hourly_rate': str(craftsman.hourly_rate) if craftsman.hourly_rate else None,
-            'average_rating': craftsman.average_rating or 0,
-            'total_reviews': craftsman.total_reviews or 0,
-            'is_available': craftsman.is_available,
+            'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+            'average_rating': craftsman.average_rating,
+            'total_reviews': craftsman.total_reviews,
             'is_verified': craftsman.is_verified,
-            'is_online': craftsman.is_online,
-            'last_seen': craftsman.last_seen,
-            'response_time': craftsman.response_time,
-            'experience_years': craftsman.experience_years or 0,
-            'skills': skills,
-            'certifications': certifications,
-            'working_hours': working_hours,
-            'service_areas': craftsman.service_areas or [],
-            'avatar': craftsman.avatar,
+            'is_available': craftsman.is_available,
+            'created_at': craftsman.created_at.isoformat() if craftsman.created_at else None,
+            'portfolio_images': craftsman.portfolio_images or [],
+            'recent_jobs': recent_jobs,
             'contact': {
-                'phone': craftsman.user.phone,
                 'email': craftsman.user.email,
-                'website': craftsman.website
+                'phone': craftsman.user.phone,
             }
         }
         
-        return jsonify({
-            'success': True,
-            'data': result
-        }), 200
+        return ResponseHelper.success(
+            data=craftsman_data,
+            message='Usta bilgileri getirildi'
+        )
         
     except Exception as e:
-        print(f"Craftsman detail error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Usta bilgileri alınırken bir hata oluştu'
-        }), 500
-
-@search_bp.route('/categories', methods=['GET'])
-def get_categories():
-    """Get all categories"""
-    try:
-        categories = Category.query.filter_by(is_active=True).order_by(Category.name).all()
-        
-        result = []
-        for category in categories:
-            result.append({
-                'id': category.id,
-                'name': category.name,
-                'description': category.description,
-                'icon': category.icon,
-                'color': category.color
-            })
-        
-        return jsonify({
-            'success': True,
-            'data': result
-        }), 200
-        
-    except Exception as e:
-        print(f"Categories error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Kategoriler alınırken bir hata oluştu'
-        }), 500
-
-@search_bp.route('/locations', methods=['GET'])
-def get_locations():
-    """Get available cities and districts"""
-    try:
-        # Get unique cities
-        cities = db.session.query(Craftsman.city).filter(
-            Craftsman.city.isnot(None),
-            Craftsman.city != ''
-        ).distinct().all()
-        
-        # Get unique districts
-        districts = db.session.query(Craftsman.district).filter(
-            Craftsman.district.isnot(None),
-            Craftsman.district != ''
-        ).distinct().all()
-        
-        return jsonify({
-            'success': True,
-            'data': {
-                'cities': [city[0] for city in cities if city[0]],
-                'districts': [district[0] for district in districts if district[0]]
-            }
-        }), 200
-        
-    except Exception as e:
-        print(f"Locations error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Lokasyon bilgileri alınırken bir hata oluştu'
-        }), 500
-
-@search_bp.route('/popular', methods=['GET'])
-def get_popular_searches():
-    """Get popular search terms"""
-    try:
-        # Mock popular searches - in real app, this would be based on actual search data
-        popular_searches = [
-            'Elektrikçi',
-            'Tesisatçı',
-            'Boyacı',
-            'Marangoz',
-            'Temizlik',
-            'Bahçıvan',
-            'Klima',
-            'Su Tesisatı',
-            'Elektrik Arızası',
-            'LED Aydınlatma'
-        ]
-        
-        return jsonify({
-            'success': True,
-            'data': popular_searches
-        }), 200
-        
-    except Exception as e:
-        print(f"Popular searches error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Popüler aramalar alınırken bir hata oluştu'
-        }), 500
-
-@search_bp.route('/suggestions', methods=['GET'])
-def get_search_suggestions():
-    """Get search suggestions based on query"""
-    try:
-        query = request.args.get('q', '').strip()
-        
-        if not query or len(query) < 2:
-            return jsonify({
-                'success': True,
-                'data': []
-            }), 200
-        
-        # Search in business names and skills
-        suggestions = db.session.query(Craftsman.business_name).filter(
-            Craftsman.business_name.ilike(f'%{query}%')
-        ).distinct().limit(5).all()
-        
-        # Add skill suggestions
-        skill_suggestions = db.session.query(Craftsman.skills).filter(
-            Craftsman.skills.ilike(f'%{query}%')
-        ).distinct().limit(3).all()
-        
-        result = []
-        for suggestion in suggestions:
-            if suggestion[0]:
-                result.append(suggestion[0])
-        
-        for skill_suggestion in skill_suggestions:
-            if skill_suggestion[0]:
-                try:
-                    skills = json.loads(skill_suggestion[0]) if isinstance(skill_suggestion[0], str) else skill_suggestion[0]
-                    if isinstance(skills, list):
-                        for skill in skills:
-                            if query.lower() in skill.lower() and skill not in result:
-                                result.append(skill)
-                except:
-                    if query.lower() in skill_suggestion[0].lower() and skill_suggestion[0] not in result:
-                        result.append(skill_suggestion[0])
-        
-        return jsonify({
-            'success': True,
-            'data': result[:8]  # Limit to 8 suggestions
-        }), 200
-        
-    except Exception as e:
-        print(f"Search suggestions error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'Arama önerileri alınırken bir hata oluştu'
-        }), 500
+        return ResponseHelper.server_error('Usta bilgileri getirilemedi', str(e))

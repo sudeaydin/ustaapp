@@ -9,6 +9,9 @@ from app import db
 from app.models.user import User, UserType
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
+from app.utils.validators import (
+    validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
+)
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -145,35 +148,19 @@ def register():
         }), 500
 
 @auth_bp.route('/login', methods=['POST'])
-def login():
-    """User login"""
+@validate_json(UserLoginSchema)
+def login(validated_data):
+    """User login with validation"""
     try:
-        data = request.get_json()
-        
-        # Validate required fields
-        if not data.get('email') or not data.get('password'):
-            return jsonify({
-                'error': True,
-                'message': 'E-posta ve şifre gereklidir',
-                'code': 'MISSING_CREDENTIALS'
-            }), 400
         
         # Find user
-        user = User.query.filter_by(email=data['email']).first()
+        user = User.query.filter_by(email=validated_data['email']).first()
         
-        if not user or not user.check_password(data['password']):
-            return jsonify({
-                'error': True,
-                'message': 'E-posta veya şifre hatalı',
-                'code': 'INVALID_CREDENTIALS'
-            }), 401
+        if not user or not user.check_password(validated_data['password']):
+            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
         
         if not user.is_active:
-            return jsonify({
-                'error': True,
-                'message': 'Hesabınız deaktif durumda',
-                'code': 'ACCOUNT_DISABLED'
-            }), 401
+            return ResponseHelper.unauthorized('Hesabınız deaktif durumda')
         
         # Update last login
         user.last_login = datetime.utcnow()
@@ -182,21 +169,16 @@ def login():
         # Create access token
         access_token = create_access_token(identity=str(user.id))
         
-        return jsonify({
-            'success': True,
-            'message': 'Başarıyla giriş yapıldı',
-            'data': {
+        return ResponseHelper.success(
+            data={
                 'user': user.to_dict(),
                 'access_token': access_token
-            }
-        })
+            },
+            message='Başarıyla giriş yapıldı'
+        )
         
     except Exception as e:
-        return jsonify({
-            'error': True,
-            'message': 'Giriş sırasında bir hata oluştu',
-            'code': 'LOGIN_ERROR'
-        }), 500
+        return ResponseHelper.server_error('Giriş sırasında bir hata oluştu', str(e))
 
 @auth_bp.route('/me', methods=['GET'])
 @jwt_required()
