@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/providers/language_provider.dart';
+import '../../../core/providers/tutorial_provider.dart';
 import '../../../core/theme/app_colors.dart';
 
 // Custom painter for highlighting tutorial targets
@@ -170,6 +171,12 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
         _isVisible = true;
       });
       _animationController.forward();
+      
+      // Activate first target if exists
+      final firstStepData = widget.steps[_currentStep];
+      if (firstStepData.targetKey != null) {
+        ref.read(tutorialProvider.notifier).setActiveTarget(firstStepData.targetKey!);
+      }
     }
   }
 
@@ -178,6 +185,13 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
       setState(() {
         _currentStep++;
       });
+      // Update active target for glow effect
+      final currentStepData = widget.steps[_currentStep];
+      if (currentStepData.targetKey != null) {
+        ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
+      } else {
+        ref.read(tutorialProvider.notifier).clearActiveTarget();
+      }
     } else {
       _completeTutorial();
     }
@@ -188,6 +202,13 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
       setState(() {
         _currentStep--;
       });
+      // Update active target for glow effect
+      final currentStepData = widget.steps[_currentStep];
+      if (currentStepData.targetKey != null) {
+        ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
+      } else {
+        ref.read(tutorialProvider.notifier).clearActiveTarget();
+      }
     }
   }
 
@@ -196,6 +217,9 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   }
 
   Future<void> _completeTutorial() async {
+    // Clear any active target
+    ref.read(tutorialProvider.notifier).clearActiveTarget();
+    
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('onboarding_completed_${widget.userType}', true);
     

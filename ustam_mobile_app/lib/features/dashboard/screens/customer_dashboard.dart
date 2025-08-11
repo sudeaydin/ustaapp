@@ -4,6 +4,7 @@ import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
+import '../../../core/widgets/tutorial_highlight.dart';
 import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CustomerDashboard extends ConsumerStatefulWidget {
@@ -116,8 +117,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     Row(
                       children: [
                                                  Expanded(
-                           child: Container(
-                             key: const Key('search_button'),
+                           child: TutorialHighlight(
+                             tutorialKey: 'search_button',
                              child: _buildQuickActionCard(
                                'Usta Ara',
                                'Kategorilere göre usta bulun',
@@ -129,8 +130,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                          ),
                         const SizedBox(width: 12),
                                                  Expanded(
-                           child: Container(
-                             key: const Key('messages_button'),
+                           child: TutorialHighlight(
+                             tutorialKey: 'messages_button',
                              child: _buildQuickActionCard(
                                'Mesajlar',
                                'Ustalarla iletişim kurun',

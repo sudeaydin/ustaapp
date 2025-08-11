@@ -4,7 +4,7 @@ import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
 
-import '../../../core/widgets/language_selector.dart';
+
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
 
@@ -163,7 +163,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          const SimpleLanguageSelector(),
           const SizedBox(width: 8),
         ],
       ),

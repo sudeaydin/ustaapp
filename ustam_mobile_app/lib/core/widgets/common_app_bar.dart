@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'language_selector.dart';
 import '../../features/onboarding/widgets/tutorial_overlay.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
-  final bool showLanguageSelector;
   final bool showNotifications;
   final bool showTutorialTrigger;
   final String? userType;
@@ -17,7 +15,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.showBackButton = false,
-    this.showLanguageSelector = true,
     this.showNotifications = false,
     this.showTutorialTrigger = false,
     this.userType,
@@ -57,7 +54,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       actions: [
-        if (showLanguageSelector) const SimpleLanguageSelector(),
         if (showNotifications)
           Container(
             margin: const EdgeInsets.only(right: 8),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 
-import '../../../core/widgets/language_selector.dart';
+
 import '../../../core/providers/language_provider.dart';
 
 class WelcomeScreen extends ConsumerWidget {
@@ -17,7 +17,6 @@ class WelcomeScreen extends ConsumerWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          const SimpleLanguageSelector(),
           const SizedBox(width: 8),
         ],
       ),
