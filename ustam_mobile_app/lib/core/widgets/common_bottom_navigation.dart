@@ -90,11 +90,6 @@ class CommonBottomNavigation extends StatelessWidget {
           label: 'Mesajlar',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.assignment_rounded),
-          activeIcon: Icon(Icons.assignment_rounded, size: 28),
-          label: 'Teklifler',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.person_rounded),
           activeIcon: Icon(Icons.person_rounded, size: 28),
           label: 'Profilim',

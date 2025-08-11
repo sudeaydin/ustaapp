@@ -81,13 +81,13 @@ def search_craftsmen(validated_data):
                     User.last_name.ilike(search_term),
                     Craftsman.business_name.ilike(search_term),
                     Craftsman.description.ilike(search_term),
-                    Craftsman.specialties.ilike(search_term)
+                    Craftsman.skills.ilike(search_term)
                 )
             )
         
         if validated_data.get('category'):
             query = query.filter(
-                Craftsman.specialties.ilike(f"%{validated_data['category']}%")
+                Craftsman.skills.ilike(f"%{validated_data['category']}%")
             )
         
         if validated_data.get('city'):
@@ -120,7 +120,7 @@ def search_craftsmen(validated_data):
                     'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
                     'business_name': craftsman.business_name,
                     'description': craftsman.description,
-                    'specialties': craftsman.specialties,
+                    'specialties': craftsman.skills,
                     'city': craftsman.city,
                     'district': craftsman.district,
                     'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
