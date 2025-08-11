@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/common_app_bar.dart';
+import '../../../core/widgets/common_bottom_navigation.dart';
 
 class CraftsmanQuotesScreen extends ConsumerStatefulWidget {
   const CraftsmanQuotesScreen({super.key});
@@ -10,6 +12,7 @@ class CraftsmanQuotesScreen extends ConsumerStatefulWidget {
 }
 
 class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
+  int _currentIndex = 3; // Teklifler sekmesi
   final List<Map<String, dynamic>> _quotes = [
     {
       'id': 1,
@@ -65,20 +68,10 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Tekliflerim',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+      appBar: const CommonAppBar(
+        title: 'Tekliflerim',
+        showBackButton: true,
+        userType: 'craftsman',
       ),
       body: _quotes.isEmpty
           ? _buildEmptyState()
@@ -90,6 +83,15 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 return _buildQuoteCard(quote);
               },
             ),
+      bottomNavigationBar: CommonBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        userType: 'craftsman',
+      ),
     );
   }
 

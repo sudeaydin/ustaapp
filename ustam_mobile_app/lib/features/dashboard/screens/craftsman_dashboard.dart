@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/theme_toggle.dart';
-import '../../../core/widgets/language_selector.dart';
+import '../../../core/widgets/common_app_bar.dart';
+import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CraftsmanDashboard extends ConsumerStatefulWidget {
@@ -20,23 +20,10 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Usta Dashboard',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          const SimpleLanguageSelector(),
-          const SimpleThemeToggle(),
-          TutorialTrigger(userType: 'craftsman'),
-          const SizedBox(width: 8),
-        ],
+      appBar: const CommonAppBar(
+        title: 'Usta Dashboard',
+        showTutorialTrigger: true,
+        userType: 'craftsman',
       ),
       body: TutorialManager(
         userType: 'craftsman',
@@ -197,83 +184,14 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [AppColors.getElevatedShadow()],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-            switch (index) {
-              case 0:
-                // Already on dashboard
-                break;
-              case 1:
-                Navigator.pushNamed(context, '/business-profile');
-                break;
-              case 2:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MessagesScreen(userType: 'craftsman'),
-                  ),
-                );
-                break;
-              case 3:
-                Navigator.pushNamed(context, '/craftsman-quotes');
-                break;
-              case 4:
-                Navigator.pushNamed(context, '/profile');
-                break;
-            }
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          selectedItemColor: AppColors.textWhite,
-          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard_rounded),
-              activeIcon: Icon(Icons.dashboard_rounded, size: 28),
-              label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business_rounded),
-              activeIcon: Icon(Icons.business_rounded, size: 28),
-              label: 'İşletme',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_rounded),
-              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
-              label: 'Mesajlar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_rounded),
-              activeIcon: Icon(Icons.assignment_rounded, size: 28),
-              label: 'Teklifler',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              activeIcon: Icon(Icons.person_rounded, size: 28),
-              label: 'Profilim',
-            ),
-          ],
-        ),
+      bottomNavigationBar: CommonBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        userType: 'craftsman',
       ),
     );
   }

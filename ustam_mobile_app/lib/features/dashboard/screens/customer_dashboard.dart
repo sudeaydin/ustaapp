@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/theme_toggle.dart';
-import '../../../core/widgets/language_selector.dart';
+import '../../../core/widgets/common_app_bar.dart';
+import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CustomerDashboard extends ConsumerStatefulWidget {
@@ -20,47 +20,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: AppColors.getGradient(AppColors.primaryGradient),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-        ),
-        title: const Text(
-          'Ana Sayfa',
-          style: TextStyle(
-            color: AppColors.textWhite,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          const SimpleLanguageSelector(),
-          const SimpleThemeToggle(),
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: AppColors.textWhite.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IconButton(
-              icon: Icon(Icons.notifications_outlined, color: AppColors.textWhite),
-              onPressed: () {
-                Navigator.pushNamed(context, '/notifications');
-              },
-            ),
-          ),
-          TutorialTrigger(userType: 'customer'),
-          const SizedBox(width: 8),
-        ],
+      appBar: const CommonAppBar(
+        title: 'Ana Sayfa',
+        showNotifications: true,
+        showTutorialTrigger: true,
+        userType: 'customer',
       ),
       body: TutorialManager(
         userType: 'customer',
@@ -224,75 +188,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [AppColors.getElevatedShadow()],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-            switch (index) {
-              case 0:
-                // Already on dashboard
-                break;
-              case 1:
-                Navigator.pushNamed(context, '/search');
-                break;
-              case 2:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MessagesScreen(userType: 'customer'),
-                  ),
-                );
-                break;
-              case 3:
-                Navigator.pushNamed(context, '/profile');
-                break;
-            }
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          selectedItemColor: AppColors.textWhite,
-          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              activeIcon: Icon(Icons.home_rounded, size: 28),
-              label: 'Ana Sayfa',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search_rounded),
-              activeIcon: Icon(Icons.search_rounded, size: 28),
-              label: 'Arama',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_rounded),
-              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
-              label: 'Mesajlar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              activeIcon: Icon(Icons.person_rounded, size: 28),
-              label: 'Profilim',
-            ),
-          ],
-        ),
+      bottomNavigationBar: CommonBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        userType: 'customer',
       ),
     );
   }

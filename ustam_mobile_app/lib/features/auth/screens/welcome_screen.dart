@@ -290,6 +290,130 @@ class WelcomeScreen extends ConsumerWidget {
                   ],
                 ),
                 
+                const SizedBox(height: 20),
+                
+                // Register Section
+                Text(
+                  'Hesabınız yok mu?',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.textWhite.withOpacity(0.8),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                
+                Column(
+                  children: [
+                    // Customer Register Button
+                    Container(
+                      width: double.infinity,
+                      height: 56,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        color: AppColors.textWhite.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: AppColors.textWhite.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register', arguments: 'customer');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.textWhite.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                Icons.person_add_rounded, 
+                                size: 20, 
+                                color: AppColors.textWhite
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              'Müşteri Kayıt',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textWhite,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    // Craftsman Register Button
+                    Container(
+                      width: double.infinity,
+                      height: 56,
+                      margin: const EdgeInsets.only(bottom: 24),
+                      decoration: BoxDecoration(
+                        color: AppColors.textWhite.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: AppColors.textWhite.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register-craftsman');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.textWhite.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                Icons.engineering_rounded, 
+                                size: 20, 
+                                color: AppColors.textWhite
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              'Usta Kayıt',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textWhite,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                
                 // Footer Text
                 Text(
                   'Hizmet şartları ve gizlilik politikası',
