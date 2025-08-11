@@ -204,7 +204,6 @@ class AppTranslations {
       'step': 'Step',
       'skip': 'Skip',
       'previous': 'Previous',
-      'nav_settings': 'Settings',
       
       // Common
       'login': 'Login',
