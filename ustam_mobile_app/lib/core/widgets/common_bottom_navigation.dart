@@ -137,9 +137,6 @@ class CommonBottomNavigation extends StatelessWidget {
           );
           break;
         case 3:
-          Navigator.pushNamed(context, '/craftsman-quotes');
-          break;
-        case 4:
           Navigator.pushNamed(context, '/profile');
           break;
       }

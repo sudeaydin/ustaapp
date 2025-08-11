@@ -42,6 +42,18 @@ class AppColors {
   static const Color secondary = nonPhotoBlue;            // Secondary color
   static const Color border = Color(0xFFE5E7EB);          // Border color
 
+  // Colorblind-friendly palette (high contrast, distinct patterns)
+  static const Color colorblindPrimary = Color(0xFF0066CC);      // Strong blue
+  static const Color colorblindSecondary = Color(0xFFFF9900);    // Strong orange  
+  static const Color colorblindAccent = Color(0xFF9900CC);       // Strong purple
+  static const Color colorblindSuccess = Color(0xFF006600);      // Strong green
+  static const Color colorblindWarning = Color(0xFFCC6600);      // Strong brown-orange
+  static const Color colorblindError = Color(0xFFCC0000);        // Strong red
+  static const Color colorblindInfo = Color(0xFF0099CC);         // Strong cyan
+  static const Color colorblindBackground = Color(0xFFF8F9FA);   // Very light gray
+  static const Color colorblindSurface = Color(0xFFFFFFFF);      // Pure white
+  static const Color colorblindBorder = Color(0xFF666666);       // Medium gray
+
   // Button Colors - Interactive Elements
   static const Color buttonPrimary = uclaBlue;
   static const Color buttonSecondary = nonPhotoBlue;
@@ -152,5 +164,46 @@ class AppColors {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
     );
+  }
+
+  // Colorblind mode helpers
+  static Color getPrimaryColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindPrimary : primary;
+  }
+
+  static Color getSecondaryColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindSecondary : secondary;
+  }
+
+  static Color getAccentColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindAccent : accent;
+  }
+
+  static Color getSuccessColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindSuccess : success;
+  }
+
+  static Color getWarningColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindWarning : warning;
+  }
+
+  static Color getErrorColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindError : error;
+  }
+
+  static Color getInfoColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindInfo : info;
+  }
+
+  static Color getBackgroundColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindBackground : backgroundLight;
+  }
+
+  static Color getSurfaceColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindSurface : surfaceColor;
+  }
+
+  static Color getBorderColor(bool isColorblindMode) {
+    return isColorblindMode ? colorblindBorder : border;
   }
 }

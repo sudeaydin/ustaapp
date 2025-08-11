@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
-import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/accessibility_toggle.dart';
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
@@ -29,6 +29,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+  bool _agreementAccepted = false;
+  String? _taxDocumentPath;
 
   @override
   void dispose() {
@@ -41,8 +43,41 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.dispose();
   }
 
+  void _pickTaxDocument() async {
+    // TODO: Implement file picker for tax document
+    setState(() {
+      _taxDocumentPath = 'tax_document.pdf'; // Mock for now
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Vergi levhası seçildi'),
+        backgroundColor: AppColors.success,
+      ),
+    );
+  }
+
   Future<void> _handleRegister() async {
     if (!_formKey.currentState!.validate()) return;
+
+    if (!_agreementAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Kullanıcı sözleşmesini kabul etmelisiniz'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    if (widget.userType == 'craftsman' && _taxDocumentPath == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Vergi levhası yüklemelisiniz'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
 
     setState(() {
       _isLoading = true;
@@ -129,7 +164,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         ),
         actions: [
           const SimpleLanguageSelector(),
-          const SimpleThemeToggle(),
+          const SimpleAccessibilityToggle(),
           const SizedBox(width: 8),
         ],
       ),
@@ -312,6 +347,155 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       }
                       return null;
                     },
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // Tax Document Upload (only for craftsman)
+                  if (widget.userType == 'craftsman') ...[
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.textWhite.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.textWhite.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Vergi Levhası (Zorunlu)',
+                            style: TextStyle(
+                              color: AppColors.textWhite,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          GestureDetector(
+                            onTap: _pickTaxDocument,
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: AppColors.textWhite.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: AppColors.textWhite.withOpacity(0.5),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    _taxDocumentPath != null 
+                                        ? Icons.check_circle_outline 
+                                        : Icons.upload_file_outlined,
+                                    color: AppColors.textWhite,
+                                    size: 24,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      _taxDocumentPath != null 
+                                          ? 'Vergi levhası seçildi' 
+                                          : 'Vergi levhası yüklemek için tıklayın',
+                                      style: TextStyle(
+                                        color: AppColors.textWhite,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                  
+                  // User Agreement Checkbox
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.textWhite.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.textWhite.withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                          value: _agreementAccepted,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _agreementAccepted = value ?? false;
+                            });
+                          },
+                          activeColor: AppColors.textWhite,
+                          checkColor: AppColors.primary,
+                          side: BorderSide(
+                            color: AppColors.textWhite.withOpacity(0.7),
+                            width: 2,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/legal');
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                    color: AppColors.textWhite,
+                                    fontSize: 14,
+                                  ),
+                                  children: [
+                                    const TextSpan(text: 'Kabul ediyorum: '),
+                                    TextSpan(
+                                      text: 'Kullanıcı Sözleşmesi',
+                                      style: TextStyle(
+                                        color: AppColors.textWhite,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    const TextSpan(text: ', '),
+                                    TextSpan(
+                                      text: 'Gizlilik Politikası',
+                                      style: TextStyle(
+                                        color: AppColors.textWhite,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    const TextSpan(text: ' ve '),
+                                    TextSpan(
+                                      text: 'KVKK Aydınlatma Metni',
+                                      style: TextStyle(
+                                        color: AppColors.textWhite,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   
                   const SizedBox(height: 32),
