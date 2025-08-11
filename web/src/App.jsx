@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import { AnalyticsManager } from './utils/analytics';
+import { AccessibilityManager, SkipLink } from './utils/accessibility';
 
 // Import pages
 import { StartPage } from './pages/StartPage';
@@ -32,6 +33,7 @@ import JobProgressPage from './pages/JobProgressPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import TestingPage from './pages/TestingPage';
+import AccessibilityTestPage from './pages/AccessibilityTestPage';
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/SearchPage';
 import PaymentPage from './pages/PaymentPage';
@@ -71,15 +73,28 @@ function AnalyticsTracker() {
   return null;
 }
 
+// Accessibility initialization component
+function AccessibilityInitializer() {
+  useEffect(() => {
+    // Initialize accessibility features
+    AccessibilityManager.initialize();
+  }, []);
+  
+  return null;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <AuthProvider>
           <NotificationProvider>
-            <ErrorBoundary>
-              <AnalyticsTracker />
-              <div className="App">
+                    <ErrorBoundary>
+          <AnalyticsTracker />
+          <AccessibilityInitializer />
+          <SkipLink href="#main-content" />
+          <div className="App">
+            <main id="main-content" role="main">
             <Routes>
               {/* 🌐 Public Routes - Anyone can access */}
               <Route path="/" element={<PublicRoute><OnboardingPage /></PublicRoute>} />
@@ -100,6 +115,7 @@ function App() {
               <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
               <Route path="/testing" element={<ProtectedRoute><TestingPage /></ProtectedRoute>} />
+              <Route path="/accessibility-test" element={<ProtectedRoute><AccessibilityTestPage /></ProtectedRoute>} />
               <Route path="/payment-history" element={<ProtectedRoute><PaymentHistory /></ProtectedRoute>} />
               
               {/* 👤 Customer Only Routes */}
@@ -133,10 +149,11 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/profile/:userId" element={<ProfilePage />} />
-            </Routes>
+                          </Routes>
+            </main>
             <MobileNavigation />
-              </div>
-            </ErrorBoundary>
+          </div>
+        </ErrorBoundary>
           </NotificationProvider>
         </AuthProvider>
       </Router>

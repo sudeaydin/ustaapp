@@ -56,6 +56,7 @@ def create_app(config_name='default'):
     from app.routes.quote_request import quote_request_bp
     from app.routes.auth import auth_bp
     from app.routes.seo import seo_bp
+    from app.routes.accessibility import accessibility_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -69,6 +70,7 @@ def create_app(config_name='default'):
     app.register_blueprint(quote_request_bp, url_prefix='/api/quote-requests')
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(seo_bp)
+    app.register_blueprint(accessibility_bp, url_prefix='/api/accessibility')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')

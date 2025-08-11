@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { PageSEO } from '../utils/seo';
+import { useAccessibility, ScreenReaderOnly } from '../utils/accessibility';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { announce } = useAccessibility();
   const [stats, setStats] = useState({
     craftsmen: 1000,
     completedJobs: 5000,
@@ -84,10 +87,20 @@ const LandingPage = () => {
     }
   ];
 
+  // SEO configuration for landing page
+  const seoConfig = {
+    title: 'UstamApp - Türkiye\'nin En Güvenilir Usta Bulucu Platformu',
+    description: 'Elektrikçi, tesisatçı, boyacı, temizlikçi ve 50+ kategoride profesyonel usta bulun. Güvenli ödeme, 7/24 destek, garanti ile hizmet. Hemen kayıt olun!',
+    keywords: 'usta bulucu, elektrikçi, tesisatçı, boyacı, temizlikçi, klima tamiri, ev tamiri, profesyonel hizmet, güvenli ödeme, istanbul usta, ankara usta, izmir usta',
+    canonicalUrl: 'https://ustamapp.com/landing',
+    image: '/icons/icon-512x512.png'
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <PageSEO pageType="landing" data={seoConfig}>
+      <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white shadow-lg fixed w-full top-0 z-50">
+      <nav className="bg-white shadow-lg fixed w-full top-0 z-50" role="navigation" aria-label="Ana navigasyon">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -97,7 +110,7 @@ const LandingPage = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-8" role="menubar">
               <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
                 Özellikler
               </a>
@@ -368,7 +381,8 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageSEO>
   );
 };
 

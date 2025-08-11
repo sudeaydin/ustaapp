@@ -5,6 +5,7 @@ import 'features/auth/providers/auth_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/config/app_config.dart';
 import 'core/services/analytics_service.dart';
+import 'core/utils/accessibility_utils.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/auth/screens/welcome_screen.dart';
@@ -21,6 +22,7 @@ import 'features/messages/screens/chat_screen.dart';
 import 'features/notifications/screens/notifications_screen.dart';
 import 'features/quotes/screens/craftsman_quotes_screen.dart';
 import 'features/analytics/screens/analytics_screen.dart';
+import 'features/accessibility/screens/accessibility_test_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +32,9 @@ void main() async {
     
     // Initialize analytics service
     await AnalyticsService.getInstance().initialize();
+    
+    // Initialize accessibility features
+    AccessibilityUtils.initialize();
     
     runApp(
       ProviderScope(
@@ -84,6 +89,7 @@ class MyApp extends StatelessWidget {
         '/notifications': (context) => const NotificationsScreen(),
         '/craftsman-quotes': (context) => const CraftsmanQuotesScreen(),
         '/analytics': (context) => const AnalyticsScreen(),
+        '/accessibility-test': (context) => const AccessibilityTestScreen(),
       },
       // Track navigation events
       navigatorObservers: [

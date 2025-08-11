@@ -4,6 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../core/services/analytics_service.dart';
+import '../../../core/utils/accessibility_utils.dart';
 import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,7 +16,7 @@ class SearchScreen extends ConsumerStatefulWidget {
   ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends ConsumerState<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> with AccessibilityMixin {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = '';
   String _selectedCity = '';

@@ -3,10 +3,12 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAnalytics } from '../utils/analytics';
 import { PageSEO } from '../utils/seo';
+import { useAccessibility, AccessibleButton, AccessibleInput, ScreenReaderOnly } from '../utils/accessibility';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const analytics = useAnalytics();
+  const { announce } = useAccessibility();
   const [filters, setFilters] = useState({
     q: searchParams.get('q') || '',
     category: searchParams.get('category') || '',

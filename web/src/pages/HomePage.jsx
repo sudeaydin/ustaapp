@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import messageService from '../services/messageService';
+import { PageSEO } from '../utils/seo';
+import { useAccessibility, ScreenReaderOnly } from '../utils/accessibility';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ export const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [featuredCraftsmen, setFeaturedCraftsmen] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const { announce } = useAccessibility();
 
   useEffect(() => {
     fetchCategories();
