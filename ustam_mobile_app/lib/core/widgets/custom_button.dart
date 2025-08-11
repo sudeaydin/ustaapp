@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../config/app_config.dart';
+import 'hover_button.dart';
 
 enum ButtonType { primary, secondary, danger, outlined, text }
 enum ButtonSize { small, medium, large }
@@ -34,7 +35,13 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       width: isFullWidth ? double.infinity : null,
       height: _getHeight(),
-      child: _buildButton(isEnabled),
+      child: HoverButton(
+        onTap: isEnabled ? onPressed : null,
+        hoverColor: isEnabled ? _getHoverColor() : Colors.grey,
+        hoverScale: isEnabled ? 1.05 : 1.0,
+        borderRadius: BorderRadius.circular(12),
+        child: _buildButton(isEnabled),
+      ),
     );
   }
 
@@ -49,38 +56,53 @@ class CustomButton extends StatelessWidget {
     }
   }
 
-  Widget _buildButton(bool isEnabled) {
+  Color _getHoverColor() {
     switch (type) {
       case ButtonType.primary:
-        return ElevatedButton(
-          onPressed: isEnabled ? onPressed : null,
-          style: _getPrimaryStyle(),
-          child: _buildButtonContent(),
-        );
+        return AppColors.primary;
       case ButtonType.secondary:
-        return ElevatedButton(
-          onPressed: isEnabled ? onPressed : null,
-          style: _getSecondaryStyle(),
-          child: _buildButtonContent(),
-        );
+        return AppColors.secondary;
       case ButtonType.danger:
-        return ElevatedButton(
-          onPressed: isEnabled ? onPressed : null,
-          style: _getDangerStyle(),
-          child: _buildButtonContent(),
-        );
+        return AppColors.error;
       case ButtonType.outlined:
-        return OutlinedButton(
-          onPressed: isEnabled ? onPressed : null,
-          style: _getOutlinedStyle(),
-          child: _buildButtonContent(),
-        );
+        return AppColors.primary;
       case ButtonType.text:
-        return TextButton(
-          onPressed: isEnabled ? onPressed : null,
-          style: _getTextButtonStyle(),
-          child: _buildButtonContent(),
-        );
+        return AppColors.primary;
+    }
+  }
+
+  Widget _buildButton(bool isEnabled) {
+    switch (type) {
+              case ButtonType.primary:
+          return ElevatedButton(
+            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
+            style: _getPrimaryStyle(),
+            child: _buildButtonContent(),
+          );
+        case ButtonType.secondary:
+          return ElevatedButton(
+            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
+            style: _getSecondaryStyle(),
+            child: _buildButtonContent(),
+          );
+        case ButtonType.danger:
+          return ElevatedButton(
+            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
+            style: _getDangerStyle(),
+            child: _buildButtonContent(),
+          );
+        case ButtonType.outlined:
+          return OutlinedButton(
+            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
+            style: _getOutlinedStyle(),
+            child: _buildButtonContent(),
+          );
+        case ButtonType.text:
+          return TextButton(
+            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
+            style: _getTextButtonStyle(),
+            child: _buildButtonContent(),
+          );
     }
   }
 
