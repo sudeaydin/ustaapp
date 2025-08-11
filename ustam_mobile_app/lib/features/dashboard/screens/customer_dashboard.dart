@@ -131,7 +131,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                         const SizedBox(width: 12),
                                                  Expanded(
                            child: TutorialHighlight(
-                             tutorialKey: 'messages_button',
+                             tutorialKey: 'messages_tab',
                              child: _buildQuickActionCard(
                                'Mesajlar',
                                'Ustalarla iletişim kurun',

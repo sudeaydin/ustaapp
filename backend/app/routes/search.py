@@ -124,7 +124,7 @@ def search_craftsmen(validated_data):
                     except:
                         skills_list = [craftsman.skills] if craftsman.skills else []
                 
-                craftsman_data.append({
+                craftsmen_data.append({
                     'id': craftsman.id,
                     'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
                     'business_name': craftsman.business_name,
