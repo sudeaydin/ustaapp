@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../core/config/app_config.dart';
+import '../../../core/services/api_service.dart';
+import '../../../core/utils/error_handler.dart';
 
 // SharedPreferences provider
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
@@ -89,19 +91,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
     
     try {
-      // Real API login call
-      final response = await http.post(
-        Uri.parse(AppConfig.loginUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
-      );
+      // Use new API service
+      final apiResponse = await ApiService().login(email, password);
       
-      final data = jsonDecode(response.body);
-      
-      if (response.statusCode == 200 && data['success']) {
+      if (apiResponse.isSuccess && apiResponse.data != null) {
+        final data = apiResponse.data!;
         final token = data['data']['access_token'];
         final user = data['data']['user'];
         
@@ -132,14 +126,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return true;
       } else {
         state = state.copyWith(
-          error: data['message'] ?? 'Geçersiz email veya şifre',
+          error: apiResponse.error?.userFriendlyMessage ?? 'Geçersiz email veya şifre',
           isLoading: false,
         );
         return false;
       }
     } catch (e) {
+      final error = e is AppError ? e : AppError.fromException(e);
       state = state.copyWith(
-        error: 'Giriş yapılırken hata oluştu',
+        error: error.userFriendlyMessage,
         isLoading: false,
       );
       return false;
