@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
+import '../../../core/widgets/widgets.dart';
 import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -20,6 +21,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   String _selectedSortBy = 'rating';
   bool _showFilters = false;
   bool _isLoading = false;
+  AppError? _error;
   List<Map<String, dynamic>> _craftsmen = [];
   List<Map<String, dynamic>> _categories = [];
   List<String> _cities = [];
@@ -40,15 +42,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final response = await http.get(Uri.parse(AppConfig.searchCategoriesUrl));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('Categories response: $data');
         if (data['success'] && data['data'] != null) {
           setState(() {
             _categories = List<Map<String, dynamic>>.from(data['data']);
+            _error = null;
           });
         }
+      } else {
+        setState(() {
+          _error = AppError.fromHttpResponse(response);
+        });
       }
     } catch (e) {
-      print('Error loading categories: $e');
+      setState(() {
+        _error = AppError.fromException(e);
+      });
     }
   }
 
@@ -422,51 +430,26 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
             // Results - Figma Card Design
             Expanded(
-              child: _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.uclaBlue),
-                      ),
+              child: _error != null
+                  ? ErrorStateWidget(
+                      error: _error!,
+                      onRetry: () {
+                        setState(() {
+                          _error = null;
+                        });
+                        _loadCategories();
+                        _loadCities();
+                        _performSearch();
+                      },
                     )
-                  : _craftsmen.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  color: AppColors.surfaceColor,
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Icon(
-                                  Icons.search_off,
-                                  size: 50,
-                                  color: AppColors.textMuted,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Sonuç Bulunamadı',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.textSecondary,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text(
-                                'Arama kriterlerinize uygun usta bulunamadı.',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColors.textLight,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        )
+                  : _isLoading
+                      ? const LoadingWidget(message: 'Ustalar aranıyor...')
+                                            : _craftsmen.isEmpty
+                          ? const EmptyStateWidget(
+                              title: 'Sonuç Bulunamadı',
+                              subtitle: 'Arama kriterlerinize uygun usta bulunamadı.',
+                              icon: Icons.search_off,
+                            )
                       : ListView.builder(
                           padding: const EdgeInsets.all(16),
                           itemCount: _craftsmen.length,
