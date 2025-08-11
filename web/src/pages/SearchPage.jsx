@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useAnalytics } from '../utils/analytics';
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const analytics = useAnalytics();
   const [filters, setFilters] = useState({
     q: searchParams.get('q') || '',
     category: searchParams.get('category') || '',

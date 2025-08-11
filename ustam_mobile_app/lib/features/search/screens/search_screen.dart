@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/services/analytics_service.dart';
 import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -83,6 +84,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     });
 
     try {
+      // Track search event
+      AnalyticsService.getInstance().trackBusinessEvent('search', {
+        'query': _searchController.text,
+        'category': _selectedCategory,
+        'city': _selectedCity,
+        'sort_by': _selectedSortBy,
+      });
+
       final queryParams = <String, String>{};
       if (_searchController.text.isNotEmpty) {
         queryParams['q'] = _searchController.text;
@@ -102,23 +111,57 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         final data = json.decode(response.body);
         print('Search response: $data');
         if (data['success'] && data['data'] != null && data['data']['craftsmen'] != null) {
+          final craftsmen = List<Map<String, dynamic>>.from(data['data']['craftsmen']);
+          
+          // Track search results
+          AnalyticsService.getInstance().trackBusinessEvent('search_results', {
+            'query': _searchController.text,
+            'results_count': craftsmen.length,
+            'category': _selectedCategory,
+            'city': _selectedCity,
+          });
+          
           setState(() {
-            _craftsmen = List<Map<String, dynamic>>.from(data['data']['craftsmen']);
+            _craftsmen = craftsmen;
           });
         } else {
           print('No craftsmen found in response');
+          
+          // Track empty search results
+          AnalyticsService.getInstance().trackBusinessEvent('search_no_results', {
+            'query': _searchController.text,
+            'category': _selectedCategory,
+            'city': _selectedCity,
+          });
+          
           setState(() {
             _craftsmen = [];
           });
         }
       } else {
         print('Search failed with status: ${response.statusCode}');
+        
+        // Track search error
+        AnalyticsService.getInstance().trackError('search_api_error', 
+          'HTTP ${response.statusCode}', {
+          'query': _searchController.text,
+          'category': _selectedCategory,
+          'city': _selectedCity,
+        });
+        
         setState(() {
           _craftsmen = [];
         });
       }
     } catch (e) {
       print('Error performing search: $e');
+      
+      // Track search exception
+      AnalyticsService.getInstance().trackError('search_exception', e.toString(), {
+        'query': _searchController.text,
+        'category': _selectedCategory,
+        'city': _selectedCity,
+      });
     } finally {
       setState(() {
         _isLoading = false;

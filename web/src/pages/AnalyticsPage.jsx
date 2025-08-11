@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useAnalytics } from '../utils/analytics';
+import api from '../utils/api';
 import AnalyticsCard from '../components/analytics/AnalyticsCard';
 import ChartComponent from '../components/analytics/ChartComponent';
+import CostCalculator from '../components/CostCalculator';
 
 const AnalyticsPage = () => {
   const { user } = useAuth();
+  const analytics = useAnalytics();
   const [timeRange, setTimeRange] = useState('30'); // 7, 30, 90, 365 days
   const [loading, setLoading] = useState(true);
   const [analyticsData, setAnalyticsData] = useState(null);
+  const [error, setError] = useState(null);
 
   const timeRangeOptions = [
     { value: '7', label: 'Son 7 Gün' },
@@ -144,12 +149,38 @@ const AnalyticsPage = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setAnalyticsData(generateMockData(user?.user_type, timeRange));
-      setLoading(false);
-    }, 1000);
-  }, [user, timeRange]);
+    const fetchAnalyticsData = async () => {
+      if (!user) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      try {
+        // Track analytics page view
+        analytics.trackPageView('/analytics', { time_range: timeRange });
+        
+        // Fetch real analytics data from backend
+        const response = await api.getAnalyticsDashboard({ time_range: timeRange });
+        
+        if (response.success) {
+          setAnalyticsData(response.data);
+        } else {
+          // Fallback to mock data if backend fails
+          console.warn('Failed to fetch analytics data, using mock data');
+          setAnalyticsData(generateMockData(user?.user_type, timeRange));
+        }
+      } catch (err) {
+        console.error('Analytics data fetch error:', err);
+        setError('Analitik veriler yüklenirken bir hata oluştu');
+        // Fallback to mock data
+        setAnalyticsData(generateMockData(user?.user_type, timeRange));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnalyticsData();
+  }, [user, timeRange, analytics]);
 
   const getActivityIcon = (type) => {
     switch (type) {
@@ -383,6 +414,11 @@ const AnalyticsPage = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Cost Calculator */}
+        <div className="mt-8">
+          <CostCalculator />
         </div>
 
         {/* Performance Insights */}

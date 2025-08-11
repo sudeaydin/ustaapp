@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_config.dart';
 import '../utils/error_handler.dart';
+import 'analytics_service.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -41,6 +42,8 @@ class ApiService {
     bool requiresAuth = false,
     int retryCount = 0,
   }) async {
+    final stopwatch = Stopwatch()..start();
+    
     try {
       final requestHeaders = requiresAuth 
           ? await _getAuthHeaders()
@@ -99,18 +102,28 @@ class ApiService {
         );
       }
 
+      // Track API call performance
+      stopwatch.stop();
+      _trackApiCall(url, method, response.statusCode, stopwatch.elapsedMilliseconds);
+      
       return response;
     } on SocketException {
+      stopwatch.stop();
+      _trackApiCall(url, method, 0, stopwatch.elapsedMilliseconds);
       throw AppError(
         type: ErrorType.noInternet,
         message: 'İnternet bağlantınızı kontrol edin',
       );
     } on TimeoutException {
+      stopwatch.stop();
+      _trackApiCall(url, method, 408, stopwatch.elapsedMilliseconds);
       throw AppError(
         type: ErrorType.timeout,
         message: 'İstek zaman aşımına uğradı',
       );
     } catch (e) {
+      stopwatch.stop();
+      _trackApiCall(url, method, 0, stopwatch.elapsedMilliseconds);
       if (e is AppError) rethrow;
       throw AppError.fromException(e);
     }
@@ -406,5 +419,20 @@ extension ApiServiceExtensions on ApiService {
       body: quoteData,
       requiresAuth: true,
     );
+  }
+
+  // Track API call performance
+  void _trackApiCall(String url, String method, int statusCode, int duration) {
+    try {
+      // Extract endpoint from full URL
+      final uri = Uri.parse(url);
+      final endpoint = uri.path;
+      
+      // Track asynchronously to avoid blocking
+      AnalyticsService.getInstance().trackApiCall(endpoint, method, statusCode, duration);
+    } catch (e) {
+      // Silently fail to avoid disrupting API calls
+      print('Failed to track API call: $e');
+    }
   }
 }

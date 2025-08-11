@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/services/analytics_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String userType;
@@ -358,6 +359,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       try {
         final authNotifier = ref.read(authProvider.notifier);
         
+        // Track login attempt
+        AnalyticsService.getInstance().trackBusinessEvent('login_attempt', {
+          'user_type': widget.userType,
+          'email_domain': _emailController.text.split('@').length > 1 
+              ? _emailController.text.split('@')[1] 
+              : 'unknown',
+        });
+        
         print('Login attempt - User type: ${widget.userType}');
         print('📧 Email: ${_emailController.text}');
         
@@ -370,6 +379,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         
         if (success && mounted) {
           print('✅ Login successful, navigating to dashboard');
+          
+          // Track successful login
+          AnalyticsService.getInstance().trackBusinessEvent('login_success', {
+            'user_type': widget.userType,
+          });
+          
           // Navigate to appropriate dashboard
           if (widget.userType == 'craftsman') {
             Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
@@ -377,6 +392,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Navigator.pushReplacementNamed(context, '/customer-dashboard');
           }
         } else if (mounted) {
+          // Track failed login
+          AnalyticsService.getInstance().trackBusinessEvent('login_failed', {
+            'user_type': widget.userType,
+            'reason': 'invalid_credentials',
+          });
+          
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Giriş başarısız'),
@@ -386,6 +407,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       } catch (e) {
         print('❌ Login error: $e');
+        
+        // Track login error
+        AnalyticsService.getInstance().trackError('login_error', e.toString(), {
+          'user_type': widget.userType,
+          'email': _emailController.text,
+        });
+        
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

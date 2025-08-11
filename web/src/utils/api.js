@@ -1,3 +1,5 @@
+import { AnalyticsManager } from './analytics';
+
 // API Configuration
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
   ? 'https://api.ustamapp.com' 
@@ -42,6 +44,7 @@ class ApiClient {
   async request(method, endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
     const { body, headers = {}, requiresAuth = false, timeout = this.timeout } = options;
+    const startTime = Date.now();
 
     const config = {
       method: method.toUpperCase(),
@@ -87,9 +90,17 @@ class ApiClient {
         );
       }
 
+      // Track successful API call
+      this._trackApiCall(endpoint, method, response.status, Date.now() - startTime);
+      
       return data;
     } catch (error) {
       clearTimeout(timeoutId);
+      
+      // Track failed API call
+      const duration = Date.now() - startTime;
+      const statusCode = error.status || (error.name === 'AbortError' ? 408 : 0);
+      this._trackApiCall(endpoint, method, statusCode, duration);
       
       if (error.name === 'AbortError') {
         throw new ApiError('İstek zaman aşımına uğradı', 408, 'TIMEOUT');
@@ -257,6 +268,32 @@ export const api = {
       requiresAuth: true,
       body: { image_path: imagePath }
     }),
+
+  // Analytics methods
+  getAnalyticsDashboard: (params = {}) =>
+    apiClient.get('/api/analytics/dashboard/overview', { 
+      requiresAuth: true,
+      ...params 
+    }),
+
+  getTrends: (params = {}) =>
+    apiClient.get('/api/analytics/trends', { 
+      requiresAuth: true,
+      ...params 
+    }),
+
+  getCostEstimate: (jobData) =>
+    apiClient.post('/api/analytics/cost-estimate', jobData, { requiresAuth: true }),
+
+  // Track API call performance
+  _trackApiCall(endpoint, method, statusCode, duration) {
+    try {
+      AnalyticsManager.getInstance().trackApiCall(endpoint, method, statusCode, duration);
+    } catch (error) {
+      // Silently fail to avoid disrupting API calls
+      console.warn('Failed to track API call:', error);
+    }
+  },
 };
 
 export { ApiError, apiClient };

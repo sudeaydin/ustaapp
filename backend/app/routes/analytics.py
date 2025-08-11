@@ -1,453 +1,242 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app import db
+from app.utils.validators import ResponseHelper
+from app.utils.analytics import (
+    AnalyticsTracker, BusinessMetrics, PerformanceMonitor,
+    UserBehaviorAnalytics, CostCalculator, DashboardData
+)
+from app.utils.security import rate_limit, require_auth
 from app.models.user import User
-from app.models.customer import Customer
-from app.models.craftsman import Craftsman
 from app.models.quote import Quote
-from app.models.payment import Payment
-from app.models.review import Review
-# from app.models.message import Message  # Not needed for current analytics
+from app.models.message import Message
 from datetime import datetime, timedelta
 from sqlalchemy import func, and_
 import logging
 
-analytics_bp = Blueprint('analytics', __name__)
+analytics_bp = Blueprint('analytics', __name__, url_prefix='/api/analytics')
 
-@analytics_bp.route('/dashboard', methods=['GET'])
-@jwt_required()
-def get_dashboard_analytics():
-    """Get dashboard analytics for the current user"""
+@analytics_bp.route('/track', methods=['POST'])
+@rate_limit(max_requests=100, window_minutes=1)
+@require_auth
+def track_event():
+    """Track user analytics event"""
+    try:
+        user_id = get_jwt_identity()
+        data = request.get_json()
+        
+        action = data.get('action')
+        details = data.get('details', {})
+        page = data.get('page')
+        
+        if not action:
+            return ResponseHelper.error('Action is required', 'MISSING_ACTION'), 400
+        
+        AnalyticsTracker.track_user_action(user_id, action, details, page)
+        
+        return ResponseHelper.success({'message': 'Event tracked successfully'})
+        
+    except Exception as e:
+        return ResponseHelper.error('Failed to track event', 'TRACKING_ERROR'), 500
+
+@analytics_bp.route('/dashboard/overview', methods=['GET'])
+@rate_limit(max_requests=30, window_minutes=1)
+@require_auth
+def get_dashboard_overview():
+    """Get platform overview for dashboard"""
     try:
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
         
+        # Check if user has access to analytics (admin or craftsman for their own data)
         if not user:
-            return jsonify({'error': 'User not found'}), 404
+            return ResponseHelper.error('User not found', 'USER_NOT_FOUND'), 404
         
-        if user.user_type == 'customer':
-            analytics = get_customer_analytics(user_id)
+        if user.user_type.value == 'craftsman':
+            # Craftsman gets their own metrics
+            metrics = BusinessMetrics.get_craftsman_metrics(user.craftsman.id)
+            if not metrics:
+                return ResponseHelper.error('Craftsman metrics not found', 'METRICS_NOT_FOUND'), 404
+            
+            return ResponseHelper.success({'metrics': metrics})
+        
+        elif user.user_type.value == 'customer':
+            # Customer gets their own metrics
+            metrics = BusinessMetrics.get_customer_metrics(user.customer.id)
+            if not metrics:
+                return ResponseHelper.error('Customer metrics not found', 'METRICS_NOT_FOUND'), 404
+            
+            return ResponseHelper.success({'metrics': metrics})
+        
         else:
-            analytics = get_craftsman_analytics(user_id)
-        
-        return jsonify({
-            'success': True,
-            'analytics': analytics
-        }), 200
+            # Admin gets platform overview
+            overview = BusinessMetrics.get_platform_overview()
+            return ResponseHelper.success({'overview': overview})
         
     except Exception as e:
-        logging.error(f"Error getting dashboard analytics: {str(e)}")
-        return jsonify({
-            'error': True,
-            'message': 'Internal server error'
-        }), 500
+        return ResponseHelper.error('Failed to get dashboard data', 'DASHBOARD_ERROR'), 500
 
-def get_customer_analytics(user_id):
-    """Get analytics data for customer"""
-    customer = Customer.query.filter_by(user_id=user_id).first()
-    if not customer:
-        return {}
-    
-    # Time ranges
-    now = datetime.utcnow()
-    last_30_days = now - timedelta(days=30)
-    last_7_days = now - timedelta(days=7)
-    
-    # Basic stats
-    total_quotes = Quote.query.filter_by(customer_id=customer.id).count()
-    active_quotes = Quote.query.filter(
-        and_(Quote.customer_id == customer.id, 
-             Quote.status.in_(['pending', 'accepted']))
-    ).count()
-    
-    completed_quotes = Quote.query.filter(
-        and_(Quote.customer_id == customer.id, 
-             Quote.status == 'completed')
-    ).count()
-    
-    # Payment stats
-    total_spent = db.session.query(func.sum(Payment.total_amount)).filter(
-        and_(Payment.customer_id == customer.id,
-             Payment.status == 'completed')
-    ).scalar() or 0
-    
-    # Recent activity
-    recent_quotes = Quote.query.filter(
-        and_(Quote.customer_id == customer.id,
-             Quote.created_at >= last_30_days)
-    ).count()
-    
-    # Reviews given
-    reviews_given = Review.query.filter_by(customer_id=customer.id).count()
-    
-    # Average rating given
-    avg_rating_given = db.session.query(func.avg(Review.rating)).filter(
-        Review.customer_id == customer.id
-    ).scalar() or 0
-    
-    # Monthly spending data
-    monthly_spending = []
-    for i in range(6):
-        month_start = now.replace(day=1) - timedelta(days=30*i)
-        month_end = month_start + timedelta(days=30)
+@analytics_bp.route('/trends', methods=['GET'])
+@rate_limit(max_requests=20, window_minutes=1)
+def get_trend_analysis():
+    """Get platform trend analysis (public data)"""
+    try:
+        trends = BusinessMetrics.get_trend_analysis()
+        return ResponseHelper.success({'trends': trends})
         
-        spending = db.session.query(func.sum(Payment.total_amount)).filter(
-            and_(Payment.customer_id == customer.id,
-                 Payment.status == 'completed',
-                 Payment.created_at >= month_start,
-                 Payment.created_at < month_end)
-        ).scalar() or 0
-        
-        monthly_spending.append({
-            'month': month_start.strftime('%Y-%m'),
-            'amount': float(spending)
-        })
-    
-    # Quote status distribution
-    quote_statuses = db.session.query(
-        Quote.status, func.count(Quote.id)
-    ).filter(Quote.customer_id == customer.id).group_by(Quote.status).all()
-    
-    status_distribution = [
-        {'status': status, 'count': count} 
-        for status, count in quote_statuses
-    ]
-    
-    return {
-        'user_type': 'customer',
-        'overview': {
-            'total_quotes': total_quotes,
-            'active_quotes': active_quotes,
-            'completed_quotes': completed_quotes,
-            'total_spent': float(total_spent),
-            'recent_activity': recent_quotes,
-            'reviews_given': reviews_given,
-            'avg_rating_given': round(float(avg_rating_given), 2)
-        },
-        'charts': {
-            'monthly_spending': monthly_spending,
-            'quote_status_distribution': status_distribution
-        }
-    }
+    except Exception as e:
+        return ResponseHelper.error('Failed to get trends', 'TRENDS_ERROR'), 500
 
-def get_craftsman_analytics(user_id):
-    """Get analytics data for craftsman"""
-    craftsman = Craftsman.query.filter_by(user_id=user_id).first()
-    if not craftsman:
-        return {}
-    
-    # Time ranges
-    now = datetime.utcnow()
-    last_30_days = now - timedelta(days=30)
-    last_7_days = now - timedelta(days=7)
-    
-    # Basic stats
-    total_quotes = Quote.query.filter_by(craftsman_id=craftsman.id).count()
-    active_quotes = Quote.query.filter(
-        and_(Quote.craftsman_id == craftsman.id, 
-             Quote.status.in_(['pending', 'accepted']))
-    ).count()
-    
-    completed_quotes = Quote.query.filter(
-        and_(Quote.craftsman_id == craftsman.id, 
-             Quote.status == 'completed')
-    ).count()
-    
-    # Earnings stats
-    total_earnings = db.session.query(func.sum(Payment.total_amount)).filter(
-        and_(Payment.craftsman_id == craftsman.id,
-             Payment.status == 'completed')
-    ).scalar() or 0
-    
-    # Recent activity
-    recent_quotes = Quote.query.filter(
-        and_(Quote.craftsman_id == craftsman.id,
-             Quote.created_at >= last_30_days)
-    ).count()
-    
-    # Reviews received
-    reviews_received = Review.query.filter_by(craftsman_id=craftsman.id).count()
-    
-    # Average rating received
-    avg_rating = db.session.query(func.avg(Review.rating)).filter(
-        Review.craftsman_id == craftsman.id
-    ).scalar() or 0
-    
-    # Response rate (quotes responded to vs total quotes)
-    total_available_quotes = Quote.query.filter(
-        Quote.status == 'open'
-    ).count()
-    
-    responded_quotes = Quote.query.filter_by(craftsman_id=craftsman.id).count()
-    response_rate = (responded_quotes / total_available_quotes * 100) if total_available_quotes > 0 else 0
-    
-    # Monthly earnings data
-    monthly_earnings = []
-    for i in range(6):
-        month_start = now.replace(day=1) - timedelta(days=30*i)
-        month_end = month_start + timedelta(days=30)
+@analytics_bp.route('/cost-estimate', methods=['POST'])
+@rate_limit(max_requests=50, window_minutes=1)
+def estimate_cost():
+    """Estimate job cost based on parameters"""
+    try:
+        data = request.get_json()
         
-        earnings = db.session.query(func.sum(Payment.total_amount)).filter(
-            and_(Payment.craftsman_id == craftsman.id,
-                 Payment.status == 'completed',
-                 Payment.created_at >= month_start,
-                 Payment.created_at < month_end)
-        ).scalar() or 0
+        category = data.get('category')
+        area_type = data.get('area_type')
+        square_meters = data.get('square_meters')
+        complexity = data.get('complexity', 'orta')
+        city = data.get('city', 'İstanbul')
         
-        monthly_earnings.append({
-            'month': month_start.strftime('%Y-%m'),
-            'amount': float(earnings)
-        })
-    
-    # Quote status distribution
-    quote_statuses = db.session.query(
-        Quote.status, func.count(Quote.id)
-    ).filter(Quote.craftsman_id == craftsman.id).group_by(Quote.status).all()
-    
-    status_distribution = [
-        {'status': status, 'count': count} 
-        for status, count in quote_statuses
-    ]
-    
-    # Performance metrics
-    success_rate = (completed_quotes / total_quotes * 100) if total_quotes > 0 else 0
-    
-    return {
-        'user_type': 'craftsman',
-        'overview': {
-            'total_quotes': total_quotes,
-            'active_quotes': active_quotes,
-            'completed_quotes': completed_quotes,
-            'total_earnings': float(total_earnings),
-            'recent_activity': recent_quotes,
-            'reviews_received': reviews_received,
-            'avg_rating': round(float(avg_rating), 2),
-            'response_rate': round(response_rate, 2),
-            'success_rate': round(success_rate, 2)
-        },
-        'charts': {
-            'monthly_earnings': monthly_earnings,
-            'quote_status_distribution': status_distribution
-        }
-    }
+        if not category or not area_type:
+            return ResponseHelper.error('Category and area type are required', 'MISSING_FIELDS'), 400
+        
+        estimate = CostCalculator.estimate_job_cost(
+            category=category,
+            area_type=area_type,
+            square_meters=square_meters,
+            complexity=complexity,
+            city=city
+        )
+        
+        return ResponseHelper.success({'estimate': estimate})
+        
+    except Exception as e:
+        return ResponseHelper.error('Failed to estimate cost', 'ESTIMATION_ERROR'), 500
 
 @analytics_bp.route('/performance', methods=['GET'])
-@jwt_required()
-def get_performance_analytics():
-    """Get detailed performance analytics"""
+@rate_limit(max_requests=10, window_minutes=1)
+@require_auth
+def get_performance_metrics():
+    """Get API performance metrics (admin only)"""
+    try:
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        
+        # Check admin access (implement admin role checking)
+        if not user or not getattr(user, 'is_admin', False):
+            return ResponseHelper.error('Admin access required', 'ADMIN_REQUIRED'), 403
+        
+        hours = request.args.get('hours', 24, type=int)
+        performance = PerformanceMonitor.get_performance_report(hours)
+        
+        return ResponseHelper.success({'performance': performance})
+        
+    except Exception as e:
+        return ResponseHelper.error('Failed to get performance metrics', 'PERFORMANCE_ERROR'), 500
+
+@analytics_bp.route('/user-behavior', methods=['GET'])
+@rate_limit(max_requests=10, window_minutes=1)
+@require_auth
+def get_user_behavior():
+    """Get user behavior analytics (admin only)"""
+    try:
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        
+        if not user or not getattr(user, 'is_admin', False):
+            return ResponseHelper.error('Admin access required', 'ADMIN_REQUIRED'), 403
+        
+        journey = UserBehaviorAnalytics.get_user_journey_analysis()
+        search_analytics = UserBehaviorAnalytics.get_search_analytics()
+        
+        return ResponseHelper.success({
+            'user_journey': journey,
+            'search_analytics': search_analytics
+        })
+        
+    except Exception as e:
+        return ResponseHelper.error('Failed to get user behavior data', 'BEHAVIOR_ERROR'), 500
+
+@analytics_bp.route('/live-stats', methods=['GET'])
+@rate_limit(max_requests=30, window_minutes=1)
+@require_auth
+def get_live_stats():
+    """Get live platform statistics"""
     try:
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
         
         if not user:
-            return jsonify({'error': 'User not found'}), 404
+            return ResponseHelper.error('User not found', 'USER_NOT_FOUND'), 404
         
-        # Get time range from query params
-        days = request.args.get('days', 30, type=int)
-        start_date = datetime.utcnow() - timedelta(days=days)
-        
-        if user.user_type == 'customer':
-            performance = get_customer_performance(user_id, start_date)
+        # Different data based on user type
+        if user.user_type.value == 'craftsman':
+            # Craftsman gets their live stats
+            live_data = {
+                'pending_quotes': Quote.query.filter_by(
+                    craftsman_id=user.craftsman.id,
+                    status='PENDING'
+                ).count(),
+                'unread_messages': Message.query.filter_by(
+                    recipient_id=user_id,
+                    is_read=False
+                ).count()
+            }
         else:
-            performance = get_craftsman_performance(user_id, start_date)
+            # Customer gets their live stats
+            live_data = {
+                'active_quotes': Quote.query.filter_by(
+                    customer_id=user.customer.id
+                ).filter(Quote.status.in_(['PENDING', 'QUOTED', 'DETAILS_REQUESTED'])).count(),
+                'unread_messages': Message.query.filter_by(
+                    recipient_id=user_id,
+                    is_read=False
+                ).count()
+            }
         
-        return jsonify({
-            'success': True,
-            'performance': performance,
-            'period': f'Last {days} days'
-        }), 200
+        # Add general live stats
+        general_stats = DashboardData.get_live_stats()
+        live_data.update(general_stats)
+        
+        return ResponseHelper.success({'live_stats': live_data})
         
     except Exception as e:
-        logging.error(f"Error getting performance analytics: {str(e)}")
-        return jsonify({
-            'error': True,
-            'message': 'Internal server error'
-        }), 500
+        return ResponseHelper.error('Failed to get live stats', 'LIVE_STATS_ERROR'), 500
 
-def get_customer_performance(user_id, start_date):
-    """Get customer performance metrics"""
-    customer = Customer.query.filter_by(user_id=user_id).first()
-    if not customer:
-        return {}
-    
-    # Quotes in period
-    quotes_in_period = Quote.query.filter(
-        and_(Quote.customer_id == customer.id,
-             Quote.created_at >= start_date)
-    ).all()
-    
-    # Daily activity
-    daily_activity = []
-    current_date = start_date.date()
-    end_date = datetime.utcnow().date()
-    
-    while current_date <= end_date:
-        quotes_count = len([q for q in quotes_in_period 
-                           if q.created_at.date() == current_date])
-        
-        daily_activity.append({
-            'date': current_date.isoformat(),
-            'quotes': quotes_count
-        })
-        current_date += timedelta(days=1)
-    
-    # Category preferences
-    category_stats = {}
-    for quote in quotes_in_period:
-        category = getattr(quote, 'category', 'Unknown')
-        category_stats[category] = category_stats.get(category, 0) + 1
-    
-    category_preferences = [
-        {'category': cat, 'count': count}
-        for cat, count in category_stats.items()
-    ]
-    
-    return {
-        'daily_activity': daily_activity,
-        'category_preferences': category_preferences,
-        'total_quotes_period': len(quotes_in_period),
-        'avg_quotes_per_day': len(quotes_in_period) / max(1, (datetime.utcnow().date() - start_date.date()).days)
-    }
-
-def get_craftsman_performance(user_id, start_date):
-    """Get craftsman performance metrics"""
-    craftsman = Craftsman.query.filter_by(user_id=user_id).first()
-    if not craftsman:
-        return {}
-    
-    # Quotes in period
-    quotes_in_period = Quote.query.filter(
-        and_(Quote.craftsman_id == craftsman.id,
-             Quote.created_at >= start_date)
-    ).all()
-    
-    # Daily activity
-    daily_activity = []
-    current_date = start_date.date()
-    end_date = datetime.utcnow().date()
-    
-    while current_date <= end_date:
-        quotes_count = len([q for q in quotes_in_period 
-                           if q.created_at.date() == current_date])
-        
-        daily_activity.append({
-            'date': current_date.isoformat(),
-            'quotes': quotes_count
-        })
-        current_date += timedelta(days=1)
-    
-    # Success metrics
-    completed_in_period = [q for q in quotes_in_period if q.status == 'completed']
-    success_rate = len(completed_in_period) / len(quotes_in_period) * 100 if quotes_in_period else 0
-    
-    # Response time analysis (mock data)
-    avg_response_time = 2.5  # hours
-    
-    return {
-        'daily_activity': daily_activity,
-        'total_quotes_period': len(quotes_in_period),
-        'completed_quotes_period': len(completed_in_period),
-        'success_rate_period': round(success_rate, 2),
-        'avg_response_time': avg_response_time,
-        'avg_quotes_per_day': len(quotes_in_period) / max(1, (datetime.utcnow().date() - start_date.date()).days)
-    }
-
-@analytics_bp.route('/insights', methods=['GET'])
-@jwt_required()
-def get_insights():
-    """Get AI-powered insights and recommendations"""
+@analytics_bp.route('/export', methods=['GET'])
+@rate_limit(max_requests=5, window_minutes=60)  # Very limited for export
+@require_auth
+def export_analytics():
+    """Export analytics data (admin only)"""
     try:
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
         
-        if not user:
-            return jsonify({'error': 'User not found'}), 404
+        if not user or not getattr(user, 'is_admin', False):
+            return ResponseHelper.error('Admin access required', 'ADMIN_REQUIRED'), 403
         
-        # Generate insights based on user data
-        if user.user_type == 'customer':
-            insights = generate_customer_insights(user_id)
+        export_type = request.args.get('type', 'overview')
+        date_from = request.args.get('from')
+        date_to = request.args.get('to')
+        
+        # Generate export data based on type
+        if export_type == 'overview':
+            data = BusinessMetrics.get_platform_overview()
+        elif export_type == 'trends':
+            data = BusinessMetrics.get_trend_analysis()
+        elif export_type == 'performance':
+            hours = request.args.get('hours', 168, type=int)  # 1 week default
+            data = PerformanceMonitor.get_performance_report(hours)
         else:
-            insights = generate_craftsman_insights(user_id)
+            return ResponseHelper.error('Invalid export type', 'INVALID_EXPORT_TYPE'), 400
         
-        return jsonify({
-            'success': True,
-            'insights': insights
-        }), 200
+        return ResponseHelper.success({
+            'export_data': data,
+            'export_type': export_type,
+            'generated_at': datetime.utcnow().isoformat()
+        })
         
     except Exception as e:
-        logging.error(f"Error getting insights: {str(e)}")
-        return jsonify({
-            'error': True,
-            'message': 'Internal server error'
-        }), 500
-
-def generate_customer_insights(user_id):
-    """Generate insights for customer"""
-    customer = Customer.query.filter_by(user_id=user_id).first()
-    if not customer:
-        return []
-    
-    insights = []
-    
-    # Check spending patterns
-    total_spent = db.session.query(func.sum(Payment.total_amount)).filter(
-        and_(Payment.customer_id == customer.id,
-             Payment.status == 'completed')
-    ).scalar() or 0
-    
-    if total_spent > 5000:
-        insights.append({
-            'type': 'spending',
-            'title': 'Yüksek Harcama Analizi',
-            'message': f'Toplam {total_spent:.2f}₺ harcama yaptınız. Büyük projeler için paket indirimleri değerlendirilebilir.',
-            'priority': 'medium',
-            'action': 'explore_packages'
-        })
-    
-    # Check review patterns
-    reviews_given = Review.query.filter_by(customer_id=customer.id).count()
-    if reviews_given < 3:
-        insights.append({
-            'type': 'engagement',
-            'title': 'Değerlendirme Önerisi',
-            'message': 'Aldığınız hizmetleri değerlendirerek diğer müşterilere yardımcı olabilirsiniz.',
-            'priority': 'low',
-            'action': 'write_reviews'
-        })
-    
-    return insights
-
-def generate_craftsman_insights(user_id):
-    """Generate insights for craftsman"""
-    craftsman = Craftsman.query.filter_by(user_id=user_id).first()
-    if not craftsman:
-        return []
-    
-    insights = []
-    
-    # Check response rate
-    total_quotes = Quote.query.filter_by(craftsman_id=craftsman.id).count()
-    if total_quotes < 5:
-        insights.append({
-            'type': 'activity',
-            'title': 'Aktivite Artırma',
-            'message': 'Daha fazla işe teklif vererek kazancınızı artırabilirsiniz.',
-            'priority': 'high',
-            'action': 'browse_jobs'
-        })
-    
-    # Check rating
-    avg_rating = db.session.query(func.avg(Review.rating)).filter(
-        Review.craftsman_id == craftsman.id
-    ).scalar() or 0
-    
-    if avg_rating < 4.0 and avg_rating > 0:
-        insights.append({
-            'type': 'quality',
-            'title': 'Hizmet Kalitesi',
-            'message': f'Ortalama puanınız {avg_rating:.1f}. Müşteri memnuniyetini artırmak için geri bildirimleri değerlendirin.',
-            'priority': 'high',
-            'action': 'improve_service'
-        })
-    
-    return insights
+        return ResponseHelper.error('Failed to export data', 'EXPORT_ERROR'), 500

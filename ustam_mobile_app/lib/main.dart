@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/config/app_config.dart';
+import 'core/services/analytics_service.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/auth/screens/welcome_screen.dart';
@@ -19,12 +20,16 @@ import 'features/messages/screens/messages_screen.dart';
 import 'features/messages/screens/chat_screen.dart';
 import 'features/notifications/screens/notifications_screen.dart';
 import 'features/quotes/screens/craftsman_quotes_screen.dart';
+import 'features/analytics/screens/analytics_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   try {
     final sharedPreferences = await SharedPreferences.getInstance();
+    
+    // Initialize analytics service
+    await AnalyticsService.getInstance().initialize();
     
     runApp(
       ProviderScope(
@@ -78,7 +83,12 @@ class MyApp extends StatelessWidget {
         },
         '/notifications': (context) => const NotificationsScreen(),
         '/craftsman-quotes': (context) => const CraftsmanQuotesScreen(),
+        '/analytics': (context) => const AnalyticsScreen(),
       },
+      // Track navigation events
+      navigatorObservers: [
+        AnalyticsNavigatorObserver(),
+      ],
     );
   }
 }

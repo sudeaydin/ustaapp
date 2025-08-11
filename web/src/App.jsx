@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
+import { AnalyticsManager } from './utils/analytics';
 
 // Import pages
 import { StartPage } from './pages/StartPage';
@@ -55,6 +56,21 @@ const queryClient = new QueryClient({
   },
 });
 
+// Analytics tracking component
+function AnalyticsTracker() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Initialize analytics on app start
+    AnalyticsManager.getInstance().initialize();
+    
+    // Track page view on location change
+    AnalyticsManager.getInstance().trackPageView(location.pathname);
+  }, [location]);
+  
+  return null;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -62,6 +78,7 @@ function App() {
         <AuthProvider>
           <NotificationProvider>
             <ErrorBoundary>
+              <AnalyticsTracker />
               <div className="App">
             <Routes>
               {/* 🌐 Public Routes - Anyone can access */}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useAnalytics } from '../utils/analytics';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   
   const { login } = useAuth();
+  const analytics = useAnalytics();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/';
@@ -30,13 +32,27 @@ const LoginPage = () => {
     setError('');
 
     try {
+      // Track login attempt
+      analytics.trackBusinessEvent('login_attempt', {
+        email_domain: formData.email.split('@')[1] || 'unknown',
+      });
+
       const success = await login(formData.email, formData.password);
       if (success) {
+        analytics.trackBusinessEvent('login_success', {
+          redirect_to: redirectTo,
+        });
         navigate(redirectTo);
       } else {
+        analytics.trackBusinessEvent('login_failed', {
+          reason: 'invalid_credentials',
+        });
         setError('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
       }
     } catch (err) {
+      analytics.trackError('login_error', err.message, {
+        email: formData.email,
+      });
       setError('Bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setIsLoading(false);

@@ -31,6 +31,12 @@ def create_app(config_name='default'):
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
          supports_credentials=True)
     
+    # Initialize security and analytics middleware
+    from app.utils.security import init_security_middleware
+    from app.utils.analytics import init_analytics_middleware
+    init_security_middleware(app)
+    init_analytics_middleware(app)
+    
     # Import models
     from app.models import user, craftsman, customer, category, quote, payment, notification, job, message
     
@@ -67,7 +73,7 @@ def create_app(config_name='default'):
     app.register_blueprint(mobile_api, url_prefix='/api/mobile')
     
     # Initialize SocketIO events
-    from app.socketio_events import init_socketio_events
+    from app.utils.socketio_events import init_socketio_events
     init_socketio_events(socketio)
     
     # Basic endpoints
