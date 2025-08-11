@@ -22,33 +22,24 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
   late Animation<double> _glowAnimation;
+  bool _wasActive = false;
 
   @override
   void initState() {
     super.initState();
     
     _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 2500), // Slower pulse
       vsync: this,
     );
 
-    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.08).animate(
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.06).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
 
     _glowAnimation = Tween<double>(begin: 0.3, end: 0.8).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
-
-    // Listen to tutorial provider
-    ref.listen<String?>(tutorialProvider, (previous, next) {
-      final isActive = next == widget.tutorialKey;
-      if (isActive) {
-        _startPulsing();
-      } else {
-        _stopPulsing();
-      }
-    });
   }
 
 
@@ -72,6 +63,14 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
   Widget build(BuildContext context) {
     final activeTarget = ref.watch(tutorialProvider);
     final isActive = activeTarget == widget.tutorialKey;
+    
+    // Control pulsing based on active state
+    if (isActive && !_wasActive) {
+      _startPulsing();
+    } else if (!isActive && _wasActive) {
+      _stopPulsing();
+    }
+    _wasActive = isActive;
     
     if (!isActive) {
       return widget.child;

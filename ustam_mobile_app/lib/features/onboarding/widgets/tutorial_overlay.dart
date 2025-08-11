@@ -115,7 +115,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _pulseAnimation;
+
 
   @override
   void initState() {
@@ -133,18 +133,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
       CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack),
     );
 
-    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
 
-    // Repeat pulse animation
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _animationController.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        _animationController.forward();
-      }
-    });
 
     _checkAndShowTutorial();
   }
@@ -249,48 +238,27 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                 animation: _animationController,
                 builder: (context, child) {
                   return Transform.scale(
-                    scale: _scaleAnimation.value * _pulseAnimation.value,
+                    scale: _scaleAnimation.value,
                     child: Opacity(
                       opacity: _fadeAnimation.value,
                       child: Container(
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              AppColors.cardBackground,
-                              AppColors.cardBackground,
-                              AppColors.primary.withOpacity(0.05),
+                                                  decoration: BoxDecoration(
+                            color: AppColors.cardBackground,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: AppColors.primary.withOpacity(0.3),
+                              width: 2,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 15,
+                                offset: const Offset(0, 5),
+                              ),
                             ],
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: AppColors.primary.withOpacity(0.4),
-                            width: 3,
-                          ),
-                          boxShadow: [
-                            // Main shadow
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              blurRadius: 25,
-                              offset: const Offset(0, 10),
-                            ),
-                            // Primary glow
-                            BoxShadow(
-                              color: AppColors.primary.withOpacity(0.3),
-                              blurRadius: 40,
-                              spreadRadius: 8,
-                            ),
-                            // Inner glow
-                            BoxShadow(
-                              color: AppColors.primary.withOpacity(0.1),
-                              blurRadius: 60,
-                              spreadRadius: 15,
-                            ),
-                          ],
-                        ),
                         constraints: const BoxConstraints(maxWidth: 320),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
