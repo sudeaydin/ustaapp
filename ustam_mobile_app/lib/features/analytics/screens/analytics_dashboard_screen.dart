@@ -229,7 +229,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     SizedBox(
                       height: 200,
                       child: PerformanceChartWidget(
-                        data: PerformanceTrends.fromJson(trends),
+                        body: PerformanceTrends.fromJson(trends),
                         userType: user?.userType ?? 'customer',
                       ),
                     ),
@@ -434,7 +434,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     SizedBox(
                       height: 250,
                       child: TrendChartWidget(
-                        data: PerformanceTrends.fromJson(trends),
+                        body: PerformanceTrends.fromJson(trends),
                         userType: user?.userType ?? 'customer',
                       ),
                     ),

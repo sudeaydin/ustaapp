@@ -239,7 +239,7 @@ class EnhancedNotificationsService {
           'device_info': deviceInfo ?? await _getDeviceInfo(),
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error registering device token: $e');
       return false;
@@ -249,11 +249,10 @@ class EnhancedNotificationsService {
   /// Get notification preferences
   Future<NotificationPreferences?> getNotificationPreferences() async {
     try {
-      final response = await _apiService.request(
-        'GET',
+      final response = await _apiService.get(
         '/api/notifications/enhanced/preferences',
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return NotificationPreferences.fromJson(response.data);
       }
     } catch (e) {
@@ -265,12 +264,11 @@ class EnhancedNotificationsService {
   /// Update notification preferences
   Future<bool> updateNotificationPreferences(NotificationPreferences preferences) async {
     try {
-      final response = await _apiService.request(
-        'PUT',
+      final response = await _apiService.putWithOptions(
         '/api/notifications/enhanced/preferences',
-        data: preferences.toJson(),
+        body: preferences.toJson(),
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error updating notification preferences: $e');
       return false;
@@ -286,10 +284,9 @@ class EnhancedNotificationsService {
     List<int>? allowedUsers,
   }) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
         '/api/notifications/enhanced/location/share',
-        data: {
+        body: {
           'latitude': latitude,
           'longitude': longitude,
           'duration_minutes': durationMinutes,
@@ -297,7 +294,7 @@ class EnhancedNotificationsService {
           'allowed_users': allowedUsers ?? [],
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return LocationShare.fromJson(response.data);
       }
     } catch (e) {
@@ -309,15 +306,14 @@ class EnhancedNotificationsService {
   /// Update location
   Future<bool> updateLocation(int shareId, double latitude, double longitude) async {
     try {
-      final response = await _apiService.request(
-        'PUT',
+      final response = await _apiService.putWithOptions(
         '/api/notifications/enhanced/location/share/$shareId/update',
-        data: {
+        body: {
           'latitude': latitude,
           'longitude': longitude,
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error updating location: $e');
       return false;
@@ -327,11 +323,11 @@ class EnhancedNotificationsService {
   /// Stop location sharing
   Future<bool> stopLocationShare(int shareId) async {
     try {
-      final response = await _apiService.request(
-        'DELETE',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/location/share/$shareId/stop',
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error stopping location share: $e');
       return false;
@@ -341,11 +337,11 @@ class EnhancedNotificationsService {
   /// Get active location shares
   Future<List<LocationShare>> getLocationShares() async {
     try {
-      final response = await _apiService.request(
+      final response = await _apiService.postWithOptions(
         'GET',
         '/api/notifications/enhanced/location/shares',
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return (response.data as List)
             .map((item) => LocationShare.fromJson(item))
             .toList();
@@ -366,10 +362,10 @@ class EnhancedNotificationsService {
     List<String>? attendees,
   }) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/calendar/event',
-        data: {
+        body: {
           'title': title,
           'description': description,
           'start_time': startTime.toIso8601String(),
@@ -378,7 +374,7 @@ class EnhancedNotificationsService {
           'attendees': attendees ?? [],
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return CalendarEvent.fromJson(response.data);
       }
     } catch (e) {
@@ -397,10 +393,10 @@ class EnhancedNotificationsService {
     String severity = 'high',
   }) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/emergency/broadcast',
-        data: {
+        body: {
           'title': title,
           'message': message,
           'latitude': latitude,
@@ -409,7 +405,7 @@ class EnhancedNotificationsService {
           'severity': severity,
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error broadcasting emergency: $e');
       return false;
@@ -419,12 +415,12 @@ class EnhancedNotificationsService {
   /// Get notification analytics
   Future<NotificationAnalytics?> getNotificationAnalytics({int days = 30}) async {
     try {
-      final response = await _apiService.request(
+      final response = await _apiService.postWithOptions(
         'GET',
         '/api/notifications/enhanced/analytics',
         queryParameters: {'days': days.toString()},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return NotificationAnalytics.fromJson(response.data);
       }
     } catch (e) {
@@ -436,15 +432,15 @@ class EnhancedNotificationsService {
   /// Track notification interaction
   Future<bool> trackNotificationInteraction(String notificationId, String action) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/interaction',
-        data: {
+        body: {
           'notification_id': notificationId,
           'action': action,
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error tracking notification interaction: $e');
       return false;
@@ -462,10 +458,10 @@ class EnhancedNotificationsService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/schedule',
-        data: {
+        body: {
           'title': title,
           'message': message,
           'scheduled_for': scheduledFor.toIso8601String(),
@@ -475,7 +471,7 @@ class EnhancedNotificationsService {
           'data': data,
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error scheduling notification: $e');
       return false;
@@ -489,17 +485,17 @@ class EnhancedNotificationsService {
     List<DeliveryChannel> channels = const [DeliveryChannel.push],
   }) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/test',
-        data: {
+        body: {
           'title': title,
           'message': message,
           'type': 'info',
           'channels': channels.map((c) => c.name).toList(),
         },
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error sending test notification: $e');
       return false;
@@ -509,12 +505,12 @@ class EnhancedNotificationsService {
   /// Subscribe to FCM topic
   Future<bool> subscribeToTopic(String topic) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/topics/subscribe',
-        data: {'topic': topic},
+        body: {'topic': topic},
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error subscribing to topic: $e');
       return false;
@@ -524,12 +520,12 @@ class EnhancedNotificationsService {
   /// Unsubscribe from FCM topic
   Future<bool> unsubscribeFromTopic(String topic) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
+        
         '/api/notifications/enhanced/topics/unsubscribe',
-        data: {'topic': topic},
+        body: {'topic': topic},
       );
-      return response.isSuccess;
+      return response.success;
     } catch (e) {
       debugPrint('Error unsubscribing from topic: $e');
       return false;

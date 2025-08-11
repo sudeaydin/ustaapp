@@ -113,7 +113,7 @@ class ChartWidget extends StatelessWidget {
     return CustomPaint(
       size: const Size(double.infinity, 160),
       painter: LineChartPainter(
-        data: data,
+        body: data,
         color: color ?? AppColors.primary,
       ),
     );
@@ -131,7 +131,7 @@ class ChartWidget extends StatelessWidget {
           child: CustomPaint(
             size: const Size(120, 120),
             painter: PieChartPainter(
-              data: data,
+              body: data,
               total: total,
             ),
           ),

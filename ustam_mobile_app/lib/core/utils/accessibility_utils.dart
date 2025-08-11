@@ -137,7 +137,8 @@ class AccessibilityUtils {
 
 /// Accessible button widget
 class AccessibleButton extends StatelessWidget {
-  final String text;
+  final String? text;
+  final Widget? child;
   final VoidCallback? onPressed;
   final String? semanticLabel;
   final String? tooltip;
@@ -145,10 +146,12 @@ class AccessibleButton extends StatelessWidget {
   final bool isDisabled;
   final Widget? icon;
   final ButtonStyle? style;
+  final String? variant;
 
   const AccessibleButton({
     Key? key,
-    required this.text,
+    this.text,
+    this.child,
     this.onPressed,
     this.semanticLabel,
     this.tooltip,
@@ -156,41 +159,51 @@ class AccessibleButton extends StatelessWidget {
     this.isDisabled = false,
     this.icon,
     this.style,
-  }) : super(key: key);
+    this.variant,
+  }) : assert(text != null || child != null, 'Either text or child must be provided'),
+       super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final effectiveLabel = semanticLabel ?? AccessibilityUtils.generateButtonLabel(
-      text,
+      text ?? 'Button',
       isLoading: isLoading,
       isDisabled: isDisabled,
       hint: tooltip,
     );
 
-    Widget button = ElevatedButton(
-      onPressed: (isDisabled || isLoading) ? null : onPressed,
-      style: style,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (isLoading)
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
+    Widget buttonChild = child ?? Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (isLoading)
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2),
             ),
-          if (icon != null && !isLoading)
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: icon!,
-            ),
-          Text(text),
-        ],
-      ),
+          ),
+        if (icon != null && !isLoading)
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: icon!,
+          ),
+        if (text != null) Text(text!),
+      ],
     );
+
+    Widget button = variant == 'secondary'
+        ? OutlinedButton(
+            onPressed: (isDisabled || isLoading) ? null : onPressed,
+            style: style,
+            child: buttonChild,
+          )
+        : ElevatedButton(
+            onPressed: (isDisabled || isLoading) ? null : onPressed,
+            style: style,
+            child: buttonChild,
+          );
 
     button = Semantics(
       label: effectiveLabel,

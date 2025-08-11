@@ -417,11 +417,11 @@ class AnalyticsDashboardService {
           if (userType != null) 'user_type': userType,
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
-      debugPrint('Error getting dashboard data: $e');
+      debugPrint('Error getting dashboard body: $e');
     }
     return null;
   }
@@ -434,7 +434,7 @@ class AnalyticsDashboardService {
         '/api/analytics-dashboard/craftsman/$craftsmanId/overview',
         queryParameters: {'days': days.toString()},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
@@ -451,7 +451,7 @@ class AnalyticsDashboardService {
         '/api/analytics-dashboard/customer/$customerId/history',
         queryParameters: {'days': days.toString()},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
@@ -475,7 +475,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'POST',
         '/api/analytics-dashboard/cost-calculator',
-        data: {
+        body: {
           'category': category,
           'estimated_hours': estimatedHours,
           'materials_cost': materialsCost,
@@ -486,7 +486,7 @@ class AnalyticsDashboardService {
           'craftsman_experience': craftsmanExperience,
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return CostCalculation.fromJson(response.data);
       }
     } catch (e) {
@@ -505,13 +505,13 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'POST',
         '/api/analytics-dashboard/cost-calculator/market-comparison',
-        data: {
+        body: {
           'category': category,
           if (city != null) 'city': city,
           'days': days,
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return MarketComparison.fromJson(response.data);
       }
     } catch (e) {
@@ -528,7 +528,7 @@ class AnalyticsDashboardService {
         '/api/analytics-dashboard/cost-calculator/pricing-recommendations/$craftsmanId',
         queryParameters: {'category': category},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
@@ -545,7 +545,7 @@ class AnalyticsDashboardService {
         '/api/analytics-dashboard/trends/categories',
         queryParameters: {'days': days.toString()},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return (response.data as List)
             .map((item) => CategoryPerformance.fromJson(item))
             .toList();
@@ -564,7 +564,7 @@ class AnalyticsDashboardService {
         '/api/analytics-dashboard/activity/recent',
         queryParameters: {'limit': limit.toString()},
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return (response.data as List)
             .map((item) => RecentActivity.fromJson(item))
             .toList();
@@ -582,7 +582,7 @@ class AnalyticsDashboardService {
         'GET',
         '/api/analytics-dashboard/realtime/metrics',
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return RealtimeMetrics.fromJson(response.data);
       }
     } catch (e) {
@@ -598,7 +598,7 @@ class AnalyticsDashboardService {
         'GET',
         '/api/analytics-dashboard/constants',
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
@@ -618,14 +618,14 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'POST',
         '/api/analytics-dashboard/reports/custom',
-        data: {
+        body: {
           'start_date': startDate.toIso8601String(),
           'end_date': endDate.toIso8601String(),
           'metrics': metrics,
           'export_format': exportFormat,
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {
@@ -648,7 +648,7 @@ class AnalyticsDashboardService {
           if (category != null) 'category': category,
         },
       );
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         return response.data;
       }
     } catch (e) {

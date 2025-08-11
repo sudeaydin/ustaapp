@@ -145,7 +145,7 @@ class ConnectivityNotifier extends StateNotifier<ConnectivityState> {
       final response = await apiService.get('/api/health');
       
       state = state.copyWith(
-        isConnected: response.isSuccess,
+        isConnected: response.success,
         isChecking: false,
       );
     } catch (e) {

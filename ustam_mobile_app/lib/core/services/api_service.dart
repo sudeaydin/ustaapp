@@ -311,7 +311,7 @@ class ApiResponse<T> {
   factory ApiResponse.success(T data, {String? message, int? statusCode}) {
     return ApiResponse<T>(
       success: true,
-      data: data,
+      body: data,
       message: message,
       statusCode: statusCode,
     );
@@ -332,7 +332,7 @@ class ApiResponse<T> {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<T>.success(
           data as T,
-          message: data['message'],
+          message: (data as Map<String, dynamic>?)?.['message'],
           statusCode: response.statusCode,
         );
       } else {

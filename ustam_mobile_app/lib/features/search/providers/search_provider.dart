@@ -11,7 +11,7 @@ final categoriesProvider = FutureProvider<List<Map<String, dynamic>>>((ref) asyn
   final apiService = ApiService();
   final response = await apiService.getCategories();
   
-  if (response.isSuccess && response.data != null) {
+  if (response.success && response.data != null) {
     final data = response.data as Map<String, dynamic>;
     if (data['success'] && data['data'] != null) {
       return List<Map<String, dynamic>>.from(data['data']);
@@ -28,7 +28,7 @@ final locationsProvider = FutureProvider<List<String>>((ref) async {
   final apiService = ApiService();
   final response = await apiService.getLocations();
   
-  if (response.isSuccess && response.data != null) {
+  if (response.success && response.data != null) {
     final data = response.data as Map<String, dynamic>;
     if (data['success'] && data['data'] != null) {
       return List<String>.from(data['data']);
@@ -132,7 +132,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
         sortBy: state.selectedSortBy,
       );
 
-      if (response.isSuccess && response.data != null) {
+      if (response.success && response.data != null) {
         final data = response.data as Map<String, dynamic>;
         if (data['success'] && data['data'] != null) {
           state = state.copyWith(

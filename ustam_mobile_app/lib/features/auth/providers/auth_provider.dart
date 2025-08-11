@@ -71,7 +71,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           isLoading: false,
         );
       } catch (e) {
-        print('Error parsing user data: $e');
+        print('Error parsing user body: $e');
         state = state.copyWith(
           isAuthenticated: false,
           isLoading: false,

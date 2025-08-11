@@ -432,7 +432,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'Haftalık İş Dağılımı',
             type: ChartType.bar,
-            data: List<Map<String, dynamic>>.from(
+            body: List<Map<String, dynamic>>.from(
               charts['jobs_over_time'] ?? [],
             ),
             color: AppColors.primary,
@@ -441,7 +441,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
-            data: List<Map<String, dynamic>>.from(
+            body: List<Map<String, dynamic>>.from(
               charts['job_categories'] ?? [],
             ),
           ),
@@ -449,7 +449,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'Aylık Harcama Trendi',
             type: ChartType.line,
-            data: List<Map<String, dynamic>>.from(
+            body: List<Map<String, dynamic>>.from(
               charts['spending_over_time'] ?? [],
             ),
             color: AppColors.error,
@@ -458,7 +458,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
-            data: List<Map<String, dynamic>>.from(
+            body: List<Map<String, dynamic>>.from(
               charts['jobs_by_category'] ?? [],
             ),
           ),

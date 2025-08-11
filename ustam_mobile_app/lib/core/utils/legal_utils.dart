@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../services/api_service.dart';
+import '../widgets/user_agreement_modal.dart';
+import '../widgets/consent_preferences_sheet.dart';
+import '../widgets/gdpr_rights_sheet.dart';
 
 /// Types of consent that users can give
 enum ConsentType {
