@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 import '../../features/support/screens/support_screen.dart';
-import '../../features/onboarding/widgets/tutorial_overlay.dart';
+import '../theme/app_colors.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -97,62 +96,16 @@ class SupportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        color: AppColors.textWhite.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: PopupMenuButton<String>(
-        icon: Icon(Icons.help_outline, color: AppColors.textWhite),
-        onSelected: (value) {
-          if (value == 'support') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SupportScreen(userType: userType),
-              ),
-            );
-          } else if (value == 'tutorial') {
-            // Show tutorial overlay
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => TutorialOverlay(
-                userType: userType,
-                steps: userType == 'customer' 
-                    ? TutorialSteps.getCustomerSteps()
-                    : TutorialSteps.getCraftsmanSteps(),
-                onComplete: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            );
-          }
-        },
-        itemBuilder: (context) => [
-          const PopupMenuItem(
-            value: 'support',
-            child: Row(
-              children: [
-                Icon(Icons.support_agent, size: 20),
-                SizedBox(width: 8),
-                Text('Destek Merkezi'),
-              ],
-            ),
+    return IconButton(
+      icon: const Icon(Icons.help_outline),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SupportScreen(userType: userType),
           ),
-          const PopupMenuItem(
-            value: 'tutorial',
-            child: Row(
-              children: [
-                Icon(Icons.help_outline, size: 20),
-                SizedBox(width: 8),
-                Text('Rehberi Tekrar Göster'),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
