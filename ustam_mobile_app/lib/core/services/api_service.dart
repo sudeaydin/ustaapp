@@ -149,7 +149,7 @@ class ApiService {
     bool requiresAuth = false,
   }) async {
     try {
-      String url = '${AppConfig.baseUrl}$endpoint';
+      String url = '${AppConfig.apiUrl}$endpoint';
       
       // Use params if provided, otherwise use queryParams
       final finalParams = params?.map((k, v) => MapEntry(k, v.toString())) ?? queryParams;
@@ -184,7 +184,7 @@ class ApiService {
     bool requiresAuth = false,
   }) async {
     try {
-      final url = '${AppConfig.baseUrl}$endpoint';
+      final url = '${AppConfig.apiUrl}$endpoint';
       final response = await _makeRequest(
         'POST',
         url,
@@ -215,7 +215,7 @@ class ApiService {
     bool requiresAuth = false,
   }) async {
     try {
-      final url = '${AppConfig.baseUrl}$endpoint';
+      final url = '${AppConfig.apiUrl}$endpoint';
       final response = await _makeRequest(
         'PUT',
         url,
@@ -237,7 +237,7 @@ class ApiService {
     bool requiresAuth = false,
   }) async {
     try {
-      final url = '${AppConfig.baseUrl}$endpoint';
+      final url = '${AppConfig.apiUrl}$endpoint';
       final response = await _makeRequest('DELETE', url, requiresAuth: requiresAuth);
       return ApiResponse<T>.fromResponse(response);
     } catch (e) {
@@ -261,7 +261,7 @@ class ApiService {
       final headers = requiresAuth ? await _getAuthHeaders() : _baseHeaders;
       headers.remove('Content-Type'); // Let http set multipart content type
       
-      final request = http.MultipartRequest('POST', Uri.parse('${AppConfig.baseUrl}$endpoint'));
+      final request = http.MultipartRequest('POST', Uri.parse('${AppConfig.apiUrl}$endpoint'));
       request.headers.addAll(headers);
       
       // Add file
@@ -518,7 +518,7 @@ extension ApiServiceExtensions on ApiService {
     bool requiresAuth = false,
   }) async {
     try {
-      final url = '${AppConfig.baseUrl}$endpoint';
+      final url = '${AppConfig.apiUrl}$endpoint';
       final response = await _makeRequest(
         method,
         url,
