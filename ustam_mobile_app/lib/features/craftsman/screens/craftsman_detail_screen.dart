@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../reviews/providers/review_provider.dart';
+import '../../reviews/widgets/review_card.dart';
+import '../../reviews/widgets/star_rating.dart';
+import '../../reviews/screens/reviews_screen.dart';
 
 class CraftsmanDetailScreen extends ConsumerWidget {
   final Map<String, dynamic> craftsman;
@@ -368,6 +372,11 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                   
                   const SizedBox(height: 32),
                   
+                  // Reviews Section
+                  _buildReviewsSection(context, ref),
+                  
+                  const SizedBox(height: 32),
+                  
                   // Action Buttons
                   Row(
                     children: [
@@ -483,6 +492,177 @@ class CraftsmanDetailScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildReviewsSection(BuildContext context, WidgetRef ref) {
+    final craftsmanId = craftsman['id'] as int?;
+    if (craftsmanId == null) return const SizedBox.shrink();
+
+    // Load reviews when building
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(reviewProvider.notifier).loadCraftsmanReviews(craftsmanId);
+    });
+
+    final reviewState = ref.watch(reviewProvider);
+    final reviews = reviewState.reviews;
+    final averageRating = craftsman['average_rating'] ?? 0.0;
+    final totalReviews = craftsman['total_reviews'] ?? 0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header with rating summary
+        Row(
+          children: [
+            const Text(
+              'Müşteri Yorumları',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const Spacer(),
+            if (totalReviews > 0) ...[
+              StarRating(
+                rating: averageRating.toDouble(),
+                size: 16,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '${averageRating.toStringAsFixed(1)} (${totalReviews})',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Reviews container
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColors.cardBackground,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.shadowLight,
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              if (reviewState.isLoading)
+                const Padding(
+                  padding: EdgeInsets.all(32),
+                  child: CircularProgressIndicator(),
+                )
+              else if (reviews.isNotEmpty) ...[
+                // Show first 2 reviews
+                ...reviews.take(2).map((review) => 
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ReviewCard(
+                      review: review,
+                      showCustomerInfo: true,
+                    ),
+                  ),
+                ),
+                
+                // "View All Reviews" button if more than 2 reviews
+                if (reviews.length > 2)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: AppColors.nonPhotoBlue.withOpacity(0.2),
+                        ),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReviewsScreen(
+                              craftsmanId: craftsmanId,
+                              craftsmanName: craftsman['name'] ?? 'Usta',
+                            ),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.primary,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Tüm Yorumları Gör',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '(${reviews.length})',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.primary.withOpacity(0.7),
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.arrow_forward_ios, size: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+              ] else
+                Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.rate_review_outlined,
+                        size: 48,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Henüz yorum yok',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'İlk yorumu bırakın!',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textLight,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

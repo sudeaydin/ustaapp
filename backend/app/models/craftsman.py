@@ -91,6 +91,52 @@ class Craftsman(db.Model):
             
         return data
     
+    def update_review_stats(self):
+        """Update average rating and total reviews from Review model"""
+        from app.models.review import Review
+        
+        reviews = Review.query.filter_by(
+            craftsman_id=self.id,
+            is_visible=True
+        ).all()
+        
+        if reviews:
+            total_rating = sum(review.rating for review in reviews)
+            self.average_rating = round(total_rating / len(reviews), 1)
+            self.total_reviews = len(reviews)
+        else:
+            self.average_rating = 0.0
+            self.total_reviews = 0
+        
+        db.session.commit()
+        return self.average_rating, self.total_reviews
+    
+    @property
+    def review_stats(self):
+        """Get current review statistics"""
+        return {
+            'average_rating': self.average_rating,
+            'total_reviews': self.total_reviews,
+            'rating_distribution': self._get_rating_distribution()
+        }
+    
+    def _get_rating_distribution(self):
+        """Get distribution of ratings (1-5 stars)"""
+        from app.models.review import Review
+        
+        distribution = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+        
+        reviews = Review.query.filter_by(
+            craftsman_id=self.id,
+            is_visible=True
+        ).all()
+        
+        for review in reviews:
+            if 1 <= review.rating <= 5:
+                distribution[review.rating] += 1
+        
+        return distribution
+    
     def __repr__(self):
         return f'<Craftsman {self.business_name or self.id}>'
 

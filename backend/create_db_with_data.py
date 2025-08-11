@@ -20,6 +20,8 @@ from app.models.category import Category
 from app.models.quote import Quote
 from app.models.payment import Payment
 from app.models.notification import Notification
+from app.models.review import Review
+from app.models.message import Message
 from werkzeug.security import generate_password_hash
 
 def create_sample_data():
@@ -358,7 +360,6 @@ def create_sample_data():
     db.session.flush()
     
     # Create corresponding messages for quotes
-    from app.models.message import Message
     
     # Message for quote1 (pending)
     message1 = Message(
@@ -542,6 +543,144 @@ def create_sample_data():
     
     db.session.commit()
     print("Sample quotes created.")
+    
+    # Create sample reviews
+    print("Creating sample reviews...")
+    
+    # Reviews for Ahmet (Elektrikçi)
+    review1 = Review(
+        customer_id=created_users['ali@test.com'].customer_profile.id,
+        craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
+        quote_id=quote1.id,
+        rating=5,
+        title='Mükemmel bir hizmet!',
+        comment='Ahmet usta çok profesyonel ve işini çok iyi biliyor. Elektrik tesisatını eksiksiz yaptı, her şeyi açıkladı. Kesinlikle tavsiye ederim.',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=5,
+        cleanliness_rating=4,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=5),
+        updated_at=datetime.now() - timedelta(days=5)
+    )
+    db.session.add(review1)
+    
+    review2 = Review(
+        customer_id=created_users['fatma@test.com'].customer_profile.id,
+        craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
+        quote_id=quote2.id,
+        rating=4,
+        title='İyi bir deneyim',
+        comment='Zamanında geldi ve işini güzel yaptı. Sadece biraz daha temiz çalışabilirdi.',
+        quality_rating=4,
+        punctuality_rating=5,
+        communication_rating=4,
+        cleanliness_rating=3,
+        is_verified=True,
+        craftsman_response='Teşekkürler! Temizlik konusundaki geri bildiriminizi dikkate alacağım.',
+        response_date=datetime.now() - timedelta(days=8),
+        created_at=datetime.now() - timedelta(days=10),
+        updated_at=datetime.now() - timedelta(days=8)
+    )
+    db.session.add(review2)
+    
+    review3 = Review(
+        customer_id=created_users['customer@test.com'].customer_profile.id,
+        craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
+        quote_id=quote3.id,
+        rating=5,
+        title='Harika usta!',
+        comment='Çok memnun kaldım. Hem kaliteli hem de uygun fiyata çalışıyor. Tekrar tercih edeceğim.',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=5,
+        cleanliness_rating=5,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=15),
+        updated_at=datetime.now() - timedelta(days=15)
+    )
+    db.session.add(review3)
+    
+    # Reviews for Mehmet (Tesisatçı)
+    review4 = Review(
+        customer_id=created_users['ali@test.com'].customer_profile.id,
+        craftsman_id=created_users['mehmet@test.com'].craftsman_profile.id,
+        quote_id=quote7.id,
+        rating=4,
+        title='Güvenilir tesisatçı',
+        comment='Mehmet usta işini biliyor, sorunumu hızlıca çözdü. Fiyatları da makul.',
+        quality_rating=4,
+        punctuality_rating=4,
+        communication_rating=5,
+        cleanliness_rating=4,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=3),
+        updated_at=datetime.now() - timedelta(days=3)
+    )
+    db.session.add(review4)
+    
+    review5 = Review(
+        customer_id=created_users['fatma@test.com'].customer_profile.id,
+        craftsman_id=created_users['mehmet@test.com'].craftsman_profile.id,
+        quote_id=quote4.id,
+        rating=3,
+        title='Ortalama',
+        comment='İşini yaptı ama biraz geç geldi. Sonuç olarak memnunum.',
+        quality_rating=4,
+        punctuality_rating=2,
+        communication_rating=3,
+        cleanliness_rating=4,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=7),
+        updated_at=datetime.now() - timedelta(days=7)
+    )
+    db.session.add(review5)
+    
+    # Reviews for Ayşe (Boyacı)
+    review6 = Review(
+        customer_id=created_users['customer@test.com'].customer_profile.id,
+        craftsman_id=created_users['ayse@test.com'].craftsman_profile.id,
+        quote_id=quote5.id,
+        rating=5,
+        title='Sanatçı gibi çalışıyor!',
+        comment='Ayşe hanım gerçekten çok yetenekli. Evimin duvarlarını sanat eserine çevirdi. Hem temiz hem de çok kaliteli çalışıyor.',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=5,
+        cleanliness_rating=5,
+        is_verified=True,
+        craftsman_response='Çok teşekkür ederim! Böyle güzel geri bildirimler beni çok mutlu ediyor.',
+        response_date=datetime.now() - timedelta(days=12),
+        created_at=datetime.now() - timedelta(days=14),
+        updated_at=datetime.now() - timedelta(days=12)
+    )
+    db.session.add(review6)
+    
+    review7 = Review(
+        customer_id=created_users['ali@test.com'].customer_profile.id,
+        craftsman_id=created_users['ayse@test.com'].craftsman_profile.id,
+        quote_id=quote6.id,
+        rating=4,
+        title='Çok beğendim',
+        comment='Renk seçiminde çok yardımcı oldu. Sonuçtan çok memnunum.',
+        quality_rating=5,
+        punctuality_rating=4,
+        communication_rating=5,
+        cleanliness_rating=4,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=20),
+        updated_at=datetime.now() - timedelta(days=20)
+    )
+    db.session.add(review7)
+    
+    db.session.commit()
+    print("Sample reviews created.")
+    
+    # Update craftsman review statistics
+    print("Updating craftsman review statistics...")
+    for email, user in created_users.items():
+        if user.craftsman_profile:
+            user.craftsman_profile.update_review_stats()
     
     print("Sample data creation completed!")
 
