@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import QuoteResponseModal from '../components/QuoteResponseModal';
 import CustomerQuoteDecisionModal from '../components/CustomerQuoteDecisionModal';
+import LoadingSpinner, { LoadingOverlay, SkeletonCard } from '../components/ui/LoadingSpinner';
+import ErrorBoundary from '../components/ui/ErrorBoundary';
+import { useApi } from '../hooks/useApi';
+import api from '../utils/api';
 
 export const MessagesPage = () => {
   const navigate = useNavigate();
