@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from enum import Enum
+from sqlalchemy import Index
 
 class UserType(Enum):
     CUSTOMER = "customer"
@@ -11,6 +12,14 @@ class UserType(Enum):
 class User(db.Model):
     """Base user model"""
     __tablename__ = 'users'
+    
+    # Add indexes for better performance
+    __table_args__ = (
+        Index('idx_user_email', 'email'),
+        Index('idx_user_phone', 'phone'),
+        Index('idx_user_type_active', 'user_type', 'is_active'),
+        Index('idx_user_created_at', 'created_at'),
+    )
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)

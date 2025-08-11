@@ -1,13 +1,23 @@
 from app import db
 from datetime import datetime
 from decimal import Decimal
-from sqlalchemy import Numeric
+from sqlalchemy import Numeric, Index
 import json
 
 class Craftsman(db.Model):
     """Craftsman profile extending User"""
     __tablename__ = 'craftsmen'
     
+    # Add indexes for search and filtering
+    __table_args__ = (
+        Index('idx_craftsman_city_available', 'city', 'is_available'),
+        Index('idx_craftsman_rating', 'average_rating'),
+        Index('idx_craftsman_verified_available', 'is_verified', 'is_available'),
+        Index('idx_craftsman_specialties', 'specialties'),
+        Index('idx_craftsman_hourly_rate', 'hourly_rate'),
+        Index('idx_craftsman_created_at', 'created_at'),
+    )
+
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, unique=True)
     
