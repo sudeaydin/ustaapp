@@ -1,92 +1,120 @@
-# Ustalar API Dokümantasyonu
+# 📚 UstamApp API Dokümantasyonu
 
-## Base URL
+## 🌐 **Base URL**
 - **Development**: `http://localhost:5000/api`
-- **Production**: `https://api.ustalar.com/api`
+- **Production**: `https://api.ustamapp.com/api`
 
-## Authentication
+## 🔐 **Kimlik Doğrulama**
 
-Tüm korumalı endpoint'ler için Authorization header'ında JWT token gereklidir:
-
+Tüm korumalı endpoint'ler için JWT token gereklidir:
 ```
-Authorization: Bearer <your-jwt-token>
-```
-
-## Error Responses
-
-Tüm hata yanıtları şu formatta döner:
-
-```json
-{
-  "error": true,
-  "message": "Hata mesajı",
-  "code": "ERROR_CODE",
-  "details": {}
-}
+Authorization: Bearer <your_jwt_token>
 ```
 
-## Success Responses
+## 📋 **Standart Yanıt Formatı**
 
-Başarılı yanıtlar şu formatta döner:
-
+### Başarılı Yanıt
 ```json
 {
   "success": true,
-  "data": {},
-  "message": "İşlem başarılı"
+  "data": {
+    // Endpoint'e özel veri
+  }
 }
 ```
 
-## Endpoints
+### Hata Yanıtı
+```json
+{
+  "success": false,
+  "error": true,
+  "message": "Hata mesajı",
+  "code": "ERROR_CODE"
+}
+```
 
-### Authentication
+## 🔑 **Kimlik Doğrulama Endpoints**
 
-#### POST /auth/register
-Yeni kullanıcı kaydı
+### POST `/auth/register`
+Yeni kullanıcı kaydı oluşturur.
 
 **Request Body:**
 ```json
 {
   "email": "user@example.com",
   "phone": "+905551234567",
-  "password": "password123",
-  "first_name": "Ahmet",
-  "last_name": "Yılmaz",
-  "user_type": "customer"
+  "password": "securepassword",
+  "first_name": "Ad",
+  "last_name": "Soyad",
+  "user_type": "customer|craftsman",
+  
+  // Customer için ek alanlar
+  "billing_address": "Fatura adresi",
+  "city": "İstanbul",
+  "district": "Kadıköy",
+  
+  // Craftsman için ek alanlar
+  "business_name": "İşletme Adı",
+  "description": "İşletme açıklaması",
+  "specialties": "Elektrik, Tesisatçılık",
+  "experience_years": 5,
+  "hourly_rate": 150.0
 }
 ```
 
-**Response:**
+**Response (201):**
 ```json
 {
   "success": true,
   "data": {
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
     "user": {
       "id": 1,
       "email": "user@example.com",
-      "phone": "+905551234567",
+      "first_name": "Ad",
+      "last_name": "Soyad",
       "user_type": "customer",
-      "first_name": "Ahmet",
-      "last_name": "Yılmaz",
-      "is_verified": false
+      "is_active": true
     },
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    "profile": {
+      // Customer veya Craftsman profil bilgileri
+    }
   }
 }
 ```
 
-#### POST /auth/login
-Kullanıcı girişi
+### POST `/auth/login`
+Kullanıcı girişi yapar.
 
 **Request Body:**
 ```json
 {
   "email": "user@example.com",
-  "password": "password123"
+  "password": "password"
 }
 ```
 
-**Response:**
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "user": {
+      "id": 1,
+      "email": "user@example.com",
+      "user_type": "customer"
+    }
+  }
+}
+```
+
+### GET `/auth/profile`
+Kullanıcı profil bilgilerini getirir.
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Response (200):**
 ```json
 {
   "success": true,
@@ -94,317 +122,431 @@ Kullanıcı girişi
     "user": {
       "id": 1,
       "email": "user@example.com",
-      "user_type": "customer",
-      "first_name": "Ahmet",
-      "last_name": "Yılmaz"
+      "first_name": "Ad",
+      "last_name": "Soyad",
+      "user_type": "customer"
     },
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    "profile": {
+      // Customer veya Craftsman profil detayları
+    }
   }
 }
 ```
 
-### Categories
+### DELETE `/auth/delete-account`
+Kullanıcı hesabını kalıcı olarak siler.
 
-#### GET /categories
-Hizmet kategorilerini listele
+**Headers:** `Authorization: Bearer <token>`
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "name": "Fayans",
-      "description": "Banyo ve mutfak fayans işleri",
-      "icon": "tiles",
-      "color": "#3498db",
-      "is_active": true
-    }
-  ]
-}
-```
-
-### Services
-
-#### GET /services
-Hizmetleri listele/ara
-
-**Query Parameters:**
-- `category_id`: Kategori ID'si
-- `city`: Şehir
-- `search`: Arama terimi
-- `page`: Sayfa numarası (default: 1)
-- `limit`: Sayfa başına kayıt (default: 20)
-
-**Response:**
+**Response (200):**
 ```json
 {
   "success": true,
   "data": {
-    "services": [
+    "message": "Hesabınız başarıyla silindi"
+  }
+}
+```
+
+## 🔍 **Arama Endpoints**
+
+### GET `/search/craftsmen`
+Usta arama ve filtreleme yapar.
+
+**Query Parameters:**
+- `query` (string): Arama terimi
+- `city` (string): Şehir filtresi
+- `category` (string): Kategori filtresi
+- `min_rating` (float): Minimum rating (0-5)
+- `max_rate` (float): Maksimum saat ücreti
+- `is_available` (boolean): Müsaitlik durumu
+- `is_verified` (boolean): Doğrulanmış ustalar
+- `page` (int): Sayfa numarası (default: 1)
+- `per_page` (int): Sayfa başına sonuç (default: 20, max: 100)
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "craftsmen": [
       {
         "id": 1,
-        "title": "Banyo Fayans Döşeme",
-        "description": "Profesyonel banyo fayans döşeme hizmeti",
-        "price_min": 50,
-        "price_max": 100,
-        "price_unit": "per_m2",
-        "craftsman": {
-          "id": 1,
-          "first_name": "Mehmet",
-          "last_name": "Usta",
-          "rating": 4.8,
-          "review_count": 156
-        },
-        "category": {
-          "id": 1,
-          "name": "Fayans",
-          "icon": "tiles"
+        "business_name": "Ahmet Elektrik",
+        "description": "Profesyonel elektrik hizmetleri",
+        "specialties": "Elektrik, Aydınlatma",
+        "city": "İstanbul",
+        "district": "Şişli",
+        "average_rating": 4.5,
+        "total_jobs": 25,
+        "hourly_rate": 150.0,
+        "is_available": true,
+        "is_verified": true,
+        "portfolio_images": [
+          "https://example.com/image1.jpg"
+        ],
+        "user": {
+          "first_name": "Ahmet",
+          "last_name": "Yılmaz"
         }
       }
     ],
     "pagination": {
       "page": 1,
-      "pages": 5,
       "per_page": 20,
-      "total": 95
+      "total": 45,
+      "pages": 3,
+      "has_next": true,
+      "has_prev": false
     }
   }
 }
 ```
 
-#### GET /services/:id
-Hizmet detayı
+### GET `/search/craftsmen/{craftsman_id}`
+Belirli bir ustanın detay bilgilerini getirir.
 
-**Response:**
+**Response (200):**
 ```json
 {
   "success": true,
   "data": {
-    "id": 1,
-    "title": "Banyo Fayans Döşeme",
-    "description": "Profesyonel banyo fayans döşeme hizmeti. 15 yıllık deneyim.",
-    "price_min": 50,
-    "price_max": 100,
-    "price_unit": "per_m2",
-    "images": [
-      "https://example.com/image1.jpg",
-      "https://example.com/image2.jpg"
-    ],
     "craftsman": {
+      // Craftsman detay bilgileri
       "id": 1,
-      "first_name": "Mehmet",
-      "last_name": "Usta",
-      "profile_image": "https://example.com/profile.jpg",
-      "rating": 4.8,
-      "review_count": 156,
-      "experience_years": 15,
-      "location": "İstanbul, Kadıköy"
+      "business_name": "Ahmet Elektrik",
+      "description": "Detaylı açıklama",
+      "experience_years": 10,
+      "completed_jobs": [
+        {
+          "id": 1,
+          "title": "Salon elektrik tesisatı",
+          "completion_date": "2024-01-15",
+          "customer_rating": 5
+        }
+      ]
     }
   }
 }
 ```
 
-### Quotes
+### GET `/search/categories`
+Mevcut kategorileri listeler.
 
-#### POST /quotes
-Teklif talebi gönder
-
-**Request Body:**
-```json
-{
-  "service_id": 1,
-  "description": "20m2 banyo fayans döşemesi gerekiyor",
-  "budget_min": 800,
-  "budget_max": 1200,
-  "preferred_date": "2024-02-15",
-  "address": "Kadıköy, İstanbul",
-  "phone": "+905551234567"
-}
-```
-
-**Response:**
+**Response (200):**
 ```json
 {
   "success": true,
   "data": {
-    "id": 1,
-    "service_id": 1,
-    "status": "pending",
-    "description": "20m2 banyo fayans döşemesi gerekiyor",
-    "budget_min": 800,
-    "budget_max": 1200,
-    "created_at": "2024-01-15T10:30:00Z"
-  }
-}
-```
-
-#### GET /quotes
-Kullanıcının tekliflerini listele
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "service": {
-        "id": 1,
-        "title": "Banyo Fayans Döşeme"
-      },
-      "craftsman": {
-        "id": 1,
-        "first_name": "Mehmet",
-        "last_name": "Usta"
-      },
-      "status": "pending",
-      "description": "20m2 banyo fayans döşemesi",
-      "price": null,
-      "created_at": "2024-01-15T10:30:00Z",
-      "updated_at": "2024-01-15T10:30:00Z"
-    }
-  ]
-}
-```
-
-#### PUT /quotes/:id
-Teklifi güncelle (usta tarafından)
-
-**Request Body:**
-```json
-{
-  "status": "accepted",
-  "price": 1000,
-  "notes": "İş 2 gün içinde tamamlanacak"
-}
-```
-
-### Craftsman Profile
-
-#### GET /craftsman/profile
-Usta profil bilgisi (korumalı)
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "id": 1,
-    "first_name": "Mehmet",
-    "last_name": "Usta",
-    "email": "mehmet@example.com",
-    "phone": "+905551234567",
-    "profile_image": "https://example.com/profile.jpg",
-    "bio": "15 yıllık deneyimli fayans ustası",
-    "experience_years": 15,
-    "location": "İstanbul, Kadıköy",
-    "rating": 4.8,
-    "review_count": 156,
-    "subscription_status": "active",
-    "subscription_expires_at": "2024-02-15T00:00:00Z",
     "categories": [
-      {
-        "id": 1,
-        "name": "Fayans"
-      }
+      "Elektrik",
+      "Tesisatçılık",
+      "Boyacılık",
+      "Marangozluk",
+      "Temizlik"
     ]
   }
 }
 ```
 
-#### PUT /craftsman/profile
-Usta profil güncelleme (korumalı)
+### GET `/search/locations`
+Mevcut şehirleri listeler.
 
-**Request Body:**
-```json
-{
-  "bio": "20 yıllık deneyimli fayans ustası",
-  "experience_years": 20,
-  "location": "İstanbul, Üsküdar"
-}
-```
-
-### Messages
-
-#### GET /messages/conversations
-Konuşma listesi (korumalı)
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "other_user": {
-        "id": 2,
-        "first_name": "Ahmet",
-        "last_name": "Müşteri",
-        "profile_image": "https://example.com/profile.jpg"
-      },
-      "last_message": {
-        "content": "Merhaba, ne zaman başlayabiliriz?",
-        "created_at": "2024-01-15T14:30:00Z"
-      },
-      "unread_count": 2
-    }
-  ]
-}
-```
-
-#### GET /messages/conversations/:id
-Konuşma detayı (korumalı)
-
-**Response:**
+**Response (200):**
 ```json
 {
   "success": true,
   "data": {
-    "conversation_id": 1,
-    "messages": [
+    "locations": [
       {
-        "id": 1,
-        "sender_id": 1,
-        "content": "Merhaba, teklif için teşekkürler",
-        "created_at": "2024-01-15T14:25:00Z"
+        "city": "İstanbul",
+        "districts": ["Kadıköy", "Beşiktaş", "Şişli"]
       },
       {
-        "id": 2,
-        "sender_id": 2,
-        "content": "Merhaba, ne zaman başlayabiliriz?",
-        "created_at": "2024-01-15T14:30:00Z"
+        "city": "Ankara",
+        "districts": ["Çankaya", "Keçiören", "Yenimahalle"]
       }
     ]
   }
 }
 ```
 
-#### POST /messages
-Mesaj gönder (korumalı)
+## 💬 **Teklif Sistemi Endpoints**
+
+### POST `/quotes/create-request`
+Yeni teklif talebi oluşturur.
+
+**Headers:** `Authorization: Bearer <token>`
 
 **Request Body:**
 ```json
 {
-  "recipient_id": 2,
-  "content": "Yarın sabah başlayabiliriz"
+  "craftsman_id": 1,
+  "category": "Elektrik",
+  "area_type": "salon|mutfak|banyo|yatak_odasi|balkon|teras|bahce|ofis|diger",
+  "square_meters": 50,
+  "budget_range": "0-1000|1000-3000|3000-5000|5000-10000|10000+",
+  "description": "İş açıklaması",
+  "additional_details": "Ek detaylar (opsiyonel)"
 }
 ```
 
-## Status Codes
+**Response (201):**
+```json
+{
+  "success": true,
+  "data": {
+    "quote": {
+      "id": 1,
+      "status": "PENDING",
+      "category": "Elektrik",
+      "area_type": "salon",
+      "budget_range": "1000-3000",
+      "description": "İş açıklaması",
+      "created_at": "2024-01-20T10:30:00Z"
+    },
+    "message": "Teklif talebiniz başarıyla gönderildi"
+  }
+}
+```
 
-- `200` - OK
-- `201` - Created
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
-- `422` - Validation Error
-- `500` - Internal Server Error
+### POST `/quotes/{quote_id}/respond`
+Usta teklif talebine yanıt verir.
 
-## Rate Limiting
+**Headers:** `Authorization: Bearer <token>`
 
-- Genel API: 1000 request/saat
-- Authentication: 10 request/dakika
-- Message: 100 request/dakika
+**Request Body:**
+```json
+{
+  "response_type": "give_quote|request_details|reject",
+  "quoted_amount": 2500.0,
+  "response_details": "Detaylı açıklama",
+  "estimated_start_date": "2024-02-01",
+  "estimated_end_date": "2024-02-03"
+}
+```
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "quote": {
+      "id": 1,
+      "status": "QUOTED|DETAILS_REQUESTED|REJECTED",
+      "quoted_amount": 2500.0,
+      "response_details": "Detaylı açıklama",
+      "updated_at": "2024-01-20T11:00:00Z"
+    }
+  }
+}
+```
+
+### POST `/quotes/{quote_id}/decision`
+Müşteri teklif kararı verir.
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Request Body:**
+```json
+{
+  "decision": "accept|reject|request_revision",
+  "revision_notes": "Revizyon notları (opsiyonel)"
+}
+```
+
+### GET `/quotes/my-quotes`
+Kullanıcının tekliflerini listeler.
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Query Parameters:**
+- `status`: Durum filtresi
+- `page`: Sayfa numarası
+- `per_page`: Sayfa başına sonuç
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "quotes": [
+      {
+        "id": 1,
+        "status": "PENDING",
+        "category": "Elektrik",
+        "quoted_amount": 2500.0,
+        "craftsman": {
+          "business_name": "Ahmet Elektrik",
+          "user": {
+            "first_name": "Ahmet",
+            "last_name": "Yılmaz"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+## 📤 **Dosya Yükleme Endpoints**
+
+### POST `/auth/upload-portfolio-image`
+Portfolio resmi yükler (sadece ustalar için).
+
+**Headers:** 
+- `Authorization: Bearer <token>`
+- `Content-Type: multipart/form-data`
+
+**Request Body:**
+- `image`: Resim dosyası (PNG, JPG, JPEG, GIF, WEBP - Max 5MB)
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "data": {
+    "image_url": "/uploads/portfolio/abc123def456.jpg",
+    "message": "Resim başarıyla yüklendi"
+  }
+}
+```
+
+### DELETE `/auth/delete-portfolio-image`
+Portfolio resmini siler.
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Request Body:**
+```json
+{
+  "image_url": "/uploads/portfolio/abc123def456.jpg"
+}
+```
+
+## ⚠️ **Hata Kodları**
+
+| Kod | Açıklama |
+|-----|----------|
+| `VALIDATION_ERROR` | Giriş verisi doğrulama hatası |
+| `INVALID_CREDENTIALS` | Geçersiz email/şifre |
+| `USER_NOT_FOUND` | Kullanıcı bulunamadı |
+| `UNAUTHORIZED` | Yetkisiz erişim |
+| `RATE_LIMIT_EXCEEDED` | İstek sınırı aşıldı |
+| `FILE_TOO_LARGE` | Dosya boyutu fazla |
+| `INVALID_FILE_TYPE` | Geçersiz dosya tipi |
+| `QUOTE_NOT_FOUND` | Teklif bulunamadı |
+| `INVALID_QUOTE_STATUS` | Geçersiz teklif durumu |
+| `SERVER_ERROR` | Sunucu hatası |
+
+## 🔄 **Teklif Durum Akışı**
+
+```
+PENDING → DETAILS_REQUESTED → PENDING
+PENDING → QUOTED → ACCEPTED → COMPLETED
+PENDING → QUOTED → REJECTED
+PENDING → QUOTED → REVISION_REQUESTED → QUOTED
+PENDING → REJECTED
+```
+
+## 📊 **Pagination**
+
+Sayfalama destekleyen endpoint'ler için:
+
+**Query Parameters:**
+- `page`: Sayfa numarası (1'den başlar)
+- `per_page`: Sayfa başına öğe sayısı (default: 20, max: 100)
+
+**Response:**
+```json
+{
+  "pagination": {
+    "page": 1,
+    "per_page": 20,
+    "total": 150,
+    "pages": 8,
+    "has_next": true,
+    "has_prev": false
+  }
+}
+```
+
+## 🔧 **Rate Limiting**
+
+| Endpoint Grubu | Limit |
+|----------------|-------|
+| Auth endpoints | 10 req/min |
+| Search endpoints | 60 req/min |
+| Quote endpoints | 30 req/min |
+| Upload endpoints | 5 req/min |
+| General | 100 req/min |
+
+## 🎯 **Örnek Kullanım**
+
+### JavaScript ile Teklif Talebi
+```javascript
+const response = await fetch('/api/quotes/create-request', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    craftsman_id: 1,
+    category: 'Elektrik',
+    area_type: 'salon',
+    square_meters: 50,
+    budget_range: '1000-3000',
+    description: 'Salon elektrik tesisatı yenilenmesi'
+  })
+})
+
+const result = await response.json()
+if (result.success) {
+  console.log('Teklif talebi gönderildi:', result.data.quote)
+}
+```
+
+### Flutter ile Usta Arama
+```dart
+final response = await ApiService().searchCraftsmen(
+  query: 'elektrik',
+  city: 'İstanbul',
+  page: 1,
+  perPage: 20
+);
+
+if (response.isSuccess) {
+  final craftsmen = response.data['craftsmen'];
+  // Usta listesini göster
+}
+```
+
+## 🐛 **Hata Ayıklama**
+
+### Yaygın Hatalar ve Çözümleri
+
+**401 Unauthorized**
+- Token'ın süresi dolmuş olabilir
+- Token format'ı yanlış olabilir
+- `Authorization` header'ı eksik olabilir
+
+**400 Bad Request**
+- Request body format'ı yanlış
+- Gerekli alanlar eksik
+- Veri tipleri uyumsuz
+
+**429 Too Many Requests**
+- Rate limit aşıldı
+- 15 dakika bekleyip tekrar deneyin
+
+**500 Internal Server Error**
+- Sunucu hatası
+- Loglara bakın veya destek ekibi ile iletişime geçin
+
+## 📞 **Destek**
+
+API ile ilgili sorularınız için:
+- **Email**: api-support@ustamapp.com
+- **GitHub Issues**: [github.com/sudeaydin/ustaapp/issues](https://github.com/sudeaydin/ustaapp/issues)
+- **API Status**: [status.ustamapp.com](https://status.ustamapp.com)
