@@ -55,6 +55,7 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
 
   @override
   void dispose() {
+    _pulseController.stop();
     _pulseController.dispose();
     super.dispose();
   }

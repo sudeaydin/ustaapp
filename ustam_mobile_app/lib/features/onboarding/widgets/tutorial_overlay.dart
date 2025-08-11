@@ -140,7 +140,12 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
 
   @override
   void dispose() {
+    _animationController.stop();
     _animationController.dispose();
+    // Clear any active tutorial targets
+    if (mounted) {
+      ref.read(tutorialProvider.notifier).clearActiveTarget();
+    }
     super.dispose();
   }
 
@@ -156,30 +161,34 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
     
     if (!hasCompletedOnboarding && mounted) {
       await Future.delayed(const Duration(milliseconds: 500));
-      setState(() {
-        _isVisible = true;
-      });
-      _animationController.forward();
-      
-      // Activate first target if exists
-      final firstStepData = widget.steps[_currentStep];
-      if (firstStepData.targetKey != null) {
-        ref.read(tutorialProvider.notifier).setActiveTarget(firstStepData.targetKey!);
+      if (mounted) {
+        setState(() {
+          _isVisible = true;
+        });
+        _animationController.forward();
+        
+        // Activate first target if exists
+        final firstStepData = widget.steps[_currentStep];
+        if (firstStepData.targetKey != null) {
+          ref.read(tutorialProvider.notifier).setActiveTarget(firstStepData.targetKey!);
+        }
       }
     }
   }
 
   void _nextStep() {
     if (_currentStep < widget.steps.length - 1) {
-      setState(() {
-        _currentStep++;
-      });
-      // Update active target for glow effect
-      final currentStepData = widget.steps[_currentStep];
-      if (currentStepData.targetKey != null) {
-        ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
-      } else {
-        ref.read(tutorialProvider.notifier).clearActiveTarget();
+      if (mounted) {
+        setState(() {
+          _currentStep++;
+        });
+        // Update active target for glow effect
+        final currentStepData = widget.steps[_currentStep];
+        if (currentStepData.targetKey != null) {
+          ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
+        } else {
+          ref.read(tutorialProvider.notifier).clearActiveTarget();
+        }
       }
     } else {
       _completeTutorial();
@@ -188,15 +197,17 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
 
   void _previousStep() {
     if (_currentStep > 0) {
-      setState(() {
-        _currentStep--;
-      });
-      // Update active target for glow effect
-      final currentStepData = widget.steps[_currentStep];
-      if (currentStepData.targetKey != null) {
-        ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
-      } else {
-        ref.read(tutorialProvider.notifier).clearActiveTarget();
+      if (mounted) {
+        setState(() {
+          _currentStep--;
+        });
+        // Update active target for glow effect
+        final currentStepData = widget.steps[_currentStep];
+        if (currentStepData.targetKey != null) {
+          ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
+        } else {
+          ref.read(tutorialProvider.notifier).clearActiveTarget();
+        }
       }
     }
   }
