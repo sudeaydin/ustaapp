@@ -43,7 +43,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(AppColors.primaryGradient),
+          gradient: AppColors.getGradient(AppColors.headerGradient),
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(20),
             bottomRight: Radius.circular(20),

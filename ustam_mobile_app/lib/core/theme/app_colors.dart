@@ -73,8 +73,14 @@ class AppColors {
   ];
   
   static const List<Color> lightGradient = [
-    mintGreen,
+    uclaBlue,
     nonPhotoBlue,
+  ];
+  
+  // Header gradient with better contrast
+  static const List<Color> headerGradient = [
+    delftBlue,
+    uclaBlue,
   ];
   
   static const List<Color> backgroundGradient = [

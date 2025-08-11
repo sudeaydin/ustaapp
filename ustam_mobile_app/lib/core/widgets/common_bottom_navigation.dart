@@ -19,7 +19,7 @@ class CommonBottomNavigation extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: AppColors.getGradient(
-          AppColors.primaryGradient,
+          AppColors.headerGradient,
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
