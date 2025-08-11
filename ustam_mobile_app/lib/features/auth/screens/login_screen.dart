@@ -513,13 +513,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Widget _buildGoogleLogo() {
-    return CustomPaint(
-      size: const Size(24, 24),
-      painter: GoogleLogoPainter(),
-    );
-  }
-
   void _handleLogin() async {
     print('🔥 _handleLogin called!'); // Debug print
     
