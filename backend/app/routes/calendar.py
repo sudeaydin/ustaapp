@@ -145,36 +145,44 @@ def get_calendar_events():
         # Get appointments
         appointments = appointments_query.all()
         for appointment in appointments:
-            events.append({
-                'id': f"appointment_{appointment.id}",
-                'type': 'appointment',
-                'title': appointment.title,
-                'description': appointment.description,
-                'start_time': appointment.start_time.isoformat(),
-                'end_time': appointment.end_time.isoformat(),
-                'status': appointment.status.value,
-                'location': appointment.location,
-                'appointment_type': appointment.appointment_type.value,
-                'data': appointment.to_dict()
-            })
+            try:
+                events.append({
+                    'id': f"appointment_{appointment.id}",
+                    'type': 'appointment',
+                    'title': appointment.title or 'Randevu',
+                    'description': appointment.description or '',
+                    'start_time': appointment.start_time.isoformat(),
+                    'end_time': appointment.end_time.isoformat(),
+                    'status': appointment.status.value if appointment.status else 'pending',
+                    'location': appointment.location or '',
+                    'appointment_type': appointment.appointment_type.value if appointment.appointment_type else 'consultation',
+                    'data': appointment.to_dict()
+                })
+            except Exception as e:
+                print(f"Error processing appointment {appointment.id}: {e}")
+                continue
         
         # Get jobs with scheduled dates
         jobs = jobs_query.filter(Job.scheduled_start.isnot(None)).all()
         for job in jobs:
-            events.append({
-                'id': f"job_{job.id}",
-                'type': 'job',
-                'title': job.title,
-                'description': job.description,
-                'start_time': job.scheduled_start.isoformat(),
-                'end_time': job.scheduled_end.isoformat() if job.scheduled_end else job.scheduled_start.isoformat(),
-                'status': job.status.value,
-                'location': f"{job.district}, {job.city}" if job.district and job.city else job.address,
-                'category': job.category,
-                'priority': job.priority.value,
-                'estimated_cost': float(job.estimated_cost) if job.estimated_cost else None,
-                'data': job.to_dict()
-            })
+            try:
+                events.append({
+                    'id': f"job_{job.id}",
+                    'type': 'job',
+                    'title': job.title or 'İş',
+                    'description': job.description or '',
+                    'start_time': job.scheduled_start.isoformat(),
+                    'end_time': job.scheduled_end.isoformat() if job.scheduled_end else job.scheduled_start.isoformat(),
+                    'status': job.status.value if job.status else 'pending',
+                    'location': f"{job.district}, {job.city}" if job.district and job.city else (job.address or ''),
+                    'category': job.category or '',
+                    'priority': job.priority.value if job.priority else 'normal',
+                    'estimated_cost': float(job.estimated_cost) if job.estimated_cost else None,
+                    'data': job.to_dict()
+                })
+            except Exception as e:
+                print(f"Error processing job {job.id}: {e}")
+                continue
         
         # Sort events by start time
         events.sort(key=lambda x: x['start_time'])
