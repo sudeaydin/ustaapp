@@ -35,9 +35,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     
+    // Load filter options but don't auto-search
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(searchProvider.notifier).loadFilterOptions();
-      _performSearch();
+      // Don't auto-search to avoid immediate errors when backend is down
+      // _performSearch();
     });
   }
 
@@ -306,18 +308,26 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     }
 
     if (searchState.craftsmen.isEmpty) {
+      // Check if this is initial state (no search performed yet) or empty results
+      final isInitialState = searchState.query.isEmpty && 
+                             !searchState.isLoading && 
+                             searchState.error == null &&
+                             (searchState.currentFilters == null || !searchState.currentFilters!.hasActiveFilters);
+      
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.search_off,
+              isInitialState ? Icons.search : Icons.search_off,
               size: 64,
               color: AppColors.textSecondary.withOpacity(0.5),
             ),
             const SizedBox(height: 16),
             Text(
-              'Arama kriterlerinize uygun usta bulunamadı',
+              isInitialState 
+                ? 'Usta aramak için yukarıdaki arama çubuğunu kullanın'
+                : 'Arama kriterlerinize uygun usta bulunamadı',
               style: TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 16,
@@ -327,14 +337,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
-                setState(() {
-                  _filters = SearchFilters();
-                  _searchController.clear();
-                });
-                _performSearch();
+                if (isInitialState) {
+                  _performSearch();
+                } else {
+                  setState(() {
+                    _filters = SearchFilters();
+                    _searchController.clear();
+                  });
+                  _performSearch();
+                }
               },
-              icon: const Icon(Icons.refresh),
-              label: const Text('Filtreleri Temizle'),
+              icon: Icon(isInitialState ? Icons.search : Icons.refresh),
+              label: Text(isInitialState ? 'Tüm Ustaları Göster' : 'Filtreleri Temizle'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: AppColors.textWhite,

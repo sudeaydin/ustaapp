@@ -208,8 +208,18 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
         );
       }
     } catch (e) {
+      String errorMessage = 'Takvim etkinlikleri yüklenirken hata oluştu';
+      
+      // Provide more specific error messages
+      if (e.toString().contains('Connection refused') || 
+          e.toString().contains('Failed host lookup')) {
+        errorMessage = 'Backend sunucusu çalışmıyor. Lütfen sunucuyu başlatın.';
+      } else if (e.toString().contains('timeout')) {
+        errorMessage = 'İstek zaman aşımına uğradı';
+      }
+      
       state = state.copyWith(
-        error: 'Takvim etkinlikleri yüklenirken hata oluştu',
+        error: errorMessage,
         isLoading: false,
       );
     }

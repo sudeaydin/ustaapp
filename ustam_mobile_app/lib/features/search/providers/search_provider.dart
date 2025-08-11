@@ -102,8 +102,8 @@ class SearchState {
 // Search notifier
 class SearchNotifier extends StateNotifier<SearchState> {
   SearchNotifier() : super(const SearchState()) {
-    // Auto-search on initialization
-    searchCraftsmen();
+    // Don't auto-search to avoid immediate errors when backend is down
+    // searchCraftsmen();
   }
 
   final ApiService _apiService = ApiService();
@@ -164,10 +164,23 @@ class SearchNotifier extends StateNotifier<SearchState> {
         );
       }
     } catch (e) {
+      String errorMessage = 'Ağ bağlantısı hatası';
+      ErrorType errorType = ErrorType.network;
+      
+      // Provide more specific error messages
+      if (e.toString().contains('Connection refused') || 
+          e.toString().contains('Failed host lookup')) {
+        errorMessage = 'Backend sunucusu çalışmıyor. Lütfen sunucuyu başlatın.';
+        errorType = ErrorType.server;
+      } else if (e.toString().contains('timeout')) {
+        errorMessage = 'İstek zaman aşımına uğradı';
+        errorType = ErrorType.timeout;
+      }
+      
       state = state.copyWith(
         error: AppError(
-          type: ErrorType.network,
-          message: 'Ağ bağlantısı hatası',
+          type: errorType,
+          message: errorMessage,
         ),
         isLoading: false,
       );

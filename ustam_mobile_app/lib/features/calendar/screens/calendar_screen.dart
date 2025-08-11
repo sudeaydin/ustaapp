@@ -168,31 +168,35 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     if (calendarState.error != null) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              calendarState.error!,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 64,
+                color: Colors.grey[400],
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            CustomButton(
-              text: 'Tekrar Dene',
-              onPressed: () {
-                ref.read(calendar_provider.calendarProvider.notifier).loadEvents();
-              },
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                calendarState.error!,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              CustomButton(
+                text: 'Tekrar Dene',
+                onPressed: () {
+                  ref.read(calendar_provider.calendarProvider.notifier).loadEvents();
+                },
+              ),
+            ],
+          ),
         ),
       );
     }
