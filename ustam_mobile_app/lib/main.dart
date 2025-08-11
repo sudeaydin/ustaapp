@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/providers/auth_provider.dart';
+import 'core/theme/app_theme.dart';
+import 'core/config/app_config.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/auth/screens/welcome_screen.dart';
@@ -45,11 +47,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ustam',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
+      title: AppConfig.appName,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
