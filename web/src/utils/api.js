@@ -314,6 +314,112 @@ export const api = {
   getDocumentVersions: () =>
     apiClient.get('/api/legal/document-versions'),
 
+  // Job Management methods
+  getJobs: (params = {}) =>
+    apiClient.get('/api/job-management/jobs', { 
+      requiresAuth: true,
+      params 
+    }),
+
+  getJobDetail: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}`, { requiresAuth: true }),
+
+  updateJob: (jobId, updateData) =>
+    apiClient.put(`/api/job-management/jobs/${jobId}`, updateData, { requiresAuth: true }),
+
+  getJobMaterials: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}/materials`, { requiresAuth: true }),
+
+  addJobMaterial: (jobId, materialData) =>
+    apiClient.post(`/api/job-management/jobs/${jobId}/materials`, materialData, { requiresAuth: true }),
+
+  updateMaterialStatus: (materialId, status, notes) =>
+    apiClient.put(`/api/job-management/materials/${materialId}/status`, { 
+      status, 
+      notes 
+    }, { requiresAuth: true }),
+
+  startTimeTracking: (jobId, entryData) =>
+    apiClient.post(`/api/job-management/jobs/${jobId}/time/start`, entryData, { requiresAuth: true }),
+
+  endTimeTracking: (entryId, notes, images) =>
+    apiClient.put(`/api/job-management/time-entries/${entryId}/end`, { 
+      notes, 
+      images 
+    }, { requiresAuth: true }),
+
+  getJobTimeSummary: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}/time-summary`, { requiresAuth: true }),
+
+  getCraftsmanTimeSummary: (startDate, endDate) =>
+    apiClient.get('/api/job-management/craftsman/time-summary', { 
+      requiresAuth: true,
+      params: { start_date: startDate, end_date: endDate }
+    }),
+
+  addProgressUpdate: (jobId, updateData) =>
+    apiClient.post(`/api/job-management/jobs/${jobId}/progress`, updateData, { requiresAuth: true }),
+
+  getJobProgress: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}/progress`, { requiresAuth: true }),
+
+  getWarranties: (userType) =>
+    apiClient.get('/api/job-management/warranties', { 
+      requiresAuth: true,
+      params: { user_type: userType }
+    }),
+
+  createWarrantyClaim: (jobId, claimData) =>
+    apiClient.post(`/api/job-management/jobs/${jobId}/warranty-claim`, claimData, { requiresAuth: true }),
+
+  getWarrantyClaims: (userType) =>
+    apiClient.get('/api/job-management/warranty-claims', { 
+      requiresAuth: true,
+      params: { user_type: userType }
+    }),
+
+  processWarrantyClaim: (claimId, action, responseData) =>
+    apiClient.put(`/api/job-management/warranty-claims/${claimId}/process`, { 
+      action, 
+      response_data: responseData 
+    }, { requiresAuth: true }),
+
+  createEmergencyRequest: (emergencyData) =>
+    apiClient.post('/api/job-management/emergency-services', emergencyData, { requiresAuth: true }),
+
+  getNearbyEmergencies: (maxDistance) =>
+    apiClient.get('/api/job-management/emergency-services/nearby', { 
+      requiresAuth: true,
+      params: { max_distance: maxDistance }
+    }),
+
+  assignEmergencyService: (emergencyId) =>
+    apiClient.put(`/api/job-management/emergency-services/${emergencyId}/assign`, {}, { requiresAuth: true }),
+
+  updateEmergencyStatus: (emergencyId, status, locationData) =>
+    apiClient.put(`/api/job-management/emergency-services/${emergencyId}/status`, { 
+      status, 
+      location_data: locationData 
+    }, { requiresAuth: true }),
+
+  getJobPerformanceMetrics: (userType, days) =>
+    apiClient.get('/api/job-management/analytics/performance', { 
+      requiresAuth: true,
+      params: { user_type: userType, days }
+    }),
+
+  getJobCostBreakdown: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}/cost-breakdown`, { requiresAuth: true }),
+
+  getJobTimeline: (jobId) =>
+    apiClient.get(`/api/job-management/jobs/${jobId}/timeline`, { requiresAuth: true }),
+
+  getJobConstants: () =>
+    apiClient.get('/api/job-management/constants'),
+
+  getEmergencyStatistics: () =>
+    apiClient.get('/api/job-management/emergency-services/statistics', { requiresAuth: true }),
+
   // Track API call performance
   _trackApiCall(endpoint, method, statusCode, duration) {
     try {

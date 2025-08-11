@@ -35,6 +35,12 @@ export const MobileNavigation = () => {
       activeIcon: '💬'
     },
     {
+      icon: '📋',
+      label: 'İşlerim',
+      path: '/job-management',
+      activeIcon: '📋'
+    },
+    {
       icon: '👤',
       label: 'Profil',
       path: '/profile',
@@ -58,7 +64,7 @@ export const MobileNavigation = () => {
     {
       icon: '📋',
       label: 'İşlerim',
-      path: '/craftsman/jobs',
+      path: '/job-management',
       activeIcon: '📋'
     },
     {

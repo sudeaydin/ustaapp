@@ -58,6 +58,7 @@ def create_app(config_name='default'):
     from app.routes.seo import seo_bp
     from app.routes.accessibility import accessibility_bp
     from app.routes.legal import legal_bp
+    from app.routes.job_management import job_management_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -73,6 +74,7 @@ def create_app(config_name='default'):
     app.register_blueprint(seo_bp)
     app.register_blueprint(accessibility_bp, url_prefix='/api/accessibility')
     app.register_blueprint(legal_bp, url_prefix='/api/legal')
+    app.register_blueprint(job_management_bp, url_prefix='/api/job-management')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')
