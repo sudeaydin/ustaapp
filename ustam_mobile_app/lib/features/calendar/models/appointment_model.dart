@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../core/services/api_service.dart';
 
 enum AppointmentStatus {
   pending,
   confirmed,
-  inProgress,
-  completed,
   cancelled,
+  completed,
   rescheduled,
 }
 
 enum AppointmentType {
   consultation,
-  work,
+  service,
   followUp,
   emergency,
 }
@@ -285,23 +285,4 @@ class Quote {
       status: json['status'],
     );
   }
-}
-
-class CalendarEvent {
-  final DateTime date;
-  final List<Appointment> appointments;
-
-  CalendarEvent({
-    required this.date,
-    required this.appointments,
-  });
-
-  bool get hasAppointments => appointments.isNotEmpty;
-  int get appointmentCount => appointments.length;
-  
-  List<Appointment> get confirmedAppointments =>
-      appointments.where((a) => a.status == AppointmentStatus.confirmed).toList();
-  
-  List<Appointment> get pendingAppointments =>
-      appointments.where((a) => a.status == AppointmentStatus.pending).toList();
 }

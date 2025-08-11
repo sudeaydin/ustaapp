@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../../features/support/screens/support_screen.dart';
 import '../../features/onboarding/widgets/tutorial_overlay.dart';
+import '../../features/onboarding/models/tutorial_steps.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -110,7 +111,7 @@ class SupportButton extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SupportScreen(),
+                builder: (context) => SupportScreen(userType: userType),
               ),
             );
           } else if (value == 'tutorial') {
@@ -118,7 +119,12 @@ class SupportButton extends StatelessWidget {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (context) => TutorialOverlay(userType: userType),
+              builder: (context) => TutorialOverlay(
+                userType: userType,
+                steps: userType == 'customer' 
+                    ? TutorialSteps.getCustomerSteps()
+                    : TutorialSteps.getCraftsmanSteps(),
+              ),
             );
           }
         },

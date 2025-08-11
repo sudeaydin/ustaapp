@@ -5,7 +5,7 @@ import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/theme/app_colors.dart';
-import '../providers/calendar_provider.dart';
+import '../providers/calendar_provider.dart' as calendar_provider;
 import '../models/appointment_model.dart';
 import '../widgets/appointment_card.dart';
 import '../widgets/create_appointment_sheet.dart';
@@ -34,15 +34,15 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     
     // Load events (appointments + jobs)
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(calendarProvider.notifier).loadEvents();
-      ref.read(calendarProvider.notifier).loadUpcomingAppointments();
-      ref.read(calendarProvider.notifier).loadTodayAppointments();
+      ref.read(calendar_provider.calendarProvider.notifier).loadEvents();
+      ref.read(calendar_provider.calendarProvider.notifier).loadUpcomingAppointments();
+      ref.read(calendar_provider.calendarProvider.notifier).loadTodayAppointments();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final calendarState = ref.watch(calendarProvider);
+    final calendarState = ref.watch(calendar_provider.calendarProvider);
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -101,8 +101,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
         calendarFormat: _calendarFormat,
         eventLoader: (day) {
-          final events = ref.read(calendarProvider).eventsByDate[DateTime(day.year, day.month, day.day)] ?? [];
-          return events;
+          final events = ref.read(calendar_provider.calendarProvider).eventsByDate[DateTime(day.year, day.month, day.day)] ?? [];
+          // TableCalendar expects a List<dynamic>, so we return the events as-is
+          return events.cast<dynamic>();
         },
         startingDayOfWeek: StartingDayOfWeek.monday,
         calendarStyle: CalendarStyle(
@@ -187,7 +188,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             CustomButton(
               text: 'Tekrar Dene',
               onPressed: () {
-                ref.read(calendarProvider.notifier).loadEvents();
+                ref.read(calendar_provider.calendarProvider.notifier).loadEvents();
               },
             ),
           ],
@@ -197,7 +198,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     final selectedDayEvents = _selectedDay != null
         ? calendarState.eventsByDate[DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day)] ?? []
-        : <CalendarEvent>[];
+        : <calendar_provider.CalendarEvent>[];
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -254,7 +255,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildEventCard(CalendarEvent event) {
+  Widget _buildEventCard(calendar_provider.CalendarEvent event) {
     final isJob = event.isJob;
     final statusColor = _getEventStatusColor(event.status, isJob);
     final priorityColor = _getEventPriorityColor(event.priority);
@@ -490,7 +491,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         userType: widget.userType,
         selectedDate: _selectedDay,
         onAppointmentCreated: () {
-          ref.read(calendarProvider.notifier).loadAppointments();
+          ref.read(calendar_provider.calendarProvider.notifier).loadAppointments();
         },
       ),
     );
@@ -505,7 +506,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   void _updateAppointmentStatus(Appointment appointment, AppointmentStatus newStatus) async {
-    final success = await ref.read(calendarProvider.notifier).updateAppointment(
+    final success = await ref.read(calendar_provider.calendarProvider.notifier).updateAppointment(
       appointmentId: appointment.id,
       status: newStatus,
     );
@@ -518,7 +519,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         ),
       );
     } else {
-      final error = ref.read(calendarProvider).error;
+      final error = ref.read(calendar_provider.calendarProvider).error;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error ?? 'Randevu güncellenemedi'),
@@ -630,7 +631,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
   }
 
-  void _showEventDetails(CalendarEvent event) {
+  void _showEventDetails(calendar_provider.CalendarEvent event) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
