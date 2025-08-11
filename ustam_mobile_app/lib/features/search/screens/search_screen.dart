@@ -607,9 +607,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> with AccessibilityM
                                               return Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                                 decoration: BoxDecoration(
-                                                  color: AppColors.mintGreen,
+                                                  color: AppColors.primary.withOpacity(0.1),
                                                   borderRadius: BorderRadius.circular(20),
-                                                  border: Border.all(color: AppColors.mintGreen),
+                                                  border: Border.all(color: AppColors.primary),
                                                 ),
                                                 child: Text(
                                                   skill.toString(),

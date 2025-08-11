@@ -310,7 +310,7 @@ class AppTheme {
       // Chip Theme
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.cardBackground,
-        selectedColor: AppColors.mintGreen,
+        selectedColor: AppColors.primary.withOpacity(0.1),
         disabledColor: AppColors.buttonDisabled,
         labelStyle: TextStyle(color: AppColors.textPrimary),
         secondaryLabelStyle: TextStyle(color: AppColors.textSecondary),

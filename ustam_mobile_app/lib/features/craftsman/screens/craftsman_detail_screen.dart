@@ -227,9 +227,9 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: AppColors.mintGreen,
+                            color: AppColors.primary.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: AppColors.mintGreen),
+                            border: Border.all(color: AppColors.primary),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

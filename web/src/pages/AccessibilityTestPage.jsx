@@ -342,7 +342,7 @@ const AccessibilityTestPage = () => {
               <p className="text-sm">Bu metin yeterli kontrasta sahip</p>
             </div>
             
-            <div className="p-4 bg-mint-green text-white rounded">
+            <div className="p-4 bg-delft-blue-500 text-white rounded">
               <h4 className="font-medium">AA Uyumlu</h4>
               <p className="text-sm">Bu metin de okunabilir</p>
             </div>

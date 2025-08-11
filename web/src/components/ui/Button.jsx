@@ -41,7 +41,7 @@ const Button = forwardRef(({
   // Variant styles
   const variantStyles = {
     primary: 'bg-poppy-500 hover:bg-poppy-600 text-white shadow-md hover:shadow-lg dark:bg-poppy-600 dark:hover:bg-poppy-700',
-    secondary: 'bg-mint-green-500 hover:bg-mint-green-600 text-white shadow-md hover:shadow-lg dark:bg-mint-green-600 dark:hover:bg-mint-green-700',
+    secondary: 'bg-delft-blue-500 hover:bg-delft-blue-600 text-white shadow-md hover:shadow-lg dark:bg-delft-blue-600 dark:hover:bg-delft-blue-700',
     outline: 'border-2 border-poppy-500 text-poppy-500 hover:bg-poppy-500 hover:text-white dark:border-poppy-400 dark:text-poppy-400 dark:hover:bg-poppy-400 dark:hover:text-white',
     ghost: 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
     danger: 'bg-red-500 hover:bg-red-600 text-white shadow-md hover:shadow-lg dark:bg-red-600 dark:hover:bg-red-700',

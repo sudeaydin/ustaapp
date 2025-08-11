@@ -149,12 +149,12 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: notification['isRead'] ? Colors.white : AppColors.mintGreen,
+        color: notification['isRead'] ? Colors.white : AppColors.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: notification['isRead'] 
               ? AppColors.nonPhotoBlue.withOpacity(0.3)
-              : AppColors.mintGreen,
+              : AppColors.primary.withOpacity(0.3),
         ),
         boxShadow: [
           BoxShadow(

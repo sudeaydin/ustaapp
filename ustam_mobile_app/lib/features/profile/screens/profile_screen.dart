@@ -138,7 +138,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppColors.mintGreen,
+                color: AppColors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, size: 20, color: AppColors.uclaBlue),
@@ -202,7 +202,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: color != null ? Colors.white.withOpacity(0.2) : AppColors.mintGreen,
+                    color: color != null ? Colors.white.withOpacity(0.2) : AppColors.primary.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -457,9 +457,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             return Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
-                                color: AppColors.mintGreen,
+                                color: AppColors.primary.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: AppColors.mintGreen),
+                                border: Border.all(color: AppColors.primary),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,

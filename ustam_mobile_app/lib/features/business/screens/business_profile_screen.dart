@@ -440,7 +440,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         });
                       },
                       backgroundColor: AppColors.cardBackground,
-                      selectedColor: AppColors.mintGreen,
+                      selectedColor: AppColors.primary.withOpacity(0.1),
                       checkmarkColor: AppColors.uclaBlue,
                       labelStyle: TextStyle(
                         color: isSelected ? AppColors.uclaBlue : AppColors.textLight,

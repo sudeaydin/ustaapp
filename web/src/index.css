@@ -48,7 +48,7 @@
   }
 
   .btn-secondary {
-    @apply bg-mint-green-500 text-white hover:bg-mint-green-600 dark:bg-mint-green-600 dark:hover:bg-mint-green-700 focus:ring-mint-green-500 shadow-soft hover:shadow-medium;
+    @apply bg-delft-blue-500 text-white hover:bg-delft-blue-600 dark:bg-delft-blue-600 dark:hover:bg-delft-blue-700 focus:ring-delft-blue-500 shadow-soft hover:shadow-medium;
   }
 
   .btn-outline {

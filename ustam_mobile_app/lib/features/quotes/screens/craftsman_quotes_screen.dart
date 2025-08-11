@@ -260,9 +260,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AppColors.mintGreen,
+                  color: AppColors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.uclaBlue),
+                  border: Border.all(color: AppColors.primary),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
