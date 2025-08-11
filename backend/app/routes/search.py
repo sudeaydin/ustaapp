@@ -94,14 +94,58 @@ def search_craftsmen(validated_data):
         if validated_data.get('city'):
             query = query.filter(Craftsman.city == validated_data['city'])
         
+        # Apply advanced filters
+        if validated_data.get('min_rating'):
+            query = query.filter(Craftsman.average_rating >= validated_data['min_rating'])
+        
+        if validated_data.get('max_rating'):
+            query = query.filter(Craftsman.average_rating <= validated_data['max_rating'])
+        
+        if validated_data.get('min_price'):
+            query = query.filter(Craftsman.hourly_rate >= validated_data['min_price'])
+        
+        if validated_data.get('max_price'):
+            query = query.filter(Craftsman.hourly_rate <= validated_data['max_price'])
+        
+        if validated_data.get('is_verified') is not None:
+            query = query.filter(Craftsman.is_verified == validated_data['is_verified'])
+        
+        if validated_data.get('has_portfolio') is not None:
+            if validated_data['has_portfolio']:
+                query = query.filter(Craftsman.portfolio_images.isnot(None))
+            else:
+                query = query.filter(Craftsman.portfolio_images.is_(None))
+        
+        if validated_data.get('district'):
+            query = query.filter(Craftsman.district == validated_data['district'])
+
         # Apply sorting
         sort_by = validated_data.get('sort_by', 'rating')
+        sort_order = validated_data.get('sort_order', 'desc')
+        
         if sort_by == 'rating':
-            query = query.order_by(Craftsman.average_rating.desc())
+            if sort_order == 'asc':
+                query = query.order_by(Craftsman.average_rating.asc())
+            else:
+                query = query.order_by(Craftsman.average_rating.desc())
         elif sort_by == 'price':
-            query = query.order_by(Craftsman.hourly_rate.asc())
+            if sort_order == 'asc':
+                query = query.order_by(Craftsman.hourly_rate.asc())
+            else:
+                query = query.order_by(Craftsman.hourly_rate.desc())
         elif sort_by == 'reviews':
-            query = query.order_by(Craftsman.total_reviews.desc())
+            if sort_order == 'asc':
+                query = query.order_by(Craftsman.total_reviews.asc())
+            else:
+                query = query.order_by(Craftsman.total_reviews.desc())
+        elif sort_by == 'name':
+            if sort_order == 'asc':
+                query = query.order_by(User.first_name.asc(), User.last_name.asc())
+            else:
+                query = query.order_by(User.first_name.desc(), User.last_name.desc())
+        elif sort_by == 'distance':
+            # For now, just order by city
+            query = query.order_by(Craftsman.city)
         else:
             query = query.order_by(Craftsman.created_at.desc())
         
@@ -197,3 +241,103 @@ def get_craftsman_detail(craftsman_id):
         
     except Exception as e:
         return ResponseHelper.server_error('Usta bilgileri getirilemedi', str(e))
+
+@search_bp.route('/districts', methods=['GET'])
+def get_districts():
+    """Get districts for a specific city"""
+    try:
+        city = request.args.get('city')
+        if not city:
+            return ResponseHelper.validation_error('City parameter is required')
+        
+        # Get unique districts for the city
+        districts = db.session.query(Craftsman.district).distinct().filter(
+            Craftsman.city == city,
+            Craftsman.district.isnot(None)
+        ).all()
+        
+        district_list = [district[0] for district in districts if district[0]]
+        district_list.sort()
+        
+        return ResponseHelper.success(
+            data=district_list,
+            message='İlçeler başarıyla getirildi'
+        )
+        
+    except Exception as e:
+        return ResponseHelper.server_error('İlçeler getirilemedi', str(e))
+
+@search_bp.route('/filters', methods=['GET'])
+def get_search_filters():
+    """Get available search filters with ranges"""
+    try:
+        # Get price range
+        price_stats = db.session.query(
+            db.func.min(Craftsman.hourly_rate).label('min_price'),
+            db.func.max(Craftsman.hourly_rate).label('max_price'),
+            db.func.avg(Craftsman.hourly_rate).label('avg_price')
+        ).filter(
+            Craftsman.hourly_rate.isnot(None),
+            Craftsman.hourly_rate > 0
+        ).first()
+        
+        # Get rating range
+        rating_stats = db.session.query(
+            db.func.min(Craftsman.average_rating).label('min_rating'),
+            db.func.max(Craftsman.average_rating).label('max_rating'),
+            db.func.avg(Craftsman.average_rating).label('avg_rating')
+        ).filter(
+            Craftsman.average_rating.isnot(None),
+            Craftsman.average_rating > 0
+        ).first()
+        
+        # Get verification stats
+        verified_count = Craftsman.query.filter_by(is_verified=True).count()
+        total_count = Craftsman.query.count()
+        
+        # Get portfolio stats
+        portfolio_count = Craftsman.query.filter(
+            Craftsman.portfolio_images.isnot(None)
+        ).count()
+        
+        filters = {
+            'price_range': {
+                'min': float(price_stats.min_price) if price_stats.min_price else 0,
+                'max': float(price_stats.max_price) if price_stats.max_price else 1000,
+                'avg': float(price_stats.avg_price) if price_stats.avg_price else 100,
+            },
+            'rating_range': {
+                'min': float(rating_stats.min_rating) if rating_stats.min_rating else 0,
+                'max': float(rating_stats.max_rating) if rating_stats.max_rating else 5,
+                'avg': float(rating_stats.avg_rating) if rating_stats.avg_rating else 0,
+            },
+            'verification_stats': {
+                'verified_count': verified_count,
+                'total_count': total_count,
+                'verification_rate': (verified_count / total_count * 100) if total_count > 0 else 0,
+            },
+            'portfolio_stats': {
+                'with_portfolio': portfolio_count,
+                'without_portfolio': total_count - portfolio_count,
+                'portfolio_rate': (portfolio_count / total_count * 100) if total_count > 0 else 0,
+            },
+            'sort_options': [
+                {'value': 'rating', 'label': 'Puan'},
+                {'value': 'price', 'label': 'Fiyat'},
+                {'value': 'reviews', 'label': 'Değerlendirme Sayısı'},
+                {'value': 'name', 'label': 'İsim'},
+                {'value': 'distance', 'label': 'Mesafe'},
+            ],
+            'sort_orders': [
+                {'value': 'desc', 'label': 'Azalan'},
+                {'value': 'asc', 'label': 'Artan'},
+            ]
+        }
+        
+        return ResponseHelper.success(
+            data=filters,
+            message='Arama filtreleri getirildi'
+        )
+        
+    except Exception as e:
+        return ResponseHelper.server_error('Arama filtreleri getirilemedi', str(e))

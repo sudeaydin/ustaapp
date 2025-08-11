@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/utils/error_handler.dart';
+import '../models/search_filters.dart';
 
 // Search providers
 final searchProvider = StateNotifierProvider<SearchNotifier, SearchState>((ref) {
@@ -49,16 +50,20 @@ class SearchState {
   final String query;
   final String selectedCategory;
   final String selectedCity;
+  final FilterOptions? filterOptions;
+  final List<String> districts;
   final String selectedSortBy;
   final bool showFilters;
 
-  const SearchState({
+  const   SearchState({
     this.craftsmen = const [],
     this.isLoading = false,
     this.error,
     this.query = '',
     this.selectedCategory = '',
     this.selectedCity = '',
+    this.filterOptions,
+    this.districts = const [],
     this.selectedSortBy = 'rating',
     this.showFilters = false,
   });
@@ -70,6 +75,8 @@ class SearchState {
     String? query,
     String? selectedCategory,
     String? selectedCity,
+    FilterOptions? filterOptions,
+    List<String>? districts,
     String? selectedSortBy,
     bool? showFilters,
   }) {
@@ -80,6 +87,8 @@ class SearchState {
       query: query ?? this.query,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       selectedCity: selectedCity ?? this.selectedCity,
+      filterOptions: filterOptions ?? this.filterOptions,
+      districts: districts ?? this.districts,
       selectedSortBy: selectedSortBy ?? this.selectedSortBy,
       showFilters: showFilters ?? this.showFilters,
     );
@@ -174,5 +183,74 @@ class SearchNotifier extends StateNotifier<SearchState> {
   // Retry search
   void retrySearch() {
     searchCraftsmen();
+  }
+
+  // Advanced search with filters
+  Future<void> searchCraftsmenWithFilters(SearchFilters filters) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final apiResponse = await ApiService.getInstance().get(
+        '/search/craftsmen',
+        queryParams: filters.toQueryParams(),
+      );
+
+      if (apiResponse.isSuccess && apiResponse.data != null) {
+        final craftsmen = List<Map<String, dynamic>>.from(
+          apiResponse.data!['craftsmen'] ?? []
+        );
+
+        state = state.copyWith(
+          craftsmen: craftsmen,
+          isLoading: false,
+          query: filters.query ?? '',
+        );
+      } else {
+        state = state.copyWith(
+          error: apiResponse.error ?? AppError(
+            type: ErrorType.server,
+            message: 'Arama yapılamadı',
+          ),
+          isLoading: false,
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        error: AppError(
+          type: ErrorType.network,
+          message: 'Ağ bağlantısı hatası',
+        ),
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<void> loadFilterOptions() async {
+    try {
+      final apiResponse = await ApiService.getInstance().get('/search/filters');
+
+      if (apiResponse.isSuccess && apiResponse.data != null) {
+        final filterOptions = FilterOptions.fromJson(apiResponse.data!);
+        state = state.copyWith(filterOptions: filterOptions);
+      }
+    } catch (e) {
+      // Filter options are optional, don't show error
+    }
+  }
+
+  Future<void> loadDistricts(String city) async {
+    try {
+      final apiResponse = await ApiService.getInstance().get(
+        '/search/districts',
+        queryParams: {'city': city},
+      );
+
+      if (apiResponse.isSuccess && apiResponse.data != null) {
+        final districts = List<String>.from(apiResponse.data! ?? []);
+        state = state.copyWith(districts: districts);
+      }
+    } catch (e) {
+      // Districts are optional, don't show error
+    }
   }
 }

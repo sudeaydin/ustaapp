@@ -139,30 +139,57 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
 
                                  const SizedBox(height: 24),
 
-                 // Quick Actions
-                 Row(
-                   children: [
-                     Expanded(
-                       child: _buildQuickActionCard(
-                         'Tekliflerim',
-                         'Teklif taleplerine bak',
-                         Icons.assignment_rounded,
-                         AppColors.primary,
-                         () => Navigator.pushNamed(context, '/craftsman-quotes'),
-                       ),
-                     ),
-                     const SizedBox(width: 12),
-                     Expanded(
-                       child: _buildQuickActionCard(
-                         'İşletme Profili',
-                         'Bilgilerini güncelle',
-                         Icons.business_rounded,
-                         AppColors.info,
-                         () => Navigator.pushNamed(context, '/business-profile'),
-                       ),
-                     ),
-                   ],
-                 ),
+                                 // Quick Actions
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildQuickActionCard(
+                        'Tekliflerim',
+                        'Teklif taleplerine bak',
+                        Icons.assignment_rounded,
+                        AppColors.primary,
+                        () => Navigator.pushNamed(context, '/craftsman-quotes'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildQuickActionCard(
+                        'İşletme Profili',
+                        'Bilgilerini güncelle',
+                        Icons.business_rounded,
+                        AppColors.info,
+                        () => Navigator.pushNamed(context, '/business-profile'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildQuickActionCard(
+                        'Takvim',
+                        'Randevularınızı yönetin',
+                        Icons.calendar_today,
+                        Colors.orange,
+                        () => Navigator.pushNamed(context, '/calendar', arguments: 'craftsman'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildQuickActionCard(
+                        'Değerlendirmeler',
+                        'Müşteri yorumları',
+                        Icons.star_rate,
+                        Colors.amber,
+                        () => Navigator.pushNamed(context, '/reviews', arguments: {
+                          'craftsmanId': 1, // TODO: Get actual craftsman ID
+                          'craftsmanName': 'Profilim',
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
 
                  const SizedBox(height: 24),
 

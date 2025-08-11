@@ -38,7 +38,7 @@ def create_app(config_name='default'):
     init_analytics_middleware(app)
     
     # Import models
-    from app.models import user, craftsman, customer, category, quote, payment, notification, job, message
+    from app.models import user, craftsman, customer, category, quote, payment, notification, job, message, review, support_ticket, appointment
     
     # Register new API blueprints
     from app.routes.profile import profile_bp
@@ -62,6 +62,8 @@ def create_app(config_name='default'):
     from app.routes.enhanced_notifications import enhanced_notifications_bp
     from app.routes.analytics_dashboard import analytics_dashboard_bp
     from app.routes.support import support_bp
+    from app.routes.review import review_bp
+    from app.routes.calendar import calendar_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -81,6 +83,8 @@ def create_app(config_name='default'):
     app.register_blueprint(enhanced_notifications_bp, url_prefix='/api/notifications/enhanced')
     app.register_blueprint(analytics_dashboard_bp, url_prefix='/api/analytics-dashboard')
     app.register_blueprint(support_bp, url_prefix='/api/support')
+    app.register_blueprint(review_bp, url_prefix='/api/reviews')
+    app.register_blueprint(calendar_bp, url_prefix='/api/calendar')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')

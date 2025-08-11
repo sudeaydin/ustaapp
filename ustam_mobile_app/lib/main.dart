@@ -18,6 +18,10 @@ import 'features/auth/screens/welcome_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/register_screen.dart';
 import 'features/support/screens/support_screen.dart';
+import 'features/search/screens/advanced_search_screen.dart';
+import 'features/reviews/screens/reviews_screen.dart';
+import 'features/reviews/screens/create_review_screen.dart';
+import 'features/calendar/screens/calendar_screen.dart';
 import 'features/dashboard/screens/customer_dashboard.dart';
 import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
@@ -100,6 +104,27 @@ class MyApp extends ConsumerWidget {
         '/support': (context) {
           final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
           return SupportScreen(userType: userType);
+        },
+        '/advanced-search': (context) => const AdvancedSearchScreen(),
+        '/reviews': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return ReviewsScreen(
+            craftsmanId: args['craftsmanId'],
+            craftsmanName: args['craftsmanName'],
+          );
+        },
+        '/create-review': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return CreateReviewScreen(
+            craftsmanId: args['craftsmanId'],
+            quoteId: args['quoteId'],
+            craftsmanName: args['craftsmanName'],
+            serviceName: args['serviceName'],
+          );
+        },
+        '/calendar': (context) {
+          final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
+          return CalendarScreen(userType: userType);
         },
         '/customer-dashboard': (context) => const CustomerDashboard(),
         '/craftsman-dashboard': (context) => const CraftsmanDashboard(),
