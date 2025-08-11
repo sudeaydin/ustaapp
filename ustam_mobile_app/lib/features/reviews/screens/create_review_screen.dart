@@ -187,29 +187,20 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildTitleField() {
     return CustomTextField(
-      controller: _titleController,
       label: 'Başlık (İsteğe bağlı)',
-      hintText: 'Değerlendirmeniz için kısa bir başlık',
-      maxLength: 100,
+      hint: 'Değerlendirmeniz için kısa bir başlık',
+      controller: _titleController,
     );
   }
 
   Widget _buildCommentField() {
     return CustomTextField(
+      label: 'Yorumunuz',
+      hint: 'Deneyiminizi detaylı olarak anlatın...',
+      type: TextFieldType.multiline,
+      maxLines: 4,
       controller: _commentController,
-      label: 'Yorumunuz *',
-      hintText: 'Deneyiminizi detaylı olarak anlatın...',
-      maxLines: 5,
-      maxLength: 500,
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Lütfen yorumunuzu yazın';
-        }
-        if (value.trim().length < 10) {
-          return 'Yorum en az 10 karakter olmalıdır';
-        }
-        return null;
-      },
+      required: true,
     );
   }
 

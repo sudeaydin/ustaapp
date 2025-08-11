@@ -9,6 +9,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showTutorialTrigger;
   final String? userType;
   final List<Widget>? additionalActions;
+  final List<Widget>? actions; // New parameter
   final VoidCallback? onNotificationTap;
 
   const CommonAppBar({
@@ -19,6 +20,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showTutorialTrigger = false,
     this.userType,
     this.additionalActions,
+    this.actions, // New parameter
     this.onNotificationTap,
   });
 
@@ -54,6 +56,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       actions: [
+        // Custom actions first
+        if (actions != null) ...actions!,
+        
+        // Default actions
         if (showNotifications)
           Container(
             margin: const EdgeInsets.only(right: 8),

@@ -57,13 +57,13 @@ class SearchFilters {
     );
   }
 
-  Map<String, dynamic> toQueryParams() {
-    final params = <String, dynamic>{};
+  Map<String, String> toQueryParams() {
+    final params = <String, String>{};
     
-    if (query != null && query!.isNotEmpty) params['q'] = query;
-    if (category != null && category!.isNotEmpty) params['category'] = category;
-    if (city != null && city!.isNotEmpty) params['city'] = city;
-    if (district != null && district!.isNotEmpty) params['district'] = district;
+    if (query != null && query!.isNotEmpty) params['q'] = query!;
+    if (category != null && category!.isNotEmpty) params['category'] = category!;
+    if (city != null && city!.isNotEmpty) params['city'] = city!;
+    if (district != null && district!.isNotEmpty) params['district'] = district!;
     if (minRating != null) params['min_rating'] = minRating.toString();
     if (maxRating != null) params['max_rating'] = maxRating.toString();
     if (minPrice != null) params['min_price'] = minPrice.toString();

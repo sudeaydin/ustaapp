@@ -50,6 +50,12 @@ class Quote(db.Model):
     description = db.Column(db.Text, nullable=False)
     additional_details = db.Column(db.Text)  # Extra details from customer
     
+    # Date preferences from customer
+    preferred_start_date = db.Column(db.Date)  # Earliest preferred start date
+    preferred_end_date = db.Column(db.Date)    # Latest preferred completion date
+    is_flexible_dates = db.Column(db.Boolean, default=True)  # Whether dates are flexible
+    urgency_level = db.Column(db.String(20), default='normal')  # normal, urgent, emergency
+    
     # Quote Response Details (from craftsman)
     craftsman_response_type = db.Column(db.String(50))  # quote, details_request, reject
     quoted_price = db.Column(Numeric(10, 2))
@@ -84,6 +90,10 @@ class Quote(db.Model):
             'budget_range': self.budget_range,
             'description': self.description,
             'additional_details': self.additional_details,
+            'preferred_start_date': self.preferred_start_date.isoformat() if self.preferred_start_date else None,
+            'preferred_end_date': self.preferred_end_date.isoformat() if self.preferred_end_date else None,
+            'is_flexible_dates': self.is_flexible_dates,
+            'urgency_level': self.urgency_level,
             'craftsman_response_type': self.craftsman_response_type,
             'quoted_price': str(self.quoted_price) if self.quoted_price else None,
             'craftsman_notes': self.craftsman_notes,

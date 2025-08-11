@@ -19,6 +19,10 @@ class QuoteRequestSchema(Schema):
     description = fields.Str(required=True, validate=validate.Length(min=20, max=1000))
     location = fields.Str(required=True, validate=validate.Length(min=10, max=200))
     preferred_date = fields.DateTime()
+    preferred_start_date = fields.Date()  # New field
+    preferred_end_date = fields.Date()    # New field
+    is_flexible_dates = fields.Bool(missing=True)  # New field
+    urgency_level = fields.Str(validate=validate.OneOf(['normal', 'urgent', 'emergency']), missing='normal')  # New field
     budget_min = fields.Decimal(places=2, validate=validate.Range(min=0))
     budget_max = fields.Decimal(places=2, validate=validate.Range(min=0))
 

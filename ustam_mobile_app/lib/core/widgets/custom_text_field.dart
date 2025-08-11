@@ -8,6 +8,7 @@ enum TextFieldType { text, email, password, phone, number, multiline }
 class CustomTextField extends StatefulWidget {
   final String? label;
   final String? hint;
+  final String? hintText; // Backward compatibility
   final String? initialValue;
   final TextFieldType type;
   final Function(String)? onChanged;
@@ -24,6 +25,7 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.label,
     this.hint,
+    this.hintText, // Backward compatibility
     this.initialValue,
     this.type = TextFieldType.text,
     this.onChanged,
@@ -109,7 +111,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fontSize: 16,
             ),
             decoration: InputDecoration(
-              hintText: widget.hint,
+              hintText: widget.hint ?? widget.hintText,
               hintStyle: TextStyle(
                 color: AppColors.textMuted,
                 fontSize: 16,

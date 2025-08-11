@@ -9,6 +9,7 @@ import '../providers/search_provider.dart';
 import '../widgets/craftsman_card.dart';
 import '../widgets/search_filters_sheet.dart';
 import '../widgets/search_map_view.dart';
+import '../../../core/widgets/error_message.dart';
 
 class AdvancedSearchScreen extends ConsumerStatefulWidget {
   const AdvancedSearchScreen({super.key});
@@ -137,15 +138,12 @@ class _AdvancedSearchScreenState extends ConsumerState<AdvancedSearchScreen>
             children: [
               Expanded(
                 child: CustomTextField(
+                  hint: 'Usta, hizmet veya şehir ara...',
                   controller: _searchController,
-                  hintText: 'Usta, hizmet veya şehir ara...',
-                  prefixIcon: const Icon(Icons.search),
                   onChanged: (value) {
-                    setState(() {
-                      _filters = _filters.copyWith(query: value);
-                    });
+                    _filters = _filters.copyWith(query: value);
                   },
-                  onSubmitted: (value) => _performSearch(),
+                  prefixIcon: const Icon(Icons.search),
                 ),
               ),
               const SizedBox(width: 8),
@@ -284,29 +282,11 @@ class _AdvancedSearchScreenState extends ConsumerState<AdvancedSearchScreen>
 
     if (searchState.error != null) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              searchState.error!,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            CustomButton(
-              text: 'Tekrar Dene',
-              onPressed: _performSearch,
-            ),
-          ],
+        child: ErrorMessage(
+          message: searchState.error!.userFriendlyMessage,
+          onRetry: () {
+            ref.read(searchProvider.notifier).clearError();
+          },
         ),
       );
     }
@@ -400,7 +380,8 @@ class _AdvancedSearchScreenState extends ConsumerState<AdvancedSearchScreen>
   }
 
   Future<void> _performSearch() async {
-    await ref.read(searchProvider.notifier).searchCraftsmen(_filters);
+    ref.read(searchProvider.notifier).updateFilters(_filters);
+    await ref.read(searchProvider.notifier).searchCraftsmen();
   }
 
   void _navigateToCraftsmanDetail(dynamic craftsman) {

@@ -197,6 +197,16 @@ class Appointment {
         return Icons.emergency;
     }
   }
+
+  bool canBeEdited() {
+    return status == AppointmentStatus.pending || 
+           status == AppointmentStatus.confirmed;
+  }
+
+  bool can_be_cancelled() {
+    return status == AppointmentStatus.pending || 
+           status == AppointmentStatus.confirmed;
+  }
 }
 
 class Customer {

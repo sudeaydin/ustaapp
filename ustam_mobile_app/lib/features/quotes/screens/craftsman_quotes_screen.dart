@@ -246,7 +246,36 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildDetailRow('Bütçe', '${quote['budget_range']} TL'),
+                  
+                  // Show customer's preferred date range
+                  if (quote['preferred_start_date'] != null || quote['preferred_end_date'] != null) ...[
+                    if (quote['preferred_start_date'] != null && quote['preferred_end_date'] != null)
+                      _buildDetailRow('📅 Tercih Edilen Tarih', 
+                        '${_formatDateOnly(quote['preferred_start_date'])} - ${_formatDateOnly(quote['preferred_end_date'])}'),
+                    if (quote['preferred_start_date'] != null && quote['preferred_end_date'] == null)
+                      _buildDetailRow('📅 En Erken Başlangıç', _formatDateOnly(quote['preferred_start_date'])),
+                    if (quote['preferred_start_date'] == null && quote['preferred_end_date'] != null)
+                      _buildDetailRow('📅 En Geç Bitiş', _formatDateOnly(quote['preferred_end_date'])),
+                    if (quote['is_flexible_dates'] == true)
+                      _buildDetailRow('🔄 Tarih Esnekliği', 'Esnek'),
+                  ],
+                  
+                  if (quote['urgency_level'] != null && quote['urgency_level'] != 'normal')
+                    _buildDetailRow('⚡ Aciliyet', _getUrgencyText(quote['urgency_level'])),
+                  
                   _buildDetailRow('📝 Açıklama', quote['description']),
+                  
+                  // Show craftsman's proposed dates if available
+                  if (quote['estimated_start_date'] != null || quote['estimated_end_date'] != null) ...[
+                    if (quote['estimated_start_date'] != null && quote['estimated_end_date'] != null)
+                      _buildDetailRow('📅 Önerdiğim Tarih', 
+                        '${_formatDateOnly(quote['estimated_start_date'])} - ${_formatDateOnly(quote['estimated_end_date'])}'),
+                    if (quote['estimated_start_date'] != null && quote['estimated_end_date'] == null)
+                      _buildDetailRow('📅 Başlangıç Önerim', _formatDateOnly(quote['estimated_start_date'])),
+                    if (quote['estimated_start_date'] == null && quote['estimated_end_date'] != null)
+                      _buildDetailRow('📅 Bitiş Önerim', _formatDateOnly(quote['estimated_end_date'])),
+                  ],
+                  
                   if (quote['quoted_price'] != null)
                     _buildDetailRow('💵 Verdiğim Teklif', '₺${quote['quoted_price']}'),
                   if (quote['estimated_duration_days'] != null)
@@ -417,6 +446,25 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     }
   }
 
+  String _formatDateOnly(String? dateString) {
+    if (dateString == null) return 'Belirtilmemiş';
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return 'Geçersiz tarih';
+    }
+  }
+
+  String _getUrgencyText(String level) {
+    switch (level) {
+      case 'urgent': return 'Acil';
+      case 'emergency': return 'Acil Durum';
+      case 'normal': return 'Normal';
+      default: return level;
+    }
+  }
+
   void _requestDetails(Map<String, dynamic> quote) {
     showDialog(
       context: context,
@@ -459,67 +507,194 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     final priceController = TextEditingController();
     final notesController = TextEditingController();
     final durationController = TextEditingController();
+    DateTime? proposedStartDate;
+    DateTime? proposedEndDate;
     
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Teklif Ver'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: priceController,
-                decoration: const InputDecoration(
-                  labelText: 'Fiyat (₺)',
-                  border: OutlineInputBorder(),
-                  hintText: 'Örn: 1500',
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: const Text('Teklif Ver'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Show customer's preferred dates if available
+                if (quote['preferred_start_date'] != null || quote['preferred_end_date'] != null) ...[
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Müşterinin Tercih Ettiği Tarihler:',
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                        ),
+                        const SizedBox(height: 4),
+                        if (quote['preferred_start_date'] != null)
+                          Text('Başlangıç: ${_formatDate(quote['preferred_start_date'])}'),
+                        if (quote['preferred_end_date'] != null)
+                          Text('Bitiş: ${_formatDate(quote['preferred_end_date'])}'),
+                        if (quote['is_flexible_dates'] == true)
+                          const Text('(Tarihler esnek)', style: TextStyle(fontStyle: FontStyle.italic)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+                
+                TextField(
+                  controller: priceController,
+                  decoration: const InputDecoration(
+                    labelText: 'Fiyat (₺)',
+                    border: OutlineInputBorder(),
+                    hintText: 'Örn: 1500',
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: durationController,
-                decoration: const InputDecoration(
-                  labelText: 'Tahmini Süre (gün)',
-                  border: OutlineInputBorder(),
-                  hintText: 'Örn: 3',
+                const SizedBox(height: 16),
+                TextField(
+                  controller: durationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Tahmini Süre (gün)',
+                    border: OutlineInputBorder(),
+                    hintText: 'Örn: 3',
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: notesController,
-                decoration: const InputDecoration(
-                  labelText: 'Notlar ve Açıklamalar',
-                  border: OutlineInputBorder(),
-                  hintText: 'İş detayları, kullanılacak malzemeler vs.',
+                const SizedBox(height: 16),
+                
+                // Proposed date range
+                const Text(
+                  'Önerdiğiniz Tarih Aralığı:',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 ),
-                maxLines: 3,
-              ),
-            ],
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () async {
+                          final picked = await showDatePicker(
+                            context: context,
+                            initialDate: proposedStartDate ?? DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.now().add(const Duration(days: 365)),
+                          );
+                          if (picked != null) {
+                            setDialogState(() {
+                              proposedStartDate = picked;
+                              if (proposedEndDate != null && proposedEndDate!.isBefore(picked)) {
+                                proposedEndDate = null;
+                              }
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey[300]!),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_today, size: 16),
+                              const SizedBox(width: 8),
+                              Text(
+                                proposedStartDate != null
+                                    ? '${proposedStartDate!.day}/${proposedStartDate!.month}/${proposedStartDate!.year}'
+                                    : 'Başlangıç',
+                                style: TextStyle(
+                                  color: proposedStartDate != null ? Colors.black : Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () async {
+                          final picked = await showDatePicker(
+                            context: context,
+                            initialDate: proposedEndDate ?? (proposedStartDate ?? DateTime.now()),
+                            firstDate: proposedStartDate ?? DateTime.now(),
+                            lastDate: DateTime.now().add(const Duration(days: 365)),
+                          );
+                          if (picked != null) {
+                            setDialogState(() {
+                              proposedEndDate = picked;
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey[300]!),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_today, size: 16),
+                              const SizedBox(width: 8),
+                              Text(
+                                proposedEndDate != null
+                                    ? '${proposedEndDate!.day}/${proposedEndDate!.month}/${proposedEndDate!.year}'
+                                    : 'Bitiş',
+                                style: TextStyle(
+                                  color: proposedEndDate != null ? Colors.black : Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                
+                TextField(
+                  controller: notesController,
+                  decoration: const InputDecoration(
+                    labelText: 'Notlar ve Açıklamalar',
+                    border: OutlineInputBorder(),
+                    hintText: 'İş detayları, kullanılacak malzemeler vs.',
+                  ),
+                  maxLines: 3,
+                ),
+              ],
+            ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('İptal'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (priceController.text.isEmpty || durationController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Fiyat ve süre alanları zorunludur')),
+                  );
+                  return;
+                }
+                Navigator.pop(context);
+                // TODO: Submit quote with proposed dates
+                // Include proposedStartDate and proposedEndDate in the API call
+              },
+              style: AppColors.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(AppColors.success)),
+              child: const Text('Teklif Gönder'),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (priceController.text.isEmpty || durationController.text.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Fiyat ve süre alanları zorunludur')),
-                );
-                return;
-              }
-              Navigator.pop(context);
-              // TODO: Submit quote
-            },
-            style: AppColors.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(AppColors.success)),
-            child: const Text('Teklif Gönder'),
-          ),
-        ],
       ),
     );
   }

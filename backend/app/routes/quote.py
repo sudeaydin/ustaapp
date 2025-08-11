@@ -60,7 +60,39 @@ def create_quote():
                 'code': 'QUOTE_EXISTS'
             }), 400
         
-        # Parse preferred date
+        # Parse preferred dates
+        preferred_start_date = None
+        preferred_end_date = None
+        
+        if data.get('preferred_start_date'):
+            try:
+                preferred_start_date = datetime.strptime(data['preferred_start_date'][:10], '%Y-%m-%d').date()
+            except ValueError:
+                return jsonify({
+                    'error': True,
+                    'message': 'Geçersiz başlangıç tarihi formatı (YYYY-MM-DD)',
+                    'code': 'INVALID_START_DATE'
+                }), 400
+        
+        if data.get('preferred_end_date'):
+            try:
+                preferred_end_date = datetime.strptime(data['preferred_end_date'][:10], '%Y-%m-%d').date()
+            except ValueError:
+                return jsonify({
+                    'error': True,
+                    'message': 'Geçersiz bitiş tarihi formatı (YYYY-MM-DD)',
+                    'code': 'INVALID_END_DATE'
+                }), 400
+        
+        # Validate date range
+        if preferred_start_date and preferred_end_date and preferred_start_date > preferred_end_date:
+            return jsonify({
+                'error': True,
+                'message': 'Başlangıç tarihi bitiş tarihinden sonra olamaz',
+                'code': 'INVALID_DATE_RANGE'
+            }), 400
+        
+        # Parse legacy preferred_date for backward compatibility
         preferred_date = None
         if data.get('preferred_date'):
             try:
@@ -81,6 +113,10 @@ def create_quote():
             budget_min=data.get('budget_min'),
             budget_max=data.get('budget_max'),
             preferred_date=preferred_date,
+            preferred_start_date=preferred_start_date,
+            preferred_end_date=preferred_end_date,
+            is_flexible_dates=data.get('is_flexible_dates', True),
+            urgency_level=data.get('urgency_level', 'normal'),
             work_address=data.get('work_address'),
             contact_phone=data.get('contact_phone', user.phone),
             customer_images=data.get('images', [])
@@ -278,6 +314,27 @@ def update_quote(quote_id):
             if 'estimated_duration' in data:
                 quote.estimated_duration = data['estimated_duration']
             
+            # Handle proposed dates from craftsman
+            if 'estimated_start_date' in data:
+                try:
+                    quote.estimated_start_date = datetime.strptime(data['estimated_start_date'][:10], '%Y-%m-%d').date()
+                except ValueError:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Geçersiz başlangıç tarihi formatı',
+                        'code': 'INVALID_START_DATE'
+                    }), 400
+            
+            if 'estimated_end_date' in data:
+                try:
+                    quote.estimated_end_date = datetime.strptime(data['estimated_end_date'][:10], '%Y-%m-%d').date()
+                except ValueError:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Geçersiz bitiş tarihi formatı',
+                        'code': 'INVALID_END_DATE'
+                    }), 400
+            
             if 'craftsman_images' in data:
                 quote.craftsman_images = data['craftsman_images']
                 
@@ -299,6 +356,34 @@ def update_quote(quote_id):
             if 'budget_max' in data:
                 quote.budget_max = data['budget_max']
             
+            # Handle new date range fields
+            if 'preferred_start_date' in data:
+                try:
+                    quote.preferred_start_date = datetime.strptime(data['preferred_start_date'][:10], '%Y-%m-%d').date()
+                except ValueError:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Geçersiz başlangıç tarihi formatı',
+                        'code': 'INVALID_START_DATE'
+                    }), 400
+            
+            if 'preferred_end_date' in data:
+                try:
+                    quote.preferred_end_date = datetime.strptime(data['preferred_end_date'][:10], '%Y-%m-%d').date()
+                except ValueError:
+                    return jsonify({
+                        'error': True,
+                        'message': 'Geçersiz bitiş tarihi formatı',
+                        'code': 'INVALID_END_DATE'
+                    }), 400
+            
+            if 'is_flexible_dates' in data:
+                quote.is_flexible_dates = data['is_flexible_dates']
+            
+            if 'urgency_level' in data:
+                quote.urgency_level = data['urgency_level']
+            
+            # Legacy preferred_date for backward compatibility
             if 'preferred_date' in data:
                 try:
                     quote.preferred_date = datetime.strptime(data['preferred_date'], '%Y-%m-%d').date()

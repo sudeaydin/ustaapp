@@ -21,6 +21,10 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   String _selectedCategory = '';
   String _selectedAreaType = '';
   String _selectedBudgetRange = '';
+  String _selectedUrgencyLevel = 'normal';
+  DateTime? _preferredStartDate;
+  DateTime? _preferredEndDate;
+  bool _isFlexibleDates = true;
   final _squareMetersController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _additionalDetailsController = TextEditingController();
@@ -56,6 +60,12 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
     {'value': '5000-10000', 'label': '5.000 - 10.000 TL'},
     {'value': '10000-20000', 'label': '10.000 - 20.000 TL'},
     {'value': '20000+', 'label': '20.000+ TL'}
+  ];
+
+  final List<Map<String, String>> _urgencyLevels = [
+    {'value': 'normal', 'label': 'Normal'},
+    {'value': 'urgent', 'label': 'Acil'},
+    {'value': 'emergency', 'label': 'Acil Durum'}
   ];
 
   @override
@@ -215,6 +225,31 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 
                 const SizedBox(height: 16),
                 
+                // Urgency Level Selection
+                _buildDropdownFieldWithMap(
+                  label: 'Aciliyet Durumu *',
+                  value: _selectedUrgencyLevel,
+                  items: _urgencyLevels,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedUrgencyLevel = value!;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Aciliyet durumu seçiniz';
+                    }
+                    return null;
+                  },
+                ),
+                
+                const SizedBox(height: 16),
+                
+                // Date Range Selection
+                _buildDateRangeSection(),
+                
+                const SizedBox(height: 16),
+                
                 // Description
                 _buildTextField(
                   label: 'İş Açıklaması *',
@@ -313,9 +348,9 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   Widget _buildTextField({
     required String label,
     required TextEditingController controller,
+    TextInputType keyboardType = TextInputType.text,
     int maxLines = 1,
     String? hint,
-    TextInputType? keyboardType,
     String? Function(String?)? validator,
   }) {
     return Column(
@@ -324,8 +359,8 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Text(
           label,
           style: const TextStyle(
-            fontSize: 14,
             fontWeight: FontWeight.w600,
+            fontSize: 16,
             color: AppColors.textPrimary,
           ),
         ),
@@ -338,26 +373,215 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             boxShadow: [
               BoxShadow(
                 color: AppColors.shadowLight,
-                blurRadius: 8,
+                blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
             ],
           ),
           child: TextFormField(
             controller: controller,
-            maxLines: maxLines,
             keyboardType: keyboardType,
+            maxLines: maxLines,
+            validator: validator,
+            style: const TextStyle(
+              color: AppColors.textPrimary,
+              fontSize: 16,
+            ),
             decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: TextStyle(
+                color: AppColors.textMuted,
+                fontSize: 16,
+              ),
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(16),
-              hintText: hint,
-              hintStyle: TextStyle(color: AppColors.textMuted),
             ),
-            validator: validator,
           ),
         ),
       ],
     );
+  }
+
+  Widget _buildDateRangeSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Tercih Ettiğiniz Tarih Aralığı',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 12),
+        
+        // Date range cards
+        Row(
+          children: [
+            Expanded(
+              child: _buildDateCard(
+                label: 'Başlangıç Tarihi',
+                date: _preferredStartDate,
+                onTap: () => _selectStartDate(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildDateCard(
+                label: 'Bitiş Tarihi',
+                date: _preferredEndDate,
+                onTap: () => _selectEndDate(),
+              ),
+            ),
+          ],
+        ),
+        
+        const SizedBox(height: 12),
+        
+        // Flexible dates checkbox
+        Row(
+          children: [
+            Checkbox(
+              value: _isFlexibleDates,
+              onChanged: (value) {
+                setState(() {
+                  _isFlexibleDates = value ?? true;
+                });
+              },
+              activeColor: AppColors.primary,
+            ),
+            const SizedBox(width: 8),
+            const Expanded(
+              child: Text(
+                'Tarihlerim esnek, uygun olan tarihlerde çalışabilir',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDateCard({
+    required String label,
+    required DateTime? date,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.cardBackground,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: date != null 
+                ? AppColors.primary.withOpacity(0.5)
+                : AppColors.nonPhotoBlue.withOpacity(0.3),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadowLight,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(
+                  Icons.calendar_today,
+                  size: 16,
+                  color: date != null ? AppColors.primary : Colors.grey[400],
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  date != null 
+                      ? '${date!.day}/${date!.month}/${date!.year}'
+                      : 'Tarih seçin',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: date != null ? AppColors.textPrimary : Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _selectStartDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _preferredStartDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: AppColors.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _preferredStartDate = picked;
+        // If end date is before start date, clear it
+        if (_preferredEndDate != null && _preferredEndDate!.isBefore(picked)) {
+          _preferredEndDate = null;
+        }
+      });
+    }
+  }
+
+  Future<void> _selectEndDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _preferredEndDate ?? (_preferredStartDate ?? DateTime.now()),
+      firstDate: _preferredStartDate ?? DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: AppColors.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _preferredEndDate = picked;
+      });
+    }
   }
 
   void _submitQuote() async {
@@ -398,6 +622,10 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             'additional_details': _additionalDetailsController.text.isNotEmpty 
                 ? _additionalDetailsController.text 
                 : null,
+            'preferred_start_date': _preferredStartDate?.toIso8601String(),
+            'preferred_end_date': _preferredEndDate?.toIso8601String(),
+            'is_flexible_dates': _isFlexibleDates,
+            'urgency_level': _selectedUrgencyLevel,
           }),
         );
 
