@@ -64,10 +64,15 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
     final activeTarget = ref.watch(tutorialProvider);
     final isActive = activeTarget == widget.tutorialKey;
     
+    // Debug print
+    print('TutorialHighlight ${widget.tutorialKey}: activeTarget=$activeTarget, isActive=$isActive');
+    
     // Control pulsing based on active state
     if (isActive && !_wasActive) {
+      print('Starting pulse for ${widget.tutorialKey}');
       _startPulsing();
     } else if (!isActive && _wasActive) {
+      print('Stopping pulse for ${widget.tutorialKey}');
       _stopPulsing();
     }
     _wasActive = isActive;

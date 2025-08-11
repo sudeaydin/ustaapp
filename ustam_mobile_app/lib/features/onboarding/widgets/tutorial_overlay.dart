@@ -163,8 +163,10 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
       
       // Activate first target if exists
       final firstStepData = widget.steps[_currentStep];
+      print('Tutorial started: step ${_currentStep}, targetKey: ${firstStepData.targetKey}');
       if (firstStepData.targetKey != null) {
         ref.read(tutorialProvider.notifier).setActiveTarget(firstStepData.targetKey!);
+        print('Set initial active target: ${firstStepData.targetKey}');
       }
     }
   }
@@ -176,10 +178,13 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
       });
       // Update active target for glow effect
       final currentStepData = widget.steps[_currentStep];
+      print('Tutorial next step: ${_currentStep}, targetKey: ${currentStepData.targetKey}');
       if (currentStepData.targetKey != null) {
         ref.read(tutorialProvider.notifier).setActiveTarget(currentStepData.targetKey!);
+        print('Set active target: ${currentStepData.targetKey}');
       } else {
         ref.read(tutorialProvider.notifier).clearActiveTarget();
+        print('Cleared active target');
       }
     } else {
       _completeTutorial();

@@ -7,6 +7,7 @@ from app.models.user import User
 from app.utils.validators import (
     validate_query_params, SearchSchema, ResponseHelper, PaginationHelper
 )
+import json
 
 search_bp = Blueprint('search', __name__)
 
@@ -115,12 +116,20 @@ def search_craftsmen(validated_data):
         for craftsman_dict in paginated_result['items']:
             craftsman = Craftsman.query.get(craftsman_dict['id'])
             if craftsman:
+                # Parse skills from JSON
+                skills_list = []
+                if craftsman.skills:
+                    try:
+                        skills_list = json.loads(craftsman.skills)
+                    except:
+                        skills_list = [craftsman.skills] if craftsman.skills else []
+                
                 craftsman_data.append({
                     'id': craftsman.id,
                     'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
                     'business_name': craftsman.business_name,
                     'description': craftsman.description,
-                    'specialties': craftsman.skills,
+                    'specialties': skills_list,
                     'city': craftsman.city,
                     'district': craftsman.district,
                     'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
