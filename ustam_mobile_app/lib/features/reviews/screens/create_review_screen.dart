@@ -29,18 +29,25 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _commentController = TextEditingController();
-
-  int _overallRating = 0;
-  int _qualityRating = 0;
-  int _punctualityRating = 0;
-  int _communicationRating = 0;
-  int _cleanlinessRating = 0;
+  
+  double _communicationRating = 0;
+  double _qualityRating = 0;
+  double _speedRating = 0;
+  
+  bool _isLoading = false;
 
   @override
   void dispose() {
     _titleController.dispose();
     _commentController.dispose();
     super.dispose();
+  }
+
+  double get _overallRating {
+    if (_communicationRating == 0 && _qualityRating == 0 && _speedRating == 0) {
+      return 0;
+    }
+    return (_communicationRating + _qualityRating + _speedRating) / 3;
   }
 
   @override
@@ -151,38 +158,71 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
   }
 
   Widget _buildOverallRating() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Genel Değerlendirme *',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 12),
-        InteractiveStarRating(
-          initialRating: _overallRating,
-          size: 40,
-          onRatingChanged: (rating) {
-            setState(() {
-              _overallRating = rating;
-            });
-          },
-        ),
-        if (_overallRating == 0) ...[
-          const SizedBox(height: 8),
-          Text(
-            'Lütfen bir puan verin',
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Genel Değerlendirme',
             style: TextStyle(
-              fontSize: 12,
-              color: Colors.red[600],
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
           ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              StarRating(
+                rating: _overallRating,
+                size: 32,
+                showRating: true,
+              ),
+              const Spacer(),
+              if (_overallRating > 0)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    _getRatingText(_overallRating),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          if (_overallRating == 0) ...[
+            const SizedBox(height: 8),
+            Text(
+              'Aşağıdaki kategorileri puanlayın',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.red[600],
+              ),
+            ),
+          ],
         ],
-      ],
+      ),
     );
+  }
+
+  String _getRatingText(double rating) {
+    if (rating >= 4.5) return 'Mükemmel';
+    if (rating >= 3.5) return 'İyi';
+    if (rating >= 2.5) return 'Orta';
+    if (rating >= 1.5) return 'Kötü';
+    return 'Çok Kötü';
   }
 
   Widget _buildTitleField() {
@@ -209,92 +249,48 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Detaylı Değerlendirme (İsteğe bağlı)',
+          'Kategoriler *',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
+        const SizedBox(height: 8),
+        Text(
+          'Her kategoriyi puanlayın (Genel puan otomatik hesaplanacak)',
+          style: TextStyle(
+            fontSize: 14,
+            color: AppColors.textLight,
+          ),
+        ),
         const SizedBox(height: 16),
         
-        _buildDetailedRatingRow(
-          'Kalite',
-          'İşin kalitesi nasıldı?',
-          _qualityRating,
-          (rating) => setState(() => _qualityRating = rating),
+        CategoryRatingWidget(
+          title: 'İletişim',
+          rating: _communicationRating,
+          onRatingChanged: (rating) => setState(() => _communicationRating = rating),
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         
-        _buildDetailedRatingRow(
-          'Dakiklik',
-          'Zamanında geldi mi?',
-          _punctualityRating,
-          (rating) => setState(() => _punctualityRating = rating),
+        CategoryRatingWidget(
+          title: 'İş Kalitesi',
+          rating: _qualityRating,
+          onRatingChanged: (rating) => setState(() => _qualityRating = rating),
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         
-        _buildDetailedRatingRow(
-          'İletişim',
-          'İletişimi nasıldı?',
-          _communicationRating,
-          (rating) => setState(() => _communicationRating = rating),
-        ),
-        
-        const SizedBox(height: 16),
-        
-        _buildDetailedRatingRow(
-          'Temizlik',
-          'Çalışma alanını temiz bıraktı mı?',
-          _cleanlinessRating,
-          (rating) => setState(() => _cleanlinessRating = rating),
+        CategoryRatingWidget(
+          title: 'Hız & Dakiklik',
+          rating: _speedRating,
+          onRatingChanged: (rating) => setState(() => _speedRating = rating),
         ),
       ],
     );
   }
 
-  Widget _buildDetailedRatingRow(
-    String title,
-    String description,
-    int currentRating,
-    ValueChanged<int> onChanged,
-  ) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 12),
-          InteractiveStarRating(
-            initialRating: currentRating,
-            size: 28,
-            onRatingChanged: onChanged,
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildSubmitButton(ReviewState reviewState) {
     return CustomButton(
@@ -302,16 +298,19 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       type: ButtonType.primary,
       isFullWidth: true,
       isLoading: reviewState.isLoading,
-      enabled: _overallRating > 0 && _commentController.text.trim().length >= 10,
+      enabled: _communicationRating > 0 && _qualityRating > 0 && _speedRating > 0 && _commentController.text.trim().length >= 10,
       onPressed: _submitReview,
     );
   }
 
   void _submitReview() async {
-    if (!_formKey.currentState!.validate() || _overallRating == 0) {
+    if (!_formKey.currentState!.validate() || 
+        _communicationRating == 0 || 
+        _qualityRating == 0 || 
+        _speedRating == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen tüm zorunlu alanları doldurun'),
+          content: Text('Lütfen tüm kategorileri puanlayın ve yorum yazın'),
           backgroundColor: Colors.red,
         ),
       );
@@ -321,33 +320,27 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
     final success = await ref.read(reviewProvider.notifier).createReview(
       craftsmanId: widget.craftsmanId,
       quoteId: widget.quoteId,
-      rating: _overallRating,
-      comment: _commentController.text.trim(),
+      rating: _overallRating.round(),
       title: _titleController.text.trim().isNotEmpty 
           ? _titleController.text.trim() 
           : null,
-      qualityRating: _qualityRating > 0 ? _qualityRating : null,
-      punctualityRating: _punctualityRating > 0 ? _punctualityRating : null,
-      communicationRating: _communicationRating > 0 ? _communicationRating : null,
-      cleanlinessRating: _cleanlinessRating > 0 ? _cleanlinessRating : null,
+      comment: _commentController.text.trim(),
+      qualityRating: _qualityRating.round(),
+      punctualityRating: _speedRating.round(),
+      communicationRating: _communicationRating.round(),
+      cleanlinessRating: null, // This field is no longer used in the new 3-category system
     );
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Değerlendirmeniz başarıyla gönderildi!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      Navigator.of(context).pop(true); // Return true to indicate success
-    } else {
-      final error = ref.read(reviewProvider).error;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error ?? 'Değerlendirme gönderilemedi'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Değerlendirmeniz başarıyla gönderildi'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
     }
   }
 }

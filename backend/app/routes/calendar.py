@@ -5,6 +5,7 @@ from app.models.user import User
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
 from app.models.appointment import Appointment, AppointmentStatus, AppointmentType
+from app.models.job import Job, JobStatus
 from app.utils.validators import ResponseHelper
 from datetime import datetime, timedelta
 from sqlalchemy import and_, or_
@@ -85,6 +86,97 @@ def get_appointments():
         
     except Exception as e:
         return ResponseHelper.server_error('Randevular getirilemedi', str(e))
+
+@calendar_bp.route('/events', methods=['GET'])
+@jwt_required()
+def get_calendar_events():
+    """Get user's calendar events (appointments + jobs)"""
+    try:
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        
+        if not user:
+            return ResponseHelper.not_found('User not found')
+        
+        # Get query parameters
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
+        
+        events = []
+        
+        # Get appointments
+        if user.user_type == 'customer':
+            customer = Customer.query.filter_by(user_id=user_id).first()
+            if customer:
+                appointments_query = Appointment.query.filter_by(customer_id=customer.id)
+                jobs_query = Job.query.filter_by(customer_id=user_id)
+        else:  # craftsman
+            craftsman = Craftsman.query.filter_by(user_id=user_id).first()
+            if craftsman:
+                appointments_query = Appointment.query.filter_by(craftsman_id=craftsman.id)
+                jobs_query = Job.query.filter_by(craftsman_id=user_id)
+        
+        # Apply date filters
+        if start_date:
+            try:
+                start_dt = datetime.fromisoformat(start_date)
+                appointments_query = appointments_query.filter(Appointment.start_time >= start_dt)
+                jobs_query = jobs_query.filter(Job.scheduled_start >= start_dt)
+            except ValueError:
+                return ResponseHelper.validation_error('Invalid start_date format')
+        
+        if end_date:
+            try:
+                end_dt = datetime.fromisoformat(end_date)
+                appointments_query = appointments_query.filter(Appointment.end_time <= end_dt)
+                jobs_query = jobs_query.filter(Job.scheduled_end <= end_dt)
+            except ValueError:
+                return ResponseHelper.validation_error('Invalid end_date format')
+        
+        # Get appointments
+        appointments = appointments_query.all()
+        for appointment in appointments:
+            events.append({
+                'id': f"appointment_{appointment.id}",
+                'type': 'appointment',
+                'title': appointment.title,
+                'description': appointment.description,
+                'start_time': appointment.start_time.isoformat(),
+                'end_time': appointment.end_time.isoformat(),
+                'status': appointment.status.value,
+                'location': appointment.location,
+                'appointment_type': appointment.appointment_type.value,
+                'data': appointment.to_dict()
+            })
+        
+        # Get jobs with scheduled dates
+        jobs = jobs_query.filter(Job.scheduled_start.isnot(None)).all()
+        for job in jobs:
+            events.append({
+                'id': f"job_{job.id}",
+                'type': 'job',
+                'title': job.title,
+                'description': job.description,
+                'start_time': job.scheduled_start.isoformat(),
+                'end_time': job.scheduled_end.isoformat() if job.scheduled_end else job.scheduled_start.isoformat(),
+                'status': job.status.value,
+                'location': f"{job.district}, {job.city}" if job.district and job.city else job.address,
+                'category': job.category,
+                'priority': job.priority.value,
+                'estimated_cost': float(job.estimated_cost) if job.estimated_cost else None,
+                'data': job.to_dict()
+            })
+        
+        # Sort events by start time
+        events.sort(key=lambda x: x['start_time'])
+        
+        return ResponseHelper.success(
+            data={'events': events},
+            message='Takvim etkinlikleri başarıyla getirildi'
+        )
+        
+    except Exception as e:
+        return ResponseHelper.server_error('Takvim etkinlikleri getirilemedi', str(e))
 
 @calendar_bp.route('/appointments', methods=['POST'])
 @jwt_required()

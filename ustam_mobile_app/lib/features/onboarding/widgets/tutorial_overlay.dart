@@ -626,17 +626,19 @@ class TutorialManager extends ConsumerWidget {
           userType: userType,
           onComplete: () {
             // Tutorial completed
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  userType == 'customer' 
-                      ? 'Hoş geldiniz! Artık usta aramaya başlayabilirsiniz.'
-                      : 'Hoş geldiniz! Artık teklif almaya başlayabilirsiniz.',
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    userType == 'customer' 
+                        ? 'Hoş geldiniz! Artık usta aramaya başlayabilirsiniz.'
+                        : 'Hoş geldiniz! Artık teklif almaya başlayabilirsiniz.',
+                  ),
+                  backgroundColor: AppColors.success,
+                  duration: const Duration(seconds: 3),
                 ),
-                backgroundColor: AppColors.success,
-                duration: const Duration(seconds: 3),
-              ),
-            );
+              );
+            }
           },
         ),
       ],

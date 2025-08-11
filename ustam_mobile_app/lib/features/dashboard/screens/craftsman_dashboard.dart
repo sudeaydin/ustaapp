@@ -90,22 +90,34 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 Row(
                   children: [
                     Expanded(
-                      child: _buildStatCard(
-                        'Aktif İşler',
-                        '5',
-                        'Bu ay',
-                        AppColors.primary,
-                        Icons.work_rounded,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/jobs', arguments: {'filter': 'active'});
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: _buildStatCard(
+                          'Aktif İşler',
+                          '5',
+                          'Bu ay',
+                          AppColors.primary,
+                          Icons.work_rounded,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _buildStatCard(
-                        'Toplam Kazanç',
-                        '₺12,500',
-                        'Bu ay',
-                        AppColors.success,
-                        Icons.attach_money_rounded,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/earnings');
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: _buildStatCard(
+                          'Toplam Kazanç',
+                          '₺12,500',
+                          'Bu ay',
+                          AppColors.success,
+                          Icons.attach_money_rounded,
+                        ),
                       ),
                     ),
                   ],
@@ -116,22 +128,34 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 Row(
                   children: [
                     Expanded(
-                      child: _buildStatCard(
-                        'Teklif Talepleri',
-                        '8',
-                        'Beklemede',
-                        AppColors.warning,
-                        Icons.assignment_rounded,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/quotes', arguments: {'filter': 'pending'});
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: _buildStatCard(
+                          'Teklif Talepleri',
+                          '8',
+                          'Beklemede',
+                          AppColors.warning,
+                          Icons.assignment_rounded,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _buildStatCard(
-                        'Müşteri Puanı',
-                        '4.8',
-                        '⭐ (95 değerlendirme)',
-                        AppColors.info,
-                        Icons.star_rounded,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/reviews');
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: _buildStatCard(
+                          'Müşteri Puanı',
+                          '4.8',
+                          '124 değerlendirme',
+                          AppColors.info,
+                          Icons.star_rounded,
+                        ),
                       ),
                     ),
                   ],

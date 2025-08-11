@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../../features/support/screens/support_screen.dart';
 import '../../features/onboarding/widgets/tutorial_overlay.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -75,7 +76,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         if (showTutorialTrigger && userType != null)
-          TutorialTrigger(userType: userType!),
+          SupportButton(userType: userType!),
         if (additionalActions != null) ...additionalActions!,
         const SizedBox(width: 8),
       ],
@@ -84,4 +85,66 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class SupportButton extends StatelessWidget {
+  final String userType;
+
+  const SupportButton({
+    super.key,
+    required this.userType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        color: AppColors.textWhite.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: PopupMenuButton<String>(
+        icon: Icon(Icons.help_outline, color: AppColors.textWhite),
+        onSelected: (value) {
+          if (value == 'support') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SupportScreen(),
+              ),
+            );
+          } else if (value == 'tutorial') {
+            // Show tutorial overlay
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => TutorialOverlay(userType: userType),
+            );
+          }
+        },
+        itemBuilder: (context) => [
+          const PopupMenuItem(
+            value: 'support',
+            child: Row(
+              children: [
+                Icon(Icons.support_agent, size: 20),
+                SizedBox(width: 8),
+                Text('Destek Merkezi'),
+              ],
+            ),
+          ),
+          const PopupMenuItem(
+            value: 'tutorial',
+            child: Row(
+              children: [
+                Icon(Icons.help_outline, size: 20),
+                SizedBox(width: 8),
+                Text('Rehberi Tekrar Göster'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

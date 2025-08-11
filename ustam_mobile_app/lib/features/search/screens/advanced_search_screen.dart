@@ -388,8 +388,7 @@ class _AdvancedSearchScreenState extends ConsumerState<AdvancedSearchScreen>
       context,
       '/craftsman-detail',
       arguments: {
-        'craftsmanId': craftsman['id'],
-        'craftsmanName': craftsman['name'],
+        'craftsman': craftsman, // Pass the full craftsman object
       },
     );
   }

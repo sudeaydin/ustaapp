@@ -2,36 +2,94 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/api_service.dart';
 import '../models/appointment_model.dart';
 
+class CalendarEvent {
+  final String id;
+  final String type; // 'appointment' or 'job'
+  final String title;
+  final String? description;
+  final DateTime startTime;
+  final DateTime endTime;
+  final String status;
+  final String? location;
+  final String? category;
+  final String? priority;
+  final double? estimatedCost;
+  final Map<String, dynamic> data;
+
+  CalendarEvent({
+    required this.id,
+    required this.type,
+    required this.title,
+    this.description,
+    required this.startTime,
+    required this.endTime,
+    required this.status,
+    this.location,
+    this.category,
+    this.priority,
+    this.estimatedCost,
+    required this.data,
+  });
+
+  factory CalendarEvent.fromJson(Map<String, dynamic> json) {
+    return CalendarEvent(
+      id: json['id'].toString(),
+      type: json['type'] ?? 'appointment',
+      title: json['title'] ?? '',
+      description: json['description'],
+      startTime: DateTime.parse(json['start_time']),
+      endTime: DateTime.parse(json['end_time']),
+      status: json['status'] ?? '',
+      location: json['location'],
+      category: json['category'],
+      priority: json['priority'],
+      estimatedCost: json['estimated_cost']?.toDouble(),
+      data: json['data'] ?? {},
+    );
+  }
+
+  bool get isJob => type == 'job';
+  bool get isAppointment => type == 'appointment';
+}
+
 class CalendarState {
   final List<Appointment> appointments;
+  final List<CalendarEvent> events;
   final List<Appointment> upcomingAppointments;
   final List<Appointment> todayAppointments;
   final Map<DateTime, List<Appointment>> appointmentsByDate;
+  final Map<DateTime, List<CalendarEvent>> eventsByDate;
   final bool isLoading;
   final String? error;
 
   CalendarState({
     this.appointments = const [],
+    this.events = const [],
     this.upcomingAppointments = const [],
     this.todayAppointments = const [],
     this.appointmentsByDate = const {},
+    this.eventsByDate = const {},
     this.isLoading = false,
     this.error,
   });
 
   CalendarState copyWith({
     List<Appointment>? appointments,
+    List<CalendarEvent>? events,
     List<Appointment>? upcomingAppointments,
     List<Appointment>? todayAppointments,
     Map<DateTime, List<Appointment>>? appointmentsByDate,
+    Map<DateTime, List<CalendarEvent>>? eventsByDate,
     bool? isLoading,
     String? error,
   }) {
     return CalendarState(
       appointments: appointments ?? this.appointments,
+      events: events ?? this.events,
       upcomingAppointments: upcomingAppointments ?? this.upcomingAppointments,
       todayAppointments: todayAppointments ?? this.todayAppointments,
       appointmentsByDate: appointmentsByDate ?? this.appointmentsByDate,
+      eventsByDate: eventsByDate ?? this.eventsByDate,
       isLoading: isLoading ?? this.isLoading,
       error: error,
     );
@@ -96,6 +154,62 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
     } catch (e) {
       state = state.copyWith(
         error: 'Randevular yüklenirken hata oluştu',
+        isLoading: false,
+      );
+    }
+  }
+
+  Future<void> loadEvents({
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final queryParams = <String, String>{};
+      if (startDate != null) {
+        queryParams['start_date'] = startDate.toIso8601String();
+      }
+      if (endDate != null) {
+        queryParams['end_date'] = endDate.toIso8601String();
+      }
+
+      final apiResponse = await ApiService.getInstance().get(
+        '/calendar/events',
+        queryParams: queryParams,
+      );
+
+      if (apiResponse.isSuccess && apiResponse.data != null) {
+        final events = List<CalendarEvent>.from(
+          apiResponse.data!['events']?.map((json) => CalendarEvent.fromJson(json)) ?? []
+        );
+
+        // Group events by date
+        final eventsByDate = <DateTime, List<CalendarEvent>>{};
+        for (final event in events) {
+          final date = DateTime(
+            event.startTime.year,
+            event.startTime.month,
+            event.startTime.day,
+          );
+          eventsByDate.putIfAbsent(date, () => []);
+          eventsByDate[date]!.add(event);
+        }
+
+        state = state.copyWith(
+          events: events,
+          eventsByDate: eventsByDate,
+          isLoading: false,
+        );
+      } else {
+        state = state.copyWith(
+          error: apiResponse.error?.userFriendlyMessage ?? 'Takvim etkinlikleri getirilemedi',
+          isLoading: false,
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        error: 'Takvim etkinlikleri yüklenirken hata oluştu',
         isLoading: false,
       );
     }

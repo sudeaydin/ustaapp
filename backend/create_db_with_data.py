@@ -22,6 +22,7 @@ from app.models.payment import Payment
 from app.models.notification import Notification
 from app.models.review import Review
 from app.models.message import Message
+from app.models.job import Job, JobStatus, JobPriority
 from werkzeug.security import generate_password_hash
 
 def create_sample_data():
@@ -547,9 +548,14 @@ def create_sample_data():
     # Create sample reviews
     print("Creating sample reviews...")
     
+    # Get customer IDs
+    ali_customer = Customer.query.filter_by(user_id=created_users['ali@test.com'].id).first()
+    customer_customer = Customer.query.filter_by(user_id=created_users['customer@test.com'].id).first()
+    musteri_customer = Customer.query.filter_by(user_id=created_users['musteri@test.com'].id).first()
+    
     # Reviews for Ahmet (Elektrikçi)
     review1 = Review(
-        customer_id=created_users['ali@test.com'].customer_profile.id,
+        customer_id=ali_customer.id,
         craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
         quote_id=quote1.id,
         rating=5,
@@ -566,7 +572,7 @@ def create_sample_data():
     db.session.add(review1)
     
     review2 = Review(
-        customer_id=created_users['fatma@test.com'].customer_profile.id,
+        customer_id=customer_customer.id,
         craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
         quote_id=quote2.id,
         rating=4,
@@ -585,7 +591,7 @@ def create_sample_data():
     db.session.add(review2)
     
     review3 = Review(
-        customer_id=created_users['customer@test.com'].customer_profile.id,
+        customer_id=musteri_customer.id,
         craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
         quote_id=quote3.id,
         rating=5,
@@ -603,7 +609,7 @@ def create_sample_data():
     
     # Reviews for Mehmet (Tesisatçı)
     review4 = Review(
-        customer_id=created_users['ali@test.com'].customer_profile.id,
+        customer_id=ali_customer.id,
         craftsman_id=created_users['mehmet@test.com'].craftsman_profile.id,
         quote_id=quote7.id,
         rating=4,
@@ -620,7 +626,7 @@ def create_sample_data():
     db.session.add(review4)
     
     review5 = Review(
-        customer_id=created_users['fatma@test.com'].customer_profile.id,
+        customer_id=customer_customer.id,
         craftsman_id=created_users['mehmet@test.com'].craftsman_profile.id,
         quote_id=quote4.id,
         rating=3,
@@ -636,20 +642,20 @@ def create_sample_data():
     )
     db.session.add(review5)
     
-    # Reviews for Ayşe (Boyacı)
+    # Reviews for Fatma (Temizlik)
     review6 = Review(
-        customer_id=created_users['customer@test.com'].customer_profile.id,
-        craftsman_id=created_users['ayse@test.com'].craftsman_profile.id,
+        customer_id=musteri_customer.id,
+        craftsman_id=created_users['fatma@test.com'].craftsman_profile.id,
         quote_id=quote5.id,
         rating=5,
-        title='Sanatçı gibi çalışıyor!',
-        comment='Ayşe hanım gerçekten çok yetenekli. Evimin duvarlarını sanat eserine çevirdi. Hem temiz hem de çok kaliteli çalışıyor.',
+        title='Çok temiz çalışıyor!',
+        comment='Fatma hanım gerçekten çok titiz ve temiz çalışıyor. Evimi tertemiz teslim aldım. Kesinlikle tavsiye ederim.',
         quality_rating=5,
         punctuality_rating=5,
         communication_rating=5,
         cleanliness_rating=5,
         is_verified=True,
-        craftsman_response='Çok teşekkür ederim! Böyle güzel geri bildirimler beni çok mutlu ediyor.',
+        craftsman_response='Çok teşekkür ederim! Temizlik konusunda en iyisini vermeye çalışıyorum.',
         response_date=datetime.now() - timedelta(days=12),
         created_at=datetime.now() - timedelta(days=14),
         updated_at=datetime.now() - timedelta(days=12)
@@ -657,16 +663,16 @@ def create_sample_data():
     db.session.add(review6)
     
     review7 = Review(
-        customer_id=created_users['ali@test.com'].customer_profile.id,
-        craftsman_id=created_users['ayse@test.com'].craftsman_profile.id,
+        customer_id=ali_customer.id,
+        craftsman_id=created_users['kemal@test.com'].craftsman_profile.id,
         quote_id=quote6.id,
         rating=4,
-        title='Çok beğendim',
-        comment='Renk seçiminde çok yardımcı oldu. Sonuçtan çok memnunum.',
-        quality_rating=5,
+        title='Güzel boyama işi',
+        comment='Kemal usta renk seçiminde çok yardımcı oldu. Sonuçtan memnunum.',
+        quality_rating=4,
         punctuality_rating=4,
         communication_rating=5,
-        cleanliness_rating=4,
+        cleanliness_rating=3,
         is_verified=True,
         created_at=datetime.now() - timedelta(days=20),
         updated_at=datetime.now() - timedelta(days=20)
@@ -675,6 +681,97 @@ def create_sample_data():
     
     db.session.commit()
     print("Sample reviews created.")
+    
+    # Create sample jobs with scheduled dates
+    print("Creating sample jobs...")
+    
+    # Job 1: Ahmet'in yarın yapacağı elektrik işi
+    job1 = Job(
+        title='Elektrik Tesisatı Kontrolü',
+        description='Evdeki elektrik tesisatının genel kontrolü ve arızalı prizlerin tamiri',
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        quote_id=quote1.id,
+        status=JobStatus.ACCEPTED,
+        priority=JobPriority.NORMAL,
+        category='Elektrikçi',
+        address='Beşiktaş, İstanbul',
+        city='İstanbul',
+        district='Beşiktaş',
+        estimated_cost=500.0,
+        scheduled_start=datetime.now() + timedelta(days=1, hours=9),  # Yarın saat 9
+        scheduled_end=datetime.now() + timedelta(days=1, hours=12),   # Yarın saat 12
+        estimated_duration=3,
+        created_at=datetime.now() - timedelta(days=2)
+    )
+    db.session.add(job1)
+    
+    # Job 2: Ahmet'in gelecek hafta yapacağı başka bir iş
+    job2 = Job(
+        title='Smart Home Kurulumu',
+        description='Akıllı ev sistemlerinin kurulumu ve konfigürasyonu',
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        quote_id=quote2.id,
+        status=JobStatus.ACCEPTED,
+        priority=JobPriority.HIGH,
+        category='Elektrikçi',
+        address='Kadıköy, İstanbul',
+        city='İstanbul',
+        district='Kadıköy',
+        estimated_cost=1200.0,
+        scheduled_start=datetime.now() + timedelta(days=7, hours=10),  # Gelecek hafta saat 10
+        scheduled_end=datetime.now() + timedelta(days=7, hours=16),    # Gelecek hafta saat 16
+        estimated_duration=6,
+        created_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(job2)
+    
+    # Job 3: Mehmet'in bu hafta yapacağı tesisat işi
+    job3 = Job(
+        title='Banyo Tesisatı Yenileme',
+        description='Banyo tesisatının komple yenilenmesi ve duş kabini montajı',
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['mehmet@test.com'].id,
+        quote_id=quote7.id,
+        status=JobStatus.IN_PROGRESS,
+        priority=JobPriority.NORMAL,
+        category='Tesisatçı',
+        address='Beşiktaş, İstanbul',
+        city='İstanbul',
+        district='Beşiktaş',
+        estimated_cost=2500.0,
+        scheduled_start=datetime.now() + timedelta(days=3, hours=8),   # 3 gün sonra saat 8
+        scheduled_end=datetime.now() + timedelta(days=5, hours=17),    # 5 gün sonra saat 17
+        estimated_duration=16,
+        created_at=datetime.now() - timedelta(days=5),
+        started_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(job3)
+    
+    # Job 4: Fatma'nın gelecek hafta yapacağı temizlik işi
+    job4 = Job(
+        title='Genel Ev Temizliği',
+        description='3+1 dairenin genel temizliği ve cam silme',
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        quote_id=quote5.id,
+        status=JobStatus.ACCEPTED,
+        priority=JobPriority.LOW,
+        category='Temizlik',
+        address='Beşiktaş, İstanbul',
+        city='İstanbul',
+        district='Beşiktaş',
+        estimated_cost=300.0,
+        scheduled_start=datetime.now() + timedelta(days=5, hours=9),   # 5 gün sonra saat 9
+        scheduled_end=datetime.now() + timedelta(days=5, hours=15),    # 5 gün sonra saat 15
+        estimated_duration=6,
+        created_at=datetime.now() - timedelta(days=3)
+    )
+    db.session.add(job4)
+    
+    db.session.commit()
+    print("Sample jobs created.")
     
     # Update craftsman review statistics
     print("Updating craftsman review statistics...")

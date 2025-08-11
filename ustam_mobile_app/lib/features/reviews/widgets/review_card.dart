@@ -114,12 +114,38 @@ class ReviewCard extends StatelessWidget {
                   ),
                 ),
 
-              // Detailed ratings if available
-              if (_hasDetailedRatings()) ...[
-                const SizedBox(height: 16),
-                const Divider(),
+              // Category ratings
+              if (review.qualityRating != null || 
+                  review.punctualityRating != null || 
+                  review.communicationRating != null) ...[
                 const SizedBox(height: 12),
-                _buildDetailedRatings(),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    if (review.communicationRating != null)
+                      CategoryRatingDisplay(
+                        title: 'İletişim',
+                        rating: review.communicationRating!.toDouble(),
+                        icon: Icons.chat_bubble_outline,
+                        color: AppColors.primary,
+                      ),
+                    if (review.qualityRating != null)
+                      CategoryRatingDisplay(
+                        title: 'Kalite',
+                        rating: review.qualityRating!.toDouble(),
+                        icon: Icons.star_outline,
+                        color: AppColors.uclaBlue,
+                      ),
+                    if (review.punctualityRating != null)
+                      CategoryRatingDisplay(
+                        title: 'Hız',
+                        rating: review.punctualityRating!.toDouble(),
+                        icon: Icons.speed,
+                        color: AppColors.mintGreen,
+                      ),
+                  ],
+                ),
               ],
 
               // Service info if available

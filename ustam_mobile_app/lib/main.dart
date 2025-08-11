@@ -151,6 +151,7 @@ class MyApp extends ConsumerWidget {
         '/legal': (context) => const LegalScreen(),
         '/job-management': (context) => const JobManagementScreen(),
         '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
+        '/settings': (context) => const ProfileScreen(), // Settings redirects to profile for now
       },
       // Track navigation events
       navigatorObservers: [
