@@ -23,14 +23,16 @@ class User(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
-    phone = db.Column(db.String(20), unique=True, nullable=False, index=True)
-    password_hash = db.Column(db.String(255), nullable=False)
+    phone = db.Column(db.String(20), unique=True, nullable=True, index=True)  # Nullable for Google users
+    password_hash = db.Column(db.String(255), nullable=True)  # Nullable for Google users
     user_type = db.Column(db.String(20), nullable=False)
     
     # Profile fields
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     profile_image = db.Column(db.String(255))
+    avatar_url = db.Column(db.String(500))  # For Google profile photos
+    google_id = db.Column(db.String(100), unique=True, index=True)  # Google user ID
     date_of_birth = db.Column(db.Date)
     gender = db.Column(db.String(10))
     

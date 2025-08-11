@@ -148,6 +148,34 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                          ),
                       ],
                     ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildQuickActionCard(
+                            'Destek',
+                            'Yardım ve destek alın',
+                            Icons.support_agent,
+                            AppColors.warning,
+                            () => Navigator.pushNamed(
+                              context, 
+                              '/support',
+                              arguments: 'customer',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _buildQuickActionCard(
+                            'Ayarlar',
+                            'Hesap ayarlarınızı yönetin',
+                            Icons.settings,
+                            AppColors.textLight,
+                            () => Navigator.pushNamed(context, '/settings'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

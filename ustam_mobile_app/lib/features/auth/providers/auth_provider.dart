@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../core/config/app_config.dart';
 import '../../../core/services/api_service.dart';
+import '../../../core/services/google_auth_service.dart';
 import '../../../core/utils/error_handler.dart';
 import '../../../core/providers/app_providers.dart';
 
@@ -184,10 +185,85 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  Future<bool> signInWithGoogle({required String userType}) async {
+    state = state.copyWith(isLoading: true, error: null);
+    
+    try {
+      final googleAccount = await GoogleAuthService.signIn();
+      if (googleAccount == null) {
+        state = state.copyWith(
+          error: 'Google ile giriş iptal edildi',
+          isLoading: false,
+        );
+        return false;
+      }
+
+      // Get Google user info
+      final userInfo = await GoogleAuthService.getUserInfo();
+      if (userInfo == null) {
+        state = state.copyWith(
+          error: 'Google kullanıcı bilgileri alınamadı',
+          isLoading: false,
+        );
+        return false;
+      }
+
+      // Send to backend for registration/login
+      final idToken = await GoogleAuthService.getIdToken();
+      final response = await http.post(
+        Uri.parse('${AppConfig.apiUrl}/auth/google'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'id_token': idToken,
+          'user_type': userType,
+          'google_id': userInfo['id'],
+          'email': userInfo['email'],
+          'display_name': userInfo['displayName'],
+          'photo_url': userInfo['photoUrl'],
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        final token = responseData['data']['token'];
+        final user = responseData['data']['user'];
+        
+        await _prefs.setString('authToken', token);
+        await _prefs.setString('user', jsonEncode(user));
+        await _prefs.setString('user_type', userType);
+        
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: token,
+          user: user,
+          isLoading: false,
+        );
+        
+        return true;
+      } else {
+        final errorData = jsonDecode(response.body);
+        state = state.copyWith(
+          error: errorData['message'] ?? 'Google ile giriş başarısız',
+          isLoading: false,
+        );
+        return false;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        error: 'Google ile giriş sırasında hata oluştu',
+        isLoading: false,
+      );
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     await _prefs.remove('authToken');
     await _prefs.remove('user');
     await _prefs.remove('user_type');
+    
+    // Sign out from Google as well
+    await GoogleAuthService.signOut();
     
     state = const AuthState();
   }

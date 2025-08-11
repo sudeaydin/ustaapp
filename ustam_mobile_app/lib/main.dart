@@ -17,6 +17,7 @@ import 'features/onboarding/onboarding_screen.dart';
 import 'features/auth/screens/welcome_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/register_screen.dart';
+import 'features/support/screens/support_screen.dart';
 import 'features/dashboard/screens/customer_dashboard.dart';
 import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
@@ -96,6 +97,10 @@ class MyApp extends ConsumerWidget {
           return RegisterScreen(userType: userType);
         },
         '/register-craftsman': (context) => const RegisterScreen(userType: 'craftsman'),
+        '/support': (context) {
+          final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
+          return SupportScreen(userType: userType);
+        },
         '/customer-dashboard': (context) => const CustomerDashboard(),
         '/craftsman-dashboard': (context) => const CraftsmanDashboard(),
         '/search': (context) => const SearchScreen(),

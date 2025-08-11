@@ -561,3 +561,104 @@ def get_profile():
         import traceback
         traceback.print_exc()
         return jsonify({'error': True, 'message': 'Profil bilgileri alınamadı', 'code': 'PROFILE_ERROR'}), 500
+
+@auth_bp.route('/google', methods=['POST'])
+def google_auth():
+    """Google OAuth authentication"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['user_type', 'google_id', 'email']
+        for field in required_fields:
+            if not data.get(field):
+                return ResponseHelper.validation_error(f'{field} is required')
+        
+        user_type = data['user_type']
+        google_id = data['google_id']
+        email = data['email']
+        display_name = data.get('display_name', '')
+        photo_url = data.get('photo_url', '')
+        
+        # Check if user already exists with this Google ID
+        existing_user = User.query.filter_by(google_id=google_id).first()
+        
+        if existing_user:
+            # User exists, log them in
+            if not existing_user.is_active:
+                return ResponseHelper.validation_error('Hesabınız deaktif durumda')
+            
+            # Generate JWT token
+            access_token = create_access_token(identity=str(existing_user.id))
+            
+            return ResponseHelper.success(
+                data={
+                    'token': access_token,
+                    'user': {
+                        'id': existing_user.id,
+                        'email': existing_user.email,
+                        'first_name': existing_user.first_name,
+                        'last_name': existing_user.last_name,
+                        'user_type': existing_user.user_type,
+                        'phone': existing_user.phone,
+                        'google_id': existing_user.google_id,
+                    }
+                },
+                message='Google ile giriş başarılı'
+            )
+        else:
+            # Create new user
+            # Parse display name
+            name_parts = display_name.split(' ', 1)
+            first_name = name_parts[0] if name_parts else 'Google'
+            last_name = name_parts[1] if len(name_parts) > 1 else 'User'
+            
+            # Create user
+            new_user = User(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                user_type=user_type,
+                google_id=google_id,
+                avatar_url=photo_url,
+                is_active=True,
+                email_verified=True,  # Google accounts are pre-verified
+            )
+            
+            db.session.add(new_user)
+            db.session.flush()  # Get the user ID
+            
+            # Create craftsman profile if needed
+            if user_type == 'craftsman':
+                craftsman = Craftsman(
+                    user_id=new_user.id,
+                    business_name=f"{first_name} {last_name}",
+                    is_available=True,
+                    is_verified=False,
+                )
+                db.session.add(craftsman)
+            
+            db.session.commit()
+            
+            # Generate JWT token
+            access_token = create_access_token(identity=str(new_user.id))
+            
+            return ResponseHelper.success(
+                data={
+                    'token': access_token,
+                    'user': {
+                        'id': new_user.id,
+                        'email': new_user.email,
+                        'first_name': new_user.first_name,
+                        'last_name': new_user.last_name,
+                        'user_type': new_user.user_type,
+                        'phone': new_user.phone,
+                        'google_id': new_user.google_id,
+                    }
+                },
+                message='Google ile kayıt başarılı'
+            )
+            
+    except Exception as e:
+        db.session.rollback()
+        return ResponseHelper.server_error('Google authentication failed', str(e))

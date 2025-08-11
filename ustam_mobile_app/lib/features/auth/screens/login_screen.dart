@@ -270,6 +270,55 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   
+                  const SizedBox(height: 16),
+                  
+                  // Or Divider
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 1,
+                          color: AppColors.textWhite.withOpacity(0.3),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'veya',
+                          style: TextStyle(
+                            color: AppColors.textWhite.withOpacity(0.7),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 1,
+                          color: AppColors.textWhite.withOpacity(0.3),
+                        ),
+                      ),
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Google Sign-In Button
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [AppColors.getElevatedShadow()],
+                    ),
+                    child: CustomButton(
+                      text: 'Google ile Giriş Yap',
+                      onPressed: () => _handleGoogleSignIn(),
+                      type: ButtonType.outlined,
+                      size: ButtonSize.large,
+                      isFullWidth: true,
+                      isLoading: _isLoading,
+                      icon: const Icon(Icons.g_mobiledata, size: 24),
+                    ),
+                  ),
+                  
                   const SizedBox(height: 24),
                   
                   // Register Link
@@ -440,6 +489,71 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             _isLoading = false;
           });
         }
+      }
+    }
+  }
+
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final authNotifier = ref.read(authProvider.notifier);
+      
+      // Track Google login attempt
+      AnalyticsService.getInstance().trackBusinessEvent('google_login_attempt', {
+        'user_type': widget.userType,
+      });
+      
+      print('Google Sign-In attempt - User type: ${widget.userType}');
+      
+      final success = await authNotifier.signInWithGoogle(
+        userType: widget.userType,
+      );
+
+      if (success && mounted) {
+        print('✅ Google Sign-In successful, navigating to dashboard');
+        
+        // Track successful Google login
+        AnalyticsService.getInstance().trackBusinessEvent('google_login_success', {
+          'user_type': widget.userType,
+        });
+
+        final userType = ref.read(authProvider).userType;
+        if (userType == 'customer') {
+          Navigator.pushReplacementNamed(context, '/dashboard/customer');
+        } else {
+          Navigator.pushReplacementNamed(context, '/dashboard/craftsman');
+        }
+      } else {
+        // Show error if available
+        final authState = ref.read(authProvider);
+        if (authState.error != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(authState.error!)),
+          );
+        }
+      }
+    } catch (e) {
+      print('❌ Google Sign-In error: $e');
+      
+      // Track failed Google login
+      AnalyticsService.getInstance().trackBusinessEvent('google_login_failed', {
+        'user_type': widget.userType,
+        'error': e.toString(),
+      });
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Google ile giriş sırasında hata oluştu')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
