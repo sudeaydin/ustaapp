@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CraftsmanDashboard extends ConsumerStatefulWidget {
   const CraftsmanDashboard({super.key});
@@ -17,7 +20,27 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      body: SafeArea(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Usta Dashboard',
+          style: TextStyle(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          const SimpleLanguageSelector(),
+          const SimpleThemeToggle(),
+          TutorialTrigger(userType: 'craftsman'),
+          const SizedBox(width: 8),
+        ],
+      ),
+      body: TutorialManager(
+        userType: 'craftsman',
+        child: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
@@ -579,6 +602,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
         ),
           ),
         ),
-      );
+      ),
+    );
     }
 }

@@ -113,6 +113,11 @@ class AppTranslations {
       'high_priority': 'Yüksek Öncelik',
       'medium_priority': 'Orta Öncelik',
       'low_priority': 'Düşük Öncelik',
+      
+      // Tutorial
+      'step': 'Adım',
+      'skip': 'Atla',
+      'previous': 'Önceki',
     },
     'en': {
       // Navigation
@@ -194,6 +199,11 @@ class AppTranslations {
       'high_priority': 'High Priority',
       'medium_priority': 'Medium Priority',
       'low_priority': 'Low Priority',
+      
+      // Tutorial
+      'step': 'Step',
+      'skip': 'Skip',
+      'previous': 'Previous',
     },
   };
 

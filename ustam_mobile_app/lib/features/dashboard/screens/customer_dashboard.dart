@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CustomerDashboard extends ConsumerStatefulWidget {
   const CustomerDashboard({super.key});
@@ -40,8 +43,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         ),
         centerTitle: true,
         actions: [
+          const SimpleLanguageSelector(),
+          const SimpleThemeToggle(),
           Container(
-            margin: const EdgeInsets.only(right: 16),
+            margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: AppColors.textWhite.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
@@ -53,11 +58,15 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               },
             ),
           ),
+          TutorialTrigger(userType: 'customer'),
+          const SizedBox(width: 8),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(14, 8, 14, 20), // extra bottom padding added,
-        child: Column(
+      body: TutorialManager(
+        userType: 'customer',
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(14, 8, 14, 20), // extra bottom padding added,
+          child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -644,6 +653,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
           ),
         ],
       ),
-    );
+    ),
+  );
   }
 }
