@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../../features/support/screens/support_screen.dart';
 import '../../features/onboarding/widgets/tutorial_overlay.dart';
-import '../../features/onboarding/models/tutorial_steps.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -124,6 +123,9 @@ class SupportButton extends StatelessWidget {
                 steps: userType == 'customer' 
                     ? TutorialSteps.getCustomerSteps()
                     : TutorialSteps.getCraftsmanSteps(),
+                onComplete: () {
+                  Navigator.of(context).pop();
+                },
               ),
             );
           }

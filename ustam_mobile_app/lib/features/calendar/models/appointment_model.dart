@@ -4,6 +4,7 @@ import '../../../core/services/api_service.dart';
 enum AppointmentStatus {
   pending,
   confirmed,
+  inProgress,
   cancelled,
   completed,
   rescheduled,
@@ -11,6 +12,7 @@ enum AppointmentStatus {
 
 enum AppointmentType {
   consultation,
+  work,
   service,
   followUp,
   emergency,

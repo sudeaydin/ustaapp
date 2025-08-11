@@ -82,7 +82,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildCalendar(CalendarState calendarState) {
+  Widget _buildCalendar(calendar_provider.CalendarState calendarState) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -102,8 +102,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         calendarFormat: _calendarFormat,
         eventLoader: (day) {
           final events = ref.read(calendar_provider.calendarProvider).eventsByDate[DateTime(day.year, day.month, day.day)] ?? [];
-          // TableCalendar expects a List<dynamic>, so we return the events as-is
-          return events.cast<dynamic>();
+          // Convert events to appointments for TableCalendar compatibility
+          return events.where((e) => e.isAppointment).map((e) => Appointment.fromJson(e.data)).toList();
         },
         startingDayOfWeek: StartingDayOfWeek.monday,
         calendarStyle: CalendarStyle(
@@ -158,7 +158,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildAppointmentsList(CalendarState calendarState) {
+  Widget _buildAppointmentsList(calendar_provider.CalendarState calendarState) {
     if (calendarState.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
