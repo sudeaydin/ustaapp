@@ -25,6 +25,7 @@ import 'features/analytics/screens/analytics_screen.dart';
 import 'features/accessibility/screens/accessibility_test_screen.dart';
 import 'features/legal/screens/legal_screen.dart';
 import 'features/jobs/screens/job_management_screen.dart';
+import 'features/notifications/screens/enhanced_notifications_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +95,7 @@ class MyApp extends StatelessWidget {
         '/accessibility-test': (context) => const AccessibilityTestScreen(),
         '/legal': (context) => const LegalScreen(),
         '/job-management': (context) => const JobManagementScreen(),
+        '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
       },
       // Track navigation events
       navigatorObservers: [

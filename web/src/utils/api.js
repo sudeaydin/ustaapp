@@ -420,6 +420,64 @@ export const api = {
   getEmergencyStatistics: () =>
     apiClient.get('/api/job-management/emergency-services/statistics', { requiresAuth: true }),
 
+  // Enhanced Notifications methods
+  registerDeviceToken: (tokenData) =>
+    apiClient.post('/api/notifications/enhanced/device-token', tokenData, { requiresAuth: true }),
+
+  sendNotification: (notificationData) =>
+    apiClient.post('/api/notifications/enhanced/send', notificationData, { requiresAuth: true }),
+
+  getNotificationPreferences: () =>
+    apiClient.get('/api/notifications/enhanced/preferences', { requiresAuth: true }),
+
+  updateNotificationPreferences: (preferences) =>
+    apiClient.put('/api/notifications/enhanced/preferences', preferences, { requiresAuth: true }),
+
+  createLocationShare: (shareData) =>
+    apiClient.post('/api/notifications/enhanced/location/share', shareData, { requiresAuth: true }),
+
+  updateLocation: (shareId, locationData) =>
+    apiClient.put(`/api/notifications/enhanced/location/share/${shareId}/update`, locationData, { requiresAuth: true }),
+
+  stopLocationShare: (shareId) =>
+    apiClient.delete(`/api/notifications/enhanced/location/share/${shareId}/stop`, { requiresAuth: true }),
+
+  getLocationShares: () =>
+    apiClient.get('/api/notifications/enhanced/location/shares', { requiresAuth: true }),
+
+  createCalendarEvent: (eventData) =>
+    apiClient.post('/api/notifications/enhanced/calendar/event', eventData, { requiresAuth: true }),
+
+  broadcastEmergency: (emergencyData) =>
+    apiClient.post('/api/notifications/enhanced/emergency/broadcast', emergencyData, { requiresAuth: true }),
+
+  getNotificationAnalytics: (days = 30) =>
+    apiClient.get('/api/notifications/enhanced/analytics', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  trackNotificationInteraction: (notificationId, action) =>
+    apiClient.post('/api/notifications/enhanced/interaction', { 
+      notification_id: notificationId, 
+      action 
+    }, { requiresAuth: true }),
+
+  scheduleNotification: (notificationData) =>
+    apiClient.post('/api/notifications/enhanced/schedule', notificationData, { requiresAuth: true }),
+
+  getScheduledNotifications: () =>
+    apiClient.get('/api/notifications/enhanced/scheduled', { requiresAuth: true }),
+
+  testNotification: (testData) =>
+    apiClient.post('/api/notifications/enhanced/test', testData, { requiresAuth: true }),
+
+  subscribeToTopic: (topic) =>
+    apiClient.post('/api/notifications/enhanced/topics/subscribe', { topic }, { requiresAuth: true }),
+
+  unsubscribeFromTopic: (topic) =>
+    apiClient.post('/api/notifications/enhanced/topics/unsubscribe', { topic }, { requiresAuth: true }),
+
   // Track API call performance
   _trackApiCall(endpoint, method, statusCode, duration) {
     try {

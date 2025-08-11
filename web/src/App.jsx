@@ -45,6 +45,7 @@ import QuotePaymentPage from './pages/QuotePaymentPage';
 import { CraftsmanBusinessProfilePage } from './pages/CraftsmanBusinessProfilePage';
 import LegalPage from './pages/LegalPage';
 import JobDashboard from './components/jobs/JobDashboard';
+import NotificationCenter from './components/notifications/NotificationCenter';
 import { NotificationProvider } from './context/NotificationContext';
 import { ProtectedRoute, PublicRoute, CustomerRoute, CraftsmanRoute } from './components/ProtectedRoute';
 import MobileNavigation from './components/MobileNavigation';
@@ -130,6 +131,7 @@ function App() {
                     <Route path="/payment-history" element={<ProtectedRoute><PaymentHistory /></ProtectedRoute>} />
                     <Route path="/jobs" element={<ProtectedRoute><JobListPage /></ProtectedRoute>} />
                     <Route path="/job-management" element={<ProtectedRoute><JobDashboard /></ProtectedRoute>} />
+                    <Route path="/enhanced-notifications" element={<ProtectedRoute><NotificationCenter /></ProtectedRoute>} />
                     <Route path="/test-upload" element={<ProtectedRoute><TestUploadPage /></ProtectedRoute>} />
                     
                     {/* 👤 Customer Only Routes */}
