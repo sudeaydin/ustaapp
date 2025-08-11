@@ -153,11 +153,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       children: [
                         Expanded(
                           child: _buildQuickActionCard(
-                            'Gelişmiş Arama',
-                            'Filtreli usta arama',
-                            Icons.search,
-                            Colors.purple,
-                            () => Navigator.pushNamed(context, '/advanced-search'),
+                            'Profil',
+                            'Hesap bilgilerinizi düzenleyin',
+                            Icons.person,
+                            Colors.green,
+                            () => Navigator.pushNamed(context, '/profile'),
                           ),
                         ),
                         const SizedBox(width: 12),

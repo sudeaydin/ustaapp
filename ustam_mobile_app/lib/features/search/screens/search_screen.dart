@@ -93,6 +93,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     return Scaffold(
              appBar: CommonAppBar(
          title: 'Usta Ara',
+         showBackButton: true,
          showTutorialTrigger: true,
          userType: authState.user?['user_type'],
        ),

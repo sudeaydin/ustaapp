@@ -47,6 +47,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     return Scaffold(
       appBar: CommonAppBar(
         title: 'Takvim',
+        showBackButton: true,
         userType: widget.userType,
         actions: [
           IconButton(
