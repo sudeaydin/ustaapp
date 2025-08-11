@@ -83,14 +83,7 @@ class AnalyticsService {
     }
   }
 
-  /// Track screen view
-  Future<void> trackScreenView(String screenName, {Map<String, dynamic>? properties}) async {
-    await trackEvent('screen_view', {
-      'screen_name': screenName,
-      'timestamp': DateTime.now().toIso8601String(),
-      ...?properties,
-    });
-  }
+
 
   /// Track user interaction
   Future<void> trackInteraction(String action, String element, {Map<String, dynamic>? properties}) async {
@@ -111,15 +104,7 @@ class AnalyticsService {
     });
   }
 
-  /// Track performance metrics
-  Future<void> trackPerformance(String operation, int duration, {Map<String, dynamic>? metadata}) async {
-    await trackEvent('performance', {
-      'operation': operation,
-      'duration_ms': duration,
-      'timestamp': DateTime.now().toIso8601String(),
-      ...?metadata,
-    });
-  }
+
 
   /// Track API call performance
   Future<void> trackApiCall(String endpoint, String method, int statusCode, int duration) async {
@@ -132,15 +117,7 @@ class AnalyticsService {
     });
   }
 
-  /// Track error
-  Future<void> trackError(String error, String? stackTrace, {Map<String, dynamic>? context}) async {
-    await trackEvent('error', {
-      'error': error,
-      'stack_trace': stackTrace,
-      'context': context,
-      'timestamp': DateTime.now().toIso8601String(),
-    });
-  }
+
 
   /// Track conversion funnel step
   Future<void> trackFunnelStep(String funnelName, String step, {Map<String, dynamic>? properties}) async {
@@ -303,31 +280,7 @@ mixin AnalyticsMixin<T extends StatefulWidget> on State<T> {
     });
   }
   
-  /// Track error (compatible signature)
-  void trackError(String errorName, String errorMessage, [Map<String, dynamic>? properties]) {
-    _analytics.trackBusinessEvent('error', {
-      'error_name': errorName,
-      'error_message': errorMessage,
-      ...?properties,
-    });
-  }
-  
-  /// Track screen view (compatible signature)
-  void trackScreenView(String screenName, [Map<String, dynamic>? properties]) {
-    _analytics.trackBusinessEvent('screen_view', {
-      'screen_name': screenName,
-      ...?properties,
-    });
-  }
-  
-  /// Track performance (compatible signature)
-  void trackPerformance(String metricName, int value) {
-    _analytics.trackBusinessEvent('performance', {
-      'metric_name': metricName,
-      'value': value,
-      'timestamp': DateTime.now().millisecondsSinceEpoch,
-    });
-  }
+
 }
 
 /// Extension for easy analytics tracking on any widget

@@ -304,6 +304,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
+            warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
             job: warranty,
             userType: ref.read(authProvider)?.userType ?? 'customer',
             onUpdate: _loadData,

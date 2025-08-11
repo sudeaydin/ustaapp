@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/job_management_utils.dart';
 
 class EmergencyServiceCard extends StatelessWidget {
-  final Map<String, dynamic>? emergency;
+  final dynamic emergency; // Can be Map or EmergencyService object
   final VoidCallback? onRequestEmergency;
   final VoidCallback? onUpdate;
 
