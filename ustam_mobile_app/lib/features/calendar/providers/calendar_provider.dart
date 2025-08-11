@@ -121,6 +121,7 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
       final apiResponse = await ApiService.getInstance().get(
         '/calendar/appointments',
         queryParams: queryParams,
+        requiresAuth: true,
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
@@ -177,6 +178,7 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
       final apiResponse = await ApiService.getInstance().get(
         '/calendar/events',
         queryParams: queryParams,
+        requiresAuth: true,
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
@@ -230,6 +232,7 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
       final apiResponse = await ApiService.getInstance().get(
         '/calendar/appointments/upcoming',
         queryParams: {'limit': limit.toString()},
+        requiresAuth: true,
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
@@ -246,7 +249,10 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
 
   Future<void> loadTodayAppointments() async {
     try {
-      final apiResponse = await ApiService.getInstance().get('/calendar/appointments/today');
+      final apiResponse = await ApiService.getInstance().get(
+        '/calendar/appointments/today',
+        requiresAuth: true,
+      );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
         final todayAppointments = List<Appointment>.from(
