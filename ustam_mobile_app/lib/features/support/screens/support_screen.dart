@@ -106,7 +106,13 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
   Widget _buildCreateTicketTab() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
-      child: CreateTicketForm(userType: widget.userType),
+      child: CreateTicketForm(
+        userType: widget.userType,
+        onTicketCreated: () {
+          // Switch to tickets tab when ticket is created
+          _tabController.animateTo(1);
+        },
+      ),
     );
   }
 
@@ -325,10 +331,12 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
 
 class CreateTicketForm extends ConsumerStatefulWidget {
   final String userType;
+  final VoidCallback? onTicketCreated;
 
   const CreateTicketForm({
     super.key,
     required this.userType,
+    this.onTicketCreated,
   });
 
   @override
@@ -610,8 +618,8 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
           _selectedPriority = 'medium';
         });
 
-        // Switch to tickets tab
-        _tabController.animateTo(1);
+        // Switch to tickets tab via callback
+        widget.onTicketCreated?.call();
 
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(

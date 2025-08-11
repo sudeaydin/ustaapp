@@ -41,20 +41,20 @@ class SupportNotifier extends StateNotifier<SupportState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final response = await ApiService.post('/support/tickets', {
+      final apiResponse = await ApiService.getInstance().post('/support/tickets', {
         'subject': subject,
         'description': description,
         'category': category,
         'priority': priority,
       });
 
-      if (response['success'] == true) {
+      if (apiResponse.isSuccess) {
         // Reload tickets
         await loadUserTickets();
         return true;
       } else {
         state = state.copyWith(
-          error: response['message'] ?? 'Destek talebi oluşturulamadı',
+          error: apiResponse.error?.userFriendlyMessage ?? 'Destek talebi oluşturulamadı',
           isLoading: false,
         );
         return false;
@@ -72,11 +72,11 @@ class SupportNotifier extends StateNotifier<SupportState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final response = await ApiService.get('/support/tickets');
+      final apiResponse = await ApiService.getInstance().get('/support/tickets');
 
-      if (response['success'] == true) {
+      if (apiResponse.isSuccess && apiResponse.data != null) {
         final tickets = List<Map<String, dynamic>>.from(
-          response['data']['tickets'] ?? []
+          apiResponse.data!['tickets'] ?? []
         );
         
         state = state.copyWith(
@@ -85,7 +85,7 @@ class SupportNotifier extends StateNotifier<SupportState> {
         );
       } else {
         state = state.copyWith(
-          error: response['message'] ?? 'Destek talepleri getirilemedi',
+          error: apiResponse.error?.userFriendlyMessage ?? 'Destek talepleri getirilemedi',
           isLoading: false,
         );
       }
@@ -101,17 +101,17 @@ class SupportNotifier extends StateNotifier<SupportState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final response = await ApiService.get('/support/tickets/$ticketId');
+      final apiResponse = await ApiService.getInstance().get('/support/tickets/$ticketId');
 
-      if (response['success'] == true) {
+      if (apiResponse.isSuccess && apiResponse.data != null) {
         state = state.copyWith(
-          currentTicket: response['data'],
+          currentTicket: apiResponse.data!,
           isLoading: false,
         );
         return true;
       } else {
         state = state.copyWith(
-          error: response['message'] ?? 'Destek talebi detayları getirilemedi',
+          error: apiResponse.error?.userFriendlyMessage ?? 'Destek talebi detayları getirilemedi',
           isLoading: false,
         );
         return false;
@@ -127,17 +127,17 @@ class SupportNotifier extends StateNotifier<SupportState> {
 
   Future<bool> addMessage(int ticketId, String message) async {
     try {
-      final response = await ApiService.post('/support/tickets/$ticketId/messages', {
+      final apiResponse = await ApiService.getInstance().post('/support/tickets/$ticketId/messages', {
         'message': message,
       });
 
-      if (response['success'] == true) {
+      if (apiResponse.isSuccess) {
         // Reload ticket detail to get updated messages
         await loadTicketDetail(ticketId);
         return true;
       } else {
         state = state.copyWith(
-          error: response['message'] ?? 'Mesaj gönderilemedi',
+          error: apiResponse.error?.userFriendlyMessage ?? 'Mesaj gönderilemedi',
         );
         return false;
       }
