@@ -305,7 +305,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           padding: const EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
             warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
-            job: warranty is Map<String, dynamic> ? warranty : warranty.toMap(),
+            job: warranty is Map<String, dynamic> ? warranty : (warranty as Job).toMap(),
             userType: ref.read(authProvider)?.userType ?? 'customer',
             onUpdate: _loadData,
           ),
