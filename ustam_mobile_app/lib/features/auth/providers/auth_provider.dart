@@ -23,6 +23,9 @@ class AuthState {
     this.error,
   });
 
+  // Getter for userType for compatibility
+  String? get userType => user?['user_type'];
+  
   AuthState copyWith({
     bool? isAuthenticated,
     bool? isLoading,

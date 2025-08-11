@@ -181,6 +181,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       }
       
       switch (widget.type) {
+        case TextFieldType.text:
+        case TextFieldType.multiline:
+          // No specific validation for text fields
+          break;
         case TextFieldType.email:
           if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value)) {
             return 'Geçerli bir e-posta adresi girin';
@@ -194,6 +198,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         case TextFieldType.phone:
           if (value.length < 10) {
             return 'Geçerli bir telefon numarası girin';
+          }
+          break;
+        case TextFieldType.number:
+          if (double.tryParse(value) == null) {
+            return 'Geçerli bir sayı girin';
           }
           break;
       }

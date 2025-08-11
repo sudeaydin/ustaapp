@@ -78,7 +78,7 @@ class CustomButton extends StatelessWidget {
       case ButtonType.text:
         return TextButton(
           onPressed: isEnabled ? onPressed : null,
-          style: _getTextStyle(),
+          style: _getTextButtonStyle(),
           child: _buildButtonContent(),
         );
     }
@@ -178,7 +178,7 @@ class CustomButton extends StatelessWidget {
     );
   }
 
-  ButtonStyle _getTextStyle() {
+  ButtonStyle _getTextButtonStyle() {
     return TextButton.styleFrom(
       foregroundColor: AppColors.primary,
       disabledForegroundColor: AppColors.textMuted,

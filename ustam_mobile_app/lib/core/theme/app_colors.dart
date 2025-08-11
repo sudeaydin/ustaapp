@@ -35,6 +35,12 @@ class AppColors {
   static const Color warning = Color(0xFFF59E0B);         // Warning amber
   static const Color error = poppy;                       // Error red
   static const Color info = nonPhotoBlue;                 // Info blue
+  
+  // Additional Colors for compatibility
+  static const Color background = backgroundLight;        // Main background
+  static const Color surface = surfaceColor;              // Surface color
+  static const Color secondary = nonPhotoBlue;            // Secondary color
+  static const Color border = Color(0xFFE5E7EB);          // Border color
 
   // Button Colors - Interactive Elements
   static const Color buttonPrimary = uclaBlue;

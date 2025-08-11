@@ -33,6 +33,8 @@ class AppConfig {
   // App Configuration
   static const String appName = 'UstamApp';
   static const String appVersion = '1.0.0';
+  static const String version = appVersion; // Alias for compatibility
+  static String get apiBaseUrl => baseUrl; // Alias for compatibility
   static const int apiTimeoutSeconds = 30;
   static const int maxRetryAttempts = 3;
   

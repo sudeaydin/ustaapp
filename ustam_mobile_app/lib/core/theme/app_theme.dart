@@ -159,7 +159,7 @@ class AppTheme {
       ),
       
       // Card Theme - Consistent card styling
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.cardBackground,
         elevation: 2,
         shadowColor: AppColors.shadowLight,
@@ -324,7 +324,7 @@ class AppTheme {
       ),
       
       // Dialog Theme
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.cardBackground,
         elevation: 8,
         shadowColor: AppColors.shadowMedium,
@@ -408,7 +408,7 @@ class AppTheme {
         ),
       ),
       
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.backgroundDark.withOpacity(0.8),
         elevation: 4,
         shadowColor: AppColors.shadowDark,

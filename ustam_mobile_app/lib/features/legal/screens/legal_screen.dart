@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/utils/legal_utils.dart';
 import '../../../core/utils/accessibility_utils.dart';
 
@@ -10,7 +11,7 @@ class LegalScreen extends StatefulWidget {
 }
 
 class _LegalScreenState extends State<LegalScreen> 
-    with LegalComplianceMixin, AccessibilityMixin {
+    with LegalComplianceMixin, AccessibilityMixin, TickerProviderStateMixin {
   int _selectedTabIndex = 0;
   final List<LegalDocumentType> _documentTypes = [
     LegalDocumentType.userAgreement,
@@ -87,7 +88,7 @@ class _LegalScreenState extends State<LegalScreen>
                     Expanded(
                       child: AccessibleButton(
                         onPressed: showConsentPreferences,
-                        ariaLabel: 'Onay tercihlerini yönet',
+                        semanticLabel: 'Onay tercihlerini yönet',
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -102,7 +103,7 @@ class _LegalScreenState extends State<LegalScreen>
                     Expanded(
                       child: AccessibleButton(
                         onPressed: showGDPRRights,
-                        ariaLabel: 'KVKK haklarını görüntüle',
+                        semanticLabel: 'KVKK haklarını görüntüle',
                         variant: 'secondary',
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,

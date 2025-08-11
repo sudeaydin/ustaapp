@@ -231,10 +231,9 @@ class EnhancedNotificationsService {
   /// Register device token for push notifications
   Future<bool> registerDeviceToken(String token, {Map<String, dynamic>? deviceInfo}) async {
     try {
-      final response = await _apiService.request(
-        'POST',
+      final response = await _apiService.postWithOptions(
         '/api/notifications/enhanced/device-token',
-        data: {
+        body: {
           'token': token,
           'device_type': Platform.isAndroid ? 'android' : 'ios',
           'device_info': deviceInfo ?? await _getDeviceInfo(),

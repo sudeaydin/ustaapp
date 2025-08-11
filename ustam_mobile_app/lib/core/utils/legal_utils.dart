@@ -200,7 +200,7 @@ class LegalManager {
     try {
       final response = await ApiService().getLegalDocument(type.name);
       if (response.success && response.data != null) {
-        return LegalDocument.fromJson(response.data);
+        return LegalDocument.fromJson(response.data!);
       }
     } catch (e) {
       debugPrint('Failed to fetch legal document: $e');

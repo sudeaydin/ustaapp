@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
+import 'dart:math' show pow;
 
 /// Accessibility utilities for WCAG compliance in Flutter
 class AccessibilityUtils {
@@ -35,7 +36,7 @@ class AccessibilityUtils {
 
   /// Check if reduce motion is enabled
   static bool get isReduceMotionEnabled {
-    return WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.reduceMotions;
+    return WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.disableAnimations;
   }
 
   /// Get recommended font scale
@@ -111,7 +112,7 @@ class AccessibilityUtils {
 
   static double _normalize(int value) {
     final val = value / 255.0;
-    return val <= 0.03928 ? val / 12.92 : pow((val + 0.055) / 1.055, 2.4);
+    return val <= 0.03928 ? val / 12.92 : pow((val + 0.055) / 1.055, 2.4).toDouble();
   }
 
   /// Get accessible colors based on contrast requirements
@@ -340,7 +341,7 @@ class _AccessibleModalState extends State<AccessibleModal> {
   Widget build(BuildContext context) {
     return Semantics(
       label: widget.semanticLabel ?? 'Modal: ${widget.title}',
-      modal: true,
+      scopesRoute: true,
       child: AlertDialog(
         title: Semantics(
           header: true,
@@ -644,6 +645,3 @@ class ScreenReaderAnnouncer {
     _pendingAnnouncements.clear();
   }
 }
-
-/// Import math functions
-import 'dart:math' show pow;

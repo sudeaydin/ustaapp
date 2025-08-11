@@ -195,7 +195,6 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
         elevation: 0,
         actions: [
           PopupMenuButton<String>(
-            value: _selectedTimeRange,
             onSelected: (value) {
               trackButtonTap('time_range_changed', {'range': value});
               setState(() {

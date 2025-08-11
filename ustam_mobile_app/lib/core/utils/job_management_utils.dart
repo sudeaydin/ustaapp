@@ -679,7 +679,7 @@ class JobManagementService {
   /// Update job
   Future<bool> updateJob(int jobId, Map<String, dynamic> updateData) async {
     try {
-      final response = await _apiService.put('/job-management/jobs/$jobId', updateData);
+      final response = await _apiService.putWithOptions('/job-management/jobs/$jobId', body: updateData);
       return response.success;
     } catch (e) {
       throw Exception('Failed to update job: $e');
@@ -693,7 +693,7 @@ class JobManagementService {
     String? location,
   }) async {
     try {
-      final response = await _apiService.post('/job-management/jobs/$jobId/time/start', {
+      final response = await _apiService.postWithOptions('/job-management/jobs/$jobId/time/start', body: {
         'entry_type': entryType.name,
         'description': description,
         'location': location,
@@ -712,7 +712,7 @@ class JobManagementService {
   /// End time tracking
   Future<bool> endTimeTracking(int entryId, {String? notes, List<String>? images}) async {
     try {
-      final response = await _apiService.put('/job-management/time-entries/$entryId/end', {
+      final response = await _apiService.putWithOptions('/job-management/time-entries/$entryId/end', body: {
         'notes': notes,
         'images': images,
       });
@@ -726,7 +726,7 @@ class JobManagementService {
   /// Add material to job
   Future<JobMaterial?> addMaterial(int jobId, Map<String, dynamic> materialData) async {
     try {
-      final response = await _apiService.post('/job-management/jobs/$jobId/materials', materialData);
+      final response = await _apiService.postWithOptions('/job-management/jobs/$jobId/materials', body: materialData);
       
       if (response.success) {
         return JobMaterial.fromJson(response.data);
@@ -741,7 +741,7 @@ class JobManagementService {
   /// Update material status
   Future<bool> updateMaterialStatus(int materialId, MaterialStatus status, {String? notes}) async {
     try {
-      final response = await _apiService.put('/job-management/materials/$materialId/status', {
+      final response = await _apiService.putWithOptions('/job-management/materials/$materialId/status', body: {
         'status': status.name,
         'notes': notes,
       });
@@ -762,7 +762,7 @@ class JobManagementService {
     bool isVisibleToCustomer = true,
   }) async {
     try {
-      final response = await _apiService.post('/job-management/jobs/$jobId/progress', {
+      final response = await _apiService.postWithOptions('/job-management/jobs/$jobId/progress', body: {
         'title': title,
         'description': description,
         'completion_percentage': completionPercentage,
@@ -792,7 +792,7 @@ class JobManagementService {
     String? customerNotes,
   }) async {
     try {
-      final response = await _apiService.post('/job-management/jobs/$jobId/warranty-claim', {
+      final response = await _apiService.postWithOptions('/job-management/jobs/$jobId/warranty-claim', body: {
         'title': title,
         'description': description,
         'issue_type': issueType,
@@ -848,7 +848,7 @@ class JobManagementService {
     List<String>? images,
   }) async {
     try {
-      final response = await _apiService.post('/job-management/emergency-services', {
+      final response = await _apiService.postWithOptions('/job-management/emergency-services', body: {
         'title': title,
         'description': description,
         'emergency_type': emergencyType,
@@ -896,7 +896,7 @@ class JobManagementService {
   /// Assign emergency service
   Future<bool> assignEmergencyService(int emergencyId) async {
     try {
-      final response = await _apiService.put('/job-management/emergency-services/$emergencyId/assign', {});
+      final response = await _apiService.putWithOptions('/job-management/emergency-services/$emergencyId/assign', body: {});
       return response.success;
     } catch (e) {
       throw Exception('Failed to assign emergency service: $e');

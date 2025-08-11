@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_config.dart';
@@ -10,6 +11,9 @@ class ApiService {
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
   ApiService._internal();
+  
+  // Singleton getter for compatibility
+  static ApiService getInstance() => _instance;
 
   // HTTP client with timeout
   final http.Client _client = http.Client();
@@ -141,14 +145,18 @@ class ApiService {
   Future<ApiResponse<T>> get<T>(
     String endpoint, {
     Map<String, String>? queryParams,
+    Map<String, dynamic>? params, // Alias for queryParams
     bool requiresAuth = false,
   }) async {
     try {
       String url = '${AppConfig.baseUrl}$endpoint';
       
-      if (queryParams != null && queryParams.isNotEmpty) {
+      // Use params if provided, otherwise use queryParams
+      final finalParams = params?.map((k, v) => MapEntry(k, v.toString())) ?? queryParams;
+      
+      if (finalParams != null && finalParams.isNotEmpty) {
         final uri = Uri.parse(url);
-        url = uri.replace(queryParameters: queryParams).toString();
+        url = uri.replace(queryParameters: finalParams).toString();
       }
 
       final response = await _makeRequest('GET', url, requiresAuth: requiresAuth);
@@ -163,6 +171,14 @@ class ApiService {
 
   // POST request
   Future<ApiResponse<T>> post<T>(
+    String endpoint, [
+    Map<String, dynamic>? body, // Positional parameter for compatibility
+  ]) async {
+    return postWithOptions<T>(endpoint, body: body, requiresAuth: false);
+  }
+  
+  // POST request with options
+  Future<ApiResponse<T>> postWithOptions<T>(
     String endpoint, {
     Map<String, dynamic>? body,
     bool requiresAuth = false,
@@ -186,6 +202,14 @@ class ApiService {
 
   // PUT request
   Future<ApiResponse<T>> put<T>(
+    String endpoint, [
+    Map<String, dynamic>? body, // Positional parameter for compatibility
+  ]) async {
+    return putWithOptions<T>(endpoint, body: body, requiresAuth: false);
+  }
+  
+  // PUT request with options
+  Future<ApiResponse<T>> putWithOptions<T>(
     String endpoint, {
     Map<String, dynamic>? body,
     bool requiresAuth = false,
@@ -482,6 +506,32 @@ extension ApiServiceExtensions on ApiService {
     } catch (e) {
       // Silently fail to avoid disrupting API calls
       print('Failed to track API call: $e');
+    }
+  }
+  
+  // Generic request method for compatibility
+  Future<ApiResponse<T>> request<T>(
+    String method,
+    String endpoint, {
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+    bool requiresAuth = false,
+  }) async {
+    try {
+      final url = '${AppConfig.baseUrl}$endpoint';
+      final response = await _makeRequest(
+        method,
+        url,
+        body: body,
+        headers: headers,
+        requiresAuth: requiresAuth,
+      );
+      return ApiResponse<T>.fromResponse(response);
+    } catch (e) {
+      if (e is AppError) {
+        return ApiResponse<T>.error(e);
+      }
+      return ApiResponse<T>.error(AppError.fromException(e));
     }
   }
 }

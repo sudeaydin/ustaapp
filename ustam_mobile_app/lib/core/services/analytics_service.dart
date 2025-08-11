@@ -277,6 +277,32 @@ mixin AnalyticsMixin<T extends StatefulWidget> on State<T> {
       ...?properties,
     });
   }
+  
+  /// Track error (compatible signature)
+  void trackError(String errorName, String errorMessage, [Map<String, dynamic>? properties]) {
+    _analytics.trackBusinessEvent('error', {
+      'error_name': errorName,
+      'error_message': errorMessage,
+      ...?properties,
+    });
+  }
+  
+  /// Track screen view (compatible signature)
+  void trackScreenView(String screenName, [Map<String, dynamic>? properties]) {
+    _analytics.trackBusinessEvent('screen_view', {
+      'screen_name': screenName,
+      ...?properties,
+    });
+  }
+  
+  /// Track performance (compatible signature)
+  void trackPerformance(String metricName, double value) {
+    _analytics.trackBusinessEvent('performance', {
+      'metric_name': metricName,
+      'value': value,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
+    });
+  }
 }
 
 /// Extension for easy analytics tracking on any widget
