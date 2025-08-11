@@ -142,10 +142,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   void dispose() {
     _animationController.stop();
     _animationController.dispose();
-    // Clear any active tutorial targets
-    if (mounted) {
-      ref.read(tutorialProvider.notifier).clearActiveTarget();
-    }
+    // Don't use ref in dispose - it's already disposed
     super.dispose();
   }
 
@@ -625,20 +622,8 @@ class TutorialManager extends ConsumerWidget {
               : TutorialSteps.getCraftsmanSteps(),
           userType: userType,
           onComplete: () {
-            // Tutorial completed
-            if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    userType == 'customer' 
-                        ? 'Hoş geldiniz! Artık usta aramaya başlayabilirsiniz.'
-                        : 'Hoş geldiniz! Artık teklif almaya başlayabilirsiniz.',
-                  ),
-                  backgroundColor: AppColors.success,
-                  duration: const Duration(seconds: 3),
-                ),
-              );
-            }
+            // Tutorial completed - no snackbar to avoid dispose issues
+            print('Tutorial completed for $userType');
           },
         ),
       ],

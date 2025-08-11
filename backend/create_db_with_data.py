@@ -23,6 +23,7 @@ from app.models.notification import Notification
 from app.models.review import Review
 from app.models.message import Message
 from app.models.job import Job, JobStatus, JobPriority
+from app.models.appointment import Appointment, AppointmentStatus, AppointmentType
 from werkzeug.security import generate_password_hash
 
 def create_sample_data():
@@ -542,6 +543,103 @@ def create_sample_data():
     )
     db.session.add(message7b)
     
+    # Additional quotes for more reviews
+    quote8 = Quote(
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        category='Elektrik',
+        job_type='Tamir',
+        location='Beşiktaş, İstanbul',
+        description='Elektrik arıza tamiri',
+        area_type='salon',
+        budget_range='200-400',
+        status='COMPLETED',
+        quoted_price=Decimal('350.00'),
+        created_at=datetime.now() - timedelta(days=26),
+        updated_at=datetime.now() - timedelta(days=25)
+    )
+    db.session.add(quote8)
+    
+    quote9 = Quote(
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        category='Elektrik',
+        job_type='Kurulum',
+        location='Kadıköy, İstanbul',
+        description='Smart home kurulumu',
+        area_type='tum_ev',
+        budget_range='1000-2000',
+        status='COMPLETED',
+        quoted_price=Decimal('1500.00'),
+        created_at=datetime.now() - timedelta(days=21),
+        updated_at=datetime.now() - timedelta(days=20)
+    )
+    db.session.add(quote9)
+    
+    quote10 = Quote(
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['mehmet@test.com'].id,
+        category='Su Tesisatı',
+        job_type='Tamir',
+        location='Kadıköy, İstanbul',
+        description='Tesisat tamiri',
+        area_type='banyo',
+        budget_range='300-500',
+        status='COMPLETED',
+        quoted_price=Decimal('400.00'),
+        created_at=datetime.now() - timedelta(days=13),
+        updated_at=datetime.now() - timedelta(days=12)
+    )
+    db.session.add(quote10)
+    
+    quote11 = Quote(
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        category='Temizlik',
+        job_type='Temizlik',
+        location='Kadıköy, İstanbul',
+        description='Ev temizliği',
+        area_type='tum_ev',
+        budget_range='100-200',
+        status='COMPLETED',
+        quoted_price=Decimal('150.00'),
+        created_at=datetime.now() - timedelta(days=7),
+        updated_at=datetime.now() - timedelta(days=6)
+    )
+    db.session.add(quote11)
+    
+    quote12 = Quote(
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        category='Temizlik',
+        job_type='Temizlik',
+        location='Şişli, İstanbul',
+        description='Ofis temizliği',
+        area_type='ofis',
+        budget_range='200-300',
+        status='COMPLETED',
+        quoted_price=Decimal('250.00'),
+        created_at=datetime.now() - timedelta(days=31),
+        updated_at=datetime.now() - timedelta(days=30)
+    )
+    db.session.add(quote12)
+    
+    quote13 = Quote(
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['kemal@test.com'].id,
+        category='Boyacı',
+        job_type='Boyama',
+        location='Beşiktaş, İstanbul',
+        description='Ev boyama',
+        area_type='tum_ev',
+        budget_range='1500-2500',
+        status='COMPLETED',
+        quoted_price=Decimal('2000.00'),
+        created_at=datetime.now() - timedelta(days=20),
+        updated_at=datetime.now() - timedelta(days=19)
+    )
+    db.session.add(quote13)
+    
     db.session.commit()
     print("Sample quotes created.")
     
@@ -679,6 +777,116 @@ def create_sample_data():
     )
     db.session.add(review7)
     
+    # More reviews for Ahmet (to have more visible reviews)
+    review8 = Review(
+        customer_id=musteri_customer.id,
+        craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
+        quote_id=quote8.id,
+        rating=5,
+        title='Çok hızlı ve kaliteli!',
+        comment='Ahmet usta elektrik arızamı çok hızlı çözdü. Çok tecrübeli ve güvenilir. Fiyatları da uygun.',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=4,
+        cleanliness_rating=4,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=25),
+        updated_at=datetime.now() - timedelta(days=25)
+    )
+    db.session.add(review8)
+    
+    review9 = Review(
+        customer_id=ali_customer.id,
+        craftsman_id=created_users['ahmet@test.com'].craftsman_profile.id,
+        quote_id=quote9.id,
+        rating=4,
+        title='Profesyonel yaklaşım',
+        comment='Smart home sistemi kurulumu için çok detaylı bilgi verdi. İşini çok iyi biliyor.',
+        quality_rating=5,
+        punctuality_rating=4,
+        communication_rating=5,
+        cleanliness_rating=4,
+        is_verified=True,
+        craftsman_response='Teşekkürler! Smart home konusunda her zaman en güncel teknolojileri takip ediyorum.',
+        response_date=datetime.now() - timedelta(days=18),
+        created_at=datetime.now() - timedelta(days=20),
+        updated_at=datetime.now() - timedelta(days=18)
+    )
+    db.session.add(review9)
+    
+    # More reviews for Mehmet
+    review10 = Review(
+        customer_id=customer_customer.id,
+        craftsman_id=created_users['mehmet@test.com'].craftsman_profile.id,
+        quote_id=quote10.id,
+        rating=3,
+        title='Fena değil',
+        comment='Tesisatı tamir etti ama biraz pahalı geldi. Yine de işini biliyor.',
+        quality_rating=4,
+        punctuality_rating=3,
+        communication_rating=3,
+        cleanliness_rating=3,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=12),
+        updated_at=datetime.now() - timedelta(days=12)
+    )
+    db.session.add(review10)
+    
+    # More reviews for Fatma
+    review11 = Review(
+        customer_id=customer_customer.id,
+        craftsman_id=created_users['fatma@test.com'].craftsman_profile.id,
+        quote_id=quote11.id,
+        rating=5,
+        title='Süper temizlik!',
+        comment='Fatma hanım evi tertemiz yaptı. Çok detaycı ve güvenilir. Her hafta gelsin istiyorum.',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=5,
+        cleanliness_rating=5,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=6),
+        updated_at=datetime.now() - timedelta(days=6)
+    )
+    db.session.add(review11)
+    
+    review12 = Review(
+        customer_id=ali_customer.id,
+        craftsman_id=created_users['fatma@test.com'].craftsman_profile.id,
+        quote_id=quote12.id,
+        rating=4,
+        title='Çok iyi',
+        comment='Ofis temizliğini çok güzel yaptı. Sadece biraz daha hızlı olabilir.',
+        quality_rating=5,
+        punctuality_rating=3,
+        communication_rating=4,
+        cleanliness_rating=5,
+        is_verified=True,
+        created_at=datetime.now() - timedelta(days=30),
+        updated_at=datetime.now() - timedelta(days=30)
+    )
+    db.session.add(review12)
+    
+    # More reviews for Kemal
+    review13 = Review(
+        customer_id=musteri_customer.id,
+        craftsman_id=created_users['kemal@test.com'].craftsman_profile.id,
+        quote_id=quote13.id,
+        rating=5,
+        title='Mükemmel boyacı!',
+        comment='Kemal usta evimi boyarken çok titiz çalıştı. Renk önerileri harika. Kesinlikle tavsiye ederim!',
+        quality_rating=5,
+        punctuality_rating=5,
+        communication_rating=5,
+        cleanliness_rating=4,
+        is_verified=True,
+        craftsman_response='Çok teşekkürler! Müşteri memnuniyeti benim için en önemli.',
+        response_date=datetime.now() - timedelta(days=17),
+        created_at=datetime.now() - timedelta(days=19),
+        updated_at=datetime.now() - timedelta(days=17)
+    )
+    db.session.add(review13)
+    
     db.session.commit()
     print("Sample reviews created.")
     
@@ -772,6 +980,108 @@ def create_sample_data():
     
     db.session.commit()
     print("Sample jobs created.")
+    
+    # Create sample appointments
+    print("Creating sample appointments...")
+    
+    # Appointment 1: Ahmet ile müşteri konsültasyonu (yarın)
+    appointment1 = Appointment(
+        title='Elektrik Tesisatı Konsültasyonu',
+        description='Evdeki elektrik tesisatı için ön görüşme ve keşif',
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        type=AppointmentType.CONSULTATION,
+        status=AppointmentStatus.CONFIRMED,
+        start_time=datetime.now() + timedelta(days=1, hours=10),
+        end_time=datetime.now() + timedelta(days=1, hours=11),
+        location='Kadıköy, İstanbul',
+        notes='Müşteri smart home sistemi kurmak istiyor',
+        created_at=datetime.now() - timedelta(days=2)
+    )
+    db.session.add(appointment1)
+    
+    # Appointment 2: Fatma ile temizlik randevusu (2 gün sonra)
+    appointment2 = Appointment(
+        title='Haftalık Ev Temizliği',
+        description='Genel ev temizliği ve düzenleme',
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        type=AppointmentType.WORK,
+        status=AppointmentStatus.CONFIRMED,
+        start_time=datetime.now() + timedelta(days=2, hours=9),
+        end_time=datetime.now() + timedelta(days=2, hours=12),
+        location='Beşiktaş, İstanbul',
+        notes='3 odalı ev, detaylı temizlik',
+        created_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(appointment2)
+    
+    # Appointment 3: Mehmet ile tesisat randevusu (3 gün sonra)
+    appointment3 = Appointment(
+        title='Banyo Tesisatı Tamiri',
+        description='Banyo lavabo ve duş tesisatı onarımı',
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['mehmet@test.com'].id,
+        type=AppointmentType.WORK,
+        status=AppointmentStatus.PENDING,
+        start_time=datetime.now() + timedelta(days=3, hours=14),
+        end_time=datetime.now() + timedelta(days=3, hours=16),
+        location='Şişli, İstanbul',
+        notes='Acil tesisat tamiri gerekli',
+        created_at=datetime.now() - timedelta(hours=12)
+    )
+    db.session.add(appointment3)
+    
+    # Appointment 4: Kemal ile boyama konsültasyonu (5 gün sonra)
+    appointment4 = Appointment(
+        title='Ev Boyama Konsültasyonu',
+        description='Ev boyama için renk seçimi ve keşif',
+        customer_id=created_users['customer@test.com'].id,
+        craftsman_id=created_users['kemal@test.com'].id,
+        type=AppointmentType.CONSULTATION,
+        status=AppointmentStatus.CONFIRMED,
+        start_time=datetime.now() + timedelta(days=5, hours=15),
+        end_time=datetime.now() + timedelta(days=5, hours=16),
+        location='Kadıköy, İstanbul',
+        notes='3+1 daire, tüm odalar boyanacak',
+        created_at=datetime.now() - timedelta(days=3)
+    )
+    db.session.add(appointment4)
+    
+    # Appointment 5: Geçmiş tamamlanmış randevu
+    appointment5 = Appointment(
+        title='Elektrik Arıza Tamiri',
+        description='Sigortalar atıyor, genel kontrol yapıldı',
+        customer_id=created_users['musteri@test.com'].id,
+        craftsman_id=created_users['ahmet@test.com'].id,
+        type=AppointmentType.WORK,
+        status=AppointmentStatus.COMPLETED,
+        start_time=datetime.now() - timedelta(days=5, hours=-10),
+        end_time=datetime.now() - timedelta(days=5, hours=-8),
+        location='Beşiktaş, İstanbul',
+        notes='Sorun çözüldü, yeni sigorta takıldı',
+        created_at=datetime.now() - timedelta(days=7)
+    )
+    db.session.add(appointment5)
+    
+    # Appointment 6: İptal edilmiş randevu
+    appointment6 = Appointment(
+        title='Ofis Temizliği',
+        description='Aylık ofis temizliği',
+        customer_id=created_users['ali@test.com'].id,
+        craftsman_id=created_users['fatma@test.com'].id,
+        type=AppointmentType.WORK,
+        status=AppointmentStatus.CANCELLED,
+        start_time=datetime.now() + timedelta(days=7, hours=8),
+        end_time=datetime.now() + timedelta(days=7, hours=12),
+        location='Şişli, İstanbul',
+        notes='Müşteri iptal etti',
+        created_at=datetime.now() - timedelta(days=1)
+    )
+    db.session.add(appointment6)
+    
+    db.session.commit()
+    print("Sample appointments created.")
     
     # Update craftsman review statistics
     print("Updating craftsman review statistics...")
