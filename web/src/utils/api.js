@@ -478,6 +478,109 @@ export const api = {
   unsubscribeFromTopic: (topic) =>
     apiClient.post('/api/notifications/enhanced/topics/unsubscribe', { topic }, { requiresAuth: true }),
 
+  // Analytics Dashboard methods
+  getAnalyticsDashboard: (params = {}) =>
+    apiClient.get('/api/analytics-dashboard/dashboard', { 
+      requiresAuth: true,
+      params 
+    }),
+
+  getCraftsmanOverview: (craftsmanId, days = 30) =>
+    apiClient.get(`/api/analytics-dashboard/craftsman/${craftsmanId}/overview`, { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getCustomerHistory: (customerId, days = 30) =>
+    apiClient.get(`/api/analytics-dashboard/customer/${customerId}/history`, { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getPlatformTrends: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/trends/platform', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getCategoryTrends: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/trends/categories', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getGeographicTrends: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/trends/geographic', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  generateCustomReport: (reportData) =>
+    apiClient.post('/api/analytics-dashboard/reports/custom', reportData, { requiresAuth: true }),
+
+  getCraftsmanReport: (craftsmanId, startDate, endDate) =>
+    apiClient.get(`/api/analytics-dashboard/reports/craftsman/${craftsmanId}`, { 
+      requiresAuth: true,
+      params: { start_date: startDate, end_date: endDate }
+    }),
+
+  getCustomerReport: (customerId, startDate, endDate) =>
+    apiClient.get(`/api/analytics-dashboard/reports/customer/${customerId}`, { 
+      requiresAuth: true,
+      params: { start_date: startDate, end_date: endDate }
+    }),
+
+  calculateJobCost: (costData) =>
+    apiClient.post('/api/analytics-dashboard/cost-calculator', costData, { requiresAuth: true }),
+
+  getMarketComparison: (comparisonData) =>
+    apiClient.post('/api/analytics-dashboard/cost-calculator/market-comparison', comparisonData, { requiresAuth: true }),
+
+  getPricingRecommendations: (craftsmanId, category) =>
+    apiClient.get(`/api/analytics-dashboard/cost-calculator/pricing-recommendations/${craftsmanId}`, { 
+      requiresAuth: true,
+      params: { category }
+    }),
+
+  getConversionFunnel: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/business/conversion-funnel', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getRevenueAnalytics: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/business/revenue', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getEngagementMetrics: (days = 30) =>
+    apiClient.get('/api/analytics-dashboard/business/engagement', { 
+      requiresAuth: true,
+      params: { days }
+    }),
+
+  getRecentActivity: (limit = 20) =>
+    apiClient.get('/api/analytics-dashboard/activity/recent', { 
+      requiresAuth: true,
+      params: { limit }
+    }),
+
+  getAnalyticsDashboardConstants: () =>
+    apiClient.get('/api/analytics-dashboard/constants'),
+
+  comparePerformance: (days = 30, category = null) =>
+    apiClient.get('/api/analytics-dashboard/performance/compare', { 
+      requiresAuth: true,
+      params: { days, category }
+    }),
+
+  exportDashboard: (exportData) =>
+    apiClient.post('/api/analytics-dashboard/export/dashboard', exportData, { requiresAuth: true }),
+
+  getRealtimeMetrics: () =>
+    apiClient.get('/api/analytics-dashboard/realtime/metrics', { requiresAuth: true }),
+
   // Track API call performance
   _trackApiCall(endpoint, method, statusCode, duration) {
     try {
