@@ -168,7 +168,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     if (calendarState.error != null) {
       return Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -176,19 +176,23 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             children: [
               Icon(
                 Icons.error_outline,
-                size: 64,
+                size: 48,
                 color: Colors.grey[400],
               ),
-              const SizedBox(height: 16),
-              Text(
-                calendarState.error!,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
+              const SizedBox(height: 12),
+              Flexible(
+                child: Text(
+                  calendarState.error!,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               CustomButton(
                 text: 'Tekrar Dene',
                 onPressed: () {
