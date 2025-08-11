@@ -434,6 +434,7 @@ class WelcomeScreen extends ConsumerWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }

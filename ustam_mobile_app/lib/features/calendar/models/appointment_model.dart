@@ -180,6 +180,8 @@ class Appointment {
         return 'Görüşme';
       case AppointmentType.work:
         return 'İş';
+      case AppointmentType.service:
+        return 'Hizmet';
       case AppointmentType.followUp:
         return 'Takip';
       case AppointmentType.emergency:
@@ -193,6 +195,8 @@ class Appointment {
         return Icons.chat;
       case AppointmentType.work:
         return Icons.build;
+      case AppointmentType.service:
+        return Icons.room_service;
       case AppointmentType.followUp:
         return Icons.follow_the_signs;
       case AppointmentType.emergency:
