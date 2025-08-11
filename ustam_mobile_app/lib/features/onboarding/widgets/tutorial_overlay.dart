@@ -4,6 +4,69 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/theme/app_colors.dart';
 
+// Custom painter for highlighting tutorial targets
+class HighlightPainter extends CustomPainter {
+  final GlobalKey targetKey;
+  final Color glowColor;
+
+  HighlightPainter({
+    required this.targetKey,
+    required this.glowColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final RenderBox? renderBox = targetKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+
+    final targetPosition = renderBox.localToGlobal(Offset.zero);
+    final targetSize = renderBox.size;
+
+    // Create hole in the overlay
+    final paint = Paint()
+      ..color = Colors.transparent
+      ..blendMode = BlendMode.clear;
+
+    // Draw glow effect
+    final glowPaint = Paint()
+      ..color = glowColor.withOpacity(0.3)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15);
+
+    // Draw multiple glow layers for better effect
+    for (int i = 0; i < 3; i++) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(
+            targetPosition.dx - (10 + i * 5),
+            targetPosition.dy - (10 + i * 5),
+            targetSize.width + (20 + i * 10),
+            targetSize.height + (20 + i * 10),
+          ),
+          Radius.circular(12 + i * 4),
+        ),
+        glowPaint,
+      );
+    }
+
+    // Clear the target area (punch hole)
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(
+          targetPosition.dx,
+          targetPosition.dy,
+          targetSize.width,
+          targetSize.height,
+        ),
+        const Radius.circular(8),
+      ),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
 class TutorialStep {
   final String id;
   final String title;
@@ -138,7 +201,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
 
     return Positioned.fill(
       child: Container(
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black.withOpacity(0.85),
         child: Stack(
           children: [
             // Highlight target if exists
@@ -159,13 +222,24 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          borderRadius: BorderRadius.circular(16),
+                          color: AppColors.cardBackground,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: AppColors.primary.withOpacity(0.3),
+                            width: 2,
+                          ),
                           boxShadow: [
+                            // Main shadow
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
+                              color: Colors.black.withOpacity(0.3),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                            // Glow effect
+                            BoxShadow(
+                              color: AppColors.primary.withOpacity(0.2),
+                              blurRadius: 30,
+                              spreadRadius: 5,
                             ),
                           ],
                         ),
@@ -296,24 +370,70 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   }
 
   Widget _buildTargetHighlight(String targetKey) {
+    // Find the target widget by key
+    final targetContext = _findTargetContext(targetKey);
+    if (targetContext == null) return const SizedBox.shrink();
+
+    final RenderBox renderBox = targetContext.findRenderObject() as RenderBox;
+    final targetPosition = renderBox.localToGlobal(Offset.zero);
+    final targetSize = renderBox.size;
+
     return Positioned(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.primary,
-            width: 3,
-          ),
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primary.withOpacity(0.3),
-              blurRadius: 10,
-              spreadRadius: 2,
+      left: targetPosition.dx - 8,
+      top: targetPosition.dy - 8,
+      child: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return Container(
+            width: targetSize.width + 16,
+            height: targetSize.height + 16,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.primary.withOpacity(_fadeAnimation.value),
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                // Main glow
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.4 * _fadeAnimation.value),
+                  blurRadius: 20,
+                  spreadRadius: 4,
+                ),
+                // Inner glow
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.6 * _fadeAnimation.value),
+                  blurRadius: 10,
+                  spreadRadius: 2,
+                ),
+                // Outer glow
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.2 * _fadeAnimation.value),
+                  blurRadius: 30,
+                  spreadRadius: 8,
+                ),
+              ],
             ),
-          ],
-        ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: AppColors.textWhite.withOpacity(0.8 * _fadeAnimation.value),
+                  width: 2,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  BuildContext? _findTargetContext(String targetKey) {
+    // This is a simplified implementation
+    // In a real app, you'd maintain a registry of keys
+    return null; // For now, we'll enhance this later
   }
 
   @override
@@ -464,6 +584,7 @@ class TutorialManager extends ConsumerWidget {
                       : 'Hoş geldiniz! Artık teklif almaya başlayabilirsiniz.',
                 ),
                 backgroundColor: AppColors.success,
+                duration: const Duration(seconds: 3),
               ),
             );
           },
