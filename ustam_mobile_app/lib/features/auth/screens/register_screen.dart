@@ -29,8 +29,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
@@ -218,7 +216,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // First Name
                   CustomTextField(
                     controller: _firstNameController,
-                    labelText: 'first_name'.tr(locale),
+                    label: 'first_name'.tr(locale),
                     prefixIcon: Icons.person_outline,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -233,7 +231,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Last Name
                   CustomTextField(
                     controller: _lastNameController,
-                    labelText: 'last_name'.tr(locale),
+                    label: 'last_name'.tr(locale),
                     prefixIcon: Icons.person_outline,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -248,9 +246,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Email
                   CustomTextField(
                     controller: _emailController,
-                    labelText: 'email'.tr(locale),
+                    label: 'email'.tr(locale),
                     prefixIcon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
+                    type: TextFieldType.email,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'email'.tr(locale) + ' gerekli';
@@ -267,9 +265,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Phone
                   CustomTextField(
                     controller: _phoneController,
-                    labelText: 'phone'.tr(locale),
+                    label: 'phone'.tr(locale),
                     prefixIcon: Icons.phone_outlined,
-                    keyboardType: TextInputType.phone,
+                    type: TextFieldType.phone,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'phone'.tr(locale) + ' gerekli';
@@ -283,20 +281,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Password
                   CustomTextField(
                     controller: _passwordController,
-                    labelText: 'password'.tr(locale),
+                    label: 'password'.tr(locale),
                     prefixIcon: Icons.lock_outline,
-                    obscureText: _obscurePassword,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                        color: AppColors.textWhite.withOpacity(0.7),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    ),
+                    type: TextFieldType.password,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'password'.tr(locale) + ' gerekli';
@@ -313,20 +300,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Confirm Password
                   CustomTextField(
                     controller: _confirmPasswordController,
-                    labelText: 'confirm_password'.tr(locale),
+                    label: 'confirm_password'.tr(locale),
                     prefixIcon: Icons.lock_outline,
-                    obscureText: _obscureConfirmPassword,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
-                        color: AppColors.textWhite.withOpacity(0.7),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureConfirmPassword = !_obscureConfirmPassword;
-                        });
-                      },
-                    ),
+                    type: TextFieldType.password,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'confirm_password'.tr(locale) + ' gerekli';

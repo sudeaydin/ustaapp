@@ -143,6 +143,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String firstName,
     required String lastName,
     required String email,
+    required String phone,
     required String password,
     required String userType,
   }) async {
@@ -156,6 +157,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final user = {
         'id': DateTime.now().millisecondsSinceEpoch,
         'email': email,
+        'phone': phone,
         'user_type': userType,
         'first_name': firstName,
         'last_name': lastName,
