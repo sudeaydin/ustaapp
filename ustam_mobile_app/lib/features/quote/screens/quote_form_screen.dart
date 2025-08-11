@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
+import '../../../core/widgets/widgets.dart';
 
 class QuoteFormScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> craftsman;
@@ -61,21 +62,9 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Teklif Al',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'Teklif Al',
+        type: AppBarType.standard,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -254,31 +243,13 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 const SizedBox(height: 32),
                 
                 // Submit Button
-                Container(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _submitQuote,
-                    style: AppColors.getPrimaryButtonStyle().copyWith(
-                      minimumSize: MaterialStateProperty.all(const Size(double.infinity, 56)),
-                    ),
-                    child: _isLoading
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        : const Text(
-                            'Teklif Gönder',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                  ),
+                CustomButton(
+                  text: 'Teklif Gönder',
+                  onPressed: _submitQuote,
+                  type: ButtonType.primary,
+                  size: ButtonSize.large,
+                  isFullWidth: true,
+                  isLoading: _isLoading,
                 ),
               ],
             ),

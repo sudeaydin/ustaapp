@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/widgets.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String userType;
@@ -246,23 +247,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),
-                    child: ElevatedButton(
+                    child: CustomButton(
+                      text: 'Giriş Yap',
                       onPressed: _handleLogin,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: const Text(
-                        'Giriş Yap',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textWhite,
-                        ),
-                      ),
+                      type: ButtonType.primary,
+                      size: ButtonSize.large,
+                      isFullWidth: true,
+                      isLoading: _isLoading,
                     ),
                   ),
                   
