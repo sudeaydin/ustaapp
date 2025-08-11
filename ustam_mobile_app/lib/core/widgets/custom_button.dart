@@ -73,36 +73,36 @@ class CustomButton extends StatelessWidget {
 
   Widget _buildButton(bool isEnabled) {
     switch (type) {
-              case ButtonType.primary:
-          return ElevatedButton(
-            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
-            style: _getPrimaryStyle(),
-            child: _buildButtonContent(),
-          );
-        case ButtonType.secondary:
-          return ElevatedButton(
-            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
-            style: _getSecondaryStyle(),
-            child: _buildButtonContent(),
-          );
-        case ButtonType.danger:
-          return ElevatedButton(
-            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
-            style: _getDangerStyle(),
-            child: _buildButtonContent(),
-          );
-        case ButtonType.outlined:
-          return OutlinedButton(
-            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
-            style: _getOutlinedStyle(),
-            child: _buildButtonContent(),
-          );
-        case ButtonType.text:
-          return TextButton(
-            onPressed: isEnabled ? () {} : null, // HoverButton handles the actual onPressed
-            style: _getTextButtonStyle(),
-            child: _buildButtonContent(),
-          );
+      case ButtonType.primary:
+        return ElevatedButton(
+          onPressed: null, // HoverButton handles the actual onPressed
+          style: _getPrimaryStyle(),
+          child: _buildButtonContent(),
+        );
+      case ButtonType.secondary:
+        return ElevatedButton(
+          onPressed: null, // HoverButton handles the actual onPressed
+          style: _getSecondaryStyle(),
+          child: _buildButtonContent(),
+        );
+      case ButtonType.danger:
+        return ElevatedButton(
+          onPressed: null, // HoverButton handles the actual onPressed
+          style: _getDangerStyle(),
+          child: _buildButtonContent(),
+        );
+      case ButtonType.outlined:
+        return OutlinedButton(
+          onPressed: null, // HoverButton handles the actual onPressed
+          style: _getOutlinedStyle(),
+          child: _buildButtonContent(),
+        );
+      case ButtonType.text:
+        return TextButton(
+          onPressed: null, // HoverButton handles the actual onPressed
+          style: _getTextButtonStyle(),
+          child: _buildButtonContent(),
+        );
     }
   }
 

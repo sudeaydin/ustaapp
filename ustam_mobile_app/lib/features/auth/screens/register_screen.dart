@@ -136,6 +136,39 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     }
   }
 
+  Widget _buildRegisterButton(Locale locale) {
+    return InkWell(
+      onTap: _isLoading ? null : () {
+        print('🔥 Register button tapped!'); // Debug print
+        _handleRegister();
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        height: 56,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(AppColors.primaryGradient),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: _isLoading
+              ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                  strokeWidth: 2,
+                )
+              : Text(
+                  'register'.tr(locale),
+                  style: const TextStyle(
+                    color: AppColors.textWhite,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
@@ -505,14 +538,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),
-                    child: CustomButton(
-                      text: 'register'.tr(locale),
-                      onPressed: _handleRegister,
-                      type: ButtonType.primary,
-                      size: ButtonSize.large,
-                      isFullWidth: true,
-                      isLoading: _isLoading,
-                    ),
+                    child: _buildRegisterButton(locale),
                   ),
                   
                   const SizedBox(height: 24),

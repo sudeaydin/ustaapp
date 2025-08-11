@@ -253,21 +253,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   
                   // Login Button
                   Container(
-                    width: double.infinity,
-                    height: 56,
                     decoration: BoxDecoration(
-                      gradient: AppColors.getGradient(AppColors.primaryGradient),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),
-                    child: CustomButton(
-                      text: 'login'.tr(locale),
-                      onPressed: _handleLogin,
-                      type: ButtonType.primary,
-                      size: ButtonSize.large,
-                      isFullWidth: true,
-                      isLoading: _isLoading,
-                    ),
+                    child: _buildLoginButton(locale),
                   ),
                   
                   const SizedBox(height: 16),
@@ -308,15 +298,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),
-                    child: CustomButton(
-                      text: 'Google ile Giriş Yap',
-                      onPressed: () => _handleGoogleSignIn(),
-                      type: ButtonType.outlined,
-                      size: ButtonSize.large,
-                      isFullWidth: true,
-                      isLoading: _isLoading,
-                      icon: const Icon(Icons.g_mobiledata, size: 24),
-                    ),
+                    child: _buildGoogleSignInButton(),
                   ),
                   
                   const SizedBox(height: 24),
@@ -411,7 +393,136 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
+  Widget _buildLoginButton(Locale locale) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: _isLoading ? null : () {
+        print('🔥 Login button tapped!'); // Debug print
+        _handleLogin();
+      },
+      child: Container(
+        height: 56,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(AppColors.primaryGradient),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [AppColors.getElevatedShadow()],
+        ),
+        child: Center(
+          child: _isLoading 
+              ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                  strokeWidth: 2,
+                )
+              : Text(
+                  'login'.tr(locale),
+                  style: const TextStyle(
+                    color: AppColors.textWhite,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoogleSignInButton() {
+    return Container(
+      height: 56,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey[300]!, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: _isLoading ? null : () {
+            print('🔥 Google button tapped!'); // Debug print
+            _handleGoogleSignIn();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Google "G" logo with official colors
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF4285F4), // Google Blue
+                        Color(0xFFEA4335), // Google Red
+                        Color(0xFFFBBC05), // Google Yellow
+                        Color(0xFF34A853), // Google Green
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'G',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  _isLoading ? 'Google ile giriş yapılıyor...' : 'Google ile Giriş Yap',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black87,
+                    letterSpacing: 0.25,
+                  ),
+                ),
+                if (_isLoading) ...[
+                  const SizedBox(width: 12),
+                  const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4285F4)),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoogleLogo() {
+    return CustomPaint(
+      size: const Size(24, 24),
+      painter: GoogleLogoPainter(),
+    );
+  }
+
   void _handleLogin() async {
+    print('🔥 _handleLogin called!'); // Debug print
+    
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
@@ -490,10 +601,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           });
         }
       }
+    } else {
+      print('🚨 Form validation failed!'); // Debug print
     }
   }
 
   Future<void> _handleGoogleSignIn() async {
+    print('🔥 _handleGoogleSignIn called!'); // Debug print
+    
     setState(() {
       _isLoading = true;
     });
