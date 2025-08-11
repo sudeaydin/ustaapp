@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../core/providers/language_provider.dart';
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(languageProvider);
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          const SimpleLanguageSelector(),
+          const SimpleThemeToggle(),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: AppColors.getGradient(
@@ -210,7 +224,7 @@ class WelcomeScreen extends ConsumerWidget {
                             ),
                             const SizedBox(width: 16),
                             Text(
-                              'Müşteri Girişi',
+                              '${'customer'.tr(locale)} ${'login'.tr(locale)}',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -262,8 +276,8 @@ class WelcomeScreen extends ConsumerWidget {
                             ),
                             const SizedBox(width: 16),
                             Text(
-                              'Usta Girişi',
-                              style: TextStyle(
+                              '${'craftsman'.tr(locale)} ${'login'.tr(locale)}',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textWhite,

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'core/providers/app_providers.dart';
+import 'core/providers/theme_provider.dart';
+import 'core/providers/language_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/config/app_config.dart';
 import 'core/services/analytics_service.dart';
@@ -11,6 +13,7 @@ import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/auth/screens/welcome_screen.dart';
 import 'features/auth/screens/login_screen.dart';
+import 'features/auth/screens/register_screen.dart';
 import 'features/dashboard/screens/customer_dashboard.dart';
 import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
@@ -55,16 +58,24 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+    final locale = ref.watch(languageProvider);
+
     return MaterialApp(
       title: AppConfig.appName,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: themeMode,
+      locale: locale,
+      supportedLocales: const [
+        Locale('tr', 'TR'),
+        Locale('en', 'US'),
+      ],
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
@@ -72,6 +83,11 @@ class MyApp extends StatelessWidget {
         '/welcome': (context) => const WelcomeScreen(),
         '/login': (context) => const LoginScreen(userType: 'customer'),
         '/login-craftsman': (context) => const LoginScreen(userType: 'craftsman'),
+        '/register': (context) {
+          final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
+          return RegisterScreen(userType: userType);
+        },
+        '/register-craftsman': (context) => const RegisterScreen(userType: 'craftsman'),
         '/customer-dashboard': (context) => const CustomerDashboard(),
         '/craftsman-dashboard': (context) => const CraftsmanDashboard(),
         '/search': (context) => const SearchScreen(),

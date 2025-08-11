@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
 import '../providers/auth_provider.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../core/providers/language_provider.dart';
+import '../../../core/services/analytics_service.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
-  const RegisterScreen({super.key});
+  final String userType;
+  
+  const RegisterScreen({
+    super.key,
+    required this.userType,
+  });
 
   @override
   ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
@@ -16,18 +25,19 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+  bool _isLoading = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  String _selectedUserType = 'customer';
 
   @override
   void dispose() {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailController.dispose();
+    _phoneController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -36,315 +46,363 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Future<void> _handleRegister() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final success = await ref.read(authProvider.notifier).register(
-      firstName: _firstNameController.text.trim(),
-      lastName: _lastNameController.text.trim(),
-      email: _emailController.text.trim(),
-      password: _passwordController.text,
-      userType: _selectedUserType,
-    );
+    setState(() {
+      _isLoading = true;
+    });
 
-    if (success && mounted) {
-      context.go('/home');
+    try {
+      // Track registration attempt
+      await AnalyticsService.getInstance().trackBusinessEvent('registration_attempt', {
+        'user_type': widget.userType,
+      });
+
+      final authNotifier = ref.read(authProvider.notifier);
+      final success = await authNotifier.register(
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        email: _emailController.text,
+        phone: _phoneController.text,
+        password: _passwordController.text,
+        userType: widget.userType,
+      );
+
+      if (success && mounted) {
+        // Track successful registration
+        await AnalyticsService.getInstance().trackBusinessEvent('registration_success', {
+          'user_type': widget.userType,
+        });
+
+        // Navigate to appropriate dashboard
+        final route = widget.userType == 'customer' 
+            ? '/customer-dashboard' 
+            : '/craftsman-dashboard';
+        
+        Navigator.pushReplacementNamed(context, route);
+      }
+    } catch (e) {
+      // Track registration failure
+      await AnalyticsService.getInstance().trackBusinessEvent('registration_failure', {
+        'user_type': widget.userType,
+        'error': e.toString(),
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Registration failed: $e'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
+    final locale = ref.watch(languageProvider);
+
+    if (authState?.isAuthenticated == true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final route = widget.userType == 'customer' 
+            ? '/customer-dashboard' 
+            : '/craftsman-dashboard';
+        Navigator.pushReplacementNamed(context, route);
+      });
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
-      backgroundColor: AppColors.cardBackground,
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        title: const Text('Hesap Oluştur'),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.textWhite),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          const SimpleLanguageSelector(),
+          const SimpleThemeToggle(),
+          const SizedBox(width: 8),
+        ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.person_add,
-                        size: 30,
-                        color: AppColors.cardBackground,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Yeni Hesap Oluştur',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'ustam ailesine katılın',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Colors.grey[600],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: AppColors.getGradient(
+            AppColors.primaryGradient,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  
+                  // Header
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.textWhite.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: AppColors.textWhite.withOpacity(0.3),
+                        width: 1,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // Register Form
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    // User Type Selection
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        children: [
-                          RadioListTile<String>(
-                            title: const Text('Müşteri'),
-                            subtitle: const Text('İş talebi oluşturmak istiyorum'),
-                            value: 'customer',
-                            groupValue: _selectedUserType,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedUserType = value!;
-                              });
-                            },
-                          ),
-                          const Divider(height: 1),
-                          RadioListTile<String>(
-                            title: const Text('Usta'),
-                            subtitle: const Text('Hizmet vermek istiyorum'),
-                            value: 'craftsman',
-                            groupValue: _selectedUserType,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedUserType = value!;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    
-                    const SizedBox(height: 24),
-                    
-                    // Name Fields
-                    Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _firstNameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Ad',
-                              prefixIcon: Icon(Icons.person_outlined),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: AppColors.textWhite.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                widget.userType == 'customer' ? Icons.person : Icons.build,
+                                color: AppColors.textWhite,
+                                size: 24,
+                              ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Ad gerekli';
-                              }
-                              if (value.length < 2) {
-                                return 'En az 2 karakter';
-                              }
-                              return null;
-                            },
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'register_title'.tr(locale),
+                                    style: const TextStyle(
+                                      color: AppColors.textWhite,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    widget.userType == 'customer' ? 'customer'.tr(locale) : 'craftsman'.tr(locale),
+                                    style: const TextStyle(
+                                      color: AppColors.textWhite,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 32),
+                  
+                  // Form Fields
+                  // First Name
+                  CustomTextField(
+                    controller: _firstNameController,
+                    labelText: 'first_name'.tr(locale),
+                    prefixIcon: Icons.person_outline,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'first_name'.tr(locale) + ' gerekli';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Last Name
+                  CustomTextField(
+                    controller: _lastNameController,
+                    labelText: 'last_name'.tr(locale),
+                    prefixIcon: Icons.person_outline,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'last_name'.tr(locale) + ' gerekli';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Email
+                  CustomTextField(
+                    controller: _emailController,
+                    labelText: 'email'.tr(locale),
+                    prefixIcon: Icons.email_outlined,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'email'.tr(locale) + ' gerekli';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                        return 'Geçerli bir e-posta adresi girin';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Phone
+                  CustomTextField(
+                    controller: _phoneController,
+                    labelText: 'phone'.tr(locale),
+                    prefixIcon: Icons.phone_outlined,
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'phone'.tr(locale) + ' gerekli';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Password
+                  CustomTextField(
+                    controller: _passwordController,
+                    labelText: 'password'.tr(locale),
+                    prefixIcon: Icons.lock_outline,
+                    obscureText: _obscurePassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                        color: AppColors.textWhite.withOpacity(0.7),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'password'.tr(locale) + ' gerekli';
+                      }
+                      if (value.length < 6) {
+                        return 'Şifre en az 6 karakter olmalı';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Confirm Password
+                  CustomTextField(
+                    controller: _confirmPasswordController,
+                    labelText: 'confirm_password'.tr(locale),
+                    prefixIcon: Icons.lock_outline,
+                    obscureText: _obscureConfirmPassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                        color: AppColors.textWhite.withOpacity(0.7),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'confirm_password'.tr(locale) + ' gerekli';
+                      }
+                      if (value != _passwordController.text) {
+                        return 'Şifreler eşleşmiyor';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                  const SizedBox(height: 32),
+                  
+                  // Register Button
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [AppColors.getElevatedShadow()],
+                    ),
+                    child: CustomButton(
+                      text: 'register'.tr(locale),
+                      onPressed: _handleRegister,
+                      type: ButtonType.primary,
+                      size: ButtonSize.large,
+                      isFullWidth: true,
+                      isLoading: _isLoading,
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // Login Link
+                  Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          'already_have_account'.tr(locale),
+                          style: const TextStyle(
+                            color: AppColors.textWhite,
+                            fontSize: 14,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: TextFormField(
-                            controller: _lastNameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Soyad',
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.textWhite.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: AppColors.textWhite.withOpacity(0.3),
+                              width: 1,
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Soyad gerekli';
-                              }
-                              if (value.length < 2) {
-                                return 'En az 2 karakter';
-                              }
-                              return null;
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
                             },
+                            child: Text(
+                              'login'.tr(locale),
+                              style: const TextStyle(
+                                color: AppColors.textWhite,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Email Field
-                    TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        labelText: 'E-posta',
-                        prefixIcon: Icon(Icons.email_outlined),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'E-posta gerekli';
-                        }
-                        if (!value.contains('@')) {
-                          return 'Geçerli bir e-posta girin';
-                        }
-                        return null;
-                      },
-                    ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Password Field
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Şifre',
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Şifre gerekli';
-                        }
-                        if (value.length < 6) {
-                          return 'Şifre en az 6 karakter olmalı';
-                        }
-                        return null;
-                      },
-                    ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Confirm Password Field
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: _obscureConfirmPassword,
-                      decoration: InputDecoration(
-                        labelText: 'Şifre Tekrar',
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureConfirmPassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Şifre tekrarı gerekli';
-                        }
-                        if (value != _passwordController.text) {
-                          return 'Şifreler eşleşmiyor';
-                        }
-                        return null;
-                      },
-                    ),
-                    
-                    const SizedBox(height: 24),
-                    
-                    // Error Message
-                    if (authState.error != null)
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: AppColors.error.shade50,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.error.shade200),
-                        ),
-                        child: Text(
-                          authState.error!,
-                          style: TextStyle(
-                            color: AppColors.error.shade700,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    
-                    // Register Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: authState.isLoading ? null : _handleRegister,
-                        child: authState.isLoading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                ),
-                              )
-                            : const Text('Hesap Oluştur'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              
-              const SizedBox(height: 24),
-              
-              // Terms and Conditions
-              Text(
-                'Hesap oluşturarak Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursunuz.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // Login Link
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Zaten hesabınız var mı? ',
-                    style: TextStyle(color: Colors.grey[600]),
                   ),
-                  TextButton(
-                    onPressed: () => context.go('/login'),
-                    child: const Text('Giriş Yapın'),
-                  ),
+                  
+                  const SizedBox(height: 32),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/theme_toggle.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -77,8 +80,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
     }
 
+    final locale = ref.watch(languageProvider);
+
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          const SimpleLanguageSelector(),
+          const SimpleThemeToggle(),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: AppColors.getGradient(
@@ -249,7 +263,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       boxShadow: [AppColors.getElevatedShadow()],
                     ),
                     child: CustomButton(
-                      text: 'Giriş Yap',
+                      text: 'login'.tr(locale),
                       onPressed: _handleLogin,
                       type: ButtonType.primary,
                       size: ButtonSize.large,
@@ -264,9 +278,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Center(
                     child: Column(
                       children: [
-                        const Text(
-                          'Hesabınız yok mu?',
-                          style: TextStyle(
+                        Text(
+                          'dont_have_account'.tr(locale),
+                          style: const TextStyle(
                             color: AppColors.textWhite,
                             fontSize: 14,
                           ),
@@ -290,9 +304,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 arguments: widget.userType,
                               );
                             },
-                            child: const Text(
-                              'Kayıt Ol',
-                              style: TextStyle(
+                            child: Text(
+                              'register'.tr(locale),
+                              style: const TextStyle(
                                 color: AppColors.textWhite,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
