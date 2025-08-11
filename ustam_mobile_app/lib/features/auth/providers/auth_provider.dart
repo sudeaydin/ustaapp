@@ -5,12 +5,7 @@ import 'dart:convert';
 import '../../../core/config/app_config.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/utils/error_handler.dart';
-
-// SharedPreferences provider
-final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-  // This will be overridden in main.dart with actual SharedPreferences instance
-  throw UnimplementedError('SharedPreferences not initialized');
-});
+import '../../../core/providers/app_providers.dart';
 
 // Auth state model
 class AuthState {
