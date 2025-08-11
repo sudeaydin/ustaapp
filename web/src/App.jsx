@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { AnalyticsManager } from './utils/analytics';
 import { AccessibilityManager, SkipLink } from './utils/accessibility';
 
@@ -91,9 +92,10 @@ function AccessibilityInitializer() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <AuthProvider>
-          <NotificationProvider>
+      <ThemeProvider>
+        <Router>
+          <AuthProvider>
+            <NotificationProvider>
             <ErrorBoundary>
               <AnalyticsTracker />
               <AccessibilityInitializer />
@@ -157,9 +159,10 @@ function App() {
                 <MobileNavigation />
               </div>
             </ErrorBoundary>
-          </NotificationProvider>
-        </AuthProvider>
-      </Router>
+            </NotificationProvider>
+          </AuthProvider>
+        </Router>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

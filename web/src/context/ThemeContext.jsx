@@ -11,61 +11,34 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    // Check localStorage first
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage first, then system preference
     const saved = localStorage.getItem('darkMode');
     if (saved !== null) {
       return JSON.parse(saved);
     }
-    
-    // Check system preference
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    
-    return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   useEffect(() => {
-    // Save to localStorage
-    localStorage.setItem('darkMode', JSON.stringify(isDark));
+    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
     
-    // Apply to document
-    if (isDark) {
+    // Update document class for Tailwind dark mode
+    if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDark]);
+  }, [isDarkMode]);
 
-  useEffect(() => {
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
-      // Only update if user hasn't manually set a preference
-      const saved = localStorage.getItem('darkMode');
-      if (saved === null) {
-        setIsDark(e.matches);
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(prev => !prev);
-  };
-
-  const setTheme = (dark) => {
-    setIsDark(dark);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   const value = {
-    isDark,
-    toggleTheme,
-    setTheme,
-    theme: isDark ? 'dark' : 'light'
+    isDarkMode,
+    toggleDarkMode,
+    theme: isDarkMode ? 'dark' : 'light'
   };
 
   return (
@@ -74,5 +47,3 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-
-export default ThemeContext;
