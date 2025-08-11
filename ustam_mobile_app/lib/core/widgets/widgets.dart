@@ -5,7 +5,6 @@ export 'custom_button.dart';
 export 'custom_card.dart';
 export 'custom_text_field.dart';
 export 'custom_app_bar.dart';
-export 'loading_widget.dart';
 export 'loading_spinner.dart';
 export 'error_message.dart';
 export 'cached_image_widget.dart';

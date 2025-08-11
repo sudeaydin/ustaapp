@@ -5,12 +5,14 @@ class JobCard extends StatelessWidget {
   final Map<String, dynamic> job;
   final String userType;
   final VoidCallback? onTap;
+  final VoidCallback? onUpdate;
 
   const JobCard({
     Key? key,
     required this.job,
     required this.userType,
     this.onTap,
+    this.onUpdate,
   }) : super(key: key);
 
   @override

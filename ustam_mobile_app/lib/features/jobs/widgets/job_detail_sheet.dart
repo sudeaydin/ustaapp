@@ -4,11 +4,13 @@ import '../../../core/theme/app_colors.dart';
 class JobDetailSheet extends StatelessWidget {
   final Map<String, dynamic> job;
   final String userType;
+  final VoidCallback? onUpdate;
 
   const JobDetailSheet({
     Key? key,
     required this.job,
     required this.userType,
+    this.onUpdate,
   }) : super(key: key);
 
   @override

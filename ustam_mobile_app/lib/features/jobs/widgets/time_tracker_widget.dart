@@ -3,10 +3,12 @@ import '../../../core/theme/app_colors.dart';
 
 class TimeTrackerWidget extends StatefulWidget {
   final Map<String, dynamic>? currentJob;
+  final VoidCallback? onUpdate;
 
   const TimeTrackerWidget({
     Key? key,
     this.currentJob,
+    this.onUpdate,
   }) : super(key: key);
 
   @override

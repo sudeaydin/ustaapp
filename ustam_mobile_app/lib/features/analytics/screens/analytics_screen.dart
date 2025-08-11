@@ -46,10 +46,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
 
     try {
       // Track analytics page view
-      context.analytics.trackScreenView('analytics', {
-        'time_range': _selectedTimeRange,
-        'user_type': user.userType,
-      });
+      context.analytics.trackScreenView('analytics');
 
       // Fetch real analytics data
       final response = await ApiService.getInstance().get(
@@ -66,14 +63,14 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
       } else {
         // Fallback to mock data
         setState(() {
-          _analyticsData = _generateMockData(user.userType);
+          _analyticsData = _generateMockData(user.userType ?? 'customer');
           _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
         _error = 'Analitik veriler yüklenirken bir hata oluştu';
-        _analyticsData = _generateMockData(user.userType);
+        _analyticsData = _generateMockData(user.userType ?? 'customer');
         _isLoading = false;
       });
     }
@@ -432,7 +429,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'Haftalık İş Dağılımı',
             type: ChartType.bar,
-            body: List<Map<String, dynamic>>.from(
+            data: List<Map<String, dynamic>>.from(
               charts['jobs_over_time'] ?? [],
             ),
             color: AppColors.primary,
@@ -441,7 +438,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
-            body: List<Map<String, dynamic>>.from(
+            data: List<Map<String, dynamic>>.from(
               charts['job_categories'] ?? [],
             ),
           ),
@@ -449,7 +446,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'Aylık Harcama Trendi',
             type: ChartType.line,
-            body: List<Map<String, dynamic>>.from(
+            data: List<Map<String, dynamic>>.from(
               charts['spending_over_time'] ?? [],
             ),
             color: AppColors.error,
@@ -458,7 +455,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
-            body: List<Map<String, dynamic>>.from(
+            data: List<Map<String, dynamic>>.from(
               charts['jobs_by_category'] ?? [],
             ),
           ),

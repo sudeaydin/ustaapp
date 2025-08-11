@@ -254,8 +254,7 @@ mixin AnalyticsMixin<T extends StatefulWidget> on State<T> {
     _screenTimer.stop();
     _analytics.trackPerformance(
       'screen_duration',
-      _screenTimer.elapsedMilliseconds,
-      {'screen': widget.runtimeType.toString()},
+      _screenTimer.elapsedMilliseconds.toDouble(),
     );
     super.dispose();
   }

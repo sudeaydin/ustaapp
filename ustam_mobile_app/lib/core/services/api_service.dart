@@ -311,7 +311,7 @@ class ApiResponse<T> {
   factory ApiResponse.success(T data, {String? message, int? statusCode}) {
     return ApiResponse<T>(
       success: true,
-      body: data,
+      data: data,
       message: message,
       statusCode: statusCode,
     );
@@ -332,7 +332,7 @@ class ApiResponse<T> {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return ApiResponse<T>.success(
           data as T,
-          message: (data as Map<String, dynamic>?)?.['message'],
+          message: data is Map<String, dynamic> ? data['message'] : null,
           statusCode: response.statusCode,
         );
       } else {
@@ -391,7 +391,7 @@ extension ApiServiceExtensions on ApiService {
   Future<ApiResponse<Map<String, dynamic>>> login(String email, String password) {
     return post<Map<String, dynamic>>(
       ApiEndpoints.login,
-      body: {'email': email, 'password': password},
+      {'email': email, 'password': password},
     );
   }
 
@@ -438,7 +438,7 @@ extension ApiServiceExtensions on ApiService {
 
   // Quote methods
   Future<ApiResponse<Map<String, dynamic>>> createQuoteRequest(Map<String, dynamic> quoteData) {
-    return post<Map<String, dynamic>>(
+    return postWithOptions<Map<String, dynamic>>(
       ApiEndpoints.quoteRequest,
       body: quoteData,
       requiresAuth: true,
@@ -453,7 +453,7 @@ extension ApiServiceExtensions on ApiService {
   }
 
   Future<ApiResponse<Map<String, dynamic>>> recordConsent(String consentType, bool granted, String version) {
-    return post<Map<String, dynamic>>(
+    return postWithOptions<Map<String, dynamic>>(
       '${AppConfig.apiBaseUrl}/legal/consent',
       body: {
         'consent_type': consentType,
@@ -488,7 +488,7 @@ extension ApiServiceExtensions on ApiService {
   Future<ApiResponse<Map<String, dynamic>>> validateAge(DateTime birthDate) {
     return post<Map<String, dynamic>>(
       '${AppConfig.apiBaseUrl}/legal/validate-age',
-      body: {
+      {
         'birth_date': birthDate.toIso8601String(),
       },
     );

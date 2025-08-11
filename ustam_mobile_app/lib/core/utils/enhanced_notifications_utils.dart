@@ -337,8 +337,7 @@ class EnhancedNotificationsService {
   /// Get active location shares
   Future<List<LocationShare>> getLocationShares() async {
     try {
-      final response = await _apiService.postWithOptions(
-        'GET',
+      final response = await _apiService.get(
         '/api/notifications/enhanced/location/shares',
       );
       if (response.success && response.data != null) {
@@ -415,10 +414,9 @@ class EnhancedNotificationsService {
   /// Get notification analytics
   Future<NotificationAnalytics?> getNotificationAnalytics({int days = 30}) async {
     try {
-      final response = await _apiService.postWithOptions(
-        'GET',
+      final response = await _apiService.get(
         '/api/notifications/enhanced/analytics',
-        queryParameters: {'days': days.toString()},
+        params: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return NotificationAnalytics.fromJson(response.data);

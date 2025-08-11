@@ -7,6 +7,8 @@ import 'dart:convert';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/utils/legal_utils.dart';
+import '../../../core/widgets/consent_preferences_sheet.dart';
+import '../../../core/widgets/gdpr_rights_sheet.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});

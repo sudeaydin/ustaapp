@@ -3,11 +3,13 @@ import '../../../core/theme/app_colors.dart';
 
 class WarrantyCard extends StatelessWidget {
   final Map<String, dynamic> warranty;
+  final Map<String, dynamic>? job;
   final String userType;
 
   const WarrantyCard({
     Key? key,
     required this.warranty,
+    this.job,
     required this.userType,
   }) : super(key: key);
 
