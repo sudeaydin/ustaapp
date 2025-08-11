@@ -5,12 +5,14 @@ class WarrantyCard extends StatelessWidget {
   final Map<String, dynamic> warranty;
   final Map<String, dynamic>? job;
   final String userType;
+  final VoidCallback? onUpdate;
 
   const WarrantyCard({
     Key? key,
     required this.warranty,
     this.job,
     required this.userType,
+    this.onUpdate,
   }) : super(key: key);
 
   @override

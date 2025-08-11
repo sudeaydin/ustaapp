@@ -487,7 +487,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> with AccessibilityM
                       },
                     )
                   : _isLoading
-                      ? const LoadingWidget(message: 'Ustalar aranıyor...')
+                      ? const LoadingSpinner(message: 'Ustalar aranıyor...')
                                             : _craftsmen.isEmpty
                           ? const EmptyStateWidget(
                               title: 'Sonuç Bulunamadı',

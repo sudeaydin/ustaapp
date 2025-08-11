@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/job_management_utils.dart';
 
 class JobCard extends StatelessWidget {
-  final Map<String, dynamic> job;
+  final dynamic job; // Can be Map or Job object
   final String userType;
   final VoidCallback? onTap;
   final VoidCallback? onUpdate;
@@ -17,8 +18,9 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = job['status'] ?? 'pending';
-    final priority = job['priority'] ?? 'normal';
+    // Handle both Map and Job object
+    final String status = job is Job ? job.status.name : (job['status'] ?? 'pending');
+    final String priority = job is Job ? job.priority.name : (job['priority'] ?? 'normal');
     
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -34,7 +36,7 @@ class JobCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      job['title'] ?? 'İsimsiz İş',
+                      job is Job ? job.title : (job['title'] ?? 'İsimsiz İş'),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -46,7 +48,7 @@ class JobCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                job['description'] ?? '',
+                job is Job ? (job.description ?? '') : (job['description'] ?? ''),
                 style: TextStyle(
                   color: AppColors.textSecondary,
                   fontSize: 14,
@@ -74,9 +76,9 @@ class JobCard extends StatelessWidget {
                       ),
                     ),
                   const Spacer(),
-                  if (job['budget'] != null)
+                  if ((job is Job ? job.estimatedCost : job['budget']) != null)
                     Text(
-                      '₺${job['budget']}',
+                      '₺${job is Job ? job.estimatedCost : job['budget']}',
                       style: TextStyle(
                         color: AppColors.success,
                         fontSize: 14,

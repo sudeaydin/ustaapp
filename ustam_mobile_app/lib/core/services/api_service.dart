@@ -472,14 +472,14 @@ extension ApiServiceExtensions on ApiService {
   }
 
   Future<ApiResponse<Map<String, dynamic>>> requestDataExport() {
-    return post<Map<String, dynamic>>(
+    return postWithOptions<Map<String, dynamic>>(
       '${AppConfig.apiBaseUrl}/legal/data-export',
       requiresAuth: true,
     );
   }
 
   Future<ApiResponse<Map<String, dynamic>>> requestAccountDeletion() {
-    return post<Map<String, dynamic>>(
+    return postWithOptions<Map<String, dynamic>>(
       '${AppConfig.apiBaseUrl}/legal/delete-account',
       requiresAuth: true,
     );

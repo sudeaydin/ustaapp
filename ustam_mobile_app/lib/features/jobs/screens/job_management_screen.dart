@@ -72,7 +72,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       final currentTab = _tabController.index;
 
       // Load performance metrics
-      final metricsResponse = await _jobService.getPerformanceMetrics(userType);
+      final metricsResponse = await _jobService.getPerformanceMetrics(userType ?? 'customer');
       _performanceMetrics = metricsResponse;
 
       // Load data based on current tab
@@ -94,7 +94,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           break;
           
         case 2: // Warranties
-          final warranties = await _jobService.getWarranties(userType);
+          final warranties = await _jobService.getWarranties(userType ?? 'customer');
           _warranties = warranties;
           break;
           

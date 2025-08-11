@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/job_management_utils.dart';
 
 class JobDetailSheet extends StatelessWidget {
-  final Map<String, dynamic> job;
+  final dynamic job; // Can be Map or Job object
   final String userType;
   final VoidCallback? onUpdate;
 
@@ -25,7 +26,7 @@ class JobDetailSheet extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  job['title'] ?? 'İş Detayı',
+                  job is Job ? job.title : (job['title'] ?? 'İş Detayı'),
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -39,21 +40,21 @@ class JobDetailSheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Text(
-            job['description'] ?? '',
+                      Text(
+              job is Job ? (job.description ?? '') : (job['description'] ?? ''),
             style: TextStyle(
               color: AppColors.textSecondary,
               fontSize: 16,
             ),
           ),
           const SizedBox(height: 16),
-          if (job['budget'] != null)
+                      if ((job is Job ? job.estimatedCost : job['budget']) != null)
             Row(
               children: [
                 const Icon(Icons.monetization_on, size: 20),
                 const SizedBox(width: 8),
-                Text(
-                  'Bütçe: ₺${job['budget']}',
+                                  Text(
+                    'Bütçe: ₺${job is Job ? job.estimatedCost : job['budget']}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

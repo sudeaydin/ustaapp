@@ -4,11 +4,13 @@ import '../../../core/theme/app_colors.dart';
 class EmergencyServiceCard extends StatelessWidget {
   final Map<String, dynamic>? emergency;
   final VoidCallback? onRequestEmergency;
+  final VoidCallback? onUpdate;
 
   const EmergencyServiceCard({
     Key? key,
     this.emergency,
     this.onRequestEmergency,
+    this.onUpdate,
   }) : super(key: key);
 
   @override

@@ -193,7 +193,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) {
-              trackButtonTap('time_range_changed', {'range': value});
+              AnalyticsService.getInstance().trackEvent('time_range_changed', {'range': value});
               setState(() {
                 _selectedTimeRange = value;
               });

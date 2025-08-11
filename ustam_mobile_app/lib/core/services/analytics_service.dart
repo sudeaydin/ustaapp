@@ -194,6 +194,32 @@ class AnalyticsService {
     ].contains(eventName);
   }
 
+  /// Track error
+  void trackError(String errorName, String errorMessage, [Map<String, dynamic>? properties]) {
+    trackEvent('error', {
+      'error_name': errorName,
+      'error_message': errorMessage,
+      ...?properties,
+    });
+  }
+  
+  /// Track screen view
+  void trackScreenView(String screenName, [Map<String, dynamic>? properties]) {
+    trackEvent('screen_view', {
+      'screen_name': screenName,
+      ...?properties,
+    });
+  }
+  
+  /// Track performance
+  void trackPerformance(String metricName, int value) {
+    trackEvent('performance', {
+      'metric_name': metricName,
+      'value': value,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
+    });
+  }
+
   /// Dispose analytics service
   void dispose() {
     _flushTimer?.cancel();
@@ -254,7 +280,7 @@ mixin AnalyticsMixin<T extends StatefulWidget> on State<T> {
     _screenTimer.stop();
     _analytics.trackPerformance(
       'screen_duration',
-      _screenTimer.elapsedMilliseconds.toDouble(),
+      _screenTimer.elapsedMilliseconds,
     );
     super.dispose();
   }
@@ -295,7 +321,7 @@ mixin AnalyticsMixin<T extends StatefulWidget> on State<T> {
   }
   
   /// Track performance (compatible signature)
-  void trackPerformance(String metricName, double value) {
+  void trackPerformance(String metricName, int value) {
     _analytics.trackBusinessEvent('performance', {
       'metric_name': metricName,
       'value': value,
