@@ -134,7 +134,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 decoration: BoxDecoration(
                   color: AppColors.cardBackground,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [AppColors.getSoftShadow()],
+                  boxShadow: [AppColors.getCardShadow()],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +188,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 decoration: BoxDecoration(
                   color: AppColors.cardBackground,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [AppColors.getSoftShadow()],
+                  boxShadow: [AppColors.getCardShadow()],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

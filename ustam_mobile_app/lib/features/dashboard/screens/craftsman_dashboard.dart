@@ -158,7 +158,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   decoration: BoxDecoration(
                     color: AppColors.cardBackground,
                     borderRadius: BorderRadius.circular(16),
-                    boxShadow: [AppColors.getSoftShadow()],
+                    boxShadow: [AppColors.getCardShadow()],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
