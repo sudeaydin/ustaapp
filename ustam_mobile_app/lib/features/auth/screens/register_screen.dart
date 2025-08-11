@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
-import '../../../core/widgets/accessibility_toggle.dart';
+
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
@@ -164,7 +164,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         ),
         actions: [
           const SimpleLanguageSelector(),
-          const SimpleAccessibilityToggle(),
           const SizedBox(width: 8),
         ],
       ),

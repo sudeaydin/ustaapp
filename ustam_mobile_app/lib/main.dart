@@ -6,7 +6,7 @@ import 'features/auth/providers/auth_provider.dart';
 import 'core/providers/app_providers.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/providers/language_provider.dart';
-import 'core/providers/accessibility_provider.dart';
+
 import 'core/theme/app_theme.dart';
 import 'core/config/app_config.dart';
 import 'core/services/analytics_service.dart';

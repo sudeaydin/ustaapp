@@ -137,9 +137,36 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   ],
                 ),
 
-                const SizedBox(height: 24),
+                                 const SizedBox(height: 24),
 
-                // Recent Quote Requests
+                 // Quick Actions
+                 Row(
+                   children: [
+                     Expanded(
+                       child: _buildQuickActionCard(
+                         'Tekliflerim',
+                         'Teklif taleplerine bak',
+                         Icons.assignment_rounded,
+                         AppColors.primary,
+                         () => Navigator.pushNamed(context, '/craftsman-quotes'),
+                       ),
+                     ),
+                     const SizedBox(width: 12),
+                     Expanded(
+                       child: _buildQuickActionCard(
+                         'İşletme Profili',
+                         'Bilgilerini güncelle',
+                         Icons.business_rounded,
+                         AppColors.info,
+                         () => Navigator.pushNamed(context, '/business-profile'),
+                       ),
+                     ),
+                   ],
+                 ),
+
+                 const SizedBox(height: 24),
+
+                 // Recent Quote Requests
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -248,6 +275,57 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActionCard(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: color.withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 32,
+              color: color,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/accessibility_toggle.dart';
+
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/providers/language_provider.dart';
 
@@ -18,7 +18,6 @@ class WelcomeScreen extends ConsumerWidget {
         elevation: 0,
         actions: [
           const SimpleLanguageSelector(),
-          const SimpleAccessibilityToggle(),
           const SizedBox(width: 8),
         ],
       ),
