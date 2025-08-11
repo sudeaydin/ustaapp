@@ -182,9 +182,15 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
-        final events = List<CalendarEvent>.from(
-          apiResponse.data!['events']?.map((json) => CalendarEvent.fromJson(json)) ?? []
-        );
+        final eventsData = apiResponse.data!['events'] as List<dynamic>? ?? [];
+        final events = eventsData.map((json) {
+          try {
+            return CalendarEvent.fromJson(json as Map<String, dynamic>);
+          } catch (e) {
+            print('Error parsing event: $e');
+            return null;
+          }
+        }).where((event) => event != null).cast<CalendarEvent>().toList();
 
         // Group events by date
         final eventsByDate = <DateTime, List<CalendarEvent>>{};
@@ -205,7 +211,7 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
         );
       } else {
         state = state.copyWith(
-          error: apiResponse.error?.userFriendlyMessage ?? 'Takvim etkinlikleri getirilemedi',
+          error: 'Takvim etkinlikleri getirilemedi',
           isLoading: false,
         );
       }
@@ -218,6 +224,8 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
         errorMessage = 'Backend sunucusu çalışmıyor. Lütfen sunucuyu başlatın.';
       } else if (e.toString().contains('timeout')) {
         errorMessage = 'İstek zaman aşımına uğradı';
+      } else if (e.toString().contains('401')) {
+        errorMessage = 'Oturum süreniz dolmuş, lütfen tekrar giriş yapın';
       }
       
       state = state.copyWith(

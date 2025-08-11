@@ -35,11 +35,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     
-    // Load filter options but don't auto-search
+    // Load filter options and do initial search
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(searchProvider.notifier).loadFilterOptions();
-      // Don't auto-search to avoid immediate errors when backend is down
-      // _performSearch();
+      // Do initial search to show all craftsmen
+      ref.read(searchProvider.notifier).searchCraftsmen();
     });
   }
 
@@ -51,11 +51,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   }
 
   Future<void> _performSearch() async {
-    // Update filters with current search query
-    _filters = _filters.copyWith(query: _searchController.text.trim());
+    // Update search query in provider
+    ref.read(searchProvider.notifier).updateQuery(_searchController.text.trim());
     
-    // Perform search with current filters
-    await ref.read(searchProvider.notifier).searchCraftsmenWithFilters(_filters);
+    // Perform basic search
+    await ref.read(searchProvider.notifier).searchCraftsmen();
   }
 
   void _showFiltersSheet() {

@@ -133,14 +133,20 @@ class SearchNotifier extends StateNotifier<SearchState> {
     state = state.copyWith(showFilters: !state.showFilters);
   }
 
-  // Search craftsmen with advanced filters
-  Future<void> searchCraftsmenWithFilters(SearchFilters filters) async {
+  // Basic search craftsmen (simplified)
+  Future<void> searchCraftsmen() async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
+      final queryParams = <String, String>{};
+      if (state.query.isNotEmpty) queryParams['q'] = state.query;
+      if (state.selectedCategory.isNotEmpty) queryParams['category'] = state.selectedCategory;
+      if (state.selectedCity.isNotEmpty) queryParams['city'] = state.selectedCity;
+      queryParams['sort_by'] = state.selectedSortBy;
+      
       final apiResponse = await ApiService.getInstance().get(
         '/search/craftsmen',
-        queryParams: filters.toQueryParams(),
+        queryParams: queryParams,
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
@@ -151,12 +157,10 @@ class SearchNotifier extends StateNotifier<SearchState> {
         state = state.copyWith(
           craftsmen: craftsmen,
           isLoading: false,
-          query: filters.query ?? '',
-          currentFilters: filters,
         );
       } else {
         state = state.copyWith(
-          error: apiResponse.error ?? AppError(
+          error: AppError(
             type: ErrorType.server,
             message: 'Arama yapılamadı',
           ),
@@ -187,17 +191,18 @@ class SearchNotifier extends StateNotifier<SearchState> {
     }
   }
 
-  // Basic search craftsmen (backward compatibility)
-  Future<void> searchCraftsmen() async {
-    // Use the advanced search with basic filters
-    final filters = SearchFilters(
-      query: state.query.isEmpty ? null : state.query,
-      category: state.selectedCategory.isEmpty ? null : state.selectedCategory,
-      city: state.selectedCity.isEmpty ? null : state.selectedCity,
-      sortBy: state.selectedSortBy,
+  // Remove advanced search - just use basic search
+  Future<void> searchCraftsmenWithFilters(SearchFilters filters) async {
+    // Update basic search parameters
+    state = state.copyWith(
+      query: filters.query ?? '',
+      selectedCategory: filters.category ?? '',
+      selectedCity: filters.city ?? '',
+      selectedSortBy: filters.sortBy,
     );
     
-    await searchCraftsmenWithFilters(filters);
+    // Use basic search
+    await searchCraftsmen();
   }
 
   // Clear search
