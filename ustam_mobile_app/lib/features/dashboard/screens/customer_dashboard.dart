@@ -94,6 +94,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
 
               // Quick Actions
               Container(
+                key: const Key('quick_actions'),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: AppColors.cardBackground,
@@ -114,30 +115,36 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Usta Ara',
-                            'Kategorilere göre usta bulun',
-                            Icons.search_rounded,
-                            AppColors.primary,
-                            () => Navigator.pushNamed(context, '/search'),
-                          ),
-                        ),
+                                                 Expanded(
+                           child: Container(
+                             key: const Key('search_button'),
+                             child: _buildQuickActionCard(
+                               'Usta Ara',
+                               'Kategorilere göre usta bulun',
+                               Icons.search_rounded,
+                               AppColors.primary,
+                               () => Navigator.pushNamed(context, '/search'),
+                             ),
+                           ),
+                         ),
                         const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Mesajlar',
-                            'Ustalarla iletişim kurun',
-                            Icons.chat_bubble_rounded,
-                            AppColors.secondary,
-                            () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MessagesScreen(userType: 'customer'),
-                              ),
-                            ),
-                          ),
-                        ),
+                                                 Expanded(
+                           child: Container(
+                             key: const Key('messages_button'),
+                             child: _buildQuickActionCard(
+                               'Mesajlar',
+                               'Ustalarla iletişim kurun',
+                               Icons.chat_bubble_rounded,
+                               AppColors.secondary,
+                               () => Navigator.push(
+                                 context,
+                                 MaterialPageRoute(
+                                   builder: (context) => const MessagesScreen(userType: 'customer'),
+                                 ),
+                               ),
+                             ),
+                           ),
+                         ),
                       ],
                     ),
                   ],

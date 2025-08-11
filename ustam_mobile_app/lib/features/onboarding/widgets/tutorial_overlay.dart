@@ -114,6 +114,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
+  late Animation<double> _pulseAnimation;
 
   @override
   void initState() {
@@ -130,6 +131,19 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack),
     );
+
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+
+    // Repeat pulse animation
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _animationController.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        _animationController.forward();
+      }
+    });
 
     _checkAndShowTutorial();
   }
@@ -204,10 +218,6 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
         color: Colors.black.withOpacity(0.85),
         child: Stack(
           children: [
-            // Highlight target if exists
-            if (currentStepData.targetKey != null)
-              _buildTargetHighlight(currentStepData.targetKey!),
-
             // Tutorial card
             Align(
               alignment: currentStepData.alignment,
@@ -215,31 +225,45 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                 animation: _animationController,
                 builder: (context, child) {
                   return Transform.scale(
-                    scale: _scaleAnimation.value,
+                    scale: _scaleAnimation.value * _pulseAnimation.value,
                     child: Opacity(
                       opacity: _fadeAnimation.value,
                       child: Container(
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: AppColors.cardBackground,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              AppColors.cardBackground,
+                              AppColors.cardBackground,
+                              AppColors.primary.withOpacity(0.05),
+                            ],
+                          ),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: AppColors.primary.withOpacity(0.3),
-                            width: 2,
+                            color: AppColors.primary.withOpacity(0.4),
+                            width: 3,
                           ),
                           boxShadow: [
                             // Main shadow
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
+                              color: Colors.black.withOpacity(0.4),
+                              blurRadius: 25,
+                              offset: const Offset(0, 10),
                             ),
-                            // Glow effect
+                            // Primary glow
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.2),
-                              blurRadius: 30,
-                              spreadRadius: 5,
+                              color: AppColors.primary.withOpacity(0.3),
+                              blurRadius: 40,
+                              spreadRadius: 8,
+                            ),
+                            // Inner glow
+                            BoxShadow(
+                              color: AppColors.primary.withOpacity(0.1),
+                              blurRadius: 60,
+                              spreadRadius: 15,
                             ),
                           ],
                         ),
@@ -431,9 +455,32 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
   }
 
   BuildContext? _findTargetContext(String targetKey) {
-    // This is a simplified implementation
-    // In a real app, you'd maintain a registry of keys
-    return null; // For now, we'll enhance this later
+    // Find widget by key in the current context tree
+    BuildContext? findContext(BuildContext context) {
+      BuildContext? result;
+      
+      void visitor(Element element) {
+        if (element.widget.key != null && 
+            element.widget.key.toString().contains(targetKey)) {
+          result = element;
+          return;
+        }
+        element.visitChildren(visitor);
+      }
+      
+      // Start search from the root
+      try {
+        final rootContext = Navigator.of(context).context;
+        rootContext.visitChildElements(visitor);
+      } catch (e) {
+        // Fallback to current context
+        context.visitChildElements(visitor);
+      }
+      
+      return result;
+    }
+    
+    return findContext(context);
   }
 
   @override
@@ -465,8 +512,8 @@ class TutorialSteps {
         id: 'search',
         title: 'Usta Arayın 🔍',
         description: 'İhtiyacınız olan ustayı kategorilere göre arayabilir, filtreler kullanabilir ve detaylarını inceleyebilirsiniz.',
-        targetKey: 'search_tab',
-        alignment: Alignment.bottomCenter,
+        targetKey: 'search_button',
+        alignment: Alignment.center,
       ),
       TutorialStep(
         id: 'quote_request',
