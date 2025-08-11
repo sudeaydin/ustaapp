@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/services/analytics_service.dart';
 import '../../../core/utils/accessibility_utils.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../models/search_filters.dart';
 import '../providers/search_provider.dart';
-import '../widgets/craftsman_card.dart';
+import '../widgets/craftsman_card.dart' as search_widgets;
 import '../widgets/search_filters_sheet.dart';
 import '../widgets/search_map_view.dart';
 import '../../../core/widgets/error_message.dart';
@@ -56,12 +57,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   }
 
   void _showFiltersSheet() {
+    final searchState = ref.read(searchProvider);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => SearchFiltersSheet(
-        initialFilters: _filters,
+        filters: _filters,
+        filterOptions: searchState.filterOptions,
         onFiltersChanged: (newFilters) {
           setState(() {
             _filters = newFilters;
@@ -88,11 +91,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     final authState = ref.watch(authProvider);
 
     return Scaffold(
-      appBar: CommonAppBar(
-        title: 'Usta Ara',
-        showTutorialTrigger: true,
-        userType: authState.user?.userType,
-      ),
+             appBar: CommonAppBar(
+         title: 'Usta Ara',
+         showTutorialTrigger: true,
+         userType: authState.user?['user_type'],
+       ),
       body: Column(
         children: [
           // Search Header
@@ -158,8 +161,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 
                 const SizedBox(height: 16),
                 
-                // Quick Filters
-                if (_filters.hasActiveFilters()) ...[
+                                 // Quick Filters
+                 if (_filters.hasActiveFilters) ...[
                   Container(
                     height: 40,
                     child: ListView(
@@ -214,9 +217,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             ),
           ),
           
-          // Tab Bar
-          Container(
-            color: AppColors.backgroundColor,
+                     // Tab Bar
+           Container(
+             color: AppColors.background,
             child: TabBar(
               controller: _tabController,
               tabs: const [
@@ -351,10 +354,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
           final craftsman = searchState.craftsmen[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
-            child: CraftsmanCard(
-              craftsman: craftsman,
-              onTap: () => _navigateToCraftsmanDetail(craftsman),
-            ),
+                         child: search_widgets.CraftsmanCard(
+               craftsman: craftsman,
+               onTap: () => _navigateToCraftsmanDetail(craftsman),
+             ),
           );
         },
       ),

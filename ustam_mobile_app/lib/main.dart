@@ -18,7 +18,7 @@ import 'features/auth/screens/welcome_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/register_screen.dart';
 import 'features/support/screens/support_screen.dart';
-import 'features/search/screens/advanced_search_screen.dart';
+
 import 'features/reviews/screens/reviews_screen.dart';
 import 'features/reviews/screens/create_review_screen.dart';
 import 'features/calendar/screens/calendar_screen.dart';
