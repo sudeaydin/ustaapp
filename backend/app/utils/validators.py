@@ -104,7 +104,15 @@ class SearchSchema(Schema):
     q = fields.Str(required=False)  # search query
     category = fields.Str(required=False)
     city = fields.Str(required=False)
-    sort_by = fields.Str(required=False, validate=lambda x: x in ['rating', 'price', 'distance', 'reviews'])
+    district = fields.Str(required=False)
+    min_rating = fields.Float(required=False, validate=lambda x: 0 <= x <= 5)
+    max_rating = fields.Float(required=False, validate=lambda x: 0 <= x <= 5)
+    min_price = fields.Float(required=False, validate=lambda x: x >= 0)
+    max_price = fields.Float(required=False, validate=lambda x: x >= 0)
+    is_verified = fields.Bool(required=False)
+    has_portfolio = fields.Bool(required=False)
+    sort_by = fields.Str(required=False, validate=lambda x: x in ['rating', 'price', 'distance', 'reviews'], missing='rating')
+    sort_order = fields.Str(required=False, validate=lambda x: x in ['asc', 'desc'], missing='desc')
     page = fields.Int(required=False, validate=lambda x: x > 0, missing=1)
     per_page = fields.Int(required=False, validate=lambda x: 1 <= x <= 50, missing=20)
 

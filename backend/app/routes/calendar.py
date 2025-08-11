@@ -103,6 +103,8 @@ def get_calendar_events():
         end_date = request.args.get('end_date')
         
         events = []
+        appointments_query = None
+        jobs_query = None
         
         # Get appointments
         if user.user_type == 'customer':
@@ -115,6 +117,13 @@ def get_calendar_events():
             if craftsman:
                 appointments_query = Appointment.query.filter_by(craftsman_id=craftsman.id)
                 jobs_query = Job.query.filter_by(craftsman_id=user_id)
+        
+        # If no profile found, return empty events
+        if appointments_query is None or jobs_query is None:
+            return ResponseHelper.success(
+                data={'events': []},
+                message='Takvim etkinlikleri başarıyla getirildi'
+            )
         
         # Apply date filters
         if start_date:
