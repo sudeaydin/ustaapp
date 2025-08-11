@@ -133,63 +133,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
     state = state.copyWith(showFilters: !state.showFilters);
   }
 
-  // Search craftsmen
-  Future<void> searchCraftsmen() async {
-    state = state.copyWith(isLoading: true, error: null);
-
-    try {
-      final response = await _apiService.searchCraftsmen(
-        query: state.query.isEmpty ? null : state.query,
-        category: state.selectedCategory.isEmpty ? null : state.selectedCategory,
-        city: state.selectedCity.isEmpty ? null : state.selectedCity,
-        sortBy: state.selectedSortBy,
-      );
-
-      if (response.success && response.data != null) {
-        final data = response.data as Map<String, dynamic>;
-        if (data['success'] && data['data'] != null) {
-          state = state.copyWith(
-            craftsmen: List<Map<String, dynamic>>.from(data['data']),
-            isLoading: false,
-            error: null,
-          );
-          return;
-        }
-      }
-
-      state = state.copyWith(
-        isLoading: false,
-        error: response.error ?? AppError(
-          type: ErrorType.server,
-          message: 'Arama sonuçları yüklenemedi',
-        ),
-      );
-    } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: e is AppError ? e : AppError.fromException(e),
-      );
-    }
-  }
-
-  // Clear search
-  void clearSearch() {
-    state = state.copyWith(
-      query: '',
-      selectedCategory: '',
-      selectedCity: '',
-      selectedSortBy: 'rating',
-      showFilters: false,
-    );
-    searchCraftsmen();
-  }
-
-  // Retry search
-  void retrySearch() {
-    searchCraftsmen();
-  }
-
-  // Advanced search with filters
+  // Search craftsmen with advanced filters
   Future<void> searchCraftsmenWithFilters(SearchFilters filters) async {
     state = state.copyWith(isLoading: true, error: null);
 
@@ -208,6 +152,7 @@ class SearchNotifier extends StateNotifier<SearchState> {
           craftsmen: craftsmen,
           isLoading: false,
           query: filters.query ?? '',
+          currentFilters: filters,
         );
       } else {
         state = state.copyWith(
@@ -226,6 +171,41 @@ class SearchNotifier extends StateNotifier<SearchState> {
         ),
         isLoading: false,
       );
+    }
+  }
+
+  // Basic search craftsmen (backward compatibility)
+  Future<void> searchCraftsmen() async {
+    // Use the advanced search with basic filters
+    final filters = SearchFilters(
+      query: state.query.isEmpty ? null : state.query,
+      category: state.selectedCategory.isEmpty ? null : state.selectedCategory,
+      city: state.selectedCity.isEmpty ? null : state.selectedCity,
+      sortBy: state.selectedSortBy,
+    );
+    
+    await searchCraftsmenWithFilters(filters);
+  }
+
+  // Clear search
+  void clearSearch() {
+    state = state.copyWith(
+      query: '',
+      selectedCategory: '',
+      selectedCity: '',
+      selectedSortBy: 'rating',
+      showFilters: false,
+      currentFilters: null,
+    );
+    searchCraftsmen();
+  }
+
+  // Retry search
+  void retrySearch() {
+    if (state.currentFilters != null) {
+      searchCraftsmenWithFilters(state.currentFilters!);
+    } else {
+      searchCraftsmen();
     }
   }
 
@@ -273,5 +253,4 @@ class SearchNotifier extends StateNotifier<SearchState> {
       currentFilters: filters,
     );
   }
-
 }
