@@ -183,6 +183,8 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
         print('📅 Calendar Events API Response: ${apiResponse.data}');
+        print('📅 API data keys: ${apiResponse.data!.keys.toList()}');
+        print('📅 Raw events field: ${apiResponse.data!['events']}');
         final eventsData = apiResponse.data!['events'] as List<dynamic>? ?? [];
         print('📅 Events data length: ${eventsData.length}');
         final events = eventsData.map((json) {

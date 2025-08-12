@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 
@@ -36,17 +37,20 @@ class AirbnbCard extends StatelessWidget {
         boxShadow: _getBoxShadow(),
         border: border,
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(borderRadius ?? AppSpacing.cardBorderRadius),
-          child: Padding(
+      child: onTap != null 
+        ? CupertinoButton(
+            onPressed: onTap,
+            padding: EdgeInsets.zero,
+            minSize: 0,
+            child: Container(
+              padding: padding ?? AppSpacing.cardPaddingInsets,
+              child: child,
+            ),
+          )
+        : Padding(
             padding: padding ?? AppSpacing.cardPaddingInsets,
             child: child,
           ),
-        ),
-      ),
     );
 
     return cardWidget;

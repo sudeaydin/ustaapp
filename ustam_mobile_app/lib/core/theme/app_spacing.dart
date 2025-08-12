@@ -13,13 +13,13 @@ class AppSpacing {
   static const double xxl = _baseUnit * 6;   // 48px
   static const double xxxl = _baseUnit * 8;  // 64px
   
-  // Component specific spacing
-  static const double cardPadding = md;           // 16px
+  // Component specific spacing (Figma Airbnb style)
+  static const double cardPadding = lg;           // 24px (Figma style)
   static const double cardMargin = sm;            // 8px
   static const double cardSpacing = md;           // 16px between cards
   
   static const double buttonPaddingHorizontal = lg; // 24px
-  static const double buttonPaddingVertical = md;   // 16px
+  static const double buttonPaddingVertical = 14;   // 14px (for 48px button height)
   static const double buttonSpacing = md;           // 16px between buttons
   
   static const double screenPadding = md;          // 16px screen edges

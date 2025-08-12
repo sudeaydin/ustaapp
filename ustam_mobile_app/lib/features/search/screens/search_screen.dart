@@ -126,33 +126,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                 // Filter Button Row
                 Row(
                   children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.textWhite,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [AppColors.getElevatedShadow()],
-                        ),
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            hintText: 'Usta, kategori veya hizmet ara...',
-                            prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          ),
-                          onChanged: (value) {
-                            // Debounced search
-                            Future.delayed(const Duration(milliseconds: 500), () {
-                              if (_searchController.text == value) {
-                                _performSearch();
-                              }
-                            });
-                          },
-                          onSubmitted: (value) => _performSearch(),
-                        ),
-                      ),
-                    ),
+                    Expanded(child: Container()), // Spacer
                     const SizedBox(width: 12),
                     // Filter Button
                     Container(
