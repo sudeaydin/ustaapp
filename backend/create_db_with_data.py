@@ -1264,6 +1264,79 @@ def create_sample_data():
         if user.craftsman_profile:
             user.craftsman_profile.update_review_stats()
     
+    # Create sample appointments for calendar
+    print("Creating sample appointments...")
+    from app.models.appointment import Appointment, AppointmentStatus, AppointmentType
+    from datetime import datetime, timedelta
+    
+    # Get first customer and craftsman for appointments
+    customer = next((user for user in created_users.values() if user.user_type.value == 'customer'), None)
+    craftsman = next((user for user in created_users.values() if user.user_type.value == 'craftsman'), None)
+    
+    if customer and craftsman:
+        appointments_data = [
+            {
+                'title': 'Elektrik Tesisatı Kontrolü',
+                'description': 'Evdeki elektrik tesisatının genel kontrolü ve arızalı prizlerin tamiri',
+                'start_time': datetime.now() + timedelta(days=1, hours=10),
+                'end_time': datetime.now() + timedelta(days=1, hours=12),
+                'status': AppointmentStatus.CONFIRMED,
+                'type': AppointmentType.WORK,
+                'location': 'Ev adresi: Kadıköy, İstanbul',
+                'notes': 'Mutfak ve oturma odası prizlerinde sorun var'
+            },
+            {
+                'title': 'İlk Görüşme - Banyo Tadilatı',
+                'description': 'Banyo yenileme projesi için ilk görüşme ve keşif',
+                'start_time': datetime.now() + timedelta(days=3, hours=14),
+                'end_time': datetime.now() + timedelta(days=3, hours=15),
+                'status': AppointmentStatus.PENDING,
+                'type': AppointmentType.CONSULTATION,
+                'location': 'Müşteri evi',
+                'notes': 'Ölçü alma ve maliyet hesabı yapılacak'
+            },
+            {
+                'title': 'Tamamlanan İş - Mutfak Dolabı',
+                'description': 'Mutfak dolabı montajı tamamlandı',
+                'start_time': datetime.now() - timedelta(days=2, hours=9),
+                'end_time': datetime.now() - timedelta(days=2, hours=16),
+                'status': AppointmentStatus.COMPLETED,
+                'type': AppointmentType.WORK,
+                'location': 'Beşiktaş, İstanbul',
+                'notes': 'Müşteri memnun kaldı, 5 yıl garanti verildi'
+            },
+            {
+                'title': 'Bugünkü Randevu - Kapı Tamiri',
+                'description': 'Ana kapı kilit sisteminin tamiri',
+                'start_time': datetime.now().replace(hour=16, minute=0, second=0, microsecond=0),
+                'end_time': datetime.now().replace(hour=17, minute=30, second=0, microsecond=0),
+                'status': AppointmentStatus.IN_PROGRESS,
+                'type': AppointmentType.WORK,
+                'location': 'Şişli, İstanbul',
+                'notes': 'Acil tamir gerekli'
+            }
+        ]
+        
+        for apt_data in appointments_data:
+            appointment = Appointment(
+                customer_id=customer.customer_profile.id,
+                craftsman_id=craftsman.craftsman_profile.id,
+                title=apt_data['title'],
+                description=apt_data['description'],
+                start_time=apt_data['start_time'],
+                end_time=apt_data['end_time'],
+                status=apt_data['status'],
+                type=apt_data['type'],
+                location=apt_data['location'],
+                notes=apt_data['notes']
+            )
+            db.session.add(appointment)
+        
+        db.session.commit()
+        print("Sample appointments created!")
+    else:
+        print("⚠️  No customer or craftsman found for appointments")
+    
     print("Sample data creation completed!")
 
 def main():
