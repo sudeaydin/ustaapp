@@ -60,23 +60,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 bg-airbnb-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-airbnb">
             <span className="text-3xl text-white">🔨</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Tekrar Hoş Geldiniz</h1>
-          <p className="text-gray-600">Hesabınıza giriş yapın</p>
+          <h1 className="text-3xl font-bold text-airbnb-dark-900 mb-2">Tekrar Hoş Geldiniz</h1>
+          <p className="text-airbnb-dark-600">Hesabınıza giriş yapın</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="bg-white rounded-2xl p-8 shadow-airbnb border border-airbnb-light-200">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-airbnb-dark-700 mb-2">
                 E-posta Adresi
               </label>
               <div className="relative">
@@ -87,11 +87,11 @@ const LoginPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-airbnb-light-300 rounded-xl focus:ring-2 focus:ring-airbnb-500 focus:border-transparent transition-all duration-200 bg-white text-airbnb-dark-900"
                   placeholder="ornek@email.com"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-airbnb-light-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                 </div>
@@ -100,7 +100,7 @@ const LoginPage = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-airbnb-dark-700 mb-2">
                 Şifre
               </label>
               <div className="relative">
@@ -111,7 +111,7 @@ const LoginPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 pr-12"
+                  className="w-full px-4 py-3 border border-airbnb-light-300 rounded-xl focus:ring-2 focus:ring-airbnb-500 focus:border-transparent transition-all duration-200 pr-12 bg-white text-airbnb-dark-900"
                   placeholder="••••••••"
                 />
                 <button
@@ -120,11 +120,11 @@ const LoginPage = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showPassword ? (
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-airbnb-light-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
                     </svg>
                   ) : (
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-airbnb-light-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -140,15 +140,15 @@ const LoginPage = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-airbnb-500 focus:ring-airbnb-500 border-airbnb-light-300 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-airbnb-dark-700">
                   Beni hatırla
                 </label>
               </div>
               <Link
                 to="/forgot-password"
-                className="text-sm text-blue-600 hover:text-blue-500 font-medium"
+                className="text-sm text-airbnb-500 hover:text-airbnb-600 font-medium"
               >
                 Şifremi unuttum
               </Link>
@@ -165,7 +165,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-airbnb-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-airbnb-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-airbnb hover:shadow-airbnb-hover"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -185,17 +185,17 @@ const LoginPage = () => {
           <div className="my-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-airbnb-light-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">veya</span>
+                <span className="px-2 bg-white text-airbnb-light-500">veya</span>
               </div>
             </div>
           </div>
 
           {/* Social Login */}
           <div className="space-y-3">
-            <button className="w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-3">
+            <button className="w-full bg-white border border-airbnb-light-300 text-airbnb-dark-700 py-3 px-4 rounded-xl font-medium hover:bg-airbnb-light-50 transition-colors flex items-center justify-center space-x-3 shadow-sm hover:shadow-md">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -209,9 +209,9 @@ const LoginPage = () => {
 
         {/* Sign Up Link */}
         <div className="text-center mt-6">
-          <p className="text-gray-600">
+          <p className="text-airbnb-dark-600">
             Hesabınız yok mu?{' '}
-            <Link to="/auth-choice" className="text-blue-600 hover:text-blue-500 font-medium">
+            <Link to="/auth-choice" className="text-airbnb-500 hover:text-airbnb-600 font-medium">
               Kayıt olun
             </Link>
           </p>

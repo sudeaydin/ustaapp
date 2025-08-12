@@ -21,7 +21,7 @@ factory-boy==3.3.0
 
 # Production dependencies
 gunicorn==21.2.0
-psycopg2-binary==2.9.9
+# psycopg2-binary==2.9.9  # Geçici olarak SQLite kullanacağız
 # Additional dependencies for full feature support
 Pillow>=10.0.0
 requests>=2.31.0

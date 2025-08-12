@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 const AuthChoicePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 bg-airbnb-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-airbnb">
             <span className="text-3xl text-white">🔨</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">ustam'a Hoş Geldiniz</h1>
-          <p className="text-gray-600">Hesabınıza giriş yapın veya yeni hesap oluşturun</p>
+          <h1 className="text-3xl font-bold text-airbnb-dark-900 mb-2">ustam'a Hoş Geldiniz</h1>
+          <p className="text-airbnb-dark-600">Hesabınıza giriş yapın veya yeni hesap oluşturun</p>
         </div>
 
         {/* Auth Options */}
@@ -19,7 +19,7 @@ const AuthChoicePage = () => {
           {/* Login Button */}
           <Link
             to="/login"
-            className="block w-full bg-white text-gray-900 py-4 px-6 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-blue-300"
+            className="block w-full bg-white text-airbnb-dark-900 py-4 px-6 rounded-2xl font-semibold text-lg shadow-airbnb hover:shadow-airbnb-hover transition-all duration-300 border-2 border-airbnb-light-200 hover:border-airbnb-500"
           >
             <div className="flex items-center justify-center space-x-3">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,13 +30,13 @@ const AuthChoicePage = () => {
           </Link>
 
           {/* Register Options */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Yeni Hesap Oluştur</h3>
+          <div className="bg-white rounded-2xl p-6 shadow-airbnb border border-airbnb-light-200">
+            <h3 className="text-lg font-semibold text-airbnb-dark-900 mb-4 text-center">Yeni Hesap Oluştur</h3>
             
             <div className="space-y-3">
               <Link
                 to="/register?type=customer"
-                className="block w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
+                className="block w-full bg-airbnb-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-airbnb-600 transition-colors shadow-airbnb hover:shadow-airbnb-hover"
               >
                 <div className="flex items-center justify-center space-x-3">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@ const AuthChoicePage = () => {
 
               <Link
                 to="/register?type=craftsman"
-                className="block w-full bg-green-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-green-700 transition-colors"
+                className="block w-full bg-airbnb-teal-500 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-airbnb-teal-600 transition-colors shadow-airbnb hover:shadow-airbnb-hover"
               >
                 <div className="flex items-center justify-center space-x-3">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,13 +63,13 @@ const AuthChoicePage = () => {
 
         {/* Footer */}
         <div className="text-center mt-8">
-          <p className="text-gray-500 text-sm">
+          <p className="text-airbnb-light-500 text-sm">
             Devam ederek{' '}
-            <Link to="/terms" className="text-blue-600 hover:underline">
+            <Link to="/terms" className="text-airbnb-500 hover:text-airbnb-600 hover:underline">
               Kullanım Şartları
             </Link>
             {' '}ve{' '}
-            <Link to="/privacy" className="text-blue-600 hover:underline">
+            <Link to="/privacy" className="text-airbnb-500 hover:text-airbnb-600 hover:underline">
               Gizlilik Politikası
             </Link>
             'nı kabul etmiş olursunuz.
