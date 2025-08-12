@@ -120,36 +120,42 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                                                 Expanded(
-                           child: TutorialHighlight(
-                             tutorialKey: 'search_button',
-                             child: _buildQuickActionCard(
-                               'Usta Ara',
-                               'Kategorilere göre usta bulun',
-                               Icons.search_rounded,
-                               AppColors.primary,
-                               () => Navigator.pushNamed(context, '/search'),
-                             ),
-                           ),
-                         ),
+                        Expanded(
+                          child: TutorialHighlight(
+                            tutorialKey: 'search_button',
+                            child: _buildQuickActionCard(
+                              'Usta Ara',
+                              'Kategorilere göre usta bulun',
+                              Icons.search_rounded,
+                              AppColors.primary,
+                              () {
+                                print('🔍 Usta Ara butonuna tıklandı');
+                                Navigator.pushNamed(context, '/search');
+                              },
+                            ),
+                          ),
+                        ),
                         const SizedBox(width: 12),
-                                                 Expanded(
-                           child: TutorialHighlight(
-                             tutorialKey: 'messages_tab',
-                             child: _buildQuickActionCard(
-                               'Mesajlar',
-                               'Ustalarla iletişim kurun',
-                               Icons.chat_bubble_rounded,
-                               AppColors.primary,
-                               () => Navigator.push(
-                                 context,
-                                 MaterialPageRoute(
-                                   builder: (context) => const MessagesScreen(userType: 'customer'),
-                                 ),
-                               ),
-                             ),
-                           ),
-                         ),
+                        Expanded(
+                          child: TutorialHighlight(
+                            tutorialKey: 'messages_tab',
+                            child: _buildQuickActionCard(
+                              'Mesajlar',
+                              'Ustalarla iletişim kurun',
+                              Icons.chat_bubble_rounded,
+                              AppColors.primary,
+                              () {
+                                print('💬 Mesajlar butonuna tıklandı');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MessagesScreen(userType: 'customer'),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 12),
@@ -161,7 +167,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Hesap bilgilerinizi düzenleyin',
                             Icons.person,
                             Colors.green,
-                            () => Navigator.pushNamed(context, '/profile'),
+                            () {
+                              print('👤 Profil butonuna tıklandı');
+                              Navigator.pushNamed(context, '/profile');
+                            },
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -171,7 +180,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Randevularınızı görün',
                             Icons.calendar_today,
                             Colors.orange,
-                            () => Navigator.pushNamed(context, '/calendar', arguments: 'customer'),
+                            () {
+                              print('📅 Takvim butonuna tıklandı');
+                              Navigator.pushNamed(context, '/calendar', arguments: 'customer');
+                            },
                           ),
                         ),
                       ],
@@ -185,11 +197,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Yardım ve destek alın',
                             Icons.support_agent,
                             AppColors.warning,
-                            () => Navigator.pushNamed(
-                              context, 
-                              '/support',
-                              arguments: 'customer',
-                            ),
+                            () {
+                              print('🆘 Destek butonuna tıklandı');
+                              Navigator.pushNamed(
+                                context, 
+                                '/support',
+                                arguments: 'customer',
+                              );
+                            },
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -198,8 +213,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Ayarlar',
                             'Hesap ayarlarınızı yönetin',
                             Icons.settings,
-                            AppColors.textLight,
-                            () => Navigator.pushNamed(context, '/settings'),
+                            Colors.grey,
+                            () {
+                              print('⚙️ Ayarlar butonuna tıklandı');
+                              Navigator.pushNamed(context, '/settings');
+                            },
                           ),
                         ),
                       ],

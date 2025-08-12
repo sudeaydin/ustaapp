@@ -39,7 +39,10 @@ class AirbnbCard extends StatelessWidget {
       ),
       child: onTap != null 
         ? CupertinoButton(
-            onPressed: onTap,
+            onPressed: () {
+              print('🎯 AirbnbCard onTap called');
+              onTap!();
+            },
             padding: EdgeInsets.zero,
             minSize: 0,
             child: Container(
