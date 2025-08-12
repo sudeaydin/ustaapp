@@ -150,15 +150,18 @@ class SearchNotifier extends StateNotifier<SearchState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
+        print('🔍 Search API Response: ${apiResponse.data}');
         final craftsmen = List<Map<String, dynamic>>.from(
           apiResponse.data!['craftsmen'] ?? []
         );
+        print('🔍 Parsed craftsmen count: ${craftsmen.length}');
 
         state = state.copyWith(
           craftsmen: craftsmen,
           isLoading: false,
         );
       } else {
+        print('❌ Search API Failed: ${apiResponse.error}');
         state = state.copyWith(
           error: AppError(
             type: ErrorType.server,

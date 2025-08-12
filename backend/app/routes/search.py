@@ -157,6 +157,7 @@ def search_craftsmen(validated_data):
         
         # Format craftsmen data
         craftsmen_data = []
+        print(f"🔍 Processing {len(paginated_result['items'])} craftsmen from query")
         for craftsman_dict in paginated_result['items']:
             craftsman = Craftsman.query.get(craftsman_dict['id'])
             if craftsman:
@@ -185,6 +186,7 @@ def search_craftsmen(validated_data):
                     'portfolio_images': craftsman.portfolio_images or [],
                 })
         
+        print(f"🔍 Returning {len(craftsmen_data)} craftsmen")
         return ResponseHelper.success(
             data={
                 'craftsmen': craftsmen_data,
