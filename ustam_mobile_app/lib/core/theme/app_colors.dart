@@ -28,7 +28,7 @@ class AppColors {
   static const Color divider = Color(0xFFEBEBEB); // Very Light Border
   
   // BACKWARD COMPATIBILITY - Map old colors to new Airbnb colors
-  static const Color uclaBlue = Color(0xFFFF5A5F); // Primary Airbnb Red
+  static const Color uclaBlue = Color(0xFFC64191); // Custom Pink #C64191
   static const Color delftBlue = Color(0xFF00A699); // Secondary Airbnb Teal
   static const Color poppy = Color(0xFFFC642D); // Tertiary Airbnb Orange
   static const Color mintGreen = Color(0xFF008A05); // Success Green
@@ -44,7 +44,7 @@ class AppColors {
   static const Color cardBackground70 = Color(0xFFF7F7F7); // Off White
   
   // Button colors (backward compatibility)
-  static const Color buttonPrimary = Color(0xFFFF5A5F); // Primary Red
+  static const Color buttonPrimary = Color(0xFFC64191); // Custom Pink #C64191
   static const Color buttonSecondary = Color(0xFF00A699); // Secondary Teal
   static const Color buttonDanger = Color(0xFFD93025); // Error Red
   static const Color buttonDisabled = Color(0xFFB0B0B0); // Light Gray
@@ -61,13 +61,13 @@ class AppColors {
   
   // Airbnb Gradients
   static const List<Color> primaryGradient = [
-    Color(0xFFFF5A5F), // Airbnb Red
-    Color(0xFFFF385C), // Darker Red
+    Color(0xFFC64191), // Custom Pink #C64191
+    Color(0xFFB23A82), // Darker Pink
   ];
   
   static const List<Color> headerGradient = [
-    Color(0xFFFF5A5F), // Airbnb Red
-    Color(0xFFFC642D), // Airbnb Orange
+    Color(0xFFC64191), // Custom Pink #C64191
+    Color(0xFFFC642D), // Airbnb Orange (unchanged)
   ];
   
   static const List<Color> cardGradient = [
