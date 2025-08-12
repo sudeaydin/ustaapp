@@ -156,14 +156,25 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               'Ustalarla iletişim kurun',
                               Icons.chat_bubble_rounded,
                               AppColors.primary,
-                              () {
+                              () async {
                                 print('💬 Mesajlar butonuna tıklandı');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MessagesScreen(userType: 'customer'),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('💬 Mesajlar açılıyor...'),
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
+                                
+                                await Future.delayed(const Duration(milliseconds: 300));
+                                
+                                if (mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const MessagesScreen(userType: 'customer'),
+                                    ),
+                                  );
+                                }
                               },
                             ),
                           ),
@@ -179,9 +190,20 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Hesap bilgilerinizi düzenleyin',
                             Icons.person,
                             Colors.green,
-                            () {
+                            () async {
                               print('👤 Profil butonuna tıklandı');
-                              Navigator.pushNamed(context, '/profile');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('👤 Profil açılıyor...'),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
+                              
+                              await Future.delayed(const Duration(milliseconds: 300));
+                              
+                              if (mounted) {
+                                Navigator.pushNamed(context, '/profile');
+                              }
                             },
                           ),
                         ),
@@ -192,9 +214,20 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Randevularınızı görün',
                             Icons.calendar_today,
                             Colors.orange,
-                            () {
+                            () async {
                               print('📅 Takvim butonuna tıklandı');
-                              Navigator.pushNamed(context, '/calendar', arguments: 'customer');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('📅 Takvim açılıyor...'),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
+                              
+                              await Future.delayed(const Duration(milliseconds: 300));
+                              
+                              if (mounted) {
+                                Navigator.pushNamed(context, '/calendar', arguments: 'customer');
+                              }
                             },
                           ),
                         ),
@@ -209,13 +242,24 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Yardım ve destek alın',
                             Icons.support_agent,
                             AppColors.warning,
-                            () {
+                            () async {
                               print('🆘 Destek butonuna tıklandı');
-                              Navigator.pushNamed(
-                                context, 
-                                '/support',
-                                arguments: 'customer',
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('🆘 Destek açılıyor...'),
+                                  duration: Duration(seconds: 1),
+                                ),
                               );
+                              
+                              await Future.delayed(const Duration(milliseconds: 300));
+                              
+                              if (mounted) {
+                                Navigator.pushNamed(
+                                  context, 
+                                  '/support',
+                                  arguments: 'customer',
+                                );
+                              }
                             },
                           ),
                         ),
@@ -226,9 +270,20 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Hesap ayarlarınızı yönetin',
                             Icons.settings,
                             Colors.grey,
-                            () {
+                            () async {
                               print('⚙️ Ayarlar butonuna tıklandı');
-                              Navigator.pushNamed(context, '/settings');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('⚙️ Ayarlar açılıyor...'),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
+                              
+                              await Future.delayed(const Duration(milliseconds: 300));
+                              
+                              if (mounted) {
+                                Navigator.pushNamed(context, '/settings');
+                              }
                             },
                           ),
                         ),

@@ -38,16 +38,18 @@ class AirbnbCard extends StatelessWidget {
         border: border,
       ),
       child: onTap != null 
-        ? CupertinoButton(
-            onPressed: () {
-              print('🎯 AirbnbCard onTap called');
-              onTap!();
-            },
-            padding: EdgeInsets.zero,
-            minSize: 0,
-            child: Container(
-              padding: padding ?? AppSpacing.cardPaddingInsets,
-              child: child,
+        ? Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                print('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
+                onTap!();
+              },
+              borderRadius: BorderRadius.circular(borderRadius ?? AppSpacing.cardBorderRadius),
+              child: Container(
+                padding: padding ?? AppSpacing.cardPaddingInsets,
+                child: child,
+              ),
             ),
           )
         : Padding(
