@@ -570,7 +570,7 @@ def get_upcoming_appointments():
 def get_today_appointments():
     """Get today's appointments for the user"""
     try:
-        from app.utils.auth_utils import get_current_user_id_with_mock()
+        from app.utils.auth_utils import get_current_user_id_with_mock
         
         # Get user ID with mock token support
         user_id, error_response = get_current_user_id_with_mock()
