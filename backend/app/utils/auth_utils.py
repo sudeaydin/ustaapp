@@ -10,11 +10,13 @@ def get_current_user_id_with_mock():
         auth_header = request.headers.get('Authorization')
         
         if not auth_header or not auth_header.startswith('Bearer '):
-            return None, (jsonify({
+            error_response = jsonify({
                 'error': True, 
                 'message': 'Authorization header gerekli',
                 'code': 'MISSING_AUTH'
-            }), 401)
+            })
+            error_response.status_code = 401
+            return None, error_response
             
         token = auth_header.split(' ')[1]
         
@@ -31,19 +33,23 @@ def get_current_user_id_with_mock():
             return user_id, None
         except Exception as e:
             print(f"❌ JWT decode failed: {e}")
-            return None, (jsonify({
+            error_response = jsonify({
                 'error': True, 
                 'message': 'Geçersiz token',
                 'code': 'INVALID_TOKEN'
-            }), 422)
+            })
+            error_response.status_code = 422
+            return None, error_response
             
     except Exception as e:
         print(f"❌ Auth error: {e}")
-        return None, (jsonify({
+        error_response = jsonify({
             'error': True, 
             'message': 'Authentication hatası',
             'code': 'AUTH_ERROR'
-        }), 500)
+        })
+        error_response.status_code = 500
+        return None, error_response
 
 def get_current_user_id():
     """

@@ -107,8 +107,15 @@ def get_calendar_events():
         if error_response:
             return error_response
             
-        print(f"📅 Calendar events - User ID: {user_id}")
-        user = User.query.get(user_id)
+        print(f"📅 Calendar events - User ID: {user_id} (type: {type(user_id)})")
+        # Convert string user_id to integer for database query
+        try:
+            user_id_int = int(user_id)
+        except (ValueError, TypeError):
+            print(f"❌ Invalid user ID format: {user_id}")
+            return ResponseHelper.bad_request('Invalid user ID')
+            
+        user = User.query.get(user_id_int)
         print(f"📅 User found: {user is not None} - {user.email if user else 'None'}")
         
         if not user:

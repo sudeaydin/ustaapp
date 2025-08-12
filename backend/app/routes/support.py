@@ -68,7 +68,7 @@ def get_user_tickets():
         # Get user ID with mock token support
         user_id, error_response = get_current_user_id_with_mock()
         if error_response:
-            print(f"❌ Auth error in support tickets: {error_response}")
+            print(f"❌ Auth error in support tickets")
             return error_response
         
         print(f"🎫 User ID for support tickets: {user_id}")
