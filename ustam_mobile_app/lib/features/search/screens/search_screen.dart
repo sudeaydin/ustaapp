@@ -105,15 +105,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
        ),
       body: Column(
         children: [
-          // Airbnb Search Header
+          // Airbnb Search Header - Clean White Style
           Container(
             padding: AppSpacing.screenPaddingInsets,
             decoration: BoxDecoration(
-              gradient: AppColors.getGradient(AppColors.primaryGradient),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(AppSpacing.lg),
-                bottomRight: Radius.circular(AppSpacing.lg),
-              ),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Column(
               children: [
@@ -130,16 +133,20 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                   children: [
                     Expanded(child: Container()), // Spacer
                     const SizedBox(width: 12),
-                    // Filter Button
+                    // Filter Button - Outline Style
                     Container(
                       decoration: BoxDecoration(
-                        color: AppColors.textWhite.withOpacity(0.2),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.3),
+                          width: 1,
+                        ),
                       ),
                       child: IconButton(
                         icon: Icon(
                           iOSIcons.tune,
-                          color: AppColors.textWhite,
+                          color: AppColors.textPrimary,
                           size: 24,
                         ),
                         onPressed: _showFiltersSheet,

@@ -251,9 +251,12 @@ class AirbnbSearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24), // Airbnb search style
-        boxShadow: AppSpacing.cardShadow,
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.3),
+          width: 1,
+        ),
       ),
       child: TextField(
         controller: controller,
