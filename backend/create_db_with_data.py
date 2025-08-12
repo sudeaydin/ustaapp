@@ -8,6 +8,7 @@ import sys
 import json
 from datetime import datetime, timedelta
 from decimal import Decimal
+import random
 
 # Add the backend directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

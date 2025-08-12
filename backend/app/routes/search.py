@@ -191,7 +191,7 @@ def search_craftsmen(validated_data):
                     'is_verified': craftsman.is_verified,
                     'avatar': None,  # Remove avatar since files don't exist
                     'specialties': skills_list,  # Use skills instead of specialties
-                    'portfolio_images': portfolio_list,
+                    'portfolio_images': [],  # Remove portfolio images to prevent loading errors
                 })
         
         print(f"🔍 Returning {len(craftsmen_data)} craftsmen")

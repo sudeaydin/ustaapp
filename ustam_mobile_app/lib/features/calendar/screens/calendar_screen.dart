@@ -853,12 +853,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.8,
         decoration: const BoxDecoration(
-          color: AppColors.cardBackground,
+          color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
           ),
         ),
         child: Column(
@@ -874,29 +874,54 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               ),
             ),
             
-            // Header
-            Padding(
+            // Header with gradient
+            Container(
+              margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: AppColors.getGradient(AppColors.primaryGradient),
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Row(
                 children: [
-                  Icon(
-                    event.isJob ? Icons.work : Icons.event,
-                    color: _getEventStatusColor(event.status, event.isJob),
-                    size: 24,
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      event.isJob ? Icons.work_outline : Icons.event_outlined,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 16),
                   Expanded(
-                    child: Text(
-                      event.title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          event.title,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          event.isJob ? 'İş Randevusu' : 'Etkinlik',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(Icons.close, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -906,56 +931,100 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             // Content
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (event.description != null) ...[
-                      const Text(
-                        'Açıklama',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        event.description!,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textSecondary,
-                          height: 1.5,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                    
-                    const Text(
-                      'Detaylar',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
-                      ),
+                    // Time Info
+                    _buildDetailCard(
+                      icon: Icons.access_time_outlined,
+                      title: 'Zaman',
+                      content: '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}',
+                      color: AppColors.primary,
                     ),
-                    const SizedBox(height: 12),
                     
-                    _buildDetailRow('Tarih', '${event.startTime.day}/${event.startTime.month}/${event.startTime.year}'),
-                    _buildDetailRow('Saat', '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}'),
-                    _buildDetailRow('Durum', _getStatusText(event.status, event.isJob)),
+                    // Status Info
+                    _buildDetailCard(
+                      icon: Icons.info_outline,
+                      title: 'Durum',
+                      content: _getStatusText(event.status, event.isJob),
+                      color: _getEventStatusColor(event.status, event.isJob),
+                    ),
                     
-                    if (event.location != null)
-                      _buildDetailRow('Konum', event.location!),
-                    
-                    if (event.isJob) ...[
-                      if (event.category != null)
-                        _buildDetailRow('Kategori', event.category!),
-                      if (event.priority != null)
-                        _buildDetailRow('Öncelik', _getPriorityText(event.priority!)),
-                      if (event.estimatedCost != null)
-                        _buildDetailRow('Tahmini Maliyet', '${event.estimatedCost!.toStringAsFixed(0)} ₺'),
+                    // Location Info
+                    if (event.location != null) ...[
+                      _buildDetailCard(
+                        icon: Icons.location_on_outlined,
+                        title: 'Konum',
+                        content: event.location!,
+                        color: AppColors.secondary,
+                      ),
                     ],
+                    
+                    // Description
+                    if (event.description != null) ...[
+                      _buildDetailCard(
+                        icon: Icons.description_outlined,
+                        title: 'Açıklama',
+                        content: event.description!,
+                        color: Colors.orange,
+                      ),
+                    ],
+                    
+                    // Priority (if job)
+                    if (event.isJob && event.priority != null) ...[
+                      _buildDetailCard(
+                        icon: Icons.priority_high,
+                        title: 'Öncelik',
+                        content: _getPriorityText(event.priority!),
+                        color: _getEventPriorityColor(event.priority),
+                      ),
+                    ],
+                    
+                    const SizedBox(height: 20),
+                    
+                    // Action Buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              // TODO: Navigate to edit appointment
+                            },
+                            icon: const Icon(Icons.edit_outlined),
+                            label: const Text('Düzenle'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              // TODO: Cancel appointment
+                            },
+                            icon: const Icon(Icons.cancel_outlined),
+                            label: const Text('İptal Et'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.red,
+                              side: const BorderSide(color: Colors.red),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -966,32 +1035,53 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+  Widget _buildDetailCard({
+    required IconData icon,
+    required String title,
+    required String content,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 100,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
-              ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8),
             ),
+            child: Icon(icon, color: color, size: 20),
           ),
-          const Text(': '),
+          const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(
-                fontSize: 14,
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w500,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  content,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
