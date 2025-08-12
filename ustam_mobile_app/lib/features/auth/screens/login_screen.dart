@@ -466,14 +466,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _handleLogin() async {
     print('🔥 _handleLogin called!'); // Debug print
     
-    // Show immediate feedback
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('🔐 Giriş yapılıyor...'),
-        duration: Duration(seconds: 1),
-        backgroundColor: Colors.blue,
-      ),
-    );
+    // Removed loading message per user request
     
     // Prevent multiple rapid taps
     final now = DateTime.now();
