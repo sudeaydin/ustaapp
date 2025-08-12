@@ -15,6 +15,7 @@ import { HomePage } from './pages/HomePage';
 import AirbnbStyleHomePage from './pages/AirbnbStyleHomePage';
 import AirbnbStyleSearchPage from './pages/AirbnbStyleSearchPage';
 import AirbnbStyleCraftsmanDetailPage from './pages/AirbnbStyleCraftsmanDetailPage';
+import AirbnbStyleJobRequestPage from './pages/AirbnbStyleJobRequestPage';
 import { CraftsmanListPage } from './pages/CraftsmanListPage';
 import ProfilePage from './pages/ProfilePage';
 import MessagesPage from './pages/MessagesPage';
@@ -125,6 +126,7 @@ function App() {
                     <Route path="/airbnb-style" element={<PublicRoute><AirbnbStyleHomePage /></PublicRoute>} />
                     <Route path="/airbnb-style-search" element={<PublicRoute><AirbnbStyleSearchPage /></PublicRoute>} />
                     <Route path="/airbnb-style-craftsman/:id" element={<PublicRoute><AirbnbStyleCraftsmanDetailPage /></PublicRoute>} />
+                    <Route path="/airbnb-style-job-request" element={<PublicRoute><AirbnbStyleJobRequestPage /></PublicRoute>} />
                     
                     {/* 🔒 Protected Routes - Login required */}
                     <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

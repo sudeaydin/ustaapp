@@ -127,7 +127,7 @@ const AirbnbStyleHomePage = () => {
             </p>
             <button 
               className="btn btn-primary w-full"
-              onClick={() => navigate('/job-request/new')}
+              onClick={() => navigate('/airbnb-style-job-request')}
             >
               İş Talebi Oluştur
             </button>
