@@ -106,7 +106,10 @@ def get_calendar_events():
         user_id, error_response = get_current_user_id_with_mock()
         if error_response:
             return error_response
+            
+        print(f"📅 Calendar events - User ID: {user_id}")
         user = User.query.get(user_id)
+        print(f"📅 User found: {user is not None} - {user.email if user else 'None'}")
         
         if not user:
             return ResponseHelper.not_found('User not found')
