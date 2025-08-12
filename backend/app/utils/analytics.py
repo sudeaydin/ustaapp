@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 from flask import request, current_app
-from sqlalchemy import func, desc, and_
+from sqlalchemy import func, desc, and_, text
 from app import db
 from app.models.user import User, UserType
 from app.models.quote import Quote, QuoteStatus
@@ -42,7 +42,7 @@ class AnalyticsTracker:
         """Store analytics event in database"""
         try:
             # Create analytics table if needed (simplified storage)
-            db.session.execute("""
+            db.session.execute(text("""
                 CREATE TABLE IF NOT EXISTS analytics_events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     user_id INTEGER,
@@ -54,14 +54,14 @@ class AnalyticsTracker:
                     user_agent TEXT,
                     session_id TEXT
                 )
-            """)
+            """))
             
             # Insert event
-            db.session.execute("""
+            db.session.execute(text("""
                 INSERT INTO analytics_events 
                 (user_id, action, details, page, timestamp, ip_address, user_agent, session_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
+            """), (
                 event_data['user_id'],
                 event_data['action'],
                 json.dumps(event_data['details']),
@@ -382,7 +382,7 @@ class PerformanceMonitor:
             logging.info(f"API Performance: {json.dumps(perf_data)}")
             
             # Store in database
-            db.session.execute("""
+            db.session.execute(text("""
                 CREATE TABLE IF NOT EXISTS api_performance (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     endpoint TEXT,
@@ -393,13 +393,13 @@ class PerformanceMonitor:
                     timestamp DATETIME,
                     ip_address TEXT
                 )
-            """)
+            """))
             
-            db.session.execute("""
+            db.session.execute(text("""
                 INSERT INTO api_performance 
                 (endpoint, method, duration_ms, status_code, user_id, timestamp, ip_address)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (
+            """), (
                 perf_data['endpoint'],
                 perf_data['method'],
                 perf_data['duration_ms'],
@@ -422,7 +422,7 @@ class PerformanceMonitor:
             since = datetime.utcnow() - timedelta(hours=hours)
             
             # Average response times by endpoint
-            endpoint_performance = db.session.execute("""
+            endpoint_performance = db.session.execute(text("""
                 SELECT 
                     endpoint,
                     AVG(duration_ms) as avg_duration,
@@ -432,10 +432,10 @@ class PerformanceMonitor:
                 WHERE timestamp >= ?
                 GROUP BY endpoint
                 ORDER BY avg_duration DESC
-            """, (since,)).fetchall()
+            """), (since,)).fetchall()
             
             # Overall stats
-            overall_stats = db.session.execute("""
+            overall_stats = db.session.execute(text("""
                 SELECT 
                     AVG(duration_ms) as avg_duration,
                     COUNT(*) as total_requests,
@@ -444,7 +444,7 @@ class PerformanceMonitor:
                     MIN(duration_ms) as min_duration
                 FROM api_performance 
                 WHERE timestamp >= ?
-            """, (since,)).fetchone()
+            """), (since,)).fetchone()
             
             return {
                 'period_hours': hours,
@@ -478,7 +478,7 @@ class UserBehaviorAnalytics:
         """Analyze user journey and conversion funnel"""
         try:
             # Conversion funnel
-            total_visitors = db.session.execute("""
+            total_visitors = db.session.execute(text("""
                 SELECT COUNT(DISTINCT user_id) FROM analytics_events 
                 WHERE action = 'page_view' AND page = '/'
             """).scalar() or 0
@@ -490,7 +490,7 @@ class UserBehaviorAnalytics:
             ).scalar() or 0
             
             # User engagement
-            avg_session_duration = db.session.execute("""
+            avg_session_duration = db.session.execute(text("""
                 SELECT AVG(session_duration) FROM (
                     SELECT 
                         user_id,
@@ -504,7 +504,7 @@ class UserBehaviorAnalytics:
             """).scalar() or 0
             
             # Most visited pages
-            popular_pages = db.session.execute("""
+            popular_pages = db.session.execute(text("""
                 SELECT page, COUNT(*) as visits
                 FROM analytics_events 
                 WHERE action = 'page_view' AND page IS NOT NULL
@@ -541,7 +541,7 @@ class UserBehaviorAnalytics:
         """Analyze search behavior and patterns"""
         try:
             # Most searched terms (from analytics events)
-            search_terms = db.session.execute("""
+            search_terms = db.session.execute(text("""
                 SELECT 
                     JSON_EXTRACT(details, '$.query') as search_term,
                     COUNT(*) as search_count
@@ -555,7 +555,7 @@ class UserBehaviorAnalytics:
             """).fetchall()
             
             # Search to quote conversion
-            search_to_quote = db.session.execute("""
+            search_to_quote = db.session.execute(text("""
                 SELECT 
                     COUNT(DISTINCT user_id) as searchers,
                     (SELECT COUNT(DISTINCT customer_id) FROM quotes) as quote_makers
