@@ -58,11 +58,15 @@ def create_ticket():
         return ResponseHelper.server_error('Destek talebi oluşturulamadı', str(e))
 
 @support_bp.route('/tickets', methods=['GET'])
-@jwt_required()
 def get_user_tickets():
     """Get user's support tickets"""
     try:
-        user_id = get_jwt_identity()
+        from app.utils.auth_utils import get_current_user_id_with_mock
+        
+        # Get user ID with mock token support
+        user_id, error_response = get_current_user_id_with_mock()
+        if error_response:
+            return error_response
         
         page = request.args.get('page', 1, type=int)
         per_page = min(request.args.get('per_page', 10, type=int), 50)

@@ -97,11 +97,15 @@ def get_appointments():
         return ResponseHelper.server_error('Randevular getirilemedi', str(e))
 
 @calendar_bp.route('/events', methods=['GET'])
-@jwt_required()
 def get_calendar_events():
     """Get user's calendar events (appointments + jobs)"""
     try:
-        user_id = get_jwt_identity()
+        from app.utils.auth_utils import get_current_user_id_with_mock
+        
+        # Get user ID with mock token support
+        user_id, error_response = get_current_user_id_with_mock()
+        if error_response:
+            return error_response
         user = User.query.get(user_id)
         
         if not user:
@@ -511,11 +515,15 @@ def get_craftsman_availability(craftsman_id):
         return ResponseHelper.server_error('Müsaitlik bilgileri getirilemedi', str(e))
 
 @calendar_bp.route('/appointments/upcoming', methods=['GET'])
-@jwt_required()
 def get_upcoming_appointments():
     """Get upcoming appointments for the user"""
     try:
-        user_id = get_jwt_identity()
+        from app.utils.auth_utils import get_current_user_id_with_mock
+        
+        # Get user ID with mock token support
+        user_id, error_response = get_current_user_id_with_mock()
+        if error_response:
+            return error_response
         user = User.query.get(user_id)
         
         if not user:
@@ -559,11 +567,15 @@ def get_upcoming_appointments():
         return ResponseHelper.server_error('Yaklaşan randevular getirilemedi', str(e))
 
 @calendar_bp.route('/appointments/today', methods=['GET'])
-@jwt_required()
 def get_today_appointments():
     """Get today's appointments for the user"""
     try:
-        user_id = get_jwt_identity()
+        from app.utils.auth_utils import get_current_user_id_with_mock()
+        
+        # Get user ID with mock token support
+        user_id, error_response = get_current_user_id_with_mock()
+        if error_response:
+            return error_response
         user = User.query.get(user_id)
         
         if not user:
