@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Airbnb Primary Colors
+  // Primary Color - Simple Pink + White Theme
   static const Color primary = Color(0xFFC64191); // Custom Pink #C64191
-  static const Color secondary = Color(0xFF00A699); // Airbnb Teal
-  static const Color tertiary = Color(0xFFFC642D); // Airbnb Orange
   
   // Airbnb Neutral Colors
   static const Color textPrimary = Color(0xFF222222); // Airbnb Dark Gray
@@ -27,10 +25,8 @@ class AppColors {
   static const Color border = Color(0xFFDDDDDD); // Light Border
   static const Color divider = Color(0xFFEBEBEB); // Very Light Border
   
-  // BACKWARD COMPATIBILITY - Map old colors to new Airbnb colors
+  // BACKWARD COMPATIBILITY - Simple Pink + White Theme
   static const Color uclaBlue = Color(0xFFC64191); // Custom Pink #C64191
-  static const Color delftBlue = Color(0xFF00A699); // Secondary Airbnb Teal
-  static const Color poppy = Color(0xFFFC642D); // Tertiary Airbnb Orange
   static const Color mintGreen = Color(0xFF008A05); // Success Green
   static const Color nonPhotoBlue = Color(0xFF9FDBF0); // Keep original
   
@@ -45,7 +41,6 @@ class AppColors {
   
   // Button colors (backward compatibility)
   static const Color buttonPrimary = Color(0xFFC64191); // Custom Pink #C64191
-  static const Color buttonSecondary = Color(0xFF00A699); // Secondary Teal
   static const Color buttonDanger = Color(0xFFD93025); // Error Red
   static const Color buttonDisabled = Color(0xFFB0B0B0); // Light Gray
   
@@ -54,10 +49,10 @@ class AppColors {
   static const Color shadowMedium = Color(0x33000000); // Medium shadow
   static const Color shadowDark = Color(0x4D000000); // Dark shadow
   
-  // Legacy compatibility colors
-  static const Color primaryLight = Color(0xFFFF7A7F); // Lighter primary
-  static const Color accent = Color(0xFF00A699); // Same as secondary
-  static const Color accentLight = Color(0xFF33B5AA); // Lighter accent
+  // Legacy compatibility colors - Pink theme
+  static const Color primaryLight = Color(0xFFD85BAB); // Lighter pink
+  static const Color accent = Color(0xFFC64191); // Same as primary pink
+  static const Color accentLight = Color(0xFFD85BAB); // Lighter pink
   
   // Airbnb Gradients
   static const List<Color> primaryGradient = [
@@ -67,7 +62,7 @@ class AppColors {
   
   static const List<Color> headerGradient = [
     Color(0xFFC64191), // Custom Pink #C64191
-    Color(0xFFFC642D), // Airbnb Orange (unchanged)
+    Color(0xFFB23A82), // Darker Pink
   ];
   
   static const List<Color> cardGradient = [
@@ -75,10 +70,10 @@ class AppColors {
     Color(0xFFFFFFFF),
   ];
   
-  // Legacy gradient compatibility
+  // Legacy gradient compatibility - Pink theme
   static const List<Color> accentGradient = [
-    Color(0xFF00A699), // Airbnb Teal
-    Color(0xFF33B5AA), // Lighter Teal
+    Color(0xFFC64191), // Custom Pink #C64191
+    Color(0xFFD85BAB), // Lighter Pink
   ];
 
   // Gradient helper with backward compatibility
