@@ -984,104 +984,7 @@ def create_sample_data():
     db.session.commit()
     print("Sample jobs created.")
     
-    # Create sample appointments
-    print("Creating sample appointments...")
-    
-    # Appointment 1: Ahmet ile müşteri konsültasyonu (yarın)
-    appointment1 = Appointment(
-        title='Elektrik Tesisatı Konsültasyonu',
-        description='Evdeki elektrik tesisatı için ön görüşme ve keşif',
-        customer_id=created_users['customer@test.com'].id,
-        craftsman_id=created_users['ahmet@test.com'].id,
-        type=AppointmentType.CONSULTATION,
-        status=AppointmentStatus.CONFIRMED,
-        start_time=datetime.now() + timedelta(days=1, hours=10),
-        end_time=datetime.now() + timedelta(days=1, hours=11),
-        location='Kadıköy, İstanbul',
-        notes='Müşteri smart home sistemi kurmak istiyor',
-        created_at=datetime.now() - timedelta(days=2)
-    )
-    db.session.add(appointment1)
-    
-    # Appointment 2: Fatma ile temizlik randevusu (2 gün sonra)
-    appointment2 = Appointment(
-        title='Haftalık Ev Temizliği',
-        description='Genel ev temizliği ve düzenleme',
-        customer_id=created_users['musteri@test.com'].id,
-        craftsman_id=created_users['fatma@test.com'].id,
-        type=AppointmentType.WORK,
-        status=AppointmentStatus.CONFIRMED,
-        start_time=datetime.now() + timedelta(days=2, hours=9),
-        end_time=datetime.now() + timedelta(days=2, hours=12),
-        location='Beşiktaş, İstanbul',
-        notes='3 odalı ev, detaylı temizlik',
-        created_at=datetime.now() - timedelta(days=1)
-    )
-    db.session.add(appointment2)
-    
-    # Appointment 3: Mehmet ile tesisat randevusu (3 gün sonra)
-    appointment3 = Appointment(
-        title='Banyo Tesisatı Tamiri',
-        description='Banyo lavabo ve duş tesisatı onarımı',
-        customer_id=created_users['ali@test.com'].id,
-        craftsman_id=created_users['mehmet@test.com'].id,
-        type=AppointmentType.WORK,
-        status=AppointmentStatus.PENDING,
-        start_time=datetime.now() + timedelta(days=3, hours=14),
-        end_time=datetime.now() + timedelta(days=3, hours=16),
-        location='Şişli, İstanbul',
-        notes='Acil tesisat tamiri gerekli',
-        created_at=datetime.now() - timedelta(hours=12)
-    )
-    db.session.add(appointment3)
-    
-    # Appointment 4: Kemal ile boyama konsültasyonu (5 gün sonra)
-    appointment4 = Appointment(
-        title='Ev Boyama Konsültasyonu',
-        description='Ev boyama için renk seçimi ve keşif',
-        customer_id=created_users['customer@test.com'].id,
-        craftsman_id=created_users['kemal@test.com'].id,
-        type=AppointmentType.CONSULTATION,
-        status=AppointmentStatus.CONFIRMED,
-        start_time=datetime.now() + timedelta(days=5, hours=15),
-        end_time=datetime.now() + timedelta(days=5, hours=16),
-        location='Kadıköy, İstanbul',
-        notes='3+1 daire, tüm odalar boyanacak',
-        created_at=datetime.now() - timedelta(days=3)
-    )
-    db.session.add(appointment4)
-    
-    # Appointment 5: Geçmiş tamamlanmış randevu
-    appointment5 = Appointment(
-        title='Elektrik Arıza Tamiri',
-        description='Sigortalar atıyor, genel kontrol yapıldı',
-        customer_id=created_users['musteri@test.com'].id,
-        craftsman_id=created_users['ahmet@test.com'].id,
-        type=AppointmentType.WORK,
-        status=AppointmentStatus.COMPLETED,
-        start_time=datetime.now() - timedelta(days=5, hours=-10),
-        end_time=datetime.now() - timedelta(days=5, hours=-8),
-        location='Beşiktaş, İstanbul',
-        notes='Sorun çözüldü, yeni sigorta takıldı',
-        created_at=datetime.now() - timedelta(days=7)
-    )
-    db.session.add(appointment5)
-    
-    # Appointment 6: İptal edilmiş randevu
-    appointment6 = Appointment(
-        title='Ofis Temizliği',
-        description='Aylık ofis temizliği',
-        customer_id=created_users['ali@test.com'].id,
-        craftsman_id=created_users['fatma@test.com'].id,
-        type=AppointmentType.WORK,
-        status=AppointmentStatus.CANCELLED,
-        start_time=datetime.now() + timedelta(days=7, hours=8),
-        end_time=datetime.now() + timedelta(days=7, hours=12),
-        location='Şişli, İstanbul',
-        notes='Müşteri iptal etti',
-        created_at=datetime.now() - timedelta(days=1)
-    )
-    db.session.add(appointment6)
+    # Old appointment creation code removed - using new version below
     
     appointments_data = [
         {
@@ -1267,7 +1170,6 @@ def create_sample_data():
     # Create sample appointments for calendar
     print("Creating sample appointments...")
     from app.models.appointment import Appointment, AppointmentStatus, AppointmentType
-    from datetime import datetime, timedelta
     
     # Get first customer and craftsman for appointments
     customer = next((user for user in created_users.values() if user.user_type.value == 'customer'), None)
