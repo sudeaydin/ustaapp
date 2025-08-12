@@ -368,14 +368,59 @@ class PerformanceMonitor:
     def track_api_performance(endpoint, duration, status_code, user_id=None):
         """Track API endpoint performance"""
         try:
-            # Skip performance tracking to avoid delays
-            # This was causing "List argument must consist only of dictionaries" errors
-            # and slowing down every API request
-            pass
+            # Create a separate database session for analytics to avoid transaction conflicts
+            from sqlalchemy import create_engine
+            from sqlalchemy.orm import sessionmaker
+            
+            # Use current app's database URL
+            engine = db.engine
+            Session = sessionmaker(bind=engine)
+            session = Session()
+            
+            try:
+                # Ensure table exists (only once per session)
+                if not hasattr(PerformanceMonitor, '_table_created'):
+                    session.execute(text("""
+                        CREATE TABLE IF NOT EXISTS api_performance (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            endpoint TEXT,
+                            method TEXT,
+                            duration_ms REAL,
+                            status_code INTEGER,
+                            user_id INTEGER,
+                            timestamp DATETIME,
+                            ip_address TEXT
+                        )
+                    """))
+                    PerformanceMonitor._table_created = True
+                
+                # Prepare data with proper types
+                method = getattr(request, 'method', 'UNKNOWN') if request else 'UNKNOWN'
+                ip_address = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr) if request else 'unknown'
+                
+                # Insert performance data with explicit parameter binding
+                session.execute(text("""
+                    INSERT INTO api_performance 
+                    (endpoint, method, duration_ms, status_code, user_id, timestamp, ip_address)
+                    VALUES (:endpoint, :method, :duration_ms, :status_code, :user_id, :timestamp, :ip_address)
+                """), {
+                    'endpoint': str(endpoint) if endpoint else 'unknown',
+                    'method': str(method),
+                    'duration_ms': float(round(duration * 1000, 2)),
+                    'status_code': int(status_code) if status_code else 0,
+                    'user_id': int(user_id) if user_id else None,
+                    'timestamp': datetime.utcnow(),
+                    'ip_address': str(ip_address)
+                })
+                
+                session.commit()
+                
+            finally:
+                session.close()
             
         except Exception as e:
             logging.error(f"Performance tracking error: {e}")
-            # Don't rollback here as it might interfere with main transaction
+            # Don't interfere with main request
     
     @staticmethod
     def get_performance_report(hours=24):
