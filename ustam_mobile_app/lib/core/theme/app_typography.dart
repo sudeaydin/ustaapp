@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'app_colors.dart';
 
 class AppTypography {
-  // Airbnb Font Family - Using system fonts that match Airbnb
-  static const String _primaryFont = 'Circular'; // Fallback to system
+  // iOS San Francisco Font Family (Airbnb iOS style)
+  static const String _primaryFont = '.SF Pro Text'; // iOS system font
+  static const String _displayFont = '.SF Pro Display'; // For large text
   
   // Airbnb Typography Scale
   
   // Display - Large headlines, hero text
   static const TextStyle displayLarge = TextStyle(
+    fontFamily: _displayFont,
     fontSize: 32,
-    fontWeight: FontWeight.w600, // Airbnb uses semi-bold
+    fontWeight: FontWeight.w600, // iOS semi-bold
     height: 1.2,
     letterSpacing: -0.5,
     color: AppColors.textPrimary,
   );
   
   static const TextStyle displayMedium = TextStyle(
+    fontFamily: _displayFont,
     fontSize: 28,
     fontWeight: FontWeight.w600,
     height: 1.2,
@@ -25,6 +29,7 @@ class AppTypography {
   );
   
   static const TextStyle displaySmall = TextStyle(
+    fontFamily: _displayFont,
     fontSize: 24,
     fontWeight: FontWeight.w600,
     height: 1.3,

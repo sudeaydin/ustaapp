@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/ios_icons.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../core/widgets/airbnb_button.dart';
@@ -136,7 +138,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                       ),
                       child: IconButton(
                         icon: Icon(
-                          Icons.tune,
+                          iOSIcons.tune,
                           color: AppColors.textWhite,
                           size: 24,
                         ),
@@ -239,7 +241,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
           GestureDetector(
             onTap: onRemove,
             child: const Icon(
-              Icons.close,
+              iOSIcons.close,
               color: AppColors.textWhite,
               size: 16,
             ),
@@ -277,7 +279,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              isInitialState ? Icons.search : Icons.search_off,
+              isInitialState ? iOSIcons.search : iOSIcons.searchOff,
               size: 64,
               color: AppColors.textSecondary.withOpacity(0.5),
             ),
@@ -305,7 +307,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                   _performSearch();
                 }
               },
-              icon: Icon(isInitialState ? Icons.search : Icons.refresh),
+              icon: Icon(isInitialState ? iOSIcons.search : iOSIcons.refresh),
               label: Text(isInitialState ? 'Tüm Ustaları Göster' : 'Filtreleri Temizle'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,

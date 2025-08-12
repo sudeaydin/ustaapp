@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 import '../theme/app_spacing.dart';
@@ -33,10 +34,16 @@ class AirbnbButton extends StatelessWidget {
     return SizedBox(
       width: isFullWidth ? double.infinity : null,
       height: _getHeight(),
-      child: ElevatedButton(
+      child: CupertinoButton(
         onPressed: isLoading ? null : onPressed,
-        style: _getButtonStyle(),
-        child: _buildButtonContent(),
+        padding: EdgeInsets.zero,
+        minSize: 0,
+        child: Container(
+          width: isFullWidth ? double.infinity : null,
+          height: _getHeight(),
+          decoration: _getButtonDecoration(),
+          child: Center(child: _buildButtonContent()),
+        ),
       ),
     );
   }
@@ -103,43 +110,34 @@ class AirbnbButton extends StatelessWidget {
     }
   }
 
-  ButtonStyle _getButtonStyle() {
-    return ElevatedButton.styleFrom(
-      backgroundColor: _getBackgroundColor(),
-      foregroundColor: _getTextColor(),
-      disabledBackgroundColor: AppColors.buttonDisabled,
-      disabledForegroundColor: AppColors.textMuted,
-      elevation: _getElevation(),
-      shadowColor: _getShadowColor(),
-      shape: RoundedRectangleBorder(
-        borderRadius: AppSpacing.buttonBorderRadiusGeometry,
-        side: _getBorderSide(),
-      ),
-      padding: _getPadding(),
-      textStyle: _getTextStyle(),
+  BoxDecoration _getButtonDecoration() {
+    return BoxDecoration(
+      color: onPressed == null ? AppColors.buttonDisabled : _getBackgroundColor(),
+      borderRadius: AppSpacing.buttonBorderRadiusGeometry,
+      border: type == AirbnbButtonType.outline 
+          ? Border.all(
+              color: onPressed == null ? AppColors.buttonDisabled : AppColors.primary,
+              width: 1.5,
+            )
+          : null,
+      boxShadow: _getBoxShadow(),
     );
   }
 
-  double _getElevation() {
-    if (type == AirbnbButtonType.outline || type == AirbnbButtonType.text) {
-      return 0;
+  List<BoxShadow>? _getBoxShadow() {
+    if (type == AirbnbButtonType.outline || type == AirbnbButtonType.text || onPressed == null) {
+      return null;
     }
-    return onPressed == null ? 0 : 2;
+    return [
+      BoxShadow(
+        color: AppColors.shadowMedium.withOpacity(0.15),
+        blurRadius: 8,
+        offset: const Offset(0, 2),
+      ),
+    ];
   }
 
-  Color _getShadowColor() {
-    return AppColors.shadowMedium;
-  }
 
-  BorderSide _getBorderSide() {
-    if (type == AirbnbButtonType.outline) {
-      return BorderSide(
-        color: onPressed == null ? AppColors.buttonDisabled : AppColors.primary,
-        width: 1.5,
-      );
-    }
-    return BorderSide.none;
-  }
 
   Widget _buildButtonContent() {
     if (isLoading) {

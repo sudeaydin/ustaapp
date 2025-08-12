@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/ios_icons.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/hover_button.dart';
@@ -71,7 +72,7 @@ class CraftsmanCard extends StatelessWidget {
                             ),
                             if (craftsman['is_verified'] == true)
                               Icon(
-                                Icons.verified,
+                                iOSIcons.verified,
                                 size: 20,
                                 color: Colors.green[600],
                               ),
@@ -170,7 +171,7 @@ class CraftsmanCard extends StatelessWidget {
                 children: [
                   // Location
                   Icon(
-                    Icons.location_on,
+                    iOSIcons.locationOn,
                     size: 16,
                     color: Colors.grey[600],
                   ),
@@ -214,7 +215,7 @@ class CraftsmanCard extends StatelessWidget {
                     Expanded(
                       child: OutlinedButton.icon(
                         onPressed: () => _showReviews(context),
-                        icon: const Icon(Icons.rate_review, size: 16),
+                        icon: const Icon(iOSIcons.rateReview, size: 16),
                         label: const Text('Değerlendirmeler'),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.primary,
