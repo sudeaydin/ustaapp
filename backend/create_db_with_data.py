@@ -985,11 +985,9 @@ def create_sample_data():
     print("Sample jobs created.")
     
     # Old appointment creation code removed - using new version below
+    # Skipping old appointments_data creation...
     
-    appointments_data = [
-        {
-            'customer_id': created_users['customer@test.com'].id,
-            'craftsman_id': created_users['ahmet@test.com'].id,
+    # Update craftsman review statistics
             'title': 'Elektrik Tesisatı Kontrolü',
             'description': 'Ev elektrik tesisatının genel kontrolü ve arıza tespiti',
             'start_time': datetime.now() + timedelta(days=2, hours=10),
