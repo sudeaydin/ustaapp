@@ -71,7 +71,16 @@ def get_appointments():
         
         return ResponseHelper.success(
             data={
-                'appointments': [appointment.to_dict() for appointment in appointments.items],
+                'appointments': [{
+                    'id': apt.id,
+                    'title': apt.title,
+                    'description': apt.description,
+                    'start_time': apt.start_time.isoformat(),
+                    'end_time': apt.end_time.isoformat(),
+                    'status': apt.status.value if apt.status else 'pending',
+                    'type': apt.type.value if apt.type else 'work',
+                    'location': apt.location,
+                } for apt in appointments.items],
                 'pagination': {
                     'page': page,
                     'per_page': per_page,
@@ -156,7 +165,13 @@ def get_calendar_events():
                     'status': appointment.status.value if appointment.status else 'pending',
                     'location': appointment.location or '',
                     'appointment_type': appointment.type.value if appointment.type else 'consultation',
-                    'data': appointment.to_dict()
+                    'data': {
+                        'id': appointment.id,
+                        'title': appointment.title,
+                        'description': appointment.description,
+                        'status': appointment.status.value if appointment.status else 'pending',
+                        'type': appointment.type.value if appointment.type else 'consultation',
+                    }
                 })
             except Exception as e:
                 print(f"Error processing appointment {appointment.id}: {e}")
@@ -178,7 +193,13 @@ def get_calendar_events():
                     'category': job.category or '',
                     'priority': job.priority.value if job.priority else 'normal',
                     'estimated_cost': float(job.estimated_cost) if job.estimated_cost else None,
-                    'data': job.to_dict()
+                    'data': {
+                        'id': job.id,
+                        'title': job.title,
+                        'description': job.description,
+                        'status': job.status.value if job.status else 'pending',
+                        'category': job.category,
+                    }
                 })
             except Exception as e:
                 print(f"Error processing job {job.id}: {e}")

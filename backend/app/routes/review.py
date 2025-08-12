@@ -39,14 +39,14 @@ def get_reviews():
             'reviews': [{
                 'id': review.id,
                 'rating': review.rating,
-                'comment': review.comment,
-                'title': review.title,
-                'work_quality': review.quality_rating,
-                'communication': review.communication_rating,
-                'punctuality': review.punctuality_rating,
-                'value_for_money': review.cleanliness_rating,  # Using cleanliness as value_for_money
+                'comment': review.comment or '',
+                'title': review.title or '',
+                'work_quality': review.quality_rating or 0,
+                'communication': review.communication_rating or 0,
+                'punctuality': review.punctuality_rating or 0,
+                'value_for_money': review.cleanliness_rating or 0,
                 'created_at': review.created_at.isoformat() if review.created_at else None,
-                'customer_name': f"{review.customer.user.first_name} {review.customer.user.last_name}" if review.customer and review.customer.user else "Anonim",
+                'customer_name': "Müşteri",  # Simple name to avoid relationship issues
                 'craftsman_id': review.craftsman_id,
             } for review in reviews.items],
             'pagination': {

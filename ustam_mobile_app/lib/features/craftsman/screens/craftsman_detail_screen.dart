@@ -47,19 +47,15 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Avatar
-                        Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
-                            border: Border.all(color: AppColors.cardBackground, width: 4),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage: craftsman['avatar'] != null 
+                              ? NetworkImage(craftsman['avatar']) 
+                              : null,
+                          backgroundColor: AppColors.primary.withOpacity(0.1),
+                          child: craftsman['avatar'] == null 
+                              ? Icon(Icons.person, size: 40, color: AppColors.primary)
+                              : null,
                         ),
                         const SizedBox(height: 16),
                         Text(
