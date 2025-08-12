@@ -128,12 +128,21 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               'Kategorilere göre usta bulun',
                               Icons.search_rounded,
                               AppColors.primary,
-                              () {
+                              () async {
                                 print('🔍 Usta Ara butonuna tıklandı');
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('🔍 Usta Ara butonuna tıklandı')),
+                                  const SnackBar(
+                                    content: Text('🔍 Usta Ara açılıyor...'),
+                                    duration: Duration(seconds: 1),
+                                  ),
                                 );
-                                Navigator.pushNamed(context, '/search');
+                                
+                                // Add small delay to show feedback
+                                await Future.delayed(const Duration(milliseconds: 300));
+                                
+                                if (mounted) {
+                                  Navigator.pushNamed(context, '/search');
+                                }
                               },
                             ),
                           ),

@@ -34,15 +34,25 @@ class AirbnbButton extends StatelessWidget {
     return SizedBox(
       width: isFullWidth ? double.infinity : null,
       height: _getHeight(),
-      child: CupertinoButton(
-        onPressed: isLoading ? null : onPressed,
-        padding: EdgeInsets.zero,
-        minSize: 0,
-        child: Container(
-          width: isFullWidth ? double.infinity : null,
-          height: _getHeight(),
-          decoration: _getButtonDecoration(),
-          child: Center(child: _buildButtonContent()),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            print('🎯 AirbnbButton tapped! Loading: $isLoading, OnPressed: ${onPressed != null}');
+            if (!isLoading && onPressed != null) {
+              print('✅ Calling onPressed callback');
+              onPressed!();
+            } else {
+              print('❌ Button tap ignored - Loading: $isLoading, Callback: ${onPressed != null}');
+            }
+          },
+          borderRadius: BorderRadius.circular(_getBorderRadius()),
+          child: Container(
+            width: isFullWidth ? double.infinity : null,
+            height: _getHeight(),
+            decoration: _getButtonDecoration(),
+            child: Center(child: _buildButtonContent()),
+          ),
         ),
       ),
     );
@@ -56,6 +66,17 @@ class AirbnbButton extends StatelessWidget {
         return 48;
       case AirbnbButtonSize.large:
         return 56;
+    }
+  }
+
+  double _getBorderRadius() {
+    switch (size) {
+      case AirbnbButtonSize.small:
+        return 8;
+      case AirbnbButtonSize.medium:
+        return 12;
+      case AirbnbButtonSize.large:
+        return 16;
     }
   }
 

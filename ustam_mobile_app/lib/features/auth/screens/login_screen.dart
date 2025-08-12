@@ -466,6 +466,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _handleLogin() async {
     print('🔥 _handleLogin called!'); // Debug print
     
+    // Show immediate feedback
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('🔐 Giriş yapılıyor...'),
+        duration: Duration(seconds: 1),
+        backgroundColor: Colors.blue,
+      ),
+    );
+    
     // Prevent multiple rapid taps
     final now = DateTime.now();
     if (_lastLoginAttempt != null && 
@@ -475,6 +484,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         const SnackBar(
           content: Text('Lütfen bekleyin...'),
           duration: Duration(seconds: 1),
+          backgroundColor: Colors.orange,
         ),
       );
       return;
