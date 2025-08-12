@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/airbnb_button.dart';
+import '../../../core/widgets/airbnb_input.dart';
+import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/widgets.dart';
-
-
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
 
@@ -174,90 +177,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   
                   const SizedBox(height: 40),
                   
-                  // Email Field
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.cardBackground,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.textWhite.withOpacity(0.2)),
-                      boxShadow: [AppColors.getCardShadow()],
-                    ),
-                    child: TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(color: AppColors.textPrimary),
-                      decoration: InputDecoration(
-                        labelText: '📧 E-posta',
-                        labelStyle: TextStyle(color: AppColors.textSecondary),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(20),
-                        prefixIcon: Icon(Icons.email_rounded, color: AppColors.uclaBlue),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'E-posta gerekli';
-                        }
-                        if (!value.contains('@')) {
-                          return 'Geçerli bir e-posta girin';
-                        }
-                        return null;
-                      },
-                    ),
+                  // Email Field - Airbnb Style
+                  AirbnbInput(
+                    label: 'E-posta',
+                    hintText: 'E-posta adresinizi girin',
+                    controller: _emailController,
+                    type: AirbnbInputType.email,
+                    prefixIcon: Icons.email_outlined,
                   ),
                   
                   const SizedBox(height: 20),
                   
-                  // Password Field
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.cardBackground,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.textWhite.withOpacity(0.2)),
-                      boxShadow: [AppColors.getCardShadow()],
-                    ),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      style: TextStyle(color: AppColors.textPrimary),
-                      decoration: InputDecoration(
-                        labelText: '🔒 Şifre',
-                        labelStyle: TextStyle(color: AppColors.textSecondary),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.all(20),
-                                                  prefixIcon: Icon(Icons.lock_rounded, color: AppColors.uclaBlue),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                            color: AppColors.textSecondary,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Şifre gerekli';
-                        }
-                        if (value.length < 6) {
-                          return 'Şifre en az 6 karakter olmalı';
-                        }
-                        return null;
-                      },
-                    ),
+                  // Password Field - Airbnb Style
+                  AirbnbInput(
+                    label: 'Şifre',
+                    hintText: 'Şifrenizi girin',
+                    controller: _passwordController,
+                    type: AirbnbInputType.password,
+                    prefixIcon: Icons.lock_outlined,
                   ),
                   
                   const SizedBox(height: 32),
                   
-                  // Login Button
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [AppColors.getElevatedShadow()],
-                    ),
-                    child: _buildLoginButton(locale),
+                  // Login Button - Airbnb Style
+                  AirbnbPrimaryButton(
+                    text: widget.userType == 'craftsman' ? 'Usta Olarak Giriş Yap' : 'Müşteri Olarak Giriş Yap',
+                    onPressed: _isLoading ? null : _handleLogin,
+                    isLoading: _isLoading,
+                    isFullWidth: true,
+                    size: AirbnbButtonSize.large,
                   ),
                   
                   const SizedBox(height: 16),
