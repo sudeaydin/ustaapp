@@ -34,9 +34,10 @@ def get_reviews():
             page=page, per_page=per_page, error_out=False
         )
         
-        return jsonify({
-            'success': True,
-            'reviews': [{
+        # Build safe review data without complex relationships
+        reviews_data = []
+        for review in reviews.items:
+            review_data = {
                 'id': review.id,
                 'rating': review.rating,
                 'comment': review.comment or '',
@@ -48,7 +49,12 @@ def get_reviews():
                 'created_at': review.created_at.isoformat() if review.created_at else None,
                 'customer_name': "Müşteri",  # Simple name to avoid relationship issues
                 'craftsman_id': review.craftsman_id,
-            } for review in reviews.items],
+            }
+            reviews_data.append(review_data)
+        
+        return jsonify({
+            'success': True,
+            'reviews': reviews_data,
             'pagination': {
                 'page': page,
                 'pages': reviews.pages,
