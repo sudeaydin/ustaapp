@@ -1319,8 +1319,8 @@ def create_sample_data():
         
         for apt_data in appointments_data:
             appointment = Appointment(
-                customer_id=customer.customer_profile.id,
-                craftsman_id=craftsman.craftsman_profile.id,
+                customer_id=customer.id,
+                craftsman_id=craftsman.id,
                 title=apt_data['title'],
                 description=apt_data['description'],
                 start_time=apt_data['start_time'],
