@@ -200,9 +200,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 32),
                   
                   // Login Button - Airbnb Style
-                  AirbnbPrimaryButton(
+                  AirbnbButton(
                     text: widget.userType == 'craftsman' ? 'Usta Olarak Giriş Yap' : 'Müşteri Olarak Giriş Yap',
                     onPressed: _isLoading ? null : _handleLogin,
+                    type: AirbnbButtonType.primary,
                     isLoading: _isLoading,
                     isFullWidth: true,
                     size: AirbnbButtonSize.large,
