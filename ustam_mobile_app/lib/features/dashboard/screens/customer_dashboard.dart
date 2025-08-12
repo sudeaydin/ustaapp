@@ -275,34 +275,33 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
       onTap: onTap,
       backgroundColor: color.withOpacity(0.05),
       border: Border.all(color: color.withOpacity(0.2)),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              size: 32,
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            size: 32,
+            color: color,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
               color: color,
             ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-              textAlign: TextAlign.center,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 12,
+              color: AppColors.textSecondary,
             ),
-            const SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.textSecondary,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

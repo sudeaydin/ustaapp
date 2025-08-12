@@ -27,8 +27,8 @@ class CraftsmanCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppSpacing.md),
       onTap: onTap,
       child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
               // Header row
               Row(
                 children: [
@@ -270,8 +270,6 @@ class CraftsmanCard extends StatelessWidget {
               ],
             ],
           ),
-        ),
-      ),
     );
   }
 
