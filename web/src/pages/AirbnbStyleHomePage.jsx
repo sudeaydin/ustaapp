@@ -24,7 +24,14 @@ const Icons = {
   flooring: '🟫',
   furniture: '🪑',
   appliance: '🔌',
-  pest: '🐜'
+  pest: '🐜',
+  quote: '💰',
+  cart: '🛒',
+  job: '🔨',
+  review: '⭐',
+  payment: '💳',
+  notification: '🔔',
+  settings: '⚙️'
 };
 
 const AirbnbStyleHomePage = () => {
@@ -49,7 +56,7 @@ const AirbnbStyleHomePage = () => {
     { icon: Icons.pest, label: 'İlaçlama', id: 'pest' }
   ];
 
-  // Bottom navigation items
+  // Bottom navigation items - ustam özelliklerine göre
   const bottomNavItems = [
     {
       icon: Icons.search,
@@ -57,13 +64,13 @@ const AirbnbStyleHomePage = () => {
       label: 'Keşfet'
     },
     {
-      icon: Icons.favorite,
-      activeIcon: Icons.favorite,
-      label: 'Favoriler'
+      icon: Icons.quote,
+      activeIcon: Icons.quote,
+      label: 'Teklifler'
     },
     {
-      icon: Icons.calendar,
-      activeIcon: Icons.calendar,
+      icon: Icons.job,
+      activeIcon: Icons.job,
       label: 'İşlerim'
     },
     {
@@ -78,7 +85,7 @@ const AirbnbStyleHomePage = () => {
     }
   ];
 
-  // Sayfa içerikleri
+  // Sayfa içerikleri - ustam özellikleriyle
   const pages = [
     // Keşfet sayfası
     <div key="discover" className="p-4">
@@ -87,7 +94,7 @@ const AirbnbStyleHomePage = () => {
           Hangi hizmete ihtiyacınız var?
         </h1>
         <p className="text-airbnb-dark-600 dark:text-airbnb-light-400">
-          Güvenilir ustaları keşfedin
+          Güvenilir ustaları keşfedin ve teklif alın
         </p>
       </div>
       
@@ -102,9 +109,29 @@ const AirbnbStyleHomePage = () => {
               key={category.id}
               icon={category.icon}
               label={category.label}
-              onTap={() => navigate(`/search?category=${category.id}`)}
+              onTap={() => navigate(`/airbnb-style-search?category=${category.id}`)}
             />
           ))}
+        </div>
+      </div>
+
+      {/* Hızlı İş Talebi */}
+      <div className="mb-6">
+        <div className="card">
+          <div className="card-body">
+            <h3 className="text-lg font-semibold text-airbnb-dark-900 dark:text-white mb-3">
+              Hızlı İş Talebi Oluştur
+            </h3>
+            <p className="text-airbnb-dark-600 dark:text-airbnb-light-400 mb-4">
+              İhtiyacınızı anlatın, ustalar size teklif versin
+            </p>
+            <button 
+              className="btn btn-primary w-full"
+              onClick={() => navigate('/job-request/new')}
+            >
+              İş Talebi Oluştur
+            </button>
+          </div>
         </div>
       </div>
 
@@ -115,7 +142,7 @@ const AirbnbStyleHomePage = () => {
         </h2>
         <div className="space-y-4">
           {[1, 2, 3].map((item) => (
-            <div key={item} className="listing-card" onClick={() => navigate('/craftsman/1')}>
+            <div key={item} className="listing-card" onClick={() => navigate('/airbnb-style-craftsman/1')}>
               <div className="flex items-center p-4">
                 <div className="w-16 h-16 bg-airbnb-light-200 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center text-2xl mr-4">
                   👨‍🔧
@@ -135,35 +162,69 @@ const AirbnbStyleHomePage = () => {
       </div>
     </div>,
 
-    // Favoriler sayfası
-    <div key="favorites" className="p-4">
+    // Teklifler sayfası - ustam özelliği
+    <div key="quotes" className="p-4">
       <h1 className="text-2xl font-bold text-airbnb-dark-900 dark:text-white mb-4">
-        Favori Ustalarım
+        Tekliflerim
       </h1>
+      
+      {/* Teklif durumları */}
+      <div className="tab-nav mb-6">
+        <button className="tab-item tab-item-active">Bekleyen (3)</button>
+        <button className="tab-item">Kabul Edilen (2)</button>
+        <button className="tab-item">Tamamlanan (8)</button>
+      </div>
+
       <div className="space-y-4">
-        {[1, 2].map((item) => (
+        {[1, 2, 3].map((item) => (
           <div key={item} className="listing-card">
-            <div className="flex items-center p-4">
-              <div className="w-16 h-16 bg-airbnb-light-200 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center text-2xl mr-4">
-                👨‍🔧
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="listing-title">Elektrik Arızası</h3>
+                <span className="badge badge-primary">3 Teklif</span>
               </div>
-              <div className="flex-1">
-                <h3 className="listing-title">Mehmet Usta</h3>
-                <p className="listing-subtitle">Tesisatçı • 4.9 ⭐</p>
-                <p className="text-airbnb-500 font-semibold">₺200/saat</p>
+              <p className="listing-subtitle">2 saat önce oluşturuldu</p>
+              <div className="mt-3 space-y-2">
+                <div className="flex items-center justify-between p-2 bg-airbnb-light-50 dark:bg-airbnb-dark-700 rounded-lg">
+                  <div>
+                    <p className="font-medium text-airbnb-dark-900 dark:text-white">Ahmet Usta</p>
+                    <p className="text-sm text-airbnb-dark-600 dark:text-airbnb-light-400">4.8 ⭐ (127 değerlendirme)</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-airbnb-500 font-semibold">₺300</p>
+                    <button className="btn btn-primary btn-sm mt-1">Kabul Et</button>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-airbnb-light-50 dark:bg-airbnb-dark-700 rounded-lg">
+                  <div>
+                    <p className="font-medium text-airbnb-dark-900 dark:text-white">Mehmet Usta</p>
+                    <p className="text-sm text-airbnb-dark-600 dark:text-airbnb-light-400">4.9 ⭐ (89 değerlendirme)</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-airbnb-500 font-semibold">₺350</p>
+                    <button className="btn btn-primary btn-sm mt-1">Kabul Et</button>
+                  </div>
+                </div>
               </div>
-              <button className="text-airbnb-500 text-2xl">❤️</button>
             </div>
           </div>
         ))}
       </div>
     </div>,
 
-    // İşlerim sayfası
+    // İşlerim sayfası - ustam özelliği
     <div key="jobs" className="p-4">
       <h1 className="text-2xl font-bold text-airbnb-dark-900 dark:text-white mb-4">
         İşlerim
       </h1>
+      
+      {/* İş durumları */}
+      <div className="tab-nav mb-6">
+        <button className="tab-item tab-item-active">Devam Eden (2)</button>
+        <button className="tab-item">Tamamlanan (12)</button>
+        <button className="tab-item">İptal Edilen (1)</button>
+      </div>
+
       <div className="space-y-4">
         {[1, 2, 3].map((item) => (
           <div key={item} className="listing-card">
@@ -173,18 +234,36 @@ const AirbnbStyleHomePage = () => {
                 <span className="badge badge-primary">Devam Ediyor</span>
               </div>
               <p className="listing-subtitle">Ahmet Usta • 2 saat önce</p>
-              <p className="text-airbnb-500 font-semibold">₺300</p>
+              <div className="mt-3">
+                <div className="progress mb-2">
+                  <div className="progress-bar" style={{width: '75%'}}></div>
+                </div>
+                <p className="text-sm text-airbnb-dark-600 dark:text-airbnb-light-400">%75 tamamlandı</p>
+              </div>
+              <p className="text-airbnb-500 font-semibold mt-2">₺300</p>
+              <div className="flex space-x-2 mt-3">
+                <button className="btn btn-outline btn-sm flex-1">Detaylar</button>
+                <button className="btn btn-primary btn-sm flex-1">Mesaj</button>
+              </div>
             </div>
           </div>
         ))}
       </div>
     </div>,
 
-    // Mesajlar sayfası
+    // Mesajlar sayfası - ustam özelliği
     <div key="messages" className="p-4">
       <h1 className="text-2xl font-bold text-airbnb-dark-900 dark:text-white mb-4">
         Mesajlar
       </h1>
+      
+      {/* Mesaj kategorileri */}
+      <div className="tab-nav mb-6">
+        <button className="tab-item tab-item-active">Tümü</button>
+        <button className="tab-item">Ustalar</button>
+        <button className="tab-item">Destek</button>
+      </div>
+
       <div className="space-y-4">
         {[1, 2, 3].map((item) => (
           <div key={item} className="listing-card" onClick={() => navigate('/messages/1')}>
@@ -204,7 +283,7 @@ const AirbnbStyleHomePage = () => {
       </div>
     </div>,
 
-    // Profil sayfası
+    // Profil sayfası - ustam özellikleriyle
     <div key="profile" className="p-4">
       <div className="profile-header mb-6">
         <div className="flex items-center">
@@ -240,6 +319,7 @@ const AirbnbStyleHomePage = () => {
           </div>
           <span>→</span>
         </div>
+        
         <div className="settings-item" onClick={() => navigate('/payment-history')}>
           <div>
             <div className="settings-label">Ödeme Geçmişi</div>
@@ -247,6 +327,7 @@ const AirbnbStyleHomePage = () => {
           </div>
           <span>→</span>
         </div>
+        
         <div className="settings-item" onClick={() => navigate('/notifications')}>
           <div>
             <div className="settings-label">Bildirimler</div>
@@ -254,10 +335,27 @@ const AirbnbStyleHomePage = () => {
           </div>
           <span>→</span>
         </div>
+        
+        <div className="settings-item" onClick={() => navigate('/favorites')}>
+          <div>
+            <div className="settings-label">Favori Ustalar</div>
+            <div className="settings-description">Kaydettiğiniz ustaları görüntüleyin</div>
+          </div>
+          <span>→</span>
+        </div>
+        
         <div className="settings-item" onClick={() => navigate('/support')}>
           <div>
             <div className="settings-label">Destek</div>
             <div className="settings-description">Yardım ve destek alın</div>
+          </div>
+          <span>→</span>
+        </div>
+        
+        <div className="settings-item" onClick={() => navigate('/settings')}>
+          <div>
+            <div className="settings-label">Ayarlar</div>
+            <div className="settings-description">Uygulama ayarlarınızı yönetin</div>
           </div>
           <span>→</span>
         </div>
@@ -278,11 +376,18 @@ const AirbnbStyleHomePage = () => {
             ustam
           </h1>
           <div className="flex items-center space-x-3">
-            <button className="w-8 h-8 bg-airbnb-light-100 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center">
-              🔔
+            <button 
+              className="w-8 h-8 bg-airbnb-light-100 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center relative"
+              onClick={() => navigate('/notifications')}
+            >
+              {Icons.notification}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-airbnb-500 rounded-full"></div>
             </button>
-            <button className="w-8 h-8 bg-airbnb-light-100 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center">
-              ⚙️
+            <button 
+              className="w-8 h-8 bg-airbnb-light-100 dark:bg-airbnb-dark-700 rounded-full flex items-center justify-center"
+              onClick={() => navigate('/settings')}
+            >
+              {Icons.settings}
             </button>
           </div>
         </div>

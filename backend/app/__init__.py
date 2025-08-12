@@ -67,6 +67,7 @@ def create_app(config_name='default'):
     from app.routes.support import support_bp
     from app.routes.review import review_bp
     from app.routes.calendar import calendar_bp
+    from app.routes.airbnb_api import airbnb_api
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -88,6 +89,7 @@ def create_app(config_name='default'):
     app.register_blueprint(support_bp, url_prefix='/api/support')
     app.register_blueprint(review_bp, url_prefix='/api/reviews')
     app.register_blueprint(calendar_bp, url_prefix='/api/calendar')
+    app.register_blueprint(airbnb_api, url_prefix='/api/airbnb')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')

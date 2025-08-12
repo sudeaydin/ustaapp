@@ -114,7 +114,7 @@ const AirbnbStyleSearchPage = () => {
   };
 
   const handleCraftsmanClick = (craftsmanId) => {
-    navigate(`/craftsman/${craftsmanId}`);
+    navigate(`/airbnb-style-craftsman/${craftsmanId}`);
   };
 
   const renderStars = (rating) => {
