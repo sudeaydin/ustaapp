@@ -152,6 +152,7 @@ def create_sample_data():
         {'email': 'ali@test.com', 'address': 'Beşiktaş, İstanbul'},
     ]
     
+    created_customers = {}
     for customer_data in customers_data:
         user = created_users[customer_data['email']]
         customer = Customer(
@@ -160,6 +161,7 @@ def create_sample_data():
             created_at=datetime.utcnow()
         )
         db.session.add(customer)
+        created_customers[customer_data['email']] = customer
     
     db.session.commit()
     print("Customers created.")
@@ -512,8 +514,8 @@ def create_sample_data():
     quote7 = Quote(
         customer_id=created_users['ali@test.com'].id,
         craftsman_id=created_users['mehmet@test.com'].id,
-        category='Tesisatçi',
-        job_type='Tesisatçi',
+        category='Tesisatçı',
+        job_type='Tesisatçı',
         location='Beşiktaş, İstanbul',
         area_type='banyo',
         budget_range='1000-2000',
@@ -1080,6 +1082,178 @@ def create_sample_data():
         created_at=datetime.now() - timedelta(days=1)
     )
     db.session.add(appointment6)
+    
+    appointments_data = [
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Elektrik Tesisatı Kontrolü',
+            'description': 'Ev elektrik tesisatının genel kontrolü ve arıza tespiti',
+            'start_time': datetime.now() + timedelta(days=2, hours=10),
+            'end_time': datetime.now() + timedelta(days=2, hours=12),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Kadıköy, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['fatma@test.com'].id,
+            'title': 'Haftalık Temizlik',
+            'description': 'Ev genel temizlik hizmeti',
+            'start_time': datetime.now() + timedelta(days=5, hours=9),
+            'end_time': datetime.now() + timedelta(days=5, hours=12),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Beşiktaş, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Smart Home Konsültasyonu',
+            'description': 'Akıllı ev sistemleri hakkında danışmanlık',
+            'start_time': datetime.now() + timedelta(days=7, hours=14),
+            'end_time': datetime.now() + timedelta(days=7, hours=15),
+            'status': AppointmentStatus.PENDING,
+            'type': AppointmentType.CONSULTATION,
+            'location': 'Kadıköy, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['mehmet@test.com'].id,
+            'title': 'Acil Elektrik Arızası',
+            'description': 'Mutfak elektrik arızası acil müdahale',
+            'start_time': datetime.now() + timedelta(days=1, hours=16),
+            'end_time': datetime.now() + timedelta(days=1, hours=18),
+            'status': AppointmentStatus.IN_PROGRESS,
+            'type': AppointmentType.EMERGENCY,
+            'location': 'Şişli, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'İş Takip Toplantısı',
+            'description': 'Geçen hafta yapılan işin kontrolü ve takibi',
+            'start_time': datetime.now() + timedelta(days=10, hours=11),
+            'end_time': datetime.now() + timedelta(days=10, hours=12),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.FOLLOW_UP,
+            'location': 'Kadıköy, İstanbul'
+        },
+        # More appointments for different dates
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['fatma@test.com'].id,
+            'title': 'Aylık Derin Temizlik',
+            'description': 'Halı, perde ve detay temizlik',
+            'start_time': datetime.now() + timedelta(days=3, hours=10),
+            'end_time': datetime.now() + timedelta(days=3, hours=14),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Beşiktaş, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Akıllı Termostat Kurulum',
+            'description': 'Nest termostat kurulum ve ayarlama',
+            'start_time': datetime.now() + timedelta(days=4, hours=15),
+            'end_time': datetime.now() + timedelta(days=4, hours=17),
+            'status': AppointmentStatus.PENDING,
+            'type': AppointmentType.WORK,
+            'location': 'Kadıköy, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Elektrik Panosu Yenileme',
+            'description': 'Eski elektrik panosunun yenilenmesi',
+            'start_time': datetime.now() + timedelta(days=6, hours=9),
+            'end_time': datetime.now() + timedelta(days=6, hours=16),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Şişli, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Elektrik Güvenlik Kontrolü',
+            'description': 'Yıllık elektrik güvenlik kontrolü',
+            'start_time': datetime.now() + timedelta(days=8, hours=10),
+            'end_time': datetime.now() + timedelta(days=8, hours=12),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.CONSULTATION,
+            'location': 'Kadıköy, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['fatma@test.com'].id,
+            'title': 'Ofis Temizlik Toplantısı',
+            'description': 'Yeni ofis temizlik planlaması',
+            'start_time': datetime.now() + timedelta(days=9, hours=14),
+            'end_time': datetime.now() + timedelta(days=9, hours=15),
+            'status': AppointmentStatus.PENDING,
+            'type': AppointmentType.CONSULTATION,
+            'location': 'Beşiktaş, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['kemal@test.com'].id,
+            'title': 'Güvenlik Kamerası Kurulum',
+            'description': 'Ev güvenlik kamera sisteminin kurulumu',
+            'start_time': datetime.now() + timedelta(days=12, hours=13),
+            'end_time': datetime.now() + timedelta(days=12, hours=16),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Kadıköy, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['mehmet@test.com'].id,
+            'title': 'LED Aydınlatma Kurulum',
+            'description': 'Salon LED şerit aydınlatma sistemi',
+            'start_time': datetime.now() + timedelta(days=13, hours=11),
+            'end_time': datetime.now() + timedelta(days=13, hours=14),
+            'status': AppointmentStatus.PENDING,
+            'type': AppointmentType.WORK,
+            'location': 'Şişli, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['fatma@test.com'].id,
+            'title': 'Bahar Temizliği',
+            'description': 'Kapsamlı bahar temizlik hizmeti',
+            'start_time': datetime.now() + timedelta(days=14, hours=9),
+            'end_time': datetime.now() + timedelta(days=14, hours=15),
+            'status': AppointmentStatus.CONFIRMED,
+            'type': AppointmentType.WORK,
+            'location': 'Beşiktaş, İstanbul'
+        },
+        {
+            'customer_id': created_users['customer@test.com'].id,
+            'craftsman_id': created_users['ahmet@test.com'].id,
+            'title': 'Elektrik Arıza Onarım',
+            'description': 'Banyo elektrik arızasının onarımı',
+            'start_time': datetime.now() + timedelta(days=15, hours=16),
+            'end_time': datetime.now() + timedelta(days=15, hours=18),
+            'status': AppointmentStatus.IN_PROGRESS,
+            'type': AppointmentType.EMERGENCY,
+            'location': 'Kadıköy, İstanbul'
+        },
+    ]
+    
+    for app_data in appointments_data:
+        appointment = Appointment(
+            customer_id=app_data['customer_id'],
+            craftsman_id=app_data['craftsman_id'],
+            title=app_data['title'],
+            description=app_data['description'],
+            start_time=app_data['start_time'],
+            end_time=app_data['end_time'],
+            status=app_data['status'],
+            type=app_data['type'],
+            location=app_data['location']
+        )
+        db.session.add(appointment)
     
     db.session.commit()
     print("Sample appointments created.")

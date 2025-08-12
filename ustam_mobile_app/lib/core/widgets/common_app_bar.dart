@@ -33,7 +33,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackButton
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
-              color: AppColors.textPrimary,
+              color: Colors.white, // Changed from AppColors.textPrimary to white
               onPressed: () => Navigator.of(context).pop(),
             )
           : null,

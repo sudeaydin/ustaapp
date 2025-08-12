@@ -36,7 +36,19 @@ def get_reviews():
         
         return jsonify({
             'success': True,
-            'reviews': [review_schema.dump(review) for review in reviews.items],
+            'reviews': [{
+                'id': review.id,
+                'rating': review.rating,
+                'comment': review.comment,
+                'service_type': review.service_type,
+                'work_quality': review.work_quality,
+                'communication': review.communication,
+                'punctuality': review.punctuality,
+                'value_for_money': review.value_for_money,
+                'created_at': review.created_at.isoformat() if review.created_at else None,
+                'customer_name': f"{review.customer.user.first_name} {review.customer.user.last_name}" if review.customer and review.customer.user else "Anonim",
+                'craftsman_id': review.craftsman_id,
+            } for review in reviews.items],
             'pagination': {
                 'page': page,
                 'pages': reviews.pages,
