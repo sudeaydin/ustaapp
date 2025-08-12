@@ -171,18 +171,18 @@ def search_craftsmen(validated_data):
                 
                 craftsmen_data.append({
                     'id': craftsman.id,
-                    'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
+                    'name': craftsman.user.full_name if craftsman.user else 'Unknown',
                     'business_name': craftsman.business_name,
                     'description': craftsman.description,
-                    'specialties': skills_list,
                     'city': craftsman.city,
                     'district': craftsman.district,
-                    'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else None,
-                    'average_rating': craftsman.average_rating,
-                    'total_reviews': craftsman.total_reviews,
-                    'is_verified': craftsman.is_verified,
+                    'hourly_rate': float(craftsman.hourly_rate) if craftsman.hourly_rate else 0,
+                    'average_rating': float(craftsman.average_rating) if craftsman.average_rating else 0,
+                    'total_reviews': craftsman.total_reviews or 0,
                     'is_available': craftsman.is_available,
-                    'avatar': f"/uploads/avatars/{craftsman.user.id}.jpg" if craftsman.user else None,
+                    'is_verified': craftsman.is_verified,
+                    'avatar': None,  # Remove avatar since files don't exist
+                    'specialties': craftsman.specialties or [],
                     'portfolio_images': craftsman.portfolio_images or [],
                 })
         

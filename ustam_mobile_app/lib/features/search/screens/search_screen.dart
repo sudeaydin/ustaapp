@@ -11,7 +11,6 @@ import '../models/search_filters.dart';
 import '../providers/search_provider.dart';
 import '../widgets/craftsman_card.dart' as search_widgets;
 import '../widgets/search_filters_sheet.dart';
-import '../widgets/search_map_view.dart';
 import '../../../core/widgets/error_message.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -24,8 +23,7 @@ class SearchScreen extends ConsumerStatefulWidget {
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> 
-    with AccessibilityMixin, SingleTickerProviderStateMixin {
-  late TabController _tabController;
+    with AccessibilityMixin {
   final TextEditingController _searchController = TextEditingController();
   SearchFilters _filters = SearchFilters();
   int _currentIndex = 1; // Search is second tab
@@ -33,7 +31,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
     
     // Load filter options and do initial search
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,7 +42,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   @override
   void dispose() {
-    _tabController.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -220,35 +216,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             ),
           ),
           
-                     // Tab Bar
-           Container(
-             color: AppColors.background,
-            child: TabBar(
-              controller: _tabController,
-              tabs: const [
-                Tab(icon: Icon(Icons.list), text: 'Liste'),
-                Tab(icon: Icon(Icons.map), text: 'Harita'),
-              ],
-              labelColor: AppColors.primary,
-              unselectedLabelColor: AppColors.textSecondary,
-              indicatorColor: AppColors.primary,
-            ),
-          ),
-          
-          // Content
+          // Content - Direct list view instead of tabs
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                // List View
-                _buildListView(searchState),
-                // Map View
-                SearchMapView(
-                  craftsmen: searchState.craftsmen,
-                  onCraftsmanTap: _navigateToCraftsmanDetail,
-                ),
-              ],
-            ),
+            child: _buildListView(searchState),
           ),
         ],
       ),

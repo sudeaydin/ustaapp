@@ -155,7 +155,7 @@ def get_calendar_events():
                     'end_time': appointment.end_time.isoformat(),
                     'status': appointment.status.value if appointment.status else 'pending',
                     'location': appointment.location or '',
-                    'appointment_type': appointment.appointment_type.value if appointment.appointment_type else 'consultation',
+                    'appointment_type': appointment.type.value if appointment.type else 'consultation',
                     'data': appointment.to_dict()
                 })
             except Exception as e:
