@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_typography.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/airbnb_button.dart';
+import '../../../core/widgets/airbnb_card.dart';
+import '../../../core/widgets/airbnb_input.dart';
+import '../../../core/widgets/airbnb_bottom_navigation.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/services/analytics_service.dart';
 import '../../../core/utils/accessibility_utils.dart';
@@ -97,19 +103,27 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
        ),
       body: Column(
         children: [
-          // Search Header
+          // Airbnb Search Header
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: AppSpacing.screenPaddingInsets,
             decoration: BoxDecoration(
               gradient: AppColors.getGradient(AppColors.primaryGradient),
               borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
+                bottomLeft: Radius.circular(AppSpacing.lg),
+                bottomRight: Radius.circular(AppSpacing.lg),
               ),
             ),
             child: Column(
               children: [
-                // Search Bar
+                // Airbnb Search Bar
+                AirbnbSearchInput(
+                  hintText: 'Hangi hizmeti arıyorsun?',
+                  controller: _searchController,
+                  onChanged: (value) => _performSearch(),
+                ),
+                AppSpacing.verticalSpaceMD,
+                
+                // Filter Button Row
                 Row(
                   children: [
                     Expanded(

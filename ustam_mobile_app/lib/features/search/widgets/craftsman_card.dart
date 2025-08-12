@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/airbnb_card.dart';
+import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/hover_button.dart';
 import '../../reviews/widgets/star_rating.dart';
 
@@ -19,19 +23,11 @@ class CraftsmanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: HoverButton(
-        onTap: onTap,
-        hoverColor: AppColors.primary,
-        hoverScale: 1.02,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+    return AirbnbCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.md),
+      onTap: onTap,
+      child: Padding(
+        padding: AppSpacing.cardPaddingInsets,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

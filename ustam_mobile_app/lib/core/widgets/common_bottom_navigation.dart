@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'airbnb_bottom_navigation.dart';
 import '../../features/messages/screens/messages_screen.dart';
 
 class CommonBottomNavigation extends StatelessWidget {
@@ -16,83 +17,62 @@ class CommonBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: AppColors.getGradient(
-          AppColors.headerGradient,
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        boxShadow: [AppColors.getElevatedShadow()],
-      ),
-      child: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          onTap(index);
-          _handleNavigation(context, index);
-        },
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        selectedItemColor: AppColors.textWhite,
-        unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
-        items: _getNavigationItems(),
-      ),
+    return AirbnbBottomNavigation(
+      currentIndex: currentIndex,
+      onTap: (index) {
+        onTap(index);
+        _handleNavigation(context, index);
+      },
+      items: _getAirbnbNavigationItems(),
     );
   }
 
-  List<BottomNavigationBarItem> _getNavigationItems() {
+  List<AirbnbNavItem> _getAirbnbNavigationItems() {
     if (userType == 'customer') {
       return const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_rounded),
-          activeIcon: Icon(Icons.home_rounded, size: 28),
-          label: 'Ana Sayfa',
+        AirbnbNavItem(
+          icon: Icons.dashboard_outlined,
+          activeIcon: Icons.dashboard,
+          label: 'Panel',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search_rounded),
-          activeIcon: Icon(Icons.search_rounded, size: 28),
-          label: 'Arama',
+        AirbnbNavItem(
+          icon: Icons.search_outlined,
+          activeIcon: Icons.search,
+          label: 'Ara',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble_rounded),
-          activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
+        AirbnbNavItem(
+          icon: Icons.chat_bubble_outline,
+          activeIcon: Icons.chat_bubble,
           label: 'Mesajlar',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_rounded),
-          activeIcon: Icon(Icons.person_rounded, size: 28),
-          label: 'Profilim',
+        AirbnbNavItem(
+          icon: Icons.person_outline,
+          activeIcon: Icons.person,
+          label: 'Profil',
         ),
       ];
     } else {
       // craftsman
       return const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.dashboard_rounded),
-          activeIcon: Icon(Icons.dashboard_rounded, size: 28),
-          label: 'Dashboard',
+        AirbnbNavItem(
+          icon: Icons.dashboard_outlined,
+          activeIcon: Icons.dashboard,
+          label: 'Panel',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.business_rounded),
-          activeIcon: Icon(Icons.business_rounded, size: 28),
+        AirbnbNavItem(
+          icon: Icons.business_outlined,
+          activeIcon: Icons.business,
           label: 'İşletme',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble_rounded),
-          activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
+        AirbnbNavItem(
+          icon: Icons.chat_bubble_outline,
+          activeIcon: Icons.chat_bubble,
           label: 'Mesajlar',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_rounded),
-          activeIcon: Icon(Icons.person_rounded, size: 28),
-          label: 'Profilim',
+        AirbnbNavItem(
+          icon: Icons.person_outline,
+          activeIcon: Icons.person,
+          label: 'Profil',
         ),
       ];
     }
@@ -120,7 +100,6 @@ class CommonBottomNavigation extends StatelessWidget {
           break;
       }
     } else {
-      // craftsman
       switch (index) {
         case 0:
           Navigator.pushNamedAndRemoveUntil(context, '/craftsman-dashboard', (route) => false);
