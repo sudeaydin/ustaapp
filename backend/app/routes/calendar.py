@@ -542,7 +542,16 @@ def get_upcoming_appointments():
         ).order_by(Appointment.start_time.asc()).limit(limit).all()
         
         return ResponseHelper.success(
-            data=[appointment.to_dict() for appointment in upcoming],
+            data=[{
+                'id': apt.id,
+                'title': apt.title,
+                'description': apt.description,
+                'start_time': apt.start_time.isoformat(),
+                'end_time': apt.end_time.isoformat(),
+                'status': apt.status.value if apt.status else 'pending',
+                'type': apt.type.value if apt.type else 'work',
+                'location': apt.location,
+            } for apt in upcoming],
             message='Yaklaşan randevular getirildi'
         )
         
@@ -580,7 +589,16 @@ def get_today_appointments():
         ).order_by(Appointment.start_time.asc()).all()
         
         return ResponseHelper.success(
-            data=[appointment.to_dict() for appointment in today_appointments],
+            data=[{
+                'id': apt.id,
+                'title': apt.title,
+                'description': apt.description,
+                'start_time': apt.start_time.isoformat(),
+                'end_time': apt.end_time.isoformat(),
+                'status': apt.status.value if apt.status else 'pending',
+                'type': apt.type.value if apt.type else 'work',
+                'location': apt.location,
+            } for apt in today_appointments],
             message='Bugünün randevuları getirildi'
         )
         
