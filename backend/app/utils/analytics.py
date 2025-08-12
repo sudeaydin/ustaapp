@@ -511,7 +511,7 @@ class UserBehaviorAnalytics:
                 GROUP BY page
                 ORDER BY visits DESC
                 LIMIT 10
-            """).fetchall()
+            """)).fetchall()
             
             return {
                 'conversion_funnel': {
@@ -552,14 +552,14 @@ class UserBehaviorAnalytics:
                 GROUP BY search_term
                 ORDER BY search_count DESC
                 LIMIT 20
-            """).fetchall()
+            """)).fetchall()
             
             # Search to quote conversion
             search_to_quote = db.session.execute(text("""
                 SELECT 
                     COUNT(DISTINCT user_id) as searchers,
                     (SELECT COUNT(DISTINCT customer_id) FROM quotes) as quote_makers
-            """).fetchone()
+            """)).fetchone()
             
             conversion_rate = 0
             if search_to_quote and search_to_quote[0] > 0:
