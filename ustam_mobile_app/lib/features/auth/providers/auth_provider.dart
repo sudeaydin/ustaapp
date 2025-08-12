@@ -90,7 +90,76 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, error: null);
     
     try {
-      // Use new API service
+      // MOCK LOGIN - Backend çalışmadığı için test amaçlı
+      // Test credentials
+      bool isValidCredentials = false;
+      Map<String, dynamic>? mockUser;
+      
+      if (email == 'customer@test.com' && password == '123456') {
+        isValidCredentials = true;
+        mockUser = {
+          'id': '1',
+          'first_name': 'Test',
+          'last_name': 'Customer',
+          'email': email,
+          'user_type': 'customer',
+          'phone': '+90 555 123 4567',
+          'created_at': DateTime.now().toIso8601String(),
+        };
+      } else if (email == 'ahmet@test.com' && password == '123456') {
+        isValidCredentials = true;
+        mockUser = {
+          'id': '2',
+          'first_name': 'Ahmet',
+          'last_name': 'Usta',
+          'email': email,
+          'user_type': 'craftsman',
+          'phone': '+90 555 987 6543',
+          'business_name': 'Ahmet Elektrik',
+          'category': 'Elektrikçi',
+          'created_at': DateTime.now().toIso8601String(),
+        };
+      }
+      
+      if (isValidCredentials && mockUser != null) {
+        // Additional validation for userType mismatch if specified
+        if (userType != null && mockUser['user_type'] != userType) {
+          String errorMessage = userType == 'customer' 
+            ? 'Bu hesap bireysel kullanıcı hesabı değil'
+            : 'Bu hesap usta/zanaatkar hesabı değil';
+          
+          state = state.copyWith(
+            isLoading: false,
+            error: errorMessage,
+          );
+          return false;
+        }
+        
+        // Mock token
+        const String mockToken = 'mock_jwt_token_12345';
+        
+        await _prefs.setString('authToken', mockToken);
+        await _prefs.setString('user', jsonEncode(mockUser));
+        await _prefs.setString('user_type', mockUser['user_type']);
+        
+        state = state.copyWith(
+          isAuthenticated: true,
+          token: mockToken,
+          user: mockUser,
+          isLoading: false,
+        );
+        
+        return true;
+      } else {
+        state = state.copyWith(
+          error: 'Geçersiz email veya şifre',
+          isLoading: false,
+        );
+        return false;
+      }
+      
+      // REAL API CALL (backend çalıştığında kullanılacak)
+      /*
       final apiResponse = await ApiService().login(email, password);
       
       if (apiResponse.isSuccess && apiResponse.data != null) {
@@ -130,6 +199,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         );
         return false;
       }
+      */
     } catch (e) {
       final error = e is AppError ? e : AppError.fromException(e);
       state = state.copyWith(
