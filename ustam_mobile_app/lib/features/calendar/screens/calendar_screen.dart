@@ -62,8 +62,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       ),
       body: Column(
         children: [
-          // Calendar widget
-          _buildCalendar(calendarState),
+          // Calendar widget with height constraint
+          SizedBox(
+            height: 400, // Fixed height to prevent overflow
+            child: _buildCalendar(calendarState),
+          ),
           
           // Selected day appointments
           Expanded(

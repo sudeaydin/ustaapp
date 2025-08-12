@@ -226,11 +226,9 @@ def delete_review():
         return jsonify({'error': 'Internal server error'}), 500
 
 @review_bp.route('/statistics/<int:craftsman_id>', methods=['GET'])
-def get_review_statistics():
+def get_review_statistics(craftsman_id):
     """Get review statistics for a craftsman"""
     try:
-        craftsman_id = request.view_args['craftsman_id']
-        
         # Check if craftsman exists
         craftsman = Craftsman.query.get(craftsman_id)
         if not craftsman:

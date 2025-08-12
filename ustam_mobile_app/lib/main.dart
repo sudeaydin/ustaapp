@@ -134,6 +134,14 @@ class MyApp extends ConsumerWidget {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return QuoteFormScreen(craftsman: args['craftsman']);
         },
+        '/request-quote': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return QuoteFormScreen(craftsman: {
+            'id': args['craftsmanId'],
+            'name': args['craftsmanName'],
+            'business_name': args['craftsmanName'],
+          });
+        },
         '/craftsman-detail': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return CraftsmanDetailScreen(craftsman: args['craftsman']);
