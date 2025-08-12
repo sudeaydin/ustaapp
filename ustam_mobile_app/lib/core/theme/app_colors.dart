@@ -27,6 +27,10 @@ class AppColors {
   
   // BACKWARD COMPATIBILITY - Simple Pink + White Theme
   static const Color uclaBlue = Color(0xFFC64191); // Custom Pink #C64191
+  static const Color delftBlue = Color(0xFFC64191); // Pink instead of teal
+  static const Color poppy = Color(0xFFC64191); // Pink instead of orange
+  static const Color secondary = Color(0xFFC64191); // Pink instead of teal
+  static const Color tertiary = Color(0xFFC64191); // Pink instead of orange
   static const Color mintGreen = Color(0xFF008A05); // Success Green
   static const Color nonPhotoBlue = Color(0xFF9FDBF0); // Keep original
   
@@ -41,6 +45,7 @@ class AppColors {
   
   // Button colors (backward compatibility)
   static const Color buttonPrimary = Color(0xFFC64191); // Custom Pink #C64191
+  static const Color buttonSecondary = Color(0xFFC64191); // Pink instead of teal
   static const Color buttonDanger = Color(0xFFD93025); // Error Red
   static const Color buttonDisabled = Color(0xFFB0B0B0); // Light Gray
   
