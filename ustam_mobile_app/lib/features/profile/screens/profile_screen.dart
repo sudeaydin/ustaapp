@@ -291,8 +291,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        AppColors.uclaBlue,
-                        AppColors.delftBlue,
+                        AppColors.primary,
+                        AppColors.primary,
                       ],
                     ),
                     borderRadius: BorderRadius.only(
@@ -471,14 +471,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   const Icon(
                                     Icons.psychology,
                                     size: 16,
-                                    color: AppColors.delftBlue,
+                                    color: AppColors.primary,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     skill.toString(),
                                     style: const TextStyle(
                                       fontSize: 14,
-                                      color: AppColors.delftBlue,
+                                      color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -604,8 +604,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: AppColors.getGradient([
-            _profileData?['user_type'] == 'craftsman' ? AppColors.poppy : AppColors.nonPhotoBlue,
-            (_profileData?['user_type'] == 'craftsman' ? AppColors.poppy : AppColors.nonPhotoBlue).withOpacity(0.9),
+            _profileData?['user_type'] == 'craftsman' ? AppColors.primary : AppColors.nonPhotoBlue,
+            (_profileData?['user_type'] == 'craftsman' ? AppColors.primary : AppColors.nonPhotoBlue).withOpacity(0.9),
           ]),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),

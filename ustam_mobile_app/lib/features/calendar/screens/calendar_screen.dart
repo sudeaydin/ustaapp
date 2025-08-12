@@ -292,7 +292,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   width: 6,
                   height: 6,
                   decoration: BoxDecoration(
-                    color: AppColors.secondary,
+                    color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -965,7 +965,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         icon: Icons.location_on_outlined,
                         title: 'Konum',
                         content: event.location!,
-                        color: AppColors.secondary,
+                        color: AppColors.primary,
                       ),
                     ],
                     

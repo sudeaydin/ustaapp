@@ -170,7 +170,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             _showModal = true;
           });
         },
-        backgroundColor: AppColors.poppy,
+        backgroundColor: AppColors.primary,
         child: const Icon(Icons.info),
         tooltip: 'Bilgi modalını aç',
       ).withSemantics(

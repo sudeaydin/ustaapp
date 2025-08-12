@@ -36,7 +36,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     end: Alignment.bottomRight,
                     colors: [
                       AppColors.uclaBlue,
-                      AppColors.delftBlue,
+                      AppColors.primary,
                     ],
                   ),
                   borderRadius: BorderRadius.only(
@@ -241,14 +241,14 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               const Icon(
                                 Icons.psychology,
                                 size: 16,
-                                color: AppColors.delftBlue,
+                                color: AppColors.primary,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 skill.toString(),
                                 style: const TextStyle(
                                   fontSize: 14,
-                                  color: AppColors.delftBlue,
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

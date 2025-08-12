@@ -182,7 +182,7 @@ class ChartWidget extends StatelessWidget {
   Color _getPieColor(int index) {
     final colors = [
       AppColors.primary,
-      AppColors.secondary,
+      AppColors.primary,
       AppColors.success,
       AppColors.warning,
       AppColors.error,
@@ -283,7 +283,7 @@ class PieChartPainter extends CustomPainter {
   Color _getPieColor(int index) {
     final colors = [
       AppColors.primary,
-      AppColors.secondary,
+      AppColors.primary,
       AppColors.success,
       AppColors.warning,
       AppColors.error,

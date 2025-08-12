@@ -102,7 +102,7 @@ class AirbnbButton extends StatelessWidget {
       case AirbnbButtonType.primary:
         return AppColors.primary;
       case AirbnbButtonType.secondary:
-        return AppColors.secondary;
+        return AppColors.primary;
       case AirbnbButtonType.outline:
         return Colors.transparent;
       case AirbnbButtonType.text:

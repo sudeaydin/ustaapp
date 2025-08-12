@@ -292,7 +292,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       end: Alignment.bottomRight,
                       colors: [
                         AppColors.uclaBlue,
-                        AppColors.delftBlue,
+                        AppColors.primary,
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),

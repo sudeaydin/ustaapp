@@ -214,7 +214,7 @@ class AppointmentCard extends StatelessWidget {
         if (appointment.craftsman != null) ...[
           CircleAvatar(
             radius: 12,
-            backgroundColor: AppColors.secondary.withOpacity(0.1),
+            backgroundColor: AppColors.primary.withOpacity(0.1),
             backgroundImage: appointment.craftsman!.profileImage != null
                 ? NetworkImage(appointment.craftsman!.profileImage!)
                 : null,
@@ -224,7 +224,7 @@ class AppointmentCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.secondary,
+                      color: AppColors.primary,
                     ),
                   )
                 : null,

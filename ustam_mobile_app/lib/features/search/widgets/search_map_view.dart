@@ -256,7 +256,7 @@ class _SearchMapViewState extends State<SearchMapView> {
     // Generate consistent colors for cities
     final colors = [
       AppColors.primary,
-      AppColors.secondary,
+      AppColors.primary,
       Colors.green,
       Colors.orange,
       Colors.purple,

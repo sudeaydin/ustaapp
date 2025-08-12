@@ -896,7 +896,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     if (message['messageType'] == 'quote_request') {
       return const Color(0xFF9A3412);
     } else if (message['messageType'] == 'quote_response') {
-      return AppColors.delftBlue;
+      return AppColors.primary;
     } else if (message['messageType'] == 'quote_decision') {
       return const Color(0xFF065F46);
     }

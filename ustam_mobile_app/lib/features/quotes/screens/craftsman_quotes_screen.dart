@@ -300,7 +300,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                       'Yanıtım:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: AppColors.delftBlue,
+                        color: AppColors.primary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -402,7 +402,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
   Color _getStatusTextColor(String status) {
     switch (status) {
       case 'pending': return const Color(0xFF9A3412);
-      case 'details_requested': return AppColors.delftBlue;
+      case 'details_requested': return AppColors.primary;
       case 'quoted': return const Color(0xFF065F46);
       case 'accepted': return const Color(0xFF065F46);
       case 'rejected': return const Color(0xFF991B1B);

@@ -140,7 +140,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                'Mesajlar',
                                'Ustalarla iletişim kurun',
                                Icons.chat_bubble_rounded,
-                               AppColors.secondary,
+                               AppColors.primary,
                                () => Navigator.push(
                                  context,
                                  MaterialPageRoute(

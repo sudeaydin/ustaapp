@@ -61,7 +61,7 @@ class CustomButton extends StatelessWidget {
       case ButtonType.primary:
         return AppColors.primary;
       case ButtonType.secondary:
-        return AppColors.secondary;
+        return AppColors.primary;
       case ButtonType.danger:
         return AppColors.error;
       case ButtonType.outlined:
@@ -154,7 +154,7 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getSecondaryStyle() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonSecondary,
+      backgroundColor: AppColors.primary,
       foregroundColor: AppColors.textPrimary,
       disabledBackgroundColor: AppColors.buttonDisabled,
       disabledForegroundColor: AppColors.textMuted,

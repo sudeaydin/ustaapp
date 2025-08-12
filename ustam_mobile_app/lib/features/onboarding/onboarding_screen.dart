@@ -33,7 +33,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       subtitle: 'Güvenli ve kaliteli hizmet',
       description: 'Değerlendirmeler ve referanslar ile güvenle çalışın.',
       icon: Icons.verified_rounded,
-      color: AppColors.poppy,
+      color: AppColors.primary,
     ),
   ];
 
