@@ -130,16 +130,23 @@ def get_calendar_events():
         jobs_query = None
         
         # Get appointments
-        if user.user_type == 'customer':
-            customer = Customer.query.filter_by(user_id=user_id).first()
+        print(f"📅 User type: {user.user_type}")
+        if user.user_type.value == 'customer':
+            print(f"📅 Looking for customer with user_id: {user_id_int}")
+            customer = Customer.query.filter_by(user_id=user_id_int).first()
+            print(f"📅 Customer found: {customer is not None}")
             if customer:
+                print(f"📅 Customer ID: {customer.id}")
                 appointments_query = Appointment.query.filter_by(customer_id=customer.id)
-                jobs_query = Job.query.filter_by(customer_id=user_id)
+                jobs_query = Job.query.filter_by(customer_id=user_id_int)
         else:  # craftsman
-            craftsman = Craftsman.query.filter_by(user_id=user_id).first()
+            print(f"📅 Looking for craftsman with user_id: {user_id_int}")
+            craftsman = Craftsman.query.filter_by(user_id=user_id_int).first()
+            print(f"📅 Craftsman found: {craftsman is not None}")
             if craftsman:
+                print(f"📅 Craftsman ID: {craftsman.id}")
                 appointments_query = Appointment.query.filter_by(craftsman_id=craftsman.id)
-                jobs_query = Job.query.filter_by(craftsman_id=user_id)
+                jobs_query = Job.query.filter_by(craftsman_id=user_id_int)
         
         # If no profile found, return empty events
         if appointments_query is None or jobs_query is None:
@@ -167,7 +174,10 @@ def get_calendar_events():
         
         # Get appointments
         appointments = appointments_query.all()
-        for appointment in appointments:
+        print(f"📅 Found {len(appointments)} appointments")
+        
+        for i, appointment in enumerate(appointments):
+            print(f"📅 Appointment {i+1}: {appointment.title} - {appointment.start_time}")
             try:
                 events.append({
                     'id': f"appointment_{appointment.id}",
@@ -221,6 +231,10 @@ def get_calendar_events():
         
         # Sort events by start time
         events.sort(key=lambda x: x['start_time'])
+        
+        print(f"📅 Final events count: {len(events)}")
+        for i, event in enumerate(events):
+            print(f"📅 Event {i+1}: {event['title']} - {event['start_time']}")
         
         return ResponseHelper.success(
             data={'events': events},
