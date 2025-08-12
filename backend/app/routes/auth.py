@@ -561,13 +561,17 @@ def delete_portfolio_image():
         return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
 
 @auth_bp.route('/profile', methods=['GET'])
-@jwt_required()
 def get_profile():
     """Get user profile with craftsman/customer data"""
     try:
-        current_user_id = get_jwt_identity()
-        print(f"🔍 Profile request for user ID: {current_user_id}")
+        from app.utils.auth_utils import get_current_user_id_with_mock
         
+        # Get user ID with mock token support
+        current_user_id, error_response = get_current_user_id_with_mock()
+        if error_response:
+            return error_response
+        
+        print(f"🔍 Looking for user with ID: {current_user_id}")
         user = User.query.get(current_user_id)
         
         if not user:
