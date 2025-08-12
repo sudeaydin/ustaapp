@@ -137,7 +137,7 @@ class WelcomeScreen extends ConsumerWidget {
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
                                   ..strokeWidth = 3
-                                  ..color = AppColors.textWhite.withOpacity(0.3),
+                                  ..color = AppColors.textPrimary.withOpacity(0.3),
                                 letterSpacing: 2,
                               ),
                             ),
@@ -147,7 +147,7 @@ class WelcomeScreen extends ConsumerWidget {
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite,
+                                color: AppColors.textPrimary,
                                 letterSpacing: 2,
                                 shadows: [
                                   Shadow(
@@ -167,10 +167,10 @@ class WelcomeScreen extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                           decoration: BoxDecoration(
-                            color: AppColors.textWhite.withOpacity(0.15),
+                            color: AppColors.textPrimary.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: AppColors.textWhite.withOpacity(0.3),
+                              color: AppColors.textPrimary.withOpacity(0.3),
                               width: 1,
                             ),
                           ),
@@ -178,7 +178,7 @@ class WelcomeScreen extends ConsumerWidget {
                             'Profesyonel Usta Bulucu',
                             style: TextStyle(
                               fontSize: 14,
-                              color: AppColors.textWhite,
+                              color: AppColors.textPrimary,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5,
                             ),
@@ -253,7 +253,7 @@ class WelcomeScreen extends ConsumerWidget {
                               margin: const EdgeInsets.only(bottom: 24),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: AppColors.textWhite.withOpacity(0.4), 
+                                  color: AppColors.textPrimary.withOpacity(0.4), 
                                   width: 2
                                 ),
                                 borderRadius: BorderRadius.circular(16),
@@ -275,13 +275,13 @@ class WelcomeScreen extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                        color: AppColors.textWhite.withOpacity(0.2),
+                                        color: AppColors.textPrimary.withOpacity(0.2),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: const Icon(
                                         Icons.engineering_rounded, 
                                         size: 24, 
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                     const SizedBox(width: 16),
@@ -290,7 +290,7 @@ class WelcomeScreen extends ConsumerWidget {
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                   ],
@@ -307,7 +307,7 @@ class WelcomeScreen extends ConsumerWidget {
                           'Hesabınız yok mu?',
                           style: TextStyle(
                             fontSize: 16,
-                            color: AppColors.textWhite.withOpacity(0.8),
+                            color: AppColors.textSecondary,
                             fontWeight: FontWeight.w500,
                           ),
                           textAlign: TextAlign.center,
@@ -323,10 +323,10 @@ class WelcomeScreen extends ConsumerWidget {
                               height: 56,
                               margin: const EdgeInsets.only(bottom: 12),
                               decoration: BoxDecoration(
-                                color: AppColors.textWhite.withOpacity(0.1),
+                                color: AppColors.textPrimary.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: AppColors.textWhite.withOpacity(0.3),
+                                  color: AppColors.textPrimary.withOpacity(0.3),
                                   width: 1,
                                 ),
                               ),
@@ -347,13 +347,13 @@ class WelcomeScreen extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                        color: AppColors.textWhite.withOpacity(0.2),
+                                        color: AppColors.textPrimary.withOpacity(0.2),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: const Icon(
                                         Icons.person_add_rounded, 
                                         size: 20, 
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                     const SizedBox(width: 16),
@@ -362,7 +362,7 @@ class WelcomeScreen extends ConsumerWidget {
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                   ],
@@ -376,10 +376,10 @@ class WelcomeScreen extends ConsumerWidget {
                               height: 56,
                               margin: const EdgeInsets.only(bottom: 24),
                               decoration: BoxDecoration(
-                                color: AppColors.textWhite.withOpacity(0.1),
+                                color: AppColors.textPrimary.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: AppColors.textWhite.withOpacity(0.3),
+                                  color: AppColors.textPrimary.withOpacity(0.3),
                                   width: 1,
                                 ),
                               ),
@@ -400,13 +400,13 @@ class WelcomeScreen extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                        color: AppColors.textWhite.withOpacity(0.2),
+                                        color: AppColors.textPrimary.withOpacity(0.2),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: const Icon(
                                         Icons.engineering_rounded, 
                                         size: 20, 
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                     const SizedBox(width: 16),
@@ -415,7 +415,7 @@ class WelcomeScreen extends ConsumerWidget {
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.textWhite,
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
                                   ],
@@ -430,7 +430,7 @@ class WelcomeScreen extends ConsumerWidget {
                           'Hizmet şartları ve gizlilik politikası',
                           style: TextStyle(
                             fontSize: 12,
-                            color: AppColors.textWhite.withOpacity(0.7),
+                            color: AppColors.textSecondary,
                           ),
                           textAlign: TextAlign.center,
                         ),
