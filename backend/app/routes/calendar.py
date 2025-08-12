@@ -130,15 +130,27 @@ def get_calendar_events():
         jobs_query = None
         
         # Get appointments
-        print(f"📅 User type: {user.user_type}")
-        if user.user_type.value == 'customer':
-            print(f"📅 Looking for customer with user_id: {user_id_int}")
-            customer = Customer.query.filter_by(user_id=user_id_int).first()
-            print(f"📅 Customer found: {customer is not None}")
-            if customer:
-                print(f"📅 Customer ID: {customer.id}")
-                appointments_query = Appointment.query.filter_by(customer_id=customer.id)
-                jobs_query = Job.query.filter_by(customer_id=user_id_int)
+        print(f"📅 User type: {user.user_type} (type: {type(user.user_type)})")
+        
+        # Handle both enum and string user types
+        user_type_str = user.user_type.value if hasattr(user.user_type, 'value') else str(user.user_type)
+        print(f"📅 User type string: {user_type_str}")
+        
+        if user_type_str == 'customer':
+            try:
+                print(f"📅 Looking for customer with user_id: {user_id_int}")
+                customer = Customer.query.filter_by(user_id=user_id_int).first()
+                print(f"📅 Customer found: {customer is not None}")
+                if customer:
+                    print(f"📅 Customer ID: {customer.id}")
+                    appointments_query = Appointment.query.filter_by(customer_id=customer.id)
+                    jobs_query = Job.query.filter_by(customer_id=user_id_int)
+                    print(f"📅 Appointments query created successfully")
+                else:
+                    print(f"❌ No customer profile found for user_id: {user_id_int}")
+            except Exception as e:
+                print(f"❌ Error in customer lookup: {e}")
+                return ResponseHelper.server_error('Customer lookup failed', str(e))
         else:  # craftsman
             print(f"📅 Looking for craftsman with user_id: {user_id_int}")
             craftsman = Craftsman.query.filter_by(user_id=user_id_int).first()
@@ -173,8 +185,16 @@ def get_calendar_events():
                 return ResponseHelper.validation_error('Invalid end_date format')
         
         # Get appointments
-        appointments = appointments_query.all()
-        print(f"📅 Found {len(appointments)} appointments")
+        try:
+            if appointments_query is not None:
+                appointments = appointments_query.all()
+                print(f"📅 Found {len(appointments)} appointments")
+            else:
+                print(f"❌ appointments_query is None")
+                appointments = []
+        except Exception as e:
+            print(f"❌ Error querying appointments: {e}")
+            appointments = []
         
         for i, appointment in enumerate(appointments):
             print(f"📅 Appointment {i+1}: {appointment.title} - {appointment.start_time}")
