@@ -130,6 +130,9 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               AppColors.primary,
                               () {
                                 print('🔍 Usta Ara butonuna tıklandı');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('🔍 Usta Ara butonuna tıklandı')),
+                                );
                                 Navigator.pushNamed(context, '/search');
                               },
                             ),
