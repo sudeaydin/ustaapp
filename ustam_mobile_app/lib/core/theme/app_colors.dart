@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Airbnb Primary Colors
-  static const Color primary = Color(0xFFFF5A5F); // Airbnb Red/Pink
+  static const Color primary = Color(0xFFC64191); // Custom Pink #C64191
   static const Color secondary = Color(0xFF00A699); // Airbnb Teal
   static const Color tertiary = Color(0xFFFC642D); // Airbnb Orange
   
