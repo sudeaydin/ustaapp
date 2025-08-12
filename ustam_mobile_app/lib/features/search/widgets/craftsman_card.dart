@@ -26,9 +26,7 @@ class CraftsmanCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.only(bottom: AppSpacing.md),
       onTap: onTap,
-      child: Padding(
-        padding: AppSpacing.cardPaddingInsets,
-          child: Column(
+      child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header row
