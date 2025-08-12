@@ -12,6 +12,7 @@ from app.models.craftsman import Craftsman
 from app.utils.validators import (
     validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
 )
+from app.utils.analytics import AnalyticsTracker
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -152,22 +153,56 @@ def register():
 def login(validated_data):
     """User login with validation"""
     try:
+        print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
         
         # Find user
         user = User.query.filter_by(email=validated_data['email']).first()
+        print(f"🔍 USER FOUND: {user is not None}")
         
         if not user or not user.check_password(validated_data['password']):
+            print(f"❌ LOGIN FAILED: Invalid credentials")
+            # Track failed login attempt
+            AnalyticsTracker.track_user_action(
+                user_id=user.id if user else None,
+                action='login_failed',
+                details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
+                page='/api/auth/login'
+            )
             return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
         
         if not user.is_active:
+            print(f"❌ LOGIN FAILED: User inactive")
+            # Track failed login attempt
+            AnalyticsTracker.track_user_action(
+                user_id=user.id,
+                action='login_failed',
+                details={'email': validated_data['email'], 'reason': 'user_inactive'},
+                page='/api/auth/login'
+            )
             return ResponseHelper.unauthorized('Hesabınız deaktif durumda')
+        
+        print(f"✅ LOGIN SUCCESS: User {user.id} - {user.email}")
         
         # Update last login
         user.last_login = datetime.utcnow()
         db.session.commit()
         
+        # Track successful login
+        AnalyticsTracker.track_user_action(
+            user_id=user.id,
+            action='login_success',
+            details={
+                'email': user.email,
+                'user_type': user.user_type.value,
+                'login_time': user.last_login.isoformat()
+            },
+            page='/api/auth/login'
+        )
+        
         # Create access token
         access_token = create_access_token(identity=str(user.id))
+        
+        print(f"🎫 TOKEN CREATED: {access_token[:20]}...")
         
         return ResponseHelper.success(
             data={
@@ -178,6 +213,14 @@ def login(validated_data):
         )
         
     except Exception as e:
+        print(f"💥 LOGIN ERROR: {str(e)}")
+        # Track login error
+        AnalyticsTracker.track_user_action(
+            user_id=None,
+            action='login_error',
+            details={'error': str(e), 'email': validated_data.get('email')},
+            page='/api/auth/login'
+        )
         return ResponseHelper.server_error('Giriş sırasında bir hata oluştu', str(e))
 
 @auth_bp.route('/me', methods=['GET'])

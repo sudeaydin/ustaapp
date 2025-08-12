@@ -29,6 +29,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
   bool _obscurePassword = true;
+  DateTime? _lastLoginAttempt;
 
   @override
   void initState() {
@@ -464,6 +465,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void _handleLogin() async {
     print('🔥 _handleLogin called!'); // Debug print
+    
+    // Prevent multiple rapid taps
+    final now = DateTime.now();
+    if (_lastLoginAttempt != null && 
+        now.difference(_lastLoginAttempt!).inMilliseconds < 2000) {
+      print('🚫 Login blocked - too soon after last attempt');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Lütfen bekleyin...'),
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return;
+    }
+    
+    _lastLoginAttempt = now;
     
     if (_formKey.currentState!.validate()) {
       setState(() {
