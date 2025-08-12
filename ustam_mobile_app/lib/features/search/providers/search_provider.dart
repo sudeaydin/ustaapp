@@ -151,8 +151,11 @@ class SearchNotifier extends StateNotifier<SearchState> {
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
         print('🔍 Search API Response: ${apiResponse.data}');
+        
+        // Fix: API response has nested structure: {data: {craftsmen: [...]}}
+        final responseData = apiResponse.data!['data'] as Map<String, dynamic>? ?? {};
         final craftsmen = List<Map<String, dynamic>>.from(
-          apiResponse.data!['craftsmen'] ?? []
+          responseData['craftsmen'] ?? []
         );
         print('🔍 Parsed craftsmen count: ${craftsmen.length}');
 

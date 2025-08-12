@@ -226,39 +226,43 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ),
           const SizedBox(height: 16),
           
-          if (selectedDayEvents.isEmpty)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(32),
-              decoration: BoxDecoration(
-                color: AppColors.cardBackground,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.2)),
-              ),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.event_available,
-                    size: 48,
-                    color: Colors.grey[400],
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Bu tarihte etkinlik yok',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
+          Expanded(
+            child: selectedDayEvents.isEmpty
+                ? Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(32),
+                    decoration: BoxDecoration(
+                      color: AppColors.cardBackground,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.2)),
                     ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.event_available,
+                          size: 48,
+                          color: Colors.grey[400],
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Bu tarihte etkinlik yok',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: selectedDayEvents.length,
+                    itemBuilder: (context, index) {
+                      return _buildEventCard(selectedDayEvents[index]);
+                    },
                   ),
-                ],
-              ),
-            )
-          else
-            ...selectedDayEvents.map((event) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _buildEventCard(event),
-            )),
+          ),
         ],
       ),
     );
