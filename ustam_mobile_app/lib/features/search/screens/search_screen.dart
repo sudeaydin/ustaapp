@@ -97,6 +97,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     final authState = ref.watch(authProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white, // Clean white background
              appBar: CommonAppBar(
          title: 'Usta Ara',
          showBackButton: true,
@@ -146,7 +147,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                       child: IconButton(
                         icon: Icon(
                           iOSIcons.tune,
-                          color: AppColors.textPrimary,
+                          color: AppColors.primary, // Pembe renk
                           size: 24,
                         ),
                         onPressed: _showFiltersSheet,

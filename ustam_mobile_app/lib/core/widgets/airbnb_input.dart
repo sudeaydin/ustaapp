@@ -267,11 +267,11 @@ class AirbnbSearchInput extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTypography.bodyMedium.copyWith(
-            color: AppColors.textMuted,
+            color: AppColors.primary, // Pembe renk
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: AppColors.textMuted,
+            color: AppColors.primary, // Pembe renk
             size: 20,
           ),
           border: InputBorder.none,
