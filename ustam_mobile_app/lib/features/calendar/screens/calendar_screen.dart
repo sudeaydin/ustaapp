@@ -64,7 +64,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         children: [
           // Calendar widget with height constraint
           SizedBox(
-            height: 400, // Fixed height to prevent overflow
+            height: 350, // Reduced height from 400 to 350
             child: _buildCalendar(calendarState),
           ),
           
@@ -166,8 +166,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             ),
           ),
           
-          // Calendar Grid
-          _buildCalendarGrid(calendarState),
+          // Calendar Grid - wrapped with Expanded to fit remaining space
+          Expanded(
+            child: _buildCalendarGrid(calendarState),
+          ),
         ],
       ),
     );
@@ -191,15 +193,15 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final totalCells = ((daysInMonth + firstDayWeekday - 1) / 7).ceil() * 7;
     
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(8), // Reduced padding from 16 to 8
       child: GridView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const ClampingScrollPhysics(), // Changed physics
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 7,
           childAspectRatio: 1,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          crossAxisSpacing: 4, // Reduced spacing
+          mainAxisSpacing: 4, // Reduced spacing
         ),
         itemCount: totalCells,
         itemBuilder: (context, index) {
