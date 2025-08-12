@@ -271,18 +271,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     Color color,
     VoidCallback onTap,
   ) {
-    return GestureDetector(
+    return AirbnbCard(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: color.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
+      backgroundColor: color.withOpacity(0.05),
+      border: Border.all(color: color.withOpacity(0.2)),
         child: Column(
           children: [
             Icon(
@@ -322,16 +314,8 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     required Color statusColor,
     required IconData icon,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.border,
-          width: 1,
-        ),
-      ),
+    return AirbnbCard(
+      backgroundColor: AppColors.surfaceColor,
       child: Row(
         children: [
           Container(

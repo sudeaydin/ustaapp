@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/airbnb_button.dart';
+import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../onboarding/widgets/tutorial_overlay.dart';
@@ -281,16 +285,9 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     Color color,
     IconData icon,
   ) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.3),
-          width: 1,
-        ),
-      ),
+    return AirbnbCard(
+      backgroundColor: color.withOpacity(0.05),
+      border: Border.all(color: color.withOpacity(0.2)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
