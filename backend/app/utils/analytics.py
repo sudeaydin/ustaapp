@@ -481,7 +481,7 @@ class UserBehaviorAnalytics:
             total_visitors = db.session.execute(text("""
                 SELECT COUNT(DISTINCT user_id) FROM analytics_events 
                 WHERE action = 'page_view' AND page = '/'
-            """).scalar() or 0
+            """)).scalar() or 0
             
             registered_users = User.query.filter_by(is_active=True).count()
             quote_requesters = db.session.query(func.count(func.distinct(Quote.customer_id))).scalar() or 0
@@ -501,7 +501,7 @@ class UserBehaviorAnalytics:
                     GROUP BY user_id, session_id
                     HAVING session_duration > 0
                 )
-            """).scalar() or 0
+            """)).scalar() or 0
             
             # Most visited pages
             popular_pages = db.session.execute(text("""
