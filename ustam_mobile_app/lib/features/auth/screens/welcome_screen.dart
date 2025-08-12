@@ -22,14 +22,8 @@ class WelcomeScreen extends ConsumerWidget {
           SizedBox(width: 8),
         ],
       ),
+      backgroundColor: Colors.white, // Clean Airbnb white
       body: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
