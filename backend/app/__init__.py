@@ -14,6 +14,9 @@ socketio = SocketIO()
 def create_app(config_name='default'):
     app = Flask(__name__)
     
+    # Disable strict slashes to prevent redirect issues
+    app.url_map.strict_slashes = False
+    
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
