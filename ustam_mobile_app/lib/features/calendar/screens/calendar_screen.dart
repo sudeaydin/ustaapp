@@ -224,7 +224,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   bool _hasEventsOnDay(DateTime day, calendar_provider.CalendarState calendarState) {
-    final events = calendarState.eventsByDate[DateTime(day.year, day.month, day.day)] ?? [];
+    final dayKey = DateTime(day.year, day.month, day.day);
+    final events = calendarState.eventsByDate[dayKey] ?? [];
+    if (events.isNotEmpty) {
+      print('📅 Day $dayKey has ${events.length} events');
+    }
     return events.isNotEmpty;
   }
 
