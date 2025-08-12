@@ -182,11 +182,10 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
-        print('📅 Calendar Events API Response: ${apiResponse.data}');
-        print('📅 API data keys: ${apiResponse.data!.keys.toList()}');
-        print('📅 Raw events field: ${apiResponse.data!['events']}');
-        final eventsData = apiResponse.data!['events'] as List<dynamic>? ?? [];
-        print('📅 Events data length: ${eventsData.length}');
+        // Backend sends nested structure: { data: { events: [...] } }
+        final dataField = apiResponse.data!['data'] as Map<String, dynamic>?;
+        final eventsData = dataField?['events'] as List<dynamic>? ?? [];
+        
         final events = eventsData.map((json) {
           try {
             return CalendarEvent.fromJson(json as Map<String, dynamic>);
@@ -207,9 +206,6 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
           eventsByDate.putIfAbsent(date, () => []);
           eventsByDate[date]!.add(event);
         }
-
-        print('📅 Final events count: ${events.length}');
-        print('📅 Events by date: ${eventsByDate.keys.toList()}');
         
         state = state.copyWith(
           events: events,
