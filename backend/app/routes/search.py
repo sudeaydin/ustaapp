@@ -163,12 +163,20 @@ def search_craftsmen(validated_data):
             if craftsman:
                 # Parse skills from JSON
                 skills_list = []
-                if craftsman.skills:
-                    try:
-                        skills_list = json.loads(craftsman.skills)
-                    except:
-                        skills_list = [craftsman.skills] if craftsman.skills else []
+                try:
+                    if craftsman.skills:
+                        skills_list = json.loads(craftsman.skills) if isinstance(craftsman.skills, str) else craftsman.skills
+                except (json.JSONDecodeError, TypeError):
+                    skills_list = []
                 
+                # Parse portfolio images from JSON
+                portfolio_list = []
+                try:
+                    if craftsman.portfolio_images:
+                        portfolio_list = json.loads(craftsman.portfolio_images) if isinstance(craftsman.portfolio_images, str) else craftsman.portfolio_images
+                except (json.JSONDecodeError, TypeError):
+                    portfolio_list = []
+
                 craftsmen_data.append({
                     'id': craftsman.id,
                     'name': craftsman.user.full_name if craftsman.user else 'Unknown',
@@ -182,8 +190,8 @@ def search_craftsmen(validated_data):
                     'is_available': craftsman.is_available,
                     'is_verified': craftsman.is_verified,
                     'avatar': None,  # Remove avatar since files don't exist
-                    'specialties': craftsman.specialties or [],
-                    'portfolio_images': craftsman.portfolio_images or [],
+                    'specialties': skills_list,  # Use skills instead of specialties
+                    'portfolio_images': portfolio_list,
                 })
         
         print(f"🔍 Returning {len(craftsmen_data)} craftsmen")
