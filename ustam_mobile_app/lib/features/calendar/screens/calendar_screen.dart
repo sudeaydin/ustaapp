@@ -452,7 +452,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: selectedDayEvents.length,
                   itemBuilder: (context, index) {
-                    return _buildEventCard(selectedDayEvents[index]);
+                    final event = selectedDayEvents[index];
+                    print('📋 Building event card for: ${event.title} (${event.id})');
+                    return _buildEventCard(event);
                   },
                 ),
         ),
@@ -461,6 +463,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   Widget _buildEventCard(calendar_provider.CalendarEvent event) {
+    print('🎨 _buildEventCard called for: ${event.title}');
+    print('🎨 Event details: ID=${event.id}, type=${event.type}, status=${event.status}');
     final isJob = event.isJob;
     final statusColor = _getEventStatusColor(event.status, isJob);
     final priorityColor = _getEventPriorityColor(event.priority);
@@ -480,7 +484,25 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () => _showEventDetails(event),
+        onTap: () {
+          print('🎯 Event card tapped! Event: ${event.title}');
+          print('🎯 Event ID: ${event.id}');
+          print('🎯 Event type: ${event.type}');
+          try {
+            _showEventDetails(event);
+            print('✅ _showEventDetails called successfully');
+          } catch (e, stackTrace) {
+            print('❌ Error in _showEventDetails: $e');
+            print('❌ Stack trace: $stackTrace');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Event detayı açılırken hata: $e'),
+                backgroundColor: Colors.red,
+                duration: const Duration(seconds: 5),
+              ),
+            );
+          }
+        },
         child: Container(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -853,11 +875,15 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   void _showEventDetails(calendar_provider.CalendarEvent event) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
+    print('🔥 _showEventDetails started for event: ${event.title}');
+    try {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          print('✅ Modal bottom sheet builder called');
+          return Container(
         height: MediaQuery.of(context).size.height * 0.8,
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -1037,7 +1063,23 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ],
         ),
       ),
-    );
+    ).then((value) {
+      print('✅ Modal bottom sheet closed');
+    }).catchError((error) {
+      print('❌ Modal bottom sheet error: $error');
+    });
+    print('✅ showModalBottomSheet call completed');
+    } catch (e, stackTrace) {
+      print('❌ Error in _showEventDetails: $e');
+      print('❌ Stack trace: $stackTrace');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Modal açılırken hata: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    }
   }
 
   Widget _buildDetailCard({
