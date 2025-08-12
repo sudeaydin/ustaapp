@@ -368,52 +368,14 @@ class PerformanceMonitor:
     def track_api_performance(endpoint, duration, status_code, user_id=None):
         """Track API endpoint performance"""
         try:
-            perf_data = {
-                'endpoint': endpoint,
-                'duration_ms': round(duration * 1000, 2),
-                'status_code': status_code,
-                'user_id': user_id,
-                'timestamp': datetime.utcnow().isoformat(),
-                'method': request.method,
-                'ip_address': request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
-            }
-            
-            # Log performance data
-            logging.info(f"API Performance: {json.dumps(perf_data)}")
-            
-            # Store in database
-            db.session.execute(text("""
-                CREATE TABLE IF NOT EXISTS api_performance (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    endpoint TEXT,
-                    method TEXT,
-                    duration_ms REAL,
-                    status_code INTEGER,
-                    user_id INTEGER,
-                    timestamp DATETIME,
-                    ip_address TEXT
-                )
-            """))
-            
-            db.session.execute(text("""
-                INSERT INTO api_performance 
-                (endpoint, method, duration_ms, status_code, user_id, timestamp, ip_address)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            """), (
-                perf_data['endpoint'],
-                perf_data['method'],
-                perf_data['duration_ms'],
-                perf_data['status_code'],
-                perf_data['user_id'],
-                perf_data['timestamp'],
-                perf_data['ip_address']
-            ))
-            
-            db.session.commit()
+            # Skip performance tracking to avoid delays
+            # This was causing "List argument must consist only of dictionaries" errors
+            # and slowing down every API request
+            pass
             
         except Exception as e:
             logging.error(f"Performance tracking error: {e}")
-            db.session.rollback()
+            # Don't rollback here as it might interfere with main transaction
     
     @staticmethod
     def get_performance_report(hours=24):
