@@ -26,7 +26,7 @@ _$MarketplaceListingImpl _$$MarketplaceListingImplFromJson(
   visibility: json['visibility'] as String? ?? 'marketplace',
   status: json['status'] as String? ?? 'open',
   postedBy: ListingUser.fromJson(json['postedBy'] as Map<String, dynamic>),
-  postedAt: DateTime.parse(json['postedAt'] as String),
+  postedAt: json['postedAt'] as String,
   bidsCount: (json['bidsCount'] as num?)?.toInt() ?? 0,
 );
 
@@ -44,7 +44,7 @@ Map<String, dynamic> _$$MarketplaceListingImplToJson(
   'visibility': instance.visibility,
   'status': instance.status,
   'postedBy': instance.postedBy,
-  'postedAt': instance.postedAt.toIso8601String(),
+  'postedAt': instance.postedAt,
   'bidsCount': instance.bidsCount,
 };
 
@@ -83,16 +83,13 @@ Map<String, dynamic> _$$ListingBudgetImplToJson(_$ListingBudgetImpl instance) =>
 _$ListingDateRangeImpl _$$ListingDateRangeImplFromJson(
   Map<String, dynamic> json,
 ) => _$ListingDateRangeImpl(
-  start: DateTime.parse(json['start'] as String),
-  end: DateTime.parse(json['end'] as String),
+  start: json['start'] as String,
+  end: json['end'] as String,
 );
 
 Map<String, dynamic> _$$ListingDateRangeImplToJson(
   _$ListingDateRangeImpl instance,
-) => <String, dynamic>{
-  'start': instance.start.toIso8601String(),
-  'end': instance.end.toIso8601String(),
-};
+) => <String, dynamic>{'start': instance.start, 'end': instance.end};
 
 _$ListingAttachmentImpl _$$ListingAttachmentImplFromJson(
   Map<String, dynamic> json,

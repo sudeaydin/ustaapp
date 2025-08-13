@@ -16,7 +16,7 @@ _$MarketplaceOfferImpl _$$MarketplaceOfferImplFromJson(
   currency: json['currency'] as String? ?? 'TRY',
   note: json['note'] as String?,
   etaDays: (json['etaDays'] as num?)?.toInt() ?? 3,
-  createdAt: DateTime.parse(json['createdAt'] as String),
+  createdAt: json['createdAt'] as String,
   status: json['status'] as String? ?? 'active',
   provider: json['provider'] == null
       ? null
@@ -33,7 +33,7 @@ Map<String, dynamic> _$$MarketplaceOfferImplToJson(
   'currency': instance.currency,
   'note': instance.note,
   'etaDays': instance.etaDays,
-  'createdAt': instance.createdAt.toIso8601String(),
+  'createdAt': instance.createdAt,
   'status': instance.status,
   'provider': instance.provider,
 };

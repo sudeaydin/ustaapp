@@ -13,7 +13,7 @@ class MarketplaceOffer with _$MarketplaceOffer {
     @Default('TRY') String currency,
     String? note,
     @Default(3) int etaDays,
-    required DateTime createdAt,
+    required String createdAt,
     @Default('active') String status, // 'active', 'withdrawn', 'accepted', 'rejected'
     OfferProvider? provider,
   }) = _MarketplaceOffer;

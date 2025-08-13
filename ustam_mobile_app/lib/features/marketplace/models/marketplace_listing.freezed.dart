@@ -32,7 +32,7 @@ mixin _$MarketplaceListing {
   String get visibility => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   ListingUser get postedBy => throw _privateConstructorUsedError;
-  DateTime get postedAt => throw _privateConstructorUsedError;
+  String get postedAt => throw _privateConstructorUsedError;
   int get bidsCount => throw _privateConstructorUsedError;
 
   /// Serializes this MarketplaceListing to a JSON map.
@@ -64,7 +64,7 @@ abstract class $MarketplaceListingCopyWith<$Res> {
     String visibility,
     String status,
     ListingUser postedBy,
-    DateTime postedAt,
+    String postedAt,
     int bidsCount,
   });
 
@@ -152,7 +152,7 @@ class _$MarketplaceListingCopyWithImpl<$Res, $Val extends MarketplaceListing>
             postedAt: null == postedAt
                 ? _value.postedAt
                 : postedAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as String,
             bidsCount: null == bidsCount
                 ? _value.bidsCount
                 : bidsCount // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ abstract class _$$MarketplaceListingImplCopyWith<$Res>
     String visibility,
     String status,
     ListingUser postedBy,
-    DateTime postedAt,
+    String postedAt,
     int bidsCount,
   });
 
@@ -315,7 +315,7 @@ class __$$MarketplaceListingImplCopyWithImpl<$Res>
         postedAt: null == postedAt
             ? _value.postedAt
             : postedAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as String,
         bidsCount: null == bidsCount
             ? _value.bidsCount
             : bidsCount // ignore: cast_nullable_to_non_nullable
@@ -379,7 +379,7 @@ class _$MarketplaceListingImpl implements _MarketplaceListing {
   @override
   final ListingUser postedBy;
   @override
-  final DateTime postedAt;
+  final String postedAt;
   @override
   @JsonKey()
   final int bidsCount;
@@ -469,7 +469,7 @@ abstract class _MarketplaceListing implements MarketplaceListing {
     final String visibility,
     final String status,
     required final ListingUser postedBy,
-    required final DateTime postedAt,
+    required final String postedAt,
     final int bidsCount,
   }) = _$MarketplaceListingImpl;
 
@@ -499,7 +499,7 @@ abstract class _MarketplaceListing implements MarketplaceListing {
   @override
   ListingUser get postedBy;
   @override
-  DateTime get postedAt;
+  String get postedAt;
   @override
   int get bidsCount;
 
@@ -923,8 +923,8 @@ ListingDateRange _$ListingDateRangeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ListingDateRange {
-  DateTime get start => throw _privateConstructorUsedError;
-  DateTime get end => throw _privateConstructorUsedError;
+  String get start => throw _privateConstructorUsedError;
+  String get end => throw _privateConstructorUsedError;
 
   /// Serializes this ListingDateRange to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -943,7 +943,7 @@ abstract class $ListingDateRangeCopyWith<$Res> {
     $Res Function(ListingDateRange) then,
   ) = _$ListingDateRangeCopyWithImpl<$Res, ListingDateRange>;
   @useResult
-  $Res call({DateTime start, DateTime end});
+  $Res call({String start, String end});
 }
 
 /// @nodoc
@@ -966,11 +966,11 @@ class _$ListingDateRangeCopyWithImpl<$Res, $Val extends ListingDateRange>
             start: null == start
                 ? _value.start
                 : start // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as String,
             end: null == end
                 ? _value.end
                 : end // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as String,
           )
           as $Val,
     );
@@ -986,7 +986,7 @@ abstract class _$$ListingDateRangeImplCopyWith<$Res>
   ) = __$$ListingDateRangeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime start, DateTime end});
+  $Res call({String start, String end});
 }
 
 /// @nodoc
@@ -1008,11 +1008,11 @@ class __$$ListingDateRangeImplCopyWithImpl<$Res>
         start: null == start
             ? _value.start
             : start // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as String,
         end: null == end
             ? _value.end
             : end // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as String,
       ),
     );
   }
@@ -1027,9 +1027,9 @@ class _$ListingDateRangeImpl implements _ListingDateRange {
       _$$ListingDateRangeImplFromJson(json);
 
   @override
-  final DateTime start;
+  final String start;
   @override
-  final DateTime end;
+  final String end;
 
   @override
   String toString() {
@@ -1068,17 +1068,17 @@ class _$ListingDateRangeImpl implements _ListingDateRange {
 
 abstract class _ListingDateRange implements ListingDateRange {
   const factory _ListingDateRange({
-    required final DateTime start,
-    required final DateTime end,
+    required final String start,
+    required final String end,
   }) = _$ListingDateRangeImpl;
 
   factory _ListingDateRange.fromJson(Map<String, dynamic> json) =
       _$ListingDateRangeImpl.fromJson;
 
   @override
-  DateTime get start;
+  String get start;
   @override
-  DateTime get end;
+  String get end;
 
   /// Create a copy of ListingDateRange
   /// with the given fields replaced by the non-null parameter values.

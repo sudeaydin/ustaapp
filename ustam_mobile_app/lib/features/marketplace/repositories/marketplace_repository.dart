@@ -39,7 +39,12 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final responseData = json.decode(response.body);
+      // Backend returns {success: true, data: {...}} format
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No data received from server');
+      }
       return MarketplaceListingsResponse.fromJson(data);
     } else {
       throw Exception('Failed to load listings: ${response.statusCode}');
@@ -54,7 +59,11 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No listing detail data received from server');
+      }
       return MarketplaceListingDetail.fromJson(data);
     } else {
       throw Exception('Failed to load listing detail: ${response.statusCode}');
@@ -70,7 +79,11 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 201) {
-      final data = json.decode(response.body);
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No created listing data received from server');
+      }
       return MarketplaceListing.fromJson(data);
     } else {
       throw Exception('Failed to create listing: ${response.statusCode}');
@@ -86,7 +99,11 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No updated listing data received from server');
+      }
       return MarketplaceListing.fromJson(data);
     } else {
       throw Exception('Failed to update listing: ${response.statusCode}');
@@ -102,7 +119,11 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 201) {
-      final data = json.decode(response.body);
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No offer data received from server');
+      }
       return MarketplaceOffer.fromJson(data);
     } else {
       throw Exception('Failed to submit offer: ${response.statusCode}');
@@ -117,8 +138,12 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return (data['listings'] as List)
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No user listings data received from server');
+      }
+      return (data['listings'] as List? ?? [])
           .map((item) => MarketplaceListing.fromJson(item))
           .toList();
     } else {
@@ -134,8 +159,12 @@ class MarketplaceRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return (data['offers'] as List)
+      final responseData = json.decode(response.body);
+      final data = responseData['data'];
+      if (data == null) {
+        throw Exception('No craftsman offers data received from server');
+      }
+      return (data['offers'] as List? ?? [])
           .map((item) => MarketplaceOffer.fromJson(item))
           .toList();
     } else {

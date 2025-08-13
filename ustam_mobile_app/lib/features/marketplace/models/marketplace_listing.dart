@@ -17,7 +17,7 @@ class MarketplaceListing with _$MarketplaceListing {
     @Default('marketplace') String visibility,
     @Default('open') String status,
     required ListingUser postedBy,
-    required DateTime postedAt,
+    required String postedAt,
     @Default(0) int bidsCount,
   }) = _MarketplaceListing;
 
@@ -53,8 +53,8 @@ class ListingBudget with _$ListingBudget {
 @freezed
 class ListingDateRange with _$ListingDateRange {
   const factory ListingDateRange({
-    required DateTime start,
-    required DateTime end,
+    required String start,
+    required String end,
   }) = _ListingDateRange;
 
   factory ListingDateRange.fromJson(Map<String, dynamic> json) =>

@@ -28,7 +28,7 @@ mixin _$MarketplaceOffer {
   String get currency => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   int get etaDays => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
   String get status =>
       throw _privateConstructorUsedError; // 'active', 'withdrawn', 'accepted', 'rejected'
   OfferProvider? get provider => throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ abstract class $MarketplaceOfferCopyWith<$Res> {
     String currency,
     String? note,
     int etaDays,
-    DateTime createdAt,
+    String createdAt,
     String status,
     OfferProvider? provider,
   });
@@ -125,7 +125,7 @@ class _$MarketplaceOfferCopyWithImpl<$Res, $Val extends MarketplaceOffer>
             createdAt: null == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as String,
             status: null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ abstract class _$$MarketplaceOfferImplCopyWith<$Res>
     String currency,
     String? note,
     int etaDays,
-    DateTime createdAt,
+    String createdAt,
     String status,
     OfferProvider? provider,
   });
@@ -238,7 +238,7 @@ class __$$MarketplaceOfferImplCopyWithImpl<$Res>
         createdAt: null == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as String,
         status: null == status
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
@@ -288,7 +288,7 @@ class _$MarketplaceOfferImpl implements _MarketplaceOffer {
   @JsonKey()
   final int etaDays;
   @override
-  final DateTime createdAt;
+  final String createdAt;
   @override
   @JsonKey()
   final String status;
@@ -364,7 +364,7 @@ abstract class _MarketplaceOffer implements MarketplaceOffer {
     final String currency,
     final String? note,
     final int etaDays,
-    required final DateTime createdAt,
+    required final String createdAt,
     final String status,
     final OfferProvider? provider,
   }) = _$MarketplaceOfferImpl;
@@ -387,7 +387,7 @@ abstract class _MarketplaceOffer implements MarketplaceOffer {
   @override
   int get etaDays;
   @override
-  DateTime get createdAt;
+  String get createdAt;
   @override
   String get status; // 'active', 'withdrawn', 'accepted', 'rejected'
   @override
