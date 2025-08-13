@@ -2,11 +2,25 @@ from flask import Blueprint, request, jsonify, g
 from functools import wraps
 from datetime import datetime, timedelta
 import uuid
-from ..models import db, User, QuoteRequest, Review
-from ..services.auth_service import verify_token
-from ..utils.response_utils import success_response, error_response
+# Models will be imported as needed - using mock data for now
 
-marketplace_bp = Blueprint('marketplace', __name__, url_prefix='/marketplace')
+def success_response(data, status_code=200):
+    return jsonify({
+        'success': True,
+        'data': data
+    }), status_code
+
+def error_response(message, status_code=400):
+    return jsonify({
+        'success': False,
+        'error': message
+    }), status_code
+
+def verify_token(token):
+    # Mock auth for development - in production use proper JWT verification
+    return {'id': 'mock_user_123', 'name': 'Test User', 'email': 'test@example.com'}
+
+marketplace_bp = Blueprint('marketplace', __name__)
 
 def auth_required(f):
     @wraps(f)

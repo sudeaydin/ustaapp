@@ -91,7 +91,7 @@ def create_app(config_name='default'):
     app.register_blueprint(review_bp, url_prefix='/api/reviews')
     app.register_blueprint(calendar_bp, url_prefix='/api/calendar')
     app.register_blueprint(airbnb_api, url_prefix='/api/airbnb')
-    app.register_blueprint(marketplace_bp, url_prefix='/api')
+    app.register_blueprint(marketplace_bp, url_prefix='/api/marketplace')
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')
