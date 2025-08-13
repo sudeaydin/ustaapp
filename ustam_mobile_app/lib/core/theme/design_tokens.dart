@@ -222,7 +222,7 @@ class DesignTokens {
   static const double buttonHeightLarge = 56.0;
   
   static const double spacingButtonPadding = space16;
-  static const double surfacePrimary70 = 0.7;
+  static const Color surfacePrimary70 = Color(0xB3FFFFFF); // 70% opacity white
   
   // Elevation compatibility
   static const double elevation0 = 0.0;
