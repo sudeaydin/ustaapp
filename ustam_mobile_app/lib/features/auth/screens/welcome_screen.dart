@@ -90,6 +90,7 @@ class WelcomeScreen extends ConsumerWidget {
                 flex: 1,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     // Customer Login Button - iOS Style
                     SizedBox(

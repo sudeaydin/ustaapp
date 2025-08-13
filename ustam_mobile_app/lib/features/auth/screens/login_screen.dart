@@ -93,13 +93,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: DesignTokens.getGradient(
-            DesignTokens.primaryCoralGradient.colors,
-          ),
-        ),
-        child: SafeArea(
+      body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: Form(
@@ -334,7 +328,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-        ),
       ),
     );
   }
