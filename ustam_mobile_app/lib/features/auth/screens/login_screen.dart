@@ -96,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
-            DesignTokens.primaryCoralGradient,
+            DesignTokens.primaryCoralGradient.colors,
           ),
         ),
         child: SafeArea(

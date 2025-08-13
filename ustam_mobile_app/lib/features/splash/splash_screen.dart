@@ -75,7 +75,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       body: Container(
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
-            DesignTokens.primaryCoralGradient,
+            DesignTokens.primaryCoralGradient.colors,
           ),
         ),
         child: SafeArea(

@@ -163,6 +163,77 @@ class DesignTokens {
   static const List<Color> accentGradient = [accentTeal, accentTealDark];
   static const Color surfaceSecondaryColor = surfaceSecondary;
   
+  // Dark mode compatibility
+  static const Color darkPrimaryCoral = Color(0xFFFF6B6F);
+  static const Color darkAccentTeal = Color(0xFF1FB3A6);
+  static const Color darkGray900 = Color(0xFFFAFAFA);
+  static const Color darkGray800 = Color(0xFFE5E7EB);
+  static const Color darkGray700 = Color(0xFFD1D5DB);
+  static const Color darkGray600 = Color(0xFF9CA3AF);
+  static const Color darkGray500 = Color(0xFF6B7280);
+  static const Color darkGray400 = Color(0xFF4B5563);
+  static const Color darkGray300 = Color(0xFF374151);
+  static const Color darkGray200 = Color(0xFF1F2937);
+  static const Color darkGray100 = Color(0xFF111827);
+  static const Color darkGray50 = Color(0xFF000000);
+  
+  // Typography compatibility
+  static const String fontFamilyPrimary = '.SF Pro Text';
+  static const String fontFamilyDisplay = '.SF Pro Display';
+  static const String fontFamilyMono = '.SF Mono';
+  
+  static const double fontSize34 = 34.0;
+  static const double fontSize28 = 28.0;
+  static const double fontSize22 = 22.0;
+  static const double fontSize20 = 20.0;
+  static const double fontSize17 = 17.0;
+  static const double fontSize16 = 16.0;
+  static const double fontSize15 = 15.0;
+  static const double fontSize13 = 13.0;
+  static const double fontSize12 = 12.0;
+  static const double fontSize11 = 11.0;
+  
+  static const double lineHeight41 = 41.0;
+  static const double lineHeight34 = 34.0;
+  static const double lineHeight28 = 28.0;
+  static const double lineHeight25 = 25.0;
+  static const double lineHeight22 = 22.0;
+  static const double lineHeight21 = 21.0;
+  static const double lineHeight20 = 20.0;
+  static const double lineHeight18 = 18.0;
+  static const double lineHeight16 = 16.0;
+  static const double lineHeight13 = 13.0;
+  
+  static const FontWeight fontWeightRegular = FontWeight.w400;
+  static const FontWeight fontWeightMedium = FontWeight.w500;
+  static const FontWeight fontWeightSemibold = FontWeight.w600;
+  static const FontWeight fontWeightBold = FontWeight.w700;
+  static const FontWeight fontWeightHeavy = FontWeight.w800;
+  
+  // Size compatibility
+  static const double iconSize16 = 16.0;
+  static const double iconSize20 = 20.0;
+  static const double iconSize24 = 24.0;
+  static const double iconSize28 = 28.0;
+  static const double iconSize32 = 32.0;
+  
+  static const double buttonHeightSmall = 32.0;
+  static const double buttonHeightMedium = 44.0;
+  static const double buttonHeightLarge = 56.0;
+  
+  static const double spacingButtonPadding = space16;
+  static const double surfacePrimary70 = 0.7;
+  
+  // Elevation compatibility
+  static const double elevation0 = 0.0;
+  static const double elevation1 = 1.0;
+  static const double elevation2 = 2.0;
+  static const double elevation4 = 4.0;
+  static const double elevation8 = 8.0;
+  static const double elevation12 = 12.0;
+  static const double elevation16 = 16.0;
+  static const double elevation24 = 24.0;
+  
   // Spacing shortcuts
   static const SizedBox verticalSpaceXS = SizedBox(height: space4);
   static const SizedBox verticalSpaceSM = SizedBox(height: space8);
@@ -208,6 +279,31 @@ class DesignTokens {
       offset: const Offset(0, 4),
     );
   }
+  
+  // Shadow presets for compatibility
+  static List<BoxShadow> get shadowCard => [
+    BoxShadow(
+      color: Colors.black.withOpacity(shadowOpacityLight),
+      blurRadius: shadowBlur12,
+      offset: const Offset(0, 2),
+    ),
+  ];
+  
+  static List<BoxShadow> get shadowElevated => [
+    BoxShadow(
+      color: Colors.black.withOpacity(shadowOpacityMedium),
+      blurRadius: shadowBlur16,
+      offset: const Offset(0, 4),
+    ),
+  ];
+  
+  static List<BoxShadow> get shadowFloating => [
+    BoxShadow(
+      color: Colors.black.withOpacity(shadowOpacityHeavy),
+      blurRadius: shadowBlur24,
+      offset: const Offset(0, 8),
+    ),
+  ];
   
   static ButtonStyle getPrimaryButtonStyle() {
     return ElevatedButton.styleFrom(
