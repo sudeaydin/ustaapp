@@ -48,17 +48,70 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final feedState = ref.watch(marketplaceFeedProvider);
     final authState = ref.watch(authProvider);
-    final userType = authState.user?['user_type'] ?? 'customer';
+    final marketplaceFeedState = ref.watch(marketplaceFeedProvider);
+
+    // Role-based access control - Only craftsmen can see marketplace feed
+    if (authState.user?['user_type'] != 'craftsman') {
+      return Scaffold(
+        backgroundColor: DesignTokens.surfacePrimary,
+        appBar: const CommonAppBar(
+          title: 'Erişim Reddedildi',
+          showBackButton: true,
+          userType: 'customer',
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.block_rounded,
+                size: 64,
+                color: DesignTokens.warning,
+              ),
+              const SizedBox(height: DesignTokens.space16),
+              const Text(
+                'Bu sayfa sadece ustalar için!',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: DesignTokens.gray900,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Müşteriler usta arayabilir veya iş ilanı verebilir.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: DesignTokens.gray600,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: DesignTokens.space24),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/find-craftsman');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: DesignTokens.primaryCoral,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Usta Bul'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: DesignTokens.surfacePrimary,
       appBar: CommonAppBar(
         title: 'Pazar Yeri',
-        userType: userType,
+        userType: authState.user?['user_type'] ?? 'customer',
         actions: [
-          if (userType == 'customer')
+          if (authState.user?['user_type'] == 'customer')
             IconButton(
               icon: const Icon(Icons.add_circle_outline, color: Colors.white),
               onPressed: () => Navigator.pushNamed(context, '/marketplace/new'),
@@ -76,7 +129,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
               onRefresh: () async {
                 ref.read(marketplaceFeedProvider.notifier).loadListings(refresh: true);
               },
-              child: _buildContent(feedState, userType),
+              child: _buildContent(marketplaceFeedState, authState.user?['user_type'] ?? 'customer'),
             ),
           ),
         ],
@@ -88,7 +141,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
             _currentIndex = index;
           });
         },
-        userType: userType,
+        userType: authState.user?['user_type'] ?? 'customer',
       ),
     );
   }

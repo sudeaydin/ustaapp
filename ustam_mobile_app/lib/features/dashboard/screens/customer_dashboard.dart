@@ -116,21 +116,41 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       ),
                     ),
                     const SizedBox(height: DesignTokens.space16),
+                    // Primary Action - USTA BUL (Full width, prominent)
+                    _buildPrimaryActionCard(
+                      'USTA BUL',
+                      'İhtiyacınız olan ustayı hemen bulun!',
+                      Icons.search_rounded,
+                      DesignTokens.primaryCoral,
+                      () {
+                        print('🔍 Usta Bul butonuna tıklandı');
+                        Navigator.pushNamed(context, '/find-craftsman');
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    // Secondary Action - İLAN VER
+                    _buildSecondaryActionCard(
+                      'İstediğiniz ustayı bulamadınız mı?',
+                      'İLAN VER - Ustalar Size Ulaşsın!',
+                      Icons.campaign_rounded,
+                      DesignTokens.warning,
+                      () {
+                        print('📝 İlan Ver butonuna tıklandı');
+                        Navigator.pushNamed(context, '/marketplace/new');
+                      },
+                    ),
+                    const SizedBox(height: DesignTokens.space16),
+                    const Text(
+                      'Diğer İşlemler',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: DesignTokens.gray700,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(
-                          child: _buildQuickActionCard(
-                              'Pazar Yeri',
-                              'İş ilanı ver, teklif al',
-                              Icons.storefront_rounded,
-                              DesignTokens.primaryCoral,
-                              () {
-                                print('🏪 Pazar Yeri butonuna tıklandı');
-                                Navigator.pushNamed(context, '/marketplace');
-                              },
-                            ),
-                        ),
-                        const SizedBox(width: 12),
                         Expanded(
                           child: _buildQuickActionCard(
                               'Mesajlar',
@@ -145,6 +165,19 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                     builder: (context) => const MessagesScreen(userType: 'customer'),
                                   ),
                                 );
+                              },
+                            ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _buildQuickActionCard(
+                              'İlanlarım',
+                              'Aktif ilanlarınızı görün',
+                              Icons.list_alt_rounded,
+                              DesignTokens.info,
+                              () {
+                                print('📋 İlanlarım butonuna tıklandı');
+                                Navigator.pushNamed(context, '/marketplace/mine');
                               },
                             ),
                         ),
@@ -274,6 +307,90 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
   }
 
   Widget _buildQuickActionCard(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
+    return AirbnbCard(
+      onTap: onTap,
+      backgroundColor: color.withOpacity(0.05),
+      border: Border.all(color: color.withOpacity(0.2)),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            size: 32,
+            color: color,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 12,
+              color: DesignTokens.gray600,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPrimaryActionCard(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
+    return AirbnbCard(
+      onTap: onTap,
+      backgroundColor: color.withOpacity(0.1),
+      border: Border.all(color: color.withOpacity(0.3)),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            size: 32,
+            color: color,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 12,
+              color: DesignTokens.gray600,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSecondaryActionCard(
     String title,
     String subtitle,
     IconData icon,

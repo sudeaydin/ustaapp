@@ -170,7 +170,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     Expanded(
                       child: _buildQuickActionCard(
                         'Pazar Yeri',
-                        'İş ilanlarına teklif ver',
+                        'İş ilanlarını gör ve teklif ver',
                         Icons.storefront_rounded,
                         DesignTokens.primaryCoral,
                         () => Navigator.pushNamed(context, '/marketplace'),
@@ -179,11 +179,11 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: _buildQuickActionCard(
-                        'İşletme Profili',
-                        'Bilgilerini güncelle',
-                        Icons.business_rounded,
+                        'Tekliflerim',
+                        'Verdiğim teklifleri yönet',
+                        Icons.assignment_turned_in_rounded,
                         DesignTokens.info,
-                        () => Navigator.pushNamed(context, '/business-profile'),
+                        () => Navigator.pushNamed(context, '/marketplace/offers'),
                       ),
                     ),
                   ],
@@ -193,11 +193,35 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   children: [
                     Expanded(
                       child: _buildQuickActionCard(
+                        'İşletme Profili',
+                        'Bilgilerini güncelle',
+                        Icons.business_rounded,
+                        DesignTokens.success,
+                        () => Navigator.pushNamed(context, '/business-profile'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildQuickActionCard(
                         'Takvim',
                         'Randevularınızı yönetin',
                         Icons.calendar_today,
                         DesignTokens.primaryCoral,
                         () => Navigator.pushNamed(context, '/calendar', arguments: 'craftsman'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildQuickActionCard(
+                        'Mesajlar',
+                        'Müşterilerle iletişim',
+                        Icons.chat_bubble_rounded,
+                        DesignTokens.warning,
+                        () => Navigator.pushNamed(context, '/messages'),
                       ),
                     ),
                     const SizedBox(width: 12),
