@@ -6,8 +6,7 @@ import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
-import '../../../core/widgets/tutorial_highlight.dart';
-import '../../onboarding/widgets/tutorial_overlay.dart';
+
 
 class CustomerDashboard extends ConsumerStatefulWidget {
   const CustomerDashboard({super.key});
@@ -29,9 +28,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
         showTutorialTrigger: true,
         userType: 'customer',
       ),
-      body: TutorialManager(
-        userType: 'customer',
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(14, 8, 14, 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -119,9 +116,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     Row(
                       children: [
                         Expanded(
-                          child: TutorialHighlight(
-                            tutorialKey: 'search_button',
-                            child: _buildQuickActionCard(
+                          child: _buildQuickActionCard(
                               'Usta Ara',
                               'Kategorilere göre usta bulun',
                               Icons.search_rounded,
@@ -131,13 +126,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                 Navigator.pushNamed(context, '/search');
                               },
                             ),
-                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: TutorialHighlight(
-                            tutorialKey: 'messages_tab',
-                            child: _buildQuickActionCard(
+                          child: _buildQuickActionCard(
                               'Mesajlar',
                               'Ustalarla iletişim kurun',
                               Icons.chat_bubble_rounded,
@@ -152,7 +144,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                 );
                               },
                             ),
-                          ),
                         ),
                       ],
                     ),
@@ -267,7 +258,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             ],
           ),
         ),
-      ),
       bottomNavigationBar: CommonBottomNavigation(
         currentIndex: _currentIndex,
         onTap: (index) {

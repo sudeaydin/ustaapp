@@ -27,10 +27,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
         showTutorialTrigger: true,
         userType: 'craftsman',
       ),
-      body: TutorialManager(
-        userType: 'craftsman',
-        child: SafeArea(
-          child: SingleChildScrollView(
+      body: SafeArea(
+        child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,7 +261,6 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             ),
           ),
         ),
-      ),
       bottomNavigationBar: CommonBottomNavigation(
         currentIndex: _currentIndex,
         onTap: (index) {
