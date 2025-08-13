@@ -21,10 +21,12 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
       'category': 'Elektrik',
       'budget': '₺500-800',
       'location': 'Kadıköy, İstanbul',
-      'status': 'Aktif',
-      'statusColor': DesignTokens.success,
+      'status': 'Tamamlandı', // This one has accepted offer
+      'statusColor': DesignTokens.gray600,
       'createdAt': '2 gün önce',
       'offersCount': 5,
+      'hasAcceptedOffer': true, // Teklif kabul edilmiş
+      'acceptedOfferCraftsman': 'Ali Demir',
     },
     {
       'id': '2',
@@ -37,6 +39,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
       'statusColor': DesignTokens.warning,
       'createdAt': '5 gün önce',
       'offersCount': 3,
+      'hasAcceptedOffer': false, // Henüz teklif kabul edilmemiş
     },
     {
       'id': '3',
@@ -45,10 +48,11 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
       'category': 'Marangoz',
       'budget': '₺300-500',
       'location': 'Şişli, İstanbul',
-      'status': 'Tamamlandı',
-      'statusColor': DesignTokens.gray600,
+      'status': 'Aktif',
+      'statusColor': DesignTokens.success,
       'createdAt': '1 hafta önce',
-      'offersCount': 8,
+      'offersCount': 2,
+      'hasAcceptedOffer': false, // Henüz teklif kabul edilmemiş
     },
   ];
 
@@ -253,6 +257,39 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
           ),
           const SizedBox(height: 12),
           
+          // Accepted offer info for completed listings
+          if (listing['hasAcceptedOffer'] == true) ...[
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: DesignTokens.success.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: DesignTokens.success,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      '${listing['acceptedOfferCraftsman']} adlı usta ile anlaştınız',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: DesignTokens.success,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+          
           // Action Buttons
           Row(
             children: [
@@ -286,7 +323,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                     backgroundColor: DesignTokens.primaryCoral,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('Teklifler'),
+                  child: Text(listing['hasAcceptedOffer'] == true ? 'Mesaj' : 'Teklifler'),
                 ),
               ),
             ],

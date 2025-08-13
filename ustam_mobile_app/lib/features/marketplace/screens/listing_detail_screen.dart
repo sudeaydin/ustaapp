@@ -28,44 +28,45 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
         showBackButton: true,
         userType: 'customer',
         actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              switch (value) {
-                case 'edit':
-                  Navigator.pushNamed(
-                    context,
-                    '/marketplace/edit',
-                    arguments: listing,
-                  );
-                  break;
-                case 'delete':
-                  _showDeleteDialog();
-                  break;
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'edit',
-                child: Row(
-                  children: [
-                    Icon(Icons.edit, size: 20),
-                    SizedBox(width: 8),
-                    Text('Düzenle'),
-                  ],
+          if (!_hasAcceptedOffer(listing))
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                switch (value) {
+                  case 'edit':
+                    Navigator.pushNamed(
+                      context,
+                      '/marketplace/edit',
+                      arguments: listing,
+                    );
+                    break;
+                  case 'delete':
+                    _showDeleteDialog();
+                    break;
+                }
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'edit',
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit, size: 20),
+                      SizedBox(width: 8),
+                      Text('Düzenle'),
+                    ],
+                  ),
                 ),
-              ),
-              const PopupMenuItem(
-                value: 'delete',
-                child: Row(
-                  children: [
-                    Icon(Icons.delete, size: 20, color: Colors.red),
-                    SizedBox(width: 8),
-                    Text('Sil', style: TextStyle(color: Colors.red)),
-                  ],
+                const PopupMenuItem(
+                  value: 'delete',
+                  child: Row(
+                    children: [
+                      Icon(Icons.delete, size: 20, color: Colors.red),
+                      SizedBox(width: 8),
+                      Text('Sil', style: TextStyle(color: Colors.red)),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
         ],
       ),
       body: SingleChildScrollView(
@@ -243,10 +244,15 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
       case 'Teklif Bekleniyor':
         return 'Ustalardan gelen teklifleri değerlendirin';
       case 'Tamamlandı':
-        return 'İş tamamlandı ve ödeme yapıldı';
+        return 'Teklif kabul edildi - İlan artık düzenlenemez';
       default:
         return 'İlan durumu';
     }
+  }
+
+  bool _hasAcceptedOffer(Map<String, dynamic> listing) {
+    // Check if any offer has been accepted for this listing
+    return listing['hasAcceptedOffer'] == true;
   }
 
   void _showDeleteDialog() {
