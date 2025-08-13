@@ -270,10 +270,10 @@ class DesignTokens {
   static const double inputHeight = 44.0;  // iOS standard
   
   // ========================================
-  // COMPATIBILITY PROPERTIES (Missing from old theme)
+  // MISSING PROPERTIES FROM OLD THEME
   // ========================================
   
-  // Missing properties from old theme system
+  // Color aliases for compatibility
   static const Color background = surfacePrimary;
   static const Color textLight = gray600;
   static const Color textMuted = gray500;
@@ -285,17 +285,12 @@ class DesignTokens {
   static const Color buttonPrimary = primaryCoral;
   static const Color buttonDanger = error;
   static const Color buttonDisabled = gray300;
-  static const double radius8 = 8.0;
   static const double inputBorderRadius = radius12;
   static const List<Color> headerGradient = [primaryCoral, primaryCoralDark];
   static const List<Color> accentGradient = [accentTeal, accentTealDark];
-  static const LinearGradient primaryCoralGradient = LinearGradient(
-    colors: [primaryCoral, primaryCoralDark],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  static const Color surfaceSecondaryColor = surfaceSecondary;
-  static const EdgeInsets spacingScreenEdgeInsets = EdgeInsets.all(spacingScreenEdge);
+  
+  // Dark mode colors
+  static const Color darkSurfacePrimary = Color(0xFF1C1C1E);
   
   // Spacing shortcuts
   static const SizedBox verticalSpaceXS = SizedBox(height: space4);

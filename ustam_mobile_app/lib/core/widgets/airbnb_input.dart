@@ -127,7 +127,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
             style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium.copyWith(
+              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: DesignTokens.textMuted,
               ),
               prefixIcon: widget.prefixIcon != null 
@@ -265,7 +265,7 @@ class AirbnbSearchInput extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyMedium.copyWith(
+          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: DesignTokens.primaryCoral, // Pembe renk
           ),
           prefixIcon: Icon(
