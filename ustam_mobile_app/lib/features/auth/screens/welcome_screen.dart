@@ -147,8 +147,6 @@ class WelcomeScreen extends ConsumerWidget {
                       },
                       child: Text('Hesabın yok mu? Kayıt ol'),
                     ),
-                    
-                    SizedBox(height: DesignTokens.space16),
                   ],
                 ),
               ),

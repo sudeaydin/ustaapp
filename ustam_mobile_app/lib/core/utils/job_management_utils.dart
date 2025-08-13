@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import '../services/api_service.dart';
+import '../theme/design_tokens.dart';
 
 /// Job status enumeration
 enum JobStatus {
@@ -1135,13 +1136,13 @@ extension JobStatusExtension on JobStatus {
 
   Color get color {
     switch (this) {
-      case JobStatus.pending: return Colors.orange;
-      case JobStatus.accepted: return Colors.blue;
-      case JobStatus.inProgress: return Colors.purple;
+      case JobStatus.pending: return DesignTokens.primaryCoral;
+      case JobStatus.accepted: return DesignTokens.primaryCoral;
+      case JobStatus.inProgress: return DesignTokens.primaryCoral;
       case JobStatus.paused: return Colors.amber;
       case JobStatus.materialsNeeded: return Colors.red;
-      case JobStatus.qualityCheck: return Colors.indigo;
-      case JobStatus.completed: return Colors.green;
+      case JobStatus.qualityCheck: return DesignTokens.primaryCoral;
+      case JobStatus.completed: return DesignTokens.primaryCoral;
       case JobStatus.cancelled: return Colors.grey;
       case JobStatus.disputed: return Colors.red;
     }
@@ -1184,9 +1185,9 @@ extension MaterialStatusExtension on MaterialStatus {
   Color get color {
     switch (this) {
       case MaterialStatus.planned: return Colors.grey;
-      case MaterialStatus.ordered: return Colors.orange;
-      case MaterialStatus.delivered: return Colors.blue;
-      case MaterialStatus.used: return Colors.green;
+      case MaterialStatus.ordered: return DesignTokens.primaryCoral;
+      case MaterialStatus.delivered: return DesignTokens.primaryCoral;
+      case MaterialStatus.used: return DesignTokens.primaryCoral;
       case MaterialStatus.returned: return Colors.red;
     }
   }

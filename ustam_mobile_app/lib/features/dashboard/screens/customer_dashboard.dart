@@ -155,7 +155,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Profil',
                             'Hesap bilgilerinizi düzenleyin',
                             Icons.person,
-                            Colors.green,
+                            DesignTokens.primaryCoral,
                             () {
                               print('👤 Profil butonuna tıklandı');
                               Navigator.pushNamed(context, '/profile');
@@ -168,7 +168,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Takvim',
                             'Randevularınızı görün',
                             Icons.calendar_today,
-                            Colors.orange,
+                            DesignTokens.primaryCoral,
                             () {
                               print('📅 Takvim butonuna tıklandı');
                               Navigator.pushNamed(context, '/calendar', arguments: 'customer');
@@ -202,7 +202,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Ayarlar',
                             'Hesap ayarlarınızı yönetin',
                             Icons.settings,
-                            Colors.grey,
+                            DesignTokens.primaryCoral,
                             () {
                               print('⚙️ Ayarlar butonuna tıklandı');
                               Navigator.pushNamed(context, '/settings');

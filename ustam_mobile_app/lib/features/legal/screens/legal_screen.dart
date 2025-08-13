@@ -338,9 +338,9 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
           Container(
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
-              color: Colors.blue[50],
+              color: DesignTokens.primaryCoral.withOpacity(0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
-              border: Border.all(color: Colors.blue[200]!),
+              border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,7 +349,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                   children: [
                     Icon(
                       Icons.contact_support,
-                      color: Colors.blue[700],
+                      color: DesignTokens.primaryCoral,
                       size: 20,
                     ),
                     const SizedBox(width: 8),
@@ -358,7 +358,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue[700],
+                        color: DesignTokens.primaryCoral,
                       ),
                     ),
                   ],
@@ -385,7 +385,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
           Icon(
             icon,
             size: 16,
-            color: Colors.blue[600],
+            color: DesignTokens.primaryCoral,
           ),
           const SizedBox(width: 8),
           Text(
@@ -393,7 +393,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Colors.blue[800],
+              color: DesignTokens.primaryCoral,
             ),
           ),
           Expanded(

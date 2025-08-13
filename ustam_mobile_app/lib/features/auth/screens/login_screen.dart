@@ -464,7 +464,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         const SnackBar(
           content: Text('Lütfen bekleyin...'),
           duration: Duration(seconds: 1),
-          backgroundColor: Colors.orange,
+          backgroundColor: DesignTokens.primaryCoral,
         ),
       );
       return;

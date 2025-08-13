@@ -248,8 +248,8 @@ class AppointmentCard extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () => onStatusChanged?.call(AppointmentStatus.confirmed),
               style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.green,
-                side: const BorderSide(color: Colors.green),
+                foregroundColor: DesignTokens.primaryCoral,
+                side: const BorderSide(color: DesignTokens.primaryCoral),
               ),
               child: const Text('Onayla'),
             ),
@@ -265,7 +265,7 @@ class AppointmentCard extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => onStatusChanged?.call(AppointmentStatus.inProgress),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: DesignTokens.primaryCoral,
               foregroundColor: Colors.white,
             ),
             child: const Text('Başlat'),
@@ -281,7 +281,7 @@ class AppointmentCard extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => onStatusChanged?.call(AppointmentStatus.completed),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
+              backgroundColor: DesignTokens.primaryCoral,
               foregroundColor: Colors.white,
             ),
             child: const Text('Tamamla'),

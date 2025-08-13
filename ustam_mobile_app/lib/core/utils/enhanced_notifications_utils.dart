@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'dart:io';
 import '../services/api_service.dart';
+import '../theme/design_tokens.dart';
 
 /// Notification types
 enum NotificationType {
@@ -653,11 +654,11 @@ class NotificationHelpers {
   static Color getNotificationPriorityColor(NotificationPriority priority) {
     switch (priority) {
       case NotificationPriority.low:
-        return Colors.green;
+        return DesignTokens.primaryCoral;
       case NotificationPriority.normal:
-        return Colors.blue;
+        return DesignTokens.primaryCoral;
       case NotificationPriority.high:
-        return Colors.orange;
+        return DesignTokens.primaryCoral;
       case NotificationPriority.urgent:
         return Colors.red;
     }
@@ -720,9 +721,9 @@ class EnhancedNotificationsConstants {
   };
 
   static const Map<String, Color> priorityColors = {
-    'low': Colors.green,
-    'normal': Colors.blue,
-    'high': Colors.orange,
+    'low': DesignTokens.primaryCoral,
+    'normal': DesignTokens.primaryCoral,
+    'high': DesignTokens.primaryCoral,
     'urgent': Colors.red,
   };
 

@@ -70,7 +70,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Form başarıyla gönderildi'),
-          backgroundColor: Colors.green,
+          backgroundColor: DesignTokens.primaryCoral,
         ),
       );
     } else {

@@ -337,7 +337,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Değerlendirmeniz başarıyla gönderildi'),
-            backgroundColor: Colors.green,
+            backgroundColor: DesignTokens.primaryCoral,
           ),
         );
       }

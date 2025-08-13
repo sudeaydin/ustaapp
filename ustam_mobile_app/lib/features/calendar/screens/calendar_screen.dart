@@ -762,7 +762,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Randevu durumu güncellendi'),
-          backgroundColor: Colors.green,
+          backgroundColor: DesignTokens.primaryCoral,
         ),
       );
     } else {
@@ -780,11 +780,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     if (isJob) {
       switch (status) {
         case 'pending':
-          return Colors.orange;
+          return DesignTokens.primaryCoral;
         case 'accepted':
           return DesignTokens.primaryCoral;
         case 'in_progress':
-          return Colors.blue;
+          return DesignTokens.primaryCoral;
         case 'completed':
           return DesignTokens.success;
         case 'cancelled':
@@ -795,7 +795,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     } else {
       switch (status) {
         case 'pending':
-          return Colors.orange;
+          return DesignTokens.primaryCoral;
         case 'confirmed':
           return DesignTokens.success;
         case 'cancelled':
@@ -811,11 +811,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   Color _getEventPriorityColor(String? priority) {
     switch (priority) {
       case 'low':
-        return Colors.green;
+        return DesignTokens.primaryCoral;
       case 'normal':
-        return Colors.blue;
+        return DesignTokens.primaryCoral;
       case 'high':
-        return Colors.orange;
+        return DesignTokens.primaryCoral;
       case 'urgent':
         return Colors.red;
       case 'emergency':
@@ -1002,7 +1002,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         icon: Icons.description_outlined,
                         title: 'Açıklama',
                         content: event.description!,
-                        color: Colors.orange,
+                        color: DesignTokens.primaryCoral,
                       ),
                     ],
                     

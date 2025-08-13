@@ -88,7 +88,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Push bildirimleri başarıyla etkinleştirildi!'),
-            backgroundColor: Colors.green,
+            backgroundColor: DesignTokens.primaryCoral,
           ),
         );
       }
@@ -115,7 +115,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Tercihler güncellendi'),
-              backgroundColor: Colors.green,
+              backgroundColor: DesignTokens.primaryCoral,
             ),
           );
         }
@@ -165,7 +165,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Konum paylaşımı başlatıldı'),
-              backgroundColor: Colors.green,
+              backgroundColor: DesignTokens.primaryCoral,
             ),
           );
         }
@@ -193,7 +193,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Konum paylaşımı durduruldu'),
-              backgroundColor: Colors.green,
+              backgroundColor: DesignTokens.primaryCoral,
             ),
           );
         }
@@ -225,7 +225,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Takvim etkinliği oluşturuldu'),
-            backgroundColor: Colors.green,
+            backgroundColor: DesignTokens.primaryCoral,
           ),
         );
       }
@@ -248,7 +248,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Test bildirimi gönderildi!'),
-            backgroundColor: Colors.green,
+            backgroundColor: DesignTokens.primaryCoral,
           ),
         );
       }
@@ -283,7 +283,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.notifications, color: Colors.orange),
+                      const Icon(Icons.notifications, color: DesignTokens.primaryCoral),
                       const SizedBox(width: 8),
                       const Text(
                         'Push Bildirimleri',
@@ -449,25 +449,25 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 'Toplam Gönderilen',
                 _analytics!.totalSent.toString(),
                 Icons.send,
-                Colors.blue,
+                DesignTokens.primaryCoral,
               ),
               _buildMetricCard(
                 'Teslim Edilen',
                 _analytics!.delivered.toString(),
                 Icons.check_circle,
-                Colors.green,
+                DesignTokens.primaryCoral,
               ),
               _buildMetricCard(
                 'Açılan',
                 _analytics!.opened.toString(),
                 Icons.visibility,
-                Colors.orange,
+                DesignTokens.primaryCoral,
               ),
               _buildMetricCard(
                 'Açılma Oranı',
                 '${_analytics!.openRate.toStringAsFixed(1)}%',
                 Icons.analytics,
-                Colors.purple,
+                DesignTokens.primaryCoral,
               ),
             ],
           ),
@@ -506,7 +506,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                         '%${successRate.toStringAsFixed(1)}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: successRate > 80 ? Colors.green : Colors.orange,
+                          color: successRate > 80 ? DesignTokens.primaryCoral : DesignTokens.primaryCoral,
                         ),
                       ),
                     );
@@ -531,7 +531,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
-                  const Icon(Icons.location_on, size: 48, color: Colors.green),
+                  const Icon(Icons.location_on, size: 48, color: DesignTokens.primaryCoral),
                   const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Konum Paylaşımı',
@@ -549,7 +549,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     icon: const Icon(Icons.play_arrow),
                     label: const Text('Konum Paylaşımını Başlat'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: DesignTokens.primaryCoral,
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -571,7 +571,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
               child: ListTile(
                 leading: Icon(
                   Icons.location_on,
-                  color: share.isActive ? Colors.green : Colors.grey,
+                  color: share.isActive ? DesignTokens.primaryCoral : Colors.grey,
                 ),
                 title: Text(share.purpose),
                 subtitle: Column(
@@ -622,7 +622,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
-                  const Icon(Icons.notification_add, size: 48, color: Colors.blue),
+                  const Icon(Icons.notification_add, size: 48, color: DesignTokens.primaryCoral),
                   const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Test Bildirimi',
@@ -652,7 +652,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
-                  const Icon(Icons.calendar_today, size: 48, color: Colors.purple),
+                  const Icon(Icons.calendar_today, size: 48, color: DesignTokens.primaryCoral),
                   const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Takvim Etkinliği',
@@ -670,7 +670,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     icon: const Icon(Icons.event),
                     label: const Text('Test Etkinliği Oluştur'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
+                      backgroundColor: DesignTokens.primaryCoral,
                       foregroundColor: Colors.white,
                     ),
                   ),

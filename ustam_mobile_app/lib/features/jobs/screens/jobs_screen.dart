@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class JobsScreen extends ConsumerWidget {
   const JobsScreen({super.key});

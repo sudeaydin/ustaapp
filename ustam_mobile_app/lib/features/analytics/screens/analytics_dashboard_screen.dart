@@ -7,6 +7,7 @@ import '../../auth/providers/auth_provider.dart';
 import '../widgets/cost_calculator_widget.dart';
 import '../widgets/performance_chart_widget.dart';
 import '../widgets/trend_chart_widget.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class AnalyticsDashboardScreen extends ConsumerStatefulWidget {
   const AnalyticsDashboardScreen({super.key});
@@ -301,7 +302,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               _manager.formatCurrency(categoryData.revenue),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.green,
+                                color: DesignTokens.primaryCoral,
                               ),
                             ),
                           ],
@@ -534,12 +535,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     Container(
                       padding: const EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.1),
+                        color: DesignTokens.primaryCoral.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.attach_money, color: Colors.green, size: 32),
+                          const Icon(Icons.attach_money, color: DesignTokens.primaryCoral, size: 32),
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -549,7 +550,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                                  color: DesignTokens.primaryCoral,
                                 ),
                               ),
                               Text(
@@ -674,7 +675,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                   _manager.formatCurrency(city['revenue']),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.green,
+                                    color: DesignTokens.primaryCoral,
                                   ),
                                 ),
                                 Text(

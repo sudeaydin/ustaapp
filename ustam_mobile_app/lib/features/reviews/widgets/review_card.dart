@@ -171,14 +171,14 @@ class ReviewCard extends StatelessWidget {
                     Icon(
                       Icons.verified,
                       size: 16,
-                      color: Colors.green[600],
+                      color: DesignTokens.primaryCoral,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       'Doğrulanmış Alım',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.green[600],
+                        color: DesignTokens.primaryCoral,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

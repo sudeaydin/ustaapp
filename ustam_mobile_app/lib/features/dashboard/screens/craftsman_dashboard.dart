@@ -195,7 +195,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         'Takvim',
                         'Randevularınızı yönetin',
                         Icons.calendar_today,
-                        Colors.orange,
+                        DesignTokens.primaryCoral,
                         () => Navigator.pushNamed(context, '/calendar', arguments: 'craftsman'),
                       ),
                     ),

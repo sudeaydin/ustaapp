@@ -125,7 +125,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Tercihleriniz kaydedildi'),
-        backgroundColor: Colors.green,
+        backgroundColor: DesignTokens.primaryCoral,
       ),
     );
   }

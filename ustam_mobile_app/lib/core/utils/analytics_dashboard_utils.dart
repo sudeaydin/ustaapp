@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import '../services/api_service.dart';
+import '../theme/design_tokens.dart';
 
 /// Dashboard overview model
 class DashboardOverview {
@@ -185,15 +186,15 @@ class RecentActivity {
   Color get statusColor {
     switch (status) {
       case 'pending':
-        return Colors.orange;
+        return DesignTokens.primaryCoral;
       case 'accepted':
-        return Colors.green;
+        return DesignTokens.primaryCoral;
       case 'rejected':
         return Colors.red;
       case 'completed':
-        return Colors.blue;
+        return DesignTokens.primaryCoral;
       case 'in_progress':
-        return Colors.purple;
+        return DesignTokens.primaryCoral;
       default:
         return Colors.grey;
     }
@@ -314,8 +315,8 @@ class EstimationQuality {
   }
 
   Color get confidenceColor {
-    if (confidenceScore >= 90) return Colors.green;
-    if (confidenceScore >= 75) return Colors.orange;
+    if (confidenceScore >= 90) return DesignTokens.primaryCoral;
+    if (confidenceScore >= 75) return DesignTokens.primaryCoral;
     return Colors.red;
   }
 }
@@ -712,15 +713,15 @@ class AnalyticsDashboardManager {
   Color getStatusColor(String status) {
     switch (status) {
       case 'pending':
-        return Colors.orange;
+        return DesignTokens.primaryCoral;
       case 'accepted':
-        return Colors.green;
+        return DesignTokens.primaryCoral;
       case 'rejected':
         return Colors.red;
       case 'completed':
-        return Colors.blue;
+        return DesignTokens.primaryCoral;
       case 'in_progress':
-        return Colors.purple;
+        return DesignTokens.primaryCoral;
       default:
         return Colors.grey;
     }
@@ -854,13 +855,13 @@ class AnalyticsDashboardConstants {
     if (excellent != null && good != null && poor != null) {
       if (metric == 'response_time') {
         // Lower is better for response time
-        if (value <= excellent) return Colors.green;
-        if (value <= good) return Colors.orange;
+        if (value <= excellent) return DesignTokens.primaryCoral;
+        if (value <= good) return DesignTokens.primaryCoral;
         return Colors.red;
       } else {
         // Higher is better for other metrics
-        if (value >= excellent) return Colors.green;
-        if (value >= good) return Colors.orange;
+        if (value >= excellent) return DesignTokens.primaryCoral;
+        if (value >= good) return DesignTokens.primaryCoral;
         return Colors.red;
       }
     }

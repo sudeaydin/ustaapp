@@ -72,7 +72,7 @@ class CraftsmanCard extends StatelessWidget {
                               Icon(
                                 iOSIcons.verified,
                                 size: 20,
-                                color: Colors.green[600],
+                                color: DesignTokens.primaryCoral,
                               ),
                           ],
                         ),

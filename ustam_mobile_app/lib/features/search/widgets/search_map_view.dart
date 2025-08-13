@@ -215,17 +215,17 @@ class _SearchMapViewState extends State<SearchMapView> {
             ),
             const SizedBox(height: 8),
             _buildLegendItem(
-              Colors.green,
+              DesignTokens.primaryCoral,
               'Doğrulanmış Usta',
               Icons.verified,
             ),
             _buildLegendItem(
-              Colors.blue,
+              DesignTokens.primaryCoral,
               'Portföylü Usta',
               Icons.photo_library,
             ),
             _buildLegendItem(
-              Colors.orange,
+              DesignTokens.primaryCoral,
               'Yeni Usta',
               Icons.new_releases,
             ),
@@ -257,11 +257,11 @@ class _SearchMapViewState extends State<SearchMapView> {
     final colors = [
       DesignTokens.primaryCoral,
       DesignTokens.primaryCoral,
-      Colors.green,
-      Colors.orange,
-      Colors.purple,
-      Colors.teal,
-      Colors.indigo,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
       Colors.pink,
     ];
     

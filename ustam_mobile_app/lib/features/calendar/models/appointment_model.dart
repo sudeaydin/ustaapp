@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/services/api_service.dart';
+import '../../../core/theme/design_tokens.dart';
 
 enum AppointmentStatus {
   pending,
@@ -143,17 +144,17 @@ class Appointment {
   Color get statusColor {
     switch (status) {
       case AppointmentStatus.pending:
-        return Colors.orange;
+        return DesignTokens.primaryCoral;
       case AppointmentStatus.confirmed:
-        return Colors.blue;
+        return DesignTokens.primaryCoral;
       case AppointmentStatus.inProgress:
-        return Colors.green;
+        return DesignTokens.primaryCoral;
       case AppointmentStatus.completed:
         return Colors.grey;
       case AppointmentStatus.cancelled:
         return Colors.red;
       case AppointmentStatus.rescheduled:
-        return Colors.purple;
+        return DesignTokens.primaryCoral;
     }
   }
 
