@@ -13,7 +13,12 @@ import '../providers/marketplace_provider.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MarketplaceCreateListingScreen extends ConsumerStatefulWidget {
-  const MarketplaceCreateListingScreen({super.key});
+  final Map<String, dynamic>? listingToEdit;
+  
+  const MarketplaceCreateListingScreen({
+    super.key,
+    this.listingToEdit,
+  });
 
   @override
   ConsumerState<MarketplaceCreateListingScreen> createState() =>
@@ -63,6 +68,38 @@ class _MarketplaceCreateListingScreenState
   ];
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.listingToEdit != null) {
+      _initializeEditMode();
+    }
+  }
+
+  void _initializeEditMode() {
+    final listing = widget.listingToEdit!;
+    _titleController.text = listing['title'] ?? '';
+    _descriptionController.text = listing['description'] ?? '';
+    _selectedCategory = listing['category'] ?? '';
+    _locationController.text = listing['location'] ?? '';
+    
+    // Parse budget
+    final budget = listing['budget'] ?? '';
+    if (budget.contains('-')) {
+      final parts = budget.replaceAll('₺', '').split('-');
+      if (parts.length == 2) {
+        _minBudgetController.text = parts[0].trim();
+        _maxBudgetController.text = parts[1].trim();
+        _selectedBudgetType = 'range';
+      }
+    } else {
+      _minBudgetController.text = budget.replaceAll('₺', '').trim();
+      _selectedBudgetType = 'fixed';
+    }
+  }
+
+  bool get _isEditMode => widget.listingToEdit != null;
+
+  @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
@@ -80,7 +117,7 @@ class _MarketplaceCreateListingScreenState
     return Scaffold(
       backgroundColor: DesignTokens.surfacePrimary,
       appBar: CommonAppBar(
-        title: 'İlan Oluştur',
+        title: _isEditMode ? 'İlan Düzenle' : 'İlan Oluştur',
         userType: userType,
         showBackButton: true,
       ),
@@ -840,11 +877,13 @@ class _MarketplaceCreateListingScreenState
           SizedBox(
             width: double.infinity,
             child: AirbnbButton(
-              text: _isSubmitting ? 'Yayınlanıyor...' : 'İlanı Yayınla',
+              text: _isSubmitting 
+                  ? (_isEditMode ? 'Güncelleniyor...' : 'Yayınlanıyor...') 
+                  : (_isEditMode ? 'İlanı Güncelle' : 'İlanı Yayınla'),
               onPressed: _isSubmitting ? null : _submitListing,
               type: AirbnbButtonType.primary,
               size: AirbnbButtonSize.large,
-              icon: _isSubmitting ? null : Icons.publish_outlined,
+              icon: _isSubmitting ? null : (_isEditMode ? Icons.update : Icons.publish_outlined),
             ),
           ),
         ],
@@ -946,18 +985,23 @@ class _MarketplaceCreateListingScreenState
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('İlanınız başarıyla yayınlandı!'),
+          SnackBar(
+            content: Text(_isEditMode ? 'İlanınız başarıyla güncellendi!' : 'İlanınız başarıyla yayınlandı!'),
             backgroundColor: DesignTokens.success,
           ),
         );
 
-        // Navigate back to marketplace
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/marketplace',
-          (route) => route.isFirst,
-        );
+        // Navigate back
+        if (_isEditMode) {
+          Navigator.pop(context); // Go back to listing detail
+        } else {
+          // Navigate back to marketplace
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/marketplace',
+            (route) => route.isFirst,
+          );
+        }
       }
     } catch (e) {
       if (mounted) {

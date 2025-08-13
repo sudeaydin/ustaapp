@@ -172,6 +172,10 @@ class MyApp extends ConsumerWidget {
         // Marketplace routes
         '/marketplace': (context) => const MarketplaceFeedScreen(),
         '/marketplace/new': (context) => const MarketplaceCreateListingScreen(),
+        '/marketplace/edit': (context) {
+          final listing = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return MarketplaceCreateListingScreen(listingToEdit: listing);
+        },
         '/marketplace/mine': (context) => const MyListingsScreen(),
         '/listing-detail': (context) {
           final listing = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;

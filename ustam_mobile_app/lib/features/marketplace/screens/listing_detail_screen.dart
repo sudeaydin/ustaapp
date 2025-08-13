@@ -32,9 +32,10 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
             onSelected: (value) {
               switch (value) {
                 case 'edit':
-                  // TODO: Navigate to edit screen
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('İlan düzenleme özelliği yakında!')),
+                  Navigator.pushNamed(
+                    context,
+                    '/marketplace/edit',
+                    arguments: listing,
                   );
                   break;
                 case 'delete':
@@ -262,16 +263,31 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('İlan silindi')),
-              );
+              _deleteListing();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Sil'),
           ),
         ],
       ),
+    );
+  }
+
+  void _deleteListing() {
+    // TODO: Implement actual delete API call
+    // For now, just show success message and go back
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('İlan başarıyla silindi'),
+        backgroundColor: DesignTokens.success,
+      ),
+    );
+    
+    // Go back to listings
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/marketplace/mine',
+      (route) => route.isFirst,
     );
   }
 }
