@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/app_config.dart';
 
 class SocketService {
@@ -327,8 +328,6 @@ class SocketService {
 }
 
 // Provider for Socket Service
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 final socketServiceProvider = Provider<SocketService>((ref) {
   return SocketService();
 });

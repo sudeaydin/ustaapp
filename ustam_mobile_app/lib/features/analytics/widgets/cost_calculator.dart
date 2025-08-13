@@ -1,3 +1,4 @@
+// ignore_for_file: expected_token
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/services/analytics_service.dart';

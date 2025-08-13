@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../theme/design_tokens.dart';
 
-enum AirbnbButtonType { primary, secondary, outline, text }
+enum AirbnbButtonType { primary, secondary, outline, text, error }
 enum AirbnbButtonSize { small, medium, large }
 
 class AirbnbButton extends StatelessWidget {
@@ -109,6 +109,8 @@ class AirbnbButton extends StatelessWidget {
         return DesignTokens.primaryCoral;
       case AirbnbButtonType.text:
         return DesignTokens.primaryCoral;
+      case AirbnbButtonType.error:
+        return Colors.white;
     }
   }
 
@@ -124,6 +126,8 @@ class AirbnbButton extends StatelessWidget {
         return Colors.transparent;
       case AirbnbButtonType.text:
         return Colors.transparent;
+      case AirbnbButtonType.error:
+        return DesignTokens.error;
     }
   }
 

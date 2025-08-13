@@ -53,12 +53,12 @@ class _MarketplaceListingDetailScreenState
         showBackButton: true,
       ),
       body: listingAsync.when(
-        data: (listing) => _buildContent(listing, userType, userId),
+        data: (listingDetail) => _buildContent(listingDetail.listing, userType, userId),
         loading: () => _buildLoadingState(),
         error: (error, stack) => _buildErrorState(error.toString()),
       ),
       bottomNavigationBar: listingAsync.maybeWhen(
-        data: (listing) => _buildBottomBar(listing, userType, userId),
+        data: (listingDetail) => _buildBottomBar(listingDetail.listing, userType, userId),
         orElse: () => null,
       ),
     );
@@ -701,9 +701,9 @@ class _MarketplaceListingDetailScreenState
                   ],
                 ),
               ),
-              const Text(
+              Text(
                 '₺${(index + 1) * 500 + 1000}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.primaryCoral,
@@ -720,11 +720,11 @@ class _MarketplaceListingDetailScreenState
     final isOwner = listing.postedBy.userId == userId;
     
     if (isOwner || listing.status != 'open') {
-      return null; // No action needed for owner or closed listings
+      return const SizedBox.shrink(); // No action needed for owner or closed listings
     }
 
     if (userType != 'craftsman') {
-      return null; // Only craftsmen can make offers
+      return const SizedBox.shrink(); // Only craftsmen can make offers
     }
 
     return Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/design_tokens.dart';
 import '../theme/app_typography.dart';
 
@@ -22,6 +23,9 @@ class AirbnbInput extends StatefulWidget {
   final int? maxLength;
   final TextInputAction? textInputAction;
   final VoidCallback? onEditingComplete;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
 
   const AirbnbInput({
     super.key,
@@ -42,6 +46,9 @@ class AirbnbInput extends StatefulWidget {
     this.maxLength,
     this.textInputAction,
     this.onEditingComplete,
+    this.keyboardType,
+    this.inputFormatters,
+    this.validator,
   });
 
   @override
@@ -109,7 +116,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
               ),
             ] : null,
           ),
-          child: TextField(
+          child: TextFormField(
             controller: widget.controller,
             focusNode: _focusNode,
             onChanged: widget.onChanged,
@@ -118,12 +125,14 @@ class _AirbnbInputState extends State<AirbnbInput> {
             enabled: widget.enabled,
             readOnly: widget.readOnly,
             obscureText: widget.type == AirbnbInputType.password && _isObscured,
-            keyboardType: _getKeyboardType(),
+            keyboardType: widget.keyboardType ?? _getKeyboardType(),
+            inputFormatters: widget.inputFormatters,
             textInputAction: widget.textInputAction,
             maxLines: widget.type == AirbnbInputType.multiline 
                 ? (widget.maxLines ?? 4) 
                 : 1,
             maxLength: widget.maxLength,
+            validator: widget.validator,
             style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(
               hintText: widget.hintText,

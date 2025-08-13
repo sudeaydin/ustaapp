@@ -7,6 +7,7 @@ import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
 import '../models/marketplace_listing.dart';
+import '../repositories/marketplace_repository.dart';
 import '../providers/marketplace_provider.dart';
 import '../../auth/providers/auth_provider.dart';
 
@@ -75,7 +76,7 @@ class _MarketplaceOfferComposeScreenState
         showBackButton: true,
       ),
       body: listingAsync.when(
-        data: (listing) => _buildContent(listing),
+        data: (listingDetail) => _buildContent(listingDetail.listing),
         loading: () => _buildLoadingState(),
         error: (error, stack) => _buildErrorState(error.toString()),
       ),
@@ -562,11 +563,15 @@ class _MarketplaceOfferComposeScreenState
           : _noteController.text.trim();
 
       // Submit offer using provider
-      await ref.read(submitOfferProvider.notifier).submitOffer(
-        listingId: widget.listingId,
+      final request = SubmitOfferRequest(
         amount: amount,
         etaDays: etaDays,
         note: note,
+      );
+
+      await ref.read(submitOfferProvider.notifier).submitOffer(
+        widget.listingId,
+        request,
       );
 
       if (mounted) {

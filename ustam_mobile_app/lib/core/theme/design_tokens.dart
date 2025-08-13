@@ -64,6 +64,7 @@ class DesignTokens {
   
   static const double spaceUnit = 4.0;
   static const double space4 = spaceUnit * 1;      // 4pt
+  static const double space6 = 6.0;                // 6pt
   static const double space8 = spaceUnit * 2;      // 8pt
   static const double space12 = spaceUnit * 3;     // 12pt
   static const double space16 = spaceUnit * 4;     // 16pt

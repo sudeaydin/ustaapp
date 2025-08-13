@@ -7,6 +7,8 @@ import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
+import '../models/marketplace_listing.dart';
+import '../repositories/marketplace_repository.dart';
 import '../providers/marketplace_provider.dart';
 import '../../auth/providers/auth_provider.dart';
 
@@ -920,18 +922,27 @@ class _MarketplaceCreateListingScreenState
           ? minBudget 
           : double.parse(_maxBudgetController.text);
 
-      await ref.read(createListingProvider.notifier).createListing(
+      final request = CreateListingRequest(
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
         category: _selectedCategory,
-        city: _locationController.text,
-        budgetType: _selectedBudgetType,
-        minBudget: minBudget,
-        maxBudget: maxBudget,
-        startDate: _startDate!,
-        endDate: _endDate!,
-        publishToMarketplace: _publishToMarketplace,
+        location: ListingLocation(
+          city: _locationController.text,
+          lat: 0.0, // TODO: Get actual coordinates
+          lng: 0.0,
+        ),
+        budget: ListingBudget(
+          type: _selectedBudgetType,
+          min: minBudget,
+          max: maxBudget,
+        ),
+        dateRange: ListingDateRange(
+          start: _startDate!,
+          end: _endDate!,
+        ),
       );
+
+      await ref.read(createListingProvider.notifier).createListing(request);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
