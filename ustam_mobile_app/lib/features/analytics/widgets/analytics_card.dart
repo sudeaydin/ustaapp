@@ -42,7 +42,7 @@ class AnalyticsCard extends StatelessWidget {
     return AirbnbCard(
       child: Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
-      child: Column(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header with icon

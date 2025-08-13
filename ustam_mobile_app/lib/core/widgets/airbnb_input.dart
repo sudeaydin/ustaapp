@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/design_tokens.dart';
+import '../theme/app_typography.dart';
 
 enum AirbnbInputType { text, email, password, search, multiline }
 

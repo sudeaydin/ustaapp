@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/job_management_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';

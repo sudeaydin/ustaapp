@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import '../config/app_config.dart';
+import '../theme/design_tokens.dart';
 
 class ImageUtils {
   // Compress image for upload

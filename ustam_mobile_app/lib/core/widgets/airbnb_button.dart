@@ -146,7 +146,6 @@ class AirbnbButton extends StatelessWidget {
       return null;
     }
     return DesignTokens.shadowCard;
-    ];
   }
 
 

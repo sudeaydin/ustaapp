@@ -270,8 +270,81 @@ class DesignTokens {
   static const double inputHeight = 44.0;  // iOS standard
   
   // ========================================
+  // COMPATIBILITY PROPERTIES (Missing from old theme)
+  // ========================================
+  
+  // Missing properties from old theme system
+  static const Color background = surfacePrimary;
+  static const Color textLight = gray600;
+  static const Color textMuted = gray500;
+  static const Color shadowLight = Color(0x1A000000);
+  static const Color shadowMedium = Color(0x33000000);
+  static const Color uclaBlue = accentTeal;
+  static const Color nonPhotoBlue = accentTeal;
+  static const Color mintGreen = success;
+  static const Color buttonPrimary = primaryCoral;
+  static const Color buttonDanger = error;
+  static const Color buttonDisabled = gray300;
+  static const double radius8 = 8.0;
+  static const double inputBorderRadius = radius12;
+  static const List<Color> headerGradient = [primaryCoral, primaryCoralDark];
+  static const List<Color> accentGradient = [accentTeal, accentTealDark];
+  static const LinearGradient primaryCoralGradient = LinearGradient(
+    colors: [primaryCoral, primaryCoralDark],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static const Color surfaceSecondaryColor = surfaceSecondary;
+  static const EdgeInsets spacingScreenEdgeInsets = EdgeInsets.all(spacingScreenEdge);
+  
+  // Spacing shortcuts
+  static const SizedBox verticalSpaceXS = SizedBox(height: space4);
+  static const SizedBox verticalSpaceSM = SizedBox(height: space8);
+  static const SizedBox verticalSpaceMD = SizedBox(height: space16);
+  static const SizedBox horizontalSpaceXS = SizedBox(width: space4);
+  static const SizedBox horizontalSpaceSM = SizedBox(width: space8);
+  static const SizedBox horizontalSpaceMD = SizedBox(width: space16);
+  static const EdgeInsets spacingCardPaddingInsets = EdgeInsets.all(space16);
+  
+  // ========================================
   // HELPER METHODS
   // ========================================
+  
+  // Helper methods for gradients and shadows
+  static LinearGradient getGradient(List<Color> colors) {
+    return LinearGradient(
+      colors: colors,
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+  }
+  
+  static BoxShadow getCardShadow() {
+    return BoxShadow(
+      color: Colors.black.withOpacity(shadowOpacityLight),
+      blurRadius: shadowBlur12,
+      offset: const Offset(0, 2),
+    );
+  }
+  
+  static BoxShadow getElevatedShadow({double blurRadius = 12}) {
+    return BoxShadow(
+      color: Colors.black.withOpacity(shadowOpacityMedium),
+      blurRadius: blurRadius,
+      offset: const Offset(0, 4),
+    );
+  }
+  
+  static ButtonStyle getPrimaryButtonStyle() {
+    return ElevatedButton.styleFrom(
+      backgroundColor: primaryCoral,
+      foregroundColor: Colors.white,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius12),
+      ),
+    );
+  }
   
   /// Get color based on brightness
   static Color getAdaptiveColor(Color lightColor, Color darkColor, Brightness brightness) {

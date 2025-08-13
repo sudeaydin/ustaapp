@@ -77,7 +77,7 @@ class iOSTheme {
       ),
       
       // Card Theme - Airbnb Style
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: DesignTokens.surfacePrimary,
         shadowColor: Colors.black.withOpacity(DesignTokens.shadowOpacityLight),
         elevation: DesignTokens.elevation2,
@@ -285,7 +285,6 @@ class iOSTheme {
           borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(DesignTokens.space16),
       ),
       
       // Switch Theme - iOS Style
