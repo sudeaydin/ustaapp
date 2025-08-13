@@ -89,7 +89,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false, // Geri butonunu kaldır
         actions: [
           const SizedBox(width: 8),
         ],
@@ -189,7 +188,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             Expanded(
                               child: Text(
-                                widget.userType == 'craftsman' ? 'Usta Girişi' : '👤 Müşteri Girişi',
+                                widget.userType == 'craftsman' ? 'Usta Girişi' : 'Müşteri Girişi',
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
