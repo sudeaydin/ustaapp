@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/common_app_bar.dart';
 
 class NotificationsScreen extends ConsumerStatefulWidget {
   const NotificationsScreen({super.key});
@@ -67,25 +68,18 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DesignTokens.surfacePrimary,
-      appBar: AppBar(
-        backgroundColor: DesignTokens.surfacePrimary,
-        elevation: 0,
-        title: const Text(
-          'Bildirimler',
-          style: TextStyle(
-            color: DesignTokens.gray900,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CommonAppBar(
+        title: 'Bildirimler',
+        showBackButton: true,
         actions: [
           TextButton(
             onPressed: _markAllAsRead,
             child: const Text(
               'Tümünü Okundu İşaretle',
               style: TextStyle(
-                color: DesignTokens.uclaBlue,
+                color: Colors.white,
                 fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

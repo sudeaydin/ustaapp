@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/common_app_bar.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> conversation;
@@ -554,10 +555,23 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     return Scaffold(
       backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
-        backgroundColor: DesignTokens.surfacePrimary,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: DesignTokens.gray900),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
@@ -583,14 +597,14 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: DesignTokens.gray900,
+                      color: Colors.white,
                     ),
                   ),
                   Text(
                     widget.conversation['business_name'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: DesignTokens.textLight,
+                      color: Colors.white.withOpacity(0.8),
                     ),
                   ),
                 ],
