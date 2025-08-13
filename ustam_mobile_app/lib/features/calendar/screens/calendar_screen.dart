@@ -1062,8 +1062,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             ),
           ],
         ),
-      ),
-    ).then((value) {
+      );
+        },
+      ).then((value) {
       print('✅ Modal bottom sheet closed');
     }).catchError((error) {
       print('❌ Modal bottom sheet error: $error');
