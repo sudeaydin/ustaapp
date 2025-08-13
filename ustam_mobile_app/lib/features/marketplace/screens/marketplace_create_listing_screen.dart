@@ -80,7 +80,28 @@ class _MarketplaceCreateListingScreenState
     _titleController.text = listing['title'] ?? '';
     _descriptionController.text = listing['description'] ?? '';
     _selectedCategory = listing['category'] ?? '';
-    _locationController.text = listing['location'] ?? '';
+    
+    // Handle location - extract city from full location or set to default
+    final fullLocation = listing['location'] ?? '';
+    String selectedCity = '';
+    
+    // Try to extract city from location like "Beşiktaş, İstanbul" -> "İstanbul"
+    if (fullLocation.contains(',')) {
+      final parts = fullLocation.split(',');
+      final cityPart = parts.last.trim();
+      if (_cities.contains(cityPart)) {
+        selectedCity = cityPart;
+      }
+    } else if (_cities.contains(fullLocation)) {
+      selectedCity = fullLocation;
+    }
+    
+    // If no match found, use first city as default
+    if (selectedCity.isEmpty) {
+      selectedCity = _cities.first;
+    }
+    
+    _locationController.text = selectedCity;
     
     // Parse budget
     final budget = listing['budget'] ?? '';
@@ -382,7 +403,9 @@ class _MarketplaceCreateListingScreenState
               ),
             ),
             child: DropdownButtonFormField<String>(
-              value: _locationController.text.isEmpty ? null : _locationController.text,
+              value: _locationController.text.isEmpty || !_cities.contains(_locationController.text) 
+                  ? null 
+                  : _locationController.text,
               decoration: InputDecoration(
                 labelText: 'Şehir',
                 prefixIcon: const Icon(Icons.location_city_outlined),
