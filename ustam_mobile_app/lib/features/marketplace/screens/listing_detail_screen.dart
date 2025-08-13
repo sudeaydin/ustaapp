@@ -163,45 +163,24 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
             const SizedBox(height: DesignTokens.space24),
             
             // Action Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/listing-offers',
-                        arguments: listing,
-                      );
-                    },
-                    icon: const Icon(Icons.local_offer),
-                    label: Text('Teklifler (${listing['offersCount']})'),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: DesignTokens.primaryCoral),
-                      foregroundColor: DesignTokens.primaryCoral,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                  ),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/listing-offers',
+                    arguments: listing,
+                  );
+                },
+                icon: const Icon(Icons.local_offer),
+                label: Text('Teklifler (${listing['offersCount']})'),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: DesignTokens.primaryCoral),
+                  foregroundColor: DesignTokens.primaryCoral,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // TODO: Share listing
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Paylaşım özelliği yakında!')),
-                      );
-                    },
-                    icon: const Icon(Icons.share),
-                    label: const Text('Paylaş'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: DesignTokens.primaryCoral,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

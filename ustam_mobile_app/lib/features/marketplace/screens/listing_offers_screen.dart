@@ -197,14 +197,24 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
   }
 
   Widget _buildOfferCard(Map<String, dynamic> offer, bool isAccepted) {
+    // Check if any offer is accepted to determine if this listing is closed
+    final hasAcceptedOffer = _mockOffers.any((o) => o['status'] == 'accepted');
+    final isThisOfferAccepted = offer['status'] == 'accepted';
+    final isThisOfferRejected = offer['status'] == 'rejected';
+    final canAcceptOffer = !hasAcceptedOffer && offer['status'] == 'pending';
+    
     return AirbnbCard(
       margin: const EdgeInsets.only(bottom: DesignTokens.space12),
-      backgroundColor: isAccepted 
+      backgroundColor: isThisOfferAccepted 
           ? DesignTokens.success.withOpacity(0.05)
-          : DesignTokens.surfacePrimary,
-      border: isAccepted 
+          : isThisOfferRejected
+              ? DesignTokens.gray100
+              : DesignTokens.surfacePrimary,
+      border: isThisOfferAccepted 
           ? Border.all(color: DesignTokens.success.withOpacity(0.3))
-          : null,
+          : isThisOfferRejected
+              ? Border.all(color: DesignTokens.gray300)
+              : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -236,13 +246,15 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                       children: [
                         Text(
                           offer['craftsmanName'],
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: DesignTokens.gray900,
+                            color: isThisOfferRejected 
+                                ? DesignTokens.gray500 
+                                : DesignTokens.gray900,
                           ),
                         ),
-                        if (isAccepted) ...[
+                        if (isThisOfferAccepted) ...[
                           const SizedBox(width: 8),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -252,6 +264,23 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                             ),
                             child: const Text(
                               'SEÇİLDİ',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ] else if (isThisOfferRejected) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: DesignTokens.gray500,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Text(
+                              'REDDEDİLDİ',
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -273,9 +302,11 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                         const SizedBox(width: 4),
                         Text(
                           '${offer['craftsmanRating']} (${offer['craftsmanReviewCount']} değerlendirme)',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
-                            color: DesignTokens.gray600,
+                            color: isThisOfferRejected 
+                                ? DesignTokens.gray400 
+                                : DesignTokens.gray600,
                           ),
                         ),
                       ],
@@ -290,17 +321,21 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 children: [
                   Text(
                     offer['amount'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: DesignTokens.gray900,
+                      color: isThisOfferRejected 
+                          ? DesignTokens.gray500 
+                          : DesignTokens.gray900,
                     ),
                   ),
                   Text(
                     offer['estimatedDuration'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: DesignTokens.gray600,
+                      color: isThisOfferRejected 
+                          ? DesignTokens.gray400 
+                          : DesignTokens.gray600,
                     ),
                   ),
                 ],
@@ -313,9 +348,11 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
           if (offer['note'].isNotEmpty) ...[
             Text(
               offer['note'],
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: DesignTokens.gray700,
+                color: isThisOfferRejected 
+                    ? DesignTokens.gray500 
+                    : DesignTokens.gray700,
                 height: 1.4,
               ),
             ),
@@ -335,7 +372,24 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               const Spacer(),
               
               // Action Buttons
-              if (!isAccepted) ...[
+              if (isThisOfferAccepted) ...[
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // TODO: Navigate to chat or contact
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Mesajlaşma özelliği yakında!')),
+                    );
+                  },
+                  icon: const Icon(Icons.chat, size: 16),
+                  label: const Text('Mesaj', style: TextStyle(fontSize: 12)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: DesignTokens.primaryCoral,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(60, 32),
+                  ),
+                ),
+              ] else if (canAcceptOffer) ...[
+                // Only show accept/reject buttons if no offer is accepted yet
                 OutlinedButton(
                   onPressed: () => _showRejectDialog(offer),
                   style: OutlinedButton.styleFrom(
@@ -355,20 +409,38 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                   ),
                   child: const Text('Kabul Et', style: TextStyle(fontSize: 12)),
                 ),
-              ] else ...[
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // TODO: Navigate to chat or contact
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Mesajlaşma özelliği yakında!')),
-                    );
-                  },
-                  icon: const Icon(Icons.chat, size: 16),
-                  label: const Text('Mesaj', style: TextStyle(fontSize: 12)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: DesignTokens.primaryCoral,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(60, 32),
+              ] else if (isThisOfferRejected) ...[
+                // Show rejected status
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: DesignTokens.gray200,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: const Text(
+                    'Reddedildi',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: DesignTokens.gray600,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ] else if (hasAcceptedOffer && !isThisOfferAccepted) ...[
+                // Show that listing is closed for other offers
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: DesignTokens.warning.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: const Text(
+                    'İlan Kapandı',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: DesignTokens.warning,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -384,7 +456,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Teklifi Kabul Et'),
-        content: Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?'),
+        content: Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?\n\nBu teklifi kabul ettiğinizde ilan kapanacak ve diğer ustalar teklif veremeyecektir.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -395,15 +467,14 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               Navigator.pop(context);
               setState(() {
                 offer['status'] = 'accepted';
-                // Reject other offers
-                for (var otherOffer in _mockOffers) {
-                  if (otherOffer['id'] != offer['id'] && otherOffer['status'] == 'pending') {
-                    otherOffer['status'] = 'rejected';
-                  }
-                }
+                // Don't automatically reject other offers
+                // They will show as "İlan Kapandı" instead
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Teklif kabul edildi!')),
+                SnackBar(
+                  content: Text('${offer['craftsmanName']} adlı ustanın teklifi kabul edildi!'),
+                  backgroundColor: DesignTokens.success,
+                ),
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: DesignTokens.success),
