@@ -259,7 +259,11 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () {
-                    // TODO: Navigate to listing detail
+                    Navigator.pushNamed(
+                      context,
+                      '/listing-detail',
+                      arguments: listing,
+                    );
                   },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: DesignTokens.primaryCoral),
@@ -272,7 +276,11 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO: Navigate to offers
+                    Navigator.pushNamed(
+                      context,
+                      '/listing-offers',
+                      arguments: listing,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: DesignTokens.primaryCoral,

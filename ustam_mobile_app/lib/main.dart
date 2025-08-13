@@ -44,6 +44,8 @@ import 'features/marketplace/screens/marketplace_listing_detail_screen.dart';
 import 'features/marketplace/screens/marketplace_offer_compose_screen.dart';
 import 'features/marketplace/screens/marketplace_create_listing_screen.dart';
 import 'features/marketplace/screens/my_listings_screen.dart';
+import 'features/marketplace/screens/listing_detail_screen.dart';
+import 'features/marketplace/screens/listing_offers_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -171,6 +173,14 @@ class MyApp extends ConsumerWidget {
         '/marketplace': (context) => const MarketplaceFeedScreen(),
         '/marketplace/new': (context) => const MarketplaceCreateListingScreen(),
         '/marketplace/mine': (context) => const MyListingsScreen(),
+        '/listing-detail': (context) {
+          final listing = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return ListingDetailScreen(listing: listing);
+        },
+        '/listing-offers': (context) {
+          final listing = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return ListingOffersScreen(listing: listing);
+        },
       },
       onGenerateRoute: (settings) {
         // Handle marketplace dynamic routes
