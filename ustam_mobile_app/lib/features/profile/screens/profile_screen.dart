@@ -11,6 +11,7 @@ import '../../../core/config/app_config.dart';
 import '../../../core/utils/legal_utils.dart';
 import '../../../core/widgets/consent_preferences_sheet.dart';
 import '../../../core/widgets/gdpr_rights_sheet.dart';
+import '../../../core/widgets/common_bottom_navigation.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -187,30 +188,30 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-            decoration: BoxDecoration(
-              color: color ?? Colors.white,
-              borderRadius: BorderRadius.circular(DesignTokens.radius16),
-              border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-              boxShadow: [
-                BoxShadow(
-                  color: DesignTokens.shadowLight,
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
+                          decoration: BoxDecoration(
+                color: color ?? Colors.white,
+                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
+                boxShadow: [
+                  BoxShadow(
+                    color: DesignTokens.shadowLight,
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
             child: Row(
               children: [
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.primaryCoral.withOpacity(0.1),
+                    color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.success.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     icon,
                     size: 20,
-                    color: color != null ? Colors.white : DesignTokens.uclaBlue,
+                    color: color != null ? Colors.white : DesignTokens.success,
                   ),
                 ),
                 const SizedBox(width: DesignTokens.space16),
@@ -597,86 +598,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          gradient: DesignTokens.getGradient([
-            _profileData?['user_type'] == 'craftsman' ? DesignTokens.primaryCoral : DesignTokens.nonPhotoBlue,
-            (_profileData?['user_type'] == 'craftsman' ? DesignTokens.primaryCoral : DesignTokens.nonPhotoBlue).withOpacity(0.9),
-          ]),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [DesignTokens.getElevatedShadow()],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-            switch (index) {
-              case 0:
-                // Navigate to appropriate dashboard based on user type
-                print('Ana Sayfa tıklandı - User type: ${_profileData?['user_type']}');
-                
-                if (_profileData?['user_type'] == 'craftsman') {
-                  print('✅ Craftsman dashboard\'a yönlendiriliyor');
-                  Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
-                } else if (_profileData?['user_type'] == 'customer') {
-                  print('✅ Customer dashboard\'a yönlendiriliyor');
-                  Navigator.pushReplacementNamed(context, '/customer-dashboard');
-                } else {
-                  print('⚠️ Profile data\'da user type bulunamadı, SharedPreferences kontrol ediliyor');
-                  // Fallback - check user type from SharedPreferences
-                  _navigateToCorrectDashboard();
-                }
-                break;
-              case 1:
-                if (_profileData?['user_type'] == 'craftsman') {
-                  Navigator.pushReplacementNamed(context, '/business-profile');
-                } else {
-                  Navigator.pushReplacementNamed(context, '/search');
-                }
-                break;
-              case 2:
-                Navigator.pushReplacementNamed(context, '/messages');
-                break;
-              case 3:
-                // Already on profile
-                break;
-            }
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(0.6),
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              activeIcon: Icon(Icons.home_rounded, size: 28),
-              label: 'Ana Sayfa',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(_profileData?['user_type'] == 'craftsman' ? Icons.business_rounded : Icons.search_rounded),
-              activeIcon: Icon(_profileData?['user_type'] == 'craftsman' ? Icons.business_rounded : Icons.search_rounded, size: 28),
-              label: _profileData?['user_type'] == 'craftsman' ? 'İşletmem' : 'Arama',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_rounded),
-              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
-              label: 'Mesajlar',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              activeIcon: Icon(Icons.person_rounded, size: 28),
-              label: 'Profilim',
-            ),
-          ],
-        ),
+      bottomNavigationBar: CommonBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        userType: _profileData?['user_type'] ?? 'customer',
       ),
     );
   }

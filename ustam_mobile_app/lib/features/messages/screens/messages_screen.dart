@@ -5,6 +5,8 @@ import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
+import '../../../core/widgets/common_app_bar.dart';
+import '../../../core/widgets/common_bottom_navigation.dart';
 
 class MessagesScreen extends ConsumerStatefulWidget {
   final String? userType;
@@ -192,31 +194,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userType = widget.userType ?? ref.read(authProvider).user?['user_type'] ?? 'customer';
+    
     return Scaffold(
       backgroundColor: DesignTokens.surfacePrimary,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
-            ),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-        ),
-        title: const Text(
-          'Mesajlar',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
+      appBar: CommonAppBar(
+        title: 'Mesajlar',
+        userType: userType,
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
@@ -234,70 +218,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 return _buildConversationTile(conversation);
               },
             ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          gradient: DesignTokens.getGradient([
-            DesignTokens.nonPhotoBlue,
-            DesignTokens.nonPhotoBlue.withOpacity(0.9),
-          ]),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [DesignTokens.getElevatedShadow()],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-            switch (index) {
-              case 0:
-                // Navigate to appropriate dashboard based on user type
-                _navigateToHomeDashboard();
-                break;
-              case 1:
-                Navigator.pushReplacementNamed(context, '/search');
-                break;
-              case 2:
-                // Already on messages
-                break;
-              case 3:
-                Navigator.pushReplacementNamed(context, '/profile');
-                break;
-            }
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(0.6),
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              activeIcon: Icon(Icons.home_rounded, size: 28),
-              label: 'Ana Sayfa',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search_rounded),
-              activeIcon: Icon(Icons.search_rounded, size: 28),
-              label: 'Arama',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_rounded),
-              activeIcon: Icon(Icons.chat_bubble_rounded, size: 28),
-              label: 'Mesajlar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              activeIcon: Icon(Icons.person_rounded, size: 28),
-              label: 'Profilim',
-            ),
-          ],
-        ),
+      bottomNavigationBar: CommonBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        userType: userType,
       ),
     );
   }
