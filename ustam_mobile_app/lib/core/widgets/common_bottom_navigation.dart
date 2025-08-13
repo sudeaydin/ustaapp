@@ -85,7 +85,7 @@ class CommonBottomNavigation extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(context, '/customer-dashboard', (route) => false);
           break;
         case 1:
-          Navigator.pushNamed(context, '/find-craftsman');
+          Navigator.pushNamed(context, '/search');
           break;
         case 2:
           Navigator.push(

@@ -116,28 +116,67 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       ),
                     ),
                     const SizedBox(height: DesignTokens.space16),
-                    // Primary Action - USTA BUL (Full width, prominent)
-                    _buildPrimaryActionCard(
-                      'USTA BUL',
-                      'İhtiyacınız olan ustayı hemen bulun!',
-                      Icons.search_rounded,
-                      DesignTokens.primaryCoral,
-                      () {
-                        print('🔍 Usta Bul butonuna tıklandı');
-                        Navigator.pushNamed(context, '/find-craftsman');
-                      },
+                    // Primary Actions Row - USTA BUL & İLAN VER side by side
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildPrimaryActionCard(
+                            'USTA BUL',
+                            'İhtiyacınız olan ustayı hemen bulun!',
+                            Icons.search_rounded,
+                            DesignTokens.primaryCoral,
+                            () {
+                              print('🔍 Usta Bul butonuna tıklandı');
+                              Navigator.pushNamed(context, '/search');
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _buildSecondaryActionCard(
+                            'İLAN VER',
+                            'Ustalar size ulaşsın!',
+                            Icons.campaign_rounded,
+                            DesignTokens.warning,
+                            () {
+                              print('📝 İlan Ver butonuna tıklandı');
+                              Navigator.pushNamed(context, '/marketplace/new');
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 12),
-                    // Secondary Action - İLAN VER
-                    _buildSecondaryActionCard(
-                      'İstediğiniz ustayı bulamadınız mı?',
-                      'İLAN VER - Ustalar Size Ulaşsın!',
-                      Icons.campaign_rounded,
-                      DesignTokens.warning,
-                      () {
-                        print('📝 İlan Ver butonuna tıklandı');
-                        Navigator.pushNamed(context, '/marketplace/new');
-                      },
+                    // Info text
+                    Container(
+                      padding: const EdgeInsets.all(DesignTokens.space12),
+                      decoration: BoxDecoration(
+                        color: DesignTokens.info.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        border: Border.all(
+                          color: DesignTokens.info.withOpacity(0.3),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.lightbulb_outline,
+                            color: DesignTokens.info,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          const Expanded(
+                            child: Text(
+                              'İstediğiniz ustayı bulamadıysanız ilan verin, ustalar size ulaşsın!',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: DesignTokens.info,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: DesignTokens.space16),
                     const Text(
