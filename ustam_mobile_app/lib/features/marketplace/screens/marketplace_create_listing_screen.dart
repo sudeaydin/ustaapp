@@ -937,8 +937,8 @@ class _MarketplaceCreateListingScreenState
           max: maxBudget,
         ),
         dateRange: ListingDateRange(
-          start: _startDate!,
-          end: _endDate!,
+          start: _startDate!.toIso8601String(),
+          end: _endDate!.toIso8601String(),
         ),
       );
 
