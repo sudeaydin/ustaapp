@@ -146,38 +146,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    // Info text
-                    Container(
-                      padding: const EdgeInsets.all(DesignTokens.space12),
-                      decoration: BoxDecoration(
-                        color: DesignTokens.info.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                        border: Border.all(
-                          color: DesignTokens.info.withOpacity(0.3),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.lightbulb_outline,
-                            color: DesignTokens.info,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          const Expanded(
-                            child: Text(
-                              'İstediğiniz ustayı bulamadıysanız ilan verin, ustalar size ulaşsın!',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: DesignTokens.info,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     const SizedBox(height: DesignTokens.space16),
                     const Text(
                       'Diğer İşlemler',

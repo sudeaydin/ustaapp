@@ -43,6 +43,7 @@ import 'features/marketplace/screens/marketplace_feed_screen.dart';
 import 'features/marketplace/screens/marketplace_listing_detail_screen.dart';
 import 'features/marketplace/screens/marketplace_offer_compose_screen.dart';
 import 'features/marketplace/screens/marketplace_create_listing_screen.dart';
+import 'features/marketplace/screens/my_listings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -169,6 +170,7 @@ class MyApp extends ConsumerWidget {
         // Marketplace routes
         '/marketplace': (context) => const MarketplaceFeedScreen(),
         '/marketplace/new': (context) => const MarketplaceCreateListingScreen(),
+        '/marketplace/mine': (context) => const MyListingsScreen(),
       },
       onGenerateRoute: (settings) {
         // Handle marketplace dynamic routes
