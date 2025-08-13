@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/providers/language_provider.dart';
 
@@ -18,430 +16,139 @@ class WelcomeScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: const [
-          SizedBox(width: 8),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.language_outlined,
+              color: DesignTokens.gray600,
+            ),
+            onPressed: () {
+              // Language selection logic
+            },
+          ),
         ],
       ),
-      backgroundColor: Colors.white, // Clean Airbnb white
-      body: Container(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height - 
-                           MediaQuery.of(context).padding.top - 
-                           MediaQuery.of(context).padding.bottom - 48,
-                ),
+      backgroundColor: DesignTokens.surfacePrimary,
+      body: SafeArea(
+        child: Padding(
+          padding: DesignTokens.getEdgeInsets(all: DesignTokens.spacingScreenEdge),
+          child: Column(
+            children: [
+              // Top section with logo and title
+              Expanded(
+                flex: 2,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        const SizedBox(height: 40),
-                    
-                        // Logo - Professional Design
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // Outer glow effect
-                            Container(
-                              width: 160,
-                              height: 160,
-                              decoration: BoxDecoration(
-                                gradient: RadialGradient(
-                                  colors: [
-                                    AppColors.nonPhotoBlue.withOpacity(0.3),
-                                    Colors.transparent,
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(80),
-                              ),
-                            ),
-                            // Main logo container
-                            Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.getGradient([
-                                  AppColors.cardBackground,
-                                  AppColors.surfaceColor,
-                                ]),
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: AppColors.nonPhotoBlue.withOpacity(0.5),
-                                  width: 3,
-                                ),
-                                boxShadow: [
-                                  AppColors.getElevatedShadow(blurRadius: 25),
-                                  BoxShadow(
-                                    color: AppColors.uclaBlue.withOpacity(0.2),
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ],
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  // Professional tool icon
-                                  Container(
-                                    width: 70,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.getGradient(AppColors.primaryGradient),
-                                      borderRadius: BorderRadius.circular(18),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.uclaBlue.withOpacity(0.4),
-                                          blurRadius: 10,
-                                          offset: const Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Image.asset(
-                                        'assets/images/app_logo.png',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return const Icon(
-                                            Icons.engineering_rounded,
-                                            size: 35,
-                                            color: AppColors.textWhite,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        
-                        const SizedBox(height: 20),
-                        
-                        // Main title with shadow effect
-                        Stack(
-                          children: [
-                            // Shadow text
-                            Text(
-                              'ustam',
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 3
-                                  ..color = AppColors.textPrimary.withOpacity(0.3),
-                                letterSpacing: 2,
-                              ),
-                            ),
-                            // Main text
-                            const Text(
-                              'ustam',
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textPrimary,
-                                letterSpacing: 2,
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        
-                        const SizedBox(height: 12),
-                        
-                        // Subtitle with professional styling
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: AppColors.textPrimary.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: AppColors.textPrimary.withOpacity(0.3),
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text(
-                            'Profesyonel Usta Bulucu',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.textPrimary,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ),
-                      ],
+                    // Logo - iOS + Airbnb Design
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: DesignTokens.primaryCoral,
+                        borderRadius: BorderRadius.circular(DesignTokens.radius24),
+                        boxShadow: DesignTokens.shadowElevated,
+                      ),
+                      child: Icon(
+                        Icons.handyman_outlined,
+                        size: DesignTokens.iconSize32 * 2, // 64pt
+                        color: Colors.white,
+                      ),
                     ),
                     
-                    // Bottom section with buttons
-                    Column(
-                      children: [
-                        // Login Buttons - Modern Design
-                        Column(
-                          children: [
-                            // Customer Login Button
-                            Container(
-                              width: double.infinity,
-                              height: 56,
-                              margin: const EdgeInsets.only(bottom: 16),
-                              decoration: BoxDecoration(
-                                gradient: AppColors.getGradient([
-                                  AppColors.cardBackground, 
-                                  AppColors.surfaceColor
-                                ]),
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [AppColors.getElevatedShadow()],
-                              ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.uclaBlue.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Icon(
-                                        Icons.person_rounded, 
-                                        size: 24, 
-                                        color: AppColors.uclaBlue,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Text(
-                                      '${'customer'.tr(locale)} ${'login'.tr(locale)}',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            
-                            // Craftsman Login Button
-                            Container(
-                              width: double.infinity,
-                              height: 56,
-                              margin: const EdgeInsets.only(bottom: 24),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.textPrimary.withOpacity(0.4), 
-                                  width: 2
-                                ),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/login-craftsman');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.textPrimary.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Icon(
-                                        Icons.engineering_rounded, 
-                                        size: 24, 
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Text(
-                                      '${'craftsman'.tr(locale)} ${'login'.tr(locale)}',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        
-                        const SizedBox(height: 20),
-                        
-                        // Register Section
-                        Text(
-                          'Hesabınız yok mu?',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        
-                        const SizedBox(height: 16),
-                        
-                        Column(
-                          children: [
-                            // Customer Register Button
-                            Container(
-                              width: double.infinity,
-                              height: 56,
-                              margin: const EdgeInsets.only(bottom: 12),
-                              decoration: BoxDecoration(
-                                color: AppColors.textPrimary.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: AppColors.textPrimary.withOpacity(0.3),
-                                  width: 1,
-                                ),
-                              ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/register', arguments: 'customer');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.textPrimary.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Icon(
-                                        Icons.person_add_rounded, 
-                                        size: 20, 
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    const Text(
-                                      'Müşteri Kayıt',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            
-                            // Craftsman Register Button
-                            Container(
-                              width: double.infinity,
-                              height: 56,
-                              margin: const EdgeInsets.only(bottom: 24),
-                              decoration: BoxDecoration(
-                                color: AppColors.textPrimary.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: AppColors.textPrimary.withOpacity(0.3),
-                                  width: 1,
-                                ),
-                              ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/register-craftsman');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.textPrimary.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Icon(
-                                        Icons.engineering_rounded, 
-                                        size: 20, 
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    const Text(
-                                      'Usta Kayıt',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        
-                        // Footer Text
-                        Text(
-                          'Hizmet şartları ve gizlilik politikası',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.textSecondary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        
-                        const SizedBox(height: 40),
-                      ],
+                    SizedBox(height: DesignTokens.space24),
+                    
+                    // Main title - iOS Large Title Style
+                    Text(
+                      'ustam',
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: DesignTokens.gray900,
+                        fontFamily: DesignTokens.fontFamilyDisplay,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    
+                    SizedBox(height: DesignTokens.space12),
+                    
+                    // Subtitle - iOS Body Style
+                    Text(
+                      'Profesyonel Usta Bulucu',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: DesignTokens.gray600,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
-            ),
+              
+              // Bottom section with buttons
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Customer Login Button - iOS Style
+                    SizedBox(
+                      width: double.infinity,
+                      height: DesignTokens.buttonHeightMedium,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person_outline,
+                              size: DesignTokens.iconSize20,
+                            ),
+                            SizedBox(width: DesignTokens.space8),
+                            Text('Müşteri Girişi Yap'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    SizedBox(height: DesignTokens.space16),
+                    
+                    // Craftsman Login Button - Secondary Style
+                    SizedBox(
+                      width: double.infinity,
+                      height: DesignTokens.buttonHeightMedium,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login-craftsman');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.handyman_outlined,
+                              size: DesignTokens.iconSize20,
+                            ),
+                            SizedBox(width: DesignTokens.space8),
+                            Text('Usta Girişi Yap'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    SizedBox(height: DesignTokens.space24),
+                    
+                    // Register link - Tertiary Style
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: Text('Hesabın yok mu? Kayıt ol'),
+                    ),
+                    
+                    SizedBox(height: DesignTokens.space16),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

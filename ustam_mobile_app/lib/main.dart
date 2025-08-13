@@ -9,6 +9,7 @@ import 'core/providers/language_provider.dart';
 import 'core/providers/tutorial_provider.dart';
 
 import 'core/theme/app_theme.dart';
+import 'core/theme/ios_theme.dart';
 import 'core/config/app_config.dart';
 import 'core/services/analytics_service.dart';
 import 'core/utils/accessibility_utils.dart';
@@ -76,8 +77,8 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp(
       title: AppConfig.appName,
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
+      theme: iOSTheme.lightTheme,
+      darkTheme: iOSTheme.darkTheme,
       themeMode: themeMode,
       locale: locale,
       supportedLocales: const [

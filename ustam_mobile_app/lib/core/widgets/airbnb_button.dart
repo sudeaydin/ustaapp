@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../theme/app_colors.dart';
-import '../theme/app_typography.dart';
-import '../theme/app_spacing.dart';
+import '../theme/design_tokens.dart';
 
 enum AirbnbButtonType { primary, secondary, outline, text }
 enum AirbnbButtonSize { small, medium, large }
@@ -61,69 +59,67 @@ class AirbnbButton extends StatelessWidget {
   double _getHeight() {
     switch (size) {
       case AirbnbButtonSize.small:
-        return 36;
+        return DesignTokens.buttonHeightSmall;
       case AirbnbButtonSize.medium:
-        return 48;
+        return DesignTokens.buttonHeightMedium;
       case AirbnbButtonSize.large:
-        return 56;
+        return DesignTokens.buttonHeightLarge;
     }
   }
 
   double _getBorderRadius() {
-    switch (size) {
-      case AirbnbButtonSize.small:
-        return 8;
-      case AirbnbButtonSize.medium:
-        return 12;
-      case AirbnbButtonSize.large:
-        return 16;
-    }
+    return DesignTokens.radius12;
   }
 
   EdgeInsets _getPadding() {
     switch (size) {
       case AirbnbButtonSize.small:
-        return const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+        return DesignTokens.getEdgeInsets(horizontal: DesignTokens.space12, vertical: DesignTokens.space8);
       case AirbnbButtonSize.medium:
-        return const EdgeInsets.symmetric(horizontal: 24, vertical: 12);
+        return DesignTokens.getEdgeInsets(horizontal: DesignTokens.spacingButtonPadding, vertical: DesignTokens.space12);
       case AirbnbButtonSize.large:
-        return const EdgeInsets.symmetric(horizontal: 32, vertical: 16);
+        return DesignTokens.getEdgeInsets(horizontal: DesignTokens.space24, vertical: DesignTokens.space16);
     }
   }
 
   TextStyle _getTextStyle() {
-    final baseStyle = size == AirbnbButtonSize.small 
-        ? AppTypography.buttonTextSmall 
-        : AppTypography.buttonText;
-    
-    return baseStyle.copyWith(
+    final fontSize = switch (size) {
+      AirbnbButtonSize.small => DesignTokens.fontSize15,
+      AirbnbButtonSize.medium => DesignTokens.fontSize16,
+      AirbnbButtonSize.large => DesignTokens.fontSize17,
+    };
+
+    return TextStyle(
+      fontFamily: DesignTokens.fontFamilyPrimary,
+      fontSize: fontSize,
+      fontWeight: DesignTokens.fontWeightSemibold,
       color: _getTextColor(),
     );
   }
 
   Color _getTextColor() {
-    if (onPressed == null) return AppColors.textMuted;
+    if (onPressed == null) return DesignTokens.gray600;
     
     switch (type) {
       case AirbnbButtonType.primary:
-        return AppColors.textWhite;
+        return Colors.white;
       case AirbnbButtonType.secondary:
-        return AppColors.textWhite;
+        return Colors.white;
       case AirbnbButtonType.outline:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case AirbnbButtonType.text:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
     }
   }
 
   Color _getBackgroundColor() {
-    if (onPressed == null) return AppColors.buttonDisabled;
+    if (onPressed == null) return DesignTokens.gray300;
     
     switch (type) {
       case AirbnbButtonType.primary:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case AirbnbButtonType.secondary:
-        return AppColors.primary;
+        return DesignTokens.accentTeal;
       case AirbnbButtonType.outline:
         return Colors.transparent;
       case AirbnbButtonType.text:
@@ -133,11 +129,11 @@ class AirbnbButton extends StatelessWidget {
 
   BoxDecoration _getButtonDecoration() {
     return BoxDecoration(
-      color: onPressed == null ? AppColors.buttonDisabled : _getBackgroundColor(),
-      borderRadius: AppSpacing.buttonBorderRadiusGeometry,
+      color: onPressed == null ? DesignTokens.gray300 : _getBackgroundColor(),
+      borderRadius: BorderRadius.circular(_getBorderRadius()),
       border: type == AirbnbButtonType.outline 
           ? Border.all(
-              color: onPressed == null ? AppColors.buttonDisabled : AppColors.primary,
+              color: onPressed == null ? DesignTokens.gray300 : DesignTokens.primaryCoral,
               width: 1.5,
             )
           : null,
@@ -149,12 +145,7 @@ class AirbnbButton extends StatelessWidget {
     if (type == AirbnbButtonType.outline || type == AirbnbButtonType.text || onPressed == null) {
       return null;
     }
-    return [
-      BoxShadow(
-        color: AppColors.shadowMedium.withOpacity(0.15),
-        blurRadius: 8,
-        offset: const Offset(0, 2),
-      ),
+    return DesignTokens.shadowCard;
     ];
   }
 
