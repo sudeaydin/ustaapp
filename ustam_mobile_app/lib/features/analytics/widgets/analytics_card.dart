@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/airbnb_card.dart';
 
 class AnalyticsCard extends StatelessWidget {
   final String title;
@@ -38,20 +39,9 @@ class AnalyticsCard extends StatelessWidget {
         changeIcon = Icons.trending_flat;
     }
 
-    return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
-      decoration: BoxDecoration(
-        color: DesignTokens.surfaceSecondary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
-        border: Border.all(color: DesignTokens.gray300),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+    return AirbnbCard(
+      child: Padding(
+        padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

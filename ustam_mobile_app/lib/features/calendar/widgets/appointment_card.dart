@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/hover_button.dart';
 import '../models/appointment_model.dart';
 
@@ -19,19 +20,11 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return AirbnbCard(
       margin: const EdgeInsets.only(bottom: 12),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
-      ),
-      child: HoverButton(
-        onTap: onTap,
-        hoverColor: DesignTokens.primaryCoral,
-        hoverScale: 1.02,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
-        child: Padding(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

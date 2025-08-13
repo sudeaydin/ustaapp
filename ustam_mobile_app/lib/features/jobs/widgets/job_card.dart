@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/utils/job_management_utils.dart';
 
 class JobCard extends StatelessWidget {
@@ -22,13 +23,11 @@ class JobCard extends StatelessWidget {
     final String status = job is Job ? job.status.name : (job['status'] ?? 'pending');
     final String priority = job is Job ? job.priority.name : (job['priority'] ?? 'normal');
     
-    return Card(
+    return AirbnbCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
-        child: Padding(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
