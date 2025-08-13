@@ -14,6 +14,7 @@ import '../../features/jobs/screens/jobs_screen.dart';
 import '../../features/payment/screens/payment_screen.dart';
 import '../../features/notifications/screens/notifications_screen.dart';
 import '../../features/marketplace/screens/marketplace_feed_screen.dart';
+import '../../features/marketplace/screens/marketplace_listing_detail_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
@@ -74,6 +75,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       
       // Full Screen Routes (no bottom navigation)
+      GoRoute(
+        path: '/marketplace/listing/:listingId',
+        builder: (context, state) {
+          final listingId = state.pathParameters['listingId']!;
+          return MarketplaceListingDetailScreen(listingId: listingId);
+        },
+      ),
       GoRoute(
         path: '/payment/:jobId',
         builder: (context, state) {
