@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'app_colors.dart';
-import 'design_tokens.dart';
+import 'design_tokens.dart' as dt;
 
 class AppTypography {
   // iOS San Francisco Font Family (Airbnb iOS style)
@@ -17,7 +17,7 @@ class AppTypography {
     fontWeight: FontWeight.w600, // iOS semi-bold
     height: 1.2,
     letterSpacing: -0.5,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle displayMedium = TextStyle(
@@ -26,7 +26,7 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     height: 1.2,
     letterSpacing: -0.3,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle displaySmall = TextStyle(
@@ -35,7 +35,7 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     height: 1.3,
     letterSpacing: -0.2,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   // Headline - Section headers, card titles
@@ -44,21 +44,21 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     height: 1.3,
     letterSpacing: -0.1,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle headlineMedium = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w600,
     height: 1.3,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle headlineSmall = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     height: 1.4,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   // Title - Component titles, list headers
@@ -66,21 +66,21 @@ class AppTypography {
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.4,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle titleMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     height: 1.4,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle titleSmall = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     height: 1.4,
-    color: DesignTokens.gray600,
+    color: dt.DesignTokens.gray600,
   );
   
   // Body - Main content text
@@ -88,21 +88,21 @@ class AppTypography {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     height: 1.5,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle bodyMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 1.5,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle bodySmall = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 1.5,
-    color: DesignTokens.gray600,
+    color: dt.DesignTokens.gray600,
   );
   
   // Label - Buttons, form labels, captions
@@ -111,7 +111,7 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     height: 1.4,
     letterSpacing: 0.1,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle labelMedium = TextStyle(
@@ -119,7 +119,7 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.4,
     letterSpacing: 0.1,
-    color: DesignTokens.gray600,
+    color: dt.DesignTokens.gray600,
   );
   
   static const TextStyle labelSmall = TextStyle(
@@ -127,7 +127,7 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.4,
     letterSpacing: 0.2,
-    color: DesignTokens.textMuted,
+    color: dt.DesignTokens.textMuted,
   );
   
   // Airbnb specific styles
@@ -149,27 +149,27 @@ class AppTypography {
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.3,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle cardSubtitle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 1.4,
-    color: DesignTokens.gray600,
+    color: dt.DesignTokens.gray600,
   );
   
   static const TextStyle price = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     height: 1.2,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
   
   static const TextStyle rating = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     height: 1.2,
-    color: DesignTokens.gray900,
+    color: dt.DesignTokens.gray900,
   );
 }

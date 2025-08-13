@@ -116,6 +116,7 @@ class AnalyticsCard extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

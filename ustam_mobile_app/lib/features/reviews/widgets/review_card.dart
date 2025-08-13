@@ -238,7 +238,6 @@ class ReviewCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 

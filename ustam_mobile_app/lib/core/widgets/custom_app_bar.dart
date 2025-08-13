@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       return Container(
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
-            gradientColors ?? DesignTokens.primaryCoralGradient,
+            gradientColors ?? DesignTokens.primaryCoralGradient.colors,
           ),
         ),
         child: appBarContent,
@@ -129,7 +129,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
       type: AppBarType.gradient,
       actions: actions,
       leading: leading,
-      gradientColors: DesignTokens.primaryCoralGradient,
+      gradientColors: DesignTokens.primaryCoralGradient.colors,
     );
   }
 

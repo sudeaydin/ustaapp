@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/app_colors.dart';
-import '../theme/design_tokens.dart';
+import '../theme/design_tokens.dart' as dt;
 
 class ThemeNotifier extends StateNotifier<ThemeMode> {
   ThemeNotifier() : super(ThemeMode.system) {
@@ -36,33 +36,33 @@ class AppThemes {
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: DesignTokens.primaryCoral,
+        seedColor: dt.DesignTokens.primaryCoral,
         brightness: Brightness.light,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: DesignTokens.primaryCoral,
+        backgroundColor: dt.DesignTokens.primaryCoral,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       cardTheme: CardThemeData(
-        color: DesignTokens.surfaceSecondaryColor,
+        color: dt.DesignTokens.surfaceSecondaryColor,
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: DesignTokens.primaryCoral,
+          backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: DesignTokens.gray900),
-        bodyMedium: TextStyle(color: DesignTokens.gray600),
+        bodyLarge: TextStyle(color: dt.DesignTokens.gray900),
+        bodyMedium: TextStyle(color: dt.DesignTokens.gray600),
       ),
     );
   }
@@ -72,7 +72,7 @@ class AppThemes {
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: DesignTokens.primaryCoral,
+        seedColor: dt.DesignTokens.primaryCoral,
         brightness: Brightness.dark,
       ),
       scaffoldBackgroundColor: const Color(0xFF0F172A),
@@ -90,10 +90,10 @@ class AppThemes {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: DesignTokens.primaryCoral,
+          backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),

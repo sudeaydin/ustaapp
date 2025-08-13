@@ -17,6 +17,10 @@ class DesignTokens {
   static const Color accentTealLight = Color(0xFF33B8AC);
   static const Color accentTealDark = Color(0xFF008A7B);
   
+  // Accent aliases for backward compatibility
+  static const Color accent = accentTeal;
+  static const Color accentLight = accentTealLight;
+  
   // ========================================
   // GRAY SCALE - iOS System Grays
   // ========================================
@@ -152,6 +156,7 @@ class DesignTokens {
   static const Color textMuted = gray500;
   static const Color shadowLight = Color(0x1A000000);
   static const Color shadowMedium = Color(0x33000000);
+  static const Color shadowDark = Color(0x4D000000);
   static const Color uclaBlue = accentTeal;
   static const Color nonPhotoBlue = accentTeal;
   static const Color mintGreen = success;
@@ -264,10 +269,10 @@ class DesignTokens {
     );
   }
   
-  static BoxShadow getCardShadow() {
+  static BoxShadow getCardShadow({double blurRadius = 12}) {
     return BoxShadow(
       color: Colors.black.withOpacity(shadowOpacityLight),
-      blurRadius: shadowBlur12,
+      blurRadius: blurRadius,
       offset: const Offset(0, 2),
     );
   }
