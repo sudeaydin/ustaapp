@@ -109,10 +109,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       width: 120,
                       height: 120,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                        gradient: LinearGradient(
+                          colors: [
+                            DesignTokens.primaryCoral.withOpacity(0.3),
+                            DesignTokens.primaryCoralDark.withOpacity(0.2),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.3),
+                          color: DesignTokens.primaryCoral.withOpacity(0.4),
                           width: 2,
                         ),
                         boxShadow: [
@@ -126,11 +133,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.handyman_rounded,
-                            size: 50,
-                            color: Colors.white,
-                          ),
+                                                     Container(
+                             padding: const EdgeInsets.all(8),
+                             decoration: BoxDecoration(
+                               color: Colors.white.withOpacity(0.2),
+                               borderRadius: BorderRadius.circular(15),
+                             ),
+                             child: Icon(
+                               Icons.handyman_rounded,
+                               size: 34,
+                               color: Colors.white,
+                             ),
+                           ),
                           const SizedBox(height: 8),
                           const Text(
                             'USTAM',
