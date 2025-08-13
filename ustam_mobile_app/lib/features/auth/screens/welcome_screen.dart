@@ -63,7 +63,7 @@ class WelcomeScreen extends ConsumerWidget {
                     
                     // Main title - iOS Large Title Style
                     Text(
-                      'ustam',
+                      'UstanBurada',
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         color: DesignTokens.gray900,
                         fontFamily: DesignTokens.fontFamilyDisplay,
@@ -75,7 +75,7 @@ class WelcomeScreen extends ConsumerWidget {
                     
                     // Subtitle - iOS Body Style
                     Text(
-                      'Profesyonel Usta Bulucu',
+                      'Güvenilir Usta Bulma Platformu',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: DesignTokens.gray600,
                       ),

@@ -31,7 +31,7 @@ class AppConfig {
   static String get quoteDecisionUrl => '$apiUrl/quote-requests/decision';
   
   // App Configuration
-  static const String appName = 'UstamApp';
+  static const String appName = 'UstanBurada';
   static const String appVersion = '1.0.0';
   static const String version = appVersion; // Alias for compatibility
   static String get apiBaseUrl => baseUrl; // Alias for compatibility

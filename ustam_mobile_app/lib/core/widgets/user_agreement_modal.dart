@@ -17,7 +17,7 @@ class UserAgreementModal extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'UstamApp Kullanıcı Sözleşmesi',
+                'UstanBurada Kullanıcı Sözleşmesi',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -27,7 +27,7 @@ class UserAgreementModal extends StatelessWidget {
               const SizedBox(height: DesignTokens.space16),
               const Text(
                 '1. GENEL HÜKÜMLER\n\n'
-                'Bu sözleşme, UstamApp platformunu kullanan tüm kullanıcılar için geçerlidir.\n\n'
+                'Bu sözleşme, UstanBurada platformunu kullanan tüm kullanıcılar için geçerlidir.\n\n'
                 '2. KULLANICI YÜKÜMLÜLÜKLERİ\n\n'
                 '- Doğru ve güncel bilgi sağlamak\n'
                 '- Platform kurallarına uymak\n'

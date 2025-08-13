@@ -146,8 +146,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                              ),
                            ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'USTAM',
+                          const                           Text(
+                            'USTANBURADA',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
