@@ -5,6 +5,8 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/providers/language_provider.dart';
 
+/// iOS + Airbnb Design System Welcome Screen
+/// UPDATED: Uses new DesignTokens for colors, spacing, typography
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
