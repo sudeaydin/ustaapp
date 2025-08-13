@@ -195,19 +195,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       children: [
                         Expanded(
                           child: _buildQuickActionCard(
-                            'Profil',
-                            'Hesap bilgilerinizi düzenleyin',
-                            Icons.person,
-                            DesignTokens.primaryCoral,
-                            () {
-                              print('👤 Profil butonuna tıklandı');
-                              Navigator.pushNamed(context, '/profile');
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildQuickActionCard(
                             'Takvim',
                             'Randevularınızı görün',
                             Icons.calendar_today,
@@ -218,11 +205,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             },
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
+                        const SizedBox(width: 12),
                         Expanded(
                           child: _buildQuickActionCard(
                             'Destek',
@@ -236,19 +219,6 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                 '/support',
                                 arguments: 'customer',
                               );
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildQuickActionCard(
-                            'Ayarlar',
-                            'Hesap ayarlarınızı yönetin',
-                            Icons.settings,
-                            DesignTokens.primaryCoral,
-                            () {
-                              print('⚙️ Ayarlar butonuna tıklandı');
-                              Navigator.pushNamed(context, '/settings');
                             },
                           ),
                         ),

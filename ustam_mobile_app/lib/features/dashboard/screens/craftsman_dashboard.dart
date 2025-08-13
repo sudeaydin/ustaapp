@@ -217,16 +217,6 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   children: [
                     Expanded(
                       child: _buildQuickActionCard(
-                        'Mesajlar',
-                        'Müşterilerle iletişim',
-                        Icons.chat_bubble_rounded,
-                        DesignTokens.warning,
-                        () => Navigator.pushNamed(context, '/messages'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildQuickActionCard(
                         'Değerlendirmeler',
                         'Müşteri yorumları',
                         Icons.star_rate,
@@ -236,6 +226,10 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                           'craftsmanName': 'Profilim',
                         }),
                       ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Container(), // Empty space to maintain layout
                     ),
                   ],
                 ),
