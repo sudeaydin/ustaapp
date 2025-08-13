@@ -200,6 +200,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       appBar: CommonAppBar(
         title: 'Mesajlar',
         userType: userType,
+        showBackButton: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),

@@ -271,6 +271,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       backgroundColor: DesignTokens.surfacePrimary,
       body: CustomScrollView(
         slivers: [
+          // App Bar for customers
+          if (_profileData?['user_type'] != 'craftsman')
+            SliverAppBar(
+              title: const Text(
+                'Profil',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: DesignTokens.primaryCoral,
+              elevation: 0,
+              automaticallyImplyLeading: true,
+              pinned: true,
+              floating: false,
+            ),
           // Modern App Bar - Figma Design (sadece craftsman için)
           if (_profileData?['user_type'] == 'craftsman')
             SliverAppBar(
@@ -279,6 +296,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               pinned: true,
               backgroundColor: DesignTokens.surfacePrimary,
               elevation: 0,
+              automaticallyImplyLeading: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: const BoxDecoration(
