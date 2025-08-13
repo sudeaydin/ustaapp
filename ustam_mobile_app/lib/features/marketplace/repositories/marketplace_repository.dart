@@ -30,7 +30,7 @@ class MarketplaceRepository {
     if (minBudget != null) queryParams['minBudget'] = minBudget.toString();
     if (maxBudget != null) queryParams['maxBudget'] = maxBudget.toString();
 
-    final uri = Uri.parse('${AppConfig.baseUrl}/marketplace/listings')
+    final uri = Uri.parse('${AppConfig.apiUrl}/marketplace/listings')
         .replace(queryParameters: queryParams);
 
     final response = await _client.get(
@@ -49,7 +49,7 @@ class MarketplaceRepository {
   // Get single listing with offers
   Future<MarketplaceListingDetail> getListingDetail(String id) async {
     final response = await _client.get(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/listings/$id'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/listings/$id'),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -64,7 +64,7 @@ class MarketplaceRepository {
   // Create new listing
   Future<MarketplaceListing> createListing(CreateListingRequest request) async {
     final response = await _client.post(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/listings'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/listings'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(request.toJson()),
     );
@@ -80,7 +80,7 @@ class MarketplaceRepository {
   // Update listing
   Future<MarketplaceListing> updateListing(String id, UpdateListingRequest request) async {
     final response = await _client.patch(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/listings/$id'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/listings/$id'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(request.toJson()),
     );
@@ -96,7 +96,7 @@ class MarketplaceRepository {
   // Submit offer to listing
   Future<MarketplaceOffer> submitOffer(String listingId, SubmitOfferRequest request) async {
     final response = await _client.post(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/listings/$listingId/offers'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/listings/$listingId/offers'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(request.toJson()),
     );
@@ -112,7 +112,7 @@ class MarketplaceRepository {
   // Get user's listings
   Future<List<MarketplaceListing>> getUserListings(String userId) async {
     final response = await _client.get(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/listings?userId=$userId'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/my-listings'),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -129,7 +129,7 @@ class MarketplaceRepository {
   // Get craftsman's offers
   Future<List<MarketplaceOffer>> getCraftsmanOffers(String craftsmanId) async {
     final response = await _client.get(
-      Uri.parse('${AppConfig.baseUrl}/marketplace/offers?craftsmanId=$craftsmanId'),
+      Uri.parse('${AppConfig.apiUrl}/marketplace/my-offers'),
       headers: {'Content-Type': 'application/json'},
     );
 
