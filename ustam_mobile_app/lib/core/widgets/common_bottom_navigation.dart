@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+import '../theme/design_tokens.dart';
 import 'airbnb_bottom_navigation.dart';
 import '../../features/messages/screens/messages_screen.dart';
 

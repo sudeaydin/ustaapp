@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+import '../theme/design_tokens.dart';
 
 class AirbnbBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -17,7 +17,7 @@ class AirbnbBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: DesignTokens.background,
+        color: DesignTokens.surfacePrimary,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
@@ -79,7 +79,7 @@ class AirbnbBottomNavigation extends StatelessWidget {
             ),
           ),
           
-          DesignTokens.verticalSpaceXS,
+          const SizedBox(height: 4),
           
           // Label
           Text(
