@@ -39,6 +39,10 @@ import 'features/accessibility/screens/accessibility_test_screen.dart';
 import 'features/legal/screens/legal_screen.dart';
 import 'features/jobs/screens/job_management_screen.dart';
 import 'features/notifications/screens/enhanced_notifications_screen.dart';
+import 'features/marketplace/screens/marketplace_feed_screen.dart';
+import 'features/marketplace/screens/marketplace_listing_detail_screen.dart';
+import 'features/marketplace/screens/marketplace_offer_compose_screen.dart';
+import 'features/marketplace/screens/marketplace_create_listing_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -161,6 +165,41 @@ class MyApp extends ConsumerWidget {
         '/job-management': (context) => const JobManagementScreen(),
         '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
         '/settings': (context) => const ProfileScreen(), // Settings redirects to profile for now
+        
+        // Marketplace routes
+        '/marketplace': (context) => const MarketplaceFeedScreen(),
+        '/marketplace/new': (context) => const MarketplaceCreateListingScreen(),
+      },
+      onGenerateRoute: (settings) {
+        // Handle marketplace dynamic routes
+        if (settings.name != null) {
+          final uri = Uri.parse(settings.name!);
+          
+          // Marketplace listing detail: /marketplace/listing/{id}
+          if (uri.pathSegments.length == 3 && 
+              uri.pathSegments[0] == 'marketplace' && 
+              uri.pathSegments[1] == 'listing') {
+            final listingId = uri.pathSegments[2];
+            return MaterialPageRoute(
+              builder: (context) => MarketplaceListingDetailScreen(listingId: listingId),
+              settings: settings,
+            );
+          }
+          
+          // Marketplace offer compose: /marketplace/listing/{id}/offer
+          if (uri.pathSegments.length == 4 && 
+              uri.pathSegments[0] == 'marketplace' && 
+              uri.pathSegments[1] == 'listing' &&
+              uri.pathSegments[3] == 'offer') {
+            final listingId = uri.pathSegments[2];
+            return MaterialPageRoute(
+              builder: (context) => MarketplaceOfferComposeScreen(listingId: listingId),
+              settings: settings,
+            );
+          }
+        }
+        
+        return null;
       },
       // Track navigation events
       navigatorObservers: [
