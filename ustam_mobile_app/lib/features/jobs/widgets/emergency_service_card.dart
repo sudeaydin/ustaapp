@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/utils/job_management_utils.dart';
 
 class EmergencyServiceCard extends StatelessWidget {
@@ -16,9 +17,9 @@ class EmergencyServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return AirbnbCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: DesignTokens.error.withOpacity(0.05),
+      backgroundColor: DesignTokens.error.withOpacity(0.05),
       child: Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(

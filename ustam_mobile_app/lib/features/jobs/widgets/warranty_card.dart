@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/airbnb_card.dart';
 
 class WarrantyCard extends StatelessWidget {
   final Map<String, dynamic> warranty;
@@ -20,7 +21,7 @@ class WarrantyCard extends StatelessWidget {
     final status = warranty['status'] ?? 'active';
     final expiryDate = warranty['expiry_date'];
     
-    return Card(
+    return AirbnbCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
