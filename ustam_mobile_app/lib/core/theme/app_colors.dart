@@ -1,7 +1,6 @@
-import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 
-class DesignTokens {
+class AppColors {
   // Primary Color - Simple Pink + White Theme
   static const Color primary = Color(0xFFC64191); // Custom Pink #C64191
   
