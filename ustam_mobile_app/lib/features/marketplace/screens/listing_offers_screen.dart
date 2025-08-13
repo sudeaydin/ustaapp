@@ -375,9 +375,29 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               if (isThisOfferAccepted) ...[
                 ElevatedButton.icon(
                   onPressed: () {
-                    // TODO: Navigate to chat or contact
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Mesajlaşma özelliği yakında!')),
+                    // Create conversation object for the craftsman
+                    final conversation = {
+                      'id': offer['id'], // Use offer ID as conversation ID
+                      'name': offer['craftsmanName'],
+                      'business_name': '${offer['craftsmanName']} Hizmetleri',
+                      'avatar': 'https://picsum.photos/400/400?random=${offer['id']}',
+                      'lastMessage': 'Teklifiniz kabul edildi! İş detaylarını konuşalım.',
+                      'timestamp': 'Şimdi',
+                      'unreadCount': 0,
+                      'isOnline': true,
+                      'status': 'accepted',
+                      'statusIcon': '✅',
+                      'jobTitle': widget.listing['title'],
+                      'craftsmanRating': offer['craftsmanRating'],
+                      'craftsmanReviewCount': offer['craftsmanReviewCount'],
+                      'offerAmount': offer['amount'],
+                      'estimatedDuration': offer['estimatedDuration'],
+                    };
+                    
+                    Navigator.pushNamed(
+                      context,
+                      '/chat',
+                      arguments: {'conversation': conversation},
                     );
                   },
                   icon: const Icon(Icons.chat, size: 16),
