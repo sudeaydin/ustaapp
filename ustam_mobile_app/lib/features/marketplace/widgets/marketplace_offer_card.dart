@@ -214,7 +214,7 @@ class MarketplaceOfferCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      _formatDate(offer.createdAt),
+                      _formatDate(DateTime.tryParse(offer.createdAt) ?? DateTime.now()),
                       style: const TextStyle(
                         fontSize: 13,
                         color: DesignTokens.gray700,

@@ -178,7 +178,7 @@ class _MarketplaceListingDetailScreenState
                       ),
                     ),
                     Text(
-                      _formatDate(listing.postedAt),
+                      _formatDate(DateTime.tryParse(listing.postedAt) ?? DateTime.now()),
                       style: const TextStyle(
                         fontSize: 12,
                         color: DesignTokens.gray600,
@@ -285,7 +285,7 @@ class _MarketplaceListingDetailScreenState
           _buildDetailRow(
             Icons.access_time_outlined,
             'Yayınlanma',
-            _formatDate(listing.postedAt),
+            _formatDate(DateTime.tryParse(listing.postedAt) ?? DateTime.now()),
           ),
         ],
       ),
@@ -430,7 +430,7 @@ class _MarketplaceListingDetailScreenState
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        DateFormat('dd MMM yyyy').format(listing.dateRange.start),
+                        DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.start) ?? DateTime.now()),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -458,7 +458,7 @@ class _MarketplaceListingDetailScreenState
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        DateFormat('dd MMM yyyy').format(listing.dateRange.end),
+                        DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.end) ?? DateTime.now()),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

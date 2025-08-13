@@ -268,17 +268,22 @@ class MarketplaceListingCard extends StatelessWidget {
   }
 
   String _formatDate() {
-    final now = DateTime.now();
-    final difference = now.difference(listing.postedAt);
+    try {
+      final now = DateTime.now();
+      final postedDate = DateTime.parse(listing.postedAt);
+      final difference = now.difference(postedDate);
 
-    if (difference.inDays > 0) {
-      return '${difference.inDays} gün önce';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours} saat önce';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} dakika önce';
-    } else {
-      return 'Şimdi';
+      if (difference.inDays > 0) {
+        return '${difference.inDays} gün önce';
+      } else if (difference.inHours > 0) {
+        return '${difference.inHours} saat önce';
+      } else if (difference.inMinutes > 0) {
+        return '${difference.inMinutes} dakika önce';
+      } else {
+        return 'Şimdi';
+      }
+    } catch (e) {
+      return 'Bilinmiyor';
     }
   }
 }
