@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../messages/screens/messages_screen.dart';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
-import '../../onboarding/widgets/tutorial_overlay.dart';
 
 class CraftsmanDashboard extends ConsumerStatefulWidget {
   const CraftsmanDashboard({super.key});

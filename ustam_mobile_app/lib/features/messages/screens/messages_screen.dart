@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
+
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 

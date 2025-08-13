@@ -1,11 +1,10 @@
-// ignore_for_file: dead_code
+// ignore_for_file: dead_code, undefined_getter
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../auth/providers/auth_provider.dart';
 
@@ -20,18 +19,18 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppTheme.backgroundGradient,
+        decoration: BoxDecoration(
+          gradient: DesignTokens.primaryCoralGradient,
         ),
         child: Column(
           children: [
             // Custom AppBar with 3D effect
             Container(
               decoration: BoxDecoration(
-                gradient: AppTheme.primaryGradient,
+                gradient: DesignTokens.primaryCoralGradient,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primaryColor.withOpacity(0.3),
+                    color: DesignTokens.primaryCoral.withOpacity(0.3),
                     blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),

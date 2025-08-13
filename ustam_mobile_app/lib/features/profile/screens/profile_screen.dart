@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../auth/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/config/app_config.dart';
-import '../../../core/utils/legal_utils.dart';
 import '../../../core/widgets/consent_preferences_sheet.dart';
 import '../../../core/widgets/gdpr_rights_sheet.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
