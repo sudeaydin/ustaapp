@@ -509,16 +509,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         onTapCancel: () {
           print('❌ InkWell onTapCancel for: ${event.title}');
         },
-        child: GestureDetector(
-          onTap: () {
-            print('🖱️ GestureDetector backup tap for: ${event.title}');
-            try {
-              _showEventDetails(event);
-            } catch (e) {
-              print('❌ Backup tap error: $e');
-            }
-          },
-          child: Container(
+        child: Container(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
