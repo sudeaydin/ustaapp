@@ -503,11 +503,26 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             );
           }
         },
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        onTapDown: (details) {
+          print('👆 InkWell onTapDown detected for: ${event.title}');
+        },
+        onTapCancel: () {
+          print('❌ InkWell onTapCancel for: ${event.title}');
+        },
+        child: GestureDetector(
+          onTap: () {
+            print('🖱️ GestureDetector backup tap for: ${event.title}');
+            try {
+              _showEventDetails(event);
+            } catch (e) {
+              print('❌ Backup tap error: $e');
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               // Header Row
               Row(
                 children: [
@@ -658,6 +673,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ],
               ),
             ],
+          ),
+        ),
           ),
         ),
       ),
