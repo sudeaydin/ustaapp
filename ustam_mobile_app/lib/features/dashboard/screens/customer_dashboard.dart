@@ -40,7 +40,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [DesignTokens.success, DesignTokens.success.withOpacity(0.8)],
+                    colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

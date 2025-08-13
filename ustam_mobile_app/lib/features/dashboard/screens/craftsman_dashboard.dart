@@ -35,7 +35,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [DesignTokens.success, DesignTokens.success.withOpacity(0.8)],
+                      colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),

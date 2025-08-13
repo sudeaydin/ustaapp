@@ -103,6 +103,51 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   const SizedBox(height: 20),
                   
+                  // App Logo
+                  Center(
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.handyman_rounded,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'USTAM',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 30),
+                  
                   // Header - Modern & Cartoon Style
                   Container(
                     width: double.infinity,

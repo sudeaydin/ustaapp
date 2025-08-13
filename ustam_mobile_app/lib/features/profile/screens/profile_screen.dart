@@ -140,7 +140,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(DesignTokens.radius12),
               ),
-              child: Icon(icon, size: 20, color: DesignTokens.uclaBlue),
+              child: Icon(icon, size: 20, color: DesignTokens.primaryCoral),
             ),
             const SizedBox(width: DesignTokens.space16),
           ],
@@ -187,7 +187,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           decoration: BoxDecoration(
                 color: color ?? Colors.white,
                 borderRadius: BorderRadius.circular(DesignTokens.radius16),
-                border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
+                border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
                 boxShadow: [
                   BoxShadow(
                     color: DesignTokens.shadowLight,
@@ -201,13 +201,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.success.withOpacity(0.1),
+                    color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     icon,
                     size: 20,
-                    color: color != null ? Colors.white : DesignTokens.success,
+                    color: color != null ? Colors.white : DesignTokens.primaryCoral,
                   ),
                 ),
                 const SizedBox(width: DesignTokens.space16),
