@@ -561,8 +561,6 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
             ),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),

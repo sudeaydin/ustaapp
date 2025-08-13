@@ -201,8 +201,6 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
             ),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),

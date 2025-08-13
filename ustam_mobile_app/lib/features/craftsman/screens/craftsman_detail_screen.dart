@@ -30,8 +30,6 @@ class CraftsmanDetailScreen extends ConsumerWidget {
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
                     colors: [
                       DesignTokens.uclaBlue,
                       DesignTokens.primaryCoral,

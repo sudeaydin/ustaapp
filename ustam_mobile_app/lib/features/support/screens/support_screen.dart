@@ -58,8 +58,6 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
                 colors: DesignTokens.headerGradient,
               ),
             ),
@@ -371,8 +369,6 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
                 colors: [
                   DesignTokens.primaryCoral.withOpacity(0.1),
                   DesignTokens.primaryCoral.withOpacity(0.05),

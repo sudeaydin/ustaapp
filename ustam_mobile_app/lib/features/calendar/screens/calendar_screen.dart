@@ -111,7 +111,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+              gradient: DesignTokens.primaryCoralGradient,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -356,7 +356,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           margin: const EdgeInsets.all(DesignTokens.space16),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+            gradient: DesignTokens.primaryCoralGradient,
             borderRadius: BorderRadius.circular(DesignTokens.radius16),
           ),
           child: Row(
@@ -914,7 +914,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               margin: const EdgeInsets.all(DesignTokens.space16),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+                gradient: DesignTokens.primaryCoralGradient,
                 borderRadius: BorderRadius.circular(DesignTokens.radius16),
               ),
               child: Row(

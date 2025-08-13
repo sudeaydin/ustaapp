@@ -157,8 +157,6 @@ class JobsScreen extends ConsumerWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [AppTheme.primaryColor, AppTheme.primaryLight],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(DesignTokens.radius12),
                           boxShadow: [

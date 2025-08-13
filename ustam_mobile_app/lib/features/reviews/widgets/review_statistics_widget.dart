@@ -41,8 +41,6 @@ class ReviewStatisticsWidget extends StatelessWidget {
             DesignTokens.primaryCoral.withOpacity(0.1),
             DesignTokens.primaryCoral.withOpacity(0.1),
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(

@@ -244,7 +244,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         backgroundColor: DesignTokens.surfacePrimary,
         body: Container(
           decoration: BoxDecoration(
-            gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+            gradient: DesignTokens.primaryCoralGradient,
           ),
           child: const Center(
             child: Column(
@@ -286,8 +286,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 background: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
                       colors: [
                         DesignTokens.primaryCoral,
                         DesignTokens.primaryCoral,

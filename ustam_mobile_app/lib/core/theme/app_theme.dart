@@ -460,7 +460,7 @@ class AppTheme {
 
   // Gradient decorations
   static BoxDecoration get primaryGradientDecoration => BoxDecoration(
-    gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+    gradient: DesignTokens.primaryCoralGradient,
     borderRadius: BorderRadius.circular(DesignTokens.radius16),
     boxShadow: [DesignTokens.getElevatedShadow()],
   );

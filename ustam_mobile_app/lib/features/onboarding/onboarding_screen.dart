@@ -205,7 +205,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     width: 64,
                     height: 64,
                     decoration: BoxDecoration(
-                      gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+                      gradient: DesignTokens.primaryCoralGradient,
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(

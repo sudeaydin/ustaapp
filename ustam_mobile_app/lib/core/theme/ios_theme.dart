@@ -578,18 +578,12 @@ class _iOSExtension extends ThemeExtension<_iOSExtension> {
     ],
     primaryGradient: LinearGradient(
       colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
     ),
     accentGradient: LinearGradient(
       colors: [DesignTokens.accentTeal, DesignTokens.accentTealDark],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
     ),
     surfaceGradient: LinearGradient(
       colors: [DesignTokens.surfacePrimary, DesignTokens.surfaceSecondary],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
     ),
   );
 
@@ -617,18 +611,12 @@ class _iOSExtension extends ThemeExtension<_iOSExtension> {
     ],
     primaryGradient: LinearGradient(
       colors: [DesignTokens.darkPrimaryCoral, DesignTokens.primaryCoralDark],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
     ),
     accentGradient: LinearGradient(
       colors: [DesignTokens.darkAccentTeal, DesignTokens.accentTealDark],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
     ),
     surfaceGradient: LinearGradient(
       colors: [DesignTokens.darkSurfacePrimary, DesignTokens.darkSurfaceSecondary],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
     ),
   );
 

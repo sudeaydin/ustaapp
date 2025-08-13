@@ -308,8 +308,6 @@ class HomeScreen extends ConsumerWidget {
                       // ignore: dead_code
                       ? [color.withOpacity(0.25), color.withOpacity(0.12)]
                       : [color.withOpacity(0.15), color.withOpacity(0.08)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
@@ -349,8 +347,6 @@ class HomeScreen extends ConsumerWidget {
                     : isHovered 
                       ? [color.withOpacity(0.35), color.withOpacity(0.25)]
                       : [color.withOpacity(0.2), color.withOpacity(0.1)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(DesignTokens.radius16),
                 boxShadow: (isHovered || isPressed) ? [

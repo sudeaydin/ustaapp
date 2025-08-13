@@ -148,7 +148,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         height: 56,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+          gradient: DesignTokens.primaryCoralGradient,
           borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         child: Center(
@@ -204,8 +204,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
             DesignTokens.primaryCoralGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
           ),
         ),
         child: SafeArea(

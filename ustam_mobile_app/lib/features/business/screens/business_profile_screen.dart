@@ -288,8 +288,6 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
                       colors: [
                         DesignTokens.uclaBlue,
                         DesignTokens.primaryCoral,

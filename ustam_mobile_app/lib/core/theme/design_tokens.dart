@@ -160,8 +160,6 @@ class DesignTokens {
   /// Gradient helpers
   static const LinearGradient primaryCoralGradient = LinearGradient(
     colors: [primaryCoral, primaryCoralDark],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
   );
   
   /// Screen edge insets for compatibility
@@ -289,8 +287,14 @@ class DesignTokens {
   static const List<Color> headerGradient = [primaryCoral, primaryCoralDark];
   static const List<Color> accentGradient = [accentTeal, accentTealDark];
   
-  // Dark mode colors
-  static const Color darkSurfacePrimary = Color(0xFF1C1C1E);
+  // All missing properties in one place
+  static const Color gray900 = Color(0xFF111827);
+  static const Color gray600 = Color(0xFF6B7280);
+  static const Color gray500 = Color(0xFF9CA3AF);
+  static const Color gray300 = Color(0xFFD1D5DB);
+  
+  static const Color primaryCoralLight = Color(0xFFFF8A8F);
+  static const double space24 = 24.0;
   
   // Spacing shortcuts
   static const SizedBox verticalSpaceXS = SizedBox(height: space4);
@@ -309,10 +313,13 @@ class DesignTokens {
   static LinearGradient getGradient(List<Color> colors) {
     return LinearGradient(
       colors: colors,
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
     );
   }
+  
+  // Direct gradient access for easier usage
+  static LinearGradient get primaryCoralGradient => LinearGradient(
+    colors: [primaryCoral, primaryCoralDark],
+  );
   
   static BoxShadow getCardShadow() {
     return BoxShadow(

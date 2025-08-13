@@ -56,7 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         backgroundColor: DesignTokens.surfacePrimary,
         body: Container(
           decoration: BoxDecoration(
-            gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+            gradient: DesignTokens.primaryCoralGradient,
           ),
           child: const Center(
             child: Column(
@@ -97,8 +97,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
             DesignTokens.primaryCoralGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
           ),
         ),
         child: SafeArea(
@@ -352,7 +350,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         height: 56,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+          gradient: DesignTokens.primaryCoralGradient,
           borderRadius: BorderRadius.circular(DesignTokens.radius16),
           boxShadow: [DesignTokens.getElevatedShadow()],
         ),
@@ -417,8 +415,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Color(0xFFFBBC05), // Google Yellow
                         Color(0xFF34A853), // Google Green
                       ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
                     ),
                   ),
                   child: const Center(

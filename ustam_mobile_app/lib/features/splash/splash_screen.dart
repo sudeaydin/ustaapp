@@ -76,8 +76,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         decoration: BoxDecoration(
           gradient: DesignTokens.getGradient(
             DesignTokens.primaryCoralGradient,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
           ),
         ),
         child: SafeArea(
@@ -139,7 +137,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+                                    gradient: DesignTokens.primaryCoralGradient,
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
