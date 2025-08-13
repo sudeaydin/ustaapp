@@ -7,6 +7,7 @@ import '../../../core/providers/language_provider.dart';
 
 /// iOS + Airbnb Design System Welcome Screen
 /// UPDATED: Uses new DesignTokens for colors, spacing, typography
+/// 🎨 TEMA AKTIF: Coral primary (#FF5A5F), iOS shadows, 16px radius
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
