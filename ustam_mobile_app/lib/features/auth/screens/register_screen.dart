@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
 import '../../../core/widgets/airbnb_card.dart';
@@ -54,7 +52,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Vergi levhası seçildi'),
-        backgroundColor: AppColors.success,
+        backgroundColor: DesignTokens.success,
       ),
     );
   }
@@ -66,7 +64,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Kullanıcı sözleşmesini kabul etmelisiniz'),
-          backgroundColor: AppColors.error,
+          backgroundColor: DesignTokens.error,
         ),
       );
       return;
@@ -76,7 +74,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Vergi levhası yüklemelisiniz'),
-          backgroundColor: AppColors.error,
+          backgroundColor: DesignTokens.error,
         ),
       );
       return;
@@ -126,7 +124,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Registration failed: $e'),
-            backgroundColor: AppColors.error,
+            backgroundColor: DesignTokens.error,
           ),
         );
       }
@@ -145,24 +143,24 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         print('🔥 Register button tapped!'); // Debug print
         _handleRegister();
       },
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(DesignTokens.radius12),
       child: Container(
         height: 56,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(AppColors.primaryGradient),
-          borderRadius: BorderRadius.circular(12),
+          gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         child: Center(
           child: _isLoading
               ? const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 2,
                 )
               : Text(
                   'register'.tr(locale),
                   style: const TextStyle(
-                    color: AppColors.textWhite,
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -190,12 +188,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textWhite),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -204,8 +202,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
+          gradient: DesignTokens.getGradient(
+            DesignTokens.primaryCoralGradient,
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -225,10 +223,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: AppColors.textWhite.withOpacity(0.15),
+                      color: Colors.white.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppColors.textWhite.withOpacity(0.3),
+                        color: Colors.white.withOpacity(0.3),
                         width: 1,
                       ),
                     ),
@@ -239,16 +237,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: AppColors.textWhite.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                               child: Icon(
                                 widget.userType == 'customer' ? Icons.person : Icons.build,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                                 size: 24,
                               ),
                             ),
-                            const SizedBox(width: 16),
+                            const SizedBox(width: DesignTokens.space16),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +254,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   Text(
                                     'register_title'.tr(locale),
                                     style: const TextStyle(
-                                      color: AppColors.textWhite,
+                                      color: Colors.white,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -265,7 +263,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   Text(
                                     widget.userType == 'customer' ? 'customer'.tr(locale) : 'craftsman'.tr(locale),
                                     style: const TextStyle(
-                                      color: AppColors.textWhite,
+                                      color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -295,7 +293,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Last Name
                   CustomTextField(
@@ -310,7 +308,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Email
                   CustomTextField(
@@ -329,7 +327,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Phone
                   CustomTextField(
@@ -345,7 +343,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Password
                   CustomTextField(
@@ -364,7 +362,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Confirm Password
                   CustomTextField(
@@ -383,17 +381,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     },
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Tax Document Upload (only for craftsman)
                   if (widget.userType == 'craftsman') ...[
                     Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
-                        color: AppColors.textWhite.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
                         border: Border.all(
-                          color: AppColors.textWhite.withOpacity(0.3),
+                          color: Colors.white.withOpacity(0.3),
                           width: 1,
                         ),
                       ),
@@ -403,7 +401,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           Text(
                             'Vergi Levhası (Zorunlu)',
                             style: TextStyle(
-                              color: AppColors.textWhite,
+                              color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -413,12 +411,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             onTap: _pickTaxDocument,
                             child: Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(DesignTokens.space16),
                               decoration: BoxDecoration(
-                                color: AppColors.textWhite.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
                                 border: Border.all(
-                                  color: AppColors.textWhite.withOpacity(0.5),
+                                  color: Colors.white.withOpacity(0.5),
                                   width: 1,
                                 ),
                               ),
@@ -428,7 +426,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     _taxDocumentPath != null 
                                         ? Icons.check_circle_outline 
                                         : Icons.upload_file_outlined,
-                                    color: AppColors.textWhite,
+                                    color: Colors.white,
                                     size: 24,
                                   ),
                                   const SizedBox(width: 12),
@@ -438,7 +436,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                           ? 'Vergi levhası seçildi' 
                                           : 'Vergi levhası yüklemek için tıklayın',
                                       style: TextStyle(
-                                        color: AppColors.textWhite,
+                                        color: Colors.white,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -450,17 +448,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: DesignTokens.space24),
                   ],
                   
                   // User Agreement Checkbox
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
-                      color: AppColors.textWhite.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       border: Border.all(
-                        color: AppColors.textWhite.withOpacity(0.3),
+                        color: Colors.white.withOpacity(0.3),
                         width: 1,
                       ),
                     ),
@@ -474,10 +472,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               _agreementAccepted = value ?? false;
                             });
                           },
-                          activeColor: AppColors.textWhite,
-                          checkColor: AppColors.primary,
+                          activeColor: Colors.white,
+                          checkColor: DesignTokens.primaryCoral,
                           side: BorderSide(
-                            color: AppColors.textWhite.withOpacity(0.7),
+                            color: Colors.white.withOpacity(0.7),
                             width: 2,
                           ),
                         ),
@@ -491,7 +489,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               child: RichText(
                                 text: TextSpan(
                                   style: TextStyle(
-                                    color: AppColors.textWhite,
+                                    color: Colors.white,
                                     fontSize: 14,
                                   ),
                                   children: [
@@ -499,7 +497,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     TextSpan(
                                       text: 'Kullanıcı Sözleşmesi',
                                       style: TextStyle(
-                                        color: AppColors.textWhite,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         decoration: TextDecoration.underline,
                                       ),
@@ -508,7 +506,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     TextSpan(
                                       text: 'Gizlilik Politikası',
                                       style: TextStyle(
-                                        color: AppColors.textWhite,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         decoration: TextDecoration.underline,
                                       ),
@@ -517,7 +515,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     TextSpan(
                                       text: 'KVKK Aydınlatma Metni',
                                       style: TextStyle(
-                                        color: AppColors.textWhite,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         decoration: TextDecoration.underline,
                                       ),
@@ -538,13 +536,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [AppColors.getElevatedShadow()],
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      boxShadow: [DesignTokens.getElevatedShadow()],
                     ),
                     child: _buildRegisterButton(locale),
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Login Link
                   Center(
@@ -553,7 +551,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         Text(
                           'already_have_account'.tr(locale),
                           style: const TextStyle(
-                            color: AppColors.textWhite,
+                            color: Colors.white,
                             fontSize: 14,
                           ),
                         ),
@@ -561,10 +559,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: AppColors.textWhite.withOpacity(0.15),
+                            color: Colors.white.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: AppColors.textWhite.withOpacity(0.3),
+                              color: Colors.white.withOpacity(0.3),
                               width: 1,
                             ),
                           ),
@@ -575,7 +573,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             child: Text(
                               'login'.tr(locale),
                               style: const TextStyle(
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),

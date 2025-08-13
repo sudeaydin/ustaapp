@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/providers/tutorial_provider.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 // Custom painter for highlighting tutorial targets
 class HighlightPainter extends CustomPainter {
@@ -253,10 +253,10 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                                                   decoration: BoxDecoration(
-                            color: AppColors.cardBackground,
-                            borderRadius: BorderRadius.circular(16),
+                            color: DesignTokens.surfacePrimary,
+                            borderRadius: BorderRadius.circular(DesignTokens.radius16),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.3),
+                              color: DesignTokens.primaryCoral.withOpacity(0.3),
                               width: 2,
                             ),
                             boxShadow: [
@@ -278,7 +278,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                   '${'step'.tr(locale)} ${_currentStep + 1}/${widget.steps.length}',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: AppColors.textSecondary,
+                                    color: DesignTokens.gray600,
                                   ),
                                 ),
                                 const Spacer(),
@@ -292,8 +292,8 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                             // Progress bar
                             LinearProgressIndicator(
                               value: (_currentStep + 1) / widget.steps.length,
-                              backgroundColor: AppColors.border,
-                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                              backgroundColor: DesignTokens.gray300,
+                              valueColor: AlwaysStoppedAnimation<Color>(DesignTokens.primaryCoral),
                             ),
                             
                             const SizedBox(height: 20),
@@ -317,7 +317,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                     currentStepData.description,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: AppColors.textSecondary,
+                                      color: DesignTokens.gray600,
                                       height: 1.4,
                                     ),
                                     textAlign: TextAlign.center,
@@ -325,7 +325,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 ],
                               ),
                             
-                            const SizedBox(height: 24),
+                            const SizedBox(height: DesignTokens.space24),
                             
                             // Navigation buttons
                             Row(
@@ -351,10 +351,10 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: index == _currentStep
-                                            ? AppColors.primary
+                                            ? DesignTokens.primaryCoral
                                             : index < _currentStep
-                                                ? AppColors.primary.withOpacity(0.5)
-                                                : AppColors.border,
+                                                ? DesignTokens.primaryCoral.withOpacity(0.5)
+                                                : DesignTokens.gray300,
                                       ),
                                     ),
                                   ),
@@ -365,10 +365,10 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 ElevatedButton(
                                   onPressed: _nextStep,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primary,
+                                    backgroundColor: DesignTokens.primaryCoral,
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
                                     ),
                                   ),
                                   child: Text(
@@ -413,26 +413,26 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
             height: targetSize.height + 16,
             decoration: BoxDecoration(
               border: Border.all(
-                color: AppColors.primary.withOpacity(_fadeAnimation.value),
+                color: DesignTokens.primaryCoral.withOpacity(_fadeAnimation.value),
                 width: 3,
               ),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
               boxShadow: [
                 // Main glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.4 * _fadeAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.4 * _fadeAnimation.value),
                   blurRadius: 20,
                   spreadRadius: 4,
                 ),
                 // Inner glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.6 * _fadeAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.6 * _fadeAnimation.value),
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),
                 // Outer glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.2 * _fadeAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.2 * _fadeAnimation.value),
                   blurRadius: 30,
                   spreadRadius: 8,
                 ),
@@ -441,9 +441,9 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(DesignTokens.radius8),
                 border: Border.all(
-                  color: AppColors.textWhite.withOpacity(0.8 * _fadeAnimation.value),
+                  color: Colors.white.withOpacity(0.8 * _fadeAnimation.value),
                   width: 2,
                 ),
               ),
@@ -664,7 +664,7 @@ class TutorialTrigger extends ConsumerWidget {
           ),
         );
       },
-      backgroundColor: AppColors.primary,
+      backgroundColor: DesignTokens.primaryCoral,
       child: const Icon(Icons.help_outline, color: Colors.white),
       tooltip: 'Tutorial\'ı Tekrar Göster',
     );

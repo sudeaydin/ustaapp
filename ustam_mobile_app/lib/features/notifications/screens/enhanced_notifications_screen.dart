@@ -269,14 +269,14 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Push Notifications Card
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -295,7 +295,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     'Anlık bildirimler almak için push bildirimlerini etkinleştirin',
                     style: TextStyle(color: Colors.grey),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ElevatedButton(
                     onPressed: _requestPushPermission,
                     child: const Text('Push Bildirimlerini Etkinleştir'),
@@ -305,12 +305,12 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ),
           ),
           
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
 
           // Notification Types
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -318,7 +318,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     'Bildirim Türleri',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ...NotificationType.values.map((type) {
                     final isEnabled = _preferences!.types[type.name] ?? true;
                     return SwitchListTile(
@@ -344,12 +344,12 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
 
           // Quiet Hours
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -357,7 +357,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     'Sessiz Saatler',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   Row(
                     children: [
                       Expanded(
@@ -370,14 +370,14 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['start'] ?? '22:00'),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: DesignTokens.space16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +388,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['end'] ?? '08:00'),
                             ),
@@ -402,7 +402,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
 
           // Weekend Notifications
           Card(
@@ -433,7 +433,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Metrics Grid
@@ -471,12 +471,12 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ],
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
 
           // Channel Performance
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -484,7 +484,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     'Kanal Performansı',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ..._analytics!.byChannel.entries.map((entry) {
                     final channel = entry.key;
                     final stats = entry.value as Map<String, dynamic>;
@@ -521,17 +521,17 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildLocationTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Start Location Sharing Button
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
                   const Icon(Icons.location_on, size: 48, color: Colors.green),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Konum Paylaşımı',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -542,7 +542,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     style: TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ElevatedButton.icon(
                     onPressed: _startLocationSharing,
                     icon: const Icon(Icons.play_arrow),
@@ -557,7 +557,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
 
           // Active Location Shares
           if (_locationShares.isNotEmpty) ...[
@@ -565,7 +565,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
               'Aktif Konum Paylaşımları',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             ..._locationShares.map((share) => Card(
               child: ListTile(
                 leading: Icon(
@@ -597,7 +597,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 child: Column(
                   children: [
                     Icon(Icons.location_off, size: 48, color: Colors.grey),
-                    SizedBox(height: 16),
+                    SizedBox(height: DesignTokens.space16),
                     Text(
                       'Aktif konum paylaşımı yok',
                       style: TextStyle(color: Colors.grey),
@@ -613,16 +613,16 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildTestTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
                   const Icon(Icons.notification_add, size: 48, color: Colors.blue),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Test Bildirimi',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -633,7 +633,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     style: TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ElevatedButton.icon(
                     onPressed: _sendTestNotification,
                     icon: const Icon(Icons.send),
@@ -644,15 +644,15 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
 
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
                   const Icon(Icons.calendar_today, size: 48, color: Colors.purple),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   const Text(
                     'Takvim Etkinliği',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -663,7 +663,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                     style: TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   ElevatedButton.icon(
                     onPressed: _createTestCalendarEvent,
                     icon: const Icon(Icons.event),
@@ -685,7 +685,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

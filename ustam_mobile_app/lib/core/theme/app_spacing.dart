@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppSpacing {
+class DesignTokens {
   // Airbnb 8px Grid System
   static const double _baseUnit = 8.0;
   

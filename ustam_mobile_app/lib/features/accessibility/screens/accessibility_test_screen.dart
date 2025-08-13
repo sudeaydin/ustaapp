@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/utils/accessibility_utils.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class AccessibilityTestScreen extends ConsumerStatefulWidget {
   const AccessibilityTestScreen({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
           header: true,
           label: 'Erişilebilirlik test sayfası başlığı',
         ),
-        backgroundColor: AppColors.uclaBlue,
+        backgroundColor: DesignTokens.uclaBlue,
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -107,14 +107,14 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Page Description
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -132,32 +132,32 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               ),
             ),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Buttons Demo
             _buildButtonsDemo(),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Form Demo
             _buildFormDemo(),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Tabs Demo
             _buildTabsDemo(),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Pagination Demo
             _buildPaginationDemo(),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Color Contrast Demo
             _buildColorContrastDemo(),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
 
             // Loading Demo
             if (_isLoading) _buildLoadingDemo(),
@@ -170,7 +170,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             _showModal = true;
           });
         },
-        backgroundColor: AppColors.primary,
+        backgroundColor: DesignTokens.primaryCoral,
         child: const Icon(Icons.info),
         tooltip: 'Bilgi modalını aç',
       ).withSemantics(
@@ -183,7 +183,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildButtonsDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -191,7 +191,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               'Erişilebilir Butonlar',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             Wrap(
               spacing: 12,
@@ -235,7 +235,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildFormDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -243,7 +243,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               'Erişilebilir Form',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             Form(
               key: _formKey,
@@ -256,7 +256,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                     hintText: 'Tam adınızı giriniz',
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   AccessibleTextField(
                     label: 'E-posta Adresi',
@@ -266,7 +266,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                     hintText: 'ornek@email.com',
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   AccessibleTextField(
                     label: 'Mesajınız',
@@ -275,7 +275,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                     hintText: 'Mesajınızı buraya yazın...',
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   SizedBox(
                     width: double.infinity,
@@ -297,7 +297,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildTabsDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -305,7 +305,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               'Erişilebilir Sekmeler',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             AccessibleTabBar(
               tabs: const [
@@ -336,7 +336,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildTabContent(String content) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Text(content).withSemantics(
         label: content,
       ),
@@ -346,7 +346,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildPaginationDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -354,10 +354,10 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               'Sayfalama Örneği',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             Text('Şu anki sayfa: $_currentPage / $_totalPages'),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -372,7 +372,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                   enabled: _currentPage > 1,
                 ),
                 
-                const SizedBox(width: 16),
+                const SizedBox(width: DesignTokens.space16),
                 
                 Text(
                   '$_currentPage',
@@ -381,7 +381,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                   label: 'Şu anki sayfa $_currentPage',
                 ),
                 
-                const SizedBox(width: 16),
+                const SizedBox(width: DesignTokens.space16),
                 
                 IconButton(
                   onPressed: _currentPage < _totalPages ? () => _handlePageChange(_currentPage + 1) : null,
@@ -403,7 +403,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildColorContrastDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -411,14 +411,14 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
               'Renk Kontrastı Örnekleri',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             Column(
               children: [
                 _buildContrastExample(
                   'AA Uyumlu',
                   'Bu metin yeterli kontrasta sahip',
-                  AppColors.uclaBlue,
+                  DesignTokens.uclaBlue,
                   Colors.white,
                 ),
                 const SizedBox(height: 8),
@@ -446,10 +446,10 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildContrastExample(String title, String description, Color background, Color textColor) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
         border: Border.all(color: Colors.grey.shade300),
       ),
       child: Column(
@@ -481,14 +481,14 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildLoadingDemo() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Text(
               'Yükleme Göstergesi',
               style: Theme.of(context).textTheme.titleLarge,
             ).withSemantics(header: true),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             
             AccessibleProgressIndicator(
               semanticLabel: 'Demo yükleme işlemi',
@@ -520,7 +520,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             const Text('• Yüksek kontrast desteği'),
             const Text('• Dokunma hedefi boyutları'),
             const Text('• Hareket azaltma desteği'),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Ekran okuyucu: ${AccessibilityUtils.isScreenReaderEnabled ? "Aktif" : "Pasif"}',
               style: const TextStyle(fontWeight: FontWeight.w500),

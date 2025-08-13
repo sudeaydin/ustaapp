@@ -42,14 +42,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       backgroundColor: _getBackgroundColor(),
       elevation: type == AppBarType.transparent ? 0 : 2,
-      shadowColor: AppColors.shadowLight,
+      shadowColor: DesignTokens.shadowLight,
     );
 
     if (type == AppBarType.gradient) {
       return Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            gradientColors ?? AppColors.primaryGradient,
+          gradient: DesignTokens.getGradient(
+            gradientColors ?? DesignTokens.primaryCoralGradient,
           ),
         ),
         child: appBarContent,
@@ -74,7 +74,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Color _getBackgroundColor() {
     switch (type) {
       case AppBarType.standard:
-        return backgroundColor ?? AppColors.cardBackground;
+        return backgroundColor ?? DesignTokens.surfacePrimary;
       case AppBarType.gradient:
         return Colors.transparent;
       case AppBarType.transparent:
@@ -85,22 +85,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Color _getTitleColor() {
     switch (type) {
       case AppBarType.standard:
-        return AppColors.textPrimary;
+        return DesignTokens.gray900;
       case AppBarType.gradient:
-        return AppColors.textWhite;
+        return Colors.white;
       case AppBarType.transparent:
-        return AppColors.textPrimary;
+        return DesignTokens.gray900;
     }
   }
 
   Color _getIconColor() {
     switch (type) {
       case AppBarType.standard:
-        return AppColors.textPrimary;
+        return DesignTokens.gray900;
       case AppBarType.gradient:
-        return AppColors.textWhite;
+        return Colors.white;
       case AppBarType.transparent:
-        return AppColors.textPrimary;
+        return DesignTokens.gray900;
     }
   }
 
@@ -128,7 +128,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
       type: AppBarType.gradient,
       actions: actions,
       leading: leading,
-      gradientColors: AppColors.primaryGradient,
+      gradientColors: DesignTokens.primaryCoralGradient,
     );
   }
 

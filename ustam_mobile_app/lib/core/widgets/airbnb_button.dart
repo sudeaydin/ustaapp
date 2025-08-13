@@ -168,11 +168,11 @@ class AirbnbButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: iconRight ? [
           Text(text, style: _getTextStyle()),
-          AppSpacing.horizontalSpaceSM,
+          DesignTokens.horizontalSpaceSM,
           Icon(icon, size: _getIconSize()),
         ] : [
           Icon(icon, size: _getIconSize()),
-          AppSpacing.horizontalSpaceSM,
+          DesignTokens.horizontalSpaceSM,
           Text(text, style: _getTextStyle()),
         ],
       );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/hover_button.dart';
 import '../models/appointment_model.dart';
 
@@ -23,15 +23,15 @@ class AppointmentCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
       ),
       child: HoverButton(
         onTap: onTap,
-        hoverColor: AppColors.primary,
+        hoverColor: DesignTokens.primaryCoral,
         hoverScale: 1.02,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,7 +43,7 @@ class AppointmentCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: appointment.statusColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
                     ),
                     child: Icon(
                       appointment.typeIcon,
@@ -137,7 +137,7 @@ class AppointmentCard extends StatelessWidget {
               
               // Action buttons
               if (_canShowActions()) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 _buildActionButtons(context),
               ],
             ],
@@ -152,7 +152,7 @@ class AppointmentCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: appointment.statusColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: appointment.statusColor.withOpacity(0.3),
         ),
@@ -175,7 +175,7 @@ class AppointmentCard extends StatelessWidget {
         if (appointment.customer != null) ...[
           CircleAvatar(
             radius: 12,
-            backgroundColor: AppColors.primary.withOpacity(0.1),
+            backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
             backgroundImage: appointment.customer!.profileImage != null
                 ? NetworkImage(appointment.customer!.profileImage!)
                 : null,
@@ -185,7 +185,7 @@ class AppointmentCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
+                      color: DesignTokens.primaryCoral,
                     ),
                   )
                 : null,
@@ -214,7 +214,7 @@ class AppointmentCard extends StatelessWidget {
         if (appointment.craftsman != null) ...[
           CircleAvatar(
             radius: 12,
-            backgroundColor: AppColors.primary.withOpacity(0.1),
+            backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
             backgroundImage: appointment.craftsman!.profileImage != null
                 ? NetworkImage(appointment.craftsman!.profileImage!)
                 : null,
@@ -224,7 +224,7 @@ class AppointmentCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
+                      color: DesignTokens.primaryCoral,
                     ),
                   )
                 : null,

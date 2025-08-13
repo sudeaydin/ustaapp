@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class SearchMapView extends StatefulWidget {
   final List<Map<String, dynamic>> craftsmen;
@@ -43,10 +43,10 @@ class _SearchMapViewState extends State<SearchMapView> {
                   width: 200,
                   height: 200,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(16),
+                    color: DesignTokens.primaryCoral.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
                     border: Border.all(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: DesignTokens.primaryCoral.withOpacity(0.3),
                       width: 2,
                       style: BorderStyle.solid,
                     ),
@@ -57,15 +57,15 @@ class _SearchMapViewState extends State<SearchMapView> {
                       Icon(
                         Icons.map_outlined,
                         size: 64,
-                        color: AppColors.primary.withOpacity(0.7),
+                        color: DesignTokens.primaryCoral.withOpacity(0.7),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       Text(
                         'Harita Görünümü',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
+                          color: DesignTokens.primaryCoral,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -80,7 +80,7 @@ class _SearchMapViewState extends State<SearchMapView> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: DesignTokens.space24),
                 Text(
                   '${widget.craftsmen.length} usta bulundu',
                   style: TextStyle(
@@ -124,9 +124,9 @@ class _SearchMapViewState extends State<SearchMapView> {
 
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -134,7 +134,7 @@ class _SearchMapViewState extends State<SearchMapView> {
               children: [
                 Icon(
                   Icons.location_city,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -199,7 +199,7 @@ class _SearchMapViewState extends State<SearchMapView> {
   Widget _buildMapLegend() {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -255,8 +255,8 @@ class _SearchMapViewState extends State<SearchMapView> {
   Color _getCityColor(String city) {
     // Generate consistent colors for cities
     final colors = [
-      AppColors.primary,
-      AppColors.primary,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
       Colors.green,
       Colors.orange,
       Colors.purple,

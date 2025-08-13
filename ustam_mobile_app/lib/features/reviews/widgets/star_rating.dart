@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class StarRating extends StatelessWidget {
   final double rating;
@@ -38,7 +38,7 @@ class StarRating extends StatelessWidget {
             style: TextStyle(
               fontSize: size * 0.7,
               fontWeight: FontWeight.w600,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
         ],
@@ -118,11 +118,11 @@ class CategoryRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.2)),
+        color: DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class CategoryRatingWidget extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 12),
@@ -142,7 +142,7 @@ class CategoryRatingWidget extends StatelessWidget {
                 initialRating: rating,
                 onRatingChanged: onRatingChanged,
                 size: size,
-                activeColor: AppColors.primary,
+                activeColor: DesignTokens.primaryCoral,
               ),
               const SizedBox(width: 12),
               Text(
@@ -150,7 +150,7 @@ class CategoryRatingWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: rating > 0 ? AppColors.textPrimary : AppColors.textLight,
+                  color: rating > 0 ? DesignTokens.gray900 : DesignTokens.textLight,
                 ),
               ),
             ],
@@ -181,7 +181,7 @@ class CategoryRatingDisplay extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(

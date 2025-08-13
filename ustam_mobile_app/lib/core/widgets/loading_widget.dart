@@ -25,16 +25,16 @@ class LoadingWidget extends StatelessWidget {
             child: CircularProgressIndicator(
               strokeWidth: 3,
               valueColor: AlwaysStoppedAnimation<Color>(
-                color ?? AppColors.primary,
+                color ?? DesignTokens.primaryCoral,
               ),
             ),
           ),
           if (message != null) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               message!,
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
                 fontSize: 14,
               ),
               textAlign: TextAlign.center,
@@ -65,7 +65,7 @@ class LoadingOverlay extends StatelessWidget {
         child,
         if (isLoading)
           Container(
-            color: AppColors.overlayColor,
+            color: DesignTokens.overlayColor,
             child: LoadingWidget(message: loadingMessage),
           ),
       ],
@@ -122,8 +122,8 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
           width: widget.width,
           height: widget.height,
           decoration: BoxDecoration(
-            color: AppColors.nonPhotoBlue.withOpacity(_animation.value * 0.3),
-            borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
+            color: DesignTokens.nonPhotoBlue.withOpacity(_animation.value * 0.3),
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(DesignTokens.radius8),
           ),
         );
       },
@@ -139,11 +139,11 @@ class SkeletonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [AppColors.getCardShadow()],
+        color: DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        boxShadow: [DesignTokens.getCardShadow()],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +176,7 @@ class SkeletonCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           SkeletonLoader(
             width: double.infinity,
             height: 14,

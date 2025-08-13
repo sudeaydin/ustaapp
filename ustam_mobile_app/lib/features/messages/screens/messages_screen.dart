@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
 
@@ -195,21 +193,21 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: DesignTokens.surfacePrimary,
         elevation: 0,
         title: const Text(
           'Mesajlar',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: AppColors.textPrimary),
+            icon: Icon(Icons.search, color: DesignTokens.gray900),
             onPressed: () {},
           ),
         ],
@@ -217,7 +215,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       body: _conversations.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               itemCount: _conversations.length,
               itemBuilder: (context, index) {
                 final conversation = _conversations[index];
@@ -226,15 +224,15 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient([
-            AppColors.nonPhotoBlue,
-            AppColors.nonPhotoBlue.withOpacity(0.9),
+          gradient: DesignTokens.getGradient([
+            DesignTokens.nonPhotoBlue,
+            DesignTokens.nonPhotoBlue.withOpacity(0.9),
           ]),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
-          boxShadow: [AppColors.getElevatedShadow()],
+          boxShadow: [DesignTokens.getElevatedShadow()],
         ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
@@ -261,8 +259,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          selectedItemColor: AppColors.textWhite,
-          unselectedItemColor: AppColors.textWhite.withOpacity(0.6),
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withOpacity(0.6),
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
           items: const [
@@ -301,22 +299,22 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: AppColors.surfaceColor,
+              color: DesignTokens.surfaceSecondaryColor,
               borderRadius: BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.message_outlined,
               size: 60,
-              color: AppColors.textMuted,
+              color: DesignTokens.textMuted,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           const Text(
             'Henüz Mesaj Yok',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
           const SizedBox(height: 8),
@@ -324,7 +322,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             'Teklif gönderdiğiniz ustalardan\nmesajlar burada görünecek',
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.textLight,
+              color: DesignTokens.textLight,
             ),
             textAlign: TextAlign.center,
           ),
@@ -337,10 +335,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 Navigator.pushNamed(context, '/search');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.uclaBlue,
+                backgroundColor: DesignTokens.uclaBlue,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
                 ),
                 elevation: 0,
               ),
@@ -362,12 +360,12 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+        color: DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadowLight,
+            color: DesignTokens.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -376,14 +374,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: () {
             Navigator.pushNamed(context, '/chat', arguments: {
               'conversation': conversation,
             });
           },
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
                 // Avatar with online status
@@ -408,9 +406,9 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                           width: 16,
                           height: 16,
                           decoration: BoxDecoration(
-                            color: AppColors.success,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColors.cardBackground, width: 2),
+                            color: DesignTokens.success,
+                            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                            border: Border.all(color: DesignTokens.surfacePrimary, width: 2),
                           ),
                         ),
                       ),
@@ -432,7 +430,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.textPrimary,
+                                    color: DesignTokens.gray900,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
@@ -440,7 +438,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                   conversation['business_name'],
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: AppColors.textLight,
+                                    color: DesignTokens.textLight,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
@@ -456,7 +454,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                         conversation['jobTitle'] ?? '',
                                         style: const TextStyle(
                                           fontSize: 11,
-                                          color: AppColors.textSecondary,
+                                          color: DesignTokens.gray600,
                                           fontWeight: FontWeight.w500,
                                         ),
                                         overflow: TextOverflow.ellipsis,
@@ -474,7 +472,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 conversation['timestamp'],
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: AppColors.textMuted,
+                                  color: DesignTokens.textMuted,
                                 ),
                               ),
                               if (conversation['unreadCount'] > 0) ...[
@@ -482,14 +480,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
-                                    color: AppColors.uclaBlue,
-                                    borderRadius: BorderRadius.circular(12),
+                                    color: DesignTokens.uclaBlue,
+                                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     conversation['unreadCount'].toString(),
                                     style: const TextStyle(
                                       fontSize: 10,
-                                      color: AppColors.cardBackground,
+                                      color: DesignTokens.surfacePrimary,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -505,8 +503,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                         style: TextStyle(
                           fontSize: 14,
                           color: conversation['unreadCount'] > 0 
-                              ? AppColors.textPrimary
-                              : AppColors.textLight,
+                              ? DesignTokens.gray900
+                              : DesignTokens.textLight,
                           fontWeight: conversation['unreadCount'] > 0 
                               ? FontWeight.w500
                               : FontWeight.normal,

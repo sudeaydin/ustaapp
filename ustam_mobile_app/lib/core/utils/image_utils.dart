@@ -248,7 +248,7 @@ class ImageGallery extends StatelessWidget {
           onTap: onImageTap != null ? () => onImageTap!(index) : null,
           child: OptimizedNetworkImage(
             imageUrl: imageUrls[index],
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
           ),
         );
       },

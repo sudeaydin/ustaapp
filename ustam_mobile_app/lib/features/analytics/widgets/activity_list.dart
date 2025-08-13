@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class ActivityList extends StatelessWidget {
   final List<Map<String, dynamic>> activities;
@@ -15,9 +15,9 @@ class ActivityList extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.border),
+          color: DesignTokens.surfaceSecondary,
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          border: Border.all(color: DesignTokens.gray300),
         ),
         child: Center(
           child: Column(
@@ -25,13 +25,13 @@ class ActivityList extends StatelessWidget {
               Icon(
                 Icons.history,
                 size: 48,
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               Text(
                 'Henüz aktivite bulunmuyor',
                 style: TextStyle(
-                  color: AppColors.textSecondary,
+                  color: DesignTokens.gray600,
                   fontSize: 16,
                 ),
               ),
@@ -43,16 +43,16 @@ class ActivityList extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        color: DesignTokens.surfaceSecondary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.gray300),
       ),
       child: ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: activities.length,
         separatorBuilder: (context, index) => Divider(
-          color: AppColors.border,
+          color: DesignTokens.gray300,
           height: 1,
         ),
         itemBuilder: (context, index) {
@@ -70,12 +70,12 @@ class ActivityList extends StatelessWidget {
     final amount = activity['amount'] as String?;
 
     return ListTile(
-      contentPadding: const EdgeInsets.all(16),
+      contentPadding: const EdgeInsets.all(DesignTokens.space16),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: _getActivityColor(type).withOpacity(0.1),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(DesignTokens.radius8),
         ),
         child: Icon(
           _getActivityIcon(type),
@@ -88,21 +88,21 @@ class ActivityList extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: AppColors.textPrimary,
+          color: DesignTokens.gray900,
         ),
       ),
       subtitle: Text(
         time,
         style: TextStyle(
           fontSize: 12,
-          color: AppColors.textSecondary,
+          color: DesignTokens.gray600,
         ),
       ),
       trailing: amount != null
           ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.1),
+                color: DesignTokens.success.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -110,7 +110,7 @@ class ActivityList extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.success,
+                  color: DesignTokens.success,
                 ),
               ),
             )
@@ -149,20 +149,20 @@ class ActivityList extends StatelessWidget {
       case 'job_completed':
       case 'payment_completed':
       case 'quote_accepted':
-        return AppColors.success;
+        return DesignTokens.success;
       case 'review_received':
       case 'review_left':
-        return AppColors.warning;
+        return DesignTokens.warning;
       case 'job_started':
       case 'proposal_sent':
-        return AppColors.info;
+        return DesignTokens.info;
       case 'proposal_received':
       case 'job_posted':
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case 'quote_rejected':
-        return AppColors.error;
+        return DesignTokens.error;
       default:
-        return AppColors.textSecondary;
+        return DesignTokens.gray600;
     }
   }
 }

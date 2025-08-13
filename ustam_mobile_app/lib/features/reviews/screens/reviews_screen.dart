@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../providers/review_provider.dart';
 import '../widgets/review_card.dart';
 import '../widgets/star_rating.dart';
@@ -70,9 +70,9 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
             ),
             child: TabBar(
               controller: _tabController,
-              labelColor: AppColors.primary,
+              labelColor: DesignTokens.primaryCoral,
               unselectedLabelColor: Colors.grey[600],
-              indicatorColor: AppColors.primary,
+              indicatorColor: DesignTokens.primaryCoral,
               indicatorWeight: 3,
               tabs: const [
                 Tab(
@@ -128,7 +128,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
               size: 64,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Henüz değerlendirme yapılmamış',
               style: TextStyle(
@@ -156,7 +156,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
         await ref.read(reviewProvider.notifier).loadCraftsmanReviews(widget.craftsmanId);
       },
       child: ListView.builder(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         itemCount: reviewState.reviews.length,
         itemBuilder: (context, index) {
           final review = reviewState.reviews[index];
@@ -184,7 +184,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
               size: 64,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'İstatistik bulunamadı',
               style: TextStyle(
@@ -199,7 +199,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: ReviewStatisticsWidget(
         statistics: reviewState.statistics!,
       ),

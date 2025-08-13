@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_typography.dart';
+import '../theme/design_tokens.dart';
 
 enum AirbnbInputType { text, email, password, search, multiline }
 
@@ -84,27 +82,27 @@ class _AirbnbInputState extends State<AirbnbInput> {
             widget.label!,
             style: AppTypography.labelMedium.copyWith(
               color: widget.errorText != null 
-                  ? AppColors.error 
-                  : AppColors.textPrimary,
+                  ? DesignTokens.error 
+                  : DesignTokens.gray900,
               fontWeight: FontWeight.w600,
             ),
           ),
-          AppSpacing.verticalSpaceXS,
+          DesignTokens.verticalSpaceXS,
         ],
         
         Container(
           decoration: BoxDecoration(
             color: widget.enabled 
-                ? AppColors.background 
-                : AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(AppSpacing.inputBorderRadius),
+                ? DesignTokens.background 
+                : DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.inputBorderRadius),
             border: Border.all(
               color: _getBorderColor(),
               width: _isFocused ? 2 : 1,
             ),
             boxShadow: _isFocused ? [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.1),
+                color: DesignTokens.primaryCoral.withOpacity(0.1),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -125,26 +123,26 @@ class _AirbnbInputState extends State<AirbnbInput> {
                 ? (widget.maxLines ?? 4) 
                 : 1,
             maxLength: widget.maxLength,
-            style: AppTypography.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: AppTypography.bodyMedium.copyWith(
-                color: AppColors.textMuted,
+              hintStyle: Theme.of(context).textTheme.bodyMedium.copyWith(
+                color: DesignTokens.textMuted,
               ),
               prefixIcon: widget.prefixIcon != null 
                   ? Icon(
                       widget.prefixIcon,
                       color: _isFocused 
-                          ? AppColors.primary 
-                          : AppColors.textMuted,
+                          ? DesignTokens.primaryCoral 
+                          : DesignTokens.textMuted,
                       size: 20,
                     )
                   : null,
               suffixIcon: _buildSuffixIcon(),
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.md,
-                vertical: AppSpacing.md,
+                horizontal: DesignTokens.space16,
+                vertical: DesignTokens.space16,
               ),
               counterText: '', // Hide character counter
             ),
@@ -152,27 +150,27 @@ class _AirbnbInputState extends State<AirbnbInput> {
         ),
         
         if (widget.errorText != null) ...[
-          AppSpacing.verticalSpaceXS,
+          DesignTokens.verticalSpaceXS,
           Row(
             children: [
               Icon(
                 Icons.error_outline,
                 size: 16,
-                color: AppColors.error,
+                color: DesignTokens.error,
               ),
-              AppSpacing.horizontalSpaceXS,
+              DesignTokens.horizontalSpaceXS,
               Expanded(
                 child: Text(
                   widget.errorText!,
                   style: AppTypography.labelSmall.copyWith(
-                    color: AppColors.error,
+                    color: DesignTokens.error,
                   ),
                 ),
               ),
             ],
           ),
         ] else if (widget.helperText != null) ...[
-          AppSpacing.verticalSpaceXS,
+          DesignTokens.verticalSpaceXS,
           Text(
             widget.helperText!,
             style: AppTypography.labelSmall,
@@ -183,9 +181,9 @@ class _AirbnbInputState extends State<AirbnbInput> {
   }
 
   Color _getBorderColor() {
-    if (widget.errorText != null) return AppColors.error;
-    if (_isFocused) return AppColors.primary;
-    return AppColors.border;
+    if (widget.errorText != null) return DesignTokens.error;
+    if (_isFocused) return DesignTokens.primaryCoral;
+    return DesignTokens.gray300;
   }
 
   TextInputType _getKeyboardType() {
@@ -212,7 +210,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
         },
         child: Icon(
           _isObscured ? Icons.visibility : Icons.visibility_off,
-          color: _isFocused ? AppColors.primary : AppColors.textMuted,
+          color: _isFocused ? DesignTokens.primaryCoral : DesignTokens.textMuted,
           size: 20,
         ),
       );
@@ -221,7 +219,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
         onTap: widget.onSuffixIconTap,
         child: Icon(
           widget.suffixIcon,
-          color: _isFocused ? AppColors.primary : AppColors.textMuted,
+          color: _isFocused ? DesignTokens.primaryCoral : DesignTokens.textMuted,
           size: 20,
         ),
       );
@@ -263,21 +261,21 @@ class AirbnbSearchInput extends StatelessWidget {
         onChanged: onChanged,
         onTap: onTap,
         readOnly: readOnly,
-        style: AppTypography.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: AppTypography.bodyMedium.copyWith(
-            color: AppColors.primary, // Pembe renk
+          hintStyle: Theme.of(context).textTheme.bodyMedium.copyWith(
+            color: DesignTokens.primaryCoral, // Pembe renk
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: AppColors.primary, // Pembe renk
+            color: DesignTokens.primaryCoral, // Pembe renk
             size: 20,
           ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.lg,
-            vertical: AppSpacing.md,
+            horizontal: DesignTokens.space24,
+            vertical: DesignTokens.space16,
           ),
         ),
       ),

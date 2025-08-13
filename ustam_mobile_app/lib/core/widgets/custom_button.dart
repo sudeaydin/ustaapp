@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+import '../theme/design_tokens.dart';
 import '../config/app_config.dart';
 import 'hover_button.dart';
 
@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
         onTap: isEnabled ? onPressed : null,
         hoverColor: isEnabled ? _getHoverColor() : Colors.grey,
         hoverScale: isEnabled ? 1.05 : 1.0,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         child: _buildButton(isEnabled),
       ),
     );
@@ -59,15 +59,15 @@ class CustomButton extends StatelessWidget {
   Color _getHoverColor() {
     switch (type) {
       case ButtonType.primary:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case ButtonType.secondary:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case ButtonType.danger:
-        return AppColors.error;
+        return DesignTokens.error;
       case ButtonType.outlined:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
       case ButtonType.text:
-        return AppColors.primary;
+        return DesignTokens.primaryCoral;
     }
   }
 
@@ -115,8 +115,8 @@ class CustomButton extends StatelessWidget {
           strokeWidth: 2,
           valueColor: AlwaysStoppedAnimation<Color>(
             type == ButtonType.outlined || type == ButtonType.text
-                ? AppColors.primary
-                : AppColors.textWhite,
+                ? DesignTokens.primaryCoral
+                : Colors.white,
           ),
         ),
       );
@@ -138,12 +138,12 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getPrimaryStyle() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonPrimary,
-      foregroundColor: AppColors.textWhite,
-      disabledBackgroundColor: AppColors.buttonDisabled,
-      disabledForegroundColor: AppColors.textMuted,
+      backgroundColor: DesignTokens.buttonPrimary,
+      foregroundColor: Colors.white,
+      disabledBackgroundColor: DesignTokens.buttonDisabled,
+      disabledForegroundColor: DesignTokens.textMuted,
       elevation: 4,
-      shadowColor: AppColors.shadowMedium,
+      shadowColor: DesignTokens.shadowMedium,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
@@ -154,12 +154,12 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getSecondaryStyle() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.primary,
-      foregroundColor: AppColors.textPrimary,
-      disabledBackgroundColor: AppColors.buttonDisabled,
-      disabledForegroundColor: AppColors.textMuted,
+      backgroundColor: DesignTokens.primaryCoral,
+      foregroundColor: DesignTokens.gray900,
+      disabledBackgroundColor: DesignTokens.buttonDisabled,
+      disabledForegroundColor: DesignTokens.textMuted,
       elevation: 2,
-      shadowColor: AppColors.shadowLight,
+      shadowColor: DesignTokens.shadowLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
@@ -170,12 +170,12 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getDangerStyle() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonDanger,
-      foregroundColor: AppColors.textWhite,
-      disabledBackgroundColor: AppColors.buttonDisabled,
-      disabledForegroundColor: AppColors.textMuted,
+      backgroundColor: DesignTokens.buttonDanger,
+      foregroundColor: Colors.white,
+      disabledBackgroundColor: DesignTokens.buttonDisabled,
+      disabledForegroundColor: DesignTokens.textMuted,
       elevation: 4,
-      shadowColor: AppColors.shadowMedium,
+      shadowColor: DesignTokens.shadowMedium,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
@@ -186,10 +186,10 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getOutlinedStyle() {
     return OutlinedButton.styleFrom(
-      foregroundColor: AppColors.primary,
-      disabledForegroundColor: AppColors.textMuted,
+      foregroundColor: DesignTokens.primaryCoral,
+      disabledForegroundColor: DesignTokens.textMuted,
       side: BorderSide(
-        color: isLoading ? AppColors.buttonDisabled : AppColors.primary,
+        color: isLoading ? DesignTokens.buttonDisabled : DesignTokens.primaryCoral,
         width: 2,
       ),
       shape: RoundedRectangleBorder(
@@ -202,8 +202,8 @@ class CustomButton extends StatelessWidget {
 
   ButtonStyle _getTextButtonStyle() {
     return TextButton.styleFrom(
-      foregroundColor: AppColors.primary,
-      disabledForegroundColor: AppColors.textMuted,
+      foregroundColor: DesignTokens.primaryCoral,
+      disabledForegroundColor: DesignTokens.textMuted,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_typography.dart';
+import '../../core/theme/design_tokens.dart';
 import '../../core/widgets/airbnb_button.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -23,21 +21,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       subtitle: 'İhtiyacınız olan ustayı kolayca bulun',
       description: 'Deneyimli ve güvenilir ustalar ile tanışın. İşinizi profesyonel ellere teslim edin.',
       icon: Icons.search_rounded,
-      color: AppColors.uclaBlue,
+      color: DesignTokens.uclaBlue,
     ),
     OnboardingPage(
       title: 'Teklif Al',
       subtitle: 'Hızlı ve uygun fiyatlı teklifler',
       description: 'Birden fazla ustadan teklif alın, en uygun fiyatı seçin.',
       icon: Icons.request_quote_rounded,
-      color: AppColors.nonPhotoBlue,
+      color: DesignTokens.nonPhotoBlue,
     ),
     OnboardingPage(
       title: 'Güvenle Çalış',
       subtitle: 'Güvenli ve kaliteli hizmet',
       description: 'Değerlendirmeler ve referanslar ile güvenle çalışın.',
       icon: Icons.verified_rounded,
-      color: AppColors.primary,
+      color: DesignTokens.primaryCoral,
     ),
   ];
 
@@ -65,7 +63,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       body: SafeArea(
         child: Column(
           children: [
@@ -80,7 +78,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     child: Text(
                       'Atla',
                       style: TextStyle(
-                        color: AppColors.textSecondary,
+                        color: DesignTokens.gray600,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -103,7 +101,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 itemBuilder: (context, index) {
                   final page = _pages[index];
                   return Padding(
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(DesignTokens.space24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -112,7 +110,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           width: 140,
                           height: 140,
                           decoration: BoxDecoration(
-                            gradient: AppColors.getGradient([
+                            gradient: DesignTokens.getGradient([
                               page.color.withOpacity(0.1),
                               page.color.withOpacity(0.05),
                             ]),
@@ -122,7 +120,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               width: 2,
                             ),
                             boxShadow: [
-                              AppColors.getElevatedShadow(blurRadius: 20),
+                              DesignTokens.getElevatedShadow(blurRadius: 20),
                             ],
                           ),
                           child: Icon(
@@ -140,12 +138,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                            color: DesignTokens.gray900,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: 16),
+                        const SizedBox(height: DesignTokens.space16),
                         
                         // Subtitle
                         Text(
@@ -153,19 +151,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.textSecondary,
+                            color: DesignTokens.gray600,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: 24),
+                        const SizedBox(height: DesignTokens.space24),
                         
                         // Description
                         Text(
                           page.description,
                           style: TextStyle(
                             fontSize: 16,
-                            color: AppColors.textLight,
+                            color: DesignTokens.textLight,
                             height: 1.6,
                           ),
                           textAlign: TextAlign.center,
@@ -192,8 +190,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           color: _currentPage == index 
-                              ? AppColors.uclaBlue
-                              : AppColors.nonPhotoBlue.withOpacity(0.3),
+                              ? DesignTokens.uclaBlue
+                              : DesignTokens.nonPhotoBlue.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -207,11 +205,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     width: 64,
                     height: 64,
                     decoration: BoxDecoration(
-                      gradient: AppColors.getGradient(AppColors.primaryGradient),
+                      gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.uclaBlue.withOpacity(0.4),
+                          color: DesignTokens.uclaBlue.withOpacity(0.4),
                           blurRadius: 16,
                           offset: const Offset(0, 4),
                         ),
@@ -223,7 +221,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         _currentPage == _pages.length - 1 
                             ? Icons.check_rounded
                             : Icons.arrow_forward_rounded,
-                        color: AppColors.cardBackground,
+                        color: DesignTokens.surfacePrimary,
                         size: 28,
                       ),
                     ),

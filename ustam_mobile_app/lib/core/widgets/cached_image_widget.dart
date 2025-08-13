@@ -48,8 +48,8 @@ class CachedImageWidget extends StatelessWidget {
 
   Widget _buildShimmerPlaceholder() {
     return Shimmer.fromColors(
-      baseColor: AppColors.nonPhotoBlue.withOpacity(0.3),
-      highlightColor: AppColors.nonPhotoBlue.withOpacity(0.1),
+      baseColor: DesignTokens.nonPhotoBlue.withOpacity(0.3),
+      highlightColor: DesignTokens.nonPhotoBlue.withOpacity(0.1),
       child: Container(
         width: width,
         height: height,
@@ -66,10 +66,10 @@ class CachedImageWidget extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.surfaceColor,
+        color: DesignTokens.surfaceSecondaryColor,
         borderRadius: borderRadius,
         border: Border.all(
-          color: AppColors.nonPhotoBlue.withOpacity(0.3),
+          color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -78,7 +78,7 @@ class CachedImageWidget extends StatelessWidget {
         size: (width != null && height != null) 
             ? (width! < height! ? width! * 0.3 : height! * 0.3)
             : 24,
-        color: AppColors.textMuted,
+        color: DesignTokens.textMuted,
       ),
     );
   }
@@ -120,7 +120,7 @@ class CachedAvatarWidget extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: backgroundColor ?? AppColors.nonPhotoBlue.withOpacity(0.3),
+        color: backgroundColor ?? DesignTokens.nonPhotoBlue.withOpacity(0.3),
         borderRadius: BorderRadius.circular(size / 2),
       ),
       child: Center(
@@ -129,7 +129,7 @@ class CachedAvatarWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: size * 0.4,
             fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
       ),
@@ -138,8 +138,8 @@ class CachedAvatarWidget extends StatelessWidget {
 
   Widget _buildShimmerAvatar() {
     return Shimmer.fromColors(
-      baseColor: AppColors.nonPhotoBlue.withOpacity(0.3),
-      highlightColor: AppColors.nonPhotoBlue.withOpacity(0.1),
+      baseColor: DesignTokens.nonPhotoBlue.withOpacity(0.3),
+      highlightColor: DesignTokens.nonPhotoBlue.withOpacity(0.1),
       child: Container(
         width: size,
         height: size,
@@ -199,7 +199,7 @@ class CachedImageGallery extends StatelessWidget {
           onTap: onImageTap != null ? () => onImageTap!(index) : null,
           child: CachedImageWidget(
             imageUrl: imageUrls[index],
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
           ),
         );
       },

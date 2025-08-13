@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../theme/app_colors.dart';
+import '../theme/design_tokens.dart';
 import '../config/app_config.dart';
 
 enum TextFieldType { text, email, password, phone, number, multiline }
@@ -71,7 +71,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             text: TextSpan(
               text: widget.label!,
               style: TextStyle(
-                color: AppColors.textPrimary,
+                color: DesignTokens.gray900,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -79,7 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 if (widget.required)
                   TextSpan(
                     text: ' *',
-                    style: TextStyle(color: AppColors.error),
+                    style: TextStyle(color: DesignTokens.error),
                   ),
               ],
             ),
@@ -88,13 +88,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ],
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
+            color: DesignTokens.surfacePrimary,
             borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
             border: Border.all(
-              color: AppColors.nonPhotoBlue.withOpacity(0.3),
+              color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
               width: 1,
             ),
-            boxShadow: [AppColors.getCardShadow()],
+            boxShadow: [DesignTokens.getCardShadow()],
           ),
           child: TextFormField(
             controller: _controller,
@@ -107,19 +107,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
             onChanged: widget.onChanged,
             validator: widget.validator ?? _getDefaultValidator(),
             style: TextStyle(
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
               fontSize: 16,
             ),
             decoration: InputDecoration(
               hintText: widget.hint ?? widget.hintText,
               hintStyle: TextStyle(
-                color: AppColors.textMuted,
+                color: DesignTokens.textMuted,
                 fontSize: 16,
               ),
               prefixIcon: widget.prefixIcon,
               suffixIcon: _getSuffixIcon(),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
               counterText: '', // Hide character counter
             ),
           ),
@@ -162,7 +162,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       return IconButton(
         icon: Icon(
           _obscureText ? Icons.visibility_off : Icons.visibility,
-          color: AppColors.textMuted,
+          color: DesignTokens.textMuted,
         ),
         onPressed: () {
           setState(() {
@@ -235,10 +235,10 @@ class SearchTextField extends StatelessWidget {
       hint: hint,
       onChanged: onChanged,
       controller: controller,
-      prefixIcon: Icon(Icons.search, color: AppColors.textMuted),
+      prefixIcon: Icon(Icons.search, color: DesignTokens.textMuted),
       suffixIcon: onClear != null
           ? IconButton(
-              icon: Icon(Icons.clear, color: AppColors.textMuted),
+              icon: Icon(Icons.clear, color: DesignTokens.textMuted),
               onPressed: onClear,
             )
           : null,

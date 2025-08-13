@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class CreateAppointmentSheet extends StatelessWidget {
   final String userType;
@@ -56,15 +56,15 @@ class CreateAppointmentSheet extends StatelessWidget {
                     Icon(
                       Icons.event_note,
                       size: 64,
-                      color: AppColors.primary.withOpacity(0.7),
+                      color: DesignTokens.primaryCoral.withOpacity(0.7),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     Text(
                       'Randevu Oluşturma',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
+                        color: DesignTokens.primaryCoral,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -76,7 +76,7 @@ class CreateAppointmentSheet extends StatelessWidget {
                       ),
                     ),
                     if (selectedDate != null) ...[
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       Text(
                         'Seçilen tarih: ${_formatDate(selectedDate!)}',
                         style: const TextStyle(

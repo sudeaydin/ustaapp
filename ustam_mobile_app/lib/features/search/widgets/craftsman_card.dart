@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
@@ -25,7 +23,7 @@ class CraftsmanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: AppSpacing.md),
+      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +34,7 @@ class CraftsmanCard extends StatelessWidget {
                   // Avatar
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
+                    backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                     backgroundImage: craftsman['avatar'] != null
                         ? NetworkImage(craftsman['avatar'])
                         : null,
@@ -45,14 +43,14 @@ class CraftsmanCard extends StatelessWidget {
                             _getInitials(craftsman['name']),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
+                              color: DesignTokens.primaryCoral,
                               fontSize: 18,
                             ),
                           )
                         : null,
                   ),
                   
-                  const SizedBox(width: 16),
+                  const SizedBox(width: DesignTokens.space16),
                   
                   // Name and business info
                   Expanded(
@@ -124,7 +122,7 @@ class CraftsmanCard extends StatelessWidget {
                 ],
               ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Description
               if (craftsman['description'] != null)
@@ -149,14 +147,14 @@ class CraftsmanCard extends StatelessWidget {
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
+                        color: DesignTokens.primaryCoral.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       ),
                       child: Text(
                         skill.toString(),
                         style: const TextStyle(
                           fontSize: 12,
-                          color: AppColors.primary,
+                          color: DesignTokens.primaryCoral,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -164,7 +162,7 @@ class CraftsmanCard extends StatelessWidget {
                   }).toList(),
                 ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Bottom row
               Row(
@@ -191,15 +189,15 @@ class CraftsmanCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
+                        color: DesignTokens.primaryCoral.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Text(
                         '₺${craftsman['hourly_rate']}/saat',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
+                          color: DesignTokens.primaryCoral,
                         ),
                       ),
                     ),
@@ -218,8 +216,8 @@ class CraftsmanCard extends StatelessWidget {
                         icon: const Icon(iOSIcons.rateReview, size: 16),
                         label: const Text('Değerlendirmeler'),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: AppColors.primary,
-                          side: BorderSide(color: AppColors.primary.withOpacity(0.5)),
+                          foregroundColor: DesignTokens.primaryCoral,
+                          side: BorderSide(color: DesignTokens.primaryCoral.withOpacity(0.5)),
                         ),
                       ),
                     ),
@@ -230,7 +228,7 @@ class CraftsmanCard extends StatelessWidget {
                         icon: const Icon(Icons.request_quote, size: 16),
                         label: const Text('Teklif Al'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
+                          backgroundColor: DesignTokens.primaryCoral,
                           foregroundColor: Colors.white,
                         ),
                       ),
@@ -246,7 +244,7 @@ class CraftsmanCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.red.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius8),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

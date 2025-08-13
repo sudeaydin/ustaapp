@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../providers/review_provider.dart';
 import '../widgets/star_rating.dart';
 
@@ -69,22 +69,22 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               // Header info
               _buildHeaderInfo(),
               
-              const SizedBox(height: 24),
+              const SizedBox(height: DesignTokens.space24),
               
               // Overall rating
               _buildOverallRating(),
               
-              const SizedBox(height: 24),
+              const SizedBox(height: DesignTokens.space24),
               
               // Title field
               _buildTitleField(),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Comment field
               _buildCommentField(),
               
-              const SizedBox(height: 24),
+              const SizedBox(height: DesignTokens.space24),
               
               // Detailed ratings
               _buildDetailedRatings(),
@@ -104,12 +104,12 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildHeaderInfo() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        color: DesignTokens.primaryCoral.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.2),
+          color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
       ),
       child: Column(
@@ -119,7 +119,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             children: [
               Icon(
                 Icons.person,
-                color: AppColors.primary,
+                color: DesignTokens.primaryCoral,
                 size: 20,
               ),
               const SizedBox(width: 8),
@@ -138,7 +138,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               children: [
                 Icon(
                   Icons.build,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -159,11 +159,11 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildOverallRating() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+        color: DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +188,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -196,7 +196,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.primary,
+                      color: DesignTokens.primaryCoral,
                     ),
                   ),
                 ),
@@ -260,10 +260,10 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
           'Her kategoriyi puanlayın (Genel puan otomatik hesaplanacak)',
           style: TextStyle(
             fontSize: 14,
-            color: AppColors.textLight,
+            color: DesignTokens.textLight,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         CategoryRatingWidget(
           title: 'İletişim',

@@ -69,7 +69,7 @@ class _LegalScreenState extends State<LegalScreen>
           
           // Action buttons
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -189,7 +189,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
               size: 48,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Belge yüklenemedi',
               style: TextStyle(
@@ -207,7 +207,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             ElevatedButton(
               onPressed: _loadDocument,
               child: const Text('Tekrar Dene'),
@@ -227,7 +227,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
               size: 48,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Belge bulunamadı',
               style: TextStyle(
@@ -242,16 +242,16 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Document header
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: const Color(0xFF467599).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
             child: Row(
               children: [
@@ -311,14 +311,14 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             ),
           ),
           
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           
           // Document content
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: Colors.grey[300]!),
             ),
             child: Text(
@@ -331,14 +331,14 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             ),
           ),
           
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           
           // Contact information
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: Colors.blue[50],
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: Colors.blue[200]!),
             ),
             child: Column(
@@ -524,7 +524,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.grey[50],
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(DesignTokens.radius8),
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: Text(
@@ -534,7 +534,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   Column(
                     children: [
                       CheckboxListTile(
@@ -701,7 +701,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                 ),
               ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Content
               Expanded(
@@ -834,7 +834,7 @@ class GDPRRightsSheet extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Content
               Expanded(
@@ -1086,11 +1086,11 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       left: 0,
       right: 0,
       child: Container(
-        margin: const EdgeInsets.all(16),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.all(DesignTokens.space16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),
@@ -1124,7 +1124,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
               'Devam ederek çerez kullanımını kabul etmiş olursunuz.',
               style: TextStyle(fontSize: 14, color: Colors.black87),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Row(
               children: [
                 Expanded(

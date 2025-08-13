@@ -128,17 +128,17 @@ class AppError {
     switch (type) {
       case ErrorType.network:
       case ErrorType.noInternet:
-        return AppColors.warning;
+        return DesignTokens.warning;
       case ErrorType.authentication:
-        return AppColors.error;
+        return DesignTokens.error;
       case ErrorType.validation:
-        return AppColors.warning;
+        return DesignTokens.warning;
       case ErrorType.server:
-        return AppColors.error;
+        return DesignTokens.error;
       case ErrorType.timeout:
-        return AppColors.warning;
+        return DesignTokens.warning;
       case ErrorType.unknown:
-        return AppColors.textMuted;
+        return DesignTokens.textMuted;
     }
   }
 }
@@ -163,7 +163,7 @@ class ErrorHandler {
         duration: const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         action: SnackBarAction(
           label: 'Tamam',
@@ -191,11 +191,11 @@ class ErrorHandler {
             ),
           ],
         ),
-        backgroundColor: AppColors.success,
+        backgroundColor: DesignTokens.success,
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
       ),
     );
@@ -216,11 +216,11 @@ class ErrorHandler {
             ),
           ],
         ),
-        backgroundColor: AppColors.warning,
+        backgroundColor: DesignTokens.warning,
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
       ),
     );
@@ -261,13 +261,13 @@ class ErrorStateWidget extends StatelessWidget {
                 color: error.color,
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
             Text(
               error.userFriendlyMessage,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
+                color: DesignTokens.gray900,
               ),
               textAlign: TextAlign.center,
             ),
@@ -277,20 +277,20 @@ class ErrorStateWidget extends StatelessWidget {
                 error.details!,
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textMuted,
+                  color: DesignTokens.textMuted,
                 ),
                 textAlign: TextAlign.center,
               ),
             ],
             if (onRetry != null) ...[
-              const SizedBox(height: 24),
+              const SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: AppColors.textWhite,
+                  backgroundColor: DesignTokens.primaryCoral,
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                 ),
                 child: Text(retryText ?? 'Tekrar Dene'),
@@ -331,22 +331,22 @@ class EmptyStateWidget extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppColors.nonPhotoBlue.withOpacity(0.1),
+                color: DesignTokens.nonPhotoBlue.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(40),
               ),
               child: Icon(
                 icon,
                 size: 40,
-                color: AppColors.textMuted,
+                color: DesignTokens.textMuted,
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
             Text(
               title,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
+                color: DesignTokens.gray900,
               ),
               textAlign: TextAlign.center,
             ),
@@ -356,20 +356,20 @@ class EmptyStateWidget extends StatelessWidget {
                 subtitle!,
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textMuted,
+                  color: DesignTokens.textMuted,
                 ),
                 textAlign: TextAlign.center,
               ),
             ],
             if (onAction != null) ...[
-              const SizedBox(height: 24),
+              const SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onAction,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: AppColors.textWhite,
+                  backgroundColor: DesignTokens.primaryCoral,
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                 ),
                 child: Text(actionText ?? 'Başla'),

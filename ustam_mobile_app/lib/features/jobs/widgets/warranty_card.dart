@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class WarrantyCard extends StatelessWidget {
   final Map<String, dynamic> warranty;
@@ -23,7 +23,7 @@ class WarrantyCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +31,7 @@ class WarrantyCard extends StatelessWidget {
               children: [
                 Icon(
                   Icons.verified_user,
-                  color: AppColors.success,
+                  color: DesignTokens.success,
                   size: 24,
                 ),
                 const SizedBox(width: 12),
@@ -51,7 +51,7 @@ class WarrantyCard extends StatelessWidget {
             Text(
               warranty['description'] ?? 'Garanti açıklaması mevcut değil',
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
                 fontSize: 14,
               ),
             ),
@@ -61,21 +61,21 @@ class WarrantyCard extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.schedule,
-                    color: AppColors.warning,
+                    color: DesignTokens.warning,
                     size: 16,
                   ),
                   const SizedBox(width: 8),
                   Text(
                     'Bitiş: $expiryDate',
                     style: TextStyle(
-                      color: AppColors.textSecondary,
+                      color: DesignTokens.gray600,
                       fontSize: 14,
                     ),
                   ),
                 ],
               ),
             ],
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Row(
               children: [
                 Expanded(
@@ -93,7 +93,7 @@ class WarrantyCard extends StatelessWidget {
                       // File warranty claim
                     } : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.warning,
+                      backgroundColor: DesignTokens.warning,
                       foregroundColor: Colors.white,
                     ),
                     child: const Text('Talep Oluştur'),
@@ -113,19 +113,19 @@ class WarrantyCard extends StatelessWidget {
 
     switch (status) {
       case 'active':
-        color = AppColors.success;
+        color = DesignTokens.success;
         text = 'Aktif';
         break;
       case 'expired':
-        color = AppColors.error;
+        color = DesignTokens.error;
         text = 'Süresi Dolmuş';
         break;
       case 'claimed':
-        color = AppColors.warning;
+        color = DesignTokens.warning;
         text = 'Talep Edildi';
         break;
       default:
-        color = AppColors.textMuted;
+        color = DesignTokens.textMuted;
         text = status;
     }
 
@@ -133,7 +133,7 @@ class WarrantyCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
       ),
       child: Text(
         text,

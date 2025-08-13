@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:io';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/config/app_config.dart';
 import '../../auth/providers/auth_provider.dart';
 
@@ -118,7 +118,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       final file = File(image.path);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
-        _showSnackBar('Dosya boyutu 5MB\'dan küçük olmalıdır', AppColors.error);
+        _showSnackBar('Dosya boyutu 5MB\'dan küçük olmalıdır', DesignTokens.error);
         return;
       }
       
@@ -129,7 +129,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       await _uploadImage(file);
       
     } catch (e) {
-      _showSnackBar('Görsel seçme hatası: $e', AppColors.error);
+      _showSnackBar('Görsel seçme hatası: $e', DesignTokens.error);
     } finally {
       setState(() {
         _isUploading = false;
@@ -143,7 +143,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       final token = prefs.getString('authToken');
       
       if (token == null) {
-        _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', AppColors.error);
+        _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', DesignTokens.error);
         return;
       }
       
@@ -164,12 +164,12 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         setState(() {
           _portfolioImages = imagesList.cast<String>();
         });
-        _showSnackBar('Görsel başarıyla yüklendi!', AppColors.success);
+        _showSnackBar('Görsel başarıyla yüklendi!', DesignTokens.success);
       } else {
-        _showSnackBar(data['message'] ?? 'Görsel yükleme başarısız oldu', AppColors.error);
+        _showSnackBar(data['message'] ?? 'Görsel yükleme başarısız oldu', DesignTokens.error);
       }
     } catch (e) {
-      _showSnackBar('Görsel yükleme hatası: $e', AppColors.error);
+      _showSnackBar('Görsel yükleme hatası: $e', DesignTokens.error);
     }
   }
 
@@ -186,7 +186,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Sil', style: TextStyle(color: AppColors.error)),
+            child: Text('Sil', style: TextStyle(color: DesignTokens.error)),
           ),
         ],
       ),
@@ -199,7 +199,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       final token = prefs.getString('authToken');
       
       if (token == null) {
-        _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', AppColors.error);
+        _showSnackBar('Oturum süresi dolmuş, lütfen tekrar giriş yapın', DesignTokens.error);
         return;
       }
       
@@ -219,12 +219,12 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         setState(() {
           _portfolioImages = imagesList.cast<String>();
         });
-        _showSnackBar('Görsel başarıyla silindi!', AppColors.success);
+        _showSnackBar('Görsel başarıyla silindi!', DesignTokens.success);
       } else {
-        _showSnackBar(data['message'] ?? 'Görsel silme başarısız oldu', AppColors.error);
+        _showSnackBar(data['message'] ?? 'Görsel silme başarısız oldu', DesignTokens.error);
       }
     } catch (e) {
-      _showSnackBar('Görsel silme hatası: $e', AppColors.error);
+      _showSnackBar('Görsel silme hatası: $e', DesignTokens.error);
     }
   }
 
@@ -234,7 +234,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         content: Text(message),
         backgroundColor: backgroundColor,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
       ),
     );
   }
@@ -242,15 +242,15 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: DesignTokens.surfacePrimary,
         elevation: 0,
         automaticallyImplyLeading: false, // Hide back button
         title: const Text(
           'İşletmem',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -267,7 +267,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                 : const Text(
                     'Kaydet',
                     style: TextStyle(
-                      color: AppColors.uclaBlue,
+                      color: DesignTokens.uclaBlue,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -291,11 +291,11 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        AppColors.uclaBlue,
-                        AppColors.primary,
+                        DesignTokens.uclaBlue,
+                        DesignTokens.primaryCoral,
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,10 +305,10 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.cardBackground,
+                          color: DesignTokens.surfacePrimary,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       Row(
                         children: [
                           Expanded(
@@ -334,10 +334,10 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _businessNameController,
@@ -345,7 +345,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   hint: 'İşletme adınızı girin',
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _descriptionController,
@@ -354,7 +354,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   maxLines: 3,
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _hourlyRateController,
@@ -363,7 +363,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   keyboardType: TextInputType.number,
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _experienceController,
@@ -380,10 +380,10 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildDropdownField(
                   label: 'Şehir',
@@ -396,7 +396,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildDropdownField(
                   label: 'İlçe',
@@ -417,10 +417,10 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 Wrap(
                   spacing: 8,
@@ -439,15 +439,15 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                           }
                         });
                       },
-                      backgroundColor: AppColors.cardBackground,
-                      selectedColor: AppColors.primary.withOpacity(0.1),
-                      checkmarkColor: AppColors.uclaBlue,
+                      backgroundColor: DesignTokens.surfacePrimary,
+                      selectedColor: DesignTokens.primaryCoral.withOpacity(0.1),
+                      checkmarkColor: DesignTokens.uclaBlue,
                       labelStyle: TextStyle(
-                        color: isSelected ? AppColors.uclaBlue : AppColors.textLight,
+                        color: isSelected ? DesignTokens.uclaBlue : DesignTokens.textLight,
                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                       ),
                       side: BorderSide(
-                        color: isSelected ? AppColors.uclaBlue : AppColors.nonPhotoBlue.withOpacity(0.3),
+                        color: isSelected ? DesignTokens.uclaBlue : DesignTokens.nonPhotoBlue.withOpacity(0.3),
                       ),
                     );
                   }).toList(),
@@ -461,16 +461,16 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceColor,
-                    borderRadius: BorderRadius.circular(12),
+                    color: DesignTokens.surfaceSecondaryColor,
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -479,7 +479,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         'İpucu:',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
+                          color: DesignTokens.gray900,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -487,7 +487,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         'İşletmenize ait görselleri, tamamladığınız işleri ve çalışma alanınızı gösteren fotoğrafları yükleyebilirsiniz.',
                         style: TextStyle(
                           fontSize: 12,
-                          color: AppColors.textLight,
+                          color: DesignTokens.textLight,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -495,14 +495,14 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         '• Maksimum 10 görsel yükleyebilirsiniz\n• Desteklenen formatlar: JPG, PNG\n• Maksimum dosya boyutu: 5MB',
                         style: TextStyle(
                           fontSize: 11,
-                          color: AppColors.textMuted,
+                          color: DesignTokens.textMuted,
                         ),
                       ),
                     ],
                   ),
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Upload Button
                 SizedBox(
@@ -513,24 +513,24 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       ? const SizedBox(
                           width: 16,
                           height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.cardBackground),
+                          child: CircularProgressIndicator(strokeWidth: 2, color: DesignTokens.surfacePrimary),
                         )
-                      : Icon(Icons.add_a_photo, color: AppColors.cardBackground),
+                      : Icon(Icons.add_a_photo, color: DesignTokens.surfacePrimary),
                     label: Text(
                       _isUploading ? 'Yükleniyor...' : 'Görsel Ekle',
-                      style: TextStyle(color: AppColors.cardBackground, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: DesignTokens.surfacePrimary, fontWeight: FontWeight.w600),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.uclaBlue,
+                      backgroundColor: DesignTokens.uclaBlue,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       ),
                     ),
                   ),
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Portfolio Images Grid
                 _portfolioImages.isNotEmpty
@@ -549,7 +549,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                                 image: DecorationImage(
                                   image: NetworkImage(_portfolioImages[index].startsWith('http') 
                                     ? _portfolioImages[index] 
@@ -566,12 +566,12 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(4),
                                   decoration: const BoxDecoration(
-                                    color: AppColors.error,
+                                    color: DesignTokens.error,
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
                                     Icons.close,
-                                    color: AppColors.cardBackground,
+                                    color: DesignTokens.surfacePrimary,
                                     size: 16,
                                   ),
                                 ),
@@ -584,9 +584,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   : Container(
                       height: 120,
                       decoration: BoxDecoration(
-                        color: AppColors.backgroundLight,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+                        color: DesignTokens.surfacePrimary,
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                       ),
                       child: const Center(
                         child: Column(
@@ -595,13 +595,13 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                             Icon(
                               Icons.photo_library_outlined,
                               size: 48,
-                              color: AppColors.textMuted,
+                              color: DesignTokens.textMuted,
                             ),
                             SizedBox(height: 8),
                             Text(
                               'Henüz portfolyo görseli eklenmemiş',
                               style: TextStyle(
-                                color: AppColors.textLight,
+                                color: DesignTokens.textLight,
                                 fontSize: 14,
                               ),
                             ),
@@ -618,10 +618,10 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _websiteController,
@@ -629,7 +629,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   hint: 'Website adresinizi girin',
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 _buildTextField(
                   controller: _responseTimeController,
@@ -665,9 +665,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           }
         },
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.cardBackground,
-        selectedItemColor: AppColors.uclaBlue,
-        unselectedItemColor: AppColors.textLight,
+        backgroundColor: DesignTokens.surfacePrimary,
+        selectedItemColor: DesignTokens.uclaBlue,
+        unselectedItemColor: DesignTokens.textLight,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
         items: const [
@@ -700,7 +700,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: AppColors.cardBackground,
+            color: DesignTokens.surfacePrimary,
           ),
         ),
         const SizedBox(height: 4),
@@ -708,7 +708,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           title,
           style: const TextStyle(
             fontSize: 12,
-            color: AppColors.cardBackground70,
+            color: DesignTokens.surfacePrimary70,
           ),
         ),
       ],
@@ -731,18 +731,18 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            color: DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadowLight,
+                color: DesignTokens.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -754,9 +754,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             keyboardType: keyboardType,
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
               hintText: hint,
-              hintStyle: TextStyle(color: AppColors.textMuted),
+              hintStyle: TextStyle(color: DesignTokens.textMuted),
             ),
             validator: validator,
           ),
@@ -779,18 +779,18 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            color: DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadowLight,
+                color: DesignTokens.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -800,7 +800,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
             hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
@@ -828,7 +828,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Profil başarıyla güncellendi!'),
-              backgroundColor: AppColors.success,
+              backgroundColor: DesignTokens.success,
             ),
           );
         }
@@ -837,7 +837,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Hata: $e'),
-              backgroundColor: AppColors.error,
+              backgroundColor: DesignTokens.error,
             ),
           );
         }

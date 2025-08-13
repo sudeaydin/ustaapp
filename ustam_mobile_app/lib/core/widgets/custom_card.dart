@@ -31,7 +31,7 @@ class CustomCard extends StatelessWidget {
     final borderRadiusValue = borderRadius ?? AppConfig.defaultBorderRadius;
     
     Widget cardContent = Container(
-      padding: padding ?? const EdgeInsets.all(16),
+      padding: padding ?? const EdgeInsets.all(DesignTokens.space16),
       decoration: _getDecoration(borderRadiusValue),
       child: child,
     );
@@ -54,23 +54,23 @@ class CustomCard extends StatelessWidget {
     switch (type) {
       case CardType.elevated:
         return BoxDecoration(
-          color: backgroundColor ?? AppColors.cardBackground,
+          color: backgroundColor ?? DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.circular(borderRadiusValue),
           boxShadow: [
-            AppColors.getCardShadow(blurRadius: elevation ?? AppConfig.cardElevation * 4),
+            DesignTokens.getCardShadow(blurRadius: elevation ?? AppConfig.cardElevation * 4),
           ],
         );
       case CardType.flat:
         return BoxDecoration(
-          color: backgroundColor ?? AppColors.cardBackground,
+          color: backgroundColor ?? DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.circular(borderRadiusValue),
         );
       case CardType.outlined:
         return BoxDecoration(
-          color: backgroundColor ?? AppColors.cardBackground,
+          color: backgroundColor ?? DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.circular(borderRadiusValue),
           border: Border.all(
-            color: AppColors.nonPhotoBlue.withOpacity(0.3),
+            color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
           ),
         );
@@ -118,8 +118,8 @@ class MessageCard extends StatelessWidget {
     return CustomCard(
       type: CardType.flat,
       backgroundColor: isOwn 
-          ? AppColors.primary.withOpacity(0.1)
-          : AppColors.cardBackground,
+          ? DesignTokens.primaryCoral.withOpacity(0.1)
+          : DesignTokens.surfacePrimary,
       padding: const EdgeInsets.all(12),
       margin: EdgeInsets.only(
         left: isOwn ? 50 : 0,
@@ -146,7 +146,7 @@ class CraftsmanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCard(
       type: CardType.elevated,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       onTap: onTap,
       child: child,

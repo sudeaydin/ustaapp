@@ -20,10 +20,10 @@ class UserAgreementModal extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               const Text(
                 '1. GENEL HÜKÜMLER\n\n'
                 'Bu sözleşme, UstamApp platformunu kullanan tüm kullanıcılar için geçerlidir.\n\n'
@@ -57,7 +57,7 @@ class UserAgreementModal extends StatelessWidget {
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(true),
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
+            backgroundColor: DesignTokens.primaryCoral,
             foregroundColor: Colors.white,
           ),
           child: const Text('Kabul Et'),

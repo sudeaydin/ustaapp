@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/job_management_utils.dart';
 
 class JobCard extends StatelessWidget {
@@ -26,9 +26,9 @@ class JobCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,7 +50,7 @@ class JobCard extends StatelessWidget {
               Text(
                 job is Job ? (job.description ?? '') : (job['description'] ?? ''),
                 style: TextStyle(
-                  color: AppColors.textSecondary,
+                  color: DesignTokens.gray600,
                   fontSize: 14,
                 ),
                 maxLines: 2,
@@ -63,13 +63,13 @@ class JobCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.error.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
+                        color: DesignTokens.error.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Text(
                         'Acil',
                         style: TextStyle(
-                          color: AppColors.error,
+                          color: DesignTokens.error,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -80,7 +80,7 @@ class JobCard extends StatelessWidget {
                     Text(
                       '₺${job is Job ? job.estimatedCost : job['budget']}',
                       style: TextStyle(
-                        color: AppColors.success,
+                        color: DesignTokens.success,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -100,23 +100,23 @@ class JobCard extends StatelessWidget {
 
     switch (status) {
       case 'completed':
-        color = AppColors.success;
+        color = DesignTokens.success;
         text = 'Tamamlandı';
         break;
       case 'in_progress':
-        color = AppColors.primary;
+        color = DesignTokens.primaryCoral;
         text = 'Devam Ediyor';
         break;
       case 'pending':
-        color = AppColors.warning;
+        color = DesignTokens.warning;
         text = 'Beklemede';
         break;
       case 'cancelled':
-        color = AppColors.error;
+        color = DesignTokens.error;
         text = 'İptal';
         break;
       default:
-        color = AppColors.textMuted;
+        color = DesignTokens.textMuted;
         text = status;
     }
 
@@ -124,7 +124,7 @@ class JobCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
       ),
       child: Text(
         text,

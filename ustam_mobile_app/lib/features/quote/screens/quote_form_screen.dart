@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
 
@@ -71,7 +71,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: CustomAppBar(
         title: 'Teklif Al',
         type: AppBarType.standard,
@@ -86,14 +86,14 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               children: [
                 // Craftsman Info Card
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
-                    color: AppColors.cardBackground,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+                    color: DesignTokens.surfacePrimary,
+                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.shadowLight,
+                        color: DesignTokens.shadowLight,
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -114,7 +114,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: DesignTokens.space16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +124,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textPrimary,
+                                color: DesignTokens.gray900,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -132,7 +132,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                               widget.craftsman['business_name'] ?? '',
                               style: const TextStyle(
                                 fontSize: 14,
-                                color: AppColors.textLight,
+                                color: DesignTokens.textLight,
                               ),
                             ),
                           ],
@@ -142,7 +142,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   ),
                 ),
                 
-                const SizedBox(height: 24),
+                const SizedBox(height: DesignTokens.space24),
                 
                 // Form Title
                 const Text(
@@ -150,10 +150,10 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Category Selection
                 _buildDropdownField(
@@ -173,7 +173,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Area Type Selection
                 _buildDropdownFieldWithMap(
@@ -193,7 +193,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Square Meters (Optional)
                 _buildTextField(
@@ -203,7 +203,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   validator: null,
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Budget Range Selection
                 _buildDropdownFieldWithMap(
@@ -223,7 +223,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Urgency Level Selection
                 _buildDropdownFieldWithMap(
@@ -243,12 +243,12 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Date Range Selection
                 _buildDateRangeSection(),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Description
                 _buildTextField(
@@ -264,7 +264,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   },
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                 // Additional Details
                 _buildTextField(
@@ -309,18 +309,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            color: DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadowLight,
+                color: DesignTokens.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -330,7 +330,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
             hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
@@ -361,18 +361,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            color: DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadowLight,
+                color: DesignTokens.shadowLight,
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -384,17 +384,17 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             maxLines: maxLines,
             validator: validator,
             style: const TextStyle(
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
               fontSize: 16,
             ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
-                color: AppColors.textMuted,
+                color: DesignTokens.textMuted,
                 fontSize: 16,
               ),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
           ),
         ),
@@ -411,7 +411,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 12),
@@ -426,7 +426,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 onTap: () => _selectStartDate(),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: DesignTokens.space16),
             Expanded(
               child: _buildDateCard(
                 label: 'Bitiş Tarihi',
@@ -449,7 +449,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   _isFlexibleDates = value ?? true;
                 });
               },
-              activeColor: AppColors.primary,
+              activeColor: DesignTokens.primaryCoral,
             ),
             const SizedBox(width: 8),
             const Expanded(
@@ -457,7 +457,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 'Tarihlerim esnek, uygun olan tarihlerde çalışabilir',
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textPrimary,
+                  color: DesignTokens.gray900,
                 ),
               ),
             ),
@@ -475,18 +475,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
-          color: AppColors.cardBackground,
-          borderRadius: BorderRadius.circular(12),
+          color: DesignTokens.surfacePrimary,
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: date != null 
-                ? AppColors.primary.withOpacity(0.5)
-                : AppColors.nonPhotoBlue.withOpacity(0.3),
+                ? DesignTokens.primaryCoral.withOpacity(0.5)
+                : DesignTokens.nonPhotoBlue.withOpacity(0.3),
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.shadowLight,
+              color: DesignTokens.shadowLight,
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -509,7 +509,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 Icon(
                   Icons.calendar_today,
                   size: 16,
-                  color: date != null ? AppColors.primary : Colors.grey[400],
+                  color: date != null ? DesignTokens.primaryCoral : Colors.grey[400],
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -518,7 +518,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                       : 'Tarih seçin',
                   style: TextStyle(
                     fontSize: 14,
-                    color: date != null ? AppColors.textPrimary : Colors.grey[500],
+                    color: date != null ? DesignTokens.gray900 : Colors.grey[500],
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -540,7 +540,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: AppColors.primary,
+              primary: DesignTokens.primaryCoral,
             ),
           ),
           child: child!,
@@ -569,7 +569,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: AppColors.primary,
+              primary: DesignTokens.primaryCoral,
             ),
           ),
           child: child!,
@@ -590,7 +590,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Lütfen zorunlu alanları doldurun'),
-            backgroundColor: AppColors.error,
+            backgroundColor: DesignTokens.error,
           ),
         );
         return;
@@ -636,7 +636,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Teklif talebiniz başarıyla gönderildi!'),
-                backgroundColor: AppColors.success,
+                backgroundColor: DesignTokens.success,
               ),
             );
             Navigator.pushReplacementNamed(context, '/messages');
@@ -644,7 +644,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(data['message'] ?? 'Teklif talebi gönderilirken bir hata oluştu'),
-                backgroundColor: AppColors.error,
+                backgroundColor: DesignTokens.error,
               ),
             );
           }
@@ -654,7 +654,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Teklif talebi gönderilirken bir hata oluştu'),
-              backgroundColor: AppColors.error,
+              backgroundColor: DesignTokens.error,
             ),
           );
         }
@@ -683,18 +683,18 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.nonPhotoBlue.withOpacity(0.3)),
+            color: DesignTokens.surfacePrimary,
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.shadowLight,
+                color: DesignTokens.shadowLight,
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -704,7 +704,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
             items: items.map((item) {
               return DropdownMenuItem<String>(

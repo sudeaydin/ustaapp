@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -60,14 +60,14 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: AppColors.headerGradient,
+                colors: DesignTokens.headerGradient,
               ),
             ),
             child: TabBar(
               controller: _tabController,
-              indicatorColor: AppColors.textWhite,
-              labelColor: AppColors.textWhite,
-              unselectedLabelColor: AppColors.textWhite.withOpacity(0.7),
+              indicatorColor: Colors.white,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white.withOpacity(0.7),
               tabs: const [
                 Tab(
                   icon: Icon(Icons.add_circle_outline),
@@ -131,14 +131,14 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
             Icon(
               Icons.support_agent_outlined,
               size: 80,
-              color: AppColors.textLight,
+              color: DesignTokens.textLight,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Henüz destek talebiniz yok',
               style: TextStyle(
                 fontSize: 18,
-                color: AppColors.textLight,
+                color: DesignTokens.textLight,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -147,7 +147,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
               'Yeni Talep sekmesinden destek talebi oluşturabilirsiniz',
               style: TextStyle(
                 fontSize: 14,
-                color: AppColors.textLight,
+                color: DesignTokens.textLight,
               ),
               textAlign: TextAlign.center,
             ),
@@ -170,24 +170,24 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
     final status = ticket['status'] ?? 'open';
     final priority = ticket['priority'] ?? 'medium';
     
-    Color statusColor = AppColors.primary;
+    Color statusColor = DesignTokens.primaryCoral;
     String statusText = 'Açık';
     
     switch (status) {
       case 'open':
-        statusColor = AppColors.primary;
+        statusColor = DesignTokens.primaryCoral;
         statusText = 'Açık';
         break;
       case 'in_progress':
-        statusColor = AppColors.warning;
+        statusColor = DesignTokens.warning;
         statusText = 'İşlemde';
         break;
       case 'resolved':
-        statusColor = AppColors.success;
+        statusColor = DesignTokens.success;
         statusText = 'Çözüldü';
         break;
       case 'closed':
-        statusColor = AppColors.textLight;
+        statusColor = DesignTokens.textLight;
         statusText = 'Kapatıldı';
         break;
     }
@@ -195,13 +195,13 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(16),
+        color: DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.1),
+          color: DesignTokens.primaryCoral.withOpacity(0.1),
           width: 1,
         ),
-        boxShadow: [AppColors.getCardShadow()],
+        boxShadow: [DesignTokens.getCardShadow()],
       ),
       child: InkWell(
         onTap: () {
@@ -211,9 +211,9 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
             arguments: ticket['id'],
           );
         },
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -224,7 +224,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       border: Border.all(color: statusColor.withOpacity(0.3)),
                     ),
                     child: Text(
@@ -240,7 +240,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                   Text(
                     '#${ticket['ticket_number']}',
                     style: TextStyle(
-                      color: AppColors.textLight,
+                      color: DesignTokens.textLight,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -256,7 +256,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
+                  color: DesignTokens.gray900,
                 ),
               ),
               
@@ -267,7 +267,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                 ticket['description'] ?? '',
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textSecondary,
+                  color: DesignTokens.gray600,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -281,21 +281,21 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                   Icon(
                     Icons.access_time,
                     size: 16,
-                    color: AppColors.textLight,
+                    color: DesignTokens.textLight,
                   ),
                   const SizedBox(width: 4),
                   Text(
                     _formatDate(ticket['created_at']),
                     style: TextStyle(
                       fontSize: 12,
-                      color: AppColors.textLight,
+                      color: DesignTokens.textLight,
                     ),
                   ),
                   const Spacer(),
                   Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: AppColors.textLight,
+                    color: DesignTokens.textLight,
                   ),
                 ],
               ),
@@ -368,26 +368,26 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColors.primary.withOpacity(0.1),
-                  AppColors.primary.withOpacity(0.05),
+                  DesignTokens.primaryCoral.withOpacity(0.1),
+                  DesignTokens.primaryCoral.withOpacity(0.05),
                 ],
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(DesignTokens.radius16),
               border: Border.all(
-                color: AppColors.primary.withOpacity(0.2),
+                color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.support_agent,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                   size: 32,
                 ),
                 const SizedBox(width: 12),
@@ -400,7 +400,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
+                          color: DesignTokens.gray900,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -408,7 +408,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                         'Sorununuzu detaylı bir şekilde açıklayın, size yardımcı olalım',
                         style: TextStyle(
                           fontSize: 14,
-                          color: AppColors.textSecondary,
+                          color: DesignTokens.gray600,
                         ),
                       ),
                     ],
@@ -418,7 +418,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             ),
           ),
           
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           
           // Category Selection
           const Text(
@@ -426,15 +426,15 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.primary.withOpacity(0.3)),
-              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
@@ -465,15 +465,15 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.primary.withOpacity(0.3)),
-              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
@@ -510,7 +510,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             },
           ),
           
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           
           // Description
           CustomTextField(
@@ -530,7 +530,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             },
           ),
           
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           
           // Submit Button
           CustomButton(
@@ -540,26 +540,26 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             size: ButtonSize.large,
             isFullWidth: true,
             isLoading: _isLoading,
-            icon: const Icon(Icons.send, color: AppColors.textWhite),
+            icon: const Icon(Icons.send, color: Colors.white),
           ),
           
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           
           // Info Card
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(12),
+              color: DesignTokens.primaryCoral.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
               border: Border.all(
-                color: AppColors.primary.withOpacity(0.2),
+                color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.info_outline,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                   size: 24,
                 ),
                 const SizedBox(width: 12),
@@ -572,7 +572,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
+                          color: DesignTokens.gray900,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -580,7 +580,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                         'Destek talebiniz oluşturulduktan sonra size email ile bildirim gönderilecektir. Yanıtlar hem email hem de uygulama içinde görüntülenecektir.',
                         style: TextStyle(
                           fontSize: 12,
-                          color: AppColors.textSecondary,
+                          color: DesignTokens.gray600,
                         ),
                       ),
                     ],
@@ -625,7 +625,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('✅ Destek talebiniz oluşturuldu! Size email ile bildirim gönderilecektir.'),
-            backgroundColor: AppColors.success,
+            backgroundColor: DesignTokens.success,
           ),
         );
       } else {
@@ -634,7 +634,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(supportState.error ?? 'Destek talebi oluşturulamadı'),
-            backgroundColor: AppColors.error,
+            backgroundColor: DesignTokens.error,
           ),
         );
       }

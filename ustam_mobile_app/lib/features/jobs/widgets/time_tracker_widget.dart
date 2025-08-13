@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class TimeTrackerWidget extends StatefulWidget {
   final Map<String, dynamic>? currentJob;
@@ -23,7 +23,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -31,7 +31,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
             children: [
               Icon(
                 Icons.timer,
-                color: AppColors.primary,
+                color: DesignTokens.primaryCoral,
                 size: 24,
               ),
               const SizedBox(width: 12),
@@ -50,12 +50,12 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(DesignTokens.space24),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
+              color: DesignTokens.primaryCoral.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radius16),
             ),
             child: Column(
               children: [
@@ -64,28 +64,28 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
+                    color: DesignTokens.primaryCoral,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   isTracking ? 'Çalışıyor...' : 'Durduruldu',
                   style: TextStyle(
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                     fontSize: 16,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           Row(
             children: [
               Expanded(
                 child: ElevatedButton(
                   onPressed: _toggleTracking,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isTracking ? AppColors.error : AppColors.success,
+                    backgroundColor: isTracking ? DesignTokens.error : DesignTokens.success,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
@@ -111,11 +111,11 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
             ],
           ),
           if (widget.currentJob != null) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'İş: ${widget.currentJob!['title'] ?? 'İsimsiz İş'}',
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
                 fontSize: 14,
               ),
             ),

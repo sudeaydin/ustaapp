@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/theme/app_colors.dart';
+import '../../core/theme/design_tokens.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -74,8 +74,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
+          gradient: DesignTokens.getGradient(
+            DesignTokens.primaryCoralGradient,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -101,7 +101,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             decoration: BoxDecoration(
                               gradient: RadialGradient(
                                 colors: [
-                                  AppColors.nonPhotoBlue.withOpacity(0.3),
+                                  DesignTokens.nonPhotoBlue.withOpacity(0.3),
                                   Colors.transparent,
                                 ],
                               ),
@@ -113,19 +113,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             width: 140,
                             height: 140,
                             decoration: BoxDecoration(
-                              gradient: AppColors.getGradient([
-                                AppColors.cardBackground,
-                                AppColors.surfaceColor,
+                              gradient: DesignTokens.getGradient([
+                                DesignTokens.surfacePrimary,
+                                DesignTokens.surfaceSecondaryColor,
                               ]),
                               borderRadius: BorderRadius.circular(35),
                               border: Border.all(
-                                color: AppColors.nonPhotoBlue.withOpacity(0.5),
+                                color: DesignTokens.nonPhotoBlue.withOpacity(0.5),
                                 width: 3,
                               ),
                               boxShadow: [
-                                AppColors.getElevatedShadow(blurRadius: 25),
+                                DesignTokens.getElevatedShadow(blurRadius: 25),
                                 BoxShadow(
-                                  color: AppColors.uclaBlue.withOpacity(0.2),
+                                  color: DesignTokens.uclaBlue.withOpacity(0.2),
                                   blurRadius: 15,
                                   offset: const Offset(0, 5),
                                 ),
@@ -139,11 +139,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    gradient: AppColors.getGradient(AppColors.primaryGradient),
+                                    gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: AppColors.uclaBlue.withOpacity(0.4),
+                                        color: DesignTokens.uclaBlue.withOpacity(0.4),
                                         blurRadius: 10,
                                         offset: const Offset(0, 3),
                                       ),
@@ -160,7 +160,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                         return const Icon(
                                           Icons.engineering_rounded,
                                           size: 40,
-                                          color: AppColors.textWhite,
+                                          color: Colors.white,
                                         );
                                       },
                                     ),
@@ -198,7 +198,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   foreground: Paint()
                                     ..style = PaintingStyle.stroke
                                     ..strokeWidth = 3
-                                    ..color = AppColors.textWhite.withOpacity(0.3),
+                                    ..color = Colors.white.withOpacity(0.3),
                                   letterSpacing: 2,
                                 ),
                               ),
@@ -208,7 +208,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                   letterSpacing: 2,
                                   shadows: [
                                     Shadow(
@@ -221,15 +221,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: DesignTokens.space16),
                           // Subtitle with professional styling
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                             decoration: BoxDecoration(
-                              color: AppColors.textWhite.withOpacity(0.15),
+                              color: Colors.white.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: AppColors.textWhite.withOpacity(0.3),
+                                color: Colors.white.withOpacity(0.3),
                                 width: 1,
                               ),
                             ),
@@ -237,7 +237,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               'Profesyonel Usta Bulucu',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 0.5,
                               ),
@@ -257,16 +257,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   height: 50,
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.textWhite.withOpacity(0.15),
+                    color: Colors.white.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(25),
                     border: Border.all(
-                      color: AppColors.textWhite.withOpacity(0.3),
+                      color: Colors.white.withOpacity(0.3),
                       width: 2,
                     ),
                   ),
                   child: const CircularProgressIndicator(
                     strokeWidth: 3,
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
               ],

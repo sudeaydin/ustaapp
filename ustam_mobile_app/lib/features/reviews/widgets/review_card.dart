@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../models/review_model.dart';
 import 'star_rating.dart';
 
@@ -21,13 +21,13 @@ class ReviewCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,7 +37,7 @@ class ReviewCard extends StatelessWidget {
                   if (showCustomerInfo && review.customer != null) ...[
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                       backgroundImage: review.customer!.user.profileImage != null
                           ? NetworkImage(review.customer!.user.profileImage!)
                           : null,
@@ -46,7 +46,7 @@ class ReviewCard extends StatelessWidget {
                               review.customer!.user.firstName[0].toUpperCase(),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
+                                color: DesignTokens.primaryCoral,
                               ),
                             )
                           : null,
@@ -128,21 +128,21 @@ class ReviewCard extends StatelessWidget {
                         title: 'İletişim',
                         rating: review.communicationRating!.toDouble(),
                         icon: Icons.chat_bubble_outline,
-                        color: AppColors.primary,
+                        color: DesignTokens.primaryCoral,
                       ),
                     if (review.qualityRating != null)
                       CategoryRatingDisplay(
                         title: 'Kalite',
                         rating: review.qualityRating!.toDouble(),
                         icon: Icons.star_outline,
-                        color: AppColors.uclaBlue,
+                        color: DesignTokens.uclaBlue,
                       ),
                     if (review.punctualityRating != null)
                       CategoryRatingDisplay(
                         title: 'Hız',
                         rating: review.punctualityRating!.toDouble(),
                         icon: Icons.speed,
-                        color: AppColors.mintGreen,
+                        color: DesignTokens.mintGreen,
                       ),
                   ],
                 ),
@@ -154,14 +154,14 @@ class ReviewCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     review.service!.title,
                     style: const TextStyle(
                       fontSize: 12,
-                      color: AppColors.primary,
+                      color: DesignTokens.primaryCoral,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -193,12 +193,12 @@ class ReviewCard extends StatelessWidget {
 
               // Craftsman response if exists
               if (review.craftsmanResponse != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius8),
                     border: Border.all(color: Colors.grey[300]!),
                   ),
                   child: Column(

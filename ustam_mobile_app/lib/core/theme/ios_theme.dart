@@ -285,7 +285,7 @@ class iOSTheme {
           borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         behavior: SnackBarBehavior.floating,
-        margin: DesignTokens.getEdgeInsets(all: DesignTokens.space16),
+        margin: EdgeInsets.all(DesignTokens.space16),
       ),
       
       // Switch Theme - iOS Style

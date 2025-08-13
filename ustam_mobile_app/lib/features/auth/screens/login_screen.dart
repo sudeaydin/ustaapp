@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
 import '../../../core/widgets/airbnb_card.dart';
@@ -55,24 +53,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return Scaffold(
-        backgroundColor: AppColors.backgroundLight,
+        backgroundColor: DesignTokens.surfacePrimary,
         body: Container(
           decoration: BoxDecoration(
-            gradient: AppColors.getGradient(AppColors.primaryGradient),
+            gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
           ),
           child: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: DesignTokens.space24),
                 Text(
                   'Giriş yapılıyor...',
                   style: TextStyle(
-                    color: AppColors.textWhite,
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -87,7 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final locale = ref.watch(languageProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -97,8 +95,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(
-            AppColors.primaryGradient,
+          gradient: DesignTokens.getGradient(
+            DesignTokens.primaryCoralGradient,
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -118,10 +116,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: AppColors.textWhite.withOpacity(0.15),
+                      color: Colors.white.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppColors.textWhite.withOpacity(0.3),
+                        color: Colors.white.withOpacity(0.3),
                         width: 1,
                       ),
                     ),
@@ -132,11 +130,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: AppColors.textWhite.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                               child: IconButton(
-                                icon: Icon(Icons.arrow_back_rounded, color: AppColors.textWhite),
+                                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
                                 onPressed: () => Navigator.pop(context),
                               ),
                             ),
@@ -146,7 +144,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -158,8 +156,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: AppColors.textWhite.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(DesignTokens.radius16),
                           ),
                           child: Text(
                             widget.userType == 'craftsman' 
@@ -167,7 +165,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               : 'Müşteri hesabınızla giriş yapın',
                             style: const TextStyle(
                               fontSize: 14,
-                              color: AppColors.textWhite,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -210,7 +208,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     size: AirbnbButtonSize.large,
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Or Divider
                   Row(
@@ -218,15 +216,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: AppColors.textWhite.withOpacity(0.3),
+                          color: Colors.white.withOpacity(0.3),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                         child: Text(
                           'veya',
                           style: TextStyle(
-                            color: AppColors.textWhite.withOpacity(0.7),
+                            color: Colors.white.withOpacity(0.7),
                             fontSize: 14,
                           ),
                         ),
@@ -234,24 +232,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: AppColors.textWhite.withOpacity(0.3),
+                          color: Colors.white.withOpacity(0.3),
                         ),
                       ),
                     ],
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Google Sign-In Button
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [AppColors.getElevatedShadow()],
+                      borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                      boxShadow: [DesignTokens.getElevatedShadow()],
                     ),
                     child: _buildGoogleSignInButton(),
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Register Link
                   Center(
@@ -260,7 +258,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Text(
                           'dont_have_account'.tr(locale),
                           style: const TextStyle(
-                            color: AppColors.textWhite,
+                            color: Colors.white,
                             fontSize: 14,
                           ),
                         ),
@@ -268,10 +266,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: AppColors.textWhite.withOpacity(0.15),
+                            color: Colors.white.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: AppColors.textWhite.withOpacity(0.3),
+                              color: Colors.white.withOpacity(0.3),
                               width: 1,
                             ),
                           ),
@@ -286,7 +284,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Text(
                               'register'.tr(locale),
                               style: const TextStyle(
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -301,12 +299,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   
                   // Test Credentials
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
-                      color: AppColors.textWhite.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       border: Border.all(
-                        color: AppColors.textWhite.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.2),
                         width: 1,
                       ),
                     ),
@@ -315,7 +313,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const Text(
                           '🧪 Test Hesapları',
                           style: TextStyle(
-                            color: AppColors.textWhite,
+                            color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -326,7 +324,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ? 'E-posta: ahmet@test.com\nŞifre: 123456'
                               : 'E-posta: customer@test.com\nŞifre: 123456',
                           style: const TextStyle(
-                            color: AppColors.textWhite,
+                            color: Colors.white,
                             fontSize: 12,
                           ),
                           textAlign: TextAlign.center,
@@ -345,7 +343,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildLoginButton(Locale locale) {
     return InkWell(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(DesignTokens.radius16),
       onTap: _isLoading ? null : () {
         print('🔥 Login button tapped!'); // Debug print
         _handleLogin();
@@ -354,20 +352,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         height: 56,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(AppColors.primaryGradient),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [AppColors.getElevatedShadow()],
+          gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+          boxShadow: [DesignTokens.getElevatedShadow()],
         ),
         child: Center(
           child: _isLoading 
               ? const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.textWhite),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 2,
                 )
               : Text(
                   'login'.tr(locale),
                   style: const TextStyle(
-                    color: AppColors.textWhite,
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -383,7 +381,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: Colors.grey[300]!, width: 1),
         boxShadow: [
           BoxShadow(
@@ -396,13 +394,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: _isLoading ? null : () {
             print('🔥 Google button tapped!'); // Debug print
             _handleGoogleSignIn();
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -411,7 +409,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   width: 24,
                   height: 24,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                     gradient: const LinearGradient(
                       colors: [
                         Color(0xFF4285F4), // Google Blue
@@ -535,7 +533,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Giriş başarısız'),
-              backgroundColor: AppColors.error,
+              backgroundColor: DesignTokens.error,
             ),
           );
         }
@@ -552,7 +550,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Giriş başarısız: $e'),
-              backgroundColor: AppColors.error,
+              backgroundColor: DesignTokens.error,
             ),
           );
         }

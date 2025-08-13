@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import '../theme/app_spacing.dart';
 
 class AirbnbBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -18,7 +17,7 @@ class AirbnbBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: DesignTokens.background,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
@@ -31,8 +30,8 @@ class AirbnbBottomNavigation extends StatelessWidget {
         child: Container(
           height: 80, // Airbnb navigation height
           padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.sm,
+            horizontal: DesignTokens.space16,
+            vertical: DesignTokens.space8,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,20 +66,20 @@ class AirbnbBottomNavigation extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: isSelected 
-                  ? AppColors.primary.withOpacity(0.1)
+                  ? DesignTokens.primaryCoral.withOpacity(0.1)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Icon(
               isSelected ? item.activeIcon : item.icon,
               size: 24,
               color: isSelected 
-                  ? AppColors.primary 
-                  : AppColors.textSecondary,
+                  ? DesignTokens.primaryCoral 
+                  : DesignTokens.gray600,
             ),
           ),
           
-          AppSpacing.verticalSpaceXS,
+          DesignTokens.verticalSpaceXS,
           
           // Label
           Text(
@@ -89,8 +88,8 @@ class AirbnbBottomNavigation extends StatelessWidget {
               fontSize: 10,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
               color: isSelected 
-                  ? AppColors.primary 
-                  : AppColors.textSecondary,
+                  ? DesignTokens.primaryCoral 
+                  : DesignTokens.gray600,
             ),
             textAlign: TextAlign.center,
             maxLines: 1,

@@ -5,9 +5,7 @@ import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../providers/calendar_provider.dart' as calendar_provider;
 import '../models/appointment_model.dart';
 import '../widgets/appointment_card.dart';
@@ -87,7 +85,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showCreateAppointmentSheet(context),
-        backgroundColor: AppColors.primary,
+        backgroundColor: DesignTokens.primaryCoral,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );
@@ -95,7 +93,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   Widget _buildCalendar(calendar_provider.CalendarState calendarState) {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -113,7 +111,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: AppColors.getGradient(AppColors.primaryGradient),
+              gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -238,14 +236,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     Color textColor;
     
     if (isSelected) {
-      backgroundColor = AppColors.primary;
+      backgroundColor = DesignTokens.primaryCoral;
       textColor = Colors.white;
     } else if (hasEvents) {
       backgroundColor = Colors.grey[300]!;
       textColor = Colors.grey[700]!;
     } else {
-      backgroundColor = AppColors.primary.withOpacity(0.1);
-      textColor = AppColors.primary;
+      backgroundColor = DesignTokens.primaryCoral.withOpacity(0.1);
+      textColor = DesignTokens.primaryCoral;
     }
     
     return GestureDetector(
@@ -257,13 +255,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           border: isToday 
-            ? Border.all(color: AppColors.primary, width: 2)
+            ? Border.all(color: DesignTokens.primaryCoral, width: 2)
             : null,
           boxShadow: isSelected ? [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.3),
+              color: DesignTokens.primaryCoral.withOpacity(0.3),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -289,7 +287,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   width: 6,
                   height: 6,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: DesignTokens.primaryCoral,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -355,11 +353,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       children: [
         // Modern Section Header
         Container(
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.all(DesignTokens.space16),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            gradient: AppColors.getGradient(AppColors.primaryGradient),
-            borderRadius: BorderRadius.circular(16),
+            gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+            borderRadius: BorderRadius.circular(DesignTokens.radius16),
           ),
           child: Row(
             children: [
@@ -367,7 +365,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: const Icon(
                   Icons.calendar_today_outlined,
@@ -411,20 +409,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         Expanded(
           child: selectedDayEvents.isEmpty
               ? Container(
-                  margin: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(DesignTokens.space16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(24),
+                        padding: const EdgeInsets.all(DesignTokens.space24),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: DesignTokens.primaryCoral.withOpacity(0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.event_available_outlined,
                           size: 64,
-                          color: AppColors.primary.withOpacity(0.6),
+                          color: DesignTokens.primaryCoral.withOpacity(0.6),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -449,7 +447,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   ),
                 )
               : ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                   itemCount: selectedDayEvents.length,
                   itemBuilder: (context, index) {
                     final event = selectedDayEvents[index];
@@ -473,7 +471,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -483,7 +481,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         ],
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         onTap: () {
           print('🎯 Event card tapped! Event: ${event.title}');
           print('🎯 Event ID: ${event.id}');
@@ -521,7 +519,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Icon(
                       isJob ? Icons.work_outline : Icons.event_outlined,
@@ -539,7 +537,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                            color: DesignTokens.gray900,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -580,18 +578,18 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               ),
               
               if (event.description != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Text(
                     event.description!,
                     style: const TextStyle(
                       fontSize: 14,
-                      color: AppColors.textSecondary,
+                      color: DesignTokens.gray600,
                       height: 1.4,
                     ),
                     maxLines: 2,
@@ -600,7 +598,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
               ],
               
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               
               // Time and Status Row
               Row(
@@ -608,7 +606,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: DesignTokens.primaryCoral.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
@@ -617,14 +615,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         Icon(
                           Icons.access_time_outlined,
                           size: 16,
-                          color: AppColors.primary,
+                          color: DesignTokens.primaryCoral,
                         ),
                         const SizedBox(width: 6),
                         Text(
                           '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}',
                           style: const TextStyle(
                             fontSize: 12,
-                            color: AppColors.primary,
+                            color: DesignTokens.primaryCoral,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -680,7 +678,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             size: 64,
             color: Colors.grey[400],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           Text(
             _selectedDay != null && _selectedDay!.isAtSameMomentAs(DateTime.now())
                 ? 'Bugün randevunuz yok'
@@ -700,7 +698,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           CustomButton(
             text: 'Randevu Oluştur',
             icon: const Icon(Icons.add, size: 18),
@@ -784,11 +782,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         case 'pending':
           return Colors.orange;
         case 'accepted':
-          return AppColors.primary;
+          return DesignTokens.primaryCoral;
         case 'in_progress':
           return Colors.blue;
         case 'completed':
-          return AppColors.success;
+          return DesignTokens.success;
         case 'cancelled':
           return Colors.red;
         default:
@@ -799,11 +797,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         case 'pending':
           return Colors.orange;
         case 'confirmed':
-          return AppColors.success;
+          return DesignTokens.success;
         case 'cancelled':
           return Colors.red;
         case 'completed':
-          return AppColors.primary;
+          return DesignTokens.primaryCoral;
         default:
           return Colors.grey;
       }
@@ -913,11 +911,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             
             // Header with gradient
             Container(
-              margin: const EdgeInsets.all(16),
+              margin: const EdgeInsets.all(DesignTokens.space16),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: AppColors.getGradient(AppColors.primaryGradient),
-                borderRadius: BorderRadius.circular(16),
+                gradient: DesignTokens.getGradient(DesignTokens.primaryCoralGradient),
+                borderRadius: BorderRadius.circular(DesignTokens.radius16),
               ),
               child: Row(
                 children: [
@@ -925,7 +923,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Icon(
                       event.isJob ? Icons.work_outline : Icons.event_outlined,
@@ -933,7 +931,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       size: 24,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: DesignTokens.space16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -968,7 +966,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             // Content
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -977,7 +975,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       icon: Icons.access_time_outlined,
                       title: 'Zaman',
                       content: '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}',
-                      color: AppColors.primary,
+                      color: DesignTokens.primaryCoral,
                     ),
                     
                     // Status Info
@@ -994,7 +992,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         icon: Icons.location_on_outlined,
                         title: 'Konum',
                         content: event.location!,
-                        color: AppColors.primary,
+                        color: DesignTokens.primaryCoral,
                       ),
                     ],
                     
@@ -1032,11 +1030,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                             icon: const Icon(Icons.edit_outlined),
                             label: const Text('Düzenle'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
+                              backgroundColor: DesignTokens.primaryCoral,
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
@@ -1055,7 +1053,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               side: const BorderSide(color: Colors.red),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
@@ -1097,10 +1095,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(
@@ -1110,7 +1108,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
             child: Icon(icon, color: color, size: 20),
           ),
@@ -1132,7 +1130,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   content,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
               ],

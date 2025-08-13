@@ -139,7 +139,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     if (_performanceMetrics.isEmpty) return const SizedBox.shrink();
 
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -150,7 +150,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           Row(
             children: [
               Expanded(
@@ -241,7 +241,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
               size: 64,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'İş bulunamadı',
               style: TextStyle(
@@ -255,7 +255,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       itemCount: _jobs.length,
       itemBuilder: (context, index) {
         final job = _jobs[index];
@@ -283,7 +283,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
               size: 64,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Aktif garanti bulunamadı',
               style: TextStyle(
@@ -297,7 +297,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       itemCount: _warranties.length,
       itemBuilder: (context, index) {
         final warranty = _warranties[index];
@@ -327,7 +327,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
               size: 64,
               color: Colors.grey[400],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Yakında acil servis talebi yok',
               style: TextStyle(
@@ -341,7 +341,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       itemCount: _emergencies.length,
       itemBuilder: (context, index) {
         final emergency = _emergencies[index];
@@ -452,10 +452,10 @@ class _MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -473,7 +473,7 @@ class _MetricCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,

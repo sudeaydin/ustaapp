@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/common_app_bar.dart';
@@ -24,7 +22,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: const CommonAppBar(
         title: 'Ana Sayfa',
         showNotifications: true,
@@ -42,12 +40,12 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               // Welcome Section
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
-                  gradient: AppColors.getGradient(AppColors.accentGradient),
+                  gradient: DesignTokens.getGradient(DesignTokens.accentGradient),
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [AppColors.getElevatedShadow()],
+                  boxShadow: [DesignTokens.getElevatedShadow()],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,16 +56,16 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: AppColors.textWhite.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(DesignTokens.radius16),
                           ),
                           child: const Icon(
                             Icons.waving_hand_rounded,
-                            color: AppColors.textWhite,
+                            color: Colors.white,
                             size: 28,
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: DesignTokens.space16),
                         const Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +75,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                 ),
                               ),
                               SizedBox(height: 4),
@@ -85,7 +83,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                                 'İhtiyacınız olan ustayı bulun',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
@@ -100,11 +98,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               // Quick Actions
               Container(
                 key: const Key('quick_actions'),
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 decoration: BoxDecoration(
-                  color: AppColors.cardBackground,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [AppColors.getCardShadow()],
+                  color: DesignTokens.surfacePrimary,
+                  borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                  boxShadow: [DesignTokens.getCardShadow()],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,10 +112,10 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
+                        color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     Row(
                       children: [
                         Expanded(
@@ -127,7 +125,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               'Usta Ara',
                               'Kategorilere göre usta bulun',
                               Icons.search_rounded,
-                              AppColors.primary,
+                              DesignTokens.primaryCoral,
                               () {
                                 print('🔍 Usta Ara butonuna tıklandı');
                                 Navigator.pushNamed(context, '/search');
@@ -143,7 +141,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               'Mesajlar',
                               'Ustalarla iletişim kurun',
                               Icons.chat_bubble_rounded,
-                              AppColors.primary,
+                              DesignTokens.primaryCoral,
                               () {
                                 print('💬 Mesajlar butonuna tıklandı');
                                 Navigator.push(
@@ -196,7 +194,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             'Destek',
                             'Yardım ve destek alın',
                             Icons.support_agent,
-                            AppColors.warning,
+                            DesignTokens.warning,
                             () {
                               print('🆘 Destek butonuna tıklandı');
                               Navigator.pushNamed(
@@ -230,11 +228,11 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
 
               // Recent Activities
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 decoration: BoxDecoration(
-                  color: AppColors.cardBackground,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [AppColors.getCardShadow()],
+                  color: DesignTokens.surfacePrimary,
+                  borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                  boxShadow: [DesignTokens.getCardShadow()],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,15 +242,15 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
+                        color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     _buildActivityCard(
                       title: 'Elektrik Tesisatı',
                       subtitle: 'Ahmet Usta ile mesajlaşma',
                       status: 'Teklif Bekleniyor',
-                      statusColor: AppColors.warning,
+                      statusColor: DesignTokens.warning,
                       icon: Icons.electrical_services,
                     ),
                     const SizedBox(height: 12),
@@ -260,7 +258,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       title: 'Boyama İşi',
                       subtitle: 'Mehmet Usta - Teklif Verildi',
                       status: 'İnceleme',
-                      statusColor: AppColors.info,
+                      statusColor: DesignTokens.info,
                       icon: Icons.format_paint,
                     ),
                   ],
@@ -315,7 +313,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             subtitle,
             style: const TextStyle(
               fontSize: 12,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
             textAlign: TextAlign.center,
           ),
@@ -332,7 +330,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     required IconData icon,
   }) {
     return AirbnbCard(
-      backgroundColor: AppColors.surfaceColor,
+      backgroundColor: DesignTokens.surfaceSecondaryColor,
       child: Row(
         children: [
           Container(
@@ -340,7 +338,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             height: 48,
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Icon(
               icon,
@@ -348,7 +346,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               size: 24,
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: DesignTokens.space16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,7 +356,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -366,7 +364,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   subtitle,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                   ),
                 ),
               ],
@@ -376,7 +374,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Text(
               status,

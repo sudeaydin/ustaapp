@@ -26,7 +26,7 @@ class LoadingSpinner extends StatelessWidget {
           child: CircularProgressIndicator(
             strokeWidth: strokeWidth,
             valueColor: AlwaysStoppedAnimation<Color>(
-              color ?? AppColors.primary,
+              color ?? DesignTokens.primaryCoral,
             ),
           ),
         ),
@@ -35,7 +35,7 @@ class LoadingSpinner extends StatelessWidget {
           Text(
             message!,
             style: TextStyle(
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
               fontSize: 14,
             ),
           ),

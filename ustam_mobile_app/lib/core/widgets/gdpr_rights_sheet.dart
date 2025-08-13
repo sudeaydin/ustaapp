@@ -7,7 +7,7 @@ class GDPRRightsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -28,7 +28,7 @@ class GDPRRightsSheet extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           _buildRightTile(
             Icons.visibility,
             'Veri Görme Hakkı',
@@ -59,7 +59,7 @@ class GDPRRightsSheet extends StatelessWidget {
             'Belirli veri işleme faaliyetlerini durdurun',
             () => _exerciseRight('processing_restriction'),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
         ],
       ),
     );
@@ -74,7 +74,7 @@ class GDPRRightsSheet extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        leading: Icon(icon, color: AppColors.primary),
+        leading: Icon(icon, color: DesignTokens.primaryCoral),
         title: Text(
           title,
           style: const TextStyle(
@@ -85,7 +85,7 @@ class GDPRRightsSheet extends StatelessWidget {
         subtitle: Text(
           description,
           style: TextStyle(
-            color: AppColors.textSecondary,
+            color: DesignTokens.gray600,
             fontSize: 14,
           ),
         ),

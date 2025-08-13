@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/services/analytics_service.dart';
 import '../../../core/services/api_service.dart';
 import '../../../features/auth/providers/auth_provider.dart';
@@ -179,16 +179,16 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: DesignTokens.background,
       appBar: AppBar(
         title: Text(
           'Analitikler',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: AppColors.surface,
+        backgroundColor: DesignTokens.surfaceSecondary,
         elevation: 0,
         actions: [
           PopupMenuButton<String>(
@@ -209,8 +209,8 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               margin: const EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(8),
+                color: DesignTokens.primaryCoral,
+                borderRadius: BorderRadius.circular(DesignTokens.radius8),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -235,7 +235,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(),
-                  SizedBox(height: 16),
+                  SizedBox(height: DesignTokens.space16),
                   Text('Analitik veriler yükleniyor...'),
                 ],
               ),
@@ -248,15 +248,15 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                       Icon(
                         Icons.error_outline,
                         size: 64,
-                        color: AppColors.error,
+                        color: DesignTokens.error,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       Text(
                         _error!,
-                        style: TextStyle(color: AppColors.error),
+                        style: TextStyle(color: DesignTokens.error),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       ElevatedButton(
                         onPressed: _fetchAnalyticsData,
                         child: const Text('Tekrar Dene'),
@@ -268,7 +268,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                   onRefresh: _fetchAnalyticsData,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(DesignTokens.space16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -278,10 +278,10 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                            color: DesignTokens.gray900,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: DesignTokens.space16),
                         _buildOverviewCards(),
                         
                         const SizedBox(height: 32),
@@ -292,10 +292,10 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                            color: DesignTokens.gray900,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: DesignTokens.space16),
                         _buildCharts(),
                         
                         const SizedBox(height: 32),
@@ -306,10 +306,10 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                            color: DesignTokens.gray900,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: DesignTokens.space16),
                         ActivityList(
                           activities: _analyticsData?['recent_activity'] ?? [],
                         ),
@@ -345,7 +345,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['jobs']?['change'] ?? '+0%',
             changeType: trends['jobs']?['change_type'] ?? 'neutral',
             icon: Icons.work,
-            color: AppColors.primary,
+            color: DesignTokens.primaryCoral,
           ),
           AnalyticsCard(
             title: 'Toplam Kazanç',
@@ -353,7 +353,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['earnings']?['change'] ?? '+0%',
             changeType: trends['earnings']?['change_type'] ?? 'neutral',
             icon: Icons.monetization_on,
-            color: AppColors.success,
+            color: DesignTokens.success,
           ),
           AnalyticsCard(
             title: 'Ortalama Puan',
@@ -361,7 +361,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['rating']?['change'] ?? '+0',
             changeType: trends['rating']?['change_type'] ?? 'neutral',
             icon: Icons.star,
-            color: AppColors.warning,
+            color: DesignTokens.warning,
           ),
           AnalyticsCard(
             title: 'Yanıt Süresi',
@@ -369,7 +369,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['response_time']?['change'] ?? '+0%',
             changeType: trends['response_time']?['change_type'] ?? 'neutral',
             icon: Icons.access_time,
-            color: AppColors.info,
+            color: DesignTokens.info,
           ),
         ],
       );
@@ -388,7 +388,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['jobs']?['change'] ?? '+0%',
             changeType: trends['jobs']?['change_type'] ?? 'neutral',
             icon: Icons.assignment,
-            color: AppColors.primary,
+            color: DesignTokens.primaryCoral,
           ),
           AnalyticsCard(
             title: 'Toplam Harcama',
@@ -396,7 +396,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['spent']?['change'] ?? '+0%',
             changeType: trends['spent']?['change_type'] ?? 'neutral',
             icon: Icons.payment,
-            color: AppColors.error,
+            color: DesignTokens.error,
           ),
           AnalyticsCard(
             title: 'Aktif İşler',
@@ -404,7 +404,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['active_jobs']?['change'] ?? '+0',
             changeType: trends['active_jobs']?['change_type'] ?? 'neutral',
             icon: Icons.pending_actions,
-            color: AppColors.warning,
+            color: DesignTokens.warning,
           ),
           AnalyticsCard(
             title: 'Tasarruf',
@@ -412,7 +412,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             change: trends['saved_money']?['change'] ?? '+0%',
             changeType: trends['saved_money']?['change_type'] ?? 'neutral',
             icon: Icons.savings,
-            color: AppColors.success,
+            color: DesignTokens.success,
           ),
         ],
       );
@@ -432,9 +432,9 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             data: List<Map<String, dynamic>>.from(
               charts['jobs_over_time'] ?? [],
             ),
-            color: AppColors.primary,
+            color: DesignTokens.primaryCoral,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -449,9 +449,9 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             data: List<Map<String, dynamic>>.from(
               charts['spending_over_time'] ?? [],
             ),
-            color: AppColors.error,
+            color: DesignTokens.error,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -468,71 +468,71 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
     final user = ref.watch(authProvider);
     
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        color: DesignTokens.surfaceSecondary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.lightbulb, color: AppColors.warning),
+              Icon(Icons.lightbulb, color: DesignTokens.warning),
               const SizedBox(width: 8),
               Text(
                 'Performans Önerileri',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
+                  color: DesignTokens.gray900,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           if (user?.userType == 'craftsman') ...[
             _buildInsightCard(
               'Yanıt Hızı',
               'Daha hızlı yanıt vererek daha fazla iş alabilirsiniz.',
               Icons.flash_on,
-              AppColors.info,
+              DesignTokens.info,
             ),
             const SizedBox(height: 12),
             _buildInsightCard(
               'Portfolyo',
               'Daha fazla iş fotoğrafı ekleyerek güven oluşturun.',
               Icons.photo_library,
-              AppColors.success,
+              DesignTokens.success,
             ),
             const SizedBox(height: 12),
             _buildInsightCard(
               'Değerlendirmeler',
               'Müşterilerinizden değerlendirme istemeyi unutmayın.',
               Icons.star_rate,
-              AppColors.warning,
+              DesignTokens.warning,
             ),
           ] else ...[
             _buildInsightCard(
               'Bütçe Takibi',
               'Aylık harcama limitinizi belirleyerek tasarruf edin.',
               Icons.account_balance_wallet,
-              AppColors.primary,
+              DesignTokens.primaryCoral,
             ),
             const SizedBox(height: 12),
             _buildInsightCard(
               'Karşılaştırma',
               'Birden fazla teklif alarak en uygun fiyatı bulun.',
               Icons.compare,
-              AppColors.info,
+              DesignTokens.info,
             ),
             const SizedBox(height: 12),
             _buildInsightCard(
               'Planlama',
               'İşlerinizi önceden planlayarak daha iyi fiyatlar alın.',
               Icons.schedule,
-              AppColors.success,
+              DesignTokens.success,
             ),
           ],
         ],
@@ -545,7 +545,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(
@@ -568,7 +568,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                 Text(
                   description,
                   style: TextStyle(
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                     fontSize: 12,
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../models/review_model.dart';
 import 'star_rating.dart';
 
@@ -19,12 +19,12 @@ class ReviewStatisticsWidget extends StatelessWidget {
         // Overall rating summary
         _buildOverallRating(),
         
-        const SizedBox(height: 24),
+        const SizedBox(height: DesignTokens.space24),
         
         // Rating distribution
         _buildRatingDistribution(),
         
-        const SizedBox(height: 24),
+        const SizedBox(height: DesignTokens.space24),
         
         // Quick stats
         _buildQuickStats(),
@@ -38,15 +38,15 @@ class ReviewStatisticsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.primary.withOpacity(0.1),
-            AppColors.primary.withOpacity(0.1),
+            DesignTokens.primaryCoral.withOpacity(0.1),
+            DesignTokens.primaryCoral.withOpacity(0.1),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.2),
+          color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
       ),
       child: Row(
@@ -59,7 +59,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                 ),
               ),
               StarRating(
@@ -98,7 +98,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.primary,
+                    color: DesignTokens.primaryCoral,
                   ),
                 ),
               ],
@@ -120,7 +120,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         ...List.generate(5, (index) {
           final starCount = 5 - index;
@@ -176,7 +176,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 widthFactor: percentage / 100,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: DesignTokens.primaryCoral,
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -223,7 +223,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         Row(
           children: [
@@ -232,7 +232,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 'Toplam\nDeğerlendirme',
                 statistics.totalReviews.toString(),
                 Icons.rate_review,
-                AppColors.primary,
+                DesignTokens.primaryCoral,
               ),
             ),
             const SizedBox(width: 12),
@@ -276,10 +276,10 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: color.withOpacity(0.2),
         ),

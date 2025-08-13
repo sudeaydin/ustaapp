@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 enum ChartType { bar, line, pie }
 
@@ -21,11 +21,11 @@ class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        color: DesignTokens.surfaceSecondary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,10 +35,10 @@ class ChartWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           SizedBox(
             height: 200,
             child: _buildChart(),
@@ -80,14 +80,14 @@ class ChartWidget extends StatelessWidget {
                   value.toStringAsFixed(0),
                   style: TextStyle(
                     fontSize: 10,
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Container(
                   height: height,
                   decoration: BoxDecoration(
-                    color: color ?? AppColors.primary,
+                    color: color ?? DesignTokens.primaryCoral,
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                   ),
                 ),
@@ -96,7 +96,7 @@ class ChartWidget extends StatelessWidget {
                   item['label'] as String,
                   style: TextStyle(
                     fontSize: 10,
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                   ),
                 ),
               ],
@@ -114,7 +114,7 @@ class ChartWidget extends StatelessWidget {
       size: const Size(double.infinity, 160),
       painter: LineChartPainter(
         data: data,
-        color: color ?? AppColors.primary,
+        color: color ?? DesignTokens.primaryCoral,
       ),
     );
   }
@@ -165,7 +165,7 @@ class ChartWidget extends StatelessWidget {
                         '${item['label']} ($percentage%)',
                         style: TextStyle(
                           fontSize: 12,
-                          color: AppColors.textSecondary,
+                          color: DesignTokens.gray600,
                         ),
                       ),
                     ),
@@ -181,12 +181,12 @@ class ChartWidget extends StatelessWidget {
 
   Color _getPieColor(int index) {
     final colors = [
-      AppColors.primary,
-      AppColors.primary,
-      AppColors.success,
-      AppColors.warning,
-      AppColors.error,
-      AppColors.info,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
+      DesignTokens.success,
+      DesignTokens.warning,
+      DesignTokens.error,
+      DesignTokens.info,
     ];
     return colors[index % colors.length];
   }
@@ -282,12 +282,12 @@ class PieChartPainter extends CustomPainter {
 
   Color _getPieColor(int index) {
     final colors = [
-      AppColors.primary,
-      AppColors.primary,
-      AppColors.success,
-      AppColors.warning,
-      AppColors.error,
-      AppColors.info,
+      DesignTokens.primaryCoral,
+      DesignTokens.primaryCoral,
+      DesignTokens.success,
+      DesignTokens.warning,
+      DesignTokens.error,
+      DesignTokens.info,
     ];
     return colors[index % colors.length];
   }

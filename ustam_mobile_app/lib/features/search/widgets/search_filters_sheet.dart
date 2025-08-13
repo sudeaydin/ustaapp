@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../models/search_filters.dart';
 import '../providers/search_provider.dart';
 
@@ -99,29 +99,29 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                   // Category filter
                   _buildCategoryFilter(),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Location filters
                   _buildLocationFilters(),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Price range
                   if (widget.filterOptions != null)
                     _buildPriceRangeFilter(),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Rating range
                   if (widget.filterOptions != null)
                     _buildRatingRangeFilter(),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Verification and portfolio filters
                   _buildBooleanFilters(),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: DesignTokens.space24),
                   
                   // Sorting options
                   if (widget.filterOptions != null)
@@ -173,8 +173,8 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                           );
                         });
                       },
-                      selectedColor: AppColors.primary.withOpacity(0.2),
-                      checkmarkColor: AppColors.primary,
+                      selectedColor: DesignTokens.primaryCoral.withOpacity(0.2),
+                      checkmarkColor: DesignTokens.primaryCoral,
                     );
                   }).toList(),
                 );
@@ -292,7 +292,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           min: priceRange.min,
           max: priceRange.max,
           divisions: 20,
-          activeColor: AppColors.primary,
+          activeColor: DesignTokens.primaryCoral,
           onChanged: (values) {
             setState(() {
               _priceRange = values;
@@ -331,7 +331,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           min: 0,
           max: 5,
           divisions: 10,
-          activeColor: AppColors.primary,
+          activeColor: DesignTokens.primaryCoral,
           onChanged: (values) {
             setState(() {
               _ratingRange = values;
@@ -391,7 +391,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
               _currentFilters = _currentFilters.copyWith(isVerified: value);
             });
           },
-          activeColor: AppColors.primary,
+          activeColor: DesignTokens.primaryCoral,
           controlAffinity: ListTileControlAffinity.leading,
         ),
         
@@ -410,7 +410,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
               _currentFilters = _currentFilters.copyWith(hasPortfolio: value);
             });
           },
-          activeColor: AppColors.primary,
+          activeColor: DesignTokens.primaryCoral,
           controlAffinity: ListTileControlAffinity.leading,
         ),
       ],

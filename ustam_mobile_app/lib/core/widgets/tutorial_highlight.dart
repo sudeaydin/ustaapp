@@ -84,23 +84,23 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
           scale: _pulseAnimation.value,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
               boxShadow: [
                 // Main glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.4 * _glowAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.4 * _glowAnimation.value),
                   blurRadius: 20,
                   spreadRadius: 4,
                 ),
                 // Inner glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.6 * _glowAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.6 * _glowAnimation.value),
                   blurRadius: 12,
                   spreadRadius: 2,
                 ),
                 // Outer glow
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.2 * _glowAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.2 * _glowAnimation.value),
                   blurRadius: 30,
                   spreadRadius: 8,
                 ),
@@ -108,9 +108,9 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
             ),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                 border: Border.all(
-                  color: AppColors.primary.withOpacity(0.8 * _glowAnimation.value),
+                  color: DesignTokens.primaryCoral.withOpacity(0.8 * _glowAnimation.value),
                   width: 3,
                 ),
               ),

@@ -89,7 +89,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.error_outline, size: 64, color: Colors.red),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Sayfa bulunamadı',
               style: Theme.of(context).textTheme.headlineSmall,
@@ -100,7 +100,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
             ElevatedButton(
               onPressed: () => context.go('/home'),
               child: const Text('Ana Sayfaya Dön'),

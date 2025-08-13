@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
@@ -108,7 +106,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         children: [
           // Airbnb Search Header - Clean White Style
           Container(
-            padding: AppSpacing.screenPaddingInsets,
+            padding: DesignTokens.spacingScreenEdgeInsets,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -127,7 +125,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                   controller: _searchController,
                   onChanged: (value) => _performSearch(),
                 ),
-                AppSpacing.verticalSpaceMD,
+                DesignTokens.verticalSpaceMD,
                 
                 // Filter Button Row
                 Row(
@@ -138,7 +136,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         border: Border.all(
                           color: Colors.grey.withOpacity(0.3),
                           width: 1,
@@ -147,7 +145,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                       child: IconButton(
                         icon: Icon(
                           iOSIcons.tune,
-                          color: AppColors.primary, // Pembe renk
+                          color: DesignTokens.primaryCoral, // Pembe renk
                           size: 24,
                         ),
                         onPressed: _showFiltersSheet,
@@ -156,7 +154,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                   ],
                 ),
                 
-                const SizedBox(height: 16),
+                const SizedBox(height: DesignTokens.space16),
                 
                                  // Quick Filters
                  if (_filters.hasActiveFilters) ...[
@@ -227,10 +225,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.textWhite.withOpacity(0.2),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.textWhite.withOpacity(0.3),
+          color: Colors.white.withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -240,7 +238,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
           Text(
             label,
             style: const TextStyle(
-              color: AppColors.textWhite,
+              color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -250,7 +248,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             onTap: onRemove,
             child: const Icon(
               iOSIcons.close,
-              color: AppColors.textWhite,
+              color: Colors.white,
               size: 16,
             ),
           ),
@@ -262,7 +260,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
   Widget _buildListView(SearchState searchState) {
     if (searchState.isLoading) {
       return const Center(
-        child: CircularProgressIndicator(color: AppColors.primary),
+        child: CircularProgressIndicator(color: DesignTokens.primaryCoral),
       );
     }
 
@@ -289,20 +287,20 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             Icon(
               isInitialState ? iOSIcons.search : iOSIcons.searchOff,
               size: 64,
-              color: AppColors.textSecondary.withOpacity(0.5),
+              color: DesignTokens.gray600.withOpacity(0.5),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               isInitialState 
                 ? 'Usta aramak için yukarıdaki arama çubuğunu kullanın'
                 : 'Arama kriterlerinize uygun usta bulunamadı',
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             ElevatedButton.icon(
               onPressed: () {
                 if (isInitialState) {
@@ -318,8 +316,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               icon: Icon(isInitialState ? iOSIcons.search : iOSIcons.refresh),
               label: Text(isInitialState ? 'Tüm Ustaları Göster' : 'Filtreleri Temizle'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.textWhite,
+                backgroundColor: DesignTokens.primaryCoral,
+                foregroundColor: Colors.white,
               ),
             ),
           ],
@@ -329,9 +327,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
     return RefreshIndicator(
       onRefresh: _performSearch,
-      color: AppColors.primary,
+      color: DesignTokens.primaryCoral,
       child: ListView.builder(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         itemCount: searchState.craftsmen.length,
         itemBuilder: (context, index) {
           final craftsman = searchState.craftsmen[index];

@@ -112,7 +112,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final recentActivity = _dashboardData!['recent_activity'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -139,7 +139,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 );
               }).toList(),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
           ],
 
           // Overview Metrics
@@ -210,14 +210,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ],
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: DesignTokens.space24),
           ],
 
           // Performance Trends
           if (trends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -225,7 +225,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       user?.userType == 'craftsman' ? 'Performans Trendi' : 'Harcama Trendi',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     SizedBox(
                       height: 200,
                       child: PerformanceChartWidget(
@@ -237,14 +237,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
           ],
 
           // Top Categories
           if (categories != null && categories.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -252,7 +252,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       user?.userType == 'craftsman' ? 'En İyi Kategoriler' : 'Tercih Edilen Kategoriler',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     ...categories.take(5).map<Widget>((category) {
                       final categoryData = CategoryPerformance.fromJson(category);
                       return Padding(
@@ -264,7 +264,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               height: 32,
                               decoration: BoxDecoration(
                                 color: AnalyticsDashboardConstants.chartColors['primary'],
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Center(
                                 child: Text(
@@ -312,14 +312,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
           ],
 
           // Recent Activity (for craftsmen)
           if (user?.userType == 'craftsman' && recentActivity != null && recentActivity.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -327,7 +327,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       'Son Aktiviteler',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     ...recentActivity.take(5).map<Widget>((activity) {
                       final activityData = RecentActivity.fromJson(activity);
                       return Padding(
@@ -372,7 +372,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: activityData.statusColor.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     _manager.getStatusText(activityData.status),
@@ -416,13 +416,13 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final trends = _dashboardData!['trends'] ?? _dashboardData!['spending_trends'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           if (trends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -430,7 +430,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       user?.userType == 'craftsman' ? 'Performans Trendi' : 'Harcama Trendi',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     SizedBox(
                       height: 250,
                       child: TrendChartWidget(
@@ -450,10 +450,10 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildCostCalculatorTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -461,7 +461,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 'Maliyet Hesaplayıcı',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               CostCalculatorWidget(constants: _constants),
             ],
           ),
@@ -480,14 +480,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final revenueAnalytics = _dashboardData!['revenue_analytics'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Conversion Funnel
           if (conversionFunnel != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -495,7 +495,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       'Dönüşüm Hunisi',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     ...conversionFunnel['stages'].entries.map<Widget>((entry) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8),
@@ -515,14 +515,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
           ],
 
           // Revenue Analytics
           if (revenueAnalytics != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -530,12 +530,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       'Gelir Analizi',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: Colors.green.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Row(
                         children: [
@@ -582,14 +582,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final geographicTrends = _dashboardData!['geographic_trends'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Platform Overview
           if (platformTrends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -597,7 +597,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       'Platform Genel Bakış',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -630,14 +630,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
           ],
 
           // Geographic Trends
           if (geographicTrends != null && geographicTrends.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -645,7 +645,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       'Coğrafi Dağılım',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: DesignTokens.space16),
                     ...geographicTrends.take(10).map<Widget>((city) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8),

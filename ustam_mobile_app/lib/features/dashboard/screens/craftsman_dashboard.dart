@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_typography.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/common_app_bar.dart';
@@ -23,7 +21,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: const CommonAppBar(
         title: 'Usta Dashboard',
         showTutorialTrigger: true,
@@ -41,9 +39,9 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    gradient: AppColors.getGradient(AppColors.accentGradient),
+                    gradient: DesignTokens.getGradient(DesignTokens.accentGradient),
                     borderRadius: BorderRadius.circular(24),
-                    boxShadow: [AppColors.getElevatedShadow()],
+                    boxShadow: [DesignTokens.getElevatedShadow()],
                   ),
                   child: Row(
                     children: [
@@ -51,16 +49,16 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: AppColors.textWhite.withOpacity(0.2),
+                          color: Colors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Icon(
                           Icons.engineering_rounded,
-                          color: AppColors.textWhite,
+                          color: Colors.white,
                           size: 32,
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: DesignTokens.space16),
                       const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +68,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                               ),
                             ),
                             SizedBox(height: 4),
@@ -78,7 +76,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                               'İşlerinizi yönetin ve büyütün',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -88,7 +86,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: DesignTokens.space24),
 
                 // Statistics Cards
                 Row(
@@ -98,12 +96,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/jobs', arguments: {'filter': 'active'});
                         },
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Aktif İşler',
                           '5',
                           'Bu ay',
-                          AppColors.primary,
+                          DesignTokens.primaryCoral,
                           Icons.work_rounded,
                         ),
                       ),
@@ -114,12 +112,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/earnings');
                         },
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Toplam Kazanç',
                           '₺12,500',
                           'Bu ay',
-                          AppColors.success,
+                          DesignTokens.success,
                           Icons.attach_money_rounded,
                         ),
                       ),
@@ -136,12 +134,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/quotes', arguments: {'filter': 'pending'});
                         },
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Teklif Talepleri',
                           '8',
                           'Beklemede',
-                          AppColors.warning,
+                          DesignTokens.warning,
                           Icons.assignment_rounded,
                         ),
                       ),
@@ -152,12 +150,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/reviews');
                         },
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Müşteri Puanı',
                           '4.8',
                           '124 değerlendirme',
-                          AppColors.info,
+                          DesignTokens.info,
                           Icons.star_rounded,
                         ),
                       ),
@@ -165,7 +163,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   ],
                 ),
 
-                                 const SizedBox(height: 24),
+                                 const SizedBox(height: DesignTokens.space24),
 
                                  // Quick Actions
                 Row(
@@ -175,7 +173,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         'Tekliflerim',
                         'Teklif taleplerine bak',
                         Icons.assignment_rounded,
-                        AppColors.primary,
+                        DesignTokens.primaryCoral,
                         () => Navigator.pushNamed(context, '/craftsman-quotes'),
                       ),
                     ),
@@ -185,7 +183,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         'İşletme Profili',
                         'Bilgilerini güncelle',
                         Icons.business_rounded,
-                        AppColors.info,
+                        DesignTokens.info,
                         () => Navigator.pushNamed(context, '/business-profile'),
                       ),
                     ),
@@ -219,15 +217,15 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   ],
                 ),
 
-                 const SizedBox(height: 24),
+                 const SizedBox(height: DesignTokens.space24),
 
                  // Recent Quote Requests
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
-                    color: AppColors.cardBackground,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [AppColors.getCardShadow()],
+                    color: DesignTokens.surfacePrimary,
+                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    boxShadow: [DesignTokens.getCardShadow()],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,17 +235,17 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
+                          color: DesignTokens.gray900,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: DesignTokens.space16),
                       _buildQuoteRequestCard(
                         title: 'Elektrik Tesisatı',
                         customer: 'Ayşe Yılmaz',
                         budget: '₺500-800',
                         location: 'Kadıköy, İstanbul',
                         status: 'Yeni',
-                        statusColor: AppColors.primary,
+                        statusColor: DesignTokens.primaryCoral,
                       ),
                       const SizedBox(height: 12),
                       _buildQuoteRequestCard(
@@ -256,7 +254,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         budget: '₺1000-1500',
                         location: 'Beşiktaş, İstanbul',
                         status: 'Teklif Verildi',
-                        statusColor: AppColors.info,
+                        statusColor: DesignTokens.info,
                       ),
                     ],
                   ),
@@ -311,7 +309,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 4),
@@ -319,7 +317,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             subtitle,
             style: const TextStyle(
               fontSize: 12,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
         ],
@@ -337,10 +335,10 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: color.withOpacity(0.3),
             width: 1,
@@ -368,7 +366,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               subtitle,
               style: const TextStyle(
                 fontSize: 12,
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
               ),
               textAlign: TextAlign.center,
             ),
@@ -387,12 +385,12 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
     required Color statusColor,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.surfaceColor,
-        borderRadius: BorderRadius.circular(12),
+        color: DesignTokens.surfaceSecondaryColor,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
-          color: AppColors.border,
+          color: DesignTokens.gray300,
           width: 1,
         ),
       ),
@@ -407,7 +405,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                   ),
                 ),
               ),
@@ -415,7 +413,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: Text(
                   status,
@@ -433,7 +431,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             'Müşteri: $customer',
             style: const TextStyle(
               fontSize: 14,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
           const SizedBox(height: 4),
@@ -441,7 +439,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             'Bütçe: $budget',
             style: const TextStyle(
               fontSize: 14,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
           const SizedBox(height: 4),
@@ -449,7 +447,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             'Konum: $location',
             style: const TextStyle(
               fontSize: 14,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
         ],

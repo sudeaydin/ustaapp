@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class NotificationsScreen extends ConsumerStatefulWidget {
   const NotificationsScreen({super.key});
@@ -19,7 +19,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       'timestamp': '2 dakika önce',
       'isRead': false,
       'icon': Icons.request_quote,
-      'color': AppColors.uclaBlue,
+      'color': DesignTokens.uclaBlue,
     },
     {
       'id': '2',
@@ -29,7 +29,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       'timestamp': '15 dakika önce',
       'isRead': false,
       'icon': Icons.message,
-      'color': AppColors.success,
+      'color': DesignTokens.success,
     },
     {
       'id': '3',
@@ -49,7 +49,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       'timestamp': '3 saat önce',
       'isRead': true,
       'icon': Icons.check_circle,
-      'color': AppColors.success,
+      'color': DesignTokens.success,
     },
     {
       'id': '5',
@@ -66,14 +66,14 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: AppBar(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: DesignTokens.surfacePrimary,
         elevation: 0,
         title: const Text(
           'Bildirimler',
           style: TextStyle(
-            color: AppColors.textPrimary,
+            color: DesignTokens.gray900,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -84,7 +84,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             child: const Text(
               'Tümünü Okundu İşaretle',
               style: TextStyle(
-                color: AppColors.uclaBlue,
+                color: DesignTokens.uclaBlue,
                 fontSize: 12,
               ),
             ),
@@ -94,7 +94,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       body: _notifications.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DesignTokens.space16),
               itemCount: _notifications.length,
               itemBuilder: (context, index) {
                 final notification = _notifications[index];
@@ -113,22 +113,22 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: AppColors.surfaceColor,
+              color: DesignTokens.surfaceSecondaryColor,
               borderRadius: BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.notifications_none,
               size: 60,
-              color: AppColors.textMuted,
+              color: DesignTokens.textMuted,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           const Text(
             'Bildirim Yok',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
           ),
           const SizedBox(height: 8),
@@ -136,7 +136,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             'Yeni bildirimler burada\n görünecek',
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.textLight,
+              color: DesignTokens.textLight,
             ),
             textAlign: TextAlign.center,
           ),
@@ -149,16 +149,16 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: notification['isRead'] ? Colors.white : AppColors.primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
+        color: notification['isRead'] ? Colors.white : DesignTokens.primaryCoral.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
           color: notification['isRead'] 
-              ? AppColors.nonPhotoBlue.withOpacity(0.3)
-              : AppColors.primary.withOpacity(0.3),
+              ? DesignTokens.nonPhotoBlue.withOpacity(0.3)
+              : DesignTokens.primaryCoral.withOpacity(0.3),
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadowLight,
+            color: DesignTokens.shadowLight,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -167,10 +167,10 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
                 // Notification Icon
@@ -179,7 +179,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                   height: 48,
                   decoration: BoxDecoration(
                     color: notification['color'].withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     notification['icon'],
@@ -187,7 +187,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                     size: 24,
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: DesignTokens.space16),
                 // Notification Content
                 Expanded(
                   child: Column(
@@ -203,7 +203,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                                 fontWeight: notification['isRead'] 
                                     ? FontWeight.w500 
                                     : FontWeight.w600,
-                                color: AppColors.textPrimary,
+                                color: DesignTokens.gray900,
                               ),
                             ),
                           ),
@@ -212,7 +212,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                               width: 8,
                               height: 8,
                               decoration: const BoxDecoration(
-                                color: AppColors.uclaBlue,
+                                color: DesignTokens.uclaBlue,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -224,8 +224,8 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                         style: TextStyle(
                           fontSize: 14,
                           color: notification['isRead'] 
-                              ? AppColors.textLight
-                              : AppColors.textSecondary,
+                              ? DesignTokens.textLight
+                              : DesignTokens.gray600,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -235,7 +235,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                         notification['timestamp'],
                         style: const TextStyle(
                           fontSize: 12,
-                          color: AppColors.textMuted,
+                          color: DesignTokens.textMuted,
                         ),
                       ),
                     ],
@@ -245,7 +245,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                 IconButton(
                   icon: const Icon(
                     Icons.more_vert,
-                    color: AppColors.textMuted,
+                    color: DesignTokens.textMuted,
                   ),
                   onPressed: () => _showNotificationActions(notification),
                 ),
@@ -290,7 +290,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       builder: (context) => Container(
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
-          color: AppColors.cardBackground,
+          color: DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -303,13 +303,13 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: AppColors.nonPhotoBlue.withOpacity(0.3),
+                color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: Icon(Icons.mark_email_read, color: AppColors.uclaBlue),
+              leading: Icon(Icons.mark_email_read, color: DesignTokens.uclaBlue),
               title: const Text('Okundu İşaretle'),
               onTap: () {
                 setState(() {
@@ -319,7 +319,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.delete, color: AppColors.error),
+              leading: Icon(Icons.delete, color: DesignTokens.error),
               title: const Text('Bildirimi Sil'),
               onTap: () {
                 setState(() {

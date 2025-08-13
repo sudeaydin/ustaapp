@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../features/support/screens/support_screen.dart';
-import '../theme/app_colors.dart';
+import '../theme/design_tokens.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -27,29 +27,33 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.cardBackground,
+      backgroundColor: DesignTokens.surfacePrimary,
       elevation: 0,
       automaticallyImplyLeading: showBackButton,
       leading: showBackButton
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
-              color: Colors.white, // Changed from AppColors.textPrimary to white
+              color: Colors.white, // Changed from DesignTokens.gray900 to white
               onPressed: () => Navigator.of(context).pop(),
             )
           : null,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-          gradient: AppColors.getGradient(AppColors.headerGradient),
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
+          gradient: LinearGradient(
+            colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(DesignTokens.radius20),
+            bottomRight: Radius.circular(DesignTokens.radius20),
           ),
         ),
       ),
       title: Text(
         title,
         style: const TextStyle(
-          color: AppColors.textWhite,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
@@ -64,11 +68,11 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           Container(
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              color: AppColors.textWhite.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: IconButton(
-              icon: Icon(Icons.notifications_outlined, color: AppColors.textWhite),
+              icon: Icon(Icons.notifications_outlined, color: Colors.white),
               onPressed: onNotificationTap ?? () {
                 Navigator.pushNamed(context, '/notifications');
               },

@@ -16,7 +16,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -37,7 +37,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           _buildConsentTile(
             'Pazarlama İletişimi',
             'Kampanya ve promosyonlar hakkında bilgilendirilmek istiyorum',
@@ -56,13 +56,13 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
             notificationConsent,
             (value) => setState(() => notificationConsent = value),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: DesignTokens.space24),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: _savePreferences,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: DesignTokens.primaryCoral,
                 foregroundColor: Colors.white,
               ),
               child: const Text('Kaydet'),
@@ -82,7 +82,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Row(
           children: [
             Expanded(
@@ -100,7 +100,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                   Text(
                     description,
                     style: TextStyle(
-                      color: AppColors.textSecondary,
+                      color: DesignTokens.gray600,
                       fontSize: 14,
                     ),
                   ),
@@ -110,7 +110,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
             Switch(
               value: value,
               onChanged: onChanged,
-              activeColor: AppColors.primary,
+              activeColor: DesignTokens.primaryCoral,
             ),
           ],
         ),

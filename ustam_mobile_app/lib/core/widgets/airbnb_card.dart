@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../theme/app_colors.dart';
-import '../theme/app_spacing.dart';
+import '../theme/design_tokens.dart';
 
 enum AirbnbCardType { standard, elevated, flat }
 
@@ -30,10 +29,10 @@ class AirbnbCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardWidget = Container(
-      margin: margin ?? const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+      margin: margin ?? EdgeInsets.symmetric(vertical: DesignTokens.space8),
       decoration: BoxDecoration(
-        color: backgroundColor ?? AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(borderRadius ?? AppSpacing.cardBorderRadius),
+        color: backgroundColor ?? DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
         boxShadow: _getBoxShadow(),
         border: border,
       ),
@@ -45,15 +44,15 @@ class AirbnbCard extends StatelessWidget {
                 print('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
                 onTap!();
               },
-              borderRadius: BorderRadius.circular(borderRadius ?? AppSpacing.cardBorderRadius),
+              borderRadius: BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
               child: Container(
-                padding: padding ?? AppSpacing.cardPaddingInsets,
+                padding: padding ?? DesignTokens.getEdgeInsets(all: DesignTokens.spacingCardPadding),
                 child: child,
               ),
             ),
           )
         : Padding(
-            padding: padding ?? AppSpacing.cardPaddingInsets,
+            padding: padding ?? DesignTokens.getEdgeInsets(all: DesignTokens.spacingCardPadding),
             child: child,
           ),
     );
@@ -64,9 +63,9 @@ class AirbnbCard extends StatelessWidget {
   List<BoxShadow>? _getBoxShadow() {
     switch (type) {
       case AirbnbCardType.standard:
-        return AppSpacing.cardShadow;
+        return DesignTokens.shadowCard;
       case AirbnbCardType.elevated:
-        return AppSpacing.elevatedShadow;
+        return DesignTokens.shadowElevated;
       case AirbnbCardType.flat:
         return null;
     }
@@ -96,12 +95,12 @@ class AirbnbListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AirbnbCard(
       onTap: onTap,
-      padding: padding ?? const EdgeInsets.all(AppSpacing.md),
+      padding: padding ?? const EdgeInsets.all(DesignTokens.space16),
       child: Row(
         children: [
           if (leading != null) ...[
             leading!,
-            AppSpacing.horizontalSpaceMD,
+            DesignTokens.horizontalSpaceMD,
           ],
           Expanded(
             child: Column(
@@ -110,14 +109,14 @@ class AirbnbListCard extends StatelessWidget {
               children: [
                 title,
                 if (subtitle != null) ...[
-                  AppSpacing.verticalSpaceXS,
+                  DesignTokens.verticalSpaceXS,
                   subtitle!,
                 ],
               ],
             ),
           ),
           if (trailing != null) ...[
-            AppSpacing.horizontalSpaceMD,
+            DesignTokens.horizontalSpaceMD,
             trailing!,
           ],
         ],
@@ -157,8 +156,8 @@ class AirbnbImageCard extends StatelessWidget {
           // Image section
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(AppSpacing.cardBorderRadius),
-              topRight: Radius.circular(AppSpacing.cardBorderRadius),
+              topLeft: Radius.circular(DesignTokens.radius16),
+              topRight: Radius.circular(DesignTokens.radius16),
             ),
             child: Stack(
               children: [
@@ -179,13 +178,13 @@ class AirbnbImageCard extends StatelessWidget {
           // Content section
           if (title != null || subtitle != null)
             Padding(
-              padding: AppSpacing.cardPaddingInsets,
+              padding: DesignTokens.spacingCardPaddingInsets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (title != null) title!,
                   if (title != null && subtitle != null)
-                    AppSpacing.verticalSpaceXS,
+                    DesignTokens.verticalSpaceXS,
                   if (subtitle != null) subtitle!,
                 ],
               ),
@@ -222,18 +221,18 @@ class AirbnbStatsCard extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Container(
-              padding: const EdgeInsets.all(AppSpacing.sm),
+              padding: const EdgeInsets.all(DesignTokens.space8),
               decoration: BoxDecoration(
-                color: (iconColor ?? AppColors.primary).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(AppSpacing.sm),
+                color: (iconColor ?? DesignTokens.primaryCoral).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(DesignTokens.space8),
               ),
               child: Icon(
                 icon,
-                color: iconColor ?? AppColors.primary,
+                color: iconColor ?? DesignTokens.primaryCoral,
                 size: 24,
               ),
             ),
-            AppSpacing.horizontalSpaceMD,
+            DesignTokens.horizontalSpaceMD,
           ],
           Expanded(
             child: Column(
@@ -243,16 +242,16 @@ class AirbnbStatsCard extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                AppSpacing.verticalSpaceXS,
+                DesignTokens.verticalSpaceXS,
                 Text(
                   value,
                   style: const TextStyle(
                     fontSize: 20,
-                    color: AppColors.textPrimary,
+                    color: DesignTokens.gray900,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -260,7 +259,7 @@ class AirbnbStatsCard extends StatelessWidget {
             ),
           ),
           if (trailing != null) ...[
-            AppSpacing.horizontalSpaceMD,
+            DesignTokens.horizontalSpaceMD,
             trailing!,
           ],
         ],

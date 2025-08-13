@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 
 class AnalyticsCard extends StatelessWidget {
   final String title;
@@ -26,24 +26,24 @@ class AnalyticsCard extends StatelessWidget {
 
     switch (changeType) {
       case 'positive':
-        changeColor = AppColors.success;
+        changeColor = DesignTokens.success;
         changeIcon = Icons.trending_up;
         break;
       case 'negative':
-        changeColor = AppColors.error;
+        changeColor = DesignTokens.error;
         changeIcon = Icons.trending_down;
         break;
       default:
-        changeColor = AppColors.textSecondary;
+        changeColor = DesignTokens.gray600;
         changeIcon = Icons.trending_flat;
     }
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        color: DesignTokens.surfaceSecondary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.gray300),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -62,7 +62,7 @@ class AnalyticsCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,
@@ -86,7 +86,7 @@ class AnalyticsCard extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: 12,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -99,7 +99,7 @@ class AnalyticsCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           

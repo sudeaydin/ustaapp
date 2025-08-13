@@ -148,6 +148,24 @@ class DesignTokens {
   static const double radius20 = 20.0;
   static const double radius24 = 24.0;
   static const double radiusPill = 999.0; // Pill shape
+
+  // ========================================
+  // COMPATIBILITY PROPERTIES
+  // ========================================
+  
+  /// Surface Colors for compatibility
+  static const Color surfaceSecondaryColor = surfaceSecondary;
+  static const Color surfacePrimary70 = Color(0xB3FFFFFF); // 70% opacity
+  
+  /// Gradient helpers
+  static const LinearGradient primaryCoralGradient = LinearGradient(
+    colors: [primaryCoral, primaryCoralDark],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  /// Screen edge insets for compatibility
+  static const EdgeInsets spacingScreenEdgeInsets = EdgeInsets.all(spacingScreenEdge);
   
   // ========================================
   // SHADOW TOKENS

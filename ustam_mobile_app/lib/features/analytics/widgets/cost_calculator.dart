@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/services/analytics_service.dart';
 import '../../../core/services/api_service.dart';
 
@@ -130,11 +130,11 @@ class _CostCalculatorState extends State<CostCalculator> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        color: DesignTokens.surfaceSecondary,
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,14 +142,14 @@ class _CostCalculatorState extends State<CostCalculator> {
           // Header
           Row(
             children: [
-              Icon(Icons.calculate, color: AppColors.primary),
+              Icon(Icons.calculate, color: DesignTokens.primaryCoral),
               const SizedBox(width: 8),
               Text(
                 'Maliyet Hesaplayıcı',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
+                  color: DesignTokens.gray900,
                 ),
               ),
               const Spacer(),
@@ -158,13 +158,13 @@ class _CostCalculatorState extends State<CostCalculator> {
                   onPressed: _resetCalculator,
                   child: Text(
                     'Yeniden Hesapla',
-                    style: TextStyle(color: AppColors.primary),
+                    style: TextStyle(color: DesignTokens.primaryCoral),
                   ),
                 ),
             ],
           ),
           
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           
           if (_estimate == null) ...[
             // Form
@@ -178,7 +178,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'İş Kategorisi *',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _categories.map((category) {
@@ -200,7 +200,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Area Type Dropdown
                   DropdownButtonFormField<String>(
@@ -208,7 +208,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Alan Türü *',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _areaTypes.map((type) {
@@ -230,7 +230,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Budget Range Dropdown
                   DropdownButtonFormField<String>(
@@ -238,7 +238,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Bütçe Aralığı',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _budgetRanges.map((range) {
@@ -254,7 +254,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Urgency Dropdown
                   DropdownButtonFormField<String>(
@@ -262,7 +262,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Aciliyet Durumu',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _urgencyLevels.map((level) {
@@ -278,7 +278,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Description Field
                   TextFormField(
@@ -287,7 +287,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       labelText: 'İş Açıklaması',
                       hintText: 'İş hakkında detayları yazın...',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     onChanged: (value) {
@@ -295,7 +295,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: DesignTokens.space16),
                   
                   // Location Field
                   TextFormField(
@@ -303,7 +303,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       labelText: 'Konum',
                       hintText: 'İl/İlçe',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     onChanged: (value) {
@@ -319,18 +319,18 @@ class _CostCalculatorState extends State<CostCalculator> {
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        color: AppColors.error.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+                        color: DesignTokens.error.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                        border: Border.all(color: DesignTokens.error.withOpacity(0.3)),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.error_outline, color: AppColors.error, size: 20),
+                          Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               _error!,
-                              style: TextStyle(color: AppColors.error, fontSize: 14),
+                              style: TextStyle(color: DesignTokens.error, fontSize: 14),
                             ),
                           ),
                         ],
@@ -343,10 +343,10 @@ class _CostCalculatorState extends State<CostCalculator> {
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : _calculateCost,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: DesignTokens.primaryCoral,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(DesignTokens.radius8),
                         ),
                       ),
                       child: _isLoading
@@ -386,11 +386,11 @@ class _CostCalculatorState extends State<CostCalculator> {
       children: [
         // Main Estimate
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+            color: DesignTokens.primaryCoral.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+            border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,7 +400,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                 ),
               ),
               const SizedBox(height: 8),
@@ -409,7 +409,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: DesignTokens.primaryCoral,
                 ),
               ),
               if (_estimate!['min_cost'] != null && _estimate!['max_cost'] != null)
@@ -417,14 +417,14 @@ class _CostCalculatorState extends State<CostCalculator> {
                   '₺${_estimate!['min_cost']} - ₺${_estimate!['max_cost']} arasında değişebilir',
                   style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.textSecondary,
+                    color: DesignTokens.gray600,
                   ),
                 ),
             ],
           ),
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Breakdown
         if (_estimate!['breakdown'] != null) ...[
@@ -433,16 +433,16 @@ class _CostCalculatorState extends State<CostCalculator> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.border),
+              color: DesignTokens.surfaceSecondary,
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              border: Border.all(color: DesignTokens.gray300),
             ),
             child: Column(
               children: (_estimate!['breakdown'] as Map<String, dynamic>)
@@ -456,14 +456,14 @@ class _CostCalculatorState extends State<CostCalculator> {
                       Text(
                         entry.key.replaceAll('_', ' ').toUpperCase(),
                         style: TextStyle(
-                          color: AppColors.textSecondary,
+                          color: DesignTokens.gray600,
                           fontSize: 14,
                         ),
                       ),
                       Text(
                         '₺${entry.value}',
                         style: TextStyle(
-                          color: AppColors.textPrimary,
+                          color: DesignTokens.gray900,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -474,7 +474,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
         ],
         
         // Factors
@@ -484,16 +484,16 @@ class _CostCalculatorState extends State<CostCalculator> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.warning.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+              color: DesignTokens.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              border: Border.all(color: DesignTokens.warning.withOpacity(0.3)),
             ),
             child: Column(
               children: (_estimate!['factors'] as List).map<Widget>((factor) {
@@ -505,14 +505,14 @@ class _CostCalculatorState extends State<CostCalculator> {
                       Icon(
                         Icons.circle,
                         size: 6,
-                        color: AppColors.warning,
+                        color: DesignTokens.warning,
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           factor.toString(),
                           style: TextStyle(
-                            color: AppColors.textSecondary,
+                            color: DesignTokens.gray600,
                             fontSize: 14,
                           ),
                         ),
@@ -523,7 +523,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
         ],
         
         // Recommendations
@@ -533,16 +533,16 @@ class _CostCalculatorState extends State<CostCalculator> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: DesignTokens.gray900,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.success.withOpacity(0.3)),
+              color: DesignTokens.success.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
             ),
             child: Column(
               children: (_estimate!['recommendations'] as List).map<Widget>((rec) {
@@ -554,14 +554,14 @@ class _CostCalculatorState extends State<CostCalculator> {
                       Icon(
                         Icons.check_circle,
                         size: 16,
-                        color: AppColors.success,
+                        color: DesignTokens.success,
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           rec.toString(),
                           style: TextStyle(
-                            color: AppColors.textSecondary,
+                            color: DesignTokens.gray600,
                             fontSize: 14,
                           ),
                         ),
@@ -572,21 +572,21 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
         ],
         
         // Disclaimer
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.textSecondary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+            color: DesignTokens.gray600.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
           ),
           child: Text(
             '* Bu tahmin ortalama piyasa fiyatlarına dayalıdır. Gerçek fiyatlar değişebilir.',
             style: TextStyle(
               fontSize: 12,
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
             ),
             textAlign: TextAlign.center,
           ),
@@ -607,7 +607,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'İş Kategorisi *',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _categories.map((category) {
@@ -629,7 +629,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Area Type
         DropdownButtonFormField<String>(
@@ -637,7 +637,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Alan Türü *',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _areaTypes.map((type) {
@@ -659,7 +659,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Budget Range
         DropdownButtonFormField<String>(
@@ -667,7 +667,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Bütçe Aralığı',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _budgetRanges.map((range) {
@@ -683,7 +683,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Urgency
         DropdownButtonFormField<String>(
@@ -691,7 +691,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Aciliyet Durumu',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _urgencyLevels.map((level) {
@@ -707,7 +707,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Description
         TextFormField(
@@ -716,7 +716,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             labelText: 'İş Açıklaması',
             hintText: 'İş hakkında detayları yazın...',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           onChanged: (value) {
@@ -724,7 +724,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: DesignTokens.space16),
         
         // Location
         TextFormField(
@@ -732,7 +732,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             labelText: 'Konum',
             hintText: 'İl/İlçe',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           onChanged: (value) {
@@ -748,18 +748,18 @@ class _CostCalculatorState extends State<CostCalculator> {
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: AppColors.error.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.error.withOpacity(0.3)),
+              color: DesignTokens.error.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              border: Border.all(color: DesignTokens.error.withOpacity(0.3)),
             ),
             child: Row(
               children: [
-                Icon(Icons.error_outline, color: AppColors.error, size: 20),
+                Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     _error!,
-                    style: TextStyle(color: AppColors.error, fontSize: 14),
+                    style: TextStyle(color: DesignTokens.error, fontSize: 14),
                   ),
                 ),
               ],
@@ -772,10 +772,10 @@ class _CostCalculatorState extends State<CostCalculator> {
           child: ElevatedButton(
             onPressed: _isLoading ? null : _calculateCost,
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: DesignTokens.primaryCoral,
               padding: const EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(DesignTokens.radius8),
               ),
             ),
             child: _isLoading

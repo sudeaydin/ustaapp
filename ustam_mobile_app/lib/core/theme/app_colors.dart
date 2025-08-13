@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+class DesignTokens {
   // Primary Color - Simple Pink + White Theme
   static const Color primary = Color(0xFFC64191); // Custom Pink #C64191
   
@@ -120,7 +120,7 @@ class AppColors {
       elevation: 2,
       shadowColor: shadowMedium,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
     );

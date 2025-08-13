@@ -110,7 +110,7 @@ class _LegalComplianceCheckerState extends ConsumerState<LegalComplianceChecker>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const CircularProgressIndicator(),
-              const SizedBox(height: 16),
+              const SizedBox(height: DesignTokens.space16),
               Text(
                 'Yasal uygunluk kontrol ediliyor...',
                 style: TextStyle(
@@ -263,11 +263,11 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       left: 0,
       right: 0,
       child: Container(
-        margin: const EdgeInsets.all(16),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.all(DesignTokens.space16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),
@@ -301,7 +301,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
               'Devam ederek çerez kullanımını kabul etmiş olursunuz.',
               style: TextStyle(fontSize: 14, color: Colors.black87),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             Row(
               children: [
                 Expanded(

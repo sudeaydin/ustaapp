@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/job_management_utils.dart';
 
 class EmergencyServiceCard extends StatelessWidget {
@@ -18,16 +18,16 @@ class EmergencyServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: AppColors.error.withOpacity(0.05),
+      color: DesignTokens.error.withOpacity(0.05),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Row(
               children: [
                 Icon(
                   Icons.emergency,
-                  color: AppColors.error,
+                  color: DesignTokens.error,
                   size: 24,
                 ),
                 const SizedBox(width: 12),
@@ -37,7 +37,7 @@ class EmergencyServiceCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.error,
+                      color: DesignTokens.error,
                     ),
                   ),
                 ),
@@ -47,17 +47,17 @@ class EmergencyServiceCard extends StatelessWidget {
             Text(
               'Acil durumlarda 7/24 hizmet veren ustalarımızla iletişime geçin.',
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: DesignTokens.gray600,
                 fontSize: 14,
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: onRequestEmergency,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.error,
+                  backgroundColor: DesignTokens.error,
                   foregroundColor: Colors.white,
                 ),
                 child: const Row(

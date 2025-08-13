@@ -18,30 +18,30 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             icon ?? Icons.error_outline,
             size: 48,
-            color: AppColors.error,
+            color: DesignTokens.error,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: DesignTokens.space16),
           Text(
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: AppColors.textSecondary,
+              color: DesignTokens.gray600,
               fontSize: 16,
             ),
           ),
           if (showRetryButton && onRetry != null) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: DesignTokens.space16),
             ElevatedButton(
               onPressed: onRetry,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: DesignTokens.primaryCoral,
                 foregroundColor: Colors.white,
               ),
               child: const Text('Tekrar Dene'),
@@ -70,22 +70,22 @@ class ErrorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.error.withOpacity(0.1),
+      color: DesignTokens.error.withOpacity(0.1),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Icons.error, color: AppColors.error),
+                Icon(Icons.error, color: DesignTokens.error),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     title,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.error,
+                      color: DesignTokens.error,
                     ),
                   ),
                 ),
@@ -100,14 +100,14 @@ class ErrorCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               message,
-              style: TextStyle(color: AppColors.textSecondary),
+              style: TextStyle(color: DesignTokens.gray600),
             ),
             if (onRetry != null) ...[
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: DesignTokens.primaryCoral,
                   foregroundColor: Colors.white,
                 ),
                 child: const Text('Tekrar Dene'),
