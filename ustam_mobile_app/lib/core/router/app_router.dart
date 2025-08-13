@@ -15,6 +15,7 @@ import '../../features/payment/screens/payment_screen.dart';
 import '../../features/notifications/screens/notifications_screen.dart';
 import '../../features/marketplace/screens/marketplace_feed_screen.dart';
 import '../../features/marketplace/screens/marketplace_listing_detail_screen.dart';
+import '../../features/marketplace/screens/marketplace_offer_compose_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
@@ -80,6 +81,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final listingId = state.pathParameters['listingId']!;
           return MarketplaceListingDetailScreen(listingId: listingId);
+        },
+      ),
+      GoRoute(
+        path: '/marketplace/listing/:listingId/offer',
+        builder: (context, state) {
+          final listingId = state.pathParameters['listingId']!;
+          return MarketplaceOfferComposeScreen(listingId: listingId);
         },
       ),
       GoRoute(
