@@ -13,6 +13,7 @@ import '../../features/messages/screens/messages_screen.dart';
 import '../../features/jobs/screens/jobs_screen.dart';
 import '../../features/payment/screens/payment_screen.dart';
 import '../../features/notifications/screens/notifications_screen.dart';
+import '../../features/marketplace/screens/marketplace_feed_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
@@ -52,6 +53,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/search',
             builder: (context, state) => const SearchScreen(),
+          ),
+          GoRoute(
+            path: '/marketplace',
+            builder: (context, state) => const MarketplaceFeedScreen(),
           ),
           GoRoute(
             path: '/jobs',

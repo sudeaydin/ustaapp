@@ -36,9 +36,9 @@ class CommonBottomNavigation extends StatelessWidget {
           label: 'Panel',
         ),
         AirbnbNavItem(
-          icon: Icons.search_outlined,
-          activeIcon: Icons.search,
-          label: 'Ara',
+          icon: Icons.storefront_outlined,
+          activeIcon: Icons.storefront,
+          label: 'Pazar',
         ),
         AirbnbNavItem(
           icon: Icons.chat_bubble_outline,
@@ -60,9 +60,9 @@ class CommonBottomNavigation extends StatelessWidget {
           label: 'Panel',
         ),
         AirbnbNavItem(
-          icon: Icons.business_outlined,
-          activeIcon: Icons.business,
-          label: 'İşletme',
+          icon: Icons.storefront_outlined,
+          activeIcon: Icons.storefront,
+          label: 'Pazar',
         ),
         AirbnbNavItem(
           icon: Icons.chat_bubble_outline,
@@ -85,7 +85,7 @@ class CommonBottomNavigation extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(context, '/customer-dashboard', (route) => false);
           break;
         case 1:
-          Navigator.pushNamed(context, '/search');
+          Navigator.pushNamed(context, '/marketplace');
           break;
         case 2:
           Navigator.push(
@@ -105,7 +105,7 @@ class CommonBottomNavigation extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(context, '/craftsman-dashboard', (route) => false);
           break;
         case 1:
-          Navigator.pushNamed(context, '/business-profile');
+          Navigator.pushNamed(context, '/marketplace');
           break;
         case 2:
           Navigator.push(

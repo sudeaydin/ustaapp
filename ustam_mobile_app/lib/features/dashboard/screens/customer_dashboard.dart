@@ -120,13 +120,13 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       children: [
                         Expanded(
                           child: _buildQuickActionCard(
-                              'Usta Ara',
-                              'Kategorilere göre usta bulun',
-                              Icons.search_rounded,
+                              'Pazar Yeri',
+                              'İş ilanı ver, teklif al',
+                              Icons.storefront_rounded,
                               DesignTokens.primaryCoral,
                               () {
-                                print('🔍 Usta Ara butonuna tıklandı');
-                                Navigator.pushNamed(context, '/search');
+                                print('🏪 Pazar Yeri butonuna tıklandı');
+                                Navigator.pushNamed(context, '/marketplace');
                               },
                             ),
                         ),

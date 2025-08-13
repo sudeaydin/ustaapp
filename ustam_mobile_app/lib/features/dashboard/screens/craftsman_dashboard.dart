@@ -169,11 +169,11 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   children: [
                     Expanded(
                       child: _buildQuickActionCard(
-                        'Tekliflerim',
-                        'Teklif taleplerine bak',
-                        Icons.assignment_rounded,
+                        'Pazar Yeri',
+                        'İş ilanlarına teklif ver',
+                        Icons.storefront_rounded,
                         DesignTokens.primaryCoral,
-                        () => Navigator.pushNamed(context, '/craftsman-quotes'),
+                        () => Navigator.pushNamed(context, '/marketplace'),
                       ),
                     ),
                     const SizedBox(width: 12),
