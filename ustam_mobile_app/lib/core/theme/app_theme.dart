@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'design_tokens.dart';
 
 class AppTheme {
   // Private constructor to prevent instantiation
