@@ -376,10 +376,10 @@ class ComprehensiveBigQuerySetup:
         
         # Check gcloud authentication with multiple possible paths
         gcloud_paths = [
-            'gcloud',
-            'gcloud.cmd',
             r'C:\Users\sudes\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd',
-            r'C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd'
+            r'C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd',
+            'gcloud.cmd',
+            'gcloud'
         ]
         
         gcloud_cmd = None
