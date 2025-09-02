@@ -87,6 +87,10 @@ python3 bigquery_comprehensive_setup.py $PROJECT_ID
 echo "🚀 Deploying to App Engine..."
 gcloud app deploy app.yaml --quiet
 
+# Deploy cron jobs
+echo "⏰ Deploying cron jobs..."
+gcloud app deploy cron.yaml --quiet
+
 # Create Cloud Scheduler job for daily sync
 echo "⏰ Setting up Cloud Scheduler..."
 if ! gcloud scheduler jobs describe bigquery-daily-sync --location=us-central1 &> /dev/null; then

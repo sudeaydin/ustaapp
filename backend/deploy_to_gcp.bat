@@ -67,6 +67,10 @@ REM Deploy to App Engine
 echo 🚀 Deploying to App Engine...
 gcloud app deploy app.yaml --quiet
 
+REM Deploy cron jobs
+echo ⏰ Deploying cron jobs...
+gcloud app deploy cron.yaml --quiet
+
 REM Create Cloud Scheduler job
 echo ⏰ Setting up Cloud Scheduler...
 gcloud scheduler jobs describe bigquery-daily-sync --location=us-central1 >nul 2>&1

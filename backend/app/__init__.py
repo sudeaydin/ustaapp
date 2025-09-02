@@ -19,7 +19,16 @@ def create_app(config_name='default'):
     
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
+    
+    # Database configuration - Google Cloud SQL or local SQLite
+    if os.environ.get('GAE_ENV', '').startswith('standard'):
+        # Production on Google App Engine
+        from config.cloud_sql import get_cloud_sql_url
+        app.config['SQLALCHEMY_DATABASE_URI'] = get_cloud_sql_url()
+    else:
+        # Local development
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
+    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
     
@@ -70,6 +79,7 @@ def create_app(config_name='default'):
     from app.routes.calendar import calendar_bp
     from app.routes.airbnb_api import airbnb_api
     from app.routes.marketplace import marketplace_bp
+    from app.routes.cloud_scheduler import scheduler_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -93,6 +103,7 @@ def create_app(config_name='default'):
     app.register_blueprint(calendar_bp, url_prefix='/api/calendar')
     app.register_blueprint(airbnb_api, url_prefix='/api/airbnb')
     app.register_blueprint(marketplace_bp, url_prefix='/api/marketplace')
+    app.register_blueprint(scheduler_bp)  # No prefix - direct /cron/ endpoints
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')

@@ -1,0 +1,22 @@
+# Google App Engine Cron Jobs Configuration
+# Automatically schedules BigQuery sync operations
+
+cron:
+- description: "Daily BigQuery data sync"
+  url: /cron/bigquery-sync
+  schedule: every day 02:00
+  timezone: UTC
+  retry_parameters:
+    min_backoff_seconds: 60
+    max_backoff_seconds: 300
+    max_retry_attempts: 3
+
+- description: "Weekly analytics summary"
+  url: /cron/weekly-summary
+  schedule: every sunday 03:00
+  timezone: UTC
+
+- description: "Monthly metrics cleanup"
+  url: /cron/cleanup-old-data
+  schedule: 1 of month 04:00
+  timezone: UTC
