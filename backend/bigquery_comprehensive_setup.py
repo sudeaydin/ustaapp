@@ -176,8 +176,8 @@ class ComprehensiveBigQuerySetup:
             # Set table labels
             table.labels = {
                 "app": "ustam",
-                "table_type": "analytics" if "analytics" in table_name or "logs" in table_name else "core",
-                "created_by": "auto_setup"
+                "table-type": "analytics" if "analytics" in table_name or "logs" in table_name else "core",
+                "created-by": "auto-setup"
             }
             
             # Configure partitioning for time-series tables
@@ -439,8 +439,8 @@ class ComprehensiveBigQuerySetup:
                 dataset.labels = {
                     "app": "ustam",
                     "environment": "production",
-                    "created_by": "comprehensive_setup",
-                    "version": "2.0"
+                    "created_by": "comprehensive-setup",
+                    "version": "v2-0"
                 }
                 
                 dataset = self.client.create_dataset(dataset)
