@@ -1,0 +1,104 @@
+[
+  {
+    "name": "log_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the log entry"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "ID of the user performing the action"
+  },
+  {
+    "name": "session_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User session identifier"
+  },
+  {
+    "name": "action_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Type of action (login, logout, search, job_create, etc.)"
+  },
+  {
+    "name": "action_category",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Category of action (auth, job, message, payment, etc.)"
+  },
+  {
+    "name": "page_url",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "URL or page where action occurred"
+  },
+  {
+    "name": "user_agent",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User agent string"
+  },
+  {
+    "name": "ip_address",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User IP address"
+  },
+  {
+    "name": "device_type",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Device type (mobile, desktop, tablet)"
+  },
+  {
+    "name": "platform",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Platform (web, ios, android)"
+  },
+  {
+    "name": "action_details",
+    "type": "JSON",
+    "mode": "NULLABLE",
+    "description": "Additional action details in JSON format"
+  },
+  {
+    "name": "timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the action occurred"
+  },
+  {
+    "name": "duration_ms",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Duration of action in milliseconds"
+  },
+  {
+    "name": "success",
+    "type": "BOOLEAN",
+    "mode": "REQUIRED",
+    "description": "Whether the action was successful"
+  },
+  {
+    "name": "error_message",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Error message if action failed"
+  },
+  {
+    "name": "location_city",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User location city"
+  },
+  {
+    "name": "location_country",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User location country"
+  }
+]

@@ -1,0 +1,140 @@
+[
+  {
+    "name": "metric_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the metric record"
+  },
+  {
+    "name": "date",
+    "type": "DATE",
+    "mode": "REQUIRED",
+    "description": "Date of the metric"
+  },
+  {
+    "name": "metric_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Type of metric (revenue, users, jobs, etc.)"
+  },
+  {
+    "name": "total_users",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total number of users"
+  },
+  {
+    "name": "active_users",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of active users"
+  },
+  {
+    "name": "new_users",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of new users registered"
+  },
+  {
+    "name": "total_craftsmen",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total number of craftsmen"
+  },
+  {
+    "name": "active_craftsmen",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of active craftsmen"
+  },
+  {
+    "name": "total_customers",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total number of customers"
+  },
+  {
+    "name": "active_customers",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of active customers"
+  },
+  {
+    "name": "total_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total number of jobs"
+  },
+  {
+    "name": "completed_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of completed jobs"
+  },
+  {
+    "name": "pending_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of pending jobs"
+  },
+  {
+    "name": "cancelled_jobs",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of cancelled jobs"
+  },
+  {
+    "name": "total_revenue",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Total revenue in TL"
+  },
+  {
+    "name": "platform_fees",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Platform fees collected in TL"
+  },
+  {
+    "name": "average_job_value",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Average job value in TL"
+  },
+  {
+    "name": "average_rating",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Average rating across all completed jobs"
+  },
+  {
+    "name": "total_messages",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total messages sent"
+  },
+  {
+    "name": "total_quotes",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Total quotes created"
+  },
+  {
+    "name": "conversion_rate",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Quote to job conversion rate"
+  },
+  {
+    "name": "user_retention_rate",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "User retention rate percentage"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the metric was calculated"
+  }
+]

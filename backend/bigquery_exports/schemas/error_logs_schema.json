@@ -1,0 +1,116 @@
+[
+  {
+    "name": "error_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the error"
+  },
+  {
+    "name": "timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the error occurred"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "User ID if error is user-related"
+  },
+  {
+    "name": "session_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Session ID when error occurred"
+  },
+  {
+    "name": "error_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Type of error (API, UI, Database, etc.)"
+  },
+  {
+    "name": "error_level",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Error severity (ERROR, WARNING, CRITICAL)"
+  },
+  {
+    "name": "error_message",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Error message"
+  },
+  {
+    "name": "error_stack",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Error stack trace"
+  },
+  {
+    "name": "endpoint",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "API endpoint where error occurred"
+  },
+  {
+    "name": "http_method",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "HTTP method (GET, POST, etc.)"
+  },
+  {
+    "name": "http_status",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "HTTP status code"
+  },
+  {
+    "name": "request_data",
+    "type": "JSON",
+    "mode": "NULLABLE",
+    "description": "Request data that caused the error"
+  },
+  {
+    "name": "user_agent",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User agent string"
+  },
+  {
+    "name": "ip_address",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User IP address"
+  },
+  {
+    "name": "platform",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Platform where error occurred (web, ios, android)"
+  },
+  {
+    "name": "app_version",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Application version"
+  },
+  {
+    "name": "device_info",
+    "type": "JSON",
+    "mode": "NULLABLE",
+    "description": "Device information in JSON format"
+  },
+  {
+    "name": "resolved",
+    "type": "BOOLEAN",
+    "mode": "REQUIRED",
+    "description": "Whether the error has been resolved"
+  },
+  {
+    "name": "resolution_notes",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Notes about error resolution"
+  }
+]

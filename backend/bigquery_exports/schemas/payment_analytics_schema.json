@@ -1,0 +1,134 @@
+[
+  {
+    "name": "payment_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique payment identifier"
+  },
+  {
+    "name": "transaction_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "External payment provider transaction ID"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "User making the payment"
+  },
+  {
+    "name": "craftsman_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Craftsman receiving the payment"
+  },
+  {
+    "name": "job_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Related job ID"
+  },
+  {
+    "name": "quote_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Related quote ID"
+  },
+  {
+    "name": "payment_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Type of payment (job_payment, quote_payment, subscription)"
+  },
+  {
+    "name": "payment_method",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Payment method (credit_card, bank_transfer, wallet)"
+  },
+  {
+    "name": "amount",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Payment amount in TL"
+  },
+  {
+    "name": "platform_fee",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Platform fee in TL"
+  },
+  {
+    "name": "craftsman_amount",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Amount going to craftsman in TL"
+  },
+  {
+    "name": "currency",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Payment currency (TL, USD, EUR)"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Payment status (pending, completed, failed, refunded)"
+  },
+  {
+    "name": "provider",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Payment provider (iyzico, paypal, stripe)"
+  },
+  {
+    "name": "provider_response",
+    "type": "JSON",
+    "mode": "NULLABLE",
+    "description": "Payment provider response data"
+  },
+  {
+    "name": "failure_reason",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Reason for payment failure"
+  },
+  {
+    "name": "processing_time_ms",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Payment processing time in milliseconds"
+  },
+  {
+    "name": "ip_address",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User IP address"
+  },
+  {
+    "name": "user_agent",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User agent string"
+  },
+  {
+    "name": "platform",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Platform (web, ios, android)"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the payment was initiated"
+  },
+  {
+    "name": "completed_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "When the payment was completed"
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "name": "metric_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the performance metric"
+  },
+  {
+    "name": "timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the metric was recorded"
+  },
+  {
+    "name": "endpoint",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "API endpoint measured"
+  },
+  {
+    "name": "response_time_ms",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Response time in milliseconds"
+  },
+  {
+    "name": "memory_usage_mb",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Memory usage in megabytes"
+  },
+  {
+    "name": "cpu_usage_percent",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "CPU usage percentage"
+  },
+  {
+    "name": "database_query_time_ms",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Database query execution time in milliseconds"
+  },
+  {
+    "name": "cache_hit_rate",
+    "type": "NUMERIC",
+    "mode": "NULLABLE",
+    "description": "Cache hit rate percentage"
+  },
+  {
+    "name": "concurrent_users",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of concurrent users"
+  },
+  {
+    "name": "platform",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Platform (web, ios, android)"
+  },
+  {
+    "name": "user_type",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Type of user (customer, craftsman, admin)"
+  },
+  {
+    "name": "success",
+    "type": "BOOLEAN",
+    "mode": "REQUIRED",
+    "description": "Whether the operation was successful"
+  },
+  {
+    "name": "error_count",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Number of errors in this time period"
+  }
+]

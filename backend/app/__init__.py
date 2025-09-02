@@ -37,8 +37,10 @@ def create_app(config_name='default'):
     # Initialize security and analytics middleware
     from app.utils.security import init_security_middleware
     from app.utils.analytics import init_analytics_middleware
+    from app.utils.bigquery_logger import init_bigquery_middleware
     init_security_middleware(app)
     init_analytics_middleware(app)
+    init_bigquery_middleware(app)
     
     # Import models
     from app.models import user, craftsman, customer, category, quote, payment, notification, job, message, review, support_ticket, appointment

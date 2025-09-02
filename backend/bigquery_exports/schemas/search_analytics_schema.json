@@ -1,0 +1,98 @@
+[
+  {
+    "name": "search_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the search"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "ID of the user performing the search"
+  },
+  {
+    "name": "session_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "User session identifier"
+  },
+  {
+    "name": "search_query",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Search query text"
+  },
+  {
+    "name": "search_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Type of search (craftsman, job, category)"
+  },
+  {
+    "name": "filters_applied",
+    "type": "JSON",
+    "mode": "NULLABLE",
+    "description": "Applied filters in JSON format"
+  },
+  {
+    "name": "results_count",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Number of search results returned"
+  },
+  {
+    "name": "page_number",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Page number of results"
+  },
+  {
+    "name": "results_per_page",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Number of results per page"
+  },
+  {
+    "name": "response_time_ms",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Search response time in milliseconds"
+  },
+  {
+    "name": "clicked_result_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "ID of clicked search result"
+  },
+  {
+    "name": "clicked_position",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Position of clicked result (1-based)"
+  },
+  {
+    "name": "location_city",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Search location city"
+  },
+  {
+    "name": "location_district",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Search location district"
+  },
+  {
+    "name": "platform",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Platform (web, ios, android)"
+  },
+  {
+    "name": "timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the search was performed"
+  }
+]
