@@ -4,9 +4,14 @@ import 'package:flutter/foundation.dart';
 import '../theme/app_colors.dart';
 import '../utils/legal_utils.dart';
 
-class GDPRRightsSheet extends StatelessWidget {
+class GDPRRightsSheet extends StatefulWidget {
   const GDPRRightsSheet({Key? key}) : super(key: key);
 
+  @override
+  State<GDPRRightsSheet> createState() => _GDPRRightsSheetState();
+}
+
+class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(

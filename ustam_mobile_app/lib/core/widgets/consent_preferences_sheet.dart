@@ -11,9 +11,10 @@ class ConsentPreferencesSheet extends StatefulWidget {
 }
 
 class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
-  bool marketingConsent = false;
-  bool analyticsConsent = false;
-  bool notificationConsent = true;
+  bool _marketingConsent = false;
+  bool _analyticsConsent = false;
+  bool _functionalConsent = true;
+  bool _performanceConsent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +44,26 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
           _buildConsentTile(
             'Pazarlama İletişimi',
             'Kampanya ve promosyonlar hakkında bilgilendirilmek istiyorum',
-            marketingConsent,
-            (value) => setState(() => marketingConsent = value),
+            _marketingConsent,
+            (value) => setState(() => _marketingConsent = value),
           ),
           _buildConsentTile(
             'Analitik Veriler',
             'Uygulama deneyimini iyileştirmek için anonim veri paylaşımı',
-            analyticsConsent,
-            (value) => setState(() => analyticsConsent = value),
+            _analyticsConsent,
+            (value) => setState(() => _analyticsConsent = value),
           ),
           _buildConsentTile(
-            'Bildirimler',
-            'Önemli güncellemeler ve mesajlar için bildirim alma',
-            notificationConsent,
-            (value) => setState(() => notificationConsent = value),
+            'Fonksiyonel Özellikler',
+            'Temel uygulama işlevleri ve kişiselleştirme',
+            _functionalConsent,
+            (value) => setState(() => _functionalConsent = value),
+          ),
+          _buildConsentTile(
+            'Performans İzleme',
+            'Uygulama performansını izleme ve iyileştirme',
+            _performanceConsent,
+            (value) => setState(() => _performanceConsent = value),
           ),
           const SizedBox(height: DesignTokens.space24),
           SizedBox(
