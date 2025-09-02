@@ -374,15 +374,37 @@ class ComprehensiveBigQuerySetup:
         """Check if all prerequisites are met"""
         logger.info("🔍 Checking prerequisites...")
         
-        # Check gcloud authentication
+        # Check gcloud authentication with multiple possible paths
+        gcloud_paths = [
+            'gcloud',
+            'gcloud.cmd',
+            r'C:\Users\sudes\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd',
+            r'C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd'
+        ]
+        
+        gcloud_cmd = None
+        for path in gcloud_paths:
+            try:
+                result = subprocess.run([path, 'auth', 'list'], capture_output=True, text=True)
+                if result.returncode == 0:
+                    gcloud_cmd = path
+                    break
+            except FileNotFoundError:
+                continue
+        
+        if not gcloud_cmd:
+            logger.error("❌ gcloud command not found. Install Google Cloud SDK")
+            return False
+        
+        # Check authentication
         try:
-            result = subprocess.run(['gcloud', 'auth', 'list'], capture_output=True, text=True)
+            result = subprocess.run([gcloud_cmd, 'auth', 'list'], capture_output=True, text=True)
             if 'ACTIVE' not in result.stdout:
                 logger.error("❌ No active gcloud authentication found. Run: gcloud auth login")
                 return False
             logger.info("✅ Google Cloud authentication verified")
-        except FileNotFoundError:
-            logger.error("❌ gcloud command not found. Install Google Cloud SDK")
+        except Exception as e:
+            logger.error(f"❌ Authentication check failed: {e}")
             return False
         
         return True
