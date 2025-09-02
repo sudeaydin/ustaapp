@@ -24,7 +24,7 @@ class ComprehensiveBigQuerySetup:
     """Comprehensive BigQuery setup for ustam app with full analytics infrastructure"""
     
     def __init__(self, project_id=None):
-        self.project_id = project_id or "ustam-analytics"
+        self.project_id = project_id or "ustaapp-analytics"
         self.dataset_id = "ustam_analytics"
         self.location = "US"
         self.client = None

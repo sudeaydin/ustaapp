@@ -23,7 +23,7 @@ class BigQueryLogger:
     """Real-time BigQuery logger for ustam app"""
     
     def __init__(self, project_id=None, dataset_id="ustam_analytics"):
-        self.project_id = project_id or os.environ.get('BIGQUERY_PROJECT_ID', 'ustam-analytics')
+        self.project_id = project_id or os.environ.get('BIGQUERY_PROJECT_ID', 'ustaapp-analytics')
         self.dataset_id = dataset_id
         self.client = None
         self.enabled = os.environ.get('BIGQUERY_LOGGING_ENABLED', 'false').lower() == 'true'
