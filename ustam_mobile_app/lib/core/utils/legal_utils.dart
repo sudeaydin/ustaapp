@@ -406,6 +406,56 @@ class LegalValidator {
   }
 }
 
+/// Utility class for legal operations
+class LegalUtils {
+  static final LegalManager _manager = LegalManager();
+
+  /// Record user consent
+  static Future<void> recordConsent(Map<String, bool> consents) async {
+    for (final entry in consents.entries) {
+      ConsentType? type;
+      switch (entry.key) {
+        case 'analytics':
+          type = ConsentType.analytics;
+          break;
+        case 'marketing':
+          type = ConsentType.marketing;
+          break;
+        case 'functional':
+          type = ConsentType.mandatory;
+          break;
+        case 'performance':
+          type = ConsentType.dataSharing;
+          break;
+      }
+      
+      if (type != null) {
+        await _manager.recordConsent(type, entry.value);
+      }
+    }
+  }
+
+  /// Request data export
+  static Future<void> requestDataExport() async {
+    await _manager.requestDataExport();
+  }
+
+  /// Request account deletion
+  static Future<void> requestAccountDeletion() async {
+    await _manager.requestAccountDeletion();
+  }
+
+  /// Get legal document
+  static Future<LegalDocument?> getLegalDocument(LegalDocumentType type) async {
+    return await _manager.getLegalDocument(type);
+  }
+
+  /// Check if user has mandatory consents
+  static Future<bool> hasMandatoryConsents() async {
+    return await _manager.hasMandatoryConsents();
+  }
+}
+
 /// Legal compliance mixin for screens
 mixin LegalComplianceMixin<T extends StatefulWidget> on State<T> {
   /// Show user agreement modal if not accepted
