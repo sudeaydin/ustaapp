@@ -1,6 +1,8 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../theme/app_colors.dart';
+import '../utils/legal_utils.dart';
 
 class GDPRRightsSheet extends StatelessWidget {
   const GDPRRightsSheet({Key? key}) : super(key: key);
@@ -96,8 +98,59 @@ class GDPRRightsSheet extends StatelessWidget {
     );
   }
 
-  void _exerciseRight(String rightType) {
-    // TODO: Implement GDPR right exercise
-    print('Exercising GDPR right: $rightType');
+  void _exerciseRight(String rightType) async {
+    try {
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16),
+              Text('İşlem gerçekleştiriliyor...'),
+            ],
+          ),
+        ),
+      );
+
+      // Call the legal utils to exercise the right
+      switch (rightType) {
+        case 'data_export':
+          await LegalUtils.requestDataExport();
+          break;
+        case 'account_deletion':
+          await LegalUtils.requestAccountDeletion();
+          break;
+        case 'data_portability':
+          await LegalUtils.requestDataExport(); // Same as data export
+          break;
+        default:
+          throw Exception('Unknown right type: $rightType');
+      }
+
+      // Close loading dialog
+      Navigator.of(context).pop();
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('GDPR hakkınız başarıyla talep edildi. E-posta adresinizi kontrol edin.'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      // Close loading dialog if open
+      Navigator.of(context).pop();
+      
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('İşlem gerçekleştirilemedi: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

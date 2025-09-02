@@ -1,27 +1,35 @@
-// Logger utility - only logs in development
-const isDevelopment = import.meta.env.DEV;
+// Production-safe logger utility
+class Logger {
+  static isDevelopment = import.meta.env.DEV || process.env.NODE_ENV === 'development';
 
-export const logger = {
-  log: (...args) => {
-    if (isDevelopment) {
+  static log(...args) {
+    if (this.isDevelopment) {
       console.log(...args);
     }
-  },
-  error: (...args) => {
-    if (isDevelopment) {
-      console.error(...args);
-    }
-  },
-  warn: (...args) => {
-    if (isDevelopment) {
+  }
+
+  static warn(...args) {
+    if (this.isDevelopment) {
       console.warn(...args);
     }
-  },
-  info: (...args) => {
-    if (isDevelopment) {
+  }
+
+  static error(...args) {
+    // Always log errors, even in production
+    console.error(...args);
+  }
+
+  static debug(...args) {
+    if (this.isDevelopment) {
+      console.debug(...args);
+    }
+  }
+
+  static info(...args) {
+    if (this.isDevelopment) {
       console.info(...args);
     }
   }
-};
+}
 
-export default logger;
+export default Logger;

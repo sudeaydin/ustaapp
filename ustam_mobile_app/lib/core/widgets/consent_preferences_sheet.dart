@@ -1,6 +1,7 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../utils/legal_utils.dart';
 
 class ConsentPreferencesSheet extends StatefulWidget {
   const ConsentPreferencesSheet({Key? key}) : super(key: key);
@@ -119,14 +120,54 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
     );
   }
 
-  void _savePreferences() {
-    // TODO: Save preferences to backend
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Tercihleriniz kaydedildi'),
-        backgroundColor: DesignTokens.primaryCoral,
-      ),
-    );
+  void _savePreferences() async {
+    try {
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16),
+              Text('Tercihler kaydediliyor...'),
+            ],
+          ),
+        ),
+      );
+
+      // Save preferences to backend via LegalUtils
+      await LegalUtils.recordConsent({
+        'analytics': _analyticsConsent,
+        'marketing': _marketingConsent,
+        'functional': _functionalConsent,
+        'performance': _performanceConsent,
+      });
+
+      // Close loading dialog
+      Navigator.of(context).pop();
+
+      // Close preferences sheet
+      Navigator.pop(context);
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Tercihleriniz başarıyla kaydedildi'),
+          backgroundColor: DesignTokens.primaryCoral,
+        ),
+      );
+    } catch (e) {
+      // Close loading dialog if open
+      Navigator.of(context).pop();
+      
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Tercihler kaydedilemedi: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

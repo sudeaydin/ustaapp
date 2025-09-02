@@ -54,7 +54,6 @@ def create_app(config_name='default'):
     from app.routes.production_api import production_api
     from app.routes.mobile_api import mobile_api
     from app.routes.quotes import quotes_bp
-    from app.routes.messages import messages_bp # This line is duplicated, but the edit doesn't ask to remove it.
     from app.routes.notifications import notifications_bp
     from app.routes.quote_request import quote_request_bp
     from app.routes.auth import auth_bp
@@ -74,7 +73,7 @@ def create_app(config_name='default'):
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
     app.register_blueprint(search_bp, url_prefix='/api/search')
     app.register_blueprint(payment_bp, url_prefix='/api/payment')
-    app.register_blueprint(notification_bp, url_prefix='/api/notifications')
+    app.register_blueprint(notification_bp, url_prefix='/api/notification')
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')
     app.register_blueprint(quotes_bp, url_prefix='/api/quotes')
