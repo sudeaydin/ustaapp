@@ -1,0 +1,39 @@
+# Google App Engine configuration for React frontend
+runtime: nodejs18
+
+# Static file serving
+handlers:
+# Serve static files from dist directory
+- url: /static
+  static_dir: dist/static
+  secure: always
+
+- url: /assets
+  static_dir: dist/assets
+  secure: always
+
+# Serve index.html for all routes (SPA routing)
+- url: /.*
+  static_files: dist/index.html
+  upload: dist/index.html
+  secure: always
+
+# Environment variables
+env_variables:
+  NODE_ENV: production
+  REACT_APP_API_URL: https://ustaapp-analytics.appspot.com/api
+
+# Skip files that shouldn't be uploaded
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^(.*/)?node_modules/.*$
+- ^(.*/)?src/.*$
+- ^(.*/)?public/.*$
+- ^(.*/)?package\.json$
+- ^(.*/)?package-lock\.json$
+- ^(.*/)?\.gitignore$
+- ^(.*/)?README\.md$
