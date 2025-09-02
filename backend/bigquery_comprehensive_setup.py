@@ -385,15 +385,27 @@ class ComprehensiveBigQuerySetup:
         gcloud_cmd = None
         for path in gcloud_paths:
             try:
-                result = subprocess.run([path, 'auth', 'list'], capture_output=True, text=True)
+                logger.info(f"Trying gcloud path: {path}")
+                result = subprocess.run([path, 'auth', 'list'], capture_output=True, text=True, timeout=10)
+                logger.info(f"Return code: {result.returncode}")
+                if result.stderr:
+                    logger.info(f"Stderr: {result.stderr}")
                 if result.returncode == 0:
                     gcloud_cmd = path
+                    logger.info(f"✅ Found working gcloud at: {path}")
                     break
-            except FileNotFoundError:
+            except FileNotFoundError as e:
+                logger.info(f"Path not found: {path} - {e}")
+                continue
+            except Exception as e:
+                logger.info(f"Error with path {path}: {e}")
                 continue
         
         if not gcloud_cmd:
             logger.error("❌ gcloud command not found. Install Google Cloud SDK")
+            logger.error("Tried paths:")
+            for path in gcloud_paths:
+                logger.error(f"  - {path}")
             return False
         
         # Check authentication
