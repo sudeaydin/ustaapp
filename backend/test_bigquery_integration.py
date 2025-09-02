@@ -12,6 +12,14 @@ from datetime import datetime
 # Add backend to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
+
+# Create Flask app context
+from app import create_app
+app = create_app()
+
 from app.utils.bigquery_logger import bigquery_logger, log_user_login, log_search, log_api_error
 
 def test_bigquery_connection():
@@ -38,29 +46,31 @@ def test_manual_logging():
     print("\n📝 Testing Manual Logging...")
     
     try:
-        # Test user login log
-        print("   Testing user login log...")
-        log_user_login(user_id=999, success=True)
-        
-        # Test search log
-        print("   Testing search log...")
-        log_search(
-            user_id=999,
-            search_query="elektrikçi istanbul",
-            search_type="craftsman",
-            results_count=15,
-            response_time_ms=250,
-            filters={"city": "istanbul", "category": "electrical"}
-        )
-        
-        # Test error log
-        print("   Testing error log...")
-        log_api_error(
-            error_type="TEST_ERROR",
-            error_message="This is a test error for BigQuery integration",
-            endpoint="/api/test",
-            user_id=999
-        )
+        # Use Flask app context
+        with app.app_context():
+            # Test user login log
+            print("   Testing user login log...")
+            log_user_login(user_id=999, success=True)
+            
+            # Test search log
+            print("   Testing search log...")
+            log_search(
+                user_id=999,
+                search_query="elektrikçi istanbul",
+                search_type="craftsman",
+                results_count=15,
+                response_time_ms=250,
+                filters={"city": "istanbul", "category": "electrical"}
+            )
+            
+            # Test error log
+            print("   Testing error log...")
+            log_api_error(
+                error_type="TEST_ERROR",
+                error_message="This is a test error for BigQuery integration",
+                endpoint="/api/test",
+                user_id=999
+            )
         
         print("✅ Manual logging tests completed")
         print("   Data queued for BigQuery (will be sent in batches)")
@@ -127,19 +137,21 @@ def simulate_user_session():
     ]
     
     try:
-        for i, (action, category, details) in enumerate(session_activities, 1):
-            print(f"   Step {i}: {action}")
-            
-            bigquery_logger.log_user_activity(
-                action_type=action,
-                action_category=category,
-                user_id=user_id,
-                success=True,
-                duration_ms=100 + i * 50,
-                action_details=details
-            )
-            
-            time.sleep(0.5)  # Simulate time between actions
+        # Use Flask app context
+        with app.app_context():
+            for i, (action, category, details) in enumerate(session_activities, 1):
+                print(f"   Step {i}: {action}")
+                
+                bigquery_logger.log_user_activity(
+                    action_type=action,
+                    action_category=category,
+                    user_id=user_id,
+                    success=True,
+                    duration_ms=100 + i * 50,
+                    action_details=details
+                )
+                
+                time.sleep(0.5)  # Simulate time between actions
         
         print("✅ User session simulation completed")
         return True
@@ -152,10 +164,6 @@ def main():
     """Main test function"""
     print("🚀 BigQuery Integration Test")
     print("=" * 50)
-    
-    # Load environment variables
-    from dotenv import load_dotenv
-    load_dotenv()
     
     # Run tests
     tests = [
