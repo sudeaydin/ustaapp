@@ -21,8 +21,8 @@ echo BIGQUERY_PROJECT_ID=ustaapp-analytics >> .env
 echo. >> .env
 echo # Flask Configuration >> .env
 echo FLASK_ENV=development >> .env
-echo SECRET_KEY=dev-secret-key-12345 >> .env
-echo JWT_SECRET_KEY=jwt-secret-key-67890 >> .env
+echo SECRET_KEY=dev-secret-key-%RANDOM%-%RANDOM% >> .env
+echo JWT_SECRET_KEY=jwt-secret-key-%RANDOM%-%RANDOM% >> .env
 echo. >> .env
 echo # Database >> .env
 echo DATABASE_URL=sqlite:///app.db >> .env
