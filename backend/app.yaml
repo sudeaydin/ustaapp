@@ -1,0 +1,47 @@
+# Google App Engine Configuration for ustam App
+runtime: python39
+
+# Environment variables
+env_variables:
+  FLASK_ENV: production
+  BIGQUERY_LOGGING_ENABLED: true
+  BIGQUERY_PROJECT_ID: ustaapp-analytics
+  
+# Automatic scaling
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10
+  target_cpu_utilization: 0.6
+  target_throughput_utilization: 0.6
+
+# Instance resources
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+# Health checks
+readiness_check:
+  path: "/api/health"
+  check_interval_sec: 5
+  timeout_sec: 4
+  failure_threshold: 2
+  success_threshold: 2
+  app_start_timeout_sec: 300
+
+liveness_check:
+  path: "/api/health"
+  check_interval_sec: 30
+  timeout_sec: 4
+  failure_threshold: 4
+  success_threshold: 2
+
+# Static files (for any static assets)
+handlers:
+- url: /static
+  static_dir: static
+  secure: always
+
+- url: /.*
+  script: auto
+  secure: always
