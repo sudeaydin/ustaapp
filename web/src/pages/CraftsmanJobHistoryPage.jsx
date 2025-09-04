@@ -76,7 +76,7 @@ export const CraftsmanJobHistoryPage = () => {
     }
   ]);
 
-  const [quotes] = useState([
+  const [quotesData] = useState([
     {
       id: 1,
       customer: 'Ali Veli',

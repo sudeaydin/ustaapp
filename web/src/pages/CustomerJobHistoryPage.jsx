@@ -107,7 +107,7 @@ export const CustomerJobHistoryPage = () => {
     }
   ]);
 
-  const [quotes] = useState([
+  const [quotesData] = useState([
     {
       id: 1,
       request_id: 2,
