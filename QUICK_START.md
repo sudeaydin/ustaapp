@@ -3,9 +3,12 @@
 ## ⚡ **SUPER FAST SETUP (Windows)**
 
 ```cmd
-# 1. Clone repository
+# 1. Clone repository (ilk kez)
 git clone https://github.com/sudeaydin/ustaapp.git
 cd ustaapp
+
+# VEYA güncel kodu çek (varsa)
+git pull origin main
 
 # 2. Run quick setup
 quick_setup.bat
