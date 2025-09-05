@@ -56,61 +56,45 @@ python run.py
 
 ---
 
-## 🌐 **WEB FRONTEND KURULUMU VE ÇALIŞTIRMA**
+## 📱 **FLUTTER CROSS-PLATFORM (Mobile + Web)**
 
 ### **Yeni CMD Penceresi Aç ve:**
 
-### **1. Web Klasörüne Git:**
-```cmd
-cd C:\FlutterProjects\ustaapp\web
-```
-
-### **2. Node.js Dependencies Yükle:**
-```cmd
-npm install
-```
-
-### **3. Development Server Başlat:**
-```cmd
-npm run dev
-```
-
-**✅ Web App Hazır:** http://localhost:5173
-
----
-
-## 📱 **FLUTTER MOBİL UYGULAMA KURULUMU VE ÇALIŞTIRMA**
-
-### **Yeni CMD Penceresi Aç ve:**
-
-### **1. Mobile Klasörüne Git:**
+### **1. Flutter Klasörüne Git:**
 ```cmd
 cd C:\FlutterProjects\ustaapp\ustam_mobile_app
 ```
 
-### **2. Flutter Dependencies Yükle:**
+### **2. Flutter Web Support Aktif Et:**
+```cmd
+flutter config --enable-web
+```
+
+### **3. Flutter Dependencies Yükle:**
 ```cmd
 flutter pub get
 ```
 
-### **3. Web Modunda Çalıştır (Chrome):**
+### **4. Web Modunda Çalıştır (Chrome):**
 ```cmd
 flutter run -d chrome --web-port=8080
 ```
 
-**✅ Mobile App Hazır:** http://localhost:8080
+**✅ Flutter Web Hazır:** http://localhost:8080
 
-### **4. Android/iOS Simulator'de Çalıştır:**
+### **5. Mobile Simulator'de Çalıştır (Ayrı Terminal):**
 ```cmd
+# Yeni CMD penceresi aç
+cd C:\FlutterProjects\ustaapp\ustam_mobile_app
+
 # Simulator/device listesi
 flutter devices
 
-# Belirli device'da çalıştır
-flutter run -d <device_id>
-
-# Veya sadece
+# Android/iOS çalıştır
 flutter run
 ```
+
+**✅ Flutter Mobile Hazır:** Simulator/Device
 
 ---
 
@@ -119,9 +103,10 @@ flutter run
 Başarılı kurulum sonrası:
 
 - **🔧 Backend API:** http://localhost:5000
-- **🌐 Web App:** http://localhost:5173  
-- **📱 Mobile Web:** http://localhost:8080
-- **📱 Mobile Native:** Simulator/Device
+- **🌐 Flutter Web:** http://localhost:8080  
+- **📱 Flutter Mobile:** Simulator/Device
+
+**❌ React Web yok artık! ❌ Node.js gereksiz!**
 
 ---
 
@@ -152,8 +137,8 @@ Email: admin@example.com
 cd C:\FlutterProjects\ustaapp
 git pull origin main
 
-# 2. Hepsini başlat
-start_all_windows.bat
+# 2. Flutter + Backend başlat
+start_flutter_all.bat
 ```
 
 ### **Veya Tek Tek:**
@@ -164,13 +149,13 @@ cd C:\FlutterProjects\ustaapp\backend
 venv\Scripts\activate
 python run.py
 
-# Terminal 2 - Web  
-cd C:\FlutterProjects\ustaapp\web
-npm run dev
-
-# Terminal 3 - Mobile
+# Terminal 2 - Flutter Web
 cd C:\FlutterProjects\ustaapp\ustam_mobile_app
 flutter run -d chrome --web-port=8080
+
+# Terminal 3 - Flutter Mobile (İsteğe Bağlı)
+cd C:\FlutterProjects\ustaapp\ustam_mobile_app
+flutter run
 ```
 
 ---
@@ -195,11 +180,12 @@ type .env
 setup_env.bat
 ```
 
-### **"Web Başlamıyor":**
+### **"Flutter Web Başlamıyor":**
 ```cmd
-# Node modules temizle
-rm -rf node_modules
-npm install
+# Flutter temizle
+flutter clean
+flutter pub get
+flutter config --enable-web
 ```
 
 ### **"Mobile Başlamıyor":**
@@ -223,7 +209,7 @@ taskkill /PID <PID> /F
 Tüm servisler çalışıyorsa:
 
 1. **Backend:** http://localhost:5000/api/health → `{"status": "healthy"}`
-2. **Web:** http://localhost:5173 → ustam web sayfası açılır
-3. **Mobile:** http://localhost:8080 → ustam mobile web versiyonu açılır
+2. **Flutter Web:** http://localhost:8080 → ustam Flutter web uygulaması açılır
+3. **Flutter Mobile:** Simulator/Device → ustam Flutter mobile uygulaması açılır
 
 **Happy Coding! 🚀**

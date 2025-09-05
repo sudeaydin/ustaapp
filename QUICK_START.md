@@ -10,11 +10,11 @@ cd ustaapp
 # VEYA güncel kodu çek (varsa)
 git pull origin main
 
-# 2. Run quick setup
-quick_setup.bat
+# 2. Flutter web setup
+flutter_web_setup.bat
 
-# 3. Start all components
-start_all_windows.bat
+# 3. Start Flutter + Backend
+start_flutter_all.bat
 ```
 
 ## ⚡ **SUPER FAST SETUP (Mac/Linux)**
