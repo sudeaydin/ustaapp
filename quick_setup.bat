@@ -39,37 +39,32 @@ if not exist "venv" (
 call venv\Scripts\activate
 pip install -r requirements.txt
 call setup_env.bat
-python create_db_with_data.py
+call smart_setup.bat
 cd ..
 
-REM Setup Web
-echo 🌐 Setting up Web Frontend...
-cd web
-npm install
+REM Setup Flutter Web
+echo 📱 Setting up Flutter Cross-Platform...
+cd ustam_mobile_app
+flutter config --enable-web
+flutter pub get
 cd ..
 
-REM Setup Mobile (optional)
-if exist "ustam_mobile_app" (
-    echo 📱 Setting up Mobile App...
-    cd ustam_mobile_app
-    flutter pub get
-    cd ..
-)
 
 echo.
 echo ✅ Setup Complete!
 echo ==================
 echo.
 echo 🚀 To start all components:
-echo    start_all_windows.bat
+echo    start_flutter_all.bat
 echo.
 echo 🔧 Individual components:
-echo    Backend:  cd backend ^&^& venv\Scripts\activate ^&^& python run.py
-echo    Web:      cd web ^&^& npm run dev
-echo    Mobile:   cd ustam_mobile_app ^&^& flutter run
+echo    Backend:      cd backend ^&^& venv\Scripts\activate ^&^& python run.py
+echo    Flutter Web:  cd ustam_mobile_app ^&^& flutter run -d chrome --web-port=8080
+echo    Flutter Mobile: cd ustam_mobile_app ^&^& flutter run
 echo.
 echo 🌐 URLs after starting:
 echo    Backend API: http://localhost:5000
-echo    Web App:     http://localhost:5173
+echo    Flutter Web: http://localhost:8080
+echo    Flutter Mobile: Simulator/Device
 echo.
 pause

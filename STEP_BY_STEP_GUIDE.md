@@ -42,10 +42,13 @@ pip install -r requirements.txt
 setup_env.bat
 ```
 
-### **6. Veritabanını ve Test Verisini Oluştur:**
+### **6. Akıllı Database Setup (BigQuery First):**
 ```cmd
-python create_db_with_data.py
+python smart_setup.bat
 ```
+**Otomatik olarak:**
+- ✅ BigQuery'de veri varsa oradan çeker
+- ✅ BigQuery'de veri yoksa sample data oluşturur
 
 ### **7. Backend API'yi Başlat:**
 ```cmd
