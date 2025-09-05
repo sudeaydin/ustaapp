@@ -21,15 +21,108 @@ legal_bp = Blueprint('legal', __name__)
 def get_terms_of_service():
     """Get current terms of service"""
     try:
-        terms = LegalDocumentManager.get_terms_of_service()
+        # Read from file
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/kullanim_kosullari.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
         return jsonify({
             'success': True,
-            'data': terms
+            'data': {
+                'title': 'Kullanım Koşulları',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'terms_of_service'
+            }
         })
     except Exception as e:
         return jsonify({
             'success': False,
             'message': f'Terms retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/user-agreement', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_user_agreement():
+    """Get user agreement (bireysel hesap sözleşmesi)"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/bireysel_hesap_sozlesmesi.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'Bireysel Hesap Sözleşmesi',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'user_agreement'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'User agreement retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/cookie-policy', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_cookie_policy():
+    """Get cookie policy"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/cerez_politikasi.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'Çerez Politikası',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'cookie_policy'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Cookie policy retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/cookie-preferences', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_cookie_preferences():
+    """Get cookie preferences summary"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/cerez_tercihleri_ozet.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'Çerez Tercihleri',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'cookie_preferences'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Cookie preferences retrieval failed: {str(e)}'
         }), 500
 
 @legal_bp.route('/documents/privacy-policy', methods=['GET'])
