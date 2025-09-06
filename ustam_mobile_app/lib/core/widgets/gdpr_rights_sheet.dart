@@ -122,15 +122,30 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
 
       // Call the legal utils to exercise the right
       switch (rightType) {
+        case 'data_access':
         case 'data_export':
           await LegalUtils.requestDataExport();
           break;
+        case 'data_deletion':
         case 'account_deletion':
           await LegalUtils.requestAccountDeletion();
           break;
         case 'data_portability':
           await LegalUtils.requestDataExport(); // Same as data export
           break;
+        case 'data_correction':
+          // Navigate to profile edit
+          Navigator.of(context).pushNamed('/profile');
+          return; // Don't show success message for navigation
+        case 'processing_restriction':
+          // Show info about contacting support
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Veri işlemeyi durdurma talebi için kvkk@ustam.app adresine başvurun.'),
+              backgroundColor: Colors.blue,
+            ),
+          );
+          return;
         default:
           throw Exception('Unknown right type: $rightType');
       }
