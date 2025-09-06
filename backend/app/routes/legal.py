@@ -328,37 +328,7 @@ def get_all_legal_documents():
             'message': f'Failed to retrieve documents list: {str(e)}'
         }), 500
 
-@legal_bp.route('/documents/cookie-policy', methods=['GET'])
-@rate_limit(max_requests=30)
-def get_cookie_policy():
-    """Get current cookie policy"""
-    try:
-        policy = LegalDocumentManager.get_cookie_policy()
-        return jsonify({
-            'success': True,
-            'data': policy
-        })
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': f'Cookie policy retrieval failed: {str(e)}'
-        }), 500
 
-@legal_bp.route('/documents/user-agreement', methods=['GET'])
-@rate_limit(max_requests=30)
-def get_user_agreement():
-    """Get user agreement template"""
-    try:
-        agreement = LegalDocumentManager.get_user_agreement()
-        return jsonify({
-            'success': True,
-            'data': agreement
-        })
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': f'User agreement retrieval failed: {str(e)}'
-        }), 500
 
 @legal_bp.route('/consent/record', methods=['POST'])
 @rate_limit(max_requests=60)
