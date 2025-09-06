@@ -130,15 +130,202 @@ def get_cookie_preferences():
 def get_privacy_policy():
     """Get current privacy policy"""
     try:
-        policy = LegalDocumentManager.get_privacy_policy()
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/gizlilik_politikasi.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
         return jsonify({
             'success': True,
-            'data': policy
+            'data': {
+                'title': 'Gizlilik Politikası',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'privacy_policy'
+            }
         })
     except Exception as e:
         return jsonify({
             'success': False,
             'message': f'Privacy policy retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/corporate-agreement', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_corporate_agreement():
+    """Get corporate account agreement"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/kurumsal_hesap_sozlesmesi.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'Kurumsal Hesap Sözleşmesi',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'corporate_agreement'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Corporate agreement retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/listing-rules', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_listing_rules():
+    """Get listing rules and prohibited content"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/ilan_verme_kurallari.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'İlan Verme Kuralları ve Yasaklı İlanlar',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'listing_rules'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Listing rules retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/kvkk-summary', methods=['GET'])
+@rate_limit(max_requests=30)
+def get_kvkk_summary():
+    """Get KVKK summary and data protection info"""
+    try:
+        import os
+        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/kvkk_aydinlatma_metni.md')
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'title': 'KVKK Aydınlatma Metni',
+                'content': content,
+                'version': '1.0',
+                'last_updated': '2025-01-01',
+                'type': 'kvkk_summary'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'KVKK summary retrieval failed: {str(e)}'
+        }), 500
+
+@legal_bp.route('/documents/all', methods=['GET'])
+@rate_limit(max_requests=10)
+def get_all_legal_documents():
+    """Get all legal documents list"""
+    try:
+        documents = [
+            {
+                'id': 'terms_of_service',
+                'title': 'Kullanım Koşulları',
+                'description': 'Portal kullanım şartları ve kuralları',
+                'endpoint': '/api/legal/documents/terms-of-service',
+                'required_for': ['registration', 'usage'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'user_agreement',
+                'title': 'Bireysel Hesap Sözleşmesi',
+                'description': 'Bireysel kullanıcılar için hesap sözleşmesi',
+                'endpoint': '/api/legal/documents/user-agreement',
+                'required_for': ['individual_registration'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'corporate_agreement',
+                'title': 'Kurumsal Hesap Sözleşmesi',
+                'description': 'Hizmet veren ustalar için kurumsal sözleşme',
+                'endpoint': '/api/legal/documents/corporate-agreement',
+                'required_for': ['craftsman_registration'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'privacy_policy',
+                'title': 'Gizlilik Politikası',
+                'description': 'Kişisel verilerin işlenmesi ve gizlilik koşulları',
+                'endpoint': '/api/legal/documents/privacy-policy',
+                'required_for': ['registration', 'data_processing'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'cookie_policy',
+                'title': 'Çerez Politikası',
+                'description': 'Çerez kullanımı ve veri işleme detayları',
+                'endpoint': '/api/legal/documents/cookie-policy',
+                'required_for': ['website_usage', 'app_usage'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'cookie_preferences',
+                'title': 'Çerez Tercihleri',
+                'description': 'Çerez tercih yönetimi ve özet bilgi',
+                'endpoint': '/api/legal/documents/cookie-preferences',
+                'required_for': ['cookie_management'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'listing_rules',
+                'title': 'İlan Verme Kuralları',
+                'description': 'İlan yayınlama kuralları ve yasaklı içerikler',
+                'endpoint': '/api/legal/documents/listing-rules',
+                'required_for': ['job_posting', 'service_listing'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            },
+            {
+                'id': 'kvkk_summary',
+                'title': 'KVKK Aydınlatma Özeti',
+                'description': 'Kişisel veri işleme özet bilgilendirmesi',
+                'endpoint': '/api/legal/documents/kvkk-summary',
+                'required_for': ['data_subject_rights'],
+                'version': '1.0',
+                'last_updated': '2025-01-01'
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'documents': documents,
+                'total_count': len(documents),
+                'compliance_framework': 'KVKK (Turkish GDPR)',
+                'last_updated': '2025-01-01'
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Failed to retrieve documents list: {str(e)}'
         }), 500
 
 @legal_bp.route('/documents/cookie-policy', methods=['GET'])
