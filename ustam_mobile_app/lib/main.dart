@@ -37,6 +37,7 @@ import 'features/quotes/screens/craftsman_quotes_screen.dart';
 import 'features/analytics/screens/analytics_screen.dart';
 import 'features/accessibility/screens/accessibility_test_screen.dart';
 import 'features/legal/screens/legal_screen.dart';
+import 'features/legal/screens/legal_documents_screen.dart';
 import 'features/jobs/screens/job_management_screen.dart';
 import 'features/notifications/screens/enhanced_notifications_screen.dart';
 import 'features/marketplace/screens/marketplace_feed_screen.dart';
@@ -165,6 +166,7 @@ class MyApp extends ConsumerWidget {
         '/analytics': (context) => const AnalyticsScreen(),
         '/accessibility-test': (context) => const AccessibilityTestScreen(),
         '/legal': (context) => const LegalScreen(),
+        '/legal/documents': (context) => const LegalDocumentsScreen(),
         '/job-management': (context) => const JobManagementScreen(),
         '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
         '/settings': (context) => const ProfileScreen(), // Settings redirects to profile for now

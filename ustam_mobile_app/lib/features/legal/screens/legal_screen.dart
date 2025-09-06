@@ -68,59 +68,74 @@ class _LegalScreenState extends State<LegalScreen>
             ),
           ),
           
-          // Action buttons
-          Container(
-            padding: const EdgeInsets.all(DesignTokens.space16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, -2),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: AccessibleButton(
-                        onPressed: showConsentPreferences,
-                        semanticLabel: 'Onay tercihlerini yönet',
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.settings),
-                            SizedBox(width: 8),
-                            Text('Onay Tercihleri'),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: AccessibleButton(
-                        onPressed: showGDPRRights,
-                        semanticLabel: 'KVKK haklarını görüntüle',
-                        variant: 'secondary',
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.privacy_tip),
-                            SizedBox(width: 8),
-                            Text('KVKK Hakları'),
-                          ],
-                        ),
-                      ),
+                        // Action buttons
+              Container(
+                padding: const EdgeInsets.all(DesignTokens.space16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, -2),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // New documents button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () => Navigator.pushNamed(context, '/legal/documents'),
+                        icon: const Icon(Icons.article),
+                        label: const Text('Tüm Yasal Belgeleri Görüntüle'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: DesignTokens.primaryCoral,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AccessibleButton(
+                            onPressed: showConsentPreferences,
+                            semanticLabel: 'Onay tercihlerini yönet',
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.settings),
+                                SizedBox(width: 8),
+                                Text('Onay Tercihleri'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: AccessibleButton(
+                            onPressed: showGDPRRights,
+                            semanticLabel: 'KVKK haklarını görüntüle',
+                            variant: 'secondary',
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.privacy_tip),
+                                SizedBox(width: 8),
+                                Text('KVKK Hakları'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
         ],
       ),
     );
