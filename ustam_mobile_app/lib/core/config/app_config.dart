@@ -5,7 +5,11 @@ class AppConfig {
   static const String _devBaseUrl = 'http://localhost:5000';
   static const String _prodBaseUrl = 'https://ustaapp-analytics.uc.r.appspot.com'; // Production URL
   
+  // Force production mode for testing (set to true to use production API)
+  static const bool _forceProduction = false;
+  
   static String get baseUrl {
+    if (_forceProduction) return _prodBaseUrl;
     return kDebugMode ? _devBaseUrl : _prodBaseUrl;
   }
   
