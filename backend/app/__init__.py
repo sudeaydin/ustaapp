@@ -250,6 +250,70 @@ def create_app(config_name='default'):
             db.session.rollback()
             return jsonify({'success': False, 'message': 'Bir hata oluştu'}), 500
     
+    # Profile endpoint
+    @app.route('/api/auth/profile', methods=['GET'])
+    @jwt_required()
+    def get_profile():
+        from flask_jwt_extended import jwt_required, get_jwt_identity
+        from app.models.user import User
+        from app.models.customer import Customer
+        from app.models.craftsman import Craftsman
+        
+        try:
+            # Get current user from JWT token
+            current_user_id = get_jwt_identity()
+            if not current_user_id:
+                return jsonify({'success': False, 'message': 'Token gerekli'}), 401
+            
+            # Find user
+            user = User.query.get(int(current_user_id))
+            if not user:
+                return jsonify({'success': False, 'message': 'Kullanıcı bulunamadı'}), 404
+            
+            # Get profile based on user type
+            profile_data = None
+            if user.user_type == 'customer':
+                profile = Customer.query.filter_by(user_id=user.id).first()
+                if profile:
+                    profile_data = {
+                        'billing_address': profile.billing_address,
+                        'city': profile.city,
+                        'district': profile.district
+                    }
+            elif user.user_type == 'craftsman':
+                profile = Craftsman.query.filter_by(user_id=user.id).first()
+                if profile:
+                    profile_data = {
+                        'business_name': profile.business_name,
+                        'description': profile.description,
+                        'city': profile.city,
+                        'district': profile.district,
+                        'hourly_rate': str(profile.hourly_rate) if profile.hourly_rate else None,
+                        'is_available': profile.is_available
+                    }
+            
+            return jsonify({
+                'success': True,
+                'data': {
+                    'id': user.id,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'full_name': f"{user.first_name} {user.last_name}",
+                    'phone': user.phone,
+                    'user_type': user.user_type,
+                    'is_active': user.is_active,
+                    'is_verified': user.is_verified,
+                    'email_verified': user.email_verified,
+                    'phone_verified': user.phone_verified,
+                    'created_at': user.created_at.isoformat() if user.created_at else None,
+                    'profile': profile_data
+                }
+            }), 200
+            
+        except Exception as e:
+            return jsonify({'success': False, 'message': 'Bir hata oluştu'}), 500
+    
     # Get all craftsmen endpoint (for CraftsmanListPage)
     @app.route('/api/craftsmen', methods=['GET'])
     def get_craftsmen():
