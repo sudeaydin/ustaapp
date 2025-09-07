@@ -22,6 +22,11 @@ if os.environ.get('GAE_ENV', '').startswith('standard'):
 # Create Flask app
 app = create_app()
 
+# Initialize database tables
+with app.app_context():
+    from app import db
+    db.create_all()
+
 # Health check endpoint for App Engine
 @app.route('/api/health')
 def health_check():
@@ -30,8 +35,60 @@ def health_check():
         'status': 'healthy',
         'service': 'ustam-api',
         'version': '1.0.0',
-        'environment': os.environ.get('GAE_ENV', 'local')
+        'environment': os.environ.get('GAE_ENV', 'local'),
+        'database': 'in-memory SQLite'
     }, 200
+
+@app.route('/api/init-db')
+def init_database():
+    """Initialize database with sample data"""
+    try:
+        from app import db
+        from app.models.user import User
+        from app.models.category import Category
+        from datetime import datetime
+        
+        # Create sample data
+        if User.query.count() == 0:
+            # Create sample user
+            from werkzeug.security import generate_password_hash
+            
+            sample_user = User(
+                email='admin@ustam.app',
+                password_hash=generate_password_hash('admin123'),
+                first_name='Admin',
+                last_name='User',
+                phone='05551234567',
+                user_type='admin',
+                is_active=True,
+                created_at=datetime.utcnow()
+            )
+            db.session.add(sample_user)
+            
+            # Create sample category
+            sample_category = Category(
+                name='Elektrik',
+                description='Elektrik işleri',
+                icon='electrical_services',
+                is_active=True,
+                created_at=datetime.utcnow()
+            )
+            db.session.add(sample_category)
+            
+            db.session.commit()
+        
+        return {
+            'status': 'success',
+            'message': 'Database initialized with sample data',
+            'users': User.query.count(),
+            'categories': Category.query.count()
+        }, 200
+        
+    except Exception as e:
+        return {
+            'status': 'error',
+            'message': f'Database initialization failed: {str(e)}'
+        }, 500
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
