@@ -1,0 +1,31 @@
+🌐 GODADDY DNS QUICK REFERENCE - ustancepte.com
+================================================
+
+📋 RECORDS TO ADD:
+
+A Records (Root Domain):
+@ → 216.239.32.21
+@ → 216.239.34.21  
+@ → 216.239.36.21
+@ → 216.239.38.21
+
+CNAME Record (WWW):
+www → ghs.googlehosted.com
+
+⏱️ TTL: 600 seconds (all records)
+
+🔧 STEPS:
+1. Login to GoDaddy
+2. Go to "My Products" → "Domains"  
+3. Click "DNS" for ustancepte.com
+4. Delete existing A and CNAME records
+5. Add 4 A records with @ and Google IPs
+6. Add 1 CNAME record with www and ghs.googlehosted.com
+7. Save all changes
+8. Wait 2-4 hours for propagation
+
+✅ TEST:
+nslookup ustancepte.com
+nslookup www.ustancepte.com
+
+🎯 SUCCESS: Both should resolve to Google IPs
