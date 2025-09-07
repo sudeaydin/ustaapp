@@ -23,7 +23,24 @@ def get_terms_of_service():
     try:
         # Read from file
         import os
-        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/kullanim_kosullari.md')
+        # Try multiple paths for App Engine compatibility
+        possible_paths = [
+            os.path.join(os.path.dirname(__file__), '../../legal_documents/kullanim_kosullari.md'),
+            os.path.join(os.getcwd(), 'legal_documents/kullanim_kosullari.md'),
+            'legal_documents/kullanim_kosullari.md'
+        ]
+        
+        file_path = None
+        for path in possible_paths:
+            if os.path.exists(path):
+                file_path = path
+                break
+        
+        if not file_path:
+            return jsonify({
+                'success': False,
+                'message': 'Legal document not found'
+            }), 404
         
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -131,7 +148,24 @@ def get_privacy_policy():
     """Get current privacy policy"""
     try:
         import os
-        file_path = os.path.join(os.path.dirname(__file__), '../../legal_documents/gizlilik_politikasi.md')
+        # Try multiple paths for App Engine compatibility
+        possible_paths = [
+            os.path.join(os.path.dirname(__file__), '../../legal_documents/gizlilik_politikasi.md'),
+            os.path.join(os.getcwd(), 'legal_documents/gizlilik_politikasi.md'),
+            'legal_documents/gizlilik_politikasi.md'
+        ]
+        
+        file_path = None
+        for path in possible_paths:
+            if os.path.exists(path):
+                file_path = path
+                break
+        
+        if not file_path:
+            return jsonify({
+                'success': False,
+                'message': 'Privacy policy not found'
+            }), 404
         
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
