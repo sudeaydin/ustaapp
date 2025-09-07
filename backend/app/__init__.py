@@ -252,7 +252,6 @@ def create_app(config_name='default'):
     
     # Profile endpoint
     @app.route('/api/auth/profile', methods=['GET'])
-    @jwt_required()
     def get_profile():
         from flask_jwt_extended import jwt_required, get_jwt_identity
         from app.models.user import User
@@ -260,8 +259,21 @@ def create_app(config_name='default'):
         from app.models.craftsman import Craftsman
         
         try:
-            # Get current user from JWT token
-            current_user_id = get_jwt_identity()
+            # Check if Authorization header exists
+            auth_header = request.headers.get('Authorization')
+            if not auth_header or not auth_header.startswith('Bearer '):
+                return jsonify({'success': False, 'message': 'Token gerekli'}), 401
+            
+            # For now, extract user ID from token payload (simplified)
+            # In production, use proper JWT verification
+            token = auth_header.split(' ')[1]
+            try:
+                import jwt as pyjwt
+                payload = pyjwt.decode(token, app.config['JWT_SECRET_KEY'], algorithms=['HS256'])
+                current_user_id = payload.get('sub')
+            except:
+                return jsonify({'success': False, 'message': 'Geçersiz token'}), 401
+            
             if not current_user_id:
                 return jsonify({'success': False, 'message': 'Token gerekli'}), 401
             
