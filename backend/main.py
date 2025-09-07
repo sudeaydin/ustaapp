@@ -11,9 +11,13 @@ from app import create_app
 if os.environ.get('GAE_ENV', '').startswith('standard'):
     # Production on App Engine
     logging.basicConfig(level=logging.INFO)
-    import google.cloud.logging
-    client = google.cloud.logging.Client()
-    client.setup_logging()
+    try:
+        import google.cloud.logging
+        client = google.cloud.logging.Client()
+        client.setup_logging()
+    except ImportError:
+        # Fallback to basic logging if google-cloud-logging not available
+        logging.basicConfig(level=logging.INFO)
 
 # Create Flask app
 app = create_app()
