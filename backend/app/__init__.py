@@ -116,10 +116,7 @@ def create_app(config_name='default'):
     from app.utils.socketio_events import init_socketio_events
     init_socketio_events(socketio)
     
-    # Basic endpoints
-    @app.route('/api/health')
-    def health_check():
-        return {'status': 'healthy', 'message': 'API is running'}, 200
+    # Basic endpoints (health_check moved to main.py)
     
     @app.route('/')
     def index():
