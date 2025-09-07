@@ -12,7 +12,11 @@ jwt = JWTManager()
 socketio = SocketIO()
 
 def create_app(config_name='default'):
-    app = Flask(__name__)
+    # Configure Flask for App Engine (no instance folder)
+    if os.environ.get('GAE_ENV', '').startswith('standard'):
+        app = Flask(__name__, instance_relative_config=False)
+    else:
+        app = Flask(__name__)
     
     # Disable strict slashes to prevent redirect issues
     app.url_map.strict_slashes = False
