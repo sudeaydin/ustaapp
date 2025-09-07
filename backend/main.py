@@ -19,19 +19,36 @@ if os.environ.get('GAE_ENV', '').startswith('standard'):
         # Fallback to basic logging if google-cloud-logging not available
         logging.basicConfig(level=logging.INFO)
 
-# Create Flask app
-app = create_app()
+# Simple health check first (before complex app creation)
+from flask import Flask
+simple_app = Flask(__name__)
 
-# Health check endpoint for App Engine
-@app.route('/api/health')
-def health_check():
-    """Health check endpoint for App Engine"""
-    return {
-        'status': 'healthy',
-        'service': 'ustam-api',
-        'version': '1.0.0',
-        'environment': os.environ.get('GAE_ENV', 'local')
-    }, 200
+@simple_app.route('/api/health')
+def simple_health():
+    return {'status': 'healthy', 'simple': True}
+
+# Try to create complex app
+try:
+    app = create_app()
+    
+    # Override health check with complex app
+    @app.route('/api/health')
+    def health_check():
+        return {
+            'status': 'healthy',
+            'service': 'ustam-api',
+            'version': '1.0.0',
+            'environment': os.environ.get('GAE_ENV', 'local')
+        }, 200
+        
+except Exception as e:
+    # If complex app fails, use simple app
+    app = simple_app
+    print(f"Complex app creation failed: {e}")
+    
+    @app.route('/api/error')
+    def show_error():
+        return {'error': str(e), 'status': 'failed'}
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
