@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class AppConfig {
   // API Configuration
   static const String _devBaseUrl = 'http://localhost:5000';
-  static const String _prodBaseUrl = 'https://api.ustamapp.com'; // Production URL when ready
+  static const String _prodBaseUrl = 'https://ustaapp-analytics.uc.r.appspot.com'; // Production URL
   
   static String get baseUrl {
     return kDebugMode ? _devBaseUrl : _prodBaseUrl;
