@@ -20,14 +20,8 @@ def create_app(config_name='default'):
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
     
-    # Database configuration - Google Cloud SQL or local SQLite
-    if os.environ.get('GAE_ENV', '').startswith('standard'):
-        # Production on Google App Engine
-        from config.cloud_sql import get_cloud_sql_url
-        app.config['SQLALCHEMY_DATABASE_URI'] = get_cloud_sql_url()
-    else:
-        # Local development
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
+    # Database configuration - Use SQLite for now (simple and reliable)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
