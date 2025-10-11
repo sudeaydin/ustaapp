@@ -50,9 +50,12 @@ def create_app(config_name='default'):
     from app.utils.security import init_security_middleware
     from app.utils.analytics import init_analytics_middleware
     from app.utils.bigquery_logger import init_bigquery_middleware
+    from app.middleware.analytics_middleware import analytics_middleware
+    
     init_security_middleware(app)
     init_analytics_middleware(app)
     init_bigquery_middleware(app)
+    analytics_middleware.init_app(app)
     
     # Import models
     from app.models import user, craftsman, customer, category, quote, payment, notification, job, message, review, support_ticket, appointment
@@ -83,6 +86,7 @@ def create_app(config_name='default'):
     from app.routes.airbnb_api import airbnb_api
     from app.routes.marketplace import marketplace_bp
     from app.routes.cloud_scheduler import scheduler_bp
+    from app.routes.enhanced_analytics import enhanced_analytics_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -107,6 +111,7 @@ def create_app(config_name='default'):
     app.register_blueprint(airbnb_api, url_prefix='/api/airbnb')
     app.register_blueprint(marketplace_bp, url_prefix='/api/marketplace')
     app.register_blueprint(scheduler_bp)  # No prefix - direct /cron/ endpoints
+    app.register_blueprint(enhanced_analytics_bp)  # Enhanced analytics API
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')
