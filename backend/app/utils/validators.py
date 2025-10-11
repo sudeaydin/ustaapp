@@ -3,6 +3,44 @@ from functools import wraps
 from flask import request, jsonify
 from marshmallow import Schema, fields, ValidationError, validates, validates_schema
 
+class ResponseHelper:
+    """Helper class for standardized API responses"""
+    
+    @staticmethod
+    def success(data=None, message="Success", status_code=200):
+        """Return success response"""
+        response = {
+            'success': True,
+            'message': message,
+            'data': data
+        }
+        return jsonify(response), status_code
+    
+    @staticmethod
+    def error(message="Error", status_code=400):
+        """Return error response"""
+        response = {
+            'success': False,
+            'message': message,
+            'data': None
+        }
+        return jsonify(response), status_code
+    
+    @staticmethod
+    def unauthorized(message="Unauthorized"):
+        """Return unauthorized response"""
+        return ResponseHelper.error(message, 401)
+    
+    @staticmethod
+    def forbidden(message="Forbidden"):
+        """Return forbidden response"""
+        return ResponseHelper.error(message, 403)
+    
+    @staticmethod
+    def not_found(message="Not found"):
+        """Return not found response"""
+        return ResponseHelper.error(message, 404)
+
 class ValidationUtils:
     """Utility class for common validation functions"""
     
