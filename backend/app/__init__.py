@@ -73,7 +73,7 @@ def create_app(config_name='default'):
     from app.routes.quotes import quotes_bp
     from app.routes.notifications import notifications_bp
     from app.routes.quote_request import quote_request_bp
-    from app.routes.auth import auth_bp
+    from app.routes.auth_simple import auth_bp
     from app.routes.seo import seo_bp
     from app.routes.accessibility import accessibility_bp
     from app.routes.legal import legal_bp

@@ -1,132 +1,164 @@
-from flask import Blueprint, request, jsonify
+"""
+Simple Auth Routes for Deployment
+Basic authentication without analytics dependencies
+"""
+
+from flask import Blueprint, request, jsonify, g
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash
 from app import db
 from app.models.user import User
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
-from app.services.auth_service import AuthService
+from app.utils.validators import ResponseHelper
+from datetime import datetime
+import re
 
-auth_bp = Blueprint('auth', __name__)
-
-@auth_bp.route('/login', methods=['POST'])
-def login():
-    """User login"""
-    try:
-        data = request.get_json()
-        
-        if not data.get('email') or not data.get('password'):
-            return jsonify({
-                'success': False,
-                'message': 'Email ve şifre gerekli'
-            }), 400
-        
-        result, error = AuthService.login_user(data['email'], data['password'])
-        
-        if error:
-            return jsonify({
-                'success': False,
-                'message': error
-            }), 401
-        
-        return jsonify({
-            'success': True,
-            'message': 'Giriş başarılı',
-            'data': result
-        }), 200
-        
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': 'Bir hata oluştu'
-        }), 500
+auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    """User registration"""
+    """User registration endpoint"""
     try:
         data = request.get_json()
         
         # Required fields
-        required_fields = ['email', 'password', 'confirm_password', 'first_name', 'last_name', 'phone', 'user_type']
+        required_fields = ['email', 'password', 'first_name', 'last_name', 'phone', 'user_type']
         for field in required_fields:
             if not data.get(field):
-                return jsonify({
-                    'success': False,
-                    'message': f'{field} alanı zorunludur'
-                }), 400
+                return ResponseHelper.error(f'{field} alanı zorunludur', 400)
         
-        # Register user
-        user, error = AuthService.register_user(data, data['user_type'])
+        # Check if user exists
+        if User.query.filter_by(email=data['email']).first():
+            return ResponseHelper.error('Bu email zaten kayıtlı', 400)
         
-        if error:
-            return jsonify({
-                'success': False,
-                'message': error
-            }), 400
+        # Create user
+        user = User(
+            email=data['email'],
+            password_hash=generate_password_hash(data['password']),
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            phone=data['phone'],
+            user_type=data['user_type'],
+            is_active=True,
+            created_at=datetime.utcnow()
+        )
         
-        # Login the user automatically
-        result, _ = AuthService.login_user(data['email'], data['password'])
+        db.session.add(user)
+        db.session.flush()  # Get user ID
         
-        return jsonify({
-            'success': True,
-            'message': 'Kayıt başarılı',
-            'data': result
-        }), 201
+        # Create profile based on user type
+        if data['user_type'] == 'customer':
+            profile = Customer(
+                user_id=user.id,
+                created_at=datetime.utcnow()
+            )
+            db.session.add(profile)
+        elif data['user_type'] == 'craftsman':
+            profile = Craftsman(
+                user_id=user.id,
+                business_name=data.get('business_name', ''),
+                description=data.get('description', ''),
+                is_available=True,
+                created_at=datetime.utcnow()
+            )
+            db.session.add(profile)
+        
+        db.session.commit()
+        
+        # Create token
+        access_token = create_access_token(identity=str(user.id))
+        
+        return ResponseHelper.success({
+            'access_token': access_token,
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'user_type': user.user_type
+            }
+        }, 'Kayıt başarılı')
         
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': 'Bir hata oluştu'
-        }), 500
+        db.session.rollback()
+        return ResponseHelper.error('Bir hata oluştu', 500)
+
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    """User login endpoint"""
+    try:
+        data = request.get_json()
+        
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not email or not password:
+            return ResponseHelper.error('Email ve şifre gerekli', 400)
+        
+        # Find user
+        user = User.query.filter_by(email=email).first()
+        
+        if not user or not user.check_password(password):
+            return ResponseHelper.error('E-posta veya şifre hatalı', 401)
+        
+        if not user.is_active:
+            return ResponseHelper.error('Hesabınız deaktif durumda', 401)
+        
+        # Update last login
+        user.last_login = datetime.utcnow()
+        db.session.commit()
+        
+        # Create token
+        access_token = create_access_token(identity=str(user.id))
+        
+        return ResponseHelper.success({
+            'access_token': access_token,
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'user_type': user.user_type
+            }
+        }, 'Giriş başarılı')
+        
+    except Exception as e:
+        return ResponseHelper.error('Bir hata oluştu', 500)
 
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
     """Get user profile"""
     try:
-        user_id = get_jwt_identity()
-        profile = AuthService.get_user_profile(user_id)
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
         
-        if not profile:
-            return jsonify({
-                'success': False,
-                'message': 'Kullanıcı bulunamadı'
-            }), 404
+        if not user:
+            return ResponseHelper.error('Kullanıcı bulunamadı', 404)
         
-        return jsonify({
-            'success': True,
-            'data': profile
-        }), 200
+        profile_data = {
+            'id': user.id,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'phone': user.phone,
+            'user_type': user.user_type,
+            'is_active': user.is_active,
+            'created_at': user.created_at.isoformat() if user.created_at else None
+        }
+        
+        return ResponseHelper.success(profile_data, 'Profil bilgileri alındı')
         
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': 'Bir hata oluştu'
-        }), 500
+        return ResponseHelper.error('Bir hata oluştu', 500)
 
-@auth_bp.route('/profile', methods=['PUT'])
+@auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
-def update_profile():
-    """Update user profile"""
+def logout():
+    """User logout endpoint"""
     try:
-        user_id = get_jwt_identity()
-        data = request.get_json()
-        
-        user, error = AuthService.update_user_profile(user_id, data)
-        
-        if error:
-            return jsonify({
-                'success': False,
-                'message': error
-            }), 400
-        
-        return jsonify({
-            'success': True,
-            'message': 'Profil güncellendi'
-        }), 200
+        return ResponseHelper.success({}, 'Çıkış başarılı')
         
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': 'Bir hata oluştu'
-        }), 500
+        return ResponseHelper.error('Bir hata oluştu', 500)

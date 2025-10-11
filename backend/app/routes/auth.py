@@ -143,15 +143,15 @@ def register():
         
     except Exception as e:
         db.session.rollback()
-        return jsonify({
-            'error': True,
-            'message': 'Kayıt sırasında bir hata oluştu',
-            'code': 'REGISTRATION_ERROR'
-        }), 500
-
-@auth_bp.route('/login', methods=['POST'])
+        return jsonify({@auth_bp.route('/login', methods=['POST'])
 @validate_json(UserLoginSchema)
-def login(va        user = User.query.filter_by(email=validated_data['email']).first()
+def login(validated_data):
+    """User login endpoint"""
+    try:
+        print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
+        
+        # Find user
+        user = User.query.filter_by(email=validated_data['email']).first()
         print(f"🔍 USER FOUND: {user is not None}")
         
         if not user or not user.check_password(validated_data['password']):
@@ -163,7 +163,7 @@ def login(va        user = User.query.filter_by(email=validated_data['email']).f
             #     details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
             #     page='/api/auth/login'
             # )
-            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')eason': 'invalid_credentials'},
+            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')'invalid_credentials'},
                 page='/api/auth/login'
             )
             return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
