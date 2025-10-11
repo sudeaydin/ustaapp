@@ -86,7 +86,7 @@ def create_app(config_name='default'):
     from app.routes.airbnb_api import airbnb_api
     from app.routes.marketplace import marketplace_bp
     from app.routes.cloud_scheduler import scheduler_bp
-    from app.routes.enhanced_analytics import enhanced_analytics_bp
+    # from app.routes.enhanced_analytics import enhanced_analytics_bp
     
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
@@ -111,7 +111,7 @@ def create_app(config_name='default'):
     app.register_blueprint(airbnb_api, url_prefix='/api/airbnb')
     app.register_blueprint(marketplace_bp, url_prefix='/api/marketplace')
     app.register_blueprint(scheduler_bp)  # No prefix - direct /cron/ endpoints
-    app.register_blueprint(enhanced_analytics_bp)  # Enhanced analytics API
+    # app.register_blueprint(enhanced_analytics_bp)  # Enhanced analytics API (temporarily disabled)
     
     # Production and Mobile APIs
     app.register_blueprint(production_api, url_prefix='/api/v2')
