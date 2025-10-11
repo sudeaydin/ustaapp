@@ -151,21 +151,19 @@ def register():
 
 @auth_bp.route('/login', methods=['POST'])
 @validate_json(UserLoginSchema)
-def login(validated_data):
-    """User login with validation"""
-    try:
-        print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
+def login(va        user = User.query.filter_by(email=validated_data['email']).first()
+        print(f"🔍 USER FOUND: {user is not None}")
         
-        # Find user
-        user = User.query.filter_by(email=validated_data['email']).first()
-        print(f"🔍 USER FOUND: {user            # Track failed login attempt (temporarily disabled)
+        if not user or not user.check_password(validated_data['password']):
+            print(f"❌ LOGIN FAILED: Invalid credentials")
+            # Track failed login attempt (temporarily disabled)
             # AnalyticsTracker.track_user_action(
             #     user_id=user.id if user else None,
             #     action='login_failed',
             #     details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
             #     page='/api/auth/login'
-            # )tion='login_failed',
-                details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
+            # )
+            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')eason': 'invalid_credentials'},
                 page='/api/auth/login'
             )
             return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
