@@ -66,7 +66,7 @@ def create_app(config_name='default'):
     from app.routes.search import search_bp
     from app.routes.payment import payment_bp
     from app.routes.notification import notification_bp
-    from app.routes.analytics import analytics_bp
+    from app.routes.analytics_simple import analytics_bp
     from app.routes.job import job_bp
     from app.routes.production_api import production_api
     from app.routes.mobile_api import mobile_api
