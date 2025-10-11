@@ -12,7 +12,8 @@ from app.models.craftsman import Craftsman
 from app.utils.validators import (
     validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
 )
-from app.utils.analytics import AnalyticsTracker
+# Temporarily disable analytics import for deployment
+# from app.utils.analytics import AnalyticsTracker
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -157,14 +158,13 @@ def login(validated_data):
         
         # Find user
         user = User.query.filter_by(email=validated_data['email']).first()
-        print(f"🔍 USER FOUND: {user is not None}")
-        
-        if not user or not user.check_password(validated_data['password']):
-            print(f"❌ LOGIN FAILED: Invalid credentials")
-            # Track failed login attempt
-            AnalyticsTracker.track_user_action(
-                user_id=user.id if user else None,
-                action='login_failed',
+        print(f"🔍 USER FOUND: {user            # Track failed login attempt (temporarily disabled)
+            # AnalyticsTracker.track_user_action(
+            #     user_id=user.id if user else None,
+            #     action='login_failed',
+            #     details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
+            #     page='/api/auth/login'
+            # )tion='login_failed',
                 details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
                 page='/api/auth/login'
             )
