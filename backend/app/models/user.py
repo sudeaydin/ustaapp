@@ -3,6 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from enum import Enum
 from sqlalchemy import Index
+from sqlalchemy.orm import validates
 
 class UserType(Enum):
     CUSTOMER = "customer"
@@ -62,6 +63,75 @@ class User(db.Model):
     def check_password(self, password):
         """Check password against hash"""
         return check_password_hash(self.password_hash, password)
+
+    @validates('user_type')
+    def _normalize_user_type(self, key, value):
+        """Allow assigning either enum instances or raw strings."""
+        if isinstance(value, UserType):
+            return value.value
+        return value
+
+    @property
+    def user_type_enum(self):
+        """Access the user type as an enum when needed."""
+        try:
+            return UserType(self.user_type) if self.user_type else None
+        except ValueError:
+            return None
+
+    @property
+    def craftsman(self):
+        """Provide backwards-compatible access to the craftsman profile."""
+        cached = getattr(self, '_cached_craftsman', None)
+        if cached is not None:
+            return cached
+
+        profile = self.__dict__.get('craftsman_profile')
+        user_id = self.__dict__.get('id')
+        if user_id is None:
+            state = getattr(self, '_sa_instance_state', None)
+            if state and state.identity:
+                user_id = state.identity[0]
+
+        if profile is None and user_id:
+            from app.models.craftsman import Craftsman
+
+            profile = Craftsman.query.filter_by(user_id=user_id).first()
+
+        setattr(self, '_cached_craftsman', profile)
+        return profile
+
+    @craftsman.setter
+    def craftsman(self, value):
+        self.craftsman_profile = value
+        setattr(self, '_cached_craftsman', value)
+
+    @property
+    def customer(self):
+        """Provide backwards-compatible access to the customer profile."""
+        cached = getattr(self, '_cached_customer', None)
+        if cached is not None:
+            return cached
+
+        profile = self.__dict__.get('customer_profile')
+        user_id = self.__dict__.get('id')
+        if user_id is None:
+            state = getattr(self, '_sa_instance_state', None)
+            if state and state.identity:
+                user_id = state.identity[0]
+
+        if profile is None and user_id:
+            from app.models.customer import Customer
+
+            profile = Customer.query.filter_by(user_id=user_id).first()
+
+        setattr(self, '_cached_customer', profile)
+        return profile
+
+    @customer.setter
+    def customer(self, value):
+        self.customer_profile = value
+        setattr(self, '_cached_customer', value)
     
     @property
     def full_name(self):

@@ -1,3 +1,6 @@
+from datetime import datetime
+
+from flask import request
 from flask_socketio import emit, join_room, leave_room, disconnect
 from flask_jwt_extended import decode_token
 from app.models.user import User
@@ -35,9 +38,11 @@ def handle_connect(auth):
             return False
         
         # Store connection
+        user_type = getattr(user.user_type, 'value', user.user_type)
+
         active_connections[request.sid] = {
             'user_id': user_id,
-            'user_type': user.user_type.value,
+            'user_type': user_type,
             'connected_at': datetime.utcnow()
         }
         
@@ -45,7 +50,7 @@ def handle_connect(auth):
         join_room(f"user_{user_id}")
         
         # Join craftsman room if applicable
-        if user.user_type.value == 'craftsman' and user.craftsman:
+        if user_type == 'craftsman' and user.craftsman:
             join_room(f"craftsman_{user.craftsman.id}")
         
         # Emit connection success
@@ -248,10 +253,12 @@ def handle_quote_status_update(data):
         # Check if user can update this quote
         user = User.query.get(user_id)
         can_update = False
-        
-        if user.user_type.value == 'craftsman' and quote.craftsman_id == user.craftsman.id:
+
+        user_type = getattr(user.user_type, 'value', user.user_type)
+
+        if user_type == 'craftsman' and quote.craftsman_id == user.craftsman.id:
             can_update = True
-        elif user.user_type.value == 'customer' and quote.customer_id == user.customer.id:
+        elif user_type == 'customer' and quote.customer_id == user.customer.id:
             can_update = True
         
         if not can_update:

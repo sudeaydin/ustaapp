@@ -533,15 +533,17 @@ class DataProcessor:
         }
         
         # Add profile-specific data
-        if user.user_type.value == 'craftsman' and user.craftsman:
+        user_type = getattr(user.user_type, 'value', user.user_type)
+
+        if user_type == 'craftsman' and user.craftsman:
             data_summary["data_categories"]["profile"].extend([
                 "business_name", "description", "specialties", "experience_years",
                 "hourly_rate", "city", "district", "portfolio_images"
             ])
             if user.craftsman.current_latitude:
                 data_summary["data_categories"]["location"].append("current_coordinates")
-        
-        elif user.user_type.value == 'customer' and user.customer:
+
+        elif user_type == 'customer' and user.customer:
             data_summary["data_categories"]["profile"].extend([
                 "preferred_categories", "budget_range", "location_preferences"
             ])
