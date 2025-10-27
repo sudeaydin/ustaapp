@@ -8,9 +8,14 @@ from datetime import datetime, timedelta
 import logging
 from typing import Dict, List, Any, Optional
 import json
-from google.cloud import bigquery
-from google.api_core import exceptions
 import os
+
+try:  # Optional BigQuery dependency
+    from google.cloud import bigquery  # type: ignore
+    _BIGQUERY_IMPORT_ERROR = None
+except ImportError as import_error:  # pragma: no cover - optional dependency missing
+    bigquery = None  # type: ignore
+    _BIGQUERY_IMPORT_ERROR = import_error
 
 from app.utils.auth_utils import require_auth, require_admin
 from app.utils.bigquery_logger import bigquery_logger, log_performance
@@ -29,21 +34,30 @@ class AnalyticsService:
         self.dataset_id = "ustam_analytics"
         self.client = None
         self._initialize_client()
-    
+
     def _initialize_client(self):
         """Initialize BigQuery client"""
+        if bigquery is None:
+            logger.info(
+                "Enhanced analytics BigQuery integration disabled: %s",
+                _BIGQUERY_IMPORT_ERROR or "google-cloud-bigquery not installed",
+            )
+            self.client = None
+            return
+
         try:
             self.client = bigquery.Client(project=self.project_id)
             logger.info(f"Analytics service initialized for project: {self.project_id}")
-        except Exception as e:
+        except Exception as e:  # pragma: no cover - depends on external services
             logger.error(f"Failed to initialize BigQuery client: {e}")
             self.client = None
-    
+
     def execute_query(self, query: str) -> List[Dict[str, Any]]:
         """Execute BigQuery query and return results"""
         try:
             if not self.client:
-                raise Exception("BigQuery client not initialized")
+                logger.info("Skipping BigQuery query; client not initialized.")
+                return []
             
             job = self.client.query(query)
             results = []

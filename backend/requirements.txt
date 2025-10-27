@@ -27,11 +27,6 @@ Pillow>=10.0.0
 requests>=2.31.0
 bleach>=6.0.0
 
-# BigQuery dependencies
-google-cloud-bigquery>=3.11.0
-google-api-core>=2.11.0
-google-cloud-logging>=3.8.0
-
 # Analytics & Visualization dependencies
 streamlit>=1.28.0
 plotly>=5.17.0
@@ -41,3 +36,5 @@ numpy>=1.24.0
 # Additional production dependencies
 google-cloud-monitoring>=2.16.0
 google-cloud-scheduler>=2.13.0
+
+# Optional BigQuery dependencies are listed in requirements-bigquery.txt

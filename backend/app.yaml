@@ -4,8 +4,9 @@ runtime: python39
 # Environment variables
 env_variables:
   FLASK_ENV: production
-  BIGQUERY_LOGGING_ENABLED: true
+  BIGQUERY_LOGGING_ENABLED: auto
   BIGQUERY_PROJECT_ID: ustaapp-analytics
+  BIGQUERY_CREDENTIALS_PATH: ""
   
 # Automatic scaling
 automatic_scaling:
