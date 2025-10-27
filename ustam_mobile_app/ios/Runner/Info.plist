@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>ustam Mobile App</string>
+	<string>ustam</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ustam_mobile_app</string>
+	<string>ustam</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -28,6 +28,36 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	
+	<!-- App Store Required Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>ustam yakınınızdaki ustaları bulmanız için konum bilginize ihtiyaç duyar.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Profil fotoğrafı ve iş fotoğrafları çekmek için kamera erişimi gereklidir.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Fotoğraf galerisinden resim seçmek için erişim gereklidir.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Sesli mesaj göndermek için mikrofon erişimi gereklidir.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Arkadaşlarınızı uygulamaya davet etmek için rehber erişimi gereklidir.</string>
+	
+	<!-- App Transport Security -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>ustam.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+			</dict>
+		</dict>
+	</dict>
+	
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
