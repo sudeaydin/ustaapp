@@ -52,7 +52,12 @@ def health_check():
         'database': database_backend,
     }, 200
 
-if app.config.get('ENABLE_INIT_DB_ENDPOINT'):
+_is_dev_environment = (
+    str(app.config.get('ENVIRONMENT_NAME', '')).lower() == 'development'
+    or str(app.config.get('ACTIVE_CONFIG_NAME', '')).lower() in {'development', 'default'}
+)
+
+if app.config.get('ENABLE_INIT_DB_ENDPOINT') and _is_dev_environment:
 
     @app.route('/api/init-db')
     def init_database():
@@ -104,6 +109,8 @@ if app.config.get('ENABLE_INIT_DB_ENDPOINT'):
                 'status': 'error',
                 'message': f'Database initialization failed: {str(e)}'
             }, 500
+elif app.config.get('ENABLE_INIT_DB_ENDPOINT') and not _is_dev_environment:
+    logging.info('ENABLE_INIT_DB_ENDPOINT is set but disabled outside development environment')
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

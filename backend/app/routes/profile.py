@@ -8,8 +8,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import json
 import os
+from app.utils.security import rate_limit
 
 profile_bp = Blueprint('profile', __name__)
+
+
+def _user_rate_limit_key():
+    identity = get_jwt_identity()
+    if identity:
+        return f"user:{identity}"
+    forwarded_for = request.headers.get('X-Forwarded-For')
+    if forwarded_for:
+        return forwarded_for.split(',')[0].strip()
+    real_ip = request.headers.get('X-Real-IP')
+    if real_ip:
+        return real_ip.strip()
+    return request.remote_addr or 'unknown'
 
 @profile_bp.route('/', methods=['GET'])
 @jwt_required()
@@ -218,6 +232,7 @@ def update_profile():
 
 @profile_bp.route('/password', methods=['PUT'])
 @jwt_required()
+@rate_limit(max_requests=3, window_minutes=10, namespace='profile-change-password', key_func=_user_rate_limit_key)
 def change_password():
     """Change user password"""
     try:

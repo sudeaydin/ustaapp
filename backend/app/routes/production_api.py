@@ -21,6 +21,7 @@ from app.models.review import Review
 from app.models.payment import Payment
 from app.models.notification import Notification
 from app.models.message import Message
+from app.utils.security import rate_limit
 
 # Create blueprint
 production_api = Blueprint('production_api', __name__)
@@ -33,6 +34,7 @@ logger = logging.getLogger(__name__)
 # ================================================
 
 @production_api.route('/auth/login', methods=['POST'])
+@rate_limit(max_requests=5, window_minutes=1, namespace='production-login')
 def login():
     """Enhanced login with security features"""
     try:
@@ -108,6 +110,7 @@ def login():
         }), 500
 
 @production_api.route('/auth/register', methods=['POST'])
+@rate_limit(max_requests=10, window_minutes=5, namespace='production-register')
 def register():
     """Enhanced registration with validation"""
     try:

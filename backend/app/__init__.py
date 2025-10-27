@@ -60,7 +60,7 @@ def create_app(config_name='default'):
          supports_credentials=True)
     
     # Initialize security and analytics middleware
-    from app.utils.security import init_security_middleware
+    from app.utils.security import init_security_middleware, rate_limit
     from app.utils.analytics import init_analytics_middleware
     from app.utils.bigquery_logger import init_bigquery_middleware
     from app.middleware.analytics_middleware import analytics_middleware
@@ -147,6 +147,7 @@ def create_app(config_name='default'):
     
     # Auth endpoints - Basit login/register
     @app.route('/api/auth/login', methods=['POST'])
+    @rate_limit(max_requests=5, window_minutes=1, namespace='core-login')
     def login():
         from flask import request, jsonify
         from app.models.user import User
@@ -187,6 +188,7 @@ def create_app(config_name='default'):
             return jsonify({'success': False, 'message': 'Bir hata oluştu'}), 500
     
     @app.route('/api/auth/register', methods=['POST'])
+    @rate_limit(max_requests=10, window_minutes=5, namespace='core-register')
     def register():
         from flask import request, jsonify
         from app.models.user import User

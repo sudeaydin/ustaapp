@@ -22,6 +22,7 @@ from app.models.review import Review
 from app.models.payment import Payment
 from app.models.notification import Notification
 from app.models.message import Message
+from app.utils.security import rate_limit
 
 # Create blueprint
 mobile_api = Blueprint('mobile_api', __name__)
@@ -34,6 +35,7 @@ logger = logging.getLogger(__name__)
 # ================================================
 
 @mobile_api.route('/auth/mobile-login', methods=['POST'])
+@rate_limit(max_requests=7, window_minutes=1, namespace='mobile-login')
 def mobile_login():
     """Mobile optimized login with device info"""
     try:
@@ -142,6 +144,7 @@ def mobile_login():
         }), 500
 
 @mobile_api.route('/auth/social-login', methods=['POST'])
+@rate_limit(max_requests=10, window_minutes=1, namespace='mobile-social-login')
 def social_login():
     """Social media login (Google, Facebook, Apple)"""
     try:
