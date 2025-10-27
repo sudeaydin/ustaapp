@@ -10,11 +10,13 @@ from app.models.user import User
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
 from app.utils.validators import ResponseHelper, ValidationUtils
+from app.utils.security import rate_limit
 from datetime import datetime
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 @auth_bp.route('/register', methods=['POST'])
+@rate_limit(max_requests=10, window_minutes=5, namespace='auth-simple-register')
 def register():
     """User registration endpoint"""
     try:
@@ -91,6 +93,7 @@ def register():
         return ResponseHelper.error('Bir hata oluştu', status_code=500)
 
 @auth_bp.route('/login', methods=['POST'])
+@rate_limit(max_requests=5, window_minutes=1, namespace='auth-simple-login')
 def login():
     """User login endpoint"""
     try:

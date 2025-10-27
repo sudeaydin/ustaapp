@@ -12,6 +12,7 @@ from app.models.craftsman import Craftsman
 from app.utils.validators import (
     validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
 )
+from app.utils.security import rate_limit
 from app.utils.analytics import AnalyticsTracker
 from datetime import datetime
 import re
@@ -26,6 +27,23 @@ auth_bp = Blueprint('auth', __name__)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 UPLOAD_FOLDER = 'uploads/portfolio'
+
+
+def _auth_user_rate_limit_key():
+    identity = get_jwt_identity()
+    if identity:
+        return f"user:{identity}"
+
+    forwarded_for = request.headers.get('X-Forwarded-For')
+    if forwarded_for:
+        return forwarded_for.split(',')[0].strip()
+
+    real_ip = request.headers.get('X-Real-IP')
+    if real_ip:
+        return real_ip.strip()
+
+    return request.remote_addr or 'unknown'
+
 
 def validate_email(email):
     """Validate email format"""
@@ -46,6 +64,7 @@ def validate_phone(phone):
     return any(re.match(pattern, phone) for pattern in patterns)
 
 @auth_bp.route('/register', methods=['POST'])
+@rate_limit(max_requests=10, window_minutes=5, namespace='auth-register')
 def register():
     """User registration"""
     try:
@@ -151,6 +170,7 @@ def register():
 
 @auth_bp.route('/login', methods=['POST'])
 @validate_json(UserLoginSchema)
+@rate_limit(max_requests=5, window_minutes=1, namespace='auth-login')
 def login(validated_data):
     """User login endpoint"""
     try:
@@ -270,6 +290,7 @@ def logout():
 
 @auth_bp.route('/change-password', methods=['POST'])
 @jwt_required()
+@rate_limit(max_requests=3, window_minutes=10, namespace='auth-change-password', key_func=_auth_user_rate_limit_key)
 def change_password():
     """Change user password"""
     try:
@@ -708,3 +729,4 @@ def google_auth():
     except Exception as e:
         db.session.rollback()
         return ResponseHelper.server_error('Google authentication failed', str(e))
+

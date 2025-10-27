@@ -61,6 +61,9 @@ class Config:
     # Feature toggles
     RUN_DB_CREATE_ALL = os.environ.get('RUN_DB_CREATE_ALL', 'false').lower() == 'true'
     ENABLE_INIT_DB_ENDPOINT = os.environ.get('ENABLE_INIT_DB_ENDPOINT', 'false').lower() == 'true'
+    RATE_LIMIT_REDIS_URL = os.environ.get('RATE_LIMIT_REDIS_URL') or os.environ.get('REDIS_URL')
+    RATE_LIMIT_DEFAULT_REQUESTS = int(os.environ.get('RATE_LIMIT_DEFAULT_REQUESTS', 100))
+    RATE_LIMIT_DEFAULT_WINDOW = int(os.environ.get('RATE_LIMIT_DEFAULT_WINDOW', 60))
 
     # CORS
     CORS_ALLOWED_ORIGINS = _comma_separated_list(
