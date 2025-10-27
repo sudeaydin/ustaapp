@@ -55,6 +55,22 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     last_login = db.Column(db.DateTime)
+
+    # Relationships
+    customer_profile = db.relationship(
+        'Customer',
+        back_populates='user',
+        uselist=False,
+        lazy='joined',
+        cascade='all, delete-orphan'
+    )
+    craftsman_profile = db.relationship(
+        'Craftsman',
+        back_populates='user',
+        uselist=False,
+        lazy='joined',
+        cascade='all, delete-orphan'
+    )
     
     def set_password(self, password):
         """Set password hash"""
@@ -81,57 +97,21 @@ class User(db.Model):
 
     @property
     def craftsman(self):
-        """Provide backwards-compatible access to the craftsman profile."""
-        cached = getattr(self, '_cached_craftsman', None)
-        if cached is not None:
-            return cached
-
-        profile = self.__dict__.get('craftsman_profile')
-        user_id = self.__dict__.get('id')
-        if user_id is None:
-            state = getattr(self, '_sa_instance_state', None)
-            if state and state.identity:
-                user_id = state.identity[0]
-
-        if profile is None and user_id:
-            from app.models.craftsman import Craftsman
-
-            profile = Craftsman.query.filter_by(user_id=user_id).first()
-
-        setattr(self, '_cached_craftsman', profile)
-        return profile
+        """Backwards-compatible alias for the craftsman profile."""
+        return self.craftsman_profile
 
     @craftsman.setter
     def craftsman(self, value):
         self.craftsman_profile = value
-        setattr(self, '_cached_craftsman', value)
 
     @property
     def customer(self):
-        """Provide backwards-compatible access to the customer profile."""
-        cached = getattr(self, '_cached_customer', None)
-        if cached is not None:
-            return cached
-
-        profile = self.__dict__.get('customer_profile')
-        user_id = self.__dict__.get('id')
-        if user_id is None:
-            state = getattr(self, '_sa_instance_state', None)
-            if state and state.identity:
-                user_id = state.identity[0]
-
-        if profile is None and user_id:
-            from app.models.customer import Customer
-
-            profile = Customer.query.filter_by(user_id=user_id).first()
-
-        setattr(self, '_cached_customer', profile)
-        return profile
+        """Backwards-compatible alias for the customer profile."""
+        return self.customer_profile
 
     @customer.setter
     def customer(self, value):
         self.customer_profile = value
-        setattr(self, '_cached_customer', value)
     
     @property
     def full_name(self):

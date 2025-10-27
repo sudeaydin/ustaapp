@@ -97,22 +97,24 @@ class BusinessMetrics:
         if not craftsman:
             return None
 
-        total_quotes = Quote.query.filter_by(craftsman_id=craftsman_user_id).count()
+        craftsman_id = craftsman.id
+
+        total_quotes = Quote.query.filter_by(craftsman_id=craftsman_id).count()
         accepted_quotes = Quote.query.filter_by(
-            craftsman_id=craftsman_user_id, status=QuoteStatus.ACCEPTED.value
+            craftsman_id=craftsman_id, status=QuoteStatus.ACCEPTED.value
         ).count()
         completed_jobs = Job.query.filter(
-            Job.craftsman_id == craftsman_user_id,
+            Job.craftsman_id == craftsman_id,
             Job.status == JobStatus.COMPLETED,
         ).count()
 
         revenue_query = db.session.query(func.sum(Quote.quoted_price)).filter(
-            Quote.craftsman_id == craftsman_user_id,
+            Quote.craftsman_id == craftsman_id,
             Quote.status == QuoteStatus.ACCEPTED.value,
         )
 
         unread_messages = Message.query.filter_by(
-            receiver_id=craftsman_user_id, is_read=False
+            receiver_id=craftsman.user_id, is_read=False
         ).count()
 
         return {
@@ -136,12 +138,14 @@ class BusinessMetrics:
         if not customer:
             return None
 
-        total_requests = Quote.query.filter_by(customer_id=customer_user_id).count()
+        customer_id = customer.id
+
+        total_requests = Quote.query.filter_by(customer_id=customer_id).count()
         accepted_quotes = Quote.query.filter_by(
-            customer_id=customer_user_id, status=QuoteStatus.ACCEPTED.value
+            customer_id=customer_id, status=QuoteStatus.ACCEPTED.value
         ).count()
         active_jobs = Job.query.filter(
-            Job.customer_id == customer_user_id,
+            Job.customer_id == customer_id,
             Job.status.in_([JobStatus.IN_PROGRESS, JobStatus.ACCEPTED]),
         ).count()
 

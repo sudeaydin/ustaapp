@@ -9,7 +9,7 @@ import json
 from config.config import config as app_config
 
 # Initialize extensions
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={'expire_on_commit': False})
 jwt = JWTManager()
 socketio = SocketIO()
 
@@ -34,6 +34,18 @@ def create_app(config_name='default'):
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
+
+    @jwt.unauthorized_loader
+    def _missing_jwt_callback(error):
+        return jsonify({'success': False, 'message': error}), 422
+
+    @jwt.invalid_token_loader
+    def _invalid_token_callback(error):
+        return jsonify({'success': False, 'message': error}), 422
+
+    @jwt.user_identity_loader
+    def _user_identity_lookup(identity):
+        return str(identity) if identity is not None else identity
     cors_origins = app.config.get('CORS_ALLOWED_ORIGINS') or app.config.get('CORS_ORIGINS') or ['*']
     if isinstance(cors_origins, str):
         cors_origins = [origin.strip() for origin in cors_origins.split(',') if origin.strip()]

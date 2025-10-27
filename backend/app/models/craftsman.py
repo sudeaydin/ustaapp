@@ -59,7 +59,7 @@ class Craftsman(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    user = db.relationship('User', backref=db.backref('craftsman_profile', uselist=False))
+    user = db.relationship('User', back_populates='craftsman_profile', lazy='joined')
     
     def to_dict(self, include_user=True):
         data = {

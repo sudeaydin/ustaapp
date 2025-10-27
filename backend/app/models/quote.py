@@ -1,6 +1,7 @@
 from app import db
 from datetime import datetime
 from sqlalchemy import Numeric
+from sqlalchemy.orm import validates
 from enum import Enum
 
 class QuoteStatus(Enum):
@@ -15,8 +16,8 @@ class QuoteStatus(Enum):
 
 class BudgetRange(Enum):
     RANGE_0_1000 = "0-1000"
-    RANGE_1000_2000 = "1000-2000"
-    RANGE_2000_5000 = "2000-5000"
+    RANGE_1000_3000 = "1000-3000"
+    RANGE_3000_5000 = "3000-5000"
     RANGE_5000_10000 = "5000-10000"
     RANGE_10000_20000 = "10000-20000"
     RANGE_20000_PLUS = "20000+"
@@ -77,6 +78,37 @@ class Quote(db.Model):
     customer = db.relationship('User', foreign_keys=[customer_id], backref='customer_quotes')
     craftsman = db.relationship('User', foreign_keys=[craftsman_id], backref='craftsman_quotes')
     
+    def __init__(self, **kwargs):
+        quoted_amount = kwargs.pop('quoted_amount', None)
+        status = kwargs.get('status')
+        if isinstance(status, QuoteStatus):
+            kwargs['status'] = status.value
+
+        category_value = kwargs.get('category')
+        if not kwargs.get('job_type'):
+            kwargs['job_type'] = category_value or 'general'
+        if kwargs.get('location') is None:
+            kwargs['location'] = '' if category_value is None else (kwargs.get('location') or '')
+
+        super().__init__(**kwargs)
+
+        if quoted_amount is not None:
+            self.quoted_price = quoted_amount
+
+    @property
+    def quoted_amount(self):
+        return float(self.quoted_price) if self.quoted_price is not None else None
+
+    @quoted_amount.setter
+    def quoted_amount(self, value):
+        self.quoted_price = value
+
+    @validates('status')
+    def _normalize_status(self, key, value):
+        if isinstance(value, QuoteStatus):
+            return value.value
+        return value
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -121,6 +153,8 @@ class Quote(db.Model):
     
     def update_status(self, new_status):
         """Update quote status with timestamp"""
+        if isinstance(new_status, QuoteStatus):
+            new_status = new_status.value
         self.status = new_status
         self.updated_at = datetime.utcnow()
         

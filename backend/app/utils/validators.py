@@ -56,7 +56,7 @@ class ValidationUtils:
         # Remove spaces and special characters
         clean_phone = re.sub(r'[^\d]', '', phone)
         # Turkish phone: 10 or 11 digits (with or without country code)
-        return len(clean_phone) in [10, 11] and clean_phone.isdigit()
+        return len(clean_phone) in [10, 11, 12] and clean_phone.isdigit()
     
     @staticmethod
     def is_strong_password(password):
