@@ -86,6 +86,7 @@ celerybeat-schedule
 
 # Environments
 .env
+.env.*
 .venv
 env/
 venv/
@@ -93,7 +94,9 @@ ENV/
 env.bak/
 venv.bak/
 .env.local
-.env.production
+# Allow checked-in environment templates
+!.env.example
+!.env.production
 
 # Spyder project settings
 .spyderproject
