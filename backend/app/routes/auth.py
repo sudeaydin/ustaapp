@@ -12,8 +12,7 @@ from app.models.craftsman import Craftsman
 from app.utils.validators import (
     validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
 )
-# Temporarily disable analytics import for deployment
-# from app.utils.analytics import AnalyticsTracker
+from app.utils.analytics import AnalyticsTracker
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -143,34 +142,36 @@ def register():
         
     except Exception as e:
         db.session.rollback()
-        return jsonify({@auth_bp.route('/login', methods=['POST'])
+        return jsonify({
+            'error': True,
+            'message': 'Kayıt işlemi sırasında bir hata oluştu',
+            'code': 'REGISTER_ERROR'
+        }), 500
+
+
+@auth_bp.route('/login', methods=['POST'])
 @validate_json(UserLoginSchema)
 def login(validated_data):
     """User login endpoint"""
     try:
         print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
-        
+
         # Find user
         user = User.query.filter_by(email=validated_data['email']).first()
         print(f"🔍 USER FOUND: {user is not None}")
-        
+
         if not user or not user.check_password(validated_data['password']):
-            print(f"❌ LOGIN FAILED: Invalid credentials")
-            # Track failed login attempt (temporarily disabled)
-            # AnalyticsTracker.track_user_action(
-            #     user_id=user.id if user else None,
-            #     action='login_failed',
-            #     details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
-            #     page='/api/auth/login'
-            # )
-            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')'invalid_credentials'},
+            print("❌ LOGIN FAILED: Invalid credentials")
+            AnalyticsTracker.track_user_action(
+                user_id=user.id if user else None,
+                action='login_failed',
+                details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
                 page='/api/auth/login'
             )
             return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
-        
+
         if not user.is_active:
-            print(f"❌ LOGIN FAILED: User inactive")
-            # Track failed login attempt
+            print("❌ LOGIN FAILED: User inactive")
             AnalyticsTracker.track_user_action(
                 user_id=user.id,
                 action='login_failed',
@@ -178,30 +179,30 @@ def login(validated_data):
                 page='/api/auth/login'
             )
             return ResponseHelper.unauthorized('Hesabınız deaktif durumda')
-        
+
         print(f"✅ LOGIN SUCCESS: User {user.id} - {user.email}")
-        
+
         # Update last login
         user.last_login = datetime.utcnow()
         db.session.commit()
-        
-        # Track successful login
+
+        user_type_value = getattr(user.user_type, 'value', user.user_type)
+
         AnalyticsTracker.track_user_action(
             user_id=user.id,
             action='login_success',
             details={
                 'email': user.email,
-                'user_type': user.user_type.value,
+                'user_type': user_type_value,
                 'login_time': user.last_login.isoformat()
             },
             page='/api/auth/login'
         )
-        
-        # Create access token
+
         access_token = create_access_token(identity=str(user.id))
-        
+
         print(f"🎫 TOKEN CREATED: {access_token[:20]}...")
-        
+
         return ResponseHelper.success(
             data={
                 'user': user.to_dict(),
@@ -209,10 +210,10 @@ def login(validated_data):
             },
             message='Başarıyla giriş yapıldı'
         )
-        
+
     except Exception as e:
         print(f"💥 LOGIN ERROR: {str(e)}")
-        # Track login error
+        db.session.rollback()
         AnalyticsTracker.track_user_action(
             user_id=None,
             action='login_error',

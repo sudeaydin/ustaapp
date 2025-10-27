@@ -1,3 +1,4 @@
+from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 from flask_jwt_extended import decode_token, get_jwt_identity
 from app.models.user import User

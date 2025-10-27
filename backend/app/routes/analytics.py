@@ -1,11 +1,14 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.utils.validators import ResponseHelper
-# Temporarily disable analytics imports for deployment
-# from app.utils.analytics import (
-#     AnalyticsTracker, BusinessMetrics, PerformanceMonitor,
-#     UserBehaviorAnalytics, CostCalculator, DashboardData
-# )
+from app.utils.analytics import (
+    AnalyticsTracker,
+    BusinessMetrics,
+    PerformanceMonitor,
+    UserBehaviorAnalytics,
+    CostCalculator,
+    DashboardData,
+)
 from app.utils.security import rate_limit, require_auth
 from app.models.user import User
 from app.models.quote import Quote

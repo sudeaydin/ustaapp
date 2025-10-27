@@ -1,6 +1,9 @@
-from app import db
 from datetime import datetime
 from enum import Enum
+
+from app import db
+from app.models.customer import Customer
+from app.models.craftsman import Craftsman
 
 class PaymentStatus(Enum):
     PENDING = "pending"
