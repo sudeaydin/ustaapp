@@ -20,8 +20,8 @@ try:  # Optional BigQuery dependency
         from google.auth.exceptions import DefaultCredentialsError  # type: ignore
     except ModuleNotFoundError:  # pragma: no cover - google-auth not installed
         DefaultCredentialsError = Exception  # type: ignore
-    _BIGQUERY_IMPORT_ERROR: Optional[ModuleNotFoundError] = None
-except ModuleNotFoundError as import_error:  # pragma: no cover - optional dependency missing
+    _BIGQUERY_IMPORT_ERROR: Optional[ImportError] = None
+except ImportError as import_error:  # pragma: no cover - optional dependency missing
     bigquery = None  # type: ignore
     DefaultCredentialsError = Exception  # type: ignore
     _BIGQUERY_IMPORT_ERROR = import_error
