@@ -8,13 +8,23 @@ import json
 import uuid
 from datetime import datetime
 from typing import Dict, Any, Optional
-from google.cloud import bigquery
-from google.api_core import exceptions
 import logging
 from flask import request, g
 import threading
 import queue
 import time
+
+try:  # Optional BigQuery dependency
+    from google.cloud import bigquery  # type: ignore
+    try:
+        from google.auth.exceptions import DefaultCredentialsError  # type: ignore
+    except ModuleNotFoundError:  # pragma: no cover - google-auth not installed
+        DefaultCredentialsError = Exception  # type: ignore
+    _BIGQUERY_IMPORT_ERROR: Optional[ModuleNotFoundError] = None
+except ModuleNotFoundError as import_error:  # pragma: no cover - optional dependency missing
+    bigquery = None  # type: ignore
+    DefaultCredentialsError = Exception  # type: ignore
+    _BIGQUERY_IMPORT_ERROR = import_error
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -26,26 +36,94 @@ class BigQueryLogger:
         self.project_id = project_id or os.environ.get('BIGQUERY_PROJECT_ID', 'ustaapp-analytics')
         self.dataset_id = dataset_id
         self.client = None
-        self.enabled = os.environ.get('BIGQUERY_LOGGING_ENABLED', 'false').lower() == 'true'
-        
+        self.credentials_path = os.environ.get('BIGQUERY_CREDENTIALS_PATH')
+        self._configured_flag = os.environ.get('BIGQUERY_LOGGING_ENABLED', 'auto').strip().lower()
+        if self._configured_flag not in {'true', 'false', 'auto'}:
+            logger.warning(
+                "Unknown BIGQUERY_LOGGING_ENABLED value '%s'. Falling back to 'false'.",
+                self._configured_flag
+            )
+            self._configured_flag = 'false'
+        self.enabled = False
+
         # Streaming buffer
         self.log_queue = queue.Queue(maxsize=1000)
         self.batch_size = 50
         self.flush_interval = 30  # seconds
-        
-        # Start background worker
-        if self.enabled:
-            self._initialize_client()
-            self._start_background_worker()
+
+        # Start background worker when conditions allow
+        self._bootstrap()
+
+    def _bootstrap(self):
+        """Configure the logger and start workers when enabled."""
+        if self._configured_flag == 'false':
+            logger.info("BigQuery logging disabled by configuration.")
+            return
+
+        if _BIGQUERY_IMPORT_ERROR is not None:
+            logger.info(
+                "BigQuery logging disabled: %s. Install optional google-cloud-bigquery dependencies to enable.",
+                _BIGQUERY_IMPORT_ERROR
+            )
+            return
+
+        credentials_status = self._configure_credentials()
+        if credentials_status is False:
+            message = "BigQuery credentials not found; logging disabled."
+            if self._configured_flag == 'true':
+                logger.error("%s Set BIGQUERY_CREDENTIALS_PATH or GOOGLE_APPLICATION_CREDENTIALS.", message)
+            else:
+                logger.info("%s Provide credentials to enable logging.", message)
+            return
+
+        if not self._initialize_client():
+            # _initialize_client logs the reason and ensures self.enabled is False
+            return
+
+        self._start_background_worker()
+
+    def _configure_credentials(self) -> Optional[bool]:
+        """Ensure credentials are available for the BigQuery client."""
+        explicit_path = self.credentials_path
+        if explicit_path:
+            if os.path.isfile(explicit_path):
+                os.environ.setdefault('GOOGLE_APPLICATION_CREDENTIALS', explicit_path)
+                return True
+            logger.warning(
+                "BIGQUERY_CREDENTIALS_PATH set to '%s' but file does not exist.",
+                explicit_path
+            )
+            return False
+
+        env_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+        if env_path:
+            if os.path.isfile(env_path):
+                return True
+            logger.warning(
+                "GOOGLE_APPLICATION_CREDENTIALS set to '%s' but file does not exist.",
+                env_path
+            )
+            return False
+
+        # No explicit credentials provided; return None so ADC can be attempted.
+        return None
 
     def _initialize_client(self):
         """Initialize BigQuery client"""
+        if bigquery is None:  # Safety guard when optional dependency is missing
+            return False
         try:
             self.client = bigquery.Client(project=self.project_id)
             logger.info(f"BigQuery logger initialized for project: {self.project_id}")
+            self.enabled = True
+            return True
+        except DefaultCredentialsError as e:  # pragma: no cover - depends on environment
+            logger.info("BigQuery credentials unavailable: %s. Disabling logger.", e)
         except Exception as e:
             logger.error(f"Failed to initialize BigQuery client: {e}")
-            self.enabled = False
+        self.enabled = False
+        self.client = None
+        return False
 
     def _start_background_worker(self):
         """Start background worker for batch processing"""
