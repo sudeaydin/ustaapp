@@ -6,8 +6,14 @@ Handles scheduled BigQuery sync operations
 import os
 import logging
 from datetime import datetime, timedelta
-from flask import Blueprint, request, jsonify, current_app
-from google.cloud import bigquery
+from flask import Blueprint, request, jsonify
+
+try:  # Optional BigQuery dependency
+    from google.cloud import bigquery  # type: ignore
+    _BIGQUERY_IMPORT_ERROR = None
+except ImportError as import_error:  # pragma: no cover - optional dependency missing
+    bigquery = None  # type: ignore
+    _BIGQUERY_IMPORT_ERROR = import_error
 from app import db
 from app.models.user import User
 from app.models.job import Job
@@ -26,10 +32,26 @@ class CloudSchedulerBigQuerySync:
     def __init__(self):
         self.project_id = os.environ.get('GOOGLE_CLOUD_PROJECT', 'ustaapp-analytics')
         self.dataset_id = "ustam_analytics"
-        self.bigquery_client = bigquery.Client(project=self.project_id)
+        self.bigquery_client = None
+
+        if bigquery is None:
+            logger.info(
+                "Cloud Scheduler BigQuery sync disabled: %s",
+                _BIGQUERY_IMPORT_ERROR or "google-cloud-bigquery not installed",
+            )
+            return
+
+        try:
+            self.bigquery_client = bigquery.Client(project=self.project_id)
+        except Exception as exc:  # pragma: no cover - depends on external services
+            logger.error("Failed to initialize BigQuery client for scheduler: %s", exc)
+            self.bigquery_client = None
 
     def sync_users_data(self):
         """Sync users data to BigQuery"""
+        if not self.bigquery_client:
+            logger.info("Skipping users sync; BigQuery client unavailable.")
+            return True
         try:
             # Get recent users (last 2 days)
             cutoff_date = datetime.now() - timedelta(days=2)
@@ -75,6 +97,9 @@ class CloudSchedulerBigQuerySync:
 
     def sync_jobs_data(self):
         """Sync jobs data to BigQuery"""
+        if not self.bigquery_client:
+            logger.info("Skipping jobs sync; BigQuery client unavailable.")
+            return True
         try:
             # Get recent jobs (last 2 days)
             cutoff_date = datetime.now() - timedelta(days=2)
@@ -122,6 +147,9 @@ class CloudSchedulerBigQuerySync:
 
     def generate_business_metrics(self):
         """Generate daily business metrics"""
+        if not self.bigquery_client:
+            logger.info("Skipping business metrics generation; BigQuery client unavailable.")
+            return True
         try:
             yesterday = datetime.now() - timedelta(days=1)
             yesterday_str = yesterday.strftime('%Y-%m-%d')
@@ -188,7 +216,22 @@ class CloudSchedulerBigQuerySync:
     def run_full_sync(self):
         """Run complete daily sync"""
         logger.info("🚀 Starting scheduled BigQuery sync")
-        
+
+        if not self.bigquery_client:
+            message = "BigQuery client unavailable; scheduled sync skipped."
+            logger.info(message)
+            return {
+                'success': True,
+                'disabled': True,
+                'results': {
+                    'users_sync': None,
+                    'jobs_sync': None,
+                    'metrics_generated': None,
+                },
+                'message': message,
+                'timestamp': datetime.now().isoformat(),
+            }
+
         results = {
             'users_sync': self.sync_users_data(),
             'jobs_sync': self.sync_jobs_data(),
