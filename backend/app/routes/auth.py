@@ -28,6 +28,23 @@ auth_bp = Blueprint('auth', __name__)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 UPLOAD_FOLDER = 'uploads/portfolio'
 
+
+def _auth_user_rate_limit_key():
+    identity = get_jwt_identity()
+    if identity:
+        return f"user:{identity}"
+
+    forwarded_for = request.headers.get('X-Forwarded-For')
+    if forwarded_for:
+        return forwarded_for.split(',')[0].strip()
+
+    real_ip = request.headers.get('X-Real-IP')
+    if real_ip:
+        return real_ip.strip()
+
+    return request.remote_addr or 'unknown'
+
+
 def validate_email(email):
     """Validate email format"""
     pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
@@ -712,15 +729,4 @@ def google_auth():
     except Exception as e:
         db.session.rollback()
         return ResponseHelper.server_error('Google authentication failed', str(e))
-def _auth_user_rate_limit_key():
-    identity = get_jwt_identity()
-    if identity:
-        return f"user:{identity}"
-    forwarded_for = request.headers.get('X-Forwarded-For')
-    if forwarded_for:
-        return forwarded_for.split(',')[0].strip()
-    real_ip = request.headers.get('X-Real-IP')
-    if real_ip:
-        return real_ip.strip()
-    return request.remote_addr or 'unknown'
 
