@@ -8,6 +8,9 @@ from app.utils.analytics_dashboard import (
     AnalyticsDashboardConstants
 )
 from app.models.user import User
+from app.models.quote import Quote, QuoteStatus
+from app.models.job import Job, JobStatus
+from app.models.message import Message
 from app import db
 from datetime import datetime, timedelta
 import json

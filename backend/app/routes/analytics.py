@@ -1,11 +1,14 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.utils.validators import ResponseHelper
-# Temporarily disable analytics imports for deployment
-# from app.utils.analytics import (
-#     AnalyticsTracker, BusinessMetrics, PerformanceMonitor,
-#     UserBehaviorAnalytics, CostCalculator, DashboardData
-# )
+from app.utils.analytics import (
+    AnalyticsTracker,
+    BusinessMetrics,
+    PerformanceMonitor,
+    UserBehaviorAnalytics,
+    CostCalculator,
+    DashboardData,
+)
 from app.utils.security import rate_limit, require_auth
 from app.models.user import User
 from app.models.quote import Quote
@@ -52,15 +55,17 @@ def get_dashboard_overview():
         if not user:
             return ResponseHelper.error('User not found', 'USER_NOT_FOUND'), 404
         
-        if user.user_type.value == 'craftsman':
+        user_type = getattr(user.user_type, 'value', user.user_type)
+
+        if user_type == 'craftsman':
             # Craftsman gets their own metrics
             metrics = BusinessMetrics.get_craftsman_metrics(user.craftsman.id)
             if not metrics:
                 return ResponseHelper.error('Craftsman metrics not found', 'METRICS_NOT_FOUND'), 404
-            
+
             return ResponseHelper.success({'metrics': metrics})
-        
-        elif user.user_type.value == 'customer':
+
+        elif user_type == 'customer':
             # Customer gets their own metrics
             metrics = BusinessMetrics.get_customer_metrics(user.customer.id)
             if not metrics:
@@ -173,7 +178,9 @@ def get_live_stats():
             return ResponseHelper.error('User not found', 'USER_NOT_FOUND'), 404
         
         # Different data based on user type
-        if user.user_type.value == 'craftsman':
+        user_type = getattr(user.user_type, 'value', user.user_type)
+
+        if user_type == 'craftsman':
             # Craftsman gets their live stats
             live_data = {
                 'pending_quotes': Quote.query.filter_by(

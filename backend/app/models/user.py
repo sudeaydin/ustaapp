@@ -3,6 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from enum import Enum
 from sqlalchemy import Index
+from sqlalchemy.orm import validates
 
 class UserType(Enum):
     CUSTOMER = "customer"
@@ -54,6 +55,22 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     last_login = db.Column(db.DateTime)
+
+    # Relationships
+    customer_profile = db.relationship(
+        'Customer',
+        back_populates='user',
+        uselist=False,
+        lazy='joined',
+        cascade='all, delete-orphan'
+    )
+    craftsman_profile = db.relationship(
+        'Craftsman',
+        back_populates='user',
+        uselist=False,
+        lazy='joined',
+        cascade='all, delete-orphan'
+    )
     
     def set_password(self, password):
         """Set password hash"""
@@ -62,6 +79,39 @@ class User(db.Model):
     def check_password(self, password):
         """Check password against hash"""
         return check_password_hash(self.password_hash, password)
+
+    @validates('user_type')
+    def _normalize_user_type(self, key, value):
+        """Allow assigning either enum instances or raw strings."""
+        if isinstance(value, UserType):
+            return value.value
+        return value
+
+    @property
+    def user_type_enum(self):
+        """Access the user type as an enum when needed."""
+        try:
+            return UserType(self.user_type) if self.user_type else None
+        except ValueError:
+            return None
+
+    @property
+    def craftsman(self):
+        """Backwards-compatible alias for the craftsman profile."""
+        return self.craftsman_profile
+
+    @craftsman.setter
+    def craftsman(self, value):
+        self.craftsman_profile = value
+
+    @property
+    def customer(self):
+        """Backwards-compatible alias for the customer profile."""
+        return self.customer_profile
+
+    @customer.setter
+    def customer(self, value):
+        self.customer_profile = value
     
     @property
     def full_name(self):

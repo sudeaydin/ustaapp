@@ -56,7 +56,7 @@ class ValidationUtils:
         # Remove spaces and special characters
         clean_phone = re.sub(r'[^\d]', '', phone)
         # Turkish phone: 10 or 11 digits (with or without country code)
-        return len(clean_phone) in [10, 11] and clean_phone.isdigit()
+        return len(clean_phone) in [10, 11, 12] and clean_phone.isdigit()
     
     @staticmethod
     def is_strong_password(password):
@@ -216,7 +216,12 @@ def validate_query_params(schema_class):
                 schema = schema_class()
                 
                 # Validate query parameters
-                validated_data = schema.load(request.args)
+                query_args = request.args.to_dict(flat=True)
+
+                if 'query' in query_args and 'q' not in query_args:
+                    query_args['q'] = query_args.pop('query')
+
+                validated_data = schema.load(query_args)
                 
                 # Pass validated data to the route function
                 return f(validated_data, *args, **kwargs)

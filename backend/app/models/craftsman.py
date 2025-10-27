@@ -1,6 +1,5 @@
 from app import db
 from datetime import datetime
-from decimal import Decimal
 from sqlalchemy import Numeric, Index
 import json
 
@@ -30,6 +29,7 @@ class Craftsman(db.Model):
     experience_years = db.Column(db.Integer, default=0)
     
     # Skills and certifications (stored as JSON)
+    specialties = db.Column(db.String(255))  # Comma separated specialties for search
     skills = db.Column(db.Text)  # JSON string
     certifications = db.Column(db.Text)  # JSON string
     working_hours = db.Column(db.Text)  # JSON string
@@ -42,6 +42,7 @@ class Craftsman(db.Model):
     # Ratings
     average_rating = db.Column(db.Float, default=0.0)
     total_reviews = db.Column(db.Integer, default=0)
+    total_jobs = db.Column(db.Integer, default=0)
     
     # Status
     is_available = db.Column(db.Boolean, default=True)
@@ -58,7 +59,7 @@ class Craftsman(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    user = db.relationship('User', backref=db.backref('craftsman_profile', uselist=False))
+    user = db.relationship('User', back_populates='craftsman_profile', lazy='joined')
     
     def to_dict(self, include_user=True):
         data = {
@@ -70,6 +71,7 @@ class Craftsman(db.Model):
             'district': self.district,
             'hourly_rate': str(self.hourly_rate) if self.hourly_rate else None,
             'experience_years': self.experience_years,
+            'specialties': self.specialties,
             'skills': self.skills,
             'certifications': self.certifications,
             'working_hours': self.working_hours,
@@ -78,6 +80,7 @@ class Craftsman(db.Model):
             'response_time': self.response_time,
             'average_rating': self.average_rating,
             'total_reviews': self.total_reviews,
+            'total_jobs': self.total_jobs,
             'is_available': self.is_available,
             'is_verified': self.is_verified,
             'avatar': self.avatar,

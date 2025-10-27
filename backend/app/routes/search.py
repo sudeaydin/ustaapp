@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import or_, and_
 from app import db
@@ -29,7 +29,7 @@ def get_categories():
         ]
         
         return ResponseHelper.success(
-            data=categories,
+            data={'categories': categories},
             message='Kategoriler başarıyla getirildi'
         )
         
@@ -56,7 +56,7 @@ def get_locations():
             ]
         
         return ResponseHelper.success(
-            data=city_list,
+            data={'locations': city_list},
             message='Şehirler başarıyla getirildi'
         )
         
@@ -221,12 +221,23 @@ def get_craftsman_detail(craftsman_id):
         # Get recent jobs/reviews for this craftsman
         recent_jobs = []  # TODO: Implement when jobs system is ready
         
+        specialties = []
+        if craftsman.specialties:
+            specialties = [s.strip() for s in craftsman.specialties.split(',') if s.strip()]
+
+        portfolio_images = []
+        if craftsman.portfolio_images:
+            try:
+                portfolio_images = json.loads(craftsman.portfolio_images) if isinstance(craftsman.portfolio_images, str) else craftsman.portfolio_images
+            except (json.JSONDecodeError, TypeError):
+                portfolio_images = []
+
         craftsman_data = {
             'id': craftsman.id,
             'name': f"{craftsman.user.first_name} {craftsman.user.last_name}",
             'business_name': craftsman.business_name,
             'description': craftsman.description,
-            'specialties': craftsman.specialties,
+            'specialties': specialties,
             'address': craftsman.address,
             'city': craftsman.city,
             'district': craftsman.district,
@@ -236,16 +247,16 @@ def get_craftsman_detail(craftsman_id):
             'is_verified': craftsman.is_verified,
             'is_available': craftsman.is_available,
             'created_at': craftsman.created_at.isoformat() if craftsman.created_at else None,
-            'portfolio_images': craftsman.portfolio_images or [],
+            'portfolio_images': portfolio_images,
             'recent_jobs': recent_jobs,
             'contact': {
                 'email': craftsman.user.email,
                 'phone': craftsman.user.phone,
             }
         }
-        
+
         return ResponseHelper.success(
-            data=craftsman_data,
+            data={'craftsman': craftsman_data},
             message='Usta bilgileri getirildi'
         )
         

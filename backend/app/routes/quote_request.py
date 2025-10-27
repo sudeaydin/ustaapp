@@ -370,7 +370,7 @@ def get_my_quotes():
 
 @quote_request_bp.route('/<int:quote_id>', methods=['GET'])
 @jwt_required()
-def get_quote_detail():
+def get_quote_detail(quote_id):
     """Get quote details"""
     try:
         user_id = get_jwt_identity()

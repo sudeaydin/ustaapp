@@ -6,42 +6,55 @@ from flask_socketio import SocketIO
 import os
 import json
 
+from config.config import config as app_config
+
 # Initialize extensions
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={'expire_on_commit': False})
 jwt = JWTManager()
 socketio = SocketIO()
 
 def create_app(config_name='default'):
+    gae_env = os.environ.get('GAE_ENV', '').startswith('standard')
+    inferred_config = 'production' if gae_env else 'default'
+    config_name = config_name or os.environ.get('FLASK_CONFIG') or os.environ.get('APP_ENV') or inferred_config
+
     # Configure Flask for App Engine (no instance folder)
-    if os.environ.get('GAE_ENV', '').startswith('standard'):
+    if gae_env:
         app = Flask(__name__, instance_relative_config=False)
     else:
         app = Flask(__name__)
-    
+
     # Disable strict slashes to prevent redirect issues
     app.url_map.strict_slashes = False
-    
-    # Configuration
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
-    
-    # Database configuration - App Engine compatible
-    if os.environ.get('GAE_ENV', '').startswith('standard'):
-        # Production on App Engine - use in-memory SQLite
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    else:
-        # Local development
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
-    
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
-    
+
+    configuration = app_config.get(config_name, app_config['default'])
+    app.config.from_object(configuration)
+    app.config['ACTIVE_CONFIG_NAME'] = config_name
+
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
-    socketio.init_app(app, cors_allowed_origins=['*'])
-    
+
+    @jwt.unauthorized_loader
+    def _missing_jwt_callback(error):
+        return jsonify({'success': False, 'message': error}), 422
+
+    @jwt.invalid_token_loader
+    def _invalid_token_callback(error):
+        return jsonify({'success': False, 'message': error}), 422
+
+    @jwt.user_identity_loader
+    def _user_identity_lookup(identity):
+        return str(identity) if identity is not None else identity
+    cors_origins = app.config.get('CORS_ALLOWED_ORIGINS') or app.config.get('CORS_ORIGINS') or ['*']
+    if isinstance(cors_origins, str):
+        cors_origins = [origin.strip() for origin in cors_origins.split(',') if origin.strip()]
+    if not cors_origins:
+        cors_origins = ['*']
+    socketio.init_app(app, cors_allowed_origins=cors_origins)
+
     # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['*'], 
+    CORS(app, origins=cors_origins,
          allow_headers=['Content-Type', 'Authorization'],
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
          supports_credentials=True)

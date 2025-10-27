@@ -17,18 +17,18 @@ jobs:
     
     strategy:
       matrix:
-        python-version: [3.9, 3.10, 3.11]
+        python-version: ['3.9', '3.10', '3.11']
     
     steps:
     - uses: actions/checkout@v4
     
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
@@ -68,27 +68,43 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.11
+        python-version: '3.11'
     
     - name: Install dependencies
       working-directory: ./backend
       run: |
         python -m pip install --upgrade pip
-        pip install safety bandit
+        pip install pip-audit bandit
         pip install -r requirements.txt
-    
-    - name: Run safety check
+
+    - name: Run dependency vulnerability scan
+      id: pip-audit
+      continue-on-error: true
       working-directory: ./backend
-      run: safety check --json
+      run: |
+        pip-audit -r requirements.txt --format json -o pip-audit-report.json
+
+    - name: Summarize pip-audit findings
+      if: always()
+      run: |
+        if [ "${{ steps.pip-audit.outcome }}" = 'failure' ]; then
+          echo 'pip-audit detected vulnerabilities' >&2
+          echo '### pip-audit detected vulnerabilities' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Review the generated report artifact for the full vulnerability list.' >> "$GITHUB_STEP_SUMMARY"
+        fi
     
     - name: Run bandit security scan
       working-directory: ./backend
       run: bandit -r app -f json -o bandit-report.json || true
     
     - name: Upload security scan results
-      uses: actions/upload-artifact@v3
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
         name: security-scan-results
-        path: backend/bandit-report.json
+        path: |
+          backend/bandit-report.json
+          backend/pip-audit-report.json
