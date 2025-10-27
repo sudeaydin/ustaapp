@@ -87,13 +87,16 @@ class BusinessMetrics:
         return float(raw_sum or 0.0)
 
     @staticmethod
-    def get_craftsman_metrics(craftsman_user_id: int) -> Optional[Dict[str, Any]]:
+    def get_craftsman_metrics(craftsman_id: int) -> Optional[Dict[str, Any]]:
         from app.models.craftsman import Craftsman
         from app.models.job import Job, JobStatus
         from app.models.message import Message
         from app.models.quote import Quote, QuoteStatus
 
-        craftsman = Craftsman.query.filter_by(user_id=craftsman_user_id).first()
+        craftsman = Craftsman.query.filter_by(id=craftsman_id).first()
+        if not craftsman:
+            # Backwards compatibility for older callers that still pass user IDs.
+            craftsman = Craftsman.query.filter_by(user_id=craftsman_id).first()
         if not craftsman:
             return None
 
@@ -129,12 +132,15 @@ class BusinessMetrics:
         }
 
     @staticmethod
-    def get_customer_metrics(customer_user_id: int) -> Optional[Dict[str, Any]]:
+    def get_customer_metrics(customer_id: int) -> Optional[Dict[str, Any]]:
         from app.models.customer import Customer
         from app.models.job import Job, JobStatus
         from app.models.quote import Quote, QuoteStatus
 
-        customer = Customer.query.filter_by(user_id=customer_user_id).first()
+        customer = Customer.query.filter_by(id=customer_id).first()
+        if not customer:
+            # Backwards compatibility for older callers that still pass user IDs.
+            customer = Customer.query.filter_by(user_id=customer_id).first()
         if not customer:
             return None
 

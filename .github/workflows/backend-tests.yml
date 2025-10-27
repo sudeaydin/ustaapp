@@ -79,9 +79,9 @@ jobs:
         pip install safety bandit
         pip install -r requirements.txt
     
-    - name: Run safety check
+    - name: Run safety scan
       working-directory: ./backend
-      run: safety check --json
+      run: safety scan --json --file requirements.txt
     
     - name: Run bandit security scan
       working-directory: ./backend
