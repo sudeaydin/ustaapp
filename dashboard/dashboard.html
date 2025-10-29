@@ -41,8 +41,8 @@
                         <p class="text-blue-100">Proje Gelişim Dashboard</p>
                     </div>
                     <div class="text-right">
-                        <div class="text-4xl font-bold" id="overall-progress">78%</div>
-                        <div class="text-sm text-blue-100" id="last-update">Son güncelleme: Az önce</div>
+                        <div class="text-4xl font-bold" id="overall-progress">--%</div>
+                        <div class="text-sm text-blue-100" id="last-update">Son güncelleme: yükleniyor…</div>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                     <h2 class="text-xl font-semibold">Şu Anda Yapılan İş</h2>
                 </div>
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                    <p class="text-lg font-medium" id="current-task">Backend routes completion</p>
-                    <p class="text-gray-600 mt-1">Tahmini bitiş: <span id="estimated-time">20:30</span></p>
+                    <p class="text-lg font-medium" id="current-task">Yükleniyor…</p>
+                    <p class="text-gray-600 mt-1">Tahmini bitiş: <span id="estimated-time">-</span></p>
                 </div>
             </div>
 
@@ -66,131 +66,88 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Frontend -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-gray-800">Frontend (Web)</h3>
-                        <span class="text-2xl font-bold text-green-600" id="frontend-progress">90%</span>
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Frontend (Web)</h3>
+                            <span class="text-xs uppercase tracking-wide text-gray-500" id="frontend-status">Durum: -</span>
+                        </div>
+                        <span class="text-2xl font-bold text-green-600" id="frontend-progress">--%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                        <div class="bg-green-500 h-3 rounded-full progress-bar" style="width: 90%"></div>
+                        <div class="bg-green-500 h-3 rounded-full progress-bar" id="frontend-progress-bar" style="width: 0%"></div>
                     </div>
-                    <div class="text-sm text-gray-600">
-                        <div class="flex justify-between">
-                            <span>UI Components</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Pages</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>API Integration</span>
-                            <span class="text-yellow-600">⏳</span>
-                        </div>
+                    <div class="text-sm text-gray-600 space-y-2" id="frontend-tasks">
+                        <p class="text-gray-400">Görevler yükleniyor…</p>
                     </div>
                 </div>
 
                 <!-- Backend -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-gray-800">Backend API</h3>
-                        <span class="text-2xl font-bold text-ustalar-blue" id="backend-progress">80%</span>
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Backend API</h3>
+                            <span class="text-xs uppercase tracking-wide text-gray-500" id="backend-status">Durum: -</span>
+                        </div>
+                        <span class="text-2xl font-bold text-ustalar-blue" id="backend-progress">--%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                        <div class="bg-ustalar-blue h-3 rounded-full progress-bar" style="width: 80%"></div>
+                        <div class="bg-ustalar-blue h-3 rounded-full progress-bar" id="backend-progress-bar" style="width: 0%"></div>
                     </div>
-                    <div class="text-sm text-gray-600">
-                        <div class="flex justify-between">
-                            <span>Models</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Auth Routes</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Other Routes</span>
-                            <span class="text-yellow-600">⏳</span>
-                        </div>
+                    <div class="text-sm text-gray-600 space-y-2" id="backend-tasks">
+                        <p class="text-gray-400">Görevler yükleniyor…</p>
                     </div>
                 </div>
 
                 <!-- Mobile -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-gray-800">Mobile App</h3>
-                        <span class="text-2xl font-bold text-orange-600" id="mobile-progress">30%</span>
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Mobil Uygulama</h3>
+                            <span class="text-xs uppercase tracking-wide text-gray-500" id="mobile-status">Durum: -</span>
+                        </div>
+                        <span class="text-2xl font-bold text-orange-600" id="mobile-progress">--%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                        <div class="bg-orange-500 h-3 rounded-full progress-bar" style="width: 30%"></div>
+                        <div class="bg-orange-500 h-3 rounded-full progress-bar" id="mobile-progress-bar" style="width: 0%"></div>
                     </div>
-                    <div class="text-sm text-gray-600">
-                        <div class="flex justify-between">
-                            <span>Setup</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Components</span>
-                            <span class="text-gray-400">⏸</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Screens</span>
-                            <span class="text-gray-400">⏸</span>
-                        </div>
+                    <div class="text-sm text-gray-600 space-y-2" id="mobile-tasks">
+                        <p class="text-gray-400">Görevler yükleniyor…</p>
                     </div>
                 </div>
 
                 <!-- Features -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-gray-800">Özellikler</h3>
-                        <span class="text-2xl font-bold text-purple-600" id="features-progress">65%</span>
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Özellikler</h3>
+                            <span class="text-xs uppercase tracking-wide text-gray-500" id="features-status">Durum: -</span>
+                        </div>
+                        <span class="text-2xl font-bold text-purple-600" id="features-progress">--%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                        <div class="bg-purple-500 h-3 rounded-full progress-bar" style="width: 65%"></div>
+                        <div class="bg-purple-500 h-3 rounded-full progress-bar" id="features-progress-bar" style="width: 0%"></div>
                     </div>
-                    <div class="text-sm text-gray-600">
-                        <div class="flex justify-between">
-                            <span>User Auth</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Quote System</span>
-                            <span class="text-green-600">✓</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Chat System</span>
-                            <span class="text-gray-400">⏸</span>
-                        </div>
+                    <div class="text-sm text-gray-600 space-y-2" id="features-tasks">
+                        <p class="text-gray-400">Görevler yükleniyor…</p>
                     </div>
                 </div>
             </div>
 
             <!-- Detailed Progress -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Completed Today -->
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="text-xl font-semibold mb-4 text-green-700">✅ Bugün Tamamlanan</h3>
                     <div class="space-y-2" id="completed-list">
-                        <div class="flex items-center p-2 bg-green-50 rounded">
-                            <span class="text-green-600 mr-2">✓</span>
-                            <span>StartPage component (UI stilinizle)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-green-50 rounded">
-                            <span class="text-green-600 mr-2">✓</span>
-                            <span>LoginPage component (2-step login)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-green-50 rounded">
-                            <span class="text-green-600 mr-2">✓</span>
-                            <span>RegisterPage component</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-green-50 rounded">
-                            <span class="text-green-600 mr-2">✓</span>
-                            <span>Authentication API endpoints</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-green-50 rounded">
-                            <span class="text-green-600 mr-2">✓</span>
-                            <span>Service & Quote API endpoints</span>
-                        </div>
+                        <p class="text-gray-500">Kayıtlar yükleniyor…</p>
+                    </div>
+                </div>
+
+                <!-- In Progress -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-orange-600">🚧 Devam Eden Çalışmalar</h3>
+                    <div class="space-y-2" id="current-work">
+                        <p class="text-gray-500">Kayıtlar yükleniyor…</p>
                     </div>
                 </div>
 
@@ -198,26 +155,7 @@
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="text-xl font-semibold mb-4 text-ustalar-blue">📝 Sonraki Görevler</h3>
                     <div class="space-y-2" id="next-tasks">
-                        <div class="flex items-center p-2 bg-blue-50 rounded">
-                            <span class="text-ustalar-blue mr-2">⏳</span>
-                            <span>Backend routes completion (15 dk)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-gray-50 rounded">
-                            <span class="text-gray-500 mr-2">📋</span>
-                            <span>ServicesPage (hizmet arama) (20 dk)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-gray-50 rounded">
-                            <span class="text-gray-500 mr-2">📋</span>
-                            <span>CraftsmanProfile page (15 dk)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-gray-50 rounded">
-                            <span class="text-gray-500 mr-2">📋</span>
-                            <span>API integration (30 dk)</span>
-                        </div>
-                        <div class="flex items-center p-2 bg-gray-50 rounded">
-                            <span class="text-gray-500 mr-2">📋</span>
-                            <span>Chat system UI (1 saat)</span>
-                        </div>
+                        <p class="text-gray-500">Kayıtlar yükleniyor…</p>
                     </div>
                 </div>
             </div>
@@ -227,19 +165,19 @@
                 <h3 class="text-xl font-semibold mb-4">📊 Proje İstatistikleri</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="text-center p-4 bg-gray-50 rounded">
-                        <div class="text-2xl font-bold text-ustalar-blue">45</div>
+                        <div class="text-2xl font-bold text-ustalar-blue" id="stat-files">-</div>
                         <div class="text-sm text-gray-600">Oluşturulan Dosya</div>
                     </div>
                     <div class="text-center p-4 bg-gray-50 rounded">
-                        <div class="text-2xl font-bold text-green-600">2800</div>
+                        <div class="text-2xl font-bold text-green-600" id="stat-lines">-</div>
                         <div class="text-sm text-gray-600">Satır Kod</div>
                     </div>
                     <div class="text-center p-4 bg-gray-50 rounded">
-                        <div class="text-2xl font-bold text-purple-600">15</div>
+                        <div class="text-2xl font-bold text-purple-600" id="stat-endpoints">-</div>
                         <div class="text-sm text-gray-600">API Endpoint</div>
                     </div>
                     <div class="text-center p-4 bg-gray-50 rounded">
-                        <div class="text-2xl font-bold text-orange-600">8</div>
+                        <div class="text-2xl font-bold text-orange-600" id="stat-models">-</div>
                         <div class="text-sm text-gray-600">DB Model</div>
                     </div>
                 </div>
@@ -250,15 +188,15 @@
                 <h3 class="text-xl font-semibold mb-4">⏰ Zaman Tahminleri</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="text-center">
-                        <div class="text-2xl font-bold">2-3 saat</div>
+                        <div class="text-2xl font-bold" id="estimate-today">-</div>
                         <div class="text-blue-100">Bugün Kalan İş</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-bold">1 gün</div>
+                        <div class="text-2xl font-bold" id="estimate-web">-</div>
                         <div class="text-blue-100">Tam Web App</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-bold">3-4 gün</div>
+                        <div class="text-2xl font-bold" id="estimate-production">-</div>
                         <div class="text-blue-100">Production Ready</div>
                     </div>
                 </div>
@@ -267,21 +205,198 @@
     </div>
 
     <script>
-        // Auto-refresh every 30 seconds
-        setInterval(() => {
-            fetch('progress.json')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('overall-progress').textContent = data.overall_progress + '%';
-                    document.getElementById('current-task').textContent = data.current_task;
-                    document.getElementById('last-update').textContent = 'Son güncelleme: ' + new Date().toLocaleTimeString('tr-TR');
-                })
-                .catch(error => console.log('Dashboard update error:', error));
-        }, 30000);
+        const STATUS_LABELS = {
+            completed: 'Tamamlandı',
+            testing: 'Test aşamasında',
+            stabilizing: 'Stabilize ediliyor',
+            in_progress: 'Devam ediyor',
+            in_review: 'İncelemede',
+            planning: 'Planlama',
+            done: 'Tamamlandı',
+            pending: 'Beklemede',
+            default: 'Durum güncelleniyor'
+        };
 
-        // Initial load
-        console.log('🚀 Ustalar App Dashboard loaded!');
-        console.log('📊 Auto-refresh: Every 30 seconds');
+        const STATUS_STYLES = {
+            completed: { icon: '🏁', color: 'text-green-600', bg: 'bg-green-50' },
+            testing: { icon: '🧪', color: 'text-purple-600', bg: 'bg-purple-50' },
+            stabilizing: { icon: '🛠️', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+            in_progress: { icon: '⏳', color: 'text-yellow-600', bg: 'bg-yellow-50' },
+            in_review: { icon: '🔍', color: 'text-blue-600', bg: 'bg-blue-50' },
+            planning: { icon: '📝', color: 'text-gray-500', bg: 'bg-gray-50' },
+            done: { icon: '✓', color: 'text-green-600', bg: 'bg-green-50' },
+            pending: { icon: '⏸', color: 'text-gray-500', bg: 'bg-gray-100' },
+            default: { icon: '•', color: 'text-gray-600', bg: 'bg-gray-50' }
+        };
+
+        const MODULE_CONFIG = {
+            frontend: { key: 'frontend_web', progressId: 'frontend-progress', barId: 'frontend-progress-bar', tasksId: 'frontend-tasks', statusId: 'frontend-status' },
+            backend: { key: 'backend_api', progressId: 'backend-progress', barId: 'backend-progress-bar', tasksId: 'backend-tasks', statusId: 'backend-status' },
+            mobile: { key: 'mobile_app', progressId: 'mobile-progress', barId: 'mobile-progress-bar', tasksId: 'mobile-tasks', statusId: 'mobile-status' },
+            features: { key: 'features', progressId: 'features-progress', barId: 'features-progress-bar', tasksId: 'features-tasks', statusId: 'features-status' }
+        };
+
+        function toTitle(text) {
+            return text
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, (char) => char.toUpperCase());
+        }
+
+        function renderTaskList(containerId, tasks) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            const entries = Object.entries(tasks || {});
+            if (!entries.length) {
+                container.innerHTML = '<p class="text-gray-400">Henüz görev eklenmedi.</p>';
+                return;
+            }
+
+            entries.forEach(([taskName, info]) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'flex items-center justify-between rounded px-3 py-2';
+                const style = STATUS_STYLES[info.status] || STATUS_STYLES.default;
+                wrapper.classList.add(style.bg);
+
+                const name = document.createElement('span');
+                name.className = 'font-medium text-gray-700';
+                name.textContent = toTitle(taskName);
+
+                const statusContainer = document.createElement('div');
+                statusContainer.className = 'flex items-center space-x-3';
+
+                const statusBadge = document.createElement('span');
+                statusBadge.className = `text-sm font-semibold ${style.color}`;
+                statusBadge.textContent = `${style.icon} ${STATUS_LABELS[info.status] || info.status || STATUS_LABELS.default}`;
+
+                statusContainer.appendChild(statusBadge);
+
+                if (typeof info.progress === 'number') {
+                    const progress = document.createElement('span');
+                    progress.className = 'text-xs text-gray-500';
+                    progress.textContent = `${info.progress}%`;
+                    statusContainer.appendChild(progress);
+                }
+
+                wrapper.appendChild(name);
+                wrapper.appendChild(statusContainer);
+                container.appendChild(wrapper);
+            });
+        }
+
+        function renderModule(moduleKey, data) {
+            const config = MODULE_CONFIG[moduleKey];
+            if (!config || !data) return;
+
+            const progressEl = document.getElementById(config.progressId);
+            const barEl = document.getElementById(config.barId);
+            const statusEl = document.getElementById(config.statusId);
+
+            if (progressEl) {
+                progressEl.textContent = `${data.progress ?? 0}%`;
+            }
+            if (barEl) {
+                barEl.style.width = `${data.progress ?? 0}%`;
+            }
+            if (statusEl) {
+                const statusStyle = STATUS_STYLES[data.status] || STATUS_STYLES.default;
+                statusEl.textContent = `Durum: ${STATUS_LABELS[data.status] || STATUS_LABELS.default}`;
+                statusEl.className = `text-xs uppercase tracking-wide ${statusStyle.color}`;
+            }
+
+            renderTaskList(config.tasksId, data.tasks);
+        }
+
+        function renderSimpleList(containerId, items, emptyText) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (!items || !items.length) {
+                container.innerHTML = `<p class="text-gray-400">${emptyText}</p>`;
+                return;
+            }
+
+            items.forEach((item) => {
+                const entry = document.createElement('div');
+                entry.className = 'flex items-center p-2 rounded bg-gray-50';
+
+                const icon = document.createElement('span');
+                icon.className = 'mr-2';
+                icon.textContent = item.trim().charAt(0);
+
+                const text = document.createElement('span');
+                text.className = 'text-gray-700';
+                text.textContent = item.trim();
+
+                entry.appendChild(icon);
+                entry.appendChild(text);
+                container.appendChild(entry);
+            });
+        }
+
+        function updateStats(stats = {}) {
+            const { total_files_created, lines_of_code, api_endpoints, database_models } = stats;
+            document.getElementById('stat-files').textContent = total_files_created ?? '-';
+            document.getElementById('stat-lines').textContent = lines_of_code ?? '-';
+            document.getElementById('stat-endpoints').textContent = api_endpoints ?? '-';
+            document.getElementById('stat-models').textContent = database_models ?? '-';
+        }
+
+        function updateTimeEstimates(estimates = {}) {
+            document.getElementById('estimate-today').textContent = estimates.today_remaining ?? '-';
+            document.getElementById('estimate-web').textContent = estimates.full_web_app ?? '-';
+            document.getElementById('estimate-production').textContent = estimates.production_ready ?? '-';
+        }
+
+        function formatDateTime(value) {
+            if (!value) return null;
+            const normalized = value.replace(' ', 'T');
+            const date = new Date(normalized);
+            return isNaN(date.getTime()) ? null : date.toLocaleString('tr-TR');
+        }
+
+        function updateDashboard(data) {
+            document.getElementById('overall-progress').textContent = `${data.overall_progress ?? 0}%`;
+            document.getElementById('current-task').textContent = data.current_task || 'Çalışma bilgisi bulunamadı';
+
+            const estimated = formatDateTime(data.estimated_completion) || data.estimated_completion || '-';
+            document.getElementById('estimated-time').textContent = estimated;
+
+            const lastUpdate = formatDateTime(data.last_update) || data.last_update || new Date().toLocaleString('tr-TR');
+            document.getElementById('last-update').textContent = `Son güncelleme: ${lastUpdate}`;
+
+            Object.keys(MODULE_CONFIG).forEach((key) => {
+                renderModule(key, data.modules?.[MODULE_CONFIG[key].key]);
+            });
+
+            renderSimpleList('completed-list', data.completed_today, 'Bugün tamamlanan görev bulunmuyor.');
+            renderSimpleList('current-work', data.current_work, 'Aktif çalışma bulunmuyor.');
+            renderSimpleList('next-tasks', data.next_tasks, 'Yeni görev planlanmadı.');
+
+            updateStats(data.stats);
+            updateTimeEstimates(data.time_estimates);
+        }
+
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch(`progress.json?v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                updateDashboard(data);
+                console.log('📊 Dashboard güncellendi', new Date().toLocaleTimeString('tr-TR'));
+            } catch (error) {
+                console.error('Dashboard verileri alınamadı:', error);
+            }
+        }
+
+        fetchDashboardData();
+        setInterval(fetchDashboardData, 30000);
     </script>
 </body>
 </html>
