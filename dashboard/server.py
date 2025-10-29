@@ -14,29 +14,35 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
 def update_progress():
-    """Auto-update progress every 60 seconds"""
+    """Auto-update progress metadata every 60 seconds."""
     while True:
         try:
             with open('progress.json', 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            
-            # Update timestamp
+
+            # Always refresh the timestamp so the dashboard reflects the
+            # latest heartbeat of the service.
             data['last_update'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            
-            # Simulate progress updates (you can modify this)
-            current_progress = data['overall_progress']
-            if current_progress < 100:
-                # Small incremental progress
-                data['overall_progress'] = min(100, current_progress + 1)
-            
+
+            # Optionally increment progress when auto_update is enabled. This
+            # keeps manual updates intact while still supporting demo mode.
+            if data.get('auto_update'):
+                current_progress = data.get('overall_progress', 0)
+                target = data.get('auto_update_target', 100)
+                step = data.get('auto_update_step', 1)
+                if current_progress < target:
+                    data['overall_progress'] = min(target, current_progress + step)
+
             with open('progress.json', 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
-                
-            print(f"📊 Progress updated: {data['overall_progress']}% - {data['current_task']}")
-            
+
+            print(
+                f"📊 Progress heartbeat: {data['overall_progress']}% - {data['current_task']}"
+            )
+
         except Exception as e:
             print(f"❌ Update error: {e}")
-        
+
         time.sleep(60)  # Update every minute
 
 if __name__ == '__main__':
