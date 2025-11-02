@@ -7,7 +7,14 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 import sqlalchemy
-from google.cloud.sql.connector import Connector
+
+try:
+    from google.cloud.sql.connector import Connector
+except ModuleNotFoundError as exc:  # pragma: no cover - optional dependency in tests
+    Connector = None  # type: ignore[assignment]
+    _connector_import_error = exc
+else:
+    _connector_import_error = None
 
 
 class CloudSQLConfigError(RuntimeError):
@@ -103,6 +110,12 @@ def init_cloud_sql_engine() -> sqlalchemy.engine.Engine:
     """Initialize a SQLAlchemy engine that connects to Cloud SQL via the Connector."""
 
     settings = validate_cloud_sql_config(require_connection_name=True)
+
+    if Connector is None:  # pragma: no cover - exercised via runtime environment
+        raise CloudSQLConfigError(
+            "google-cloud-sql-connector is required to establish a Cloud SQL connection. "
+            "Install the 'google-cloud-sql-connector' package to use this helper."
+        ) from _connector_import_error
 
     connector = Connector()
 
