@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from .cloud_sql import CloudSQLConfigError, CloudSQLSettings, load_cloud_sql_config
+
 
 def _comma_separated_list(value: str, default: List[str]) -> List[str]:
     """Convert a comma separated string to a list of trimmed values."""
@@ -16,33 +18,31 @@ def _comma_separated_list(value: str, default: List[str]) -> List[str]:
 
 def _build_production_db_uri() -> str:
     """Construct a SQLAlchemy URI for Cloud SQL Postgres if credentials exist."""
+
     default_uri = os.environ.get('DATABASE_URL') or 'sqlite:///ustalar_prod.db'
 
-    db_user = os.environ.get('DB_USER')
-    db_password = os.environ.get('DB_PASSWORD')
-    db_name = os.environ.get('DB_NAME')
+    settings: CloudSQLSettings = load_cloud_sql_config(validate=False)
 
-    if not all([db_user, db_password, db_name]):
+    if not all([settings.db_user, settings.db_password, settings.db_name]):
         return default_uri
 
-    db_host = os.environ.get('DB_HOST')
-    db_port = os.environ.get('DB_PORT', '5432')
-    cloud_sql_connection_name = os.environ.get('CLOUD_SQL_CONNECTION_NAME')
-    db_socket_dir = os.environ.get('DB_SOCKET_DIR', '/cloudsql')
-
-    if cloud_sql_connection_name and not db_host:
-        # Use Unix socket path for Cloud SQL when host is not provided
+    if settings.db_host:
         return (
-            f"postgresql+psycopg2://{db_user}:{db_password}@/{db_name}"
-            f"?host={db_socket_dir}/{cloud_sql_connection_name}"
+            "postgresql+psycopg2://"
+            f"{settings.db_user}:{settings.db_password}"
+            f"@{settings.db_host}:{settings.db_port}/{settings.db_name}"
         )
 
-    if db_host:
-        return (
-            f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-        )
+    try:
+        unix_socket = settings.resolve_unix_socket()
+    except CloudSQLConfigError:
+        return default_uri
 
-    return default_uri
+    return (
+        "postgresql+psycopg2://"
+        f"{settings.db_user}:{settings.db_password}"
+        f"@/{settings.db_name}?host={unix_socket}"
+    )
 
 
 class Config:

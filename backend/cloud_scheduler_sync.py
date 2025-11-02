@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from flask import Flask, request, jsonify
 from google.cloud import bigquery
 import sqlalchemy
-from config.cloud_sql import get_cloud_sql_url
+from config.cloud_sql import get_cloud_sql_url, validate_cloud_sql_config
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -25,7 +25,8 @@ class CloudSchedulerSync:
         self.bigquery_client = bigquery.Client(project=self.project_id)
         
         # Cloud SQL connection
-        self.db_url = get_cloud_sql_url()
+        self.cloud_sql_settings = validate_cloud_sql_config()
+        self.db_url = get_cloud_sql_url(self.cloud_sql_settings)
         self.db_engine = sqlalchemy.create_engine(self.db_url)
 
     def sync_table_data(self, table_name, sync_config):
