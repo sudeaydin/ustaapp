@@ -3,6 +3,8 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' show pow;
 
+import '../theme/design_tokens.dart';
+
 /// Accessibility utilities for WCAG compliance in Flutter
 class AccessibilityUtils {
   static bool _initialized = false;
@@ -285,15 +287,12 @@ class AccessibleTextField extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
             onChanged: onChanged,
-            decoration: InputDecoration(
+            style: DesignTokens.inputTextStyle,
+            decoration: DesignTokens.inputDecoration(
               hintText: hintText,
               errorText: errorText,
-              border: const OutlineInputBorder(),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
-              ),
             ),
-            validator: isRequired 
+            validator: isRequired
               ? (value) => value?.isEmpty ?? true ? 'Bu alan gereklidir' : null
               : null,
           ),

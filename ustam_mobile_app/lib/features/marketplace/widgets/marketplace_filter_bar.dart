@@ -71,7 +71,8 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
             ),
             child: TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              style: DesignTokens.inputTextStyle,
+              decoration: DesignTokens.inputDecoration(
                 hintText: 'İş ara...',
                 prefixIcon: const Icon(Icons.search, color: DesignTokens.gray500),
                 suffixIcon: _searchController.text.isNotEmpty
@@ -83,11 +84,19 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                         },
                       )
                     : null,
-                border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: DesignTokens.space16,
                   vertical: DesignTokens.space12,
                 ),
+              ).copyWith(
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                prefixIconColor: DesignTokens.gray500,
+                suffixIconColor: DesignTokens.gray500,
               ),
               onChanged: (value) {
                 setState(() {});

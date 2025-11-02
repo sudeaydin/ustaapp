@@ -477,13 +477,10 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             const SizedBox(height: DesignTokens.space16),
             TextField(
               style: DesignTokens.inputTextStyle,
-              decoration: InputDecoration(
+              decoration: DesignTokens.inputDecoration(
                 labelText: 'Sormak istediğiniz detaylar',
                 hintText: 'Örn: Mevcut durumun fotoğrafını gönderebilir misiniz?',
-                hintStyle: DesignTokens.inputHintTextStyle,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                ),
+                alignLabelWithHint: true,
               ),
               maxLines: 3,
             ),
@@ -555,13 +552,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 TextField(
                   controller: priceController,
                   style: DesignTokens.inputTextStyle,
-                  decoration: InputDecoration(
+                  decoration: DesignTokens.inputDecoration(
                     labelText: 'Fiyat (₺)',
                     hintText: 'Örn: 1500',
-                    hintStyle: DesignTokens.inputHintTextStyle,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                    ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -569,13 +562,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 TextField(
                   controller: durationController,
                   style: DesignTokens.inputTextStyle,
-                  decoration: InputDecoration(
+                  decoration: DesignTokens.inputDecoration(
                     labelText: 'Tahmini Süre (gün)',
                     hintText: 'Örn: 3',
-                    hintStyle: DesignTokens.inputHintTextStyle,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                    ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -610,7 +599,8 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300]!),
+                            color: DesignTokens.inputBackground,
+                            border: Border.all(color: DesignTokens.inputBorderColor),
                             borderRadius: BorderRadius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
@@ -622,7 +612,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                                     ? '${proposedStartDate!.day}/${proposedStartDate!.month}/${proposedStartDate!.year}'
                                     : 'Başlangıç',
                                 style: TextStyle(
-                                  color: proposedStartDate != null ? Colors.black : Colors.grey[600],
+                                  color: proposedStartDate != null
+                                      ? DesignTokens.gray900
+                                      : DesignTokens.gray600,
                                 ),
                               ),
                             ],
@@ -649,7 +641,8 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300]!),
+                            color: DesignTokens.inputBackground,
+                            border: Border.all(color: DesignTokens.inputBorderColor),
                             borderRadius: BorderRadius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
@@ -661,7 +654,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                                     ? '${proposedEndDate!.day}/${proposedEndDate!.month}/${proposedEndDate!.year}'
                                     : 'Bitiş',
                                 style: TextStyle(
-                                  color: proposedEndDate != null ? Colors.black : Colors.grey[600],
+                                  color: proposedEndDate != null
+                                      ? DesignTokens.gray900
+                                      : DesignTokens.gray600,
                                 ),
                               ),
                             ],
@@ -676,13 +671,10 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 TextField(
                   controller: notesController,
                   style: DesignTokens.inputTextStyle,
-                  decoration: InputDecoration(
+                  decoration: DesignTokens.inputDecoration(
                     labelText: 'Notlar ve Açıklamalar',
                     hintText: 'İş detayları, kullanılacak malzemeler vs.',
-                    hintStyle: DesignTokens.inputHintTextStyle,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                    ),
+                    alignLabelWithHint: true,
                   ),
                   maxLines: 3,
                 ),

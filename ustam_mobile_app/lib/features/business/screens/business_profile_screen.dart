@@ -739,11 +739,16 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             controller: controller,
             maxLines: maxLines,
             keyboardType: keyboardType,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            decoration: DesignTokens.inputDecoration(
               hintText: hint,
-              hintStyle: DesignTokens.inputHintTextStyle,
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            ).copyWith(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
             ),
             style: DesignTokens.inputTextStyle,
             validator: validator,
@@ -775,9 +780,15 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
-            decoration: const InputDecoration(
+            decoration: DesignTokens.inputDecoration(
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            ).copyWith(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(DesignTokens.space16),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
             ),
             hint: Text(
               '$label seçiniz',

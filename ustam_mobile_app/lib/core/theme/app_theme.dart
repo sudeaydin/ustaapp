@@ -224,67 +224,7 @@ class AppTheme {
       ),
       
       // Input Decoration Theme - Form styling
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: dt.DesignTokens.inputBackground,
-        focusColor: dt.DesignTokens.inputBackground,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.inputBorderColor,
-            width: 1.2,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.inputBorderColor,
-            width: 1.2,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.primaryCoral,
-            width: 2,
-          ),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.inputBorderColor.withOpacity(0.7),
-            width: 1,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.error,
-            width: 1,
-          ),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.error,
-            width: 2,
-          ),
-        ),
-        contentPadding: const EdgeInsets.all(dt.DesignTokens.space16),
-        hintStyle: dt.DesignTokens.inputHintTextStyle,
-        labelStyle: TextStyle(
-          color: dt.DesignTokens.gray700,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-        floatingLabelStyle: TextStyle(
-          color: dt.DesignTokens.gray700,
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
-        prefixIconColor: dt.DesignTokens.textMuted,
-        suffixIconColor: dt.DesignTokens.textMuted,
-      ),
+      inputDecorationTheme: dt.DesignTokens.buildInputTheme(),
 
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: dt.DesignTokens.inputTextColor,

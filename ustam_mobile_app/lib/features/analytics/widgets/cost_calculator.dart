@@ -176,11 +176,9 @@ class _CostCalculatorState extends State<CostCalculator> {
                   // Category Dropdown
                   DropdownButtonFormField<String>(
                     value: _selectedCategory,
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'İş Kategorisi *',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
                     ),
                     items: _categories.map((category) {
                       return DropdownMenuItem(
@@ -206,11 +204,9 @@ class _CostCalculatorState extends State<CostCalculator> {
                   // Area Type Dropdown
                   DropdownButtonFormField<String>(
                     value: _selectedAreaType,
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'Alan Türü *',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
                     ),
                     items: _areaTypes.map((type) {
                       return DropdownMenuItem(
@@ -236,11 +232,9 @@ class _CostCalculatorState extends State<CostCalculator> {
                   // Budget Range Dropdown
                   DropdownButtonFormField<String>(
                     value: _selectedBudgetRange,
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'Bütçe Aralığı',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
                     ),
                     items: _budgetRanges.map((range) {
                       return DropdownMenuItem(
@@ -260,11 +254,9 @@ class _CostCalculatorState extends State<CostCalculator> {
                   // Urgency Dropdown
                   DropdownButtonFormField<String>(
                     value: _selectedUrgency,
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'Aciliyet Durumu',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
                     ),
                     items: _urgencyLevels.map((level) {
                       return DropdownMenuItem(
@@ -284,12 +276,11 @@ class _CostCalculatorState extends State<CostCalculator> {
                   // Description Field
                   TextFormField(
                     maxLines: 3,
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'İş Açıklaması',
                       hintText: 'İş hakkında detayları yazın...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
+                      alignLabelWithHint: true,
                     ),
                     onChanged: (value) {
                       _description = value;
@@ -300,12 +291,10 @@ class _CostCalculatorState extends State<CostCalculator> {
                   
                   // Location Field
                   TextFormField(
-                    decoration: InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       labelText: 'Konum',
                       hintText: 'İl/İlçe',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
-                      ),
                     ),
                     onChanged: (value) {
                       _location = value;
@@ -605,11 +594,9 @@ class _CostCalculatorState extends State<CostCalculator> {
         // Category
         DropdownButtonFormField<String>(
           value: _selectedCategory,
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'İş Kategorisi *',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
           ),
           items: _categories.map((category) {
             return DropdownMenuItem(
@@ -635,11 +622,9 @@ class _CostCalculatorState extends State<CostCalculator> {
         // Area Type
         DropdownButtonFormField<String>(
           value: _selectedAreaType,
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Alan Türü *',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
           ),
           items: _areaTypes.map((type) {
             return DropdownMenuItem(
@@ -665,11 +650,9 @@ class _CostCalculatorState extends State<CostCalculator> {
         // Budget Range
         DropdownButtonFormField<String>(
           value: _selectedBudgetRange,
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Bütçe Aralığı',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
           ),
           items: _budgetRanges.map((range) {
             return DropdownMenuItem(
@@ -689,11 +672,9 @@ class _CostCalculatorState extends State<CostCalculator> {
         // Urgency
         DropdownButtonFormField<String>(
           value: _selectedUrgency,
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Aciliyet Durumu',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
           ),
           items: _urgencyLevels.map((level) {
             return DropdownMenuItem(
@@ -713,12 +694,11 @@ class _CostCalculatorState extends State<CostCalculator> {
         // Description
         TextFormField(
           maxLines: 3,
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'İş Açıklaması',
             hintText: 'İş hakkında detayları yazın...',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
+            alignLabelWithHint: true,
           ),
           onChanged: (value) {
             _description = value;
@@ -729,12 +709,10 @@ class _CostCalculatorState extends State<CostCalculator> {
         
         // Location
         TextFormField(
-          decoration: InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Konum',
             hintText: 'İl/İlçe',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
-            ),
           ),
           onChanged: (value) {
             _location = value;

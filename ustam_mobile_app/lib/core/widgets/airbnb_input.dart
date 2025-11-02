@@ -125,9 +125,8 @@ class _AirbnbInputState extends State<AirbnbInput> {
                 .textTheme
                 .bodyMedium
                 ?.copyWith(color: DesignTokens.inputTextColor),
-            decoration: InputDecoration(
+            decoration: DesignTokens.inputDecoration(
               hintText: widget.hintText,
-              hintStyle: DesignTokens.inputHintTextStyle,
               prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
@@ -138,12 +137,24 @@ class _AirbnbInputState extends State<AirbnbInput> {
                     )
                   : null,
               suffixIcon: _buildSuffixIcon(),
-              border: InputBorder.none,
+              hideCounter: widget.maxLength != null,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: DesignTokens.space16,
                 vertical: DesignTokens.space16,
               ),
-              counterText: '', // Hide character counter
+            ).copyWith(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              prefixIconColor: _isFocused
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
+              suffixIconColor: _isFocused
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
             ),
           ),
         ),
@@ -240,37 +251,29 @@ class AirbnbSearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24), // Airbnb search style
-        border: Border.all(
-          color: Colors.grey.withOpacity(0.3),
-          width: 1,
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      onTap: onTap,
+      readOnly: readOnly,
+      style: Theme.of(context)
+          .textTheme
+          .bodyMedium
+          ?.copyWith(color: DesignTokens.inputTextColor),
+      decoration: DesignTokens.inputDecoration(
+        hintText: hintText,
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 20,
         ),
-      ),
-      child: TextField(
-        controller: controller,
-        onChanged: onChanged,
-        onTap: onTap,
-        readOnly: readOnly,
-        style: Theme.of(context).textTheme.bodyMedium,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: DesignTokens.primaryCoral, // Pembe renk
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: DesignTokens.primaryCoral, // Pembe renk
-            size: 20,
-          ),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: DesignTokens.space24,
-            vertical: DesignTokens.space16,
-          ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: DesignTokens.space24,
+          vertical: DesignTokens.space16,
         ),
+        borderRadius: 24,
+      ).copyWith(
+        prefixIconColor: DesignTokens.primaryCoral,
+        suffixIconColor: DesignTokens.primaryCoral,
       ),
     );
   }

@@ -317,9 +317,15 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
-            decoration: const InputDecoration(
+            decoration: DesignTokens.inputDecoration(
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            ).copyWith(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(DesignTokens.space16),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
             ),
             hint: Text(
               '$label seçiniz',
@@ -369,11 +375,16 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             maxLines: maxLines,
             validator: validator,
             style: DesignTokens.inputTextStyle,
-            decoration: InputDecoration(
+            decoration: DesignTokens.inputDecoration(
               hintText: hint,
-              hintStyle: DesignTokens.inputHintTextStyle,
-              border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            ).copyWith(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
             ),
           ),
         ),
@@ -670,9 +681,15 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
-            decoration: const InputDecoration(
+            decoration: DesignTokens.inputDecoration(
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+            ).copyWith(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(DesignTokens.space16),
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
             ),
             items: items.map((item) {
               return DropdownMenuItem<String>(

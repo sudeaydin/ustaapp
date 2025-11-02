@@ -176,6 +176,11 @@ class DesignTokens {
   static const List<Color> accentGradient = [accentTeal, accentTealDark];
   static const Color surfaceSecondaryColor = surfaceSecondary;
 
+  static const EdgeInsets inputContentPadding = EdgeInsets.symmetric(
+    horizontal: space16,
+    vertical: space12,
+  );
+
   // Input typography helpers
   static const TextStyle inputTextStyle = TextStyle(
     color: inputTextColor,
@@ -187,6 +192,18 @@ class DesignTokens {
     color: inputPlaceholderColor,
     fontSize: 16,
   );
+
+  static TextStyle get inputLabelStyle => const TextStyle(
+        color: gray700,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      );
+
+  static TextStyle get inputFloatingLabelStyle => const TextStyle(
+        color: primaryCoral,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      );
   
   // Dark mode compatibility
   static const Color darkPrimaryCoral = Color(0xFFFF6B6F);
@@ -330,6 +347,87 @@ class DesignTokens {
           offset: const Offset(0, 2),
         ),
       ],
+    );
+  }
+
+  static OutlineInputBorder _buildInputBorder(
+    Color color, {
+    double width = 1.2,
+    double? borderRadius,
+  }) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(borderRadius ?? radius12),
+      borderSide: BorderSide(color: color, width: width),
+    );
+  }
+
+  static InputDecorationTheme buildInputTheme({double? borderRadius}) {
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: inputBackground,
+      focusColor: inputBackground,
+      hintStyle: inputHintTextStyle,
+      labelStyle: inputLabelStyle,
+      floatingLabelStyle: inputFloatingLabelStyle,
+      contentPadding: inputContentPadding,
+      border: _buildInputBorder(inputBorderColor, borderRadius: borderRadius),
+      enabledBorder: _buildInputBorder(inputBorderColor, borderRadius: borderRadius),
+      focusedBorder: _buildInputBorder(primaryCoral, width: 2, borderRadius: borderRadius),
+      disabledBorder:
+          _buildInputBorder(inputBorderColor.withOpacity(0.7), borderRadius: borderRadius),
+      errorBorder: _buildInputBorder(error, borderRadius: borderRadius),
+      focusedErrorBorder: _buildInputBorder(error, width: 2, borderRadius: borderRadius),
+      prefixIconColor: textMuted,
+      suffixIconColor: textMuted,
+    );
+  }
+
+  static InputDecoration inputDecoration({
+    String? labelText,
+    String? hintText,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
+    String? helperText,
+    String? errorText,
+    EdgeInsetsGeometry? contentPadding,
+    bool hideCounter = false,
+    bool alignLabelWithHint = false,
+    bool isDense = false,
+    double? borderRadius,
+    Color? fillColor,
+  }) {
+    final decorationBorder = _buildInputBorder(
+      inputBorderColor,
+      borderRadius: borderRadius,
+    );
+
+    return InputDecoration(
+      labelText: labelText,
+      hintText: hintText,
+      helperText: helperText,
+      errorText: errorText,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      alignLabelWithHint: alignLabelWithHint,
+      isDense: isDense,
+      counterText: hideCounter ? '' : null,
+      contentPadding: contentPadding ?? inputContentPadding,
+      filled: true,
+      fillColor: fillColor ?? inputBackground,
+      hintStyle: inputHintTextStyle,
+      labelStyle: inputLabelStyle,
+      floatingLabelStyle: inputFloatingLabelStyle,
+      border: decorationBorder,
+      enabledBorder: decorationBorder,
+      focusedBorder: _buildInputBorder(primaryCoral, width: 2, borderRadius: borderRadius),
+      disabledBorder: _buildInputBorder(
+        inputBorderColor.withOpacity(0.7),
+        borderRadius: borderRadius,
+      ),
+      errorBorder: _buildInputBorder(error, borderRadius: borderRadius),
+      focusedErrorBorder: _buildInputBorder(error, width: 2, borderRadius: borderRadius),
+      prefixIconColor: textMuted,
+      suffixIconColor: textMuted,
     );
   }
   

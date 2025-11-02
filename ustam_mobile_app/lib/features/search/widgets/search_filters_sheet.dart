@@ -210,9 +210,9 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
               data: (cities) {
                 return DropdownButtonFormField<String>(
                   value: _currentFilters.city,
-                  decoration: const InputDecoration(
+                  style: DesignTokens.inputTextStyle,
+                  decoration: DesignTokens.inputDecoration(
                     labelText: 'Şehir',
-                    border: OutlineInputBorder(),
                   ),
                   items: [
                     const DropdownMenuItem<String>(
@@ -249,9 +249,9 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         if (_currentFilters.city != null)
           DropdownButtonFormField<String>(
             value: _currentFilters.district,
-            decoration: const InputDecoration(
+            style: DesignTokens.inputTextStyle,
+            decoration: DesignTokens.inputDecoration(
               labelText: 'İlçe',
-              border: OutlineInputBorder(),
             ),
             items: [
               const DropdownMenuItem<String>(
@@ -433,9 +433,9 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         // Sort by dropdown
         DropdownButtonFormField<String>(
           value: _currentFilters.sortBy,
-          decoration: const InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Sırala',
-            border: OutlineInputBorder(),
           ),
           items: widget.filterOptions!.sortOptions.map((option) => DropdownMenuItem(
             value: option.value,
@@ -455,9 +455,9 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         // Sort order dropdown
         DropdownButtonFormField<String>(
           value: _currentFilters.sortOrder,
-          decoration: const InputDecoration(
+          style: DesignTokens.inputTextStyle,
+          decoration: DesignTokens.inputDecoration(
             labelText: 'Sıralama Yönü',
-            border: OutlineInputBorder(),
           ),
           items: widget.filterOptions!.sortOrders.map((order) => DropdownMenuItem(
             value: order.value,

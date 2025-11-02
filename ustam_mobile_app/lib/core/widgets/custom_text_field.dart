@@ -112,14 +112,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
             onChanged: widget.onChanged,
             validator: widget.validator ?? _getDefaultValidator(),
             style: DesignTokens.inputTextStyle,
-            decoration: InputDecoration(
+            decoration: DesignTokens.inputDecoration(
               hintText: widget.hint ?? widget.hintText,
-              hintStyle: DesignTokens.inputHintTextStyle,
               prefixIcon: widget.prefixIcon,
               suffixIcon: _getSuffixIcon(),
-              border: InputBorder.none,
+              hideCounter: widget.maxLength != null,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
-              counterText: '', // Hide character counter
+            ).copyWith(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              prefixIconColor: _focusNode.hasFocus
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
+              suffixIconColor: _focusNode.hasFocus
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
             ),
           ),
         ),

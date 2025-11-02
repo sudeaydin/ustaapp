@@ -400,14 +400,20 @@ class _MarketplaceCreateListingScreenState
               value: _locationController.text.isEmpty || !_cities.contains(_locationController.text)
                   ? null
                   : _locationController.text,
-              decoration: InputDecoration(
+              decoration: DesignTokens.inputDecoration(
                 labelText: 'Şehir',
                 prefixIcon: const Icon(Icons.location_city_outlined),
-                border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: DesignTokens.space16,
                   vertical: DesignTokens.space12,
                 ),
+              ).copyWith(
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
               ),
               style: DesignTokens.inputTextStyle,
               items: _cities.map((city) {
