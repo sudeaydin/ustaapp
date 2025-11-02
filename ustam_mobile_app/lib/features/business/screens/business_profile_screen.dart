@@ -734,18 +734,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-            boxShadow: [
-              BoxShadow(
-                color: DesignTokens.shadowLight,
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          decoration: DesignTokens.inputContainerDecoration(),
           child: TextFormField(
             controller: controller,
             maxLines: maxLines,
@@ -754,8 +743,9 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
               hintText: hint,
-              hintStyle: TextStyle(color: DesignTokens.textMuted),
+              hintStyle: DesignTokens.inputHintTextStyle,
             ),
+            style: DesignTokens.inputTextStyle,
             validator: validator,
           ),
         ),
@@ -782,30 +772,26 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-            boxShadow: [
-              BoxShadow(
-                color: DesignTokens.shadowLight,
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: Text('$label seçiniz'),
+            hint: Text(
+              '$label seçiniz',
+              style: DesignTokens.inputHintTextStyle,
+            ),
             items: items.map((item) => DropdownMenuItem(
               value: item,
-              child: Text(item),
+              child: Text(
+                item,
+                style: DesignTokens.inputTextStyle,
+              ),
             )).toList(),
             onChanged: onChanged,
+            style: DesignTokens.inputTextStyle,
           ),
         ),
       ],

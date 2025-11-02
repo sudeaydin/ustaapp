@@ -52,6 +52,13 @@ class DesignTokens {
   static const Color surfacePrimary = Color(0xFFFFFFFF);
   static const Color surfaceSecondary = Color(0xFFF8F9FA);
   static const Color surfaceTertiary = Color(0xFFF1F3F4);
+
+  // Form/Input specific colors
+  static const Color inputBackground = gray100;
+  static const Color inputBackgroundDisabled = gray200;
+  static const Color inputBorderColor = gray300;
+  static const Color inputTextColor = gray900;
+  static const Color inputPlaceholderColor = textMuted;
   
   /// Dark Mode Surface Colors
   static const Color darkSurfacePrimary = Color(0xFF000000);
@@ -146,7 +153,7 @@ class DesignTokens {
   
   static const double buttonHeight = 48.0;
   static const double inputHeight = 44.0;  // iOS standard
-  
+
   // ========================================
   // COMPATIBILITY PROPERTIES
   // ========================================
@@ -168,6 +175,18 @@ class DesignTokens {
   static const List<Color> headerGradient = [primaryCoral, primaryCoralDark];
   static const List<Color> accentGradient = [accentTeal, accentTealDark];
   static const Color surfaceSecondaryColor = surfaceSecondary;
+
+  // Input typography helpers
+  static const TextStyle inputTextStyle = TextStyle(
+    color: inputTextColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle inputHintTextStyle = TextStyle(
+    color: inputPlaceholderColor,
+    fontSize: 16,
+  );
   
   // Dark mode compatibility
   static const Color darkPrimaryCoral = Color(0xFFFF6B6F);
@@ -277,12 +296,40 @@ class DesignTokens {
       offset: const Offset(0, 2),
     );
   }
-  
+
   static BoxShadow getElevatedShadow({double blurRadius = 12}) {
     return BoxShadow(
       color: Colors.black.withOpacity(shadowOpacityMedium),
       blurRadius: blurRadius,
       offset: const Offset(0, 4),
+    );
+  }
+
+  static BoxDecoration inputContainerDecoration({
+    bool isEnabled = true,
+    bool isFocused = false,
+    bool hasError = false,
+  }) {
+    final borderColor = hasError
+        ? error
+        : isFocused
+            ? primaryCoral
+            : inputBorderColor;
+
+    return BoxDecoration(
+      color: isEnabled ? inputBackground : inputBackgroundDisabled,
+      borderRadius: BorderRadius.circular(radius12),
+      border: Border.all(
+        color: borderColor,
+        width: isFocused ? 2 : 1,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: shadowLight,
+          blurRadius: isFocused ? shadowBlur12 : shadowBlur8,
+          offset: const Offset(0, 2),
+        ),
+      ],
     );
   }
   

@@ -226,19 +226,20 @@ class AppTheme {
       // Input Decoration Theme - Form styling
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: dt.DesignTokens.surfacePrimary,
+        fillColor: dt.DesignTokens.inputBackground,
+        focusColor: dt.DesignTokens.inputBackground,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-            width: 1,
+            color: dt.DesignTokens.inputBorderColor,
+            width: 1.2,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-            width: 1,
+            color: dt.DesignTokens.inputBorderColor,
+            width: 1.2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -246,6 +247,13 @@ class AppTheme {
           borderSide: BorderSide(
             color: dt.DesignTokens.primaryCoral,
             width: 2,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderSide: BorderSide(
+            color: dt.DesignTokens.inputBorderColor.withOpacity(0.7),
+            width: 1,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -263,15 +271,25 @@ class AppTheme {
           ),
         ),
         contentPadding: const EdgeInsets.all(dt.DesignTokens.space16),
-        hintStyle: TextStyle(
-          color: dt.DesignTokens.textMuted,
-          fontSize: 16,
-        ),
+        hintStyle: dt.DesignTokens.inputHintTextStyle,
         labelStyle: TextStyle(
-          color: dt.DesignTokens.gray600,
+          color: dt.DesignTokens.gray700,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
+        floatingLabelStyle: TextStyle(
+          color: dt.DesignTokens.gray700,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        prefixIconColor: dt.DesignTokens.textMuted,
+        suffixIconColor: dt.DesignTokens.textMuted,
+      ),
+
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: dt.DesignTokens.inputTextColor,
+        selectionColor: dt.DesignTokens.primaryCoral.withOpacity(0.25),
+        selectionHandleColor: dt.DesignTokens.primaryCoral,
       ),
       
       // Bottom Navigation Bar Theme

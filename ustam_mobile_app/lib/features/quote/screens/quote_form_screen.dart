@@ -314,31 +314,27 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-            boxShadow: [
-              BoxShadow(
-                color: DesignTokens.shadowLight,
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: Text('$label seçiniz'),
+            hint: Text(
+              '$label seçiniz',
+              style: DesignTokens.inputHintTextStyle,
+            ),
             items: items.map((item) => DropdownMenuItem(
               value: item,
-              child: Text(item),
+              child: Text(
+                item,
+                style: DesignTokens.inputTextStyle,
+              ),
             )).toList(),
             onChanged: onChanged,
             validator: validator,
+            style: DesignTokens.inputTextStyle,
           ),
         ),
       ],
@@ -366,33 +362,16 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-            boxShadow: [
-              BoxShadow(
-                color: DesignTokens.shadowLight,
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          decoration: DesignTokens.inputContainerDecoration(),
           child: TextFormField(
             controller: controller,
             keyboardType: keyboardType,
             maxLines: maxLines,
             validator: validator,
-            style: const TextStyle(
-              color: DesignTokens.gray900,
-              fontSize: 16,
-            ),
+            style: DesignTokens.inputTextStyle,
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(
-                color: DesignTokens.textMuted,
-                fontSize: 16,
-              ),
+              hintStyle: DesignTokens.inputHintTextStyle,
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
@@ -688,18 +667,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
-            boxShadow: [
-              BoxShadow(
-                color: DesignTokens.shadowLight,
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
+          decoration: DesignTokens.inputContainerDecoration(),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
@@ -709,11 +677,15 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             items: items.map((item) {
               return DropdownMenuItem<String>(
                 value: item['value'],
-                child: Text(item['label']!),
+                child: Text(
+                  item['label']!,
+                  style: DesignTokens.inputTextStyle,
+                ),
               );
             }).toList(),
             onChanged: onChanged,
             validator: validator,
+            style: DesignTokens.inputTextStyle,
           ),
         ),
       ],

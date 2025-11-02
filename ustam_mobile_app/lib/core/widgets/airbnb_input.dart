@@ -99,22 +99,10 @@ class _AirbnbInputState extends State<AirbnbInput> {
         ],
         
         Container(
-          decoration: BoxDecoration(
-            color: widget.enabled 
-                ? DesignTokens.background 
-                : DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.inputBorderRadius),
-            border: Border.all(
-              color: _getBorderColor(),
-              width: _isFocused ? 2 : 1,
-            ),
-            boxShadow: _isFocused ? [
-              BoxShadow(
-                color: DesignTokens.primaryCoral.withOpacity(0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ] : null,
+          decoration: DesignTokens.inputContainerDecoration(
+            isEnabled: widget.enabled,
+            isFocused: _isFocused,
+            hasError: widget.errorText != null,
           ),
           child: TextFormField(
             controller: widget.controller,
@@ -128,22 +116,23 @@ class _AirbnbInputState extends State<AirbnbInput> {
             keyboardType: widget.keyboardType ?? _getKeyboardType(),
             inputFormatters: widget.inputFormatters,
             textInputAction: widget.textInputAction,
-            maxLines: widget.type == AirbnbInputType.multiline 
-                ? (widget.maxLines ?? 4) 
+            maxLines: widget.type == AirbnbInputType.multiline
+                ? (widget.maxLines ?? 4)
                 : 1,
             maxLength: widget.maxLength,
             validator: widget.validator,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: DesignTokens.inputTextColor),
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: DesignTokens.textMuted,
-              ),
-              prefixIcon: widget.prefixIcon != null 
+              hintStyle: DesignTokens.inputHintTextStyle,
+              prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
-                      color: _isFocused 
-                          ? DesignTokens.primaryCoral 
+                      color: _isFocused
+                          ? DesignTokens.primaryCoral
                           : DesignTokens.textMuted,
                       size: 20,
                     )
@@ -188,12 +177,6 @@ class _AirbnbInputState extends State<AirbnbInput> {
         ],
       ],
     );
-  }
-
-  Color _getBorderColor() {
-    if (widget.errorText != null) return DesignTokens.error;
-    if (_isFocused) return DesignTokens.primaryCoral;
-    return DesignTokens.gray300;
   }
 
   TextInputType _getKeyboardType() {

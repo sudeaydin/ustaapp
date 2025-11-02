@@ -46,19 +46,28 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;
   late TextEditingController _controller;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+    _focusNode = FocusNode();
+    _focusNode.addListener(_handleFocusChange);
   }
 
   @override
   void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.dispose();
     if (widget.controller == null) {
       _controller.dispose();
     }
     super.dispose();
+  }
+
+  void _handleFocusChange() {
+    setState(() {});
   }
 
   @override
@@ -87,17 +96,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           const SizedBox(height: 8),
         ],
         Container(
-          decoration: BoxDecoration(
-            color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
-            border: Border.all(
-              color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
-              width: 1,
-            ),
-            boxShadow: [DesignTokens.getCardShadow()],
+          decoration: DesignTokens.inputContainerDecoration(
+            isEnabled: widget.enabled,
+            isFocused: _focusNode.hasFocus,
           ),
           child: TextFormField(
             controller: _controller,
+            focusNode: _focusNode,
             enabled: widget.enabled,
             obscureText: widget.type == TextFieldType.password ? _obscureText : false,
             keyboardType: _getKeyboardType(),
@@ -106,16 +111,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
             maxLength: widget.maxLength,
             onChanged: widget.onChanged,
             validator: widget.validator ?? _getDefaultValidator(),
-            style: TextStyle(
-              color: DesignTokens.gray900,
-              fontSize: 16,
-            ),
+            style: DesignTokens.inputTextStyle,
             decoration: InputDecoration(
               hintText: widget.hint ?? widget.hintText,
-              hintStyle: TextStyle(
-                color: DesignTokens.textMuted,
-                fontSize: 16,
-              ),
+              hintStyle: DesignTokens.inputHintTextStyle,
               prefixIcon: widget.prefixIcon,
               suffixIcon: _getSuffixIcon(),
               border: InputBorder.none,

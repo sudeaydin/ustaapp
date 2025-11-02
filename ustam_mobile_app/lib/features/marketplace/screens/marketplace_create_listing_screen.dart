@@ -395,16 +395,10 @@ class _MarketplaceCreateListingScreenState
 
           // City dropdown
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
-              border: Border.all(
-                color: DesignTokens.gray300,
-                width: 1,
-              ),
-            ),
+            decoration: DesignTokens.inputContainerDecoration(),
             child: DropdownButtonFormField<String>(
-              value: _locationController.text.isEmpty || !_cities.contains(_locationController.text) 
-                  ? null 
+              value: _locationController.text.isEmpty || !_cities.contains(_locationController.text)
+                  ? null
                   : _locationController.text,
               decoration: InputDecoration(
                 labelText: 'Şehir',
@@ -415,10 +409,14 @@ class _MarketplaceCreateListingScreenState
                   vertical: DesignTokens.space12,
                 ),
               ),
+              style: DesignTokens.inputTextStyle,
               items: _cities.map((city) {
                 return DropdownMenuItem(
                   value: city,
-                  child: Text(city),
+                  child: Text(
+                    city,
+                    style: DesignTokens.inputTextStyle,
+                  ),
                 );
               }).toList(),
               onChanged: (value) {

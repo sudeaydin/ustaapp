@@ -476,10 +476,14 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             const Text('Bu müşteriden daha fazla detay istemek istediğinizden emin misiniz?'),
             const SizedBox(height: DesignTokens.space16),
             TextField(
-              decoration: const InputDecoration(
+              style: DesignTokens.inputTextStyle,
+              decoration: InputDecoration(
                 labelText: 'Sormak istediğiniz detaylar',
-                border: OutlineInputBorder(),
                 hintText: 'Örn: Mevcut durumun fotoğrafını gönderebilir misiniz?',
+                hintStyle: DesignTokens.inputHintTextStyle,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                ),
               ),
               maxLines: 3,
             ),
@@ -550,20 +554,28 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 
                 TextField(
                   controller: priceController,
-                  decoration: const InputDecoration(
+                  style: DesignTokens.inputTextStyle,
+                  decoration: InputDecoration(
                     labelText: 'Fiyat (₺)',
-                    border: OutlineInputBorder(),
                     hintText: 'Örn: 1500',
+                    hintStyle: DesignTokens.inputHintTextStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: DesignTokens.space16),
                 TextField(
                   controller: durationController,
-                  decoration: const InputDecoration(
+                  style: DesignTokens.inputTextStyle,
+                  decoration: InputDecoration(
                     labelText: 'Tahmini Süre (gün)',
-                    border: OutlineInputBorder(),
                     hintText: 'Örn: 3',
+                    hintStyle: DesignTokens.inputHintTextStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    ),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -663,10 +675,14 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 
                 TextField(
                   controller: notesController,
-                  decoration: const InputDecoration(
+                  style: DesignTokens.inputTextStyle,
+                  decoration: InputDecoration(
                     labelText: 'Notlar ve Açıklamalar',
-                    border: OutlineInputBorder(),
                     hintText: 'İş detayları, kullanılacak malzemeler vs.',
+                    hintStyle: DesignTokens.inputHintTextStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    ),
                   ),
                   maxLines: 3,
                 ),
