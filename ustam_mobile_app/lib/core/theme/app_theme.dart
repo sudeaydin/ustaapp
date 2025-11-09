@@ -55,7 +55,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Text Theme - Typography scale
       textTheme: TextTheme(
         // Display styles - For large text
@@ -158,7 +158,14 @@ class AppTheme {
           height: 1.4,
         ),
       ),
-      
+
+      inputDecorationTheme: dt.DesignTokens.buildInputTheme(),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: dt.DesignTokens.primaryCoral,
+        selectionColor: dt.DesignTokens.primaryCoral.withOpacity(0.2),
+        selectionHandleColor: dt.DesignTokens.primaryCoral,
+      ),
+
       // Card Theme - Consistent card styling
       cardTheme: CardThemeData(
         color: dt.DesignTokens.surfacePrimary,

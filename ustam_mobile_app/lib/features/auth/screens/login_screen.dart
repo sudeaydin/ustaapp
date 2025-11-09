@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
+import '../../../core/config/app_config.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
@@ -32,13 +33,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Set default values for testing
-    if (widget.userType == 'craftsman') {
-      _emailController.text = 'ahmet@test.com';
-      _passwordController.text = '123456';
-    } else {
-      _emailController.text = 'customer@test.com';
-      _passwordController.text = '123456';
+    if (AppConfig.allowMockAuthentication) {
+      if (widget.userType == 'craftsman') {
+        _emailController.text = 'ahmet@test.com';
+        _passwordController.text = '123456';
+      } else {
+        _emailController.text = 'customer@test.com';
+        _passwordController.text = '123456';
+      }
     }
   }
 
@@ -345,41 +347,41 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   
                   const SizedBox(height: 32),
                   
-                  // Test Credentials
-                  Container(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                        width: 1,
+                  if (AppConfig.allowMockAuthentication)
+                    Container(
+                      padding: const EdgeInsets.all(DesignTokens.space16),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                          width: 1,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          const Text(
+                            '🧪 Test Hesapları',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.userType == 'craftsman'
+                                ? 'E-posta: ahmet@test.com\nŞifre: 123456'
+                                : 'E-posta: customer@test.com\nŞifre: 123456',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          '🧪 Test Hesapları',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          widget.userType == 'craftsman' 
-                              ? 'E-posta: ahmet@test.com\nŞifre: 123456'
-                              : 'E-posta: customer@test.com\nŞifre: 123456',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -391,10 +393,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget _buildLoginButton(Locale locale) {
     return InkWell(
       borderRadius: BorderRadius.circular(DesignTokens.radius16),
-      onTap: _isLoading ? null : () {
-        print('🔥 Login button tapped!'); // Debug print
-        _handleLogin();
-      },
+      onTap: _isLoading ? null : _handleLogin,
       child: Container(
         height: 56,
         width: double.infinity,
