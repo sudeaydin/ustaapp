@@ -123,7 +123,7 @@ class iOSTheme {
             width: 1.5,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
           ),
           padding: DesignTokens.getEdgeInsets(
             horizontal: DesignTokens.spacingButtonPadding,
@@ -167,35 +167,35 @@ class iOSTheme {
           vertical: DesignTokens.space12,
         ),
         border: OutlineInputBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           borderSide: BorderSide(
             color: DesignTokens.gray300,
             width: 1.0,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           borderSide: BorderSide(
             color: DesignTokens.gray300,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           borderSide: BorderSide(
             color: DesignTokens.primaryCoral,
             width: 2.0,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           borderSide: BorderSide(
             color: DesignTokens.error,
             width: 1.0,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
           borderSide: BorderSide(
             color: DesignTokens.error,
             width: 2.0,
@@ -282,7 +282,7 @@ class iOSTheme {
         ),
         actionTextColor: DesignTokens.primaryCoral,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         behavior: SnackBarBehavior.floating,
       ),
