@@ -53,7 +53,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
       height: MediaQuery.of(context).size.height * 0.85,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         children: [
@@ -64,7 +64,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
             height: 4,
             decoration: BoxDecoration(
               color: Colors.grey[300],
-              borderRadius: const Borderconst Radius.circular(2),
+              borderRadius: const BorderRadius.circular(2),
             ),
           ),
           

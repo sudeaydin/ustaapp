@@ -34,8 +34,8 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     ],
                   ),
                   borderRadius: BorderRadius.only(
-                    bottomLeft: const Radius.circular(24),
-                    bottomRight: const Radius.circular(24),
+                    bottomLeft: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
                   ),
                 ),
                 child: SafeArea(
@@ -81,7 +81,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                                  borderRadius: const Borderconst Radius.circular(20),
+                                  borderRadius: const BorderRadius.circular(20),
                                 ),
                                 child: const Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -171,7 +171,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.surfacePrimary,
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                       border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
@@ -208,7 +208,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.surfacePrimary,
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                       border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
@@ -226,7 +226,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: DesignTokens.primaryCoral.withOpacity(0.1),
-                            borderRadius: const Borderconst Radius.circular(20),
+                            borderRadius: const BorderRadius.circular(20),
                             border: Border.all(color: DesignTokens.primaryCoral),
                           ),
                           child: Row(
@@ -270,7 +270,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.surfacePrimary,
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                       border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
@@ -309,7 +309,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFF0F9FF),
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                                 border: Border.all(color: const Color(0xFFBAE6FD)),
                               ),
                               child: Text(
@@ -350,7 +350,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           margin: const EdgeInsets.only(right: 12),
                           decoration: BoxDecoration(
                             color: DesignTokens.surfacePrimary,
-                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                             image: DecorationImage(
                               image: NetworkImage(
@@ -387,7 +387,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               backgroundColor: DesignTokens.uclaBlue,
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                               ),
                               elevation: 0,
                             ),
@@ -413,7 +413,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             backgroundColor: DesignTokens.surfacePrimary,
                             foregroundColor: DesignTokens.uclaBlue,
                             shape: RoundedRectangleBorder(
-                              borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                              borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                               side: BorderSide(color: DesignTokens.uclaBlue),
                             ),
                             elevation: 0,
@@ -442,7 +442,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -458,7 +458,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Icon(
               icon,
@@ -542,7 +542,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(

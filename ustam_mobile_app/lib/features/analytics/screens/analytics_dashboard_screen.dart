@@ -266,7 +266,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               height: 32,
                               decoration: BoxDecoration(
                                 color: AnalyticsDashboardConstants.chartColors['primary'],
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Center(
                                 child: Text(
@@ -374,7 +374,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: activityData.statusColor.withOpacity(0.1),
-                                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     _manager.getStatusText(activityData.status),
@@ -541,7 +541,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       padding: EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Row(
                         children: [

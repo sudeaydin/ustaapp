@@ -19,7 +19,7 @@ class CreateAppointmentSheet extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.7,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: const Padding(
       padding: EdgeInsets.all(20),
@@ -32,7 +32,7 @@ class CreateAppointmentSheet extends StatelessWidget {
               height: 4,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: const Borderconst Radius.circular(2),
+                borderRadius: const BorderRadius.circular(2),
               ),
             ),
             

@@ -47,7 +47,7 @@ class WelcomeScreen extends ConsumerWidget {
                       height: 120,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral,
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius24),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius24),
                         boxShadow: DesignTokens.shadowElevated,
                       ),
                       child: Icon(

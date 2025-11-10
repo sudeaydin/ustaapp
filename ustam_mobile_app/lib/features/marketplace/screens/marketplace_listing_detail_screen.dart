@@ -115,7 +115,7 @@ class _MarketplaceListingDetailScreenState
                 ),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: Text(
                   listing.category,
@@ -194,7 +194,7 @@ class _MarketplaceListingDetailScreenState
                   ),
                   decoration: BoxDecoration(
                     color: DesignTokens.info.withOpacity(0.1),
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -407,7 +407,7 @@ class _MarketplaceListingDetailScreenState
             padding: const EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
                 width: 1,
@@ -609,7 +609,7 @@ class _MarketplaceListingDetailScreenState
       padding: const EdgeInsets.all(DesignTokens.space24),
       decoration: BoxDecoration(
         color: DesignTokens.gray50,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: DesignTokens.gray200,
           width: 1,
@@ -655,7 +655,7 @@ class _MarketplaceListingDetailScreenState
           padding: const EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
             color: DesignTokens.gray50,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(
               color: DesignTokens.gray200,
               width: 1,
@@ -839,7 +839,7 @@ class _MarketplaceListingDetailScreenState
       ),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
       ),
       child: Text(
         text,

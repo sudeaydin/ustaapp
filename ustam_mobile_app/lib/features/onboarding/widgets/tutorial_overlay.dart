@@ -44,7 +44,7 @@ class HighlightPainter extends CustomPainter {
             targetSize.width + (20 + i * 10),
             targetSize.height + (20 + i * 10),
           ),
-          const Radius.circular(12 + i * 4),
+          Radius.circular(12 + i * 4),
         ),
         glowPaint,
       );
@@ -59,7 +59,7 @@ class HighlightPainter extends CustomPainter {
           targetSize.width,
           targetSize.height,
         ),
-        const Radius.circular(8),
+        Radius.circular(8),
       ),
       paint,
     );
@@ -255,7 +255,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                         padding: const EdgeInsets.all(20),
                                                   decoration: BoxDecoration(
                             color: DesignTokens.surfacePrimary,
-                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                             border: Border.all(
                               color: DesignTokens.primaryCoral.withOpacity(0.3),
                               width: 2,
@@ -369,7 +369,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                     backgroundColor: DesignTokens.primaryCoral,
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                                      borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                                     ),
                                   ),
                                   child: Text(
@@ -417,7 +417,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                 color: DesignTokens.primaryCoral.withOpacity(_fadeAnimation.value),
                 width: 3,
               ),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               boxShadow: [
                 // Main glow
                 BoxShadow(
@@ -442,7 +442,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.8 * _fadeAnimation.value),
                   width: 2,

@@ -156,7 +156,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: listing['statusColor'].withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Text(
                   listing['status'],
@@ -190,7 +190,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Text(
                   listing['category'],
@@ -263,7 +263,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: DesignTokens.success.withOpacity(0.1),
-                borderRadius: const Borderconst Radius.circular(8),
+                borderRadius: const BorderRadius.circular(8),
                 border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
               ),
               child: Row(

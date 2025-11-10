@@ -96,7 +96,7 @@ class ApiService {
 
       // Retry on server errors
       if (response.statusCode >= 500 && retryCount < AppConfig.maxRetryAttempts) {
-        await Future.delayed(const Duration(seconds: (retryCount + 1) * 2));
+        await Future.delayed(Duration(seconds: (retryCount + 1) * 2));
         return _makeRequest(
           method,
           url,

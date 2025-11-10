@@ -241,7 +241,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             height: 120,
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondaryColor,
-              borderRadius: const Borderconst Radius.circular(60),
+              borderRadius: const BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.message_outlined,
@@ -279,7 +279,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 backgroundColor: DesignTokens.uclaBlue,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 elevation: 0,
               ),
@@ -302,7 +302,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -315,7 +315,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           onTap: () {
             Navigator.pushNamed(context, '/chat', arguments: {
               'conversation': conversation,
@@ -332,7 +332,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                       width: 56,
                       height: 56,
                       decoration: BoxDecoration(
-                        borderRadius: const Borderconst Radius.circular(28),
+                        borderRadius: const BorderRadius.circular(28),
                         image: DecorationImage(
                           image: NetworkImage(conversation['avatar']),
                           fit: BoxFit.cover,
@@ -348,7 +348,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                           height: 16,
                           decoration: BoxDecoration(
                             color: DesignTokens.success,
-                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                             border: Border.all(color: DesignTokens.surfacePrimary, width: 2),
                           ),
                         ),
@@ -422,7 +422,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: DesignTokens.uclaBlue,
-                                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     conversation['unreadCount'].toString(),

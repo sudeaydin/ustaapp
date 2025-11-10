@@ -151,7 +151,7 @@ class _MarketplaceOfferComposeScreenState
                 ),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Text(
                   listing.category,
@@ -186,7 +186,7 @@ class _MarketplaceOfferComposeScreenState
             padding: const EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.gray50,
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(
                 color: DesignTokens.gray200,
                 width: 1,
@@ -229,7 +229,7 @@ class _MarketplaceOfferComposeScreenState
               ),
               decoration: BoxDecoration(
                 color: DesignTokens.info.withOpacity(0.1),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -359,7 +359,7 @@ class _MarketplaceOfferComposeScreenState
               padding: EdgeInsets.all(DesignTokens.space16),
               decoration: BoxDecoration(
                 color: DesignTokens.info.withOpacity(0.05),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 border: Border.all(
                   color: DesignTokens.info.withOpacity(0.1),
                   width: 1,
@@ -412,7 +412,7 @@ class _MarketplaceOfferComposeScreenState
             margin: EdgeInsets.only(top: 8),
             decoration: BoxDecoration(
               color: DesignTokens.info,
-              borderRadius: const Borderconst Radius.circular(2),
+              borderRadius: const BorderRadius.circular(2),
             ),
           ),
  SizedBox(width: DesignTokens.space8),
@@ -440,7 +440,7 @@ class _MarketplaceOfferComposeScreenState
             padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.warning.withOpacity(0.05),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(
                 color: DesignTokens.warning.withOpacity(0.2),
                 width: 1,

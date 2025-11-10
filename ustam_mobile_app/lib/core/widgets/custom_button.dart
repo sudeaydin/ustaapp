@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
         onTap: isEnabled ? onPressed : null,
         hoverColor: isEnabled ? _getHoverColor() : Colors.grey,
         hoverScale: isEnabled ? 1.05 : 1.0,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         child: _buildButton(isEnabled),
       ),
     );
@@ -145,7 +145,7 @@ class CustomButton extends StatelessWidget {
       elevation: 4,
       shadowColor: DesignTokens.shadowMedium,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+        borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
       padding: _getPadding(),
       textStyle: _getTextStyle(),
@@ -161,7 +161,7 @@ class CustomButton extends StatelessWidget {
       elevation: 2,
       shadowColor: DesignTokens.shadowLight,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+        borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
       padding: _getPadding(),
       textStyle: _getTextStyle(),
@@ -177,7 +177,7 @@ class CustomButton extends StatelessWidget {
       elevation: 4,
       shadowColor: DesignTokens.shadowMedium,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+        borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
       padding: _getPadding(),
       textStyle: _getTextStyle(),
@@ -193,7 +193,7 @@ class CustomButton extends StatelessWidget {
         width: 2,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+        borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
       padding: _getPadding(),
       textStyle: _getTextStyle(),
@@ -205,7 +205,7 @@ class CustomButton extends StatelessWidget {
       foregroundColor: DesignTokens.primaryCoral,
       disabledForegroundColor: DesignTokens.textMuted,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+        borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
       ),
       padding: _getPadding(),
       textStyle: _getTextStyle(),

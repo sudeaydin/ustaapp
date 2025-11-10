@@ -89,7 +89,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                   padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.surfacePrimary,
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                     border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                     boxShadow: [
                       BoxShadow(
@@ -105,7 +105,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          borderRadius: const Borderconst Radius.circular(30),
+                          borderRadius: const BorderRadius.circular(30),
                           image: DecorationImage(
                             image: NetworkImage(
                               widget.craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
@@ -316,7 +316,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
@@ -368,7 +368,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
@@ -478,7 +478,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: DesignTokens.surfacePrimary,
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: date != null 
                 ? DesignTokens.primaryCoral.withOpacity(0.5)
@@ -690,7 +690,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(

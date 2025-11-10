@@ -108,7 +108,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             height: 120,
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondaryColor,
-              borderRadius: const Borderconst Radius.circular(60),
+              borderRadius: const BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.notifications_none,
@@ -144,7 +144,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: notification['isRead'] ? Colors.white : DesignTokens.primaryCoral.withOpacity(0.1),
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
           color: notification['isRead'] 
               ? DesignTokens.nonPhotoBlue.withOpacity(0.3)
@@ -161,7 +161,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
           child: const Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
@@ -173,7 +173,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                   height: 48,
                   decoration: BoxDecoration(
                     color: notification['color'].withOpacity(0.1),
-                    borderRadius:  Borderconst Radius.circular(DesignTokens.radius12),
+                    borderRadius:  BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     notification['icon'],
@@ -298,7 +298,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               height: 4,
               decoration: BoxDecoration(
                 color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
-                borderRadius: const Borderconst Radius.circular(2),
+                borderRadius: const BorderRadius.circular(2),
               ),
             ),
             const SizedBox(height: 20),

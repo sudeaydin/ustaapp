@@ -370,7 +370,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['start'] ?? '22:00'),
                             ),
@@ -388,7 +388,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['end'] ?? '08:00'),
                             ),

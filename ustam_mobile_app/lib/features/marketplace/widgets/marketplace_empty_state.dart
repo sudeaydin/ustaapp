@@ -26,7 +26,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: const Borderconst Radius.circular(100),
+                borderRadius: const BorderRadius.circular(100),
               ),
               child: Stack(
                 alignment: Alignment.center,
@@ -40,7 +40,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                       height: 60,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.2),
-                        borderRadius: const Borderconst Radius.circular(30),
+                        borderRadius: const BorderRadius.circular(30),
                       ),
                     ),
                   ),
@@ -52,7 +52,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.15),
-                        borderRadius: const Borderconst Radius.circular(20),
+                        borderRadius: const BorderRadius.circular(20),
                       ),
                     ),
                   ),
@@ -63,7 +63,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                     height: 80,
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.2),
-                      borderRadius: const Borderconst Radius.circular(40),
+                      borderRadius: const BorderRadius.circular(40),
                     ),
                     child: const Icon(
                       Icons.storefront_rounded,
@@ -133,7 +133,7 @@ class MarketplaceEmptyState extends StatelessWidget {
               padding: const EdgeInsets.all(DesignTokens.space20),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.05),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                 border: Border.all(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
                   width: 1,
@@ -148,7 +148,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: DesignTokens.primaryCoral.withOpacity(0.1),
-                          borderRadius: const Borderconst Radius.circular(20),
+                          borderRadius: const BorderRadius.circular(20),
                         ),
                         child: const Icon(
                           Icons.lightbulb_outline,
@@ -197,7 +197,7 @@ class MarketplaceEmptyState extends StatelessWidget {
           margin: const EdgeInsets.only(top: 6),
           decoration: BoxDecoration(
             color: DesignTokens.primaryCoral,
-            borderRadius: const Borderconst Radius.circular(3),
+            borderRadius: const BorderRadius.circular(3),
           ),
         ),
         const SizedBox(width: DesignTokens.space12),

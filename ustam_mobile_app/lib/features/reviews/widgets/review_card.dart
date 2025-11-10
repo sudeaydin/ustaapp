@@ -150,7 +150,7 @@ class ReviewCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: const Borderconst Radius.circular(20),
+                    borderRadius: const BorderRadius.circular(20),
                   ),
                   child: Text(
                     review.service!.title,
@@ -193,7 +193,7 @@ class ReviewCard extends StatelessWidget {
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                     border: Border.all(color: Colors.grey[300]!),
                   ),
                   child: Column(

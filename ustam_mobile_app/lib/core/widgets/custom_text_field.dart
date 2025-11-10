@@ -89,7 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
+            borderRadius: const BorderRadius.circular(AppConfig.defaultBorderRadius),
             border: Border.all(
               color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
               width: 1,

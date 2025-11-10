@@ -40,7 +40,7 @@ class JobsScreen extends ConsumerWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: const Icon(
                           Icons.work_outline,
@@ -62,7 +62,7 @@ class JobsScreen extends ConsumerWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: IconButton(
                           icon: const Icon(Icons.filter_list, color: DesignTokens.surfacePrimary),
@@ -86,7 +86,7 @@ class JobsScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               gradient: AppTheme.cardGradient,
-              borderRadius: const Borderconst Radius.circular(20),
+              borderRadius: const BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: AppTheme.shadowDark,
@@ -161,7 +161,7 @@ class JobsScreen extends ConsumerWidget {
                           gradient: LinearGradient(
                             colors: [AppTheme.primaryColor, AppTheme.primaryLight],
                           ),
-                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                           boxShadow: [
                             BoxShadow(
                               color: AppTheme.primaryColor.withOpacity(0.3),
@@ -178,7 +178,7 @@ class JobsScreen extends ConsumerWidget {
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                             ),
                           ),
                           child: const Text(
@@ -205,7 +205,7 @@ class JobsScreen extends ConsumerWidget {
       floatingActionButton: Container(
         decoration: BoxDecoration(
           gradient: AppTheme.primaryGradient,
-          borderRadius: const Borderconst Radius.circular(28),
+          borderRadius: const BorderRadius.circular(28),
           boxShadow: [
             BoxShadow(
               color: AppTheme.primaryColor.withOpacity(0.4),
@@ -337,7 +337,7 @@ class JobsScreen extends ConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: gradient,
-        borderRadius: const Borderconst Radius.circular(20),
+        borderRadius: const BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: gradient.colors.first.withOpacity(0.3),

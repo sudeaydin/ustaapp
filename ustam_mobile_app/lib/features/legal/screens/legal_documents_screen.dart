@@ -167,7 +167,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(12),
+        borderRadius: const BorderRadius.circular(12),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.all(16),
@@ -176,7 +176,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
           height: 48,
           decoration: BoxDecoration(
             color: iconColor.withOpacity(0.1),
-            borderRadius: const Borderconst Radius.circular(12),
+            borderRadius: const BorderRadius.circular(12),
           ),
           child: Icon(
             icon,
@@ -213,7 +213,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: const Borderconst Radius.circular(6),
+                    borderRadius: const BorderRadius.circular(6),
                   ),
                   child: Text(
                     'v${document.version}',
@@ -387,7 +387,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
-              borderRadius: const Borderconst Radius.circular(12),
+              borderRadius: const BorderRadius.circular(12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
@@ -421,7 +421,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const Borderconst Radius.circular(6),
+                        borderRadius: const BorderRadius.circular(6),
                       ),
                       child: Text(
                         'Sürüm ${widget.document.version}',
@@ -454,7 +454,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const Borderconst Radius.circular(12),
+                borderRadius: const BorderRadius.circular(12),
                 border: Border.all(
                   color: Colors.grey[200]!,
                 ),

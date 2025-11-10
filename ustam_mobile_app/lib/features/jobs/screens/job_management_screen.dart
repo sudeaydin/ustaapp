@@ -456,7 +456,7 @@ class _MetricCard extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -474,7 +474,7 @@ class _MetricCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,

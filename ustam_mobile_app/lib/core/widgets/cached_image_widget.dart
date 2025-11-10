@@ -106,7 +106,7 @@ class CachedAvatarWidget extends StatelessWidget {
         imageUrl: imageUrl!,
         width: size,
         height: size,
-        borderRadius: const Borderconst Radius.circular(size / 2),
+        borderRadius: const BorderRadius.circular(size / 2),
         errorWidget: _buildFallbackAvatar(),
         placeholder: _buildShimmerAvatar(),
       );
@@ -121,7 +121,7 @@ class CachedAvatarWidget extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: backgroundColor ?? DesignTokens.nonPhotoBlue.withOpacity(0.3),
-        borderRadius: const Borderconst Radius.circular(size / 2),
+        borderRadius: const BorderRadius.circular(size / 2),
       ),
       child: Center(
         child: Text(
@@ -145,7 +145,7 @@ class CachedAvatarWidget extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const Borderconst Radius.circular(size / 2),
+          borderRadius: const BorderRadius.circular(size / 2),
         ),
       ),
     );
@@ -199,7 +199,7 @@ class CachedImageGallery extends StatelessWidget {
           onTap: onImageTap != null ? () => onImageTap!(index) : null,
           child: CachedImageWidget(
             imageUrl: imageUrls[index],
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           ),
         );
       },

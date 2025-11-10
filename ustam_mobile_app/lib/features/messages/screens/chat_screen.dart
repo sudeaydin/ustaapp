@@ -562,8 +562,8 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
             ),
             borderRadius: const BorderRadius.only(
-              bottomLeft: const Radius.circular(20),
-              bottomRight: const Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
             ),
           ),
         ),
@@ -577,7 +577,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                borderRadius: const Borderconst Radius.circular(20),
+                borderRadius: const BorderRadius.circular(20),
                 image: DecorationImage(
                   image: NetworkImage(widget.conversation['avatar']),
                   fit: BoxFit.cover,
@@ -650,7 +650,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   child: Container(
                     decoration: BoxDecoration(
                       color: DesignTokens.surfaceSecondaryColor,
-                      borderRadius: const Borderconst Radius.circular(24),
+                      borderRadius: const BorderRadius.circular(24),
                     ),
                     child: TextField(
                       controller: _messageController,
@@ -670,7 +670,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   height: 48,
                   decoration: BoxDecoration(
                     color: DesignTokens.uclaBlue,
-                    borderRadius: const Borderconst Radius.circular(24),
+                    borderRadius: const BorderRadius.circular(24),
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.send, color: DesignTokens.surfacePrimary, size: 20),
@@ -698,7 +698,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                 image: DecorationImage(
                   image: NetworkImage(widget.conversation['avatar']),
                   fit: BoxFit.cover,
@@ -712,9 +712,9 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: _getMessageBackgroundColor(message, isMe),
-                borderRadius: const Borderconst Radius.circular(20).copyWith(
-                  bottomLeft: isMe ? const Radius.circular(20) : const Radius.circular(4),
-                  bottomRight: isMe ? const Radius.circular(4) : const Radius.circular(20),
+                borderRadius: const BorderRadius.circular(20).copyWith(
+                  bottomLeft: isMe ? Radius.circular(20) : Radius.circular(4),
+                  bottomRight: isMe ? Radius.circular(4) : Radius.circular(20),
                 ),
                 border: _getMessageBorder(message, isMe),
                 boxShadow: isMe ? null : [
@@ -767,7 +767,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.success.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: Text(
@@ -789,7 +789,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.error.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: Text(
@@ -811,7 +811,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.info.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: Text(
@@ -1164,7 +1164,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: const Color(0xFFF0FDF4),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 border: Border.all(color: DesignTokens.success),
               ),
               child: Column(
@@ -1215,7 +1215,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: DesignTokens.uclaBlue),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               ),
               child: const Row(
                 children: [

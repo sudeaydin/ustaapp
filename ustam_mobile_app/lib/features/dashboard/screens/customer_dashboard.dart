@@ -45,7 +45,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: const Borderconst Radius.circular(20),
+                  borderRadius: const BorderRadius.circular(20),
                   boxShadow: [DesignTokens.getElevatedShadow()],
                 ),
                 child: Column(
@@ -58,7 +58,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                           height: 50,
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
-                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                           ),
                           child: const Icon(
                             Icons.waving_hand_rounded,
@@ -102,7 +102,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 decoration: BoxDecoration(
                   color: DesignTokens.surfacePrimary,
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                   boxShadow: [DesignTokens.getCardShadow()],
                 ),
                 child: Column(
@@ -236,7 +236,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 decoration: BoxDecoration(
                   color: DesignTokens.surfacePrimary,
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                   boxShadow: [DesignTokens.getCardShadow()],
                 ),
                 child: Column(
@@ -436,7 +436,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             height: 48,
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Icon(
               icon,
@@ -484,7 +484,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: Text(
               status,

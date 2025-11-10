@@ -271,7 +271,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
         padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),

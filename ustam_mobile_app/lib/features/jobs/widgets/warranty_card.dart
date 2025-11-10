@@ -134,7 +134,7 @@ class WarrantyCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
       ),
       child: Text(
         text,

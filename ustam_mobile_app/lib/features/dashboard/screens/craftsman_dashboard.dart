@@ -39,7 +39,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: const Borderconst Radius.circular(24),
+                    borderRadius: const BorderRadius.circular(24),
                     boxShadow: [DesignTokens.getElevatedShadow()],
                   ),
                   child: Row(
@@ -49,7 +49,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         height: 60,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.2),
-                          borderRadius: const Borderconst Radius.circular(20),
+                          borderRadius: const BorderRadius.circular(20),
                         ),
                         child: const Icon(
                           Icons.engineering_rounded,
@@ -95,7 +95,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/job-management');
                         },
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Aktif İşler',
                           '5',
@@ -112,7 +112,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                           // Show earnings detail dialog
                           _showEarningsDetail(context);
                         },
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Toplam Kazanç',
                           '₺12,500',
@@ -134,7 +134,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         onTap: () {
                           Navigator.pushNamed(context, '/craftsman-quotes');
                         },
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Teklif Talepleri',
                           '8',
@@ -153,7 +153,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                             'craftsmanName': 'Profilim',
                           });
                         },
-                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
                           'Müşteri Puanı',
                           '4.8',
@@ -245,7 +245,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                   padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.surfacePrimary,
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                     boxShadow: [DesignTokens.getCardShadow()],
                   ),
                   child: Column(
@@ -368,7 +368,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
         padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: color.withOpacity(0.1),
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: color.withOpacity(0.3),
             width: 1,
@@ -418,7 +418,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfaceSecondaryColor,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: DesignTokens.gray300,
           width: 1,
@@ -443,7 +443,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: Text(
                   status,

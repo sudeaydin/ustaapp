@@ -320,7 +320,7 @@ class DesignTokens {
       foregroundColor: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: const Borderconst Radius.circular(radius12),
+        borderRadius: BorderRadius.circular(radius12),
       ),
     );
   }
@@ -334,8 +334,8 @@ class DesignTokens {
     double? left,
     double? right,
   }) {
-    if (all != null) return const EdgeInsets.all(all);
-    return const EdgeInsets.only(
+    if (all != null) return EdgeInsets.all(all);
+    return EdgeInsets.only(
       top: top ?? vertical ?? 0,
       bottom: bottom ?? vertical ?? 0,
       left: left ?? horizontal ?? 0,

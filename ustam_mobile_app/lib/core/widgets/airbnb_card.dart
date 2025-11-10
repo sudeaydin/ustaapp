@@ -32,7 +32,7 @@ class AirbnbCard extends StatelessWidget {
       margin: margin ?? const EdgeInsets.symmetric(vertical: DesignTokens.space8),
       decoration: BoxDecoration(
         color: backgroundColor ?? DesignTokens.surfacePrimary,
-        borderRadius: const Borderconst Radius.circular(borderRadius ?? DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
         boxShadow: _getBoxShadow(),
         border: border,
       ),
@@ -44,7 +44,7 @@ class AirbnbCard extends StatelessWidget {
                 debugPrint('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
                 onTap!();
               },
-              borderRadius: const Borderconst Radius.circular(borderRadius ?? DesignTokens.radius16),
+              borderRadius: const BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
               child: Container(
                 padding: padding ?? DesignTokens.getEdgeInsets(all: DesignTokens.spacingCardPadding),
                 child: child,
@@ -156,8 +156,8 @@ class AirbnbImageCard extends StatelessWidget {
           // Image section
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: const Radius.circular(DesignTokens.radius16),
-              topRight: const Radius.circular(DesignTokens.radius16),
+              topLeft: Radius.circular(DesignTokens.radius16),
+              topRight: Radius.circular(DesignTokens.radius16),
             ),
             child: Stack(
               children: [
@@ -224,7 +224,7 @@ class AirbnbStatsCard extends StatelessWidget {
               padding: EdgeInsets.all(DesignTokens.space8),
               decoration: BoxDecoration(
                 color: (iconColor ?? DesignTokens.primaryCoral).withOpacity(0.1),
-                borderRadius: const Borderconst Radius.circular(DesignTokens.space8),
+                borderRadius: const BorderRadius.circular(DesignTokens.space8),
               ),
               child: Icon(
                 icon,

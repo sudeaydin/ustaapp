@@ -120,7 +120,7 @@ class AppColors {
       elevation: 2,
       shadowColor: shadowMedium,
       shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
     );

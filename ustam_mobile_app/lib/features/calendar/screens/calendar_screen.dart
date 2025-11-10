@@ -94,7 +94,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       margin: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const Borderconst Radius.circular(20),
+        borderRadius: const BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
@@ -111,8 +111,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             decoration: BoxDecoration(
               gradient: DesignTokens.primaryCoralGradient,
               borderRadius: const BorderRadius.only(
-                topLeft: const Radius.circular(20),
-                topRight: const Radius.circular(20),
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
               ),
             ),
             child: Row(
@@ -253,7 +253,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           border: isToday 
             ? Border.all(color: DesignTokens.primaryCoral, width: 2)
             : null,
@@ -355,7 +355,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: DesignTokens.primaryCoralGradient,
-            borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           ),
           child: Row(
             children: [
@@ -363,7 +363,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
-                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: const Icon(
                   Icons.calendar_today_outlined,
@@ -469,7 +469,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -479,7 +479,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         ],
       ),
       child: InkWell(
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         onTap: () {
           debugPrint('🎯 Event card tapped! Event: ${event.title}');
           debugPrint('🎯 Event ID: ${event.id}');
@@ -517,7 +517,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Icon(
                       isJob ? Icons.work_outline : Icons.event_outlined,
@@ -560,7 +560,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                             priorityColor.withOpacity(0.05),
                           ],
                         ),
-                        borderRadius: const Borderconst Radius.circular(20),
+                        borderRadius: const BorderRadius.circular(20),
                         border: Border.all(color: priorityColor.withOpacity(0.2)),
                       ),
                       child: Text(
@@ -581,7 +581,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Text(
                     event.description!,
@@ -605,7 +605,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.1),
-                      borderRadius: const Borderconst Radius.circular(20),
+                      borderRadius: const BorderRadius.circular(20),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -632,7 +632,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
-                      borderRadius: const Borderconst Radius.circular(20),
+                      borderRadius: const BorderRadius.circular(20),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -890,8 +890,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(24),
-            topRight: const Radius.circular(24),
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
           ),
         ),
         child: Column(
@@ -903,7 +903,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               margin: EdgeInsets.only(top: 12),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: const Borderconst Radius.circular(2),
+                borderRadius: const BorderRadius.circular(2),
               ),
             ),
             
@@ -913,7 +913,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: DesignTokens.primaryCoralGradient,
-                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
               ),
               child: Row(
                 children: [
@@ -921,7 +921,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Icon(
                       event.isJob ? Icons.work_outline : Icons.event_outlined,
@@ -1032,7 +1032,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               foregroundColor: Colors.white,
                               padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
@@ -1051,7 +1051,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               side: const BorderSide(color: Colors.red),
                               padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
-                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
@@ -1096,7 +1096,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(
@@ -1106,7 +1106,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.2),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
             ),
             child: Icon(icon, color: color, size: 20),
           ),

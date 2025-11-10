@@ -47,7 +47,7 @@ class AppThemes {
         color: dt.DesignTokens.surfaceSecondaryColor,
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -55,7 +55,7 @@ class AppThemes {
           backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.circular(dt.DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),
@@ -80,11 +80,11 @@ class AppThemes {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      cardTheme: const CardThemeData(
+      cardTheme: CardThemeData(
         color: Color(0xFF1E293B),
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -92,7 +92,7 @@ class AppThemes {
           backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.circular(dt.DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),

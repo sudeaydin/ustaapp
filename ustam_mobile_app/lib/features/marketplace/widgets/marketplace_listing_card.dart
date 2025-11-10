@@ -56,7 +56,7 @@ class MarketplaceListingCard extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: DesignTokens.primaryCoral.withOpacity(0.1),
-                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: Text(
                           listing.category,
@@ -150,7 +150,7 @@ class MarketplaceListingCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: DesignTokens.info.withOpacity(0.1),
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -233,7 +233,7 @@ class MarketplaceListingCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

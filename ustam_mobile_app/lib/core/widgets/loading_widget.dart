@@ -123,7 +123,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
           height: widget.height,
           decoration: BoxDecoration(
             color: DesignTokens.nonPhotoBlue.withOpacity(_animation.value * 0.3),
-            borderRadius: widget.borderRadius ?? const Borderconst Radius.circular(DesignTokens.radius8),
+            borderRadius: widget.borderRadius ?? const BorderRadius.circular(DesignTokens.radius8),
           ),
         );
       },
@@ -142,7 +142,7 @@ class SkeletonCard extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         boxShadow: [DesignTokens.getCardShadow()],
       ),
       child: Column(
@@ -153,7 +153,7 @@ class SkeletonCard extends StatelessWidget {
               SkeletonLoader(
                 width: 50,
                 height: 50,
-                borderRadius: const Borderconst Radius.circular(25),
+                borderRadius: const BorderRadius.circular(25),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -163,13 +163,13 @@ class SkeletonCard extends StatelessWidget {
                     SkeletonLoader(
                       width: double.infinity,
                       height: 16,
-                      borderRadius: const Borderconst Radius.circular(4),
+                      borderRadius: const BorderRadius.circular(4),
                     ),
                     const SizedBox(height: 8),
                     SkeletonLoader(
                       width: 120,
                       height: 14,
-                      borderRadius: const Borderconst Radius.circular(4),
+                      borderRadius: const BorderRadius.circular(4),
                     ),
                   ],
                 ),
@@ -180,13 +180,13 @@ class SkeletonCard extends StatelessWidget {
           SkeletonLoader(
             width: double.infinity,
             height: 14,
-            borderRadius: const Borderconst Radius.circular(4),
+            borderRadius: const BorderRadius.circular(4),
           ),
           const SizedBox(height: 8),
           SkeletonLoader(
             width: 200,
             height: 14,
-            borderRadius: const Borderconst Radius.circular(4),
+            borderRadius: const BorderRadius.circular(4),
           ),
         ],
       ),

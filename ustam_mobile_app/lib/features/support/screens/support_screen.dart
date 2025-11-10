@@ -194,7 +194,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
           color: DesignTokens.primaryCoral.withOpacity(0.1),
           width: 1,
@@ -209,7 +209,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
             arguments: ticket['id'],
           );
         },
-        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         child: const Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
@@ -222,7 +222,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
-                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                       border: Border.all(color: statusColor.withOpacity(0.3)),
                     ),
                     child: Text(
@@ -374,7 +374,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                   DesignTokens.primaryCoral.withOpacity(0.05),
                 ],
               ),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius16),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
@@ -430,7 +430,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
@@ -469,7 +469,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
@@ -546,7 +546,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
-              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
