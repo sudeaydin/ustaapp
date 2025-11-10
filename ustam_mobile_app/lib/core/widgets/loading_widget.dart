@@ -22,7 +22,7 @@ class LoadingWidget extends StatelessWidget {
           SizedBox(
             width: size,
             height: size,
-            child: const CircularProgressIndicator(
+            child: CircularProgressIndicator(
               strokeWidth: 3,
               valueColor: AlwaysStoppedAnimation<Color>(
                 color ?? DesignTokens.primaryCoral,
@@ -123,7 +123,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
           height: widget.height,
           decoration: BoxDecoration(
             color: DesignTokens.nonPhotoBlue.withOpacity(_animation.value * 0.3),
-            borderRadius: widget.borderRadius ?? const BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(DesignTokens.radius8),
           ),
         );
       },

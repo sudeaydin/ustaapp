@@ -23,7 +23,7 @@ class LoadingSpinner extends StatelessWidget {
         SizedBox(
           width: size,
           height: size,
-          child: const CircularProgressIndicator(
+          child: CircularProgressIndicator(
             strokeWidth: strokeWidth,
             valueColor: AlwaysStoppedAnimation<Color>(
               color ?? DesignTokens.primaryCoral,
@@ -70,7 +70,7 @@ class LoadingOverlay extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: LoadingSpinner(
                   message: message ?? 'Yükleniyor...',
