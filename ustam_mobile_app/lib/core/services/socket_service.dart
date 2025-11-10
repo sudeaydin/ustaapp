@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:flutter/foundation.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/app_config.dart';
@@ -10,7 +10,7 @@ class SocketService {
   factory SocketService() => _instance;
   SocketService._internal();
 
-  IO.Socket? _socket;
+  io.Socket? _socket;
   bool _isConnected = false;
   int _reconnectAttempts = 0;
   final int _maxReconnectAttempts = 5;
@@ -44,12 +44,12 @@ class SocketService {
       final token = prefs.getString('authToken');
       
       if (token == null) {
-        print('No auth token found, skipping socket connection');
+        debugPrint('No auth token found, skipping socket connection');
         return;
       }
 
-      _socket = IO.io(AppConfig.socketUrl, 
-        IO.OptionBuilder()
+      _socket = io.io(AppConfig.socketUrl, 
+        io.OptionBuilder()
           .setAuth({'token': token})
           .setTransports(['websocket', 'polling'])
           .setTimeout(20000)
@@ -60,7 +60,7 @@ class SocketService {
       _setupEventListeners();
       
     } catch (e) {
-      print('Socket connection error: $e');
+      debugPrint('Socket connection error: $e');
     }
   }
 
@@ -69,26 +69,26 @@ class SocketService {
 
     // Connection events
     _socket!.on('connect', (_) {
-      print('Socket.IO connected');
+      debugPrint('Socket.IO connected');
       _isConnected = true;
       _reconnectAttempts = 0;
       _connectionController.add(true);
     });
 
     _socket!.on('disconnect', (reason) {
-      print('Socket.IO disconnected: $reason');
+      debugPrint('Socket.IO disconnected: $reason');
       _isConnected = false;
       _connectionController.add(false);
     });
 
     _socket!.on('connect_error', (error) {
-      print('Socket.IO connection error: $error');
+      debugPrint('Socket.IO connection error: $error');
       _handleReconnect();
     });
 
     // Message events
     _socket!.on('new_message', (data) {
-      print('New message received: $data');
+      debugPrint('New message received: $data');
       _messageController.add({
         'type': 'new_message',
         'data': data,
@@ -125,7 +125,7 @@ class SocketService {
 
     // Quote events
     _socket!.on('new_quote_request', (data) {
-      print('New quote request: $data');
+      debugPrint('New quote request: $data');
       _quoteController.add({
         'type': 'new_quote_request',
         'data': data,
@@ -133,7 +133,7 @@ class SocketService {
     });
 
     _socket!.on('quote_updated', (data) {
-      print('Quote updated: $data');
+      debugPrint('Quote updated: $data');
       _quoteController.add({
         'type': 'quote_updated',
         'data': data,
@@ -162,7 +162,7 @@ class SocketService {
 
     // Error handling
     _socket!.on('error', (data) {
-      print('Socket.IO error: $data');
+      debugPrint('Socket.IO error: $data');
     });
   }
 
@@ -173,7 +173,7 @@ class SocketService {
         milliseconds: (1000 * (1 << _reconnectAttempts)).clamp(0, 30000)
       );
       
-      print('Attempting to reconnect in ${delay.inMilliseconds}ms (attempt $_reconnectAttempts)');
+      debugPrint('Attempting to reconnect in ${delay.inMilliseconds}ms (attempt $_reconnectAttempts)');
       
       Timer(delay, () {
         if (_socket != null) {
@@ -181,14 +181,14 @@ class SocketService {
         }
       });
     } else {
-      print('Max reconnection attempts reached');
+      debugPrint('Max reconnection attempts reached');
     }
   }
 
   void _handlePushNotification(Map<String, dynamic> data) {
     // Handle push notification display
     // In a real app, this would integrate with firebase_messaging
-    print('Push notification: $data');
+    debugPrint('Push notification: $data');
   }
 
   // Message methods

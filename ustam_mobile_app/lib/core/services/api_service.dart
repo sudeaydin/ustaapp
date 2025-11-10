@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_config.dart';
@@ -505,7 +506,7 @@ extension ApiServiceExtensions on ApiService {
       AnalyticsService.getInstance().trackApiCall(endpoint, method, statusCode, duration);
     } catch (e) {
       // Silently fail to avoid disrupting API calls
-      print('Failed to track API call: $e');
+      debugPrint('Failed to track API call: $e');
     }
   }
   
