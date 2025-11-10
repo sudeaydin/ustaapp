@@ -264,14 +264,40 @@ class AppTheme {
         helperStyle: const TextStyle(color: dt.DesignTokens.gray600),
       ),
 
-      // Neuomorphic Decoration Example
-      // BoxShadow listleri const olarak işaretlendi
-      extensions: <ThemeExtension<dynamic>>[
-        const _NeuomorphicDecoration(),
-      ],
+      // Floating Action Button
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: dt.DesignTokens.accent,
+        foregroundColor: Colors.white,
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+        ),
+      ),
+
+      // Divider
+      dividerTheme: DividerThemeData(
+        color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
+        thickness: 1,
+        space: 1,
+      ),
+
+      // SnackBar
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: dt.DesignTokens.gray900,
+        contentTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+        ),
+        behavior: SnackBarBehavior.floating,
+        elevation: 6,
+      ),
     );
   }
 
+  // Dark Theme
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
@@ -319,53 +345,9 @@ class AppTheme {
     );
   }
 
+  // Helper
   static ThemeData getTheme(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     return brightness == Brightness.dark ? darkTheme : lightTheme;
   }
-}
-
-// Custom ThemeExtension to hold neuomorphic decorations as const
-class _NeuomorphicDecoration extends ThemeExtension<_NeuomorphicDecoration> {
-  const _NeuomorphicDecoration();
-
-  BoxDecoration get neuomorphicDecoration => BoxDecoration(
-        color: dt.DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xFFE0E0E0), // shadowLight örnek
-            offset: Offset(-4, -4),
-            blurRadius: 8,
-            spreadRadius: 0,
-          ),
-          BoxShadow(
-            color: Color(0xFFB0B0B0), // shadowMedium örnek
-            offset: Offset(4, 4),
-            blurRadius: 8,
-            spreadRadius: 0,
-          ),
-        ],
-      );
-
-  BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
-        color: dt.DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0xFFB0B0B0), // shadowMedium örnek
-            offset: Offset(2, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
-          ),
-        ],
-      );
-
-  @override
-  _NeuomorphicDecoration copyWith() => const _NeuomorphicDecoration();
-
-  @override
-  _NeuomorphicDecoration lerp(
-      covariant ThemeExtension<_NeuomorphicDecoration>? other, double t) =>
-      this;
 }
