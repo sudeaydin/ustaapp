@@ -46,14 +46,18 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
         try {
           final data = apiResponse.data;
           final reviewsList = data is Map<String, dynamic> ? data['reviews'] : data;
-          final reviews = List<Review>.from(
-            (reviewsList as List?)?.map((json) {
-              if (json is Map<String, dynamic>) {
-                return Review.fromJson(json);
-              }
-              return null;
-            }).where((review) => review != null) ?? []
-          );
+          
+          // Parse reviews with proper null handling
+          final reviews = (reviewsList as List?)
+              ?.map((json) {
+                if (json is Map<String, dynamic>) {
+                  return Review.fromJson(json);
+                }
+                return null;
+              })
+              .where((review) => review != null)
+              .cast<Review>()
+              .toList() ?? [];
 
           state = state.copyWith(
             reviews: reviews,
