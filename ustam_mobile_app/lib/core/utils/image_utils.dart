@@ -113,13 +113,13 @@ class OptimizedNetworkImage extends StatelessWidget {
                 child: SizedBox(
                   width: 20,
                   height: 20,
-                  child: const CircularProgressIndicator(
-                    strokeWidth: 2,
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
                 ),
               ),
             );
@@ -174,7 +174,7 @@ class AvatarWidget extends StatelessWidget {
         imageUrl: imageUrl!,
         width: size,
         height: size,
-        borderRadius: const BorderRadius.circular(size / 2),
+        borderRadius: BorderRadius.circular(size / 2),
         errorWidget: _buildFallbackAvatar(),
       );
     }
@@ -188,7 +188,7 @@ class AvatarWidget extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.grey[300],
-        borderRadius: const BorderRadius.circular(size / 2),
+        borderRadius: BorderRadius.circular(size / 2),
       ),
       child: Center(
         child: Text(
@@ -250,7 +250,7 @@ class ImageGallery extends StatelessWidget {
           onTap: onImageTap != null ? () => onImageTap!(index) : null,
           child: OptimizedNetworkImage(
             imageUrl: imageUrls[index],
-            borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
           ),
         );
       },
