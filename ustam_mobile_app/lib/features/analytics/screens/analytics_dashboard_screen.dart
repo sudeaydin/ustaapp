@@ -21,12 +21,12 @@ class AnalyticsDashboardScreen extends ConsumerStatefulWidget {
 class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  final AnalyticsDashboardService _analyticsService = AnalyticsDashboardService();
+  // final AnalyticsDashboardService _analyticsService = AnalyticsDashboardService(); // Unused
   final AnalyticsDashboardManager _manager = AnalyticsDashboardManager();
   
   Map<String, dynamic>? _dashboardData;
   RealtimeMetrics? _realtimeMetrics;
-  Map<String, dynamic>? _constants;
+  // Map<String, dynamic>? _constants; // Unused
   
   bool _isLoading = true;
   String? _error;
@@ -584,7 +584,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     }
 
     final platformTrends = _dashboardData!['platform_trends'];
-    final categoryTrends = _dashboardData!['category_trends'];
+    // final categoryTrends = _dashboardData!['category_trends']; // Unused
     final geographicTrends = _dashboardData!['geographic_trends'];
 
     return SingleChildScrollView(

@@ -11,7 +11,7 @@ class WelcomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(languageProvider);
+    // final locale = ref.watch(languageProvider); // Unused variable
 
     return Scaffold(
       appBar: AppBar(

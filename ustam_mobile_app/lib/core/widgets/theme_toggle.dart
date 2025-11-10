@@ -20,9 +20,9 @@ class ThemeToggle extends ConsumerWidget {
     final themeNotifier = ref.read(themeProvider.notifier);
     
     final isDark = themeMode == ThemeMode.dark;
-    final label = isDark 
-        ? 'light_mode'.tr(locale)
-        : 'dark_mode'.tr(locale);
+    // final label = isDark 
+    //     ? 'light_mode'.tr(locale)
+    //     : 'dark_mode'.tr(locale);
 
     return PopupMenuButton<ThemeMode>(
       icon: Icon(

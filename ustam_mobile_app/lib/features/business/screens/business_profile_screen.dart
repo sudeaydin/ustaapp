@@ -28,7 +28,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   String _selectedCity = '';
   String _selectedDistrict = '';
   List<String> _selectedSkills = [];
-  List<String> _selectedServiceAreas = [];
+  // List<String> _selectedServiceAreas = []; // Unused field
   List<String> _portfolioImages = [];
   bool _isLoading = false;
   bool _isUploading = false;
@@ -59,7 +59,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
     _selectedCity = 'İstanbul';
     _selectedDistrict = 'Üsküdar';
     _selectedSkills = ['Mobilya Yapımı', 'Ahşap Restorasyon', 'Dekoratif İşler'];
-    _selectedServiceAreas = ['Üsküdar', 'Kadıköy', 'Ataşehir'];
+    // _selectedServiceAreas = ['Üsküdar', 'Kadıköy', 'Ataşehir']; // Unused
     
     // Load portfolio images
     await _loadPortfolioImages();

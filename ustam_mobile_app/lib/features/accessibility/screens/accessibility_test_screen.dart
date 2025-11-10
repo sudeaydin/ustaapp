@@ -19,7 +19,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   final _messageController = TextEditingController();
   
   bool _isLoading = false;
-  bool _showModal = false;
+  // bool _showModal = false; // Unused field
   int _currentPage = 1;
   final int _totalPages = 5;
   
@@ -164,19 +164,19 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _showModal = true;
-          });
-        },
-        backgroundColor: DesignTokens.primaryCoral,
-        child: const Icon(Icons.info),
-        tooltip: 'Bilgi modalını aç',
-      ).withSemantics(
-        button: true,
-        label: 'Erişilebilirlik bilgi modalını aç',
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     setState(() {
+      //       _showModal = true;
+      //     });
+      //   },
+      //   backgroundColor: DesignTokens.primaryCoral,
+      //   child: const Icon(Icons.info),
+      //   tooltip: 'Bilgi modalını aç',
+      // ).withSemantics(
+      //   button: true,
+      //   label: 'Erişilebilirlik bilgi modalını aç',
+      // ),
     );
   }
 

@@ -65,7 +65,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final listing = widget.listing;
+    // final listing = widget.listing; // Unused variable
     final pendingOffers = _mockOffers.where((offer) => offer['status'] == 'pending').toList();
     final acceptedOffers = _mockOffers.where((offer) => offer['status'] == 'accepted').toList();
     
