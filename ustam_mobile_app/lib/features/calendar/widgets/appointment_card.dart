@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/widgets/hover_button.dart';
 import '../models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {

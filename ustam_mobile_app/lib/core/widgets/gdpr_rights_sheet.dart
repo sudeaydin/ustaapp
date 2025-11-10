@@ -1,7 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import '../theme/app_colors.dart';
 import '../utils/legal_utils.dart';
 
 class GDPRRightsSheet extends StatefulWidget {

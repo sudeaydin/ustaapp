@@ -9,7 +9,6 @@ import '../providers/marketplace_provider.dart';
 import '../widgets/marketplace_filter_bar.dart';
 import '../widgets/marketplace_listing_card.dart';
 import '../widgets/marketplace_empty_state.dart';
-import 'marketplace_listing_detail_screen.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MarketplaceFeedScreen extends ConsumerStatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 /// iOS SF Symbols style icons mapping
 /// Maps common Material icons to iOS-style Cupertino icons

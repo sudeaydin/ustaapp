@@ -6,9 +6,7 @@ import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../models/marketplace_listing.dart';
-import '../models/marketplace_offer.dart';
 import '../providers/marketplace_provider.dart';
-import '../widgets/marketplace_offer_card.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MarketplaceListingDetailScreen extends ConsumerStatefulWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/common_app_bar.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final Map<String, dynamic> conversation;

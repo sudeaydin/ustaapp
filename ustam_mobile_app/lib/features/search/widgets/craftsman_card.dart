@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/hover_button.dart';
 import '../../reviews/widgets/star_rating.dart';
 
 class CraftsmanCard extends StatelessWidget {

@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
-import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_input.dart';
-import '../../../core/widgets/airbnb_bottom_navigation.dart';
 import '../../../core/widgets/common_app_bar.dart';
-import '../../../core/services/analytics_service.dart';
 import '../../../core/utils/accessibility_utils.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../models/search_filters.dart';
@@ -19,7 +14,6 @@ import '../widgets/craftsman_card.dart' as search_widgets;
 import '../widgets/search_filters_sheet.dart';
 import '../../../core/widgets/error_message.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});

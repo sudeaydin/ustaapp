@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/services/api_service.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/design_tokens.dart';
 
 class LegalDocumentsScreen extends StatefulWidget {

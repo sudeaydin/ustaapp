@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import '../theme/design_tokens.dart';
 
 enum AirbnbCardType { standard, elevated, flat }

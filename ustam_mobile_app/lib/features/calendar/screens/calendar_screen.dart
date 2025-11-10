@@ -3,12 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../providers/calendar_provider.dart' as calendar_provider;
 import '../models/appointment_model.dart';
-import '../widgets/appointment_card.dart';
 import '../widgets/create_appointment_sheet.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {

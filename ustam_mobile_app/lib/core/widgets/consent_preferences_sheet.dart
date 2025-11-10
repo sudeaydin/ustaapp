@@ -1,6 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 import '../utils/legal_utils.dart';
 
 class ConsentPreferencesSheet extends StatefulWidget {

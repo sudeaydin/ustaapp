@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/providers/language_provider.dart';
 
 /// iOS + Airbnb Design System Welcome Screen

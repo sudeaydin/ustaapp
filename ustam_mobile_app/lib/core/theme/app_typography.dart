@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'app_colors.dart';
 import 'design_tokens.dart' as dt;
 
 class AppTypography {

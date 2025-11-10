@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/utils/job_management_utils.dart';
 
 class EmergencyServiceCard extends StatelessWidget {
   final dynamic emergency; // Can be Map or EmergencyService object

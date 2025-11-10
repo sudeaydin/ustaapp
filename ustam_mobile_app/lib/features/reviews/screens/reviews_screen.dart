@@ -6,7 +6,6 @@ import '../../../core/widgets/error_message.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../providers/review_provider.dart';
 import '../widgets/review_card.dart';
-import '../widgets/star_rating.dart';
 import '../widgets/review_statistics_widget.dart';
 
 class ReviewsScreen extends ConsumerStatefulWidget {

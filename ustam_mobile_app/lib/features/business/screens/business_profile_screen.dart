@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/config/app_config.dart';
-import '../../auth/providers/auth_provider.dart';
 
 class BusinessProfileScreen extends ConsumerStatefulWidget {
   const BusinessProfileScreen({super.key});

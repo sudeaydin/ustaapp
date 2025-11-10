@@ -2,7 +2,6 @@ import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../theme/app_colors.dart';
 
 enum ErrorType {
   network,

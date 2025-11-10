@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import '../../../core/utils/enhanced_notifications_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
-import '../../auth/providers/auth_provider.dart';
 
 class EnhancedNotificationsScreen extends ConsumerStatefulWidget {
   const EnhancedNotificationsScreen({super.key});

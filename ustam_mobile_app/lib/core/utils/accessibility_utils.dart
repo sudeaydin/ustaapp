@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 import 'dart:math' show pow;
 
 /// Accessibility utilities for WCAG compliance in Flutter
