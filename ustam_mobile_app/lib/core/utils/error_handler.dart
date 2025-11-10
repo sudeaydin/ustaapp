@@ -163,7 +163,7 @@ class ErrorHandler {
         duration: const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
         action: SnackBarAction(
           label: 'Tamam',
@@ -195,7 +195,7 @@ class ErrorHandler {
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
       ),
     );
@@ -220,7 +220,7 @@ class ErrorHandler {
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(DesignTokens.radius12),
         ),
       ),
     );
@@ -253,7 +253,7 @@ class ErrorStateWidget extends StatelessWidget {
               height: 80,
               decoration: BoxDecoration(
                 color: error.color.withOpacity(0.1),
-                borderRadius: const BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(40),
               ),
               child: Icon(
                 error.icon,
@@ -290,7 +290,7 @@ class ErrorStateWidget extends StatelessWidget {
                   backgroundColor: DesignTokens.primaryCoral,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                 ),
                 child: Text(retryText ?? 'Tekrar Dene'),
@@ -332,7 +332,7 @@ class EmptyStateWidget extends StatelessWidget {
               height: 80,
               decoration: BoxDecoration(
                 color: DesignTokens.nonPhotoBlue.withOpacity(0.1),
-                borderRadius: const BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(40),
               ),
               child: Icon(
                 icon,
@@ -369,7 +369,7 @@ class EmptyStateWidget extends StatelessWidget {
                   backgroundColor: DesignTokens.primaryCoral,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                 ),
                 child: Text(actionText ?? 'Başla'),
