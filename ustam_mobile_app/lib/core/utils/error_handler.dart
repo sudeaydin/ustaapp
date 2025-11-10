@@ -243,8 +243,8 @@ class ErrorStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: const Padding(
-      padding: EdgeInsets.all(32),
+      child: Padding(
+      padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -261,10 +261,10 @@ class ErrorStateWidget extends StatelessWidget {
                 color: error.color,
               ),
             ),
-            const SizedBox(height: DesignTokens.space24),
+            SizedBox(height: DesignTokens.space24),
             Text(
               error.userFriendlyMessage,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,
@@ -272,10 +272,10 @@ class ErrorStateWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (error.details != null) ...[
- SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 error.details!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: DesignTokens.textMuted,
                 ),
@@ -283,7 +283,7 @@ class ErrorStateWidget extends StatelessWidget {
               ),
             ],
             if (onRetry != null) ...[
- SizedBox(height: DesignTokens.space24),
+              const SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
@@ -323,7 +323,7 @@ class EmptyStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -340,10 +340,10 @@ class EmptyStateWidget extends StatelessWidget {
                 color: DesignTokens.textMuted,
               ),
             ),
- SizedBox(height: DesignTokens.space24),
+            const SizedBox(height: DesignTokens.space24),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,
@@ -351,10 +351,10 @@ class EmptyStateWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (subtitle != null) ...[
- SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 subtitle!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: DesignTokens.textMuted,
                 ),
@@ -362,7 +362,7 @@ class EmptyStateWidget extends StatelessWidget {
               ),
             ],
             if (onAction != null) ...[
- SizedBox(height: DesignTokens.space24),
+              const SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onAction,
                 style: ElevatedButton.styleFrom(

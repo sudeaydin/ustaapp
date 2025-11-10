@@ -24,7 +24,7 @@ class ChartWidget extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfaceSecondary,
-        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(

@@ -134,7 +134,7 @@ class _CostCalculatorState extends State<CostCalculator> {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfaceSecondary,
-        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(
@@ -179,7 +179,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'İş Kategorisi *',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _categories.map((category) {
@@ -209,7 +209,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Alan Türü *',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _areaTypes.map((type) {
@@ -239,7 +239,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Bütçe Aralığı',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _budgetRanges.map((range) {
@@ -263,7 +263,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     decoration: InputDecoration(
                       labelText: 'Aciliyet Durumu',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     items: _urgencyLevels.map((level) {
@@ -288,7 +288,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       labelText: 'İş Açıklaması',
                       hintText: 'İş hakkında detayları yazın...',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     onChanged: (value) {
@@ -304,7 +304,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       labelText: 'Konum',
                       hintText: 'İl/İlçe',
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                     ),
                     onChanged: (value) {
@@ -321,7 +321,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       margin: EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
                         color: DesignTokens.error.withOpacity(0.1),
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
                         border: Border.all(color: DesignTokens.error.withOpacity(0.3)),
                       ),
                       child: Row(
@@ -347,7 +347,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                         backgroundColor: DesignTokens.primaryCoral,
                         padding: EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
-                          borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                          borderRadius: BorderRadius.circular(DesignTokens.radius8),
                         ),
                       ),
                       child: _isLoading
@@ -390,7 +390,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           padding: EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
             color: DesignTokens.primaryCoral.withOpacity(0.1),
-            borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
             border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
           ),
           child: Column(
@@ -442,7 +442,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondary,
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.gray300),
             ),
             child: Column(
@@ -493,7 +493,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.warning.withOpacity(0.1),
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.warning.withOpacity(0.3)),
             ),
             child: Column(
@@ -542,7 +542,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.success.withOpacity(0.1),
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
             ),
             child: Column(
@@ -581,7 +581,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: DesignTokens.gray600.withOpacity(0.1),
-            borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: BorderRadius.circular(DesignTokens.radius8),
           ),
           child: Text(
             '* Bu tahmin ortalama piyasa fiyatlarına dayalıdır. Gerçek fiyatlar değişebilir.',
@@ -608,7 +608,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'İş Kategorisi *',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _categories.map((category) {
@@ -638,7 +638,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Alan Türü *',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _areaTypes.map((type) {
@@ -668,7 +668,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Bütçe Aralığı',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _budgetRanges.map((range) {
@@ -692,7 +692,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           decoration: InputDecoration(
             labelText: 'Aciliyet Durumu',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           items: _urgencyLevels.map((level) {
@@ -717,7 +717,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             labelText: 'İş Açıklaması',
             hintText: 'İş hakkında detayları yazın...',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           onChanged: (value) {
@@ -733,7 +733,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             labelText: 'Konum',
             hintText: 'İl/İlçe',
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
           ),
           onChanged: (value) {
@@ -750,7 +750,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: DesignTokens.error.withOpacity(0.1),
-              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.error.withOpacity(0.3)),
             ),
             child: Row(
@@ -776,7 +776,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               backgroundColor: DesignTokens.primaryCoral,
               padding: EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: BorderRadius.circular(DesignTokens.radius8),
               ),
             ),
             child: _isLoading

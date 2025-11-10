@@ -113,8 +113,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
           children: [
             // Page Description
             Card(
-              child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+              child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -182,8 +182,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildButtonsDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -234,8 +234,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildFormDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -296,8 +296,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildTabsDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -345,8 +345,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildPaginationDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -402,8 +402,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildColorContrastDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -480,8 +480,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildLoadingDemo() {
     return Card(
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Text(

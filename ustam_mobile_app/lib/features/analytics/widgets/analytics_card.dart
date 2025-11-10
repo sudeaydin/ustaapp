@@ -52,7 +52,7 @@ class AnalyticsCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,
