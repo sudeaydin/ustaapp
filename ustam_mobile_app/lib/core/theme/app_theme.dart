@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'design_tokens.dart' as dt;
 
 class AppTheme {
-  // Private constructor to prevent instantiation
   AppTheme._();
 
-  // Light Theme - Primary theme for the app
+  // Light Theme
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      
-      // Color Scheme - Based on our custom palette
+
+      // Color Scheme
       colorScheme: ColorScheme.light(
         primary: dt.DesignTokens.primaryCoral,
         primaryContainer: dt.DesignTokens.primaryCoralLight,
@@ -27,36 +26,35 @@ class AppTheme {
         outline: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
         shadow: dt.DesignTokens.shadowMedium,
       ),
-      
-      // Scaffold Theme
+
       scaffoldBackgroundColor: dt.DesignTokens.surfacePrimary,
-      
-      // App Bar Theme - Consistent across all screens
+
+      // AppBar Theme
       appBarTheme: AppBarTheme(
         backgroundColor: dt.DesignTokens.surfacePrimary,
         foregroundColor: dt.DesignTokens.gray900,
         elevation: 0,
         scrolledUnderElevation: 2,
         shadowColor: dt.DesignTokens.shadowLight,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: dt.DesignTokens.gray900,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: dt.DesignTokens.gray900,
           size: 24,
         ),
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
         ),
       ),
-      
-      // Text Theme - Typography scale
-      textTheme: TextTheme(
+
+      // Text Theme
+      textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
@@ -148,8 +146,8 @@ class AppTheme {
           height: 1.4,
         ),
       ),
-      
-      // Card Theme - Consistent card styling
+
+      // Card Theme
       cardTheme: CardTheme(
         color: dt.DesignTokens.surfacePrimary,
         elevation: 2,
@@ -159,8 +157,8 @@ class AppTheme {
         ),
         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
       ),
-      
-      // Elevated Button Theme
+
+      // Elevated Button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: dt.DesignTokens.buttonPrimary,
@@ -179,8 +177,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Outlined Button Theme
+
+      // Outlined Button
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: dt.DesignTokens.primaryCoral,
@@ -196,8 +194,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Text Button Theme
+
+      // Text Button
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: dt.DesignTokens.primaryCoral,
@@ -212,8 +210,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Input Decoration Theme - Form styling
+
+      // Input Decoration
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: dt.DesignTokens.surfacePrimary,
@@ -253,113 +251,27 @@ class AppTheme {
           ),
         ),
         contentPadding: const EdgeInsets.all(dt.DesignTokens.space16),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: dt.DesignTokens.textMuted,
           fontSize: 16,
         ),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: dt.DesignTokens.gray600,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
-        counterStyle: TextStyle(color: dt.DesignTokens.gray600),
-        helperStyle: TextStyle(color: dt.DesignTokens.gray600),
+        counterStyle: const TextStyle(color: dt.DesignTokens.gray600),
+        helperStyle: const TextStyle(color: dt.DesignTokens.gray600),
       ),
-      
-      // Bottom Navigation Bar Theme
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        selectedItemColor: dt.DesignTokens.primaryCoral,
-        unselectedItemColor: dt.DesignTokens.textMuted,
-        type: BottomNavigationBarType.fixed,
-        elevation: 8,
-        selectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      
-      // Floating Action Button Theme
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: dt.DesignTokens.accent,
-        foregroundColor: Colors.white,
-        elevation: 6,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        ),
-      ),
-      
-      // Divider Theme
-      dividerTheme: DividerThemeData(
-        color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-        thickness: 1,
-        space: 1,
-      ),
-      
-      // Chip Theme
-      chipTheme: ChipThemeData(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        selectedColor: dt.DesignTokens.primaryCoral.withOpacity(0.1),
-        disabledColor: dt.DesignTokens.buttonDisabled,
-        labelStyle: TextStyle(color: dt.DesignTokens.gray900),
-        secondaryLabelStyle: TextStyle(color: dt.DesignTokens.gray600),
-        brightness: Brightness.light,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
-          side: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-          ),
-        ),
-      ),
-      
-      // Dialog Theme
-      dialogTheme: DialogTheme(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        elevation: 8,
-        shadowColor: dt.DesignTokens.shadowMedium,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        ),
-        titleTextStyle: TextStyle(
-          color: dt.DesignTokens.gray900,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        contentTextStyle: TextStyle(
-          color: dt.DesignTokens.gray600,
-          fontSize: 14,
-          height: 1.5,
-        ),
-      ),
-      
-      // SnackBar Theme
-      snackBarTheme: SnackBarThemeData(
-        backgroundColor: dt.DesignTokens.gray900,
-        contentTextStyle: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-        ),
-        behavior: SnackBarBehavior.floating,
-        elevation: 6,
-      ),
-      
-      // Progress Indicator Theme
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: dt.DesignTokens.primaryCoral,
-        linearTrackColor: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-        circularTrackColor: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-      ),
+
+      // Neuomorphic Decoration Example
+      // BoxShadow listleri const olarak işaretlendi
+      extensions: <ThemeExtension<dynamic>>[
+        const _NeuomorphicDecoration(),
+      ],
     );
   }
 
-  // Dark Theme
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
@@ -407,62 +319,53 @@ class AppTheme {
     );
   }
 
-  // Helper method to get current theme based on system
   static ThemeData getTheme(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     return brightness == Brightness.dark ? darkTheme : lightTheme;
   }
+}
 
-  // Custom decoration helpers
-  static BoxDecoration get neuomorphicDecoration => BoxDecoration(
+// Custom ThemeExtension to hold neuomorphic decorations as const
+class _NeuomorphicDecoration extends ThemeExtension<_NeuomorphicDecoration> {
+  const _NeuomorphicDecoration();
+
+  BoxDecoration get neuomorphicDecoration => BoxDecoration(
         color: dt.DesignTokens.surfacePrimary,
         borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: dt.DesignTokens.shadowLight,
-            offset: const Offset(-4, -4),
+            color: Color(0xFFE0E0E0), // shadowLight örnek
+            offset: Offset(-4, -4),
             blurRadius: 8,
+            spreadRadius: 0,
           ),
           BoxShadow(
-            color: dt.DesignTokens.shadowMedium,
-            offset: const Offset(4, 4),
+            color: Color(0xFFB0B0B0), // shadowMedium örnek
+            offset: Offset(4, 4),
             blurRadius: 8,
+            spreadRadius: 0,
           ),
         ],
       );
 
-  static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
+  BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
         color: dt.DesignTokens.surfacePrimary,
         borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: dt.DesignTokens.shadowMedium,
-            offset: const Offset(2, 2),
+            color: Color(0xFFB0B0B0), // shadowMedium örnek
+            offset: Offset(2, 2),
             blurRadius: 4,
+            spreadRadius: 0,
           ),
         ],
       );
 
-  // Gradient decorations
-  static BoxDecoration get primaryGradientDecoration => BoxDecoration(
-        gradient: dt.DesignTokens.primaryCoralGradient,
-        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: [dt.DesignTokens.getElevatedShadow()],
-      );
+  @override
+  _NeuomorphicDecoration copyWith() => const _NeuomorphicDecoration();
 
-  static BoxDecoration get accentGradientDecoration => BoxDecoration(
-        gradient: dt.DesignTokens.getGradient(dt.DesignTokens.accentGradient),
-        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        boxShadow: [dt.DesignTokens.getElevatedShadow()],
-      );
-
-  // Animation durations
-  static const Duration fastAnimation = Duration(milliseconds: 200);
-  static const Duration normalAnimation = Duration(milliseconds: 300);
-  static const Duration slowAnimation = Duration(milliseconds: 500);
-
-  // Common curves
-  static const Curve defaultCurve = Curves.easeInOut;
-  static const Curve bouncyCurve = Curves.elasticOut;
-  static const Curve smoothCurve = Curves.fastOutSlowIn;
+  @override
+  _NeuomorphicDecoration lerp(
+      covariant ThemeExtension<_NeuomorphicDecoration>? other, double t) =>
+      this;
 }
