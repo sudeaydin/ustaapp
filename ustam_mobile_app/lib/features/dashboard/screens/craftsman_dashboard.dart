@@ -93,7 +93,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/jobs', arguments: {'filter': 'active'});
+                          Navigator.pushNamed(context, '/job-management');
                         },
                         borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
@@ -109,7 +109,8 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/earnings');
+                          // Show earnings detail dialog
+                          _showEarningsDetail(context);
                         },
                         borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
@@ -131,7 +132,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/quotes', arguments: {'filter': 'pending'});
+                          Navigator.pushNamed(context, '/craftsman-quotes');
                         },
                         borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
@@ -147,7 +148,10 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/reviews');
+                          Navigator.pushNamed(context, '/reviews', arguments: {
+                            'craftsmanId': 1, // TODO: Get actual craftsman ID
+                            'craftsmanName': 'Profilim',
+                          });
                         },
                         borderRadius: BorderRadius.circular(DesignTokens.radius16),
                         child: _buildStatCard(
@@ -256,22 +260,32 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         ),
                       ),
                       const SizedBox(height: DesignTokens.space16),
-                      _buildQuoteRequestCard(
-                        title: 'Elektrik Tesisatı',
-                        customer: 'Ayşe Yılmaz',
-                        budget: '₺500-800',
-                        location: 'Kadıköy, İstanbul',
-                        status: 'Yeni',
-                        statusColor: DesignTokens.primaryCoral,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/craftsman-quotes');
+                        },
+                        child: _buildQuoteRequestCard(
+                          title: 'Elektrik Tesisatı',
+                          customer: 'Ayşe Yılmaz',
+                          budget: '₺500-800',
+                          location: 'Kadıköy, İstanbul',
+                          status: 'Yeni',
+                          statusColor: DesignTokens.primaryCoral,
+                        ),
                       ),
                       const SizedBox(height: 12),
-                      _buildQuoteRequestCard(
-                        title: 'Boyama İşi',
-                        customer: 'Mehmet Kaya',
-                        budget: '₺1000-1500',
-                        location: 'Beşiktaş, İstanbul',
-                        status: 'Teklif Verildi',
-                        statusColor: DesignTokens.info,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/craftsman-quotes');
+                        },
+                        child: _buildQuoteRequestCard(
+                          title: 'Boyama İşi',
+                          customer: 'Mehmet Kaya',
+                          budget: '₺1000-1500',
+                          location: 'Beşiktaş, İstanbul',
+                          status: 'Teklif Verildi',
+                          statusColor: DesignTokens.info,
+                        ),
                       ),
                     ],
                   ),
@@ -464,6 +478,111 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
             style: const TextStyle(
               fontSize: 14,
               color: DesignTokens.gray600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEarningsDetail(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.attach_money_rounded, color: DesignTokens.success),
+            SizedBox(width: 8),
+            Text('Kazanç Detayları'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildEarningRow('Toplam Kazanç:', '₺12,500'),
+            const SizedBox(height: 8),
+            _buildEarningRow('Tamamlanan İşler:', '15'),
+            const SizedBox(height: 8),
+            _buildEarningRow('Ortalama İş Değeri:', '₺833'),
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 8),
+            const Text(
+              'Son İşler:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildJobRow('Elektrik Tesisatı', '₺800'),
+            _buildJobRow('Boyama İşi', '₺1,200'),
+            _buildJobRow('Tesisat Tamiri', '₺650'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Kapat'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/job-management');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: DesignTokens.primaryCoral,
+            ),
+            child: const Text('Tüm İşleri Gör'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEarningRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            color: DesignTokens.gray600,
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: DesignTokens.gray900,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildJobRow(String title, String amount) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13,
+              color: DesignTokens.gray700,
+            ),
+          ),
+          Text(
+            amount,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: DesignTokens.success,
             ),
           ),
         ],

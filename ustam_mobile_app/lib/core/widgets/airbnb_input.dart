@@ -133,11 +133,15 @@ class _AirbnbInputState extends State<AirbnbInput> {
                 : 1,
             maxLength: widget.maxLength,
             validator: widget.validator,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: const TextStyle(
+              color: DesignTokens.gray900,
+              fontSize: 16,
+            ),
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              hintStyle: const TextStyle(
                 color: DesignTokens.textMuted,
+                fontSize: 16,
               ),
               prefixIcon: widget.prefixIcon != null 
                   ? Icon(
@@ -271,11 +275,15 @@ class AirbnbSearchInput extends StatelessWidget {
         onChanged: onChanged,
         onTap: onTap,
         readOnly: readOnly,
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: const TextStyle(
+          color: DesignTokens.gray900,
+          fontSize: 16,
+        ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: DesignTokens.primaryCoral, // Pembe renk
+          hintStyle: const TextStyle(
+            color: DesignTokens.textMuted,
+            fontSize: 16,
           ),
           prefixIcon: Icon(
             Icons.search,
