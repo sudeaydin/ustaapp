@@ -113,7 +113,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               page.color.withOpacity(0.1),
                               page.color.withOpacity(0.05),
                             ]),
-                            borderRadius: const Borderconst Radius.circular(35),
+                            borderRadius:  Borderconst Radius.circular(35),
                             border: Border.all(
                               color: page.color.withOpacity(0.3),
                               width: 2,
@@ -129,7 +129,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           ),
                         ),
                         
-                        const SizedBox(height: 50),
+                        SizedBox(height: 50),
                         
                         // Title
                         Text(
@@ -142,7 +142,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: DesignTokens.space16),
+                        SizedBox(height: DesignTokens.space16),
                         
                         // Subtitle
                         Text(
@@ -155,7 +155,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: DesignTokens.space24),
+                        SizedBox(height: DesignTokens.space24),
                         
                         // Description
                         Text(
@@ -197,7 +197,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     ),
                   ),
                   
-                  const Spacer(),
+                  Spacer(),
                   
                   // Next Button - Modern Design
                   Container(
@@ -205,12 +205,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     height: 64,
                     decoration: BoxDecoration(
                       gradient: DesignTokens.primaryCoralGradient,
-                      borderRadius: const Borderconst Radius.circular(32),
+                      borderRadius: Borderconst Radius.circular(32),
                       boxShadow: [
                         BoxShadow(
                           color: DesignTokens.uclaBlue.withOpacity(0.4),
                           blurRadius: 16,
-                          offset: const Offset(0, 4),
+                          offset:  Offset(0, 4),
                         ),
                       ],
                     ),
