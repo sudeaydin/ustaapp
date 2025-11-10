@@ -4,14 +4,63 @@ class AppConfig {
   // API Configuration
   static const String _devBaseUrl = 'https://ustaapp-analytics.appspot.com';
   static const String _prodBaseUrl = 'https://ustaapp-analytics.appspot.com'; // Production URL
-  
-  // Force production mode for testing (set to true to use production API)
-  static const bool _forceProduction = true;
-  
+
+  // Compile-time overrides using --dart-define
+  static const String _envOverride =
+      String.fromEnvironment('USTAAPP_ENV', defaultValue: '');
+  static const String _customBaseUrl =
+      String.fromEnvironment('USTAAPP_API_BASE_URL', defaultValue: '');
+  static const String _stagingBaseUrl = String.fromEnvironment(
+    'USTAAPP_STAGING_API_BASE_URL',
+    defaultValue: '',
+  );
+  static const bool _forceProdOverride = bool.fromEnvironment(
+    'USTAAPP_FORCE_PRODUCTION_API',
+    defaultValue: false,
+  );
+  static const bool _forceDevOverride = bool.fromEnvironment(
+    'USTAAPP_FORCE_DEV_API',
+    defaultValue: false,
+  );
+  static const bool _enableMockAuthOverride = bool.fromEnvironment(
+    'USTAAPP_ENABLE_MOCK_AUTH',
+    defaultValue: false,
+  );
+
   static String get baseUrl {
-    if (_forceProduction) return _prodBaseUrl;
-    return kDebugMode ? _devBaseUrl : _prodBaseUrl;
+    if (_customBaseUrl.isNotEmpty) {
+      return _customBaseUrl;
+    }
+
+    final normalizedEnv = _envOverride.toLowerCase().trim();
+
+    if (_forceProdOverride ||
+        normalizedEnv == 'prod' ||
+        normalizedEnv == 'production') {
+      return _prodBaseUrl;
+    }
+
+    if (_forceDevOverride ||
+        normalizedEnv == 'dev' ||
+        normalizedEnv == 'development') {
+      return _devBaseUrl;
+    }
+
+    if (normalizedEnv == 'staging' && _stagingBaseUrl.isNotEmpty) {
+      return _stagingBaseUrl;
+    }
+
+    if (kReleaseMode) {
+      return _prodBaseUrl;
+    }
+
+    return _devBaseUrl;
   }
+
+  static bool get isProductionBase => baseUrl == _prodBaseUrl;
+
+  static bool get allowMockAuthentication =>
+      kDebugMode || _enableMockAuthOverride;
   
   // API Endpoints
   static String get apiUrl => '$baseUrl/api';

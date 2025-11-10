@@ -676,9 +676,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     onChanged: (value) {
                       confirmText = value;
                     },
-                    decoration: const InputDecoration(
+                    style: DesignTokens.inputTextStyle,
+                    decoration: DesignTokens.inputDecoration(
                       hintText: 'HESABIMI SIL',
-                      border: OutlineInputBorder(),
                     ),
                   ),
                 ],

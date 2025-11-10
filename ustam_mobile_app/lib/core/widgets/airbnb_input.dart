@@ -99,22 +99,10 @@ class _AirbnbInputState extends State<AirbnbInput> {
         ],
         
         Container(
-          decoration: BoxDecoration(
-            color: widget.enabled 
-                ? DesignTokens.background 
-                : DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.inputBorderRadius),
-            border: Border.all(
-              color: _getBorderColor(),
-              width: _isFocused ? 2 : 1,
-            ),
-            boxShadow: _isFocused ? [
-              BoxShadow(
-                color: DesignTokens.primaryCoral.withOpacity(0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ] : null,
+          decoration: DesignTokens.inputContainerDecoration(
+            isEnabled: widget.enabled,
+            isFocused: _isFocused,
+            hasError: widget.errorText != null,
           ),
           child: TextFormField(
             controller: widget.controller,
@@ -128,33 +116,45 @@ class _AirbnbInputState extends State<AirbnbInput> {
             keyboardType: widget.keyboardType ?? _getKeyboardType(),
             inputFormatters: widget.inputFormatters,
             textInputAction: widget.textInputAction,
-            maxLines: widget.type == AirbnbInputType.multiline 
-                ? (widget.maxLines ?? 4) 
+            maxLines: widget.type == AirbnbInputType.multiline
+                ? (widget.maxLines ?? 4)
                 : 1,
             maxLength: widget.maxLength,
             validator: widget.validator,
-            style: Theme.of(context).textTheme.bodyMedium,
-            decoration: InputDecoration(
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: DesignTokens.inputTextColor),
+            decoration: DesignTokens.inputDecoration(
               hintText: widget.hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: DesignTokens.textMuted,
-              ),
-              prefixIcon: widget.prefixIcon != null 
+              prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
-                      color: _isFocused 
-                          ? DesignTokens.primaryCoral 
+                      color: _isFocused
+                          ? DesignTokens.primaryCoral
                           : DesignTokens.textMuted,
                       size: 20,
                     )
                   : null,
               suffixIcon: _buildSuffixIcon(),
-              border: InputBorder.none,
+              hideCounter: widget.maxLength != null,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: DesignTokens.space16,
                 vertical: DesignTokens.space16,
               ),
-              counterText: '', // Hide character counter
+            ).copyWith(
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              prefixIconColor: _isFocused
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
+              suffixIconColor: _isFocused
+                  ? DesignTokens.primaryCoral
+                  : DesignTokens.textMuted,
             ),
           ),
         ),
@@ -188,12 +188,6 @@ class _AirbnbInputState extends State<AirbnbInput> {
         ],
       ],
     );
-  }
-
-  Color _getBorderColor() {
-    if (widget.errorText != null) return DesignTokens.error;
-    if (_isFocused) return DesignTokens.primaryCoral;
-    return DesignTokens.gray300;
   }
 
   TextInputType _getKeyboardType() {
@@ -257,37 +251,29 @@ class AirbnbSearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24), // Airbnb search style
-        border: Border.all(
-          color: Colors.grey.withOpacity(0.3),
-          width: 1,
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      onTap: onTap,
+      readOnly: readOnly,
+      style: Theme.of(context)
+          .textTheme
+          .bodyMedium
+          ?.copyWith(color: DesignTokens.inputTextColor),
+      decoration: DesignTokens.inputDecoration(
+        hintText: hintText,
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 20,
         ),
-      ),
-      child: TextField(
-        controller: controller,
-        onChanged: onChanged,
-        onTap: onTap,
-        readOnly: readOnly,
-        style: Theme.of(context).textTheme.bodyMedium,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: DesignTokens.primaryCoral, // Pembe renk
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: DesignTokens.primaryCoral, // Pembe renk
-            size: 20,
-          ),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: DesignTokens.space24,
-            vertical: DesignTokens.space16,
-          ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: DesignTokens.space24,
+          vertical: DesignTokens.space16,
         ),
+        borderRadius: 24,
+      ).copyWith(
+        prefixIconColor: DesignTokens.primaryCoral,
+        suffixIconColor: DesignTokens.primaryCoral,
       ),
     );
   }

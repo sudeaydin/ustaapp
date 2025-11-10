@@ -55,7 +55,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Text Theme - Typography scale
       textTheme: TextTheme(
         // Display styles - For large text
@@ -158,7 +158,14 @@ class AppTheme {
           height: 1.4,
         ),
       ),
-      
+
+      inputDecorationTheme: dt.DesignTokens.buildInputTheme(),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: dt.DesignTokens.primaryCoral,
+        selectionColor: dt.DesignTokens.primaryCoral.withOpacity(0.2),
+        selectionHandleColor: dt.DesignTokens.primaryCoral,
+      ),
+
       // Card Theme - Consistent card styling
       cardTheme: CardThemeData(
         color: dt.DesignTokens.surfacePrimary,
@@ -224,54 +231,12 @@ class AppTheme {
       ),
       
       // Input Decoration Theme - Form styling
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: dt.DesignTokens.surfacePrimary,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.primaryCoral,
-            width: 2,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.error,
-            width: 1,
-          ),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
-          borderSide: BorderSide(
-            color: dt.DesignTokens.error,
-            width: 2,
-          ),
-        ),
-        contentPadding: const EdgeInsets.all(dt.DesignTokens.space16),
-        hintStyle: TextStyle(
-          color: dt.DesignTokens.textMuted,
-          fontSize: 16,
-        ),
-        labelStyle: TextStyle(
-          color: dt.DesignTokens.gray600,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
+      inputDecorationTheme: dt.DesignTokens.buildInputTheme(),
+
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: dt.DesignTokens.inputTextColor,
+        selectionColor: dt.DesignTokens.primaryCoral.withOpacity(0.25),
+        selectionHandleColor: dt.DesignTokens.primaryCoral,
       ),
       
       // Bottom Navigation Bar Theme

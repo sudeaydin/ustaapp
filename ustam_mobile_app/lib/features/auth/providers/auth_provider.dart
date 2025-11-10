@@ -88,118 +88,81 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<bool> login(String email, String password, {String? userType}) async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
-      // MOCK LOGIN - Backend çalışmadığı için test amaçlı
-      // Test credentials
-      bool isValidCredentials = false;
-      Map<String, dynamic>? mockUser;
-      
-      if (email == 'customer@test.com' && password == '123456') {
-        isValidCredentials = true;
-        mockUser = {
-          'id': '1',
-          'first_name': 'Test',
-          'last_name': 'Customer',
-          'email': email,
-          'user_type': 'customer',
-          'phone': '+90 555 123 4567',
-          'created_at': DateTime.now().toIso8601String(),
-        };
-      } else if (email == 'ahmet@test.com' && password == '123456') {
-        isValidCredentials = true;
-        mockUser = {
-          'id': '2',
-          'first_name': 'Ahmet',
-          'last_name': 'Usta',
-          'email': email,
-          'user_type': 'craftsman',
-          'phone': '+90 555 987 6543',
-          'business_name': 'Ahmet Elektrik',
-          'category': 'Elektrikçi',
-          'created_at': DateTime.now().toIso8601String(),
-        };
-      }
-      
-      if (isValidCredentials && mockUser != null) {
-        // Additional validation for userType mismatch if specified
-        if (userType != null && mockUser['user_type'] != userType) {
-          String errorMessage = userType == 'customer' 
-            ? 'Bu hesap bireysel kullanıcı hesabı değil'
-            : 'Bu hesap usta/zanaatkar hesabı değil';
-          
+      final sanitizedEmail = email.trim();
+      final sanitizedPassword = password.trim();
+
+      if (AppConfig.allowMockAuthentication) {
+        final mockUser = _resolveMockUser(sanitizedEmail, sanitizedPassword);
+        if (mockUser != null) {
+          if (userType != null && mockUser['user_type'] != userType) {
+            final errorMessage = userType == 'customer'
+                ? 'Bu hesap bireysel kullanıcı hesabı değil'
+                : 'Bu hesap usta/zanaatkar hesabı değil';
+
+            state = state.copyWith(
+              isLoading: false,
+              error: errorMessage,
+            );
+            return false;
+          }
+
+          const mockToken = 'mock_jwt_token_12345';
+          await _prefs.setString('authToken', mockToken);
+          await _prefs.setString('user', jsonEncode(mockUser));
+          await _prefs.setString('user_type', mockUser['user_type']);
+
           state = state.copyWith(
+            isAuthenticated: true,
+            token: mockToken,
+            user: mockUser,
             isLoading: false,
-            error: errorMessage,
           );
-          return false;
+
+          return true;
         }
-        
-        // Mock token
-        const String mockToken = 'mock_jwt_token_12345';
-        
-        await _prefs.setString('authToken', mockToken);
-        await _prefs.setString('user', jsonEncode(mockUser));
-        await _prefs.setString('user_type', mockUser['user_type']);
-        
-        state = state.copyWith(
-          isAuthenticated: true,
-          token: mockToken,
-          user: mockUser,
-          isLoading: false,
-        );
-        
-        return true;
-      } else {
-        state = state.copyWith(
-          error: 'Geçersiz email veya şifre',
-          isLoading: false,
-        );
-        return false;
       }
-      
-      // REAL API CALL (backend çalıştığında kullanılacak)
-      /*
-      final apiResponse = await ApiService().login(email, password);
-      
+
+      final apiResponse = await ApiService().login(sanitizedEmail, sanitizedPassword);
+
       if (apiResponse.isSuccess && apiResponse.data != null) {
         final data = apiResponse.data!;
         final token = data['data']['access_token'];
         final user = data['data']['user'];
-        
-        // Additional validation for userType mismatch if specified
+
         if (userType != null && user['user_type'] != userType) {
-          String errorMessage = userType == 'customer' 
-            ? 'Bu hesap bireysel kullanıcı hesabı değil'
-            : 'Bu hesap usta/zanaatkar hesabı değil';
-          
+          final errorMessage = userType == 'customer'
+              ? 'Bu hesap bireysel kullanıcı hesabı değil'
+              : 'Bu hesap usta/zanaatkar hesabı değil';
+
           state = state.copyWith(
             isLoading: false,
             error: errorMessage,
           );
           return false;
         }
-        
+
         await _prefs.setString('authToken', token);
         await _prefs.setString('user', jsonEncode(user));
         await _prefs.setString('user_type', user['user_type']);
-        
+
         state = state.copyWith(
           isAuthenticated: true,
           token: token,
           user: user,
           isLoading: false,
         );
-        
+
         return true;
-      } else {
-        state = state.copyWith(
-          error: apiResponse.error?.userFriendlyMessage ?? 'Geçersiz email veya şifre',
-          isLoading: false,
-        );
-        return false;
       }
-      */
+
+      final errorMessage = apiResponse.error?.userFriendlyMessage ?? 'Geçersiz email veya şifre';
+      state = state.copyWith(
+        error: errorMessage,
+        isLoading: false,
+      );
+      return false;
     } catch (e) {
       final error = e is AppError ? e : AppError.fromException(e);
       state = state.copyWith(
@@ -208,6 +171,39 @@ class AuthNotifier extends StateNotifier<AuthState> {
       );
       return false;
     }
+  }
+
+  Map<String, dynamic>? _resolveMockUser(String email, String password) {
+    final normalizedEmail = email.toLowerCase();
+    final normalizedPassword = password.trim();
+
+    if (normalizedEmail == 'customer@test.com' && normalizedPassword == '123456') {
+      return {
+        'id': '1',
+        'first_name': 'Test',
+        'last_name': 'Customer',
+        'email': normalizedEmail,
+        'user_type': 'customer',
+        'phone': '+90 555 123 4567',
+        'created_at': DateTime.now().toIso8601String(),
+      };
+    }
+
+    if (normalizedEmail == 'ahmet@test.com' && normalizedPassword == '123456') {
+      return {
+        'id': '2',
+        'first_name': 'Ahmet',
+        'last_name': 'Usta',
+        'email': normalizedEmail,
+        'user_type': 'craftsman',
+        'phone': '+90 555 987 6543',
+        'business_name': 'Ahmet Elektrik',
+        'category': 'Elektrikçi',
+        'created_at': DateTime.now().toIso8601String(),
+      };
+    }
+
+    return null;
   }
 
   Future<bool> register({
