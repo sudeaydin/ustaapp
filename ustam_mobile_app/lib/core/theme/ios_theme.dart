@@ -77,12 +77,12 @@ class iOSTheme {
       ),
       
       // Card Theme - Airbnb Style
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: DesignTokens.surfacePrimary,
         shadowColor: Colors.black.withOpacity(DesignTokens.shadowOpacityLight),
         elevation: DesignTokens.elevation2,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
         ),
         margin: DesignTokens.getEdgeInsets(all: DesignTokens.space8),
       ),
@@ -97,7 +97,7 @@ class iOSTheme {
           elevation: DesignTokens.elevation2,
           shadowColor: DesignTokens.primaryCoral.withOpacity(DesignTokens.opacity30),
           shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
           ),
           padding: DesignTokens.getEdgeInsets(
             horizontal: DesignTokens.spacingButtonPadding,
