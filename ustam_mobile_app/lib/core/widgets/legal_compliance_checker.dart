@@ -1,8 +1,11 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/legal_utils.dart';
 import '../../features/auth/providers/auth_provider.dart';
+import 'user_agreement_modal.dart';
+import 'consent_preferences_sheet.dart';
 
 /// Widget that checks if user has accepted mandatory agreements
 /// and shows the agreement modal if needed

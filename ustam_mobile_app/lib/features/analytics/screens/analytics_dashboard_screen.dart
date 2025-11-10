@@ -284,7 +284,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                 children: [
                                   Text(
                                     _manager.getCategoryDisplayName(categoryData.category),
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     user?.userType == 'craftsman'
@@ -347,7 +347,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                 children: [
                                   Text(
                                     activityData.title,
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     activityData.description,
@@ -379,7 +379,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                     _manager.getStatusText(activityData.status),
                                     style: TextStyle(
                                       fontSize: 10,
-                                      fontWeight: FontWeight.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: activityData.statusColor,
                                     ),
                                   ),
@@ -659,7 +659,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                 children: [
                                   Text(
                                     city['city'],
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     '${city['quote_count']} teklif',
