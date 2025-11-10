@@ -142,7 +142,7 @@ class SkeletonCard extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         boxShadow: [DesignTokens.getCardShadow()],
       ),
       child: Column(
@@ -153,7 +153,7 @@ class SkeletonCard extends StatelessWidget {
               SkeletonLoader(
                 width: 50,
                 height: 50,
-                borderRadius: const BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(25),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -163,13 +163,13 @@ class SkeletonCard extends StatelessWidget {
                     SkeletonLoader(
                       width: double.infinity,
                       height: 16,
-                      borderRadius: const BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                     const SizedBox(height: 8),
                     SkeletonLoader(
                       width: 120,
                       height: 14,
-                      borderRadius: const BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ],
                 ),
@@ -180,13 +180,13 @@ class SkeletonCard extends StatelessWidget {
           SkeletonLoader(
             width: double.infinity,
             height: 14,
-            borderRadius: const BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(4),
           ),
           const SizedBox(height: 8),
           SkeletonLoader(
             width: 200,
             height: 14,
-            borderRadius: const BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(4),
           ),
         ],
       ),
