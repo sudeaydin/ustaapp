@@ -63,7 +63,7 @@ class AppStateNotifier extends StateNotifier<AppState> {
       );
     } catch (e) {
       // Handle error silently for app state
-      print('Error loading app state: $e');
+      debugPrint('Error loading app state: $e');
     }
   }
 
@@ -78,7 +78,7 @@ class AppStateNotifier extends StateNotifier<AppState> {
         isFirstLaunch: false,
       );
     } catch (e) {
-      print('Error completing onboarding: $e');
+      debugPrint('Error completing onboarding: $e');
     }
   }
 
@@ -90,7 +90,7 @@ class AppStateNotifier extends StateNotifier<AppState> {
       
       state = state.copyWith(isDarkMode: newDarkMode);
     } catch (e) {
-      print('Error toggling dark mode: $e');
+      debugPrint('Error toggling dark mode: $e');
     }
   }
 
@@ -101,7 +101,7 @@ class AppStateNotifier extends StateNotifier<AppState> {
       
       state = state.copyWith(selectedLanguage: language);
     } catch (e) {
-      print('Error setting language: $e');
+      debugPrint('Error setting language: $e');
     }
   }
 }

@@ -38,7 +38,7 @@ class AppThemes {
         seedColor: dt.DesignTokens.primaryCoral,
         brightness: Brightness.light,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: dt.DesignTokens.primaryCoral,
         foregroundColor: Colors.white,
         elevation: 0,
