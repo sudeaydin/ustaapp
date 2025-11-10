@@ -136,7 +136,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
           content: Row(
             children: [
               CircularProgressIndicator(),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Text('Tercihler kaydediliyor...'),
             ],
           ),

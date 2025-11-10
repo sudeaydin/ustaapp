@@ -108,7 +108,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
             height: 120,
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondaryColor,
-              borderRadius: BorderRadius.circular(60),
+              borderRadius: const Borderconst Radius.circular(60),
             ),
             child: const Icon(
               Icons.notifications_none,
@@ -144,7 +144,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: notification['isRead'] ? Colors.white : DesignTokens.primaryCoral.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
         border: Border.all(
           color: notification['isRead'] 
               ? DesignTokens.nonPhotoBlue.withOpacity(0.3)
@@ -161,7 +161,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
           child: Padding(
             padding: const EdgeInsets.all(DesignTokens.space16),
@@ -173,7 +173,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                   height: 48,
                   decoration: BoxDecoration(
                     color: notification['color'].withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     notification['icon'],
@@ -286,8 +286,8 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         decoration: const BoxDecoration(
           color: DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: const Radius.circular(20),
+            topRight: const Radius.circular(20),
           ),
         ),
         child: Column(
@@ -298,12 +298,12 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               height: 4,
               decoration: BoxDecoration(
                 color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: const Borderconst Radius.circular(2),
               ),
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: Icon(Icons.mark_email_read, color: DesignTokens.uclaBlue),
+              leading: const Icon(Icons.mark_email_read, color: DesignTokens.uclaBlue),
               title: const Text('Okundu İşaretle'),
               onTap: () {
                 setState(() {
@@ -313,7 +313,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.delete, color: DesignTokens.error),
+              leading: const Icon(Icons.delete, color: DesignTokens.error),
               title: const Text('Bildirimi Sil'),
               onTap: () {
                 setState(() {

@@ -370,7 +370,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['start'] ?? '22:00'),
                             ),
@@ -388,7 +388,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['end'] ?? '08:00'),
                             ),
@@ -593,11 +593,11 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           ] else
             const Card(
               child: Padding(
-                padding: EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32),
                 child: Column(
                   children: [
-                    Icon(Icons.location_off, size: 48, color: Colors.grey),
-                    SizedBox(height: DesignTokens.space16),
+                    const Icon(Icons.location_off, size: 48, color: Colors.grey),
+                    const SizedBox(height: DesignTokens.space16),
                     Text(
                       'Aktif konum paylaşımı yok',
                       style: TextStyle(color: Colors.grey),
@@ -750,10 +750,10 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.settings), text: 'Tercihler'),
-            Tab(icon: Icon(Icons.analytics), text: 'Analitik'),
-            Tab(icon: Icon(Icons.location_on), text: 'Konum'),
-            Tab(icon: Icon(Icons.science), text: 'Test'),
+            Tab(icon: const Icon(Icons.settings), text: 'Tercihler'),
+            Tab(icon: const Icon(Icons.analytics), text: 'Analitik'),
+            Tab(icon: const Icon(Icons.location_on), text: 'Konum'),
+            Tab(icon: const Icon(Icons.science), text: 'Test'),
           ],
         ),
       ),

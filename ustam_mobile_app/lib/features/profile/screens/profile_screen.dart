@@ -122,7 +122,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -139,7 +139,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               ),
               child: Icon(icon, size: 20, color: DesignTokens.primaryCoral),
             ),
@@ -181,13 +181,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
                           decoration: BoxDecoration(
                 color: color ?? Colors.white,
-                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                 border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
                 boxShadow: [
                   BoxShadow(
@@ -203,7 +203,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     icon,
@@ -252,7 +252,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
-                SizedBox(height: DesignTokens.space24),
+                const SizedBox(height: DesignTokens.space24),
                 Text(
                   'Profil yükleniyor...',
                   style: TextStyle(
@@ -308,8 +308,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ],
                     ),
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24),
-                      bottomRight: Radius.circular(24),
+                      bottomLeft: const Radius.circular(24),
+                      bottomRight: const Radius.circular(24),
                     ),
                   ),
                   child: SafeArea(
@@ -325,7 +325,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
+                              borderRadius: const Borderconst Radius.circular(40),
                               border: Border.all(color: DesignTokens.surfacePrimary, width: 4),
                               image: _profileData?['avatar'] != null && 
                                      _profileData!['avatar'].toString().isNotEmpty && 
@@ -368,7 +368,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: const Borderconst Radius.circular(20),
                               border: Border.all(color: DesignTokens.surfacePrimary.withOpacity(0.3)),
                             ),
                             child: const Text(
@@ -389,7 +389,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.edit, color: DesignTokens.surfacePrimary),
+                  icon: const Icon(Icons.edit, color: DesignTokens.surfacePrimary),
                   onPressed: () {
                     // Navigate to edit profile
                   },
@@ -456,7 +456,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary,
-                          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                           border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                           boxShadow: [
                             BoxShadow(
@@ -474,7 +474,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
                                 color: DesignTokens.primaryCoral.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: const Borderconst Radius.circular(20),
                                 border: Border.all(color: DesignTokens.primaryCoral),
                               ),
                               child: Row(
@@ -637,8 +637,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             return AlertDialog(
               title: const Row(
                 children: [
-                  Icon(Icons.warning, color: DesignTokens.error, size: 28),
-                  SizedBox(width: 8),
+                  const Icon(Icons.warning, color: DesignTokens.error, size: 28),
+                  const SizedBox(width: 8),
                   Text('Hesabımı Sil'),
                 ],
               ),

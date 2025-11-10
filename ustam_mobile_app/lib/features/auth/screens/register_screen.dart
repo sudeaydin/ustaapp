@@ -142,13 +142,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         debugPrint('🔥 Register button tapped!'); // Debug print
         _handleRegister();
       },
-      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
       child: Container(
         height: 56,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: DesignTokens.primaryCoralGradient,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         ),
         child: Center(
           child: _isLoading
@@ -221,7 +221,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: const Borderconst Radius.circular(20),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.3),
                         width: 1,
@@ -235,7 +235,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                               ),
                               child: Icon(
                                 widget.userType == 'customer' ? Icons.person : Icons.build,
@@ -386,7 +386,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       padding: const EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                         border: Border.all(
                           color: Colors.white.withOpacity(0.3),
                           width: 1,
@@ -411,7 +411,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               padding: const EdgeInsets.all(DesignTokens.space16),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                                 border: Border.all(
                                   color: Colors.white.withOpacity(0.5),
                                   width: 1,
@@ -453,7 +453,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.3),
                         width: 1,
@@ -533,7 +533,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       boxShadow: [DesignTokens.getElevatedShadow()],
                     ),
                     child: _buildRegisterButton(locale),
@@ -557,7 +557,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: const Borderconst Radius.circular(20),
                             border: Border.all(
                               color: Colors.white.withOpacity(0.3),
                               width: 1,

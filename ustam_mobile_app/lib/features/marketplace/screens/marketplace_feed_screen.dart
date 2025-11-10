@@ -207,7 +207,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: DesignTokens.gray300,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               ),
             ),
             const SizedBox(height: DesignTokens.space8),
@@ -218,7 +218,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
               width: MediaQuery.of(context).size.width * 0.7,
               decoration: BoxDecoration(
                 color: DesignTokens.gray300,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               ),
             ),
             const SizedBox(height: DesignTokens.space16),
@@ -231,7 +231,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
                   width: 80,
                   decoration: BoxDecoration(
                     color: DesignTokens.gray300,
-                    borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                   ),
                 ),
                 const Spacer(),
@@ -240,7 +240,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
                   width: 100,
                   decoration: BoxDecoration(
                     color: DesignTokens.gray300,
-                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                   ),
                 ),
               ],
@@ -273,7 +273,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
               height: 120,
               decoration: BoxDecoration(
                 color: DesignTokens.error.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(60),
+                borderRadius: const Borderconst Radius.circular(60),
               ),
               child: const Icon(
                 Icons.error_outline,

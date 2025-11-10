@@ -176,7 +176,7 @@ class AccessibleButton extends StatelessWidget {
       children: [
         if (isLoading)
           const Padding(
-            padding: EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: SizedBox(
               width: 16,
               height: 16,

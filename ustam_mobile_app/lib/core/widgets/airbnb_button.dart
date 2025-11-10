@@ -44,7 +44,7 @@ class AirbnbButton extends StatelessWidget {
               debugPrint('❌ Button tap ignored - Loading: $isLoading, Callback: ${onPressed != null}');
             }
           },
-          borderRadius: BorderRadius.circular(_getBorderRadius()),
+          borderRadius: const Borderconst Radius.circular(_getBorderRadius()),
           child: Container(
             width: isFullWidth ? double.infinity : null,
             height: _getHeight(),
@@ -134,7 +134,7 @@ class AirbnbButton extends StatelessWidget {
   BoxDecoration _getButtonDecoration() {
     return BoxDecoration(
       color: onPressed == null ? DesignTokens.gray300 : _getBackgroundColor(),
-      borderRadius: BorderRadius.circular(_getBorderRadius()),
+      borderRadius: const Borderconst Radius.circular(_getBorderRadius()),
       border: type == AirbnbButtonType.outline 
           ? Border.all(
               color: onPressed == null ? DesignTokens.gray300 : DesignTokens.primaryCoral,

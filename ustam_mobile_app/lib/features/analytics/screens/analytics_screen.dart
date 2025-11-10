@@ -210,7 +210,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               margin: const EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -235,7 +235,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(),
-                  SizedBox(height: DesignTokens.space16),
+                  const SizedBox(height: DesignTokens.space16),
                   Text('Analitik veriler yükleniyor...'),
                 ],
               ),
@@ -471,7 +471,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfaceSecondary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.gray300),
       ),
       child: Column(
@@ -479,7 +479,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
         children: [
           Row(
             children: [
-              Icon(Icons.lightbulb, color: DesignTokens.warning),
+              const Icon(Icons.lightbulb, color: DesignTokens.warning),
               const SizedBox(width: 8),
               Text(
                 'Performans Önerileri',
@@ -545,7 +545,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(

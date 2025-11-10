@@ -43,8 +43,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
           ),
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(DesignTokens.radius20),
-            bottomRight: Radius.circular(DesignTokens.radius20),
+            bottomLeft: const Radius.circular(DesignTokens.radius20),
+            bottomRight: const Radius.circular(DesignTokens.radius20),
           ),
         ),
       ),
@@ -67,10 +67,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
             ),
             child: IconButton(
-              icon: Icon(Icons.notifications_outlined, color: Colors.white),
+              icon: const Icon(Icons.notifications_outlined, color: Colors.white),
               onPressed: onNotificationTap ?? () {
                 Navigator.pushNamed(context, '/notifications');
               },

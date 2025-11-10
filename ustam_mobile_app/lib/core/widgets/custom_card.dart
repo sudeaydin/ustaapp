@@ -39,7 +39,7 @@ class CustomCard extends StatelessWidget {
     if (onTap != null) {
       cardContent = InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(borderRadiusValue),
+        borderRadius: const Borderconst Radius.circular(borderRadiusValue),
         child: cardContent,
       );
     }
@@ -55,7 +55,7 @@ class CustomCard extends StatelessWidget {
       case CardType.elevated:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: BorderRadius.circular(borderRadiusValue),
+          borderRadius: const Borderconst Radius.circular(borderRadiusValue),
           boxShadow: [
             DesignTokens.getCardShadow(blurRadius: elevation ?? AppConfig.cardElevation * 4),
           ],
@@ -63,12 +63,12 @@ class CustomCard extends StatelessWidget {
       case CardType.flat:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: BorderRadius.circular(borderRadiusValue),
+          borderRadius: const Borderconst Radius.circular(borderRadiusValue),
         );
       case CardType.outlined:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: BorderRadius.circular(borderRadiusValue),
+          borderRadius: const Borderconst Radius.circular(borderRadiusValue),
           border: Border.all(
             color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
@@ -121,7 +121,7 @@ class MessageCard extends StatelessWidget {
           ? DesignTokens.primaryCoral.withOpacity(0.1)
           : DesignTokens.surfacePrimary,
       padding: const EdgeInsets.all(12),
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: isOwn ? 50 : 0,
         right: isOwn ? 0 : 50,
         bottom: 8,

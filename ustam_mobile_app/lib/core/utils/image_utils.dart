@@ -174,7 +174,7 @@ class AvatarWidget extends StatelessWidget {
         imageUrl: imageUrl!,
         width: size,
         height: size,
-        borderRadius: BorderRadius.circular(size / 2),
+        borderRadius: const Borderconst Radius.circular(size / 2),
         errorWidget: _buildFallbackAvatar(),
       );
     }
@@ -188,7 +188,7 @@ class AvatarWidget extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.grey[300],
-        borderRadius: BorderRadius.circular(size / 2),
+        borderRadius: const Borderconst Radius.circular(size / 2),
       ),
       child: Center(
         child: Text(
@@ -250,7 +250,7 @@ class ImageGallery extends StatelessWidget {
           onTap: onImageTap != null ? () => onImageTap!(index) : null,
           child: OptimizedNetworkImage(
             imageUrl: imageUrls[index],
-            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+            borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
           ),
         );
       },

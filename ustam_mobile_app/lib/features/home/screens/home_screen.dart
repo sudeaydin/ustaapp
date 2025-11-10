@@ -48,7 +48,7 @@ class HomeScreen extends ConsumerWidget {
                         height: 45,
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                           boxShadow: [
                             BoxShadow(
                               color: DesignTokens.surfacePrimary.withOpacity(0.3),
@@ -79,10 +79,10 @@ class HomeScreen extends ConsumerWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                         ),
                         child: PopupMenuButton<String>(
-                          icon: Icon(Icons.more_vert, color: DesignTokens.surfacePrimary),
+                          icon: const Icon(Icons.more_vert, color: DesignTokens.surfacePrimary),
                           onSelected: (value) {
                             switch (value) {
                               case 'profile':
@@ -99,8 +99,8 @@ class HomeScreen extends ConsumerWidget {
                               value: 'profile',
                               child: Row(
                                 children: [
-                                  Icon(Icons.person_outlined),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.person_outlined),
+                                  const SizedBox(width: 8),
                                   Text('Profil'),
                                 ],
                               ),
@@ -109,8 +109,8 @@ class HomeScreen extends ConsumerWidget {
                               value: 'logout',
                               child: Row(
                                 children: [
-                                  Icon(Icons.logout),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.logout),
+                                  const SizedBox(width: 8),
                                   Text('Çıkış Yap'),
                                 ],
                               ),
@@ -310,7 +310,7 @@ class HomeScreen extends ConsumerWidget {
                       ? [color.withOpacity(0.25), color.withOpacity(0.12)]
                       : [color.withOpacity(0.15), color.withOpacity(0.08)],
                 ),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: const Borderconst Radius.circular(20),
                 border: Border.all(
                   color: isPressed 
                     // ignore: dead_code
@@ -349,7 +349,7 @@ class HomeScreen extends ConsumerWidget {
                       ? [color.withOpacity(0.35), color.withOpacity(0.25)]
                       : [color.withOpacity(0.2), color.withOpacity(0.1)],
                 ),
-                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                 boxShadow: (isHovered || isPressed) ? [
                   BoxShadow(
                     color: color.withOpacity(isPressed ? 0.4 : 0.3),
@@ -496,7 +496,7 @@ class HomeScreen extends ConsumerWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         child: Padding(
           padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
@@ -573,7 +573,7 @@ class HomeScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(right: 16),
             child: InkWell(
               onTap: () => context.go('/search'),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               child: Column(
                 children: [
                   Container(
@@ -581,7 +581,7 @@ class HomeScreen extends ConsumerWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       color: (category['color'] as Color).withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                     ),
                     child: Icon(
                       category['icon'] as IconData,
@@ -633,7 +633,7 @@ class HomeScreen extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         gradient: gradient,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const Borderconst Radius.circular(20),
         boxShadow: [
           BoxShadow(
             color: shadowColor.withOpacity(0.3),

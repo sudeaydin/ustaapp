@@ -42,7 +42,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             DesignTokens.primaryCoral.withOpacity(0.1),
           ],
         ),
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
         border: Border.all(
           color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
@@ -167,7 +167,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
               height: 8,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: const Borderconst Radius.circular(4),
               ),
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
@@ -175,7 +175,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral,
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: const Borderconst Radius.circular(4),
                   ),
                 ),
               ),
@@ -277,7 +277,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         border: Border.all(
           color: color.withOpacity(0.2),
         ),

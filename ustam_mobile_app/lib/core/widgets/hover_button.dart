@@ -98,7 +98,7 @@ class _HoverButtonState extends State<HoverButton>
               scale: _scaleAnimation.value,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: widget.borderRadius ?? BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: widget.borderRadius ?? const Borderconst Radius.circular(DesignTokens.radius8),
                   color: (widget.hoverColor ?? DesignTokens.primaryCoral)
                       .withOpacity(_opacityAnimation.value),
                   boxShadow: _isHovered

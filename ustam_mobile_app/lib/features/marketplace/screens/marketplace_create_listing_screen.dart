@@ -199,7 +199,7 @@ class _MarketplaceCreateListingScreenState
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: const Borderconst Radius.circular(24),
                 ),
                 child: const Icon(
                   Icons.add_business_rounded,
@@ -220,7 +220,7 @@ class _MarketplaceCreateListingScreenState
                         color: DesignTokens.gray900,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       'İhtiyacınızı paylaşın, teklifler alın',
                       style: TextStyle(
@@ -340,7 +340,7 @@ class _MarketplaceCreateListingScreenState
                     color: isSelected
                         ? DesignTokens.primaryCoral
                         : DesignTokens.gray100,
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                     border: Border.all(
                       color: isSelected
                           ? DesignTokens.primaryCoral
@@ -396,7 +396,7 @@ class _MarketplaceCreateListingScreenState
           // City dropdown
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               border: Border.all(
                 color: DesignTokens.gray300,
                 width: 1,
@@ -473,7 +473,7 @@ class _MarketplaceCreateListingScreenState
                       color: _selectedBudgetType == 'fixed'
                           ? DesignTokens.primaryCoral.withOpacity(0.1)
                           : DesignTokens.gray100,
-                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                       border: Border.all(
                         color: _selectedBudgetType == 'fixed'
                             ? DesignTokens.primaryCoral
@@ -518,7 +518,7 @@ class _MarketplaceCreateListingScreenState
                       color: _selectedBudgetType == 'range'
                           ? DesignTokens.primaryCoral.withOpacity(0.1)
                           : DesignTokens.gray100,
-                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                       border: Border.all(
                         color: _selectedBudgetType == 'range'
                             ? DesignTokens.primaryCoral
@@ -667,7 +667,7 @@ class _MarketplaceCreateListingScreenState
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.gray50,
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       border: Border.all(
                         color: DesignTokens.gray300,
                         width: 1,
@@ -719,7 +719,7 @@ class _MarketplaceCreateListingScreenState
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.gray50,
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       border: Border.all(
                         color: DesignTokens.gray300,
                         width: 1,
@@ -803,7 +803,7 @@ class _MarketplaceCreateListingScreenState
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.2),
                 width: 1,
@@ -829,7 +829,7 @@ class _MarketplaceCreateListingScreenState
                           color: DesignTokens.gray900,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         'İlanınız tüm ustaların görebileceği pazar yerinde yayınlanacak',
                         style: TextStyle(
@@ -867,7 +867,7 @@ class _MarketplaceCreateListingScreenState
             padding: const EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.info.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               border: Border.all(
                 color: DesignTokens.info.withOpacity(0.2),
                 width: 1,

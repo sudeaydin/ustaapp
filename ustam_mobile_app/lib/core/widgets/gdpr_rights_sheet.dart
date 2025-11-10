@@ -111,7 +111,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
           content: Row(
             children: [
               CircularProgressIndicator(),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Text('İşlem gerçekleştiriliyor...'),
             ],
           ),

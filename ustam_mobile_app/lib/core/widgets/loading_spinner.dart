@@ -70,7 +70,7 @@ class LoadingOverlay extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: const Borderconst Radius.circular(10),
                 ),
                 child: LoadingSpinner(
                   message: message ?? 'Yükleniyor...',

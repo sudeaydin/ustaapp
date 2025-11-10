@@ -49,8 +49,8 @@ class AppTheme {
         ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
+            bottomLeft: const Radius.circular(16),
+            bottomRight: const Radius.circular(16),
           ),
         ),
       ),
@@ -164,7 +164,7 @@ class AppTheme {
         elevation: 2,
         shadowColor: dt.DesignTokens.shadowLight,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
         ),
         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
       ),
@@ -179,7 +179,7 @@ class AppTheme {
           elevation: 4,
           shadowColor: dt.DesignTokens.shadowMedium,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: const TextStyle(
@@ -196,7 +196,7 @@ class AppTheme {
           disabledForegroundColor: dt.DesignTokens.textMuted,
           side: BorderSide(color: dt.DesignTokens.primaryCoral, width: 2),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: const TextStyle(
@@ -212,7 +212,7 @@ class AppTheme {
           foregroundColor: dt.DesignTokens.primaryCoral,
           disabledForegroundColor: dt.DesignTokens.textMuted,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           textStyle: const TextStyle(
@@ -227,35 +227,35 @@ class AppTheme {
         filled: true,
         fillColor: dt.DesignTokens.surfacePrimary,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.primaryCoral,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.error,
             width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.error,
             width: 2,
@@ -299,7 +299,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 6,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
         ),
       ),
       
@@ -319,7 +319,7 @@ class AppTheme {
         secondaryLabelStyle: TextStyle(color: dt.DesignTokens.gray600),
         brightness: Brightness.light,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius8),
           side: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
           ),
@@ -332,7 +332,7 @@ class AppTheme {
         elevation: 8,
         shadowColor: dt.DesignTokens.shadowMedium,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
         ),
         titleTextStyle: TextStyle(
           color: dt.DesignTokens.gray900,
@@ -354,7 +354,7 @@ class AppTheme {
           fontSize: 14,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
         ),
         behavior: SnackBarBehavior.floating,
         elevation: 6,
@@ -416,7 +416,7 @@ class AppTheme {
         elevation: 4,
         shadowColor: dt.DesignTokens.shadowDark,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
         ),
       ),
     );
@@ -431,7 +431,7 @@ class AppTheme {
   // Custom decoration helpers
   static BoxDecoration get neuomorphicDecoration => BoxDecoration(
     color: dt.DesignTokens.surfacePrimary,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
     boxShadow: [
       BoxShadow(
         color: dt.DesignTokens.shadowLight,
@@ -450,7 +450,7 @@ class AppTheme {
 
   static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
     color: dt.DesignTokens.surfacePrimary,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
     boxShadow: [
       BoxShadow(
         color: dt.DesignTokens.shadowMedium,
@@ -464,13 +464,13 @@ class AppTheme {
   // Gradient decorations
   static BoxDecoration get primaryGradientDecoration => BoxDecoration(
     gradient: dt.DesignTokens.primaryCoralGradient,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
     boxShadow: [dt.DesignTokens.getElevatedShadow()],
   );
 
   static BoxDecoration get accentGradientDecoration => BoxDecoration(
     gradient: dt.DesignTokens.getGradient(dt.DesignTokens.accentGradient),
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
     boxShadow: [dt.DesignTokens.getElevatedShadow()],
   );
 

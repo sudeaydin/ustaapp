@@ -110,7 +110,7 @@ class MarketplaceOfferCard extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: DesignTokens.info.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: const Borderconst Radius.circular(8),
                               ),
                               child: Text(
                                 offer.provider!.speciality!,
@@ -233,7 +233,7 @@ class MarketplaceOfferCard extends StatelessWidget {
               padding: const EdgeInsets.all(DesignTokens.space12),
               decoration: BoxDecoration(
                 color: DesignTokens.gray50,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                 border: Border.all(
                   color: DesignTokens.gray200,
                   width: 1,
@@ -313,7 +313,7 @@ class MarketplaceOfferCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

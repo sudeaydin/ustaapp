@@ -78,7 +78,7 @@ class ErrorCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.error, color: DesignTokens.error),
+                const Icon(Icons.error, color: DesignTokens.error),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(

@@ -113,7 +113,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               page.color.withOpacity(0.1),
                               page.color.withOpacity(0.05),
                             ]),
-                            borderRadius: BorderRadius.circular(35),
+                            borderRadius: const Borderconst Radius.circular(35),
                             border: Border.all(
                               color: page.color.withOpacity(0.3),
                               width: 2,
@@ -191,7 +191,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           color: _currentPage == index 
                               ? DesignTokens.uclaBlue
                               : DesignTokens.nonPhotoBlue.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: const Borderconst Radius.circular(4),
                         ),
                       ),
                     ),
@@ -205,7 +205,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     height: 64,
                     decoration: BoxDecoration(
                       gradient: DesignTokens.primaryCoralGradient,
-                      borderRadius: BorderRadius.circular(32),
+                      borderRadius: const Borderconst Radius.circular(32),
                       boxShadow: [
                         BoxShadow(
                           color: DesignTokens.uclaBlue.withOpacity(0.4),

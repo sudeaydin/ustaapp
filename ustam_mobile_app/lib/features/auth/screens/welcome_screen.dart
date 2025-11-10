@@ -47,7 +47,7 @@ class WelcomeScreen extends ConsumerWidget {
                       height: 120,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral,
-                        borderRadius: BorderRadius.circular(DesignTokens.radius24),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius24),
                         boxShadow: DesignTokens.shadowElevated,
                       ),
                       child: Icon(
@@ -57,7 +57,7 @@ class WelcomeScreen extends ConsumerWidget {
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space24),
+                    const SizedBox(height: DesignTokens.space24),
                     
                     // Main title - iOS Large Title Style
                     Text(
@@ -69,7 +69,7 @@ class WelcomeScreen extends ConsumerWidget {
                       textAlign: TextAlign.center,
                     ),
                     
-                    SizedBox(height: DesignTokens.space12),
+                    const SizedBox(height: DesignTokens.space12),
                     
                     // Subtitle - iOS Body Style
                     Text(
@@ -105,14 +105,14 @@ class WelcomeScreen extends ConsumerWidget {
                               Icons.person_outline,
                               size: DesignTokens.iconSize20,
                             ),
-                            SizedBox(width: DesignTokens.space8),
+                            const SizedBox(width: DesignTokens.space8),
                             Text('Müşteri Girişi Yap'),
                           ],
                         ),
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space16),
+                    const SizedBox(height: DesignTokens.space16),
                     
                     // Craftsman Login Button - Secondary Style
                     SizedBox(
@@ -129,14 +129,14 @@ class WelcomeScreen extends ConsumerWidget {
                               Icons.handyman_outlined,
                               size: DesignTokens.iconSize20,
                             ),
-                            SizedBox(width: DesignTokens.space8),
+                            const SizedBox(width: DesignTokens.space8),
                             Text('Usta Girişi Yap'),
                           ],
                         ),
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space24),
+                    const SizedBox(height: DesignTokens.space24),
                     
                     // Register link - Tertiary Style
                     TextButton(

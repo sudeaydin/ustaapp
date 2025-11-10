@@ -63,8 +63,8 @@ class EmergencyServiceCard extends StatelessWidget {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, size: 20),
-                    SizedBox(width: 8),
+                    const Icon(Icons.phone, size: 20),
+                    const SizedBox(width: 8),
                     Text('Acil Servis Çağır'),
                   ],
                 ),

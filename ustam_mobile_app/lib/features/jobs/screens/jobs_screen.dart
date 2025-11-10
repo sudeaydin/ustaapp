@@ -40,7 +40,7 @@ class JobsScreen extends ConsumerWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                         ),
                         child: const Icon(
                           Icons.work_outline,
@@ -62,10 +62,10 @@ class JobsScreen extends ConsumerWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.filter_list, color: DesignTokens.surfacePrimary),
+                          icon: const Icon(Icons.filter_list, color: DesignTokens.surfacePrimary),
                           onPressed: () {
                             // Show filter options
                           },
@@ -86,7 +86,7 @@ class JobsScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               gradient: AppTheme.cardGradient,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: const Borderconst Radius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: AppTheme.shadowDark,
@@ -130,11 +130,11 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
                       Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
                       const SizedBox(width: DesignTokens.space16),
-                      Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
                       Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
@@ -152,7 +152,7 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
                       Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
@@ -161,7 +161,7 @@ class JobsScreen extends ConsumerWidget {
                           gradient: LinearGradient(
                             colors: [AppTheme.primaryColor, AppTheme.primaryLight],
                           ),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                           boxShadow: [
                             BoxShadow(
                               color: AppTheme.primaryColor.withOpacity(0.3),
@@ -178,7 +178,7 @@ class JobsScreen extends ConsumerWidget {
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                             ),
                           ),
                           child: const Text(
@@ -205,7 +205,7 @@ class JobsScreen extends ConsumerWidget {
       floatingActionButton: Container(
         decoration: BoxDecoration(
           gradient: AppTheme.primaryGradient,
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: const Borderconst Radius.circular(28),
           boxShadow: [
             BoxShadow(
               color: AppTheme.primaryColor.withOpacity(0.4),
@@ -229,7 +229,7 @@ class JobsScreen extends ConsumerWidget {
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: Icon(Icons.add, color: DesignTokens.surfacePrimary, size: 28),
+          child: const Icon(Icons.add, color: DesignTokens.surfacePrimary, size: 28),
         ),
       ),
     );
@@ -337,7 +337,7 @@ class JobsScreen extends ConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: gradient,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const Borderconst Radius.circular(20),
         boxShadow: [
           BoxShadow(
             color: gradient.colors.first.withOpacity(0.3),

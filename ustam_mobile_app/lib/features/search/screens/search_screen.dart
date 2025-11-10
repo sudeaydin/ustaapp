@@ -130,7 +130,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                         border: Border.all(
                           color: Colors.grey.withOpacity(0.3),
                           width: 1,
@@ -220,7 +220,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const Borderconst Radius.circular(20),
         border: Border.all(
           color: Colors.white.withOpacity(0.3),
           width: 1,

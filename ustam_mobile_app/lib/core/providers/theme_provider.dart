@@ -47,7 +47,7 @@ class AppThemes {
         color: dt.DesignTokens.surfaceSecondaryColor,
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -55,7 +55,7 @@ class AppThemes {
           backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
+            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),
@@ -84,7 +84,7 @@ class AppThemes {
         color: Color(0xFF1E293B),
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(const Radius.circular(12)),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -92,7 +92,7 @@ class AppThemes {
           backgroundColor: dt.DesignTokens.primaryCoral,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
+            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius8),
           ),
         ),
       ),

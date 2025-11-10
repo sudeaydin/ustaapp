@@ -76,11 +76,11 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
               tabs: const [
                 Tab(
                   text: 'Değerlendirmeler',
-                  icon: Icon(Icons.rate_review),
+                  icon: const Icon(Icons.rate_review),
                 ),
                 Tab(
                   text: 'İstatistikler',
-                  icon: Icon(Icons.analytics),
+                  icon: const Icon(Icons.analytics),
                 ),
               ],
             ),

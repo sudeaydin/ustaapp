@@ -89,7 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(AppConfig.defaultBorderRadius),
+            borderRadius: const Borderconst Radius.circular(AppConfig.defaultBorderRadius),
             border: Border.all(
               color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
               width: 1,
@@ -235,10 +235,10 @@ class SearchTextField extends StatelessWidget {
       hint: hint,
       onChanged: onChanged,
       controller: controller,
-      prefixIcon: Icon(Icons.search, color: DesignTokens.textMuted),
+      prefixIcon: const Icon(Icons.search, color: DesignTokens.textMuted),
       suffixIcon: onClear != null
           ? IconButton(
-              icon: Icon(Icons.clear, color: DesignTokens.textMuted),
+              icon: const Icon(Icons.clear, color: DesignTokens.textMuted),
               onPressed: onClear,
             )
           : null,

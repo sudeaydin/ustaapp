@@ -227,7 +227,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 height: 50,
                 decoration: BoxDecoration(
                   color: DesignTokens.gray300,
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                 ),
                 child: const Icon(
                   Icons.person,
@@ -260,7 +260,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: DesignTokens.success,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: const Borderconst Radius.circular(4),
                             ),
                             child: const Text(
                               'SEÇİLDİ',
@@ -277,7 +277,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: DesignTokens.gray500,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: const Borderconst Radius.circular(4),
                             ),
                             child: const Text(
                               'REDDEDİLDİ',
@@ -435,7 +435,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.gray200,
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: const Borderconst Radius.circular(6),
                   ),
                   child: const Text(
                     'Reddedildi',
@@ -452,7 +452,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.warning.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: const Borderconst Radius.circular(6),
                   ),
                   child: const Text(
                     'İlan Kapandı',

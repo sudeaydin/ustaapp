@@ -146,7 +146,7 @@ class CraftsmanCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       ),
                       child: Text(
                         skill.toString(),
@@ -188,7 +188,7 @@ class CraftsmanCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                       ),
                       child: Text(
                         '₺${craftsman['hourly_rate']}/saat',
@@ -242,7 +242,7 @@ class CraftsmanCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.red.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

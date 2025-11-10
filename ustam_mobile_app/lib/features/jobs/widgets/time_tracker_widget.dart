@@ -55,7 +55,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
             padding: const EdgeInsets.all(DesignTokens.space24),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius16),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
             ),
             child: Column(
               children: [

@@ -562,8 +562,8 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               colors: [DesignTokens.primaryCoral, DesignTokens.primaryCoralDark],
             ),
             borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
+              bottomLeft: const Radius.circular(20),
+              bottomRight: const Radius.circular(20),
             ),
           ),
         ),
@@ -577,7 +577,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: const Borderconst Radius.circular(20),
                 image: DecorationImage(
                   image: NetworkImage(widget.conversation['avatar']),
                   fit: BoxFit.cover,
@@ -611,11 +611,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.call, color: DesignTokens.gray900),
+            icon: const Icon(Icons.call, color: DesignTokens.gray900),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.more_vert, color: DesignTokens.gray900),
+            icon: const Icon(Icons.more_vert, color: DesignTokens.gray900),
             onPressed: () {},
           ),
         ],
@@ -650,13 +650,13 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   child: Container(
                     decoration: BoxDecoration(
                       color: DesignTokens.surfaceSecondaryColor,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: const Borderconst Radius.circular(24),
                     ),
                     child: TextField(
                       controller: _messageController,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         hintText: 'Mesajınızı yazın...',
                         hintStyle: TextStyle(color: DesignTokens.textMuted),
                       ),
@@ -670,10 +670,10 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   height: 48,
                   decoration: BoxDecoration(
                     color: DesignTokens.uclaBlue,
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: const Borderconst Radius.circular(24),
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.send, color: DesignTokens.surfacePrimary, size: 20),
+                    icon: const Icon(Icons.send, color: DesignTokens.surfacePrimary, size: 20),
                     onPressed: _sendMessage,
                   ),
                 ),
@@ -698,7 +698,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                 image: DecorationImage(
                   image: NetworkImage(widget.conversation['avatar']),
                   fit: BoxFit.cover,
@@ -712,7 +712,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: _getMessageBackgroundColor(message, isMe),
-                borderRadius: BorderRadius.circular(20).copyWith(
+                borderRadius: const Borderconst Radius.circular(20).copyWith(
                   bottomLeft: isMe ? const Radius.circular(20) : const Radius.circular(4),
                   bottomRight: isMe ? const Radius.circular(4) : const Radius.circular(20),
                 ),
@@ -767,7 +767,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.success.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: const Text(
@@ -789,7 +789,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.error.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: const Text(
@@ -811,7 +811,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                                 elevation: 3,
                                 shadowColor: DesignTokens.info.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
                               child: const Text(
@@ -1151,7 +1151,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            Icon(Icons.payment, color: DesignTokens.success),
+            const Icon(Icons.payment, color: DesignTokens.success),
             const SizedBox(width: 8),
             const Text('Ödeme'),
           ],
@@ -1164,7 +1164,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: const Color(0xFFF0FDF4),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                 border: Border.all(color: DesignTokens.success),
               ),
               child: Column(
@@ -1215,12 +1215,12 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: DesignTokens.uclaBlue),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               ),
               child: const Row(
                 children: [
-                  Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
-                  SizedBox(width: 8),
+                  const Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
+                  const SizedBox(width: 8),
                   Text('Kredi Kartı ile Öde'),
                 ],
               ),
@@ -1257,8 +1257,8 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: const Row(
           children: [
-            Icon(Icons.check_circle, color: DesignTokens.success, size: 28),
-            SizedBox(width: 8),
+            const Icon(Icons.check_circle, color: DesignTokens.success, size: 28),
+            const SizedBox(width: 8),
             Text('✅ Ödeme Başarılı'),
           ],
         ),
@@ -1270,7 +1270,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               size: 64,
               color: DesignTokens.success,
             ),
-            SizedBox(height: DesignTokens.space16),
+            const SizedBox(height: DesignTokens.space16),
             Text(
               'Ödemeniz başarıyla tamamlandı!',
               style: TextStyle(
@@ -1279,7 +1279,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'İş süreci başladı. Usta ile iletişimde kalabilirsiniz.',
               style: TextStyle(

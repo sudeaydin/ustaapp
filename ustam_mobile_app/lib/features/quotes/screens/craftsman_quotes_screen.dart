@@ -105,7 +105,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             size: 80,
             color: DesignTokens.textMuted,
           ),
-          SizedBox(height: DesignTokens.space16),
+          const SizedBox(height: DesignTokens.space16),
           Text(
             'Henüz Teklif Yok',
             style: TextStyle(
@@ -114,7 +114,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               color: DesignTokens.gray600,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Müşterilerden gelen teklif talepleri\nburada görünecek',
             style: TextStyle(
@@ -133,7 +133,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
         border: Border.all(color: _getStatusBorderColor(quote['status'])),
         boxShadow: [
           BoxShadow(
@@ -155,7 +155,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _getStatusBackgroundColor(quote['status']),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -196,7 +196,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   height: 40,
                   decoration: BoxDecoration(
                     color: DesignTokens.uclaBlue,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const Borderconst Radius.circular(20),
                   ),
                   child: Center(
                     child: Text(
@@ -240,7 +240,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: DesignTokens.surfacePrimary,
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +290,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                   border: Border.all(color: DesignTokens.primaryCoral),
                 ),
                 child: Column(
@@ -526,7 +526,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                      borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -599,7 +599,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
                             children: [
@@ -638,7 +638,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                            borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
                             children: [

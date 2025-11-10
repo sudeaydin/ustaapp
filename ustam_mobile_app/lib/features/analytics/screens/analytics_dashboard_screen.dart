@@ -266,7 +266,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               height: 32,
                               decoration: BoxDecoration(
                                 color: AnalyticsDashboardConstants.chartColors['primary'],
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                               ),
                               child: Center(
                                 child: Text(
@@ -374,7 +374,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: activityData.statusColor.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     _manager.getStatusText(activityData.status),
@@ -465,7 +465,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
               const SizedBox(height: DesignTokens.space16),
               const Center(
                 child: Padding(
-                  padding: EdgeInsets.all(DesignTokens.space16),
+                  padding: const EdgeInsets.all(DesignTokens.space16),
                   child: Text('Cost Calculator - Coming Soon'),
                 ),
               ),
@@ -541,7 +541,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       padding: const EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                       ),
                       child: Row(
                         children: [
@@ -757,12 +757,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
   Widget build(BuildContext context) {
     final user = ref.watch(authProvider);
     final tabs = [
-      const Tab(icon: Icon(Icons.dashboard), text: 'Genel'),
-      const Tab(icon: Icon(Icons.trending_up), text: 'Trendler'),
-      const Tab(icon: Icon(Icons.calculate), text: 'Hesaplayıcı'),
+      const Tab(icon: const Icon(Icons.dashboard), text: 'Genel'),
+      const Tab(icon: const Icon(Icons.trending_up), text: 'Trendler'),
+      const Tab(icon: const Icon(Icons.calculate), text: 'Hesaplayıcı'),
       if (user?.userType == 'admin') ...[
-        const Tab(icon: Icon(Icons.business), text: 'İş'),
-        const Tab(icon: Icon(Icons.public), text: 'Platform'),
+        const Tab(icon: const Icon(Icons.business), text: 'İş'),
+        const Tab(icon: const Icon(Icons.public), text: 'Platform'),
       ],
     ];
 

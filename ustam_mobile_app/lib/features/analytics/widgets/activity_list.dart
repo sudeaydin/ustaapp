@@ -16,7 +16,7 @@ class ActivityList extends StatelessWidget {
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
           color: DesignTokens.surfaceSecondary,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
           border: Border.all(color: DesignTokens.gray300),
         ),
         child: Center(
@@ -44,14 +44,14 @@ class ActivityList extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: DesignTokens.surfaceSecondary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.gray300),
       ),
       child: ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: activities.length,
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: DesignTokens.gray300,
           height: 1,
         ),
@@ -75,7 +75,7 @@ class ActivityList extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: _getActivityColor(type).withOpacity(0.1),
-          borderRadius: BorderRadius.circular(DesignTokens.radius8),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
         ),
         child: Icon(
           _getActivityIcon(type),
@@ -103,7 +103,7 @@ class ActivityList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: DesignTokens.success.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: const Borderconst Radius.circular(6),
               ),
               child: Text(
                 amount,

@@ -49,8 +49,8 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   value: 'edit',
                   child: Row(
                     children: [
-                      Icon(Icons.edit, size: 20),
-                      SizedBox(width: 8),
+                      const Icon(Icons.edit, size: 20),
+                      const SizedBox(width: 8),
                       Text('Düzenle'),
                     ],
                   ),
@@ -59,8 +59,8 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   value: 'delete',
                   child: Row(
                     children: [
-                      Icon(Icons.delete, size: 20, color: Colors.red),
-                      SizedBox(width: 8),
+                      const Icon(Icons.delete, size: 20, color: Colors.red),
+                      const SizedBox(width: 8),
                       Text('Sil', style: TextStyle(color: Colors.red)),
                     ],
                   ),

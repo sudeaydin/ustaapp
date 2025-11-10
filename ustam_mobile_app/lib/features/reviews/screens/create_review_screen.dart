@@ -107,7 +107,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.primaryCoral.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         border: Border.all(
           color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
@@ -162,7 +162,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.2)),
       ),
       child: Column(
@@ -189,7 +189,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const Borderconst Radius.circular(20),
                   ),
                   child: Text(
                     _getRatingText(_overallRating),

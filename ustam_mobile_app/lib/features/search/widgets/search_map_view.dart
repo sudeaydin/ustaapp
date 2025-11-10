@@ -44,7 +44,7 @@ class _SearchMapViewState extends State<SearchMapView> {
                   height: 200,
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
                     border: Border.all(
                       color: DesignTokens.primaryCoral.withOpacity(0.3),
                       width: 2,
@@ -124,7 +124,7 @@ class _SearchMapViewState extends State<SearchMapView> {
 
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
+      shape: RoundedRectangleBorder(borderRadius: const Borderconst Radius.circular(DesignTokens.radius12)),
       child: Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
@@ -199,7 +199,7 @@ class _SearchMapViewState extends State<SearchMapView> {
   Widget _buildMapLegend() {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
+      shape: RoundedRectangleBorder(borderRadius: const Borderconst Radius.circular(DesignTokens.radius12)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

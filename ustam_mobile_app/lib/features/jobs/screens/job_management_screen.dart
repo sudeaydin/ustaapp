@@ -375,24 +375,24 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           indicatorColor: Colors.white,
           tabs: [
             const Tab(
-              icon: Icon(Icons.work),
+              icon: const Icon(Icons.work),
               text: 'Aktif',
             ),
             const Tab(
-              icon: Icon(Icons.check_circle),
+              icon: const Icon(Icons.check_circle),
               text: 'Tamamlanan',
             ),
             const Tab(
-              icon: Icon(Icons.security),
+              icon: const Icon(Icons.security),
               text: 'Garantiler',
             ),
             const Tab(
-              icon: Icon(Icons.list),
+              icon: const Icon(Icons.list),
               text: 'Tümü',
             ),
             if (!isCustomer)
               const Tab(
-                icon: Icon(Icons.emergency),
+                icon: const Icon(Icons.emergency),
                 text: 'Acil Servis',
               ),
           ],
@@ -456,7 +456,7 @@ class _MetricCard extends StatelessWidget {
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -474,7 +474,7 @@ class _MetricCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,

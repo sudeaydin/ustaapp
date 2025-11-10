@@ -68,7 +68,7 @@ class AirbnbBottomNavigation extends StatelessWidget {
               color: isSelected 
                   ? DesignTokens.primaryCoral.withOpacity(0.1)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
             ),
             child: Icon(
               isSelected ? item.activeIcon : item.icon,

@@ -67,7 +67,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           Container(
             decoration: BoxDecoration(
               color: DesignTokens.gray100,
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
             ),
             child: TextField(
               controller: _searchController,
@@ -170,7 +170,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
         ),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
           border: Border.all(
             color: isSelected 
                 ? (color ?? DesignTokens.primaryCoral)
@@ -258,8 +258,8 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
       decoration: const BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(DesignTokens.radius24),
-          topRight: Radius.circular(DesignTokens.radius24),
+          topLeft: const Radius.circular(DesignTokens.radius24),
+          topRight: const Radius.circular(DesignTokens.radius24),
         ),
       ),
       child: Column(
@@ -272,7 +272,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
             margin: const EdgeInsets.only(top: DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.gray300,
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: const Borderconst Radius.circular(2),
             ),
           ),
 
@@ -330,8 +330,8 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           decoration: const BoxDecoration(
             color: DesignTokens.surfacePrimary,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(DesignTokens.radius24),
-              topRight: Radius.circular(DesignTokens.radius24),
+              topLeft: const Radius.circular(DesignTokens.radius24),
+              topRight: const Radius.circular(DesignTokens.radius24),
             ),
           ),
           child: Padding(
@@ -346,7 +346,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                   margin: const EdgeInsets.only(bottom: DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.gray300,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: const Borderconst Radius.circular(2),
                   ),
                 ),
 
@@ -408,7 +408,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: DesignTokens.space12),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                       ),
                     ),
                     child: const Text('Uygula'),

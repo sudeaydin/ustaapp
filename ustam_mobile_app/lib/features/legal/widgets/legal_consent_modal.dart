@@ -29,7 +29,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: const Borderconst Radius.circular(16),
       ),
       child: Container(
         width: double.infinity,
@@ -47,7 +47,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                   height: 40,
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: const Borderconst Radius.circular(10),
                   ),
                   child: const Icon(
                     Icons.gavel,
@@ -203,7 +203,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const Borderconst Radius.circular(12),
         border: Border.all(
           color: isAccepted 
               ? DesignTokens.primaryCoral.withOpacity(0.3)

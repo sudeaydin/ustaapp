@@ -244,14 +244,14 @@ class DesignTokens {
   static const double elevation24 = 24.0;
   
   // Spacing shortcuts
-  static const SizedBox verticalSpaceXS = SizedBox(height: space4);
-  static const SizedBox verticalSpaceSM = SizedBox(height: space8);
-  static const SizedBox verticalSpaceMD = SizedBox(height: space16);
-  static const SizedBox horizontalSpaceXS = SizedBox(width: space4);
-  static const SizedBox horizontalSpaceSM = SizedBox(width: space8);
-  static const SizedBox horizontalSpaceMD = SizedBox(width: space16);
-  static const EdgeInsets spacingCardPaddingInsets = EdgeInsets.all(space16);
-  static const EdgeInsets spacingScreenEdgeInsets = EdgeInsets.all(spacingScreenEdge);
+  static const SizedBox verticalSpaceXS = const SizedBox(height: space4);
+  static const SizedBox verticalSpaceSM = const SizedBox(height: space8);
+  static const SizedBox verticalSpaceMD = const SizedBox(height: space16);
+  static const SizedBox horizontalSpaceXS = const SizedBox(width: space4);
+  static const SizedBox horizontalSpaceSM = const SizedBox(width: space8);
+  static const SizedBox horizontalSpaceMD = const SizedBox(width: space16);
+  static const EdgeInsets spacingCardPaddingInsets = const EdgeInsets.all(space16);
+  static const EdgeInsets spacingScreenEdgeInsets = const EdgeInsets.all(spacingScreenEdge);
   
   // ========================================
   // HELPER METHODS
@@ -320,7 +320,7 @@ class DesignTokens {
       foregroundColor: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius12),
+        borderRadius: const Borderconst Radius.circular(radius12),
       ),
     );
   }
@@ -334,8 +334,8 @@ class DesignTokens {
     double? left,
     double? right,
   }) {
-    if (all != null) return EdgeInsets.all(all);
-    return EdgeInsets.only(
+    if (all != null) return const EdgeInsets.all(all);
+    return const EdgeInsets.only(
       top: top ?? vertical ?? 0,
       bottom: bottom ?? vertical ?? 0,
       left: left ?? horizontal ?? 0,

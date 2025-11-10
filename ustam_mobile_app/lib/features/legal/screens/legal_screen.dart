@@ -108,8 +108,8 @@ class _LegalScreenState extends State<LegalScreen>
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.settings),
-                                SizedBox(width: 8),
+                                const Icon(Icons.settings),
+                                const SizedBox(width: 8),
                                 Text('Onay Tercihleri'),
                               ],
                             ),
@@ -124,8 +124,8 @@ class _LegalScreenState extends State<LegalScreen>
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.privacy_tip),
-                                SizedBox(width: 8),
+                                const Icon(Icons.privacy_tip),
+                                const SizedBox(width: 8),
                                 Text('KVKK Hakları'),
                               ],
                             ),
@@ -267,7 +267,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: const Color(0xFF467599).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
             ),
             child: Row(
               children: [
@@ -312,7 +312,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.red[100],
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: const Borderconst Radius.circular(4),
                     ),
                     child: Text(
                       'ZORUNLU',
@@ -334,7 +334,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               border: Border.all(color: Colors.grey[300]!),
             ),
             child: Text(
@@ -354,7 +354,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
             ),
             child: Column(
@@ -540,7 +540,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.grey[50],
-                          borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                          borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: Text(
@@ -683,7 +683,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
         return Container(
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -694,7 +694,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: const Borderconst Radius.circular(2),
                 ),
               ),
               
@@ -749,7 +749,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: Colors.red[100],
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: const Borderconst Radius.circular(4),
                                     ),
                                     child: Text(
                                       'ZORUNLU',
@@ -816,7 +816,7 @@ class GDPRRightsSheet extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -827,7 +827,7 @@ class GDPRRightsSheet extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: const Borderconst Radius.circular(2),
                 ),
               ),
               
@@ -1106,7 +1106,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
         padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),
