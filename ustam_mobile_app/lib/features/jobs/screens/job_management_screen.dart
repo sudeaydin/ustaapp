@@ -260,7 +260,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemCount: _jobs.length,
       itemBuilder: (context, index) {
         final job = _jobs[index];
-        return Padding(
+        return const Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: JobCard(
             job: job,
@@ -302,7 +302,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemCount: _warranties.length,
       itemBuilder: (context, index) {
         final warranty = _warranties[index];
-        return Padding(
+        return const Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
             warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
@@ -346,7 +346,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemCount: _emergencies.length,
       itemBuilder: (context, index) {
         final emergency = _emergencies[index];
-        return Padding(
+        return const Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: EmergencyServiceCard(
             emergency: emergency,

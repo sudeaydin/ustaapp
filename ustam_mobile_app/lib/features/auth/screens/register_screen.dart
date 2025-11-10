@@ -50,7 +50,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Vergi levhası seçildi'),
+        content: const Text('Vergi levhası seçildi'),
         backgroundColor: DesignTokens.success,
       ),
     );
@@ -62,7 +62,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     if (!_agreementAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Kullanıcı sözleşmesini kabul etmelisiniz'),
+          content: const Text('Kullanıcı sözleşmesini kabul etmelisiniz'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -72,7 +72,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     if (widget.userType == 'craftsman' && _taxDocumentPath == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Vergi levhası yüklemelisiniz'),
+          content: const Text('Vergi levhası yüklemelisiniz'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -122,7 +122,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Registration failed: $e'),
+            content: const Text('Registration failed: $e'),
             backgroundColor: DesignTokens.error,
           ),
         );
@@ -477,7 +477,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           ),
                         ),
                         Expanded(
-                          child: Padding(
+                          child: const Padding(
                             padding: const EdgeInsets.only(top: 12),
                             child: GestureDetector(
                               onTap: () {

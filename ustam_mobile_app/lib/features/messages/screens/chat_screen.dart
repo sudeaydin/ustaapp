@@ -990,7 +990,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
   }
 
   Widget _buildQuoteDetailRow(String label, String value) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1221,7 +1221,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
                 children: [
                   const Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
                   const SizedBox(width: 8),
-                  Text('Kredi Kartı ile Öde'),
+                  const Text('Kredi Kartı ile Öde'),
                 ],
               ),
             ),
@@ -1259,7 +1259,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
           children: [
             const Icon(Icons.check_circle, color: DesignTokens.success, size: 28),
             const SizedBox(width: 8),
-            Text('✅ Ödeme Başarılı'),
+            const Text('✅ Ödeme Başarılı'),
           ],
         ),
         content: const Column(

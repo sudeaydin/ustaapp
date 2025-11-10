@@ -493,7 +493,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           children: [
             const Icon(Icons.attach_money_rounded, color: DesignTokens.success),
             const SizedBox(width: 8),
-            Text('Kazanç Detayları'),
+            const Text('Kazanç Detayları'),
           ],
         ),
         content: Column(
@@ -565,7 +565,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
   }
 
   Widget _buildJobRow(String title, String amount) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

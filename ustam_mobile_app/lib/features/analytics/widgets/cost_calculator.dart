@@ -245,7 +245,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     items: _budgetRanges.map((range) {
                       return DropdownMenuItem(
                         value: range,
-                        child: Text('₺$range'),
+                        child: const Text('₺$range'),
                       );
                     }).toList(),
                     onChanged: (value) {
@@ -354,7 +354,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
+                              child: const CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                               ),
@@ -449,7 +449,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               children: (_estimate!['breakdown'] as Map<String, dynamic>)
                   .entries
                   .map((entry) {
-                return Padding(
+                return const Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -498,7 +498,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
             child: Column(
               children: (_estimate!['factors'] as List).map<Widget>((factor) {
-                return Padding(
+                return const Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -547,7 +547,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
             child: Column(
               children: (_estimate!['recommendations'] as List).map<Widget>((rec) {
-                return Padding(
+                return const Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -674,7 +674,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           items: _budgetRanges.map((range) {
             return DropdownMenuItem(
               value: range,
-              child: Text('₺$range'),
+              child: const Text('₺$range'),
             );
           }).toList(),
           onChanged: (value) {
@@ -783,7 +783,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                 ? const SizedBox(
                     height: 20,
                     width: 20,
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     ),

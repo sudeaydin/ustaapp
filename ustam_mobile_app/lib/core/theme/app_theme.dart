@@ -475,9 +475,9 @@ class AppTheme {
   );
 
   // Animation durations
-  static const Duration fastAnimation = Duration(milliseconds: 200);
-  static const Duration normalAnimation = Duration(milliseconds: 300);
-  static const Duration slowAnimation = Duration(milliseconds: 500);
+  static const Duration fastAnimation = const Duration(milliseconds: 200);
+  static const Duration normalAnimation = const Duration(milliseconds: 300);
+  static const Duration slowAnimation = const Duration(milliseconds: 500);
 
   // Common curves
   static const Curve defaultCurve = Curves.easeInOut;

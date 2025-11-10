@@ -39,7 +39,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                   ),
                 ),
                 child: SafeArea(
-                  child: Padding(
+                  child: const Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +117,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
 
           // Content
           SliverToBoxAdapter(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -562,7 +562,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
               else if (reviews.isNotEmpty) ...[
                 // Show first 2 reviews
                 ...reviews.take(2).map((review) => 
-                  Padding(
+                  const Padding(
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     child: ReviewCard(
                       review: review,
@@ -624,7 +624,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                     ),
                   ),
               ] else
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.all(32),
                   child: Column(
                     children: [

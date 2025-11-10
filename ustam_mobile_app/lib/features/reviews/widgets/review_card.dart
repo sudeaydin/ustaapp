@@ -21,7 +21,7 @@ class ReviewCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.only(bottom: 16),
       onTap: onTap,
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +264,7 @@ class ReviewCard extends StatelessWidget {
   }
 
   Widget _buildRatingRow(String label, int rating) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [

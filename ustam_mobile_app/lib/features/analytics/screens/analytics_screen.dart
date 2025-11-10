@@ -173,7 +173,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
     if (user == null) {
       return const Scaffold(
         body: Center(
-          child: Text('Lütfen giriş yapın'),
+          child: const Text('Lütfen giriş yapın'),
         ),
       );
     }
@@ -236,7 +236,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                 children: [
                   CircularProgressIndicator(),
                   const SizedBox(height: DesignTokens.space16),
-                  Text('Analitik veriler yükleniyor...'),
+                  const Text('Analitik veriler yükleniyor...'),
                 ],
               ),
             )

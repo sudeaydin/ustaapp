@@ -285,13 +285,13 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 const Spacer(),
                                 TextButton(
                                   onPressed: _skipTutorial,
-                                  child: Text('skip'.tr(locale)),
+                                  child: const Text('skip'.tr(locale)),
                                 ),
                               ],
                             ),
                             
                             // Progress bar
-                            LinearProgressIndicator(
+                            const LinearProgressIndicator(
                               value: (_currentStep + 1) / widget.steps.length,
                               backgroundColor: DesignTokens.gray300,
                               valueColor: AlwaysStoppedAnimation<Color>(DesignTokens.primaryCoral),
@@ -334,7 +334,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 if (_currentStep > 0)
                                   TextButton(
                                     onPressed: _previousStep,
-                                    child: Text('previous'.tr(locale)),
+                                    child: const Text('previous'.tr(locale)),
                                   )
                                 else
                                   const SizedBox.shrink(),

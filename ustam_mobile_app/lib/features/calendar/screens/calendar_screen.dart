@@ -492,7 +492,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             debugPrint('❌ Stack trace: $stackTrace');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Event detayı açılırken hata: $e'),
+                content: const Text('Event detayı açılırken hata: $e'),
                 backgroundColor: Colors.red,
                 duration: const Duration(seconds: 5),
               ),
@@ -759,7 +759,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Randevu durumu güncellendi'),
+          content: const Text('Randevu durumu güncellendi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -1077,7 +1077,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       debugPrint('❌ Stack trace: $stackTrace');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Modal açılırken hata: $e'),
+          content: const Text('Modal açılırken hata: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),
         ),

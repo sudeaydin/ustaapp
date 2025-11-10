@@ -186,7 +186,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Sil', style: TextStyle(color: DesignTokens.error)),
+            child: const Text('Sil', style: TextStyle(color: DesignTokens.error)),
           ),
         ],
       ),
@@ -800,7 +800,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: Text('$label seçiniz'),
+            hint: const Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
               value: item,
               child: Text(item),
@@ -825,7 +825,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Profil başarıyla güncellendi!'),
+              content: const Text('Profil başarıyla güncellendi!'),
               backgroundColor: DesignTokens.success,
             ),
           );
@@ -834,7 +834,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Hata: $e'),
+              content: const Text('Hata: $e'),
               backgroundColor: DesignTokens.error,
             ),
           );

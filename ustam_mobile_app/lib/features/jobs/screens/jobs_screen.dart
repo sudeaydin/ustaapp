@@ -31,7 +31,7 @@ class JobsScreen extends ConsumerWidget {
                 ],
               ),
               child: SafeArea(
-                child: Padding(
+                child: const Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
@@ -102,7 +102,7 @@ class JobsScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,11 +132,11 @@ class JobsScreen extends ConsumerWidget {
                     children: [
                       const Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
+                      const Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
                       const SizedBox(width: DesignTokens.space16),
                       const Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
+                      const Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Text(
                         '₺${[1500, 2000, 1800, 1200][index % 4]}',
@@ -154,7 +154,7 @@ class JobsScreen extends ConsumerWidget {
                     children: [
                       const Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
+                      const Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Container(
                         decoration: BoxDecoration(
@@ -224,7 +224,7 @@ class JobsScreen extends ConsumerWidget {
           onPressed: () {
             // Add new job request
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Yeni iş talebi özelliği yakında!')),
+              const SnackBar(content: const Text('Yeni iş talebi özelliği yakında!')),
             );
           },
           backgroundColor: Colors.transparent,
@@ -273,13 +273,13 @@ class JobsScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('📝 ${job['description']}'),
+            const Text('📝 ${job['description']}'),
             const SizedBox(height: 8),
-            Text('Bütçe: ${job['price']}'),
+            const Text('Bütçe: ${job['price']}'),
             const SizedBox(height: 8),
-            Text('📍 Konum: ${job['location']}'),
+            const Text('📍 Konum: ${job['location']}'),
             const SizedBox(height: 8),
-            Text('📅 Tarih: ${job['date']}'),
+            const Text('📅 Tarih: ${job['date']}'),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -298,7 +298,7 @@ class JobsScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('İş detayları güncellendi')),
+                const SnackBar(content: const Text('İş detayları güncellendi')),
               );
             },
             child: const Text('İşlem Yap'),
@@ -346,7 +346,7 @@ class JobsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Row(
           mainAxisSize: MainAxisSize.min,

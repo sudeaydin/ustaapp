@@ -38,7 +38,7 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
               child: SafeArea(
-                child: Padding(
+                child: const Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
@@ -101,7 +101,7 @@ class HomeScreen extends ConsumerWidget {
                                 children: [
                                   const Icon(Icons.person_outlined),
                                   const SizedBox(width: 8),
-                                  Text('Profil'),
+                                  const Text('Profil'),
                                 ],
                               ),
                             ),
@@ -111,7 +111,7 @@ class HomeScreen extends ConsumerWidget {
                                 children: [
                                   const Icon(Icons.logout),
                                   const SizedBox(width: 8),
-                                  Text('Çıkış Yap'),
+                                  const Text('Çıkış Yap'),
                                 ],
                               ),
                             ),
@@ -334,7 +334,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
@@ -497,7 +497,7 @@ class HomeScreen extends ConsumerWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
-        child: Padding(
+        child: const Padding(
           padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

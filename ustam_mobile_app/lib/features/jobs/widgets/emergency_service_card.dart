@@ -19,7 +19,7 @@ class EmergencyServiceCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       backgroundColor: DesignTokens.error.withOpacity(0.05),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
@@ -65,7 +65,7 @@ class EmergencyServiceCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.phone, size: 20),
                     const SizedBox(width: 8),
-                    Text('Acil Servis Çağır'),
+                    const Text('Acil Servis Çağır'),
                   ],
                 ),
               ),

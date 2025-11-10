@@ -210,7 +210,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
           );
         },
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
-        child: Padding(
+        child: const Padding(
           padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -442,12 +442,12 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                   });
                 },
                 items: const [
-                  DropdownMenuItem(value: 'general', child: Text('Genel')),
-                  DropdownMenuItem(value: 'technical', child: Text('Teknik Sorun')),
-                  DropdownMenuItem(value: 'account', child: Text('Hesap Sorunları')),
-                  DropdownMenuItem(value: 'billing', child: Text('Faturalama')),
-                  DropdownMenuItem(value: 'feature_request', child: Text('Özellik İsteği')),
-                  DropdownMenuItem(value: 'bug_report', child: Text('Hata Bildirimi')),
+                  DropdownMenuItem(value: 'general', child: const Text('Genel')),
+                  DropdownMenuItem(value: 'technical', child: const Text('Teknik Sorun')),
+                  DropdownMenuItem(value: 'account', child: const Text('Hesap Sorunları')),
+                  DropdownMenuItem(value: 'billing', child: const Text('Faturalama')),
+                  DropdownMenuItem(value: 'feature_request', child: const Text('Özellik İsteği')),
+                  DropdownMenuItem(value: 'bug_report', child: const Text('Hata Bildirimi')),
                 ],
               ),
             ),
@@ -481,10 +481,10 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
                   });
                 },
                 items: const [
-                  DropdownMenuItem(value: 'low', child: Text('🟢 Düşük')),
-                  DropdownMenuItem(value: 'medium', child: Text('🟡 Orta')),
-                  DropdownMenuItem(value: 'high', child: Text('🟠 Yüksek')),
-                  DropdownMenuItem(value: 'urgent', child: Text('🔴 Acil')),
+                  DropdownMenuItem(value: 'low', child: const Text('🟢 Düşük')),
+                  DropdownMenuItem(value: 'medium', child: const Text('🟡 Orta')),
+                  DropdownMenuItem(value: 'high', child: const Text('🟠 Yüksek')),
+                  DropdownMenuItem(value: 'urgent', child: const Text('🔴 Acil')),
                 ],
               ),
             ),
@@ -620,7 +620,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('✅ Destek talebiniz oluşturuldu! Size email ile bildirim gönderilecektir.'),
+            content: const Text('✅ Destek talebiniz oluşturuldu! Size email ile bildirim gönderilecektir.'),
             backgroundColor: DesignTokens.success,
           ),
         );

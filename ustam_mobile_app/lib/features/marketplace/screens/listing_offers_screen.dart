@@ -476,7 +476,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Teklifi Kabul Et'),
-        content: Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?\n\nBu teklifi kabul ettiğinizde ilan kapanacak ve diğer ustalar teklif veremeyecektir.'),
+        content: const Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?\n\nBu teklifi kabul ettiğinizde ilan kapanacak ve diğer ustalar teklif veremeyecektir.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -492,7 +492,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${offer['craftsmanName']} adlı ustanın teklifi kabul edildi!'),
+                  content: const Text('${offer['craftsmanName']} adlı ustanın teklifi kabul edildi!'),
                   backgroundColor: DesignTokens.success,
                 ),
               );
@@ -510,7 +510,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Teklifi Reddet'),
-        content: Text('${offer['craftsmanName']} adlı ustanın teklifini reddetmek istediğinizden emin misiniz?'),
+        content: const Text('${offer['craftsmanName']} adlı ustanın teklifini reddetmek istediğinizden emin misiniz?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -523,7 +523,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 offer['status'] = 'rejected';
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Teklif reddedildi')),
+                const SnackBar(content: const Text('Teklif reddedildi')),
               );
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),

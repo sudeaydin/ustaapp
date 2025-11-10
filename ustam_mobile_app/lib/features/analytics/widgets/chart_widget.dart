@@ -60,7 +60,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildBarChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     final maxValue = data.map((e) => (e['value'] as num).toDouble()).reduce(math.max);
     
@@ -71,7 +71,7 @@ class ChartWidget extends StatelessWidget {
         final height = (value / maxValue) * 160;
         
         return Expanded(
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -108,7 +108,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildLineChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     return CustomPaint(
       size: const Size(double.infinity, 160),
@@ -120,7 +120,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildPieChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     final total = data.fold<double>(0, (sum, item) => sum + (item['value'] as num).toDouble());
     
@@ -147,7 +147,7 @@ class ChartWidget extends StatelessWidget {
               final percentage = ((value / total) * 100).toStringAsFixed(1);
               final pieColor = _getPieColor(index);
               
-              return Padding(
+              return const Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [

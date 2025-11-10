@@ -212,13 +212,13 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Çerez tercihleri kaydedildi'),
-          duration: Duration(seconds: 2),
+          content: const Text('Çerez tercihleri kaydedildi'),
+          duration: const Duration(seconds: 2),
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hata: $e')),
+        SnackBar(content: const Text('Hata: $e')),
       );
     }
   }
@@ -233,13 +233,13 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Çerez kullanımı reddedildi'),
-          duration: Duration(seconds: 2),
+          content: const Text('Çerez kullanımı reddedildi'),
+          duration: const Duration(seconds: 2),
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hata: $e')),
+        SnackBar(content: const Text('Hata: $e')),
       );
     }
   }

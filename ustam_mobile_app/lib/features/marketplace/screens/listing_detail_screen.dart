@@ -51,7 +51,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                     children: [
                       const Icon(Icons.edit, size: 20),
                       const SizedBox(width: 8),
-                      Text('Düzenle'),
+                      const Text('Düzenle'),
                     ],
                   ),
                 ),
@@ -61,7 +61,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                     children: [
                       const Icon(Icons.delete, size: 20, color: Colors.red),
                       const SizedBox(width: 8),
-                      Text('Sil', style: TextStyle(color: Colors.red)),
+                      const Text('Sil', style: TextStyle(color: Colors.red)),
                     ],
                   ),
                 ),
@@ -176,7 +176,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   );
                 },
                 icon: const Icon(Icons.local_offer),
-                label: Text('Teklifler (${listing['offersCount']})'),
+                label: const Text('Teklifler (${listing['offersCount']})'),
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: DesignTokens.primaryCoral),
                   foregroundColor: DesignTokens.primaryCoral,
@@ -191,7 +191,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
   }
 
   Widget _buildDetailRow(String label, String value, IconData icon) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
@@ -284,7 +284,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
     // For now, just show success message and go back
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('İlan başarıyla silindi'),
+        content: const Text('İlan başarıyla silindi'),
         backgroundColor: DesignTokens.success,
       ),
     );

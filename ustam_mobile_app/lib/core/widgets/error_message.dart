@@ -71,7 +71,7 @@ class ErrorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: DesignTokens.error.withOpacity(0.1),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

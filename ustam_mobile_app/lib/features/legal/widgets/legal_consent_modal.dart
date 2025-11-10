@@ -170,7 +170,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                         ? const SizedBox(
                             width: 20,
                             height: 20,
-                            child: CircularProgressIndicator(
+                            child: const CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
@@ -277,7 +277,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
     // This would open the specific document
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$documentType belgesi açılıyor...'),
+        content: const Text('$documentType belgesi açılıyor...'),
         backgroundColor: DesignTokens.primaryCoral,
       ),
     );
@@ -307,7 +307,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
         
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Yasal onaylar başarıyla kaydedildi'),
+            content: const Text('Yasal onaylar başarıyla kaydedildi'),
             backgroundColor: Colors.green,
           ),
         );
@@ -317,7 +317,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Hata: ${e.toString()}'),
+          content: const Text('Hata: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

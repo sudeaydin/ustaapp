@@ -332,7 +332,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: Text('$label seçiniz'),
+            hint: const Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
               value: item,
               child: Text(item),
@@ -589,7 +589,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       if (_selectedCategory.isEmpty || _selectedAreaType.isEmpty || _selectedBudgetRange.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Lütfen zorunlu alanları doldurun'),
+            content: const Text('Lütfen zorunlu alanları doldurun'),
             backgroundColor: DesignTokens.error,
           ),
         );
@@ -635,7 +635,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           if (data['success'] == true) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Teklif talebiniz başarıyla gönderildi!'),
+                content: const Text('Teklif talebiniz başarıyla gönderildi!'),
                 backgroundColor: DesignTokens.success,
               ),
             );
@@ -653,7 +653,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Teklif talebi gönderilirken bir hata oluştu'),
+              content: const Text('Teklif talebi gönderilirken bir hata oluştu'),
               backgroundColor: DesignTokens.error,
             ),
           );

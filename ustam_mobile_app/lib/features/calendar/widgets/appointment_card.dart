@@ -22,7 +22,7 @@ class AppointmentCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.only(bottom: 12),
       onTap: onTap,
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

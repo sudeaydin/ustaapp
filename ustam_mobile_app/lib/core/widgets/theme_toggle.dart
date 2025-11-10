@@ -41,7 +41,7 @@ class ThemeToggle extends ConsumerWidget {
             children: [
               const Icon(Icons.light_mode),
               const SizedBox(width: 8),
-              Text('light_mode'.tr(locale)),
+              const Text('light_mode'.tr(locale)),
               if (themeMode == ThemeMode.light)
                 const Padding(
                   padding: const EdgeInsets.only(left: 8),
@@ -56,7 +56,7 @@ class ThemeToggle extends ConsumerWidget {
             children: [
               const Icon(Icons.dark_mode),
               const SizedBox(width: 8),
-              Text('dark_mode'.tr(locale)),
+              const Text('dark_mode'.tr(locale)),
               if (themeMode == ThemeMode.dark)
                 const Padding(
                   padding: const EdgeInsets.only(left: 8),
@@ -71,7 +71,7 @@ class ThemeToggle extends ConsumerWidget {
             children: [
               const Icon(Icons.settings),
               const SizedBox(width: 8),
-              Text('system_mode'.tr(locale)),
+              const Text('system_mode'.tr(locale)),
               if (themeMode == ThemeMode.system)
                 const Padding(
                   padding: const EdgeInsets.only(left: 8),

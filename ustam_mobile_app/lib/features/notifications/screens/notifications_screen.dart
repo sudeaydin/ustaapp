@@ -163,7 +163,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         child: InkWell(
           borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [

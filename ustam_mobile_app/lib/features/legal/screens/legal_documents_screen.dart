@@ -76,7 +76,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   Widget _buildBody() {
     if (isLoading) {
       return const Center(
-        child: CircularProgressIndicator(
+        child: const CircularProgressIndicator(
           color: DesignTokens.primaryCoral,
         ),
       );
@@ -337,7 +337,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
   Widget _buildContent() {
     if (isLoading) {
       return const Center(
-        child: CircularProgressIndicator(
+        child: const CircularProgressIndicator(
           color: DesignTokens.primaryCoral,
         ),
       );
@@ -509,7 +509,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       Clipboard.setData(ClipboardData(text: documentContent!));
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Doküman panoya kopyalandı'),
+          content: const Text('Doküman panoya kopyalandı'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -521,7 +521,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       // Share functionality would be implemented here
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Paylaşım özelliği yakında eklenecek'),
+          content: const Text('Paylaşım özelliği yakında eklenecek'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );

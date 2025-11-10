@@ -105,7 +105,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildOverviewTab() {
     if (_dashboardData == null) {
-      return const Center(child: Text('Veri yüklenemedi'));
+      return const Center(child: const Text('Veri yüklenemedi'));
     }
 
     final user = ref.watch(authProvider);
@@ -219,7 +219,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Performance Trends
           if (trends != null) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +232,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     const SizedBox(
                       height: 200,
                       child: Center(
-                        child: Text('Performance Chart - Coming Soon'),
+                        child: const Text('Performance Chart - Coming Soon'),
                       ),
                     ),
                   ],
@@ -245,7 +245,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Top Categories
           if (categories != null && categories.isNotEmpty) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +257,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     const SizedBox(height: DesignTokens.space16),
                     ...categories.take(5).map<Widget>((category) {
                       final categoryData = CategoryPerformance.fromJson(category);
-                      return Padding(
+                      return const Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: Row(
                           children: [
@@ -320,7 +320,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Recent Activity (for craftsmen)
           if (user?.userType == 'craftsman' && recentActivity != null && recentActivity.isNotEmpty) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,7 +332,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     const SizedBox(height: DesignTokens.space16),
                     ...recentActivity.take(5).map<Widget>((activity) {
                       final activityData = RecentActivity.fromJson(activity);
-                      return Padding(
+                      return const Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: Row(
                           children: [
@@ -411,7 +411,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildTrendsTab() {
     if (_dashboardData == null) {
-      return const Center(child: Text('Trend verileri yüklenemedi'));
+      return const Center(child: const Text('Trend verileri yüklenemedi'));
     }
 
     final user = ref.watch(authProvider);
@@ -423,7 +423,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
         children: [
           if (trends != null) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,7 +436,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     const SizedBox(
                       height: 250,
                       child: Center(
-                        child: Text('Trend Chart - Coming Soon'),
+                        child: const Text('Trend Chart - Coming Soon'),
                       ),
                     ),
                   ],
@@ -453,7 +453,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     return SingleChildScrollView(
       padding: const EdgeInsets.all(DesignTokens.space16),
       child: Card(
-        child: Padding(
+        child: const Padding(
           padding: const EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -464,9 +464,9 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
               ),
               const SizedBox(height: DesignTokens.space16),
               const Center(
-                child: Padding(
+                child: const Padding(
                   padding: const EdgeInsets.all(DesignTokens.space16),
-                  child: Text('Cost Calculator - Coming Soon'),
+                  child: const Text('Cost Calculator - Coming Soon'),
                 ),
               ),
             ],
@@ -479,7 +479,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
   Widget _buildBusinessTab() {
     final user = ref.watch(authProvider);
     if (user?.userType != 'admin' || _dashboardData == null) {
-      return const Center(child: Text('Bu sekme sadece yöneticiler için kullanılabilir'));
+      return const Center(child: const Text('Bu sekme sadece yöneticiler için kullanılabilir'));
     }
 
     final conversionFunnel = _dashboardData!['conversion_funnel'];
@@ -492,7 +492,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Conversion Funnel
           if (conversionFunnel != null) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -503,7 +503,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     ),
                     const SizedBox(height: DesignTokens.space16),
                     ...conversionFunnel['stages'].entries.map<Widget>((entry) {
-                      return Padding(
+                      return const Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -527,7 +527,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Revenue Analytics
           if (revenueAnalytics != null) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -580,7 +580,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
   Widget _buildPlatformTab() {
     final user = ref.watch(authProvider);
     if (user?.userType != 'admin' || _dashboardData == null) {
-      return const Center(child: Text('Bu sekme sadece yöneticiler için kullanılabilir'));
+      return const Center(child: const Text('Bu sekme sadece yöneticiler için kullanılabilir'));
     }
 
     final platformTrends = _dashboardData!['platform_trends'];
@@ -594,7 +594,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Platform Overview
           if (platformTrends != null) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -642,7 +642,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Geographic Trends
           if (geographicTrends != null && geographicTrends.isNotEmpty) ...[
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,7 +653,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     ),
                     const SizedBox(height: DesignTokens.space16),
                     ...geographicTrends.take(10).map<Widget>((city) {
-                      return Padding(
+                      return const Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -705,7 +705,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -781,10 +781,10 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
             itemBuilder: (context) => AnalyticsDashboardConstants.defaultPeriods
                 .map((period) => PopupMenuItem(
                       value: period,
-                      child: Text('Son $period gün'),
+                      child: const Text('Son $period gün'),
                     ))
                 .toList(),
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

@@ -51,7 +51,7 @@ class AirbnbCard extends StatelessWidget {
               ),
             ),
           )
-        : Padding(
+        : const Padding(
             padding: padding ?? DesignTokens.getEdgeInsets(all: DesignTokens.spacingCardPadding),
             child: child,
           ),
@@ -177,7 +177,7 @@ class AirbnbImageCard extends StatelessWidget {
           
           // Content section
           if (title != null || subtitle != null)
-            Padding(
+            const Padding(
               padding: DesignTokens.spacingCardPaddingInsets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

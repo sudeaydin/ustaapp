@@ -110,7 +110,7 @@ class _LegalScreenState extends State<LegalScreen>
                               children: [
                                 const Icon(Icons.settings),
                                 const SizedBox(width: 8),
-                                Text('Onay Tercihleri'),
+                                const Text('Onay Tercihleri'),
                               ],
                             ),
                           ),
@@ -126,7 +126,7 @@ class _LegalScreenState extends State<LegalScreen>
                               children: [
                                 const Icon(Icons.privacy_tip),
                                 const SizedBox(width: 8),
-                                Text('KVKK Hakları'),
+                                const Text('KVKK Hakları'),
                               ],
                             ),
                           ),
@@ -392,7 +392,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
   }
 
   Widget _buildContactRow(IconData icon, String label, String value) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -480,7 +480,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Kullanıcı sözleşmesi yüklenemedi')),
+          const SnackBar(content: const Text('Kullanıcı sözleşmesi yüklenemedi')),
         );
       }
     }
@@ -489,7 +489,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
   Future<void> _acceptAgreement() async {
     if (!_mandatoryConsent) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Zorunlu onayları kabul etmelisiniz')),
+        const SnackBar(content: const Text('Zorunlu onayları kabul etmelisiniz')),
       );
       return;
     }
@@ -513,7 +513,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Hata: $e')),
+          SnackBar(content: const Text('Hata: $e')),
         );
       }
     }
@@ -654,7 +654,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
   Future<void> _updateConsent(ConsentType type, bool granted) async {
     if (LegalManager().isConsentRequired(type) && !granted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bu onay zorunludur')),
+        const SnackBar(content: const Text('Bu onay zorunludur')),
       );
       return;
     }
@@ -664,11 +664,11 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       setState(() => _consents[type] = granted);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${type.displayName} onayı güncellendi')),
+        SnackBar(content: const Text('${type.displayName} onayı güncellendi')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hata: $e')),
+        SnackBar(content: const Text('Hata: $e')),
       );
     }
   }
@@ -699,7 +699,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               ),
               
               // Header
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
@@ -781,7 +781,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               ),
               
               // Actions
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
@@ -832,7 +832,7 @@ class GDPRRightsSheet extends StatelessWidget {
               ),
               
               // Header
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
@@ -882,7 +882,7 @@ class GDPRRightsSheet extends StatelessWidget {
               ),
               
               // Actions
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [

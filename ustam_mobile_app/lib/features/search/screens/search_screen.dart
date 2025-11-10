@@ -327,7 +327,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         itemCount: searchState.craftsmen.length,
         itemBuilder: (context, index) {
           final craftsman = searchState.craftsmen[index];
-          return Padding(
+          return const Padding(
             padding: const EdgeInsets.only(bottom: 16),
                          child: search_widgets.CraftsmanCard(
                craftsman: craftsman,

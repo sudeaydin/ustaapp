@@ -321,7 +321,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
               'conversation': conversation,
             });
           },
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [

@@ -60,25 +60,25 @@ class ApiService {
       switch (method.toUpperCase()) {
         case 'GET':
           response = await _client.get(uri, headers: requestHeaders)
-              .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+              .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'POST':
           response = await _client.post(
             uri,
             headers: requestHeaders,
             body: body != null ? jsonEncode(body) : null,
-          ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+          ).timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'PUT':
           response = await _client.put(
             uri,
             headers: requestHeaders,
             body: body != null ? jsonEncode(body) : null,
-          ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+          ).timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'DELETE':
           response = await _client.delete(uri, headers: requestHeaders)
-              .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+              .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         default:
           throw ArgumentError('Unsupported HTTP method: $method');
@@ -96,7 +96,7 @@ class ApiService {
 
       // Retry on server errors
       if (response.statusCode >= 500 && retryCount < AppConfig.maxRetryAttempts) {
-        await Future.delayed(Duration(seconds: (retryCount + 1) * 2));
+        await Future.delayed(const Duration(seconds: (retryCount + 1) * 2));
         return _makeRequest(
           method,
           url,
@@ -275,7 +275,7 @@ class ApiService {
       }
 
       final streamedResponse = await request.send()
-          .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds * 2)); // Longer timeout for uploads
+          .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds * 2)); // Longer timeout for uploads
       
       final response = await http.Response.fromStream(streamedResponse);
       return ApiResponse<T>.fromResponse(response);

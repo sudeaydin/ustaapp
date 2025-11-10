@@ -130,9 +130,9 @@ class DesignTokens {
   // MOTION & ANIMATION
   // ========================================
   
-  static const Duration durationFast = Duration(milliseconds: 150);
-  static const Duration durationNormal = Duration(milliseconds: 250);
-  static const Duration durationSlow = Duration(milliseconds: 400);
+  static const Duration durationFast = const Duration(milliseconds: 150);
+  static const Duration durationNormal = const Duration(milliseconds: 250);
+  static const Duration durationSlow = const Duration(milliseconds: 400);
   
   static const Curve curveEaseOut = Curves.easeOut;
   static const Curve curveEaseIn = Curves.easeIn;

@@ -401,7 +401,7 @@ class _MarketplaceOfferComposeScreenState
   }
 
   Widget _buildTip(String text) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(top: DesignTokens.space4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -487,7 +487,7 @@ class _MarketplaceOfferComposeScreenState
 
   Widget _buildLoadingState() {
     return const Center(
-      child: CircularProgressIndicator(
+      child: const CircularProgressIndicator(
         color: DesignTokens.primaryCoral,
       ),
     );
@@ -495,7 +495,7 @@ class _MarketplaceOfferComposeScreenState
 
   Widget _buildErrorState(String error) {
     return Center(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -578,7 +578,7 @@ class _MarketplaceOfferComposeScreenState
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Teklifiniz başarıyla gönderildi!'),
+            content: const Text('Teklifiniz başarıyla gönderildi!'),
             backgroundColor: DesignTokens.success,
             behavior: SnackBarBehavior.floating,
           ),
@@ -591,7 +591,7 @@ class _MarketplaceOfferComposeScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Hata: ${e.toString()}'),
+            content: const Text('Hata: ${e.toString()}'),
             backgroundColor: DesignTokens.error,
             behavior: SnackBarBehavior.floating,
           ),

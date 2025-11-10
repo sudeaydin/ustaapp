@@ -31,7 +31,7 @@ class WelcomeScreen extends ConsumerWidget {
       ),
       backgroundColor: DesignTokens.surfacePrimary,
       body: SafeArea(
-        child: Padding(
+        child: const Padding(
           padding: DesignTokens.getEdgeInsets(all: DesignTokens.spacingScreenEdge),
           child: Column(
             children: [
@@ -106,7 +106,7 @@ class WelcomeScreen extends ConsumerWidget {
                               size: DesignTokens.iconSize20,
                             ),
                             const SizedBox(width: DesignTokens.space8),
-                            Text('Müşteri Girişi Yap'),
+                            const Text('Müşteri Girişi Yap'),
                           ],
                         ),
                       ),
@@ -130,7 +130,7 @@ class WelcomeScreen extends ConsumerWidget {
                               size: DesignTokens.iconSize20,
                             ),
                             const SizedBox(width: DesignTokens.space8),
-                            Text('Usta Girişi Yap'),
+                            const Text('Usta Girişi Yap'),
                           ],
                         ),
                       ),
@@ -143,7 +143,7 @@ class WelcomeScreen extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, '/register');
                       },
-                      child: Text('Hesabın yok mu? Kayıt ol'),
+                      child: const Text('Hesabın yok mu? Kayıt ol'),
                     ),
                   ],
                 ),

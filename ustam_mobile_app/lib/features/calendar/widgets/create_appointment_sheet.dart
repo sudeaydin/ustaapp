@@ -21,7 +21,7 @@ class CreateAppointmentSheet extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
       ),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [

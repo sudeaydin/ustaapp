@@ -61,7 +61,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
@@ -266,7 +266,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           color: Colors.white.withOpacity(0.3),
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                         child: Text(
                           'veya',
@@ -445,7 +445,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             debugPrint('🔥 Google button tapped!'); // Debug print
             _handleGoogleSignIn();
           },
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -491,7 +491,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4285F4)),
                     ),
@@ -517,8 +517,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       debugPrint('🚫 Login blocked - too soon after last attempt');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen bekleyin...'),
-          duration: Duration(seconds: 1),
+          content: const Text('Lütfen bekleyin...'),
+          duration: const Duration(seconds: 1),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -576,7 +576,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Giriş başarısız'),
+              content: const Text('Giriş başarısız'),
               backgroundColor: DesignTokens.error,
             ),
           );
@@ -593,7 +593,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Giriş başarısız: $e'),
+              content: const Text('Giriş başarısız: $e'),
               backgroundColor: DesignTokens.error,
             ),
           );
@@ -665,7 +665,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Google ile giriş sırasında hata oluştu')),
+          const SnackBar(content: const Text('Google ile giriş sırasında hata oluştu')),
         );
       }
     } finally {

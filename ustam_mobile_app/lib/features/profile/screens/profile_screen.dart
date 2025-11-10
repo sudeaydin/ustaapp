@@ -248,7 +248,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
@@ -314,7 +314,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ),
                   child: SafeArea(
                     child: SingleChildScrollView(
-                      child: Padding(
+                      child: const Padding(
                         padding: const EdgeInsets.all(20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -399,7 +399,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           // Profile Content - Figma Design
           SliverToBoxAdapter(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -639,7 +639,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 children: [
                   const Icon(Icons.warning, color: DesignTokens.error, size: 28),
                   const SizedBox(width: 8),
-                  Text('Hesabımı Sil'),
+                  const Text('Hesabımı Sil'),
                 ],
               ),
               content: Column(
@@ -694,7 +694,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     if (confirmText != 'HESABIMI SIL') {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
+                          content: const Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
                           backgroundColor: DesignTokens.error,
                         ),
                       );
@@ -726,7 +726,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Hesabınız başarıyla silindi. Güle güle!'),
+                              content: const Text('Hesabınız başarıyla silindi. Güle güle!'),
                               backgroundColor: DesignTokens.success,
                             ),
                           );
@@ -751,7 +751,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Hesap silme işlemi sırasında bir hata oluştu'),
+                            content: const Text('Hesap silme işlemi sırasında bir hata oluştu'),
                             backgroundColor: DesignTokens.error,
                           ),
                         );
@@ -770,7 +770,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ? const SizedBox(
                         width: 16,
                         height: 16,
-                        child: CircularProgressIndicator(
+                        child: const CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),

@@ -320,7 +320,7 @@ class _MarketplaceListingDetailScreenState
                   ],
                 ),
                 const SizedBox(height: DesignTokens.space4),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(left: 28),
                   child: Text(
                     listing.location.city,
@@ -358,7 +358,7 @@ class _MarketplaceListingDetailScreenState
                   ],
                 ),
                 const SizedBox(height: DesignTokens.space4),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(left: 28),
                   child: Text(
                     _formatBudget(listing.budget),
@@ -759,7 +759,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildLoadingState() {
     return const Center(
-      child: CircularProgressIndicator(
+      child: const CircularProgressIndicator(
         color: DesignTokens.primaryCoral,
       ),
     );
@@ -767,7 +767,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildErrorState(String error) {
     return Center(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -853,7 +853,7 @@ class _MarketplaceListingDetailScreenState
   }
 
   Widget _buildDetailRow(IconData icon, String label, String value) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(bottom: DesignTokens.space12),
       child: Row(
         children: [
@@ -914,7 +914,7 @@ class _MarketplaceListingDetailScreenState
     // TODO: Implement listing status toggle
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('İlan durumu güncelleme özelliği yakında eklenecek'),
+        content: const Text('İlan durumu güncelleme özelliği yakında eklenecek'),
         backgroundColor: DesignTokens.info,
       ),
     );

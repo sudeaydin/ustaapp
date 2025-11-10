@@ -184,7 +184,7 @@ class AccessibleButton extends StatelessWidget {
             ),
           ),
         if (icon != null && !isLoading)
-          Padding(
+          const Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: icon!,
           ),
@@ -299,7 +299,7 @@ class AccessibleTextField extends StatelessWidget {
           
           // Error message with proper semantics
           if (errorText != null)
-            Padding(
+            const Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Semantics(
                 liveRegion: true,
@@ -554,8 +554,8 @@ mixin AccessibilityMixin<T extends StatefulWidget> on State<T> {
 
 /// Accessibility constants
 class AccessibilityConstants {
-  static const Duration announcementDelay = Duration(milliseconds: 500);
-  static const Duration focusDelay = Duration(milliseconds: 100);
+  static const Duration announcementDelay = const Duration(milliseconds: 500);
+  static const Duration focusDelay = const Duration(milliseconds: 100);
   
   // Semantic labels
   static const String loading = 'Yükleniyor';

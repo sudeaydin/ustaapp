@@ -143,7 +143,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
           ),
         ],
       ),
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,7 +347,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
   }
 
   Widget _buildDetailRow(String label, String value) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.only(bottom: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,9 +537,9 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                         ),
                         const SizedBox(height: 4),
                         if (quote['preferred_start_date'] != null)
-                          Text('Başlangıç: ${_formatDate(quote['preferred_start_date'])}'),
+                          const Text('Başlangıç: ${_formatDate(quote['preferred_start_date'])}'),
                         if (quote['preferred_end_date'] != null)
-                          Text('Bitiş: ${_formatDate(quote['preferred_end_date'])}'),
+                          const Text('Bitiş: ${_formatDate(quote['preferred_end_date'])}'),
                         if (quote['is_flexible_dates'] == true)
                           const Text('(Tarihler esnek)', style: TextStyle(fontStyle: FontStyle.italic)),
                       ],
@@ -682,7 +682,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               onPressed: () {
                 if (priceController.text.isEmpty || durationController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Fiyat ve süre alanları zorunludur')),
+                    const SnackBar(content: const Text('Fiyat ve süre alanları zorunludur')),
                   );
                   return;
                 }

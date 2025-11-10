@@ -112,7 +112,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
             children: [
               CircularProgressIndicator(),
               const SizedBox(width: 16),
-              Text('İşlem gerçekleştiriliyor...'),
+              const Text('İşlem gerçekleştiriliyor...'),
             ],
           ),
         ),
@@ -139,7 +139,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
           // Show info about contacting support
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Veri işlemeyi durdurma talebi için kvkk@ustam.app adresine başvurun.'),
+              content: const Text('Veri işlemeyi durdurma talebi için kvkk@ustam.app adresine başvurun.'),
               backgroundColor: Colors.blue,
             ),
           );
@@ -154,7 +154,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('GDPR hakkınız başarıyla talep edildi. E-posta adresinizi kontrol edin.'),
+          content: const Text('GDPR hakkınız başarıyla talep edildi. E-posta adresinizi kontrol edin.'),
           backgroundColor: Colors.green,
         ),
       );
@@ -165,7 +165,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('İşlem gerçekleştirilemedi: ${e.toString()}'),
+          content: const Text('İşlem gerçekleştirilemedi: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

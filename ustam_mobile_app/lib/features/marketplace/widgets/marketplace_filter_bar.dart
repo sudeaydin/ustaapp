@@ -277,7 +277,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           ),
 
           // Title
-          Padding(
+          const Padding(
             padding: const EdgeInsets.all(DesignTokens.space16),
             child: Text(
               title,
@@ -334,7 +334,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
               topRight: const Radius.circular(DesignTokens.radius24),
             ),
           ),
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.all(DesignTokens.space16),
             child: Column(
               mainAxisSize: MainAxisSize.min,

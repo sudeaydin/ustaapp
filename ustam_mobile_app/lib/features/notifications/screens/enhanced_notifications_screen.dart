@@ -86,7 +86,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Push bildirimleri başarıyla etkinleştirildi!'),
+            content: const Text('Push bildirimleri başarıyla etkinleştirildi!'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -95,7 +95,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Push bildirimleri etkinleştirilemedi: $e'),
+            content: const Text('Push bildirimleri etkinleştirilemedi: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -113,7 +113,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Tercihler güncellendi'),
+              content: const Text('Tercihler güncellendi'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -123,7 +123,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Tercihler güncellenemedi: $e'),
+            content: const Text('Tercihler güncellenemedi: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -163,7 +163,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Konum paylaşımı başlatıldı'),
+              content: const Text('Konum paylaşımı başlatıldı'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -173,7 +173,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Konum paylaşımı başlatılamadı: $e'),
+            content: const Text('Konum paylaşımı başlatılamadı: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -191,7 +191,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Konum paylaşımı durduruldu'),
+              content: const Text('Konum paylaşımı durduruldu'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -201,7 +201,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Konum paylaşımı durdurulamadı: $e'),
+            content: const Text('Konum paylaşımı durdurulamadı: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -223,7 +223,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (event != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Takvim etkinliği oluşturuldu'),
+            content: const Text('Takvim etkinliği oluşturuldu'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -232,7 +232,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Takvim etkinliği oluşturulamadı: $e'),
+            content: const Text('Takvim etkinliği oluşturulamadı: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -246,7 +246,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Test bildirimi gönderildi!'),
+            content: const Text('Test bildirimi gönderildi!'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -255,7 +255,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Test bildirimi gönderilemedi: $e'),
+            content: const Text('Test bildirimi gönderilemedi: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -265,7 +265,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildPreferencesTab() {
     if (_preferences == null) {
-      return const Center(child: Text('Tercihler yüklenemedi'));
+      return const Center(child: const Text('Tercihler yüklenemedi'));
     }
 
     return SingleChildScrollView(
@@ -275,7 +275,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         children: [
           // Push Notifications Card
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +309,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Notification Types
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,7 +348,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Quiet Hours
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -429,7 +429,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildAnalyticsTab() {
     if (_analytics == null) {
-      return const Center(child: Text('Analitik veriler yüklenemedi'));
+      return const Center(child: const Text('Analitik veriler yüklenemedi'));
     }
 
     return SingleChildScrollView(
@@ -475,7 +475,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Channel Performance
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -500,7 +500,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                         ),
                       )),
                       title: Text(channel.toUpperCase()),
-                      subtitle: Text('$delivered/$sent teslim edildi'),
+                      subtitle: const Text('$delivered/$sent teslim edildi'),
                       trailing: Text(
                         '%${successRate.toStringAsFixed(1)}',
                         style: TextStyle(
@@ -526,7 +526,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         children: [
           // Start Location Sharing Button
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
@@ -576,10 +576,10 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Başladı: ${_formatDateTime(share.createdAt)}'),
-                    Text('Bitiş: ${_formatDateTime(share.expiresAt)}'),
+                    const Text('Başladı: ${_formatDateTime(share.createdAt)}'),
+                    const Text('Bitiş: ${_formatDateTime(share.expiresAt)}'),
                     if (!share.isExpired)
-                      Text('Kalan süre: ${_formatDuration(share.remainingTime)}'),
+                      const Text('Kalan süre: ${_formatDuration(share.remainingTime)}'),
                   ],
                 ),
                 trailing: share.isActive
@@ -592,7 +592,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
             )).toList(),
           ] else
             const Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(32),
                 child: Column(
                   children: [
@@ -617,7 +617,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       child: Column(
         children: [
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
@@ -647,7 +647,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           const SizedBox(height: DesignTokens.space16),
 
           Card(
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
@@ -684,7 +684,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

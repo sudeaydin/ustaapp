@@ -23,7 +23,7 @@ class LoadingSpinner extends StatelessWidget {
         SizedBox(
           width: size,
           height: size,
-          child: CircularProgressIndicator(
+          child: const CircularProgressIndicator(
             strokeWidth: strokeWidth,
             valueColor: AlwaysStoppedAnimation<Color>(
               color ?? DesignTokens.primaryCoral,

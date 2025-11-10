@@ -957,7 +957,7 @@ class _MarketplaceCreateListingScreenState
     if (_selectedCategory.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen bir kategori seçin'),
+          content: const Text('Lütfen bir kategori seçin'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -967,7 +967,7 @@ class _MarketplaceCreateListingScreenState
     if (_startDate == null || _endDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen tarih aralığını seçin'),
+          content: const Text('Lütfen tarih aralığını seçin'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -1030,7 +1030,7 @@ class _MarketplaceCreateListingScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Hata: ${e.toString()}'),
+            content: const Text('Hata: ${e.toString()}'),
             backgroundColor: DesignTokens.error,
           ),
         );

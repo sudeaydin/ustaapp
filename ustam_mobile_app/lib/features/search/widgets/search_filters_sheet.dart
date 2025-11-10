@@ -69,7 +69,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           ),
           
           // Header
-          Padding(
+          const Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
@@ -180,7 +180,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => Text('Kategoriler yüklenemedi: $error'),
+              error: (error, stack) => const Text('Kategoriler yüklenemedi: $error'),
             );
           },
         ),
@@ -217,7 +217,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                   items: [
                     const DropdownMenuItem<String>(
                       value: null,
-                      child: Text('Tüm Şehirler'),
+                      child: const Text('Tüm Şehirler'),
                     ),
                     ...cities.map((city) => DropdownMenuItem(
                       value: city,
@@ -238,7 +238,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => Text('Şehirler yüklenemedi: $error'),
+              error: (error, stack) => const Text('Şehirler yüklenemedi: $error'),
             );
           },
         ),
@@ -256,7 +256,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
             items: [
               const DropdownMenuItem<String>(
                 value: null,
-                child: Text('Tüm İlçeler'),
+                child: const Text('Tüm İlçeler'),
               ),
               ...ref.watch(searchProvider).districts.map((district) => DropdownMenuItem(
                 value: district,
@@ -306,8 +306,8 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('₺${priceRange.min.toInt()}'),
-            Text('₺${priceRange.max.toInt()}'),
+            const Text('₺${priceRange.min.toInt()}'),
+            const Text('₺${priceRange.max.toInt()}'),
           ],
         ),
       ],
@@ -348,13 +348,13 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
             Row(
               children: [
                 const Icon(Icons.star, size: 16, color: Colors.amber),
-                Text(' ${_ratingRange.start.toStringAsFixed(1)}'),
+                const Text(' ${_ratingRange.start.toStringAsFixed(1)}'),
               ],
             ),
             Row(
               children: [
                 const Icon(Icons.star, size: 16, color: Colors.amber),
-                Text(' ${_ratingRange.end.toStringAsFixed(1)}'),
+                const Text(' ${_ratingRange.end.toStringAsFixed(1)}'),
               ],
             ),
           ],

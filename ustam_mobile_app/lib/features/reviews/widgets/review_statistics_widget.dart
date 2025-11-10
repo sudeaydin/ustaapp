@@ -134,7 +134,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
   }
 
   Widget _buildRatingBar(int stars, int count, double percentage) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [

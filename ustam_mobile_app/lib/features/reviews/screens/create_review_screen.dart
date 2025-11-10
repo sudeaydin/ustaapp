@@ -310,7 +310,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
         _speedRating == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen tüm kategorileri puanlayın ve yorum yazın'),
+          content: const Text('Lütfen tüm kategorileri puanlayın ve yorum yazın'),
           backgroundColor: Colors.red,
         ),
       );
@@ -336,7 +336,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Değerlendirmeniz başarıyla gönderildi'),
+            content: const Text('Değerlendirmeniz başarıyla gönderildi'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );

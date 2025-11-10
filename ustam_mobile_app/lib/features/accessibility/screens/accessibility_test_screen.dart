@@ -69,7 +69,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
       
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Form başarıyla gönderildi'),
+          content: const Text('Form başarıyla gönderildi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -113,7 +113,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
           children: [
             // Page Description
             Card(
-              child: Padding(
+              child: const Padding(
                 padding: const EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +182,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildButtonsDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +234,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildFormDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,7 +296,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildTabsDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,7 +335,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   }
 
   Widget _buildTabContent(String content) {
-    return Padding(
+    return const Padding(
       padding: const EdgeInsets.all(DesignTokens.space16),
       child: Text(content).withSemantics(
         label: content,
@@ -345,7 +345,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildPaginationDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,7 +356,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             ).withSemantics(header: true),
             const SizedBox(height: DesignTokens.space16),
             
-            Text('Şu anki sayfa: $_currentPage / $_totalPages'),
+            const Text('Şu anki sayfa: $_currentPage / $_totalPages'),
             const SizedBox(height: DesignTokens.space16),
             
             Row(
@@ -402,7 +402,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildColorContrastDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -480,7 +480,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildLoadingDemo() {
     return Card(
-      child: Padding(
+      child: const Padding(
         padding: const EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
