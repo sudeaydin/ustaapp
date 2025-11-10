@@ -161,28 +161,28 @@ class MainNavigationScreen extends ConsumerWidget {
         onTap: (index) => _onTap(context, index),
         items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home_outlined),
-            activeIcon: const Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
             label: 'Ana Sayfa',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.search_outlined),
-            activeIcon: const Icon(Icons.search),
+            icon: Icon(Icons.search_outlined),
+            activeIcon: Icon(Icons.search),
             label: 'Ara',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.work_outline),
-            activeIcon: const Icon(Icons.work),
+            icon: Icon(Icons.work_outline),
+            activeIcon: Icon(Icons.work),
             label: 'İşlerim',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.chat_bubble_outline),
-            activeIcon: const Icon(Icons.chat_bubble),
+            icon: Icon(Icons.chat_bubble_outline),
+            activeIcon: Icon(Icons.chat_bubble),
             label: 'Mesajlar',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person_outline),
-            activeIcon: const Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
             label: 'Profil',
           ),
         ],
