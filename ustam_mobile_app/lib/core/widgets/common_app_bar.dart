@@ -67,7 +67,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
-              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: IconButton(
               icon: const Icon(Icons.notifications_outlined, color: Colors.white),

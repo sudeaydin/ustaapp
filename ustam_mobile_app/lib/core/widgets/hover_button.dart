@@ -9,7 +9,7 @@ class HoverButton extends StatefulWidget {
   final Duration animationDuration;
   final BorderRadius? borderRadius;
 
-  const HoverButton({
+  HoverButton({
     super.key,
     required this.child,
     this.onTap,

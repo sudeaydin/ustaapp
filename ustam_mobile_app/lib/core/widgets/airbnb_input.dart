@@ -103,7 +103,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
             color: widget.enabled 
                 ? DesignTokens.background 
                 : DesignTokens.surfacePrimary,
-            borderRadius: const BorderRadius.circular(DesignTokens.inputBorderRadius),
+            borderRadius: BorderRadius.circular(DesignTokens.inputBorderRadius),
             border: Border.all(
               color: _getBorderColor(),
               width: _isFocused ? 2 : 1,
@@ -264,7 +264,7 @@ class AirbnbSearchInput extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.circular(24), // Airbnb search style
+        borderRadius: BorderRadius.circular(24), // Airbnb search style
         border: Border.all(
           color: Colors.grey.withOpacity(0.3),
           width: 1,

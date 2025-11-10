@@ -211,7 +211,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       setState(() => _showBanner = false);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: const Text('Çerez tercihleri kaydedildi'),
           duration: const Duration(seconds: 2),
         ),
@@ -232,7 +232,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       setState(() => _showBanner = false);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: const Text('Çerez kullanımı reddedildi'),
           duration: const Duration(seconds: 2),
         ),
@@ -291,7 +291,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
                   size: 24,
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Bu uygulama çerezler kullanır',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -300,7 +300,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
               ],
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Deneyiminizi iyileştirmek için çerezler kullanıyoruz. '
               'Devam ederek çerez kullanımını kabul etmiş olursunuz.',
               style: TextStyle(fontSize: 14, color: Colors.black87),

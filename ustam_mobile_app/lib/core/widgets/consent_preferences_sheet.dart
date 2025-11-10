@@ -24,7 +24,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Onay Tercihleri',
                   style: TextStyle(
@@ -89,8 +89,8 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
   ) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      child: const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+      child: Padding(
+          padding: EdgeInsets.all(DesignTokens.space16),
         child: Row(
           children: [
             Expanded(
@@ -132,7 +132,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const AlertDialog(
+        builder: (context) => AlertDialog(
           content: Row(
             children: [
               CircularProgressIndicator(),
@@ -158,7 +158,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       Navigator.pop(context);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: const Text('Tercihleriniz başarıyla kaydedildi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),

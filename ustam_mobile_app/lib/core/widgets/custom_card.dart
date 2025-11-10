@@ -39,7 +39,7 @@ class CustomCard extends StatelessWidget {
     if (onTap != null) {
       cardContent = InkWell(
         onTap: onTap,
-        borderRadius: const BorderRadius.circular(borderRadiusValue),
+        borderRadius: BorderRadius.circular(borderRadiusValue),
         child: cardContent,
       );
     }
@@ -55,7 +55,7 @@ class CustomCard extends StatelessWidget {
       case CardType.elevated:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: const BorderRadius.circular(borderRadiusValue),
+          borderRadius: BorderRadius.circular(borderRadiusValue),
           boxShadow: [
             DesignTokens.getCardShadow(blurRadius: elevation ?? AppConfig.cardElevation * 4),
           ],
@@ -63,12 +63,12 @@ class CustomCard extends StatelessWidget {
       case CardType.flat:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: const BorderRadius.circular(borderRadiusValue),
+          borderRadius: BorderRadius.circular(borderRadiusValue),
         );
       case CardType.outlined:
         return BoxDecoration(
           color: backgroundColor ?? DesignTokens.surfacePrimary,
-          borderRadius: const BorderRadius.circular(borderRadiusValue),
+          borderRadius: BorderRadius.circular(borderRadiusValue),
           border: Border.all(
             color: DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
