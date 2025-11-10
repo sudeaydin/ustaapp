@@ -69,7 +69,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
       
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: const Text('Form başarıyla gönderildi'),
+          content: Text('Form başarıyla gönderildi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -91,7 +91,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Erişilebilirlik Testi').withSemantics(
+        title: Text('Erişilebilirlik Testi').withSemantics(
           header: true,
           label: 'Erişilebilirlik test sayfası başlığı',
         ),
@@ -123,7 +123,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
                       style: theme.textTheme.headlineSmall,
                     ).withSemantics(header: true),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       'Bu sayfa UstamApp\'in erişilebilirlik özelliklerini test etmek için tasarlanmıştır. '
                       'Ekran okuyucu, klavye navigasyonu ve diğer erişilebilirlik araçlarını test edebilirsiniz.',
                     ),
@@ -335,8 +335,8 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   }
 
   Widget _buildTabContent(String content) {
-    return const Padding(
-      padding: EdgeInsets.all(DesignTokens.space16),
+    return Padding(
+      padding: const EdgeInsets.all(DesignTokens.space16),
       child: Text(content).withSemantics(
         label: content,
       ),
@@ -509,17 +509,17 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Bu uygulama aşağıdaki erişilebilirlik özelliklerine sahiptir:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 12),
-            const Text('• Ekran okuyucu desteği'),
-            const Text('• Semantik etiketleme'),
-            const Text('• Klavye navigasyonu'),
-            const Text('• Yüksek kontrast desteği'),
-            const Text('• Dokunma hedefi boyutları'),
-            const Text('• Hareket azaltma desteği'),
+            Text('• Ekran okuyucu desteği'),
+            Text('• Semantik etiketleme'),
+            Text('• Klavye navigasyonu'),
+            Text('• Yüksek kontrast desteği'),
+            Text('• Dokunma hedefi boyutları'),
+            Text('• Hareket azaltma desteği'),
             const SizedBox(height: DesignTokens.space16),
             Text(
               'Ekran okuyucu: ${AccessibilityUtils.isScreenReaderEnabled ? "Aktif" : "Pasif"}',
