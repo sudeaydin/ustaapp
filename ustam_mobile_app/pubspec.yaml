@@ -19,10 +19,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+2
 
-# Compatible with Flutter 3.27+ (includes Dart 3.6+)
+# Compatible with Flutter 3.24+ (includes Dart 3.5+)
 environment:
-  sdk: ">=3.6.0 <4.0.0"
-  flutter: ">=3.27.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.24.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -67,7 +67,8 @@ dependencies:
   freezed_annotation: ^2.4.1
   
   # Date & Time
-  intl: ^0.20.2
+  # intl is provided by flutter_localizations (0.19.0)
+  # No need to specify explicitly
   
   # Real-time Communication
   socket_io_client: ^2.0.3+1
@@ -80,8 +81,8 @@ dependencies:
   image: ^4.1.7
   
   # Forms & Validation
-  flutter_form_builder: ^9.6.0
-  form_builder_validators: ^11.1.2
+  flutter_form_builder: ^9.4.0
+  form_builder_validators: ^10.0.0
   
   # Image & Media
   image_picker: ^1.1.2
