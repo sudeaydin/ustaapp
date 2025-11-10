@@ -115,14 +115,14 @@ class ApiService {
     } on SocketException {
       stopwatch.stop();
       _trackApiCall(url, method, 0, stopwatch.elapsedMilliseconds);
-      throw AppError(
+      throw const AppError(
         type: ErrorType.noInternet,
         message: 'İnternet bağlantınızı kontrol edin',
       );
     } on TimeoutException {
       stopwatch.stop();
       _trackApiCall(url, method, 408, stopwatch.elapsedMilliseconds);
-      throw AppError(
+      throw const AppError(
         type: ErrorType.timeout,
         message: 'İstek zaman aşımına uğradı',
       );
