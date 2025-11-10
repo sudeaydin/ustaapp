@@ -121,7 +121,7 @@ class MessageCard extends StatelessWidget {
           ? DesignTokens.primaryCoral.withOpacity(0.1)
           : DesignTokens.surfacePrimary,
       padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.only(
+      margin: EdgeInsets.only(
         left: isOwn ? 50 : 0,
         right: isOwn ? 0 : 50,
         bottom: 8,
