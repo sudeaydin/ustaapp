@@ -43,9 +43,9 @@ class DesignTokens {
   static const double inputBorderRadius = 8.0;   // Airbnb input radius
   
   // Edge Insets helpers
-  static const EdgeInsets cardPaddingInsets = const EdgeInsets.all(cardPadding);
-  static const EdgeInsets screenPaddingInsets = const EdgeInsets.all(screenPadding);
-  static const EdgeInsets contentPaddingInsets = const EdgeInsets.all(contentSpacing);
+  static const EdgeInsets cardPaddingInsets =  EdgeInsets.all(cardPadding);
+  static const EdgeInsets screenPaddingInsets =  EdgeInsets.all(screenPadding);
+  static const EdgeInsets contentPaddingInsets =  EdgeInsets.all(contentSpacing);
   
   static const EdgeInsets buttonPaddingInsets = const EdgeInsets.symmetric(
     horizontal: buttonPaddingHorizontal,
