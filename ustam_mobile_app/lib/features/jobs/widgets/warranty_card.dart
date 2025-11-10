@@ -24,7 +24,7 @@ class WarrantyCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,7 +39,7 @@ class WarrantyCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Garanti Belgesi',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -57,7 +57,7 @@ class WarrantyCard extends StatelessWidget {
               ),
             ),
             if (expiryDate != null) ...[
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               Row(
                 children: [
                   Icon(
@@ -65,7 +65,7 @@ class WarrantyCard extends StatelessWidget {
                     color: DesignTokens.warning,
                     size: 16,
                   ),
-                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                   Text(
                     'Bitiş: $expiryDate',
                     style: TextStyle(
@@ -76,7 +76,7 @@ class WarrantyCard extends StatelessWidget {
                 ],
               ),
             ],
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             Row(
               children: [
                 Expanded(
@@ -84,10 +84,10 @@ class WarrantyCard extends StatelessWidget {
                     onPressed: () {
                       // Show warranty details
                     },
-                    child: const Text('Detayları Gör'),
+                    child: Text('Detayları Gör'),
                   ),
                 ),
-                const SizedBox(width: 12),
+ SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: status == 'active' ? () {
@@ -97,7 +97,7 @@ class WarrantyCard extends StatelessWidget {
                       backgroundColor: DesignTokens.warning,
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text('Talep Oluştur'),
+                    child: Text('Talep Oluştur'),
                   ),
                 ),
               ],
@@ -131,7 +131,7 @@ class WarrantyCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),

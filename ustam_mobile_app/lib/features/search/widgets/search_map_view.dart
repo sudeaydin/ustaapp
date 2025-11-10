@@ -126,7 +126,7 @@ class _SearchMapViewState extends State<SearchMapView> {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: const Borderconst Radius.circular(DesignTokens.radius12)),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -151,7 +151,7 @@ class _SearchMapViewState extends State<SearchMapView> {
             ...cityGroups.entries.take(5).map((entry) {
               final percentage = (entry.value.length / widget.craftsmen.length * 100);
               return const Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
                     Container(
@@ -181,7 +181,7 @@ class _SearchMapViewState extends State<SearchMapView> {
               );
             }).toList(),
             if (cityGroups.length > 5) ...[
-              const SizedBox(height: 4),
+ SizedBox(height: 4),
               Text(
                 '+${cityGroups.length - 5} diğer şehir',
                 style: TextStyle(
@@ -201,7 +201,7 @@ class _SearchMapViewState extends State<SearchMapView> {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: const Borderconst Radius.circular(DesignTokens.radius12)),
       child: const Padding(
-        padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -237,7 +237,7 @@ class _SearchMapViewState extends State<SearchMapView> {
 
   Widget _buildLegendItem(Color color, String label, IconData icon) {
     return const Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

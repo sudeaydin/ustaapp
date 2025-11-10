@@ -131,7 +131,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               children: [
                 Text(
                   widget.listing['title'],
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.gray900,
@@ -150,7 +150,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                     const Spacer(),
                     Text(
                       '${_mockOffers.length} Teklif',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.primaryCoral,
@@ -165,7 +165,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
           
           // Accepted Offers
           if (acceptedOffers.isNotEmpty) ...[
-            const Text(
+ Text(
               'Kabul Edilen Teklif',
               style: TextStyle(
                 fontSize: 18,
@@ -173,22 +173,22 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 color: DesignTokens.success,
               ),
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             ...acceptedOffers.map((offer) => _buildOfferCard(offer, true)),
-            const SizedBox(height: DesignTokens.space20),
+ SizedBox(height: DesignTokens.space20),
           ],
           
           // Pending Offers
           if (pendingOffers.isNotEmpty) ...[
             Text(
               acceptedOffers.isEmpty ? 'Gelen Teklifler' : 'Diğer Teklifler',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: DesignTokens.gray900,
               ),
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             ...pendingOffers.map((offer) => _buildOfferCard(offer, false)),
           ],
         ],
@@ -204,7 +204,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
     final canAcceptOffer = !hasAcceptedOffer && offer['status'] == 'pending';
     
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space12),
+      margin: EdgeInsets.only(bottom: DesignTokens.space12),
       backgroundColor: isThisOfferAccepted 
           ? DesignTokens.success.withOpacity(0.05)
           : isThisOfferRejected
@@ -229,13 +229,13 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                   color: DesignTokens.gray300,
                   borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.person,
                   size: 24,
                   color: DesignTokens.gray600,
                 ),
               ),
-              const SizedBox(width: 12),
+ SizedBox(width: 12),
               
               // Craftsman Info
               Expanded(
@@ -255,14 +255,14 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                           ),
                         ),
                         if (isThisOfferAccepted) ...[
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: DesignTokens.success,
                               borderRadius: const Borderconst Radius.circular(4),
                             ),
-                            child: const Text(
+                            child: Text(
                               'SEÇİLDİ',
                               style: TextStyle(
                                 fontSize: 10,
@@ -272,14 +272,14 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                             ),
                           ),
                         ] else if (isThisOfferRejected) ...[
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: DesignTokens.gray500,
                               borderRadius: const Borderconst Radius.circular(4),
                             ),
-                            child: const Text(
+                            child: Text(
                               'REDDEDİLDİ',
                               style: TextStyle(
                                 fontSize: 10,
@@ -291,15 +291,15 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                         ],
                       ],
                     ),
-                    const SizedBox(height: 4),
+ SizedBox(height: 4),
                     Row(
                       children: [
-                        const Icon(
+ Icon(
                           Icons.star,
                           size: 16,
                           color: Colors.amber,
                         ),
-                        const SizedBox(width: 4),
+ SizedBox(width: 4),
                         Text(
                           '${offer['craftsmanRating']} (${offer['craftsmanReviewCount']} değerlendirme)',
                           style: TextStyle(
@@ -342,7 +342,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+ SizedBox(height: 16),
           
           // Note
           if (offer['note'].isNotEmpty) ...[
@@ -356,7 +356,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 height: 1.4,
               ),
             ),
-            const SizedBox(height: 16),
+ SizedBox(height: 16),
           ],
           
           // Footer
@@ -400,8 +400,8 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                       arguments: {'conversation': conversation},
                     );
                   },
-                  icon: const Icon(Icons.chat, size: 16),
-                  label: const Text('Mesaj', style: TextStyle(fontSize: 12)),
+                  icon: Icon(Icons.chat, size: 16),
+                  label: Text('Mesaj', style: TextStyle(fontSize: 12)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: DesignTokens.primaryCoral,
                     foregroundColor: Colors.white,
@@ -417,9 +417,9 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                     foregroundColor: Colors.red,
                     minimumSize: const Size(60, 32),
                   ),
-                  child: const Text('Reddet', style: TextStyle(fontSize: 12)),
+                  child: Text('Reddet', style: TextStyle(fontSize: 12)),
                 ),
-                const SizedBox(width: 8),
+ SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () => _showAcceptDialog(offer),
                   style: ElevatedButton.styleFrom(
@@ -427,17 +427,17 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                     foregroundColor: Colors.white,
                     minimumSize: const Size(60, 32),
                   ),
-                  child: const Text('Kabul Et', style: TextStyle(fontSize: 12)),
+                  child: Text('Kabul Et', style: TextStyle(fontSize: 12)),
                 ),
               ] else if (isThisOfferRejected) ...[
                 // Show rejected status
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.gray200,
                     borderRadius: const Borderconst Radius.circular(6),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Reddedildi',
                     style: TextStyle(
                       fontSize: 12,
@@ -449,12 +449,12 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               ] else if (hasAcceptedOffer && !isThisOfferAccepted) ...[
                 // Show that listing is closed for other offers
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.warning.withOpacity(0.1),
                     borderRadius: const Borderconst Radius.circular(6),
                   ),
-                  child: const Text(
+                  child: Text(
                     'İlan Kapandı',
                     style: TextStyle(
                       fontSize: 12,
@@ -475,12 +475,12 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Teklifi Kabul Et'),
-        content: const Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?\n\nBu teklifi kabul ettiğinizde ilan kapanacak ve diğer ustalar teklif veremeyecektir.'),
+        title: Text('Teklifi Kabul Et'),
+        content: Text('${offer['craftsmanName']} adlı ustanın ${offer['amount']} tutarındaki teklifini kabul etmek istediğinizden emin misiniz?\n\nBu teklifi kabul ettiğinizde ilan kapanacak ve diğer ustalar teklif veremeyecektir.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -492,13 +492,13 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
               });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text('${offer['craftsmanName']} adlı ustanın teklifi kabul edildi!'),
+                  content: Text('${offer['craftsmanName']} adlı ustanın teklifi kabul edildi!'),
                   backgroundColor: DesignTokens.success,
                 ),
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: DesignTokens.success),
-            child: const Text('Kabul Et'),
+            child: Text('Kabul Et'),
           ),
         ],
       ),
@@ -509,12 +509,12 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Teklifi Reddet'),
-        content: const Text('${offer['craftsmanName']} adlı ustanın teklifini reddetmek istediğinizden emin misiniz?'),
+        title: Text('Teklifi Reddet'),
+        content: Text('${offer['craftsmanName']} adlı ustanın teklifini reddetmek istediğinizden emin misiniz?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           TextButton(
             onPressed: () {
@@ -523,11 +523,11 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
                 offer['status'] = 'rejected';
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: const Text('Teklif reddedildi')),
+                const SnackBar(content: Text('Teklif reddedildi')),
               );
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Reddet'),
+            child: Text('Reddet'),
           ),
         ],
       ),

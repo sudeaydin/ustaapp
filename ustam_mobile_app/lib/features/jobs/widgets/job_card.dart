@@ -27,7 +27,7 @@ class JobCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       onTap: onTap,
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,7 +36,7 @@ class JobCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       job is Job ? job.title : (job['title'] ?? 'İsimsiz İş'),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),

@@ -128,7 +128,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
                 Text(
                   '${_getMonthName(_focusedDay.month)} ${_focusedDay.year}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -380,7 +380,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       _selectedDay != null 
                           ? '${_selectedDay!.day} ${_getMonthName(_selectedDay!.month)} ${_selectedDay!.year}'
                           : 'Tarih Seçin',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -492,7 +492,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             debugPrint('❌ Stack trace: $stackTrace');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('Event detayı açılırken hata: $e'),
+                content: Text('Event detayı açılırken hata: $e'),
                 backgroundColor: Colors.red,
                 duration: const Duration(seconds: 5),
               ),
@@ -532,7 +532,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       children: [
                         Text(
                           event.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: DesignTokens.gray900,
@@ -576,9 +576,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               ),
               
               if (event.description != null) ...[
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
                     borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -596,13 +596,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
               ],
               
-              const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
               
               // Time and Status Row
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.1),
                       borderRadius: const Borderconst Radius.circular(20),
@@ -615,10 +615,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           size: 16,
                           color: DesignTokens.primaryCoral,
                         ),
-                        const SizedBox(width: 6),
+ SizedBox(width: 6),
                         Text(
                           '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             color: DesignTokens.primaryCoral,
                             fontWeight: FontWeight.w600,
@@ -629,7 +629,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
                       borderRadius: const Borderconst Radius.circular(20),
@@ -645,7 +645,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                             shape: BoxShape.circle,
                           ),
                         ),
-                        const SizedBox(width: 6),
+ SizedBox(width: 6),
                         Text(
                           _getStatusText(event.status, isJob),
                           style: TextStyle(
@@ -676,7 +676,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             size: 64,
             color: Colors.grey[400],
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           Text(
             _selectedDay != null && _selectedDay!.isAtSameMomentAs(DateTime.now())
                 ? 'Bugün randevunuz yok'
@@ -687,7 +687,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Text(
             'Yeni randevu oluşturmak için + butonuna tıklayın',
             style: TextStyle(
@@ -696,10 +696,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           CustomButton(
             text: 'Randevu Oluştur',
-            icon: const Icon(Icons.add, size: 18),
+            icon: Icon(Icons.add, size: 18),
             onPressed: () => _showCreateAppointmentSheet(context),
           ),
         ],
@@ -759,7 +759,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: const Text('Randevu durumu güncellendi'),
+          content: Text('Randevu durumu güncellendi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -900,7 +900,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             Container(
               width: 40,
               height: 4,
-              margin: const EdgeInsets.only(top: 12),
+              margin: EdgeInsets.only(top: 12),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: const Borderconst Radius.circular(2),
@@ -909,8 +909,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             
             // Header with gradient
             Container(
-              margin: const EdgeInsets.all(DesignTokens.space16),
-              padding: const EdgeInsets.all(20),
+              margin: EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: DesignTokens.primaryCoralGradient,
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
@@ -918,7 +918,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -929,20 +929,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       size: 24,
                     ),
                   ),
-                  const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           event.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 4),
+ SizedBox(height: 4),
                         Text(
                           event.isJob ? 'İş Randevusu' : 'Etkinlik',
                           style: TextStyle(
@@ -954,7 +954,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
+                    icon: Icon(Icons.close, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -964,7 +964,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             // Content
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1014,7 +1014,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       ),
                     ],
                     
-                    const SizedBox(height: 20),
+ SizedBox(height: 20),
                     
                     // Action Buttons
                     Row(
@@ -1025,31 +1025,31 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               Navigator.pop(context);
                               // TODO: Navigate to edit appointment
                             },
-                            icon: const Icon(Icons.edit_outlined),
-                            label: const Text('Düzenle'),
+                            icon: Icon(Icons.edit_outlined),
+                            label: Text('Düzenle'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: DesignTokens.primaryCoral,
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+ SizedBox(width: 12),
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () {
                               Navigator.pop(context);
                               // TODO: Cancel appointment
                             },
-                            icon: const Icon(Icons.cancel_outlined),
-                            label: const Text('İptal Et'),
+                            icon: Icon(Icons.cancel_outlined),
+                            label: Text('İptal Et'),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.red,
                               side: const BorderSide(color: Colors.red),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                               ),
@@ -1077,7 +1077,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       debugPrint('❌ Stack trace: $stackTrace');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Modal açılırken hata: $e'),
+          content: Text('Modal açılırken hata: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),
         ),
@@ -1092,8 +1092,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     required Color color,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -1103,14 +1103,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.2),
               borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
             ),
             child: Icon(icon, color: color, size: 20),
           ),
-          const SizedBox(width: 12),
+ SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1123,7 +1123,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     color: color,
                   ),
                 ),
-                const SizedBox(height: 4),
+ SizedBox(height: 4),
                 Text(
                   content,
                   style: const TextStyle(

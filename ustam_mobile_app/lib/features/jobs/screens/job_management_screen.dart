@@ -261,7 +261,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemBuilder: (context, index) {
         final job = _jobs[index];
         return const Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: JobCard(
             job: job,
             userType: ref.read(authProvider)?.userType ?? 'customer',
@@ -303,7 +303,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemBuilder: (context, index) {
         final warranty = _warranties[index];
         return const Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
             warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
             job: warranty is Map<String, dynamic> 
@@ -347,7 +347,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
       itemBuilder: (context, index) {
         final emergency = _emergencies[index];
         return const Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: EmergencyServiceCard(
             emergency: emergency,
             onUpdate: _loadData,
@@ -488,7 +488,7 @@ class _MetricCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),

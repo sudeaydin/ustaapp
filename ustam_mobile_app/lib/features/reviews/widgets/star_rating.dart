@@ -32,7 +32,7 @@ class StarRating extends StatelessWidget {
           );
         }),
         if (showRating) ...[
-          const SizedBox(width: 4),
+ SizedBox(width: 4),
           Text(
             rating.toStringAsFixed(1),
             style: TextStyle(
@@ -129,7 +129,7 @@ class CategoryRatingWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: DesignTokens.gray900,

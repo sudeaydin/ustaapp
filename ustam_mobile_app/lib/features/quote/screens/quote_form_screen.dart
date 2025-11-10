@@ -121,7 +121,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                           children: [
                             Text(
                               widget.craftsman['name'] ?? '',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: DesignTokens.gray900,
@@ -306,7 +306,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -332,7 +332,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: const Text('$label seçiniz'),
+            hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
               value: item,
               child: Text(item),
@@ -358,7 +358,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16,
             color: DesignTokens.gray900,
@@ -680,7 +680,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,

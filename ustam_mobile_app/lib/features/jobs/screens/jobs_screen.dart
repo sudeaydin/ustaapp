@@ -32,7 +32,7 @@ class JobsScreen extends ConsumerWidget {
               ),
               child: SafeArea(
                 child: const Padding(
-                  padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: [
                       Container(
@@ -103,7 +103,7 @@ class JobsScreen extends ConsumerWidget {
               ],
             ),
             child: const Padding(
-              padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -154,7 +154,7 @@ class JobsScreen extends ConsumerWidget {
                     children: [
                       const Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      const Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
+                      Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Container(
                         decoration: BoxDecoration(
@@ -273,13 +273,13 @@ class JobsScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('📝 ${job['description']}'),
+            Text('📝 ${job['description']}'),
             const SizedBox(height: 8),
-            const Text('Bütçe: ${job['price']}'),
+            Text('Bütçe: ${job['price']}'),
             const SizedBox(height: 8),
-            const Text('📍 Konum: ${job['location']}'),
+            Text('📍 Konum: ${job['location']}'),
             const SizedBox(height: 8),
-            const Text('📅 Tarih: ${job['date']}'),
+            Text('📅 Tarih: ${job['date']}'),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -347,7 +347,7 @@ class JobsScreen extends ConsumerWidget {
         ],
       ),
       child: const Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -355,7 +355,7 @@ class JobsScreen extends ConsumerWidget {
             const SizedBox(width: 4),
             Text(
               status,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12, 
                 color: DesignTokens.surfacePrimary,
                 fontWeight: FontWeight.w600,

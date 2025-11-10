@@ -68,7 +68,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           children: [
             // Skip Button
             const Padding(
-              padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -100,7 +100,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 itemBuilder: (context, index) {
                   final page = _pages[index];
                   return const Padding(
-                    padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -176,7 +176,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             
             // Page Indicator & Navigation
             const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 children: [
                   // Page Dots

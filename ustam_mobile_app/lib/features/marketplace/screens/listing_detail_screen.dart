@@ -120,7 +120,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                 children: [
                   Text(
                     listing['title'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.gray900,
@@ -176,7 +176,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   );
                 },
                 icon: const Icon(Icons.local_offer),
-                label: const Text('Teklifler (${listing['offersCount']})'),
+                label: Text('Teklifler (${listing['offersCount']})'),
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: DesignTokens.primaryCoral),
                   foregroundColor: DesignTokens.primaryCoral,
@@ -192,7 +192,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
 
   Widget _buildDetailRow(String label, String value, IconData icon) {
     return const Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
           Icon(
@@ -212,7 +212,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,

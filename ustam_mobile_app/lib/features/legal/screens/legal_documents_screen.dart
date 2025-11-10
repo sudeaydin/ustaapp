@@ -186,7 +186,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         ),
         title: Text(
           document.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -217,7 +217,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   child: Text(
                     'v${document.version}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       color: DesignTokens.primaryCoral,
                       fontWeight: FontWeight.w500,
@@ -314,7 +314,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       appBar: AppBar(
         title: Text(
           widget.document.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Colors.white,
@@ -397,7 +397,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
               children: [
                 Text(
                   widget.document.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,
@@ -425,7 +425,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
                       ),
                       child: Text(
                         'Sürüm ${widget.document.version}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           color: DesignTokens.primaryCoral,
                           fontWeight: FontWeight.w500,

@@ -84,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
         ],
         Container(
           decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               prefixIcon: widget.prefixIcon,
               suffixIcon: _getSuffixIcon(),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
               counterText: '', // Hide character counter
             ),
           ),
@@ -235,10 +235,10 @@ class SearchTextField extends StatelessWidget {
       hint: hint,
       onChanged: onChanged,
       controller: controller,
-      prefixIcon: const Icon(Icons.search, color: DesignTokens.textMuted),
+      prefixIcon: Icon(Icons.search, color: DesignTokens.textMuted),
       suffixIcon: onClear != null
           ? IconButton(
-              icon: const Icon(Icons.clear, color: DesignTokens.textMuted),
+              icon: Icon(Icons.clear, color: DesignTokens.textMuted),
               onPressed: onClear,
             )
           : null,

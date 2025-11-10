@@ -54,7 +54,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             children: [
               Text(
                 statistics.averageRating.toStringAsFixed(1),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.primaryCoral,
@@ -93,7 +93,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   _getRatingDescription(statistics.averageRating),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: DesignTokens.primaryCoral,
@@ -135,7 +135,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildRatingBar(int stars, int count, double percentage) {
     return const Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           // Star count
@@ -143,7 +143,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             width: 20,
             child: Text(
               '$stars',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

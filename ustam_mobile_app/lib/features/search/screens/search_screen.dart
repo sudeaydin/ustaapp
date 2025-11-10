@@ -165,7 +165,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.city != null) ...[
                           _buildQuickFilterChip(
@@ -175,7 +175,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.minRating != null) ...[
                           _buildQuickFilterChip(
@@ -185,7 +185,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.isVerified == true) ...[
                           _buildQuickFilterChip(
@@ -195,12 +195,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8),
+ SizedBox(height: 8),
                 ],
               ],
             ),
@@ -217,7 +217,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   Widget _buildQuickFilterChip(String label, VoidCallback onRemove) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.2),
         borderRadius: const Borderconst Radius.circular(20),
@@ -231,16 +231,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(width: 4),
+ SizedBox(width: 4),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(
+            child: Icon(
               iOSIcons.close,
               color: Colors.white,
               size: 16,
@@ -283,7 +283,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               size: 64,
               color: DesignTokens.gray600.withOpacity(0.5),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             Text(
               isInitialState 
                 ? 'Usta aramak için yukarıdaki arama çubuğunu kullanın'
@@ -294,7 +294,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             ElevatedButton.icon(
               onPressed: () {
                 if (isInitialState) {
@@ -323,12 +323,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       onRefresh: _performSearch,
       color: DesignTokens.primaryCoral,
       child: ListView.builder(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: searchState.craftsmen.length,
         itemBuilder: (context, index) {
           final craftsman = searchState.craftsmen[index];
-          return const Padding(
-            padding: const EdgeInsets.only(bottom: 16),
+          return Padding(
+            padding: EdgeInsets.only(bottom: 16),
                          child: search_widgets.CraftsmanCard(
                craftsman: craftsman,
                onTap: () => _navigateToCraftsmanDetail(craftsman),

@@ -283,7 +283,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                     children: [
                       Text(
                         _document!.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF467599),
@@ -393,7 +393,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
 
   Widget _buildContactRow(IconData icon, String label, String value) {
     return const Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -513,7 +513,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: const Text('Hata: $e')),
+          SnackBar(content: Text('Hata: $e')),
         );
       }
     }
@@ -664,11 +664,11 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       setState(() => _consents[type] = granted);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: const Text('${type.displayName} onayı güncellendi')),
+        SnackBar(content: Text('${type.displayName} onayı güncellendi')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: const Text('Hata: $e')),
+        SnackBar(content: Text('Hata: $e')),
       );
     }
   }
@@ -700,7 +700,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               
               // Header
               const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Icon(
@@ -741,12 +741,12 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                               children: [
                                 Text(
                                   type.displayName,
-                                  style: const TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
                                 if (isRequired) ...[
-                                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: Colors.red[100],
                                       borderRadius: const Borderconst Radius.circular(4),
@@ -782,7 +782,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               
               // Actions
               const Padding(
-                padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Expanded(
@@ -833,7 +833,7 @@ class GDPRRightsSheet extends StatelessWidget {
               
               // Header
               const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Icon(
@@ -868,7 +868,7 @@ class GDPRRightsSheet extends StatelessWidget {
                       ),
                       title: Text(
                         LegalConstants.gdprRightDescriptions[right] ?? right.name,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
                         _getGDPRRightDescription(right),
@@ -883,7 +883,7 @@ class GDPRRightsSheet extends StatelessWidget {
               
               // Actions
               const Padding(
-                padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Expanded(

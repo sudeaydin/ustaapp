@@ -154,7 +154,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
                   : null,
               suffixIcon: _buildSuffixIcon(),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
+              contentPadding: EdgeInsets.symmetric(
                 horizontal: DesignTokens.space16,
                 vertical: DesignTokens.space16,
               ),
@@ -291,7 +291,7 @@ class AirbnbSearchInput extends StatelessWidget {
             size: 20,
           ),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
+          contentPadding: EdgeInsets.symmetric(
             horizontal: DesignTokens.space24,
             vertical: DesignTokens.space16,
           ),

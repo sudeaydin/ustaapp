@@ -114,7 +114,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             // Page Description
             Card(
               child: const Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -183,7 +183,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildButtonsDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -235,7 +235,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildFormDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -297,7 +297,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildTabsDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -336,7 +336,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
 
   Widget _buildTabContent(String content) {
     return const Padding(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Text(content).withSemantics(
         label: content,
       ),
@@ -346,7 +346,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildPaginationDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -356,7 +356,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             ).withSemantics(header: true),
             const SizedBox(height: DesignTokens.space16),
             
-            const Text('Şu anki sayfa: $_currentPage / $_totalPages'),
+            Text('Şu anki sayfa: $_currentPage / $_totalPages'),
             const SizedBox(height: DesignTokens.space16),
             
             Row(
@@ -403,7 +403,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildColorContrastDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -481,7 +481,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
   Widget _buildLoadingDemo() {
     return Card(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Text(
@@ -523,19 +523,19 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
             const SizedBox(height: DesignTokens.space16),
             Text(
               'Ekran okuyucu: ${AccessibilityUtils.isScreenReaderEnabled ? "Aktif" : "Pasif"}',
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
               'Yüksek kontrast: ${AccessibilityUtils.isHighContrastEnabled ? "Aktif" : "Pasif"}',
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
               'Hareket azaltma: ${AccessibilityUtils.isReduceMotionEnabled ? "Aktif" : "Pasif"}',
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
               'Yazı tipi ölçeği: ${AccessibilityUtils.fontScale.toStringAsFixed(1)}x',
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
           ],
         ),

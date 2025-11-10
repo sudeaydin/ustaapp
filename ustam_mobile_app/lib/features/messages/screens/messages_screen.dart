@@ -322,7 +322,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             });
           },
           child: const Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
                 // Avatar with online status
@@ -368,7 +368,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                               children: [
                                 Text(
                                   conversation['name'],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                     color: DesignTokens.gray900,
@@ -393,7 +393,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                     Expanded(
                                       child: Text(
                                         conversation['jobTitle'] ?? '',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 11,
                                           color: DesignTokens.gray600,
                                           fontWeight: FontWeight.w500,
@@ -417,16 +417,16 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 ),
                               ),
                               if (conversation['unreadCount'] > 0) ...[
-                                const SizedBox(height: 4),
+ SizedBox(height: 4),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: DesignTokens.uclaBlue,
                                     borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     conversation['unreadCount'].toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 10,
                                       color: DesignTokens.surfacePrimary,
                                       fontWeight: FontWeight.bold,

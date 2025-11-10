@@ -40,7 +40,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                 ),
                 child: SafeArea(
                   child: const Padding(
-                    padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -58,7 +58,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                         const SizedBox(height: DesignTokens.space16),
                         Text(
                           craftsman['name'] ?? '',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: DesignTokens.surfacePrimary,
@@ -118,7 +118,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
           // Content
           SliverToBoxAdapter(
             child: const Padding(
-              padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -240,7 +240,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               const SizedBox(width: 8),
                               Text(
                                 skill.toString(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 14,
                                   color: DesignTokens.primaryCoral,
                                   fontWeight: FontWeight.w600,
@@ -292,7 +292,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Text(
                               '${craftsman['city'] ?? ''}, ${craftsman['district'] ?? ''}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: DesignTokens.gray900,
@@ -523,10 +523,10 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                 rating: averageRating.toDouble(),
                 size: 16,
               ),
-              const SizedBox(width: 8),
+ SizedBox(width: 8),
               Text(
                 '${averageRating.toStringAsFixed(1)} (${totalReviews})',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: DesignTokens.gray900,
@@ -556,14 +556,14 @@ class CraftsmanDetailScreen extends ConsumerWidget {
             children: [
               if (reviewState.isLoading)
                 const Padding(
-                  padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(32),
                   child: CircularProgressIndicator(),
                 )
               else if (reviews.isNotEmpty) ...[
                 // Show first 2 reviews
                 ...reviews.take(2).map((review) => 
-                  const Padding(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
+ Padding(
+                    padding: EdgeInsets.all(DesignTokens.space16),
                     child: ReviewCard(
                       review: review,
                       showCustomerInfo: true,
@@ -575,7 +575,7 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                 if (reviews.length > 2)
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(DesignTokens.space16),
+                    padding: EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       border: Border(
                         top: BorderSide(
@@ -597,19 +597,19 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: DesignTokens.primaryCoral,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+ Text(
                             'Tüm Yorumları Gör',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                           Text(
                             '(${reviews.length})',
                             style: TextStyle(
@@ -617,15 +617,15 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                               color: DesignTokens.primaryCoral.withOpacity(0.7),
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.arrow_forward_ios, size: 16),
+ SizedBox(width: 4),
+ Icon(Icons.arrow_forward_ios, size: 16),
                         ],
                       ),
                     ),
                   ),
               ] else
-                const Padding(
-                  padding: const EdgeInsets.all(32),
+ Padding(
+                  padding: EdgeInsets.all(32),
                   child: Column(
                     children: [
                       Icon(
@@ -633,8 +633,8 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                         size: 48,
                         color: Colors.grey[400],
                       ),
-                      const SizedBox(height: 12),
-                      const Text(
+ SizedBox(height: 12),
+ Text(
                         'Henüz yorum yok',
                         style: TextStyle(
                           fontSize: 16,
@@ -642,8 +642,8 @@ class CraftsmanDetailScreen extends ConsumerWidget {
                           color: DesignTokens.gray600,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
+ SizedBox(height: 4),
+ Text(
                         'İlk yorumu bırakın!',
                         style: TextStyle(
                           fontSize: 14,

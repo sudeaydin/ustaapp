@@ -136,14 +136,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           if (icon != null) ...[
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               ),
               child: Icon(icon, size: 20, color: DesignTokens.primaryCoral),
             ),
-            const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
           ],
           Expanded(
             child: Column(
@@ -151,16 +151,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: DesignTokens.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+ SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: DesignTokens.gray900,
                     fontWeight: FontWeight.w600,
@@ -177,14 +177,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget _buildActionButton(String title, IconData icon, VoidCallback onTap, {Color? color}) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
                           decoration: BoxDecoration(
                 color: color ?? Colors.white,
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
@@ -200,7 +200,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -211,7 +211,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     color: color != null ? Colors.white : DesignTokens.primaryCoral,
                   ),
                 ),
-                const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                 Expanded(
                   child: Text(
                     title,
@@ -252,7 +252,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
-                const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
                 Text(
                   'Profil yükleniyor...',
                   style: TextStyle(
@@ -275,7 +275,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // App Bar for customers
           if (_profileData?['user_type'] != 'craftsman')
             SliverAppBar(
-              title: const Text(
+              title: Text(
                 'Profil',
                 style: TextStyle(
                   color: Colors.white,
@@ -314,8 +314,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ),
                   child: SafeArea(
                     child: SingleChildScrollView(
-                      child: const Padding(
-                        padding: const EdgeInsets.all(20),
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -339,23 +339,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             child: _profileData?['avatar'] == null || 
                                     _profileData!['avatar'].toString().isEmpty ||
                                     _profileData!['avatar'].toString() == 'null'
-                                ? const Icon(
+                                ? Icon(
                                     Icons.person,
                                     size: 40,
                                     color: DesignTokens.surfacePrimary,
                                   )
                                 : null,
                           ),
-                          const SizedBox(height: 12),
+ SizedBox(height: 12),
                           Text(
                             '${_profileData?['first_name'] ?? ''} ${_profileData?['last_name'] ?? ''}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: DesignTokens.surfacePrimary,
                             ),
                           ),
-                          const SizedBox(height: 4),
+ SizedBox(height: 4),
                           Text(
                             _profileData?['email'] ?? '',
                             style: const TextStyle(
@@ -363,15 +363,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               color: DesignTokens.surfacePrimary70,
                             ),
                           ),
-                          const SizedBox(height: 12),
+ SizedBox(height: 12),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: DesignTokens.surfacePrimary.withOpacity(0.2),
                               borderRadius: const Borderconst Radius.circular(20),
                               border: Border.all(color: DesignTokens.surfacePrimary.withOpacity(0.3)),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Usta',
                               style: TextStyle(
                                 fontSize: 14,
@@ -389,7 +389,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.edit, color: DesignTokens.surfacePrimary),
+                  icon: Icon(Icons.edit, color: DesignTokens.surfacePrimary),
                   onPressed: () {
                     // Navigate to edit profile
                   },
@@ -399,13 +399,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           // Profile Content - Figma Design
           SliverToBoxAdapter(
-            child: const Padding(
-              padding: const EdgeInsets.all(20),
+            child: Padding(
+              padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Basic Info Section
-                  const Text(
+ Text(
                     'Kişisel Bilgiler',
                     style: TextStyle(
                       fontSize: 20,
@@ -413,15 +413,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       color: DesignTokens.gray900,
                     ),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   _buildInfoRow('Telefon', _profileData?['phone'] ?? 'Belirtilmemiş', icon: Icons.phone),
-                  const SizedBox(height: 12),
+ SizedBox(height: 12),
                   _buildInfoRow('E-posta', _profileData?['email'] ?? 'Belirtilmemiş', icon: Icons.email),
 
                   // Craftsman Specific Info
                   if (_profileData?['user_type'] == 'craftsman' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 32),
-                    const Text(
+                    SizedBox(height: 32),
+                    Text(
                       'İşletme Bilgileri',
                       style: TextStyle(
                         fontSize: 20,
@@ -429,21 +429,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+                    SizedBox(height: DesignTokens.space16),
                     _buildInfoRow('İşletme Adı', _profileData!['profile']['business_name'] ?? 'Belirtilmemiş', icon: Icons.business),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Saatlik Ücret', '${_profileData!['profile']['hourly_rate'] ?? 0}₺', icon: Icons.attach_money),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Deneyim', '${_profileData!['profile']['experience_years'] ?? 0} yıl', icon: Icons.work),
 
                     // Skills Section - Figma Style
                     if (_profileData!['profile']['skills'] != null && (_profileData!['profile']['skills'] as List).isNotEmpty) ...[
-                      const SizedBox(height: 32),
-                      const Text(
+ SizedBox(height: 32),
+ Text(
                         'Yetenekler',
                         style: TextStyle(
                           fontSize: 20,
@@ -451,9 +451,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           color: DesignTokens.gray900,
                         ),
                       ),
-                      const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                       Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary,
                           borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
@@ -471,7 +471,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           runSpacing: 12,
                           children: (_profileData!['profile']['skills'] as List).map((skill) {
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
                                 color: DesignTokens.primaryCoral.withOpacity(0.1),
                                 borderRadius: const Borderconst Radius.circular(20),
@@ -480,15 +480,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(
+ Icon(
                                     Icons.psychology,
                                     size: 16,
                                     color: DesignTokens.primaryCoral,
                                   ),
-                                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                                   Text(
                                     skill.toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 14,
                                       color: DesignTokens.primaryCoral,
                                       fontWeight: FontWeight.w600,
@@ -505,8 +505,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
                   // Customer Specific Info
                   if (_profileData?['user_type'] == 'customer' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 32),
-                    const Text(
+ SizedBox(height: 32),
+ Text(
                       'Adres Bilgileri',
                       style: TextStyle(
                         fontSize: 20,
@@ -514,17 +514,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     _buildInfoRow('Adres', _profileData!['profile']['address'] ?? 'Belirtilmemiş', icon: Icons.home),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
                   ],
 
                   // Action Buttons - Figma Style
-                  const SizedBox(height: 40),
-                  const Text(
+ SizedBox(height: 40),
+ Text(
                     'Hesap Ayarları',
                     style: TextStyle(
                       fontSize: 20,
@@ -532,7 +532,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       color: DesignTokens.gray900,
                     ),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   _buildActionButton(
                     'Profili Düzenle',
                     Icons.edit,
@@ -637,24 +637,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             return AlertDialog(
               title: const Row(
                 children: [
-                  const Icon(Icons.warning, color: DesignTokens.error, size: 28),
-                  const SizedBox(width: 8),
-                  const Text('Hesabımı Sil'),
+ Icon(Icons.warning, color: DesignTokens.error, size: 28),
+ SizedBox(width: 8),
+ Text('Hesabımı Sil'),
                 ],
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+ Text(
                     'KVKK Uyarısı - Önemli Bilgilendirme:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.error,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     '• Hesabınız kalıcı olarak silinecektir\n'
                     '• Tüm kişisel verileriniz sistemden kaldırılacaktır\n'
                     '• Mesaj geçmişiniz silinecektir\n'
@@ -662,17 +662,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     '• Bu işlem geri alınamaz',
                     style: TextStyle(fontSize: 12, color: DesignTokens.error),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
-                  const Text(
+ SizedBox(height: DesignTokens.space16),
+ Text(
                     'Hesabınızın kalıcı olarak silinmesini onaylıyor musunuz?',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     'Onaylamak için "HESABIMI SIL" yazın:',
                     style: TextStyle(fontSize: 12),
                   ),
-                  const SizedBox(height: 8),
+ SizedBox(height: 8),
                   TextField(
                     onChanged: (value) {
                       confirmText = value;
@@ -687,14 +687,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               actions: [
                 TextButton(
                   onPressed: isDeleting ? null : () => Navigator.of(context).pop(),
-                  child: const Text('İptal'),
+                  child: Text('İptal'),
                 ),
                 ElevatedButton(
                   onPressed: isDeleting ? null : () async {
                     if (confirmText != 'HESABIMI SIL') {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: const Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
+                          content: Text('Lütfen "HESABIMI SIL" yazarak onaylayın'),
                           backgroundColor: DesignTokens.error,
                         ),
                       );
@@ -726,7 +726,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: const Text('Hesabınız başarıyla silindi. Güle güle!'),
+                              content: Text('Hesabınız başarıyla silindi. Güle güle!'),
                               backgroundColor: DesignTokens.success,
                             ),
                           );
@@ -751,7 +751,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: const Text('Hesap silme işlemi sırasında bir hata oluştu'),
+                            content: Text('Hesap silme işlemi sırasında bir hata oluştu'),
                             backgroundColor: DesignTokens.error,
                           ),
                         );
@@ -767,7 +767,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     foregroundColor: Colors.white,
                   ),
                   child: isDeleting 
-                    ? const SizedBox(
+                    ? SizedBox(
                         width: 16,
                         height: 16,
                         child: const CircularProgressIndicator(
@@ -775,7 +775,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
-                    : const Text('Hesabımı Sil'),
+                    : Text('Hesabımı Sil'),
                 ),
               ],
             );

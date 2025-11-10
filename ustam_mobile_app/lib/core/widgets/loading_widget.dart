@@ -30,7 +30,7 @@ class LoadingWidget extends StatelessWidget {
             ),
           ),
           if (message != null) ...[
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             Text(
               message!,
               style: TextStyle(

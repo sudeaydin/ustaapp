@@ -362,8 +362,8 @@ class _MarketplaceCreateListingScreenState
           ),
 
           if (_selectedCategory.isEmpty) ...[
-            const SizedBox(height: DesignTokens.space8),
-            const Text(
+ SizedBox(height: DesignTokens.space8),
+ Text(
               'Lütfen bir kategori seçin',
               style: TextStyle(
                 fontSize: 12,
@@ -605,7 +605,7 @@ class _MarketplaceCreateListingScreenState
                     },
                   ),
                 ),
-                const SizedBox(width: DesignTokens.space12),
+ SizedBox(width: DesignTokens.space12),
                 Expanded(
                   child: AirbnbInput(
                     label: 'Max Bütçe (TL)',
@@ -642,12 +642,12 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildDateRangeSection() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+ Text(
             'İş Tarihi',
             style: TextStyle(
               fontSize: 18,
@@ -655,7 +655,7 @@ class _MarketplaceCreateListingScreenState
               color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           // Date selection
           Row(
@@ -664,7 +664,7 @@ class _MarketplaceCreateListingScreenState
                 child: GestureDetector(
                   onTap: () => _selectStartDate(),
                   child: Container(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
+                    padding: EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.gray50,
                       borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -683,8 +683,8 @@ class _MarketplaceCreateListingScreenState
                               size: 16,
                               color: DesignTokens.gray600,
                             ),
-                            const SizedBox(width: DesignTokens.space4),
-                            const Text(
+ SizedBox(width: DesignTokens.space4),
+ Text(
                               'Başlangıç',
                               style: TextStyle(
                                 fontSize: 12,
@@ -693,7 +693,7 @@ class _MarketplaceCreateListingScreenState
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
+ SizedBox(height: 4),
                         Text(
                           _startDate != null
                               ? DateFormat('dd MMM yyyy').format(_startDate!)
@@ -711,12 +711,12 @@ class _MarketplaceCreateListingScreenState
                   ),
                 ),
               ),
-              const SizedBox(width: DesignTokens.space12),
+ SizedBox(width: DesignTokens.space12),
               Expanded(
                 child: GestureDetector(
                   onTap: () => _selectEndDate(),
                   child: Container(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
+                    padding: EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: DesignTokens.gray50,
                       borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -735,8 +735,8 @@ class _MarketplaceCreateListingScreenState
                               size: 16,
                               color: DesignTokens.gray600,
                             ),
-                            const SizedBox(width: DesignTokens.space4),
-                            const Text(
+ SizedBox(width: DesignTokens.space4),
+ Text(
                               'Bitiş',
                               style: TextStyle(
                                 fontSize: 12,
@@ -745,7 +745,7 @@ class _MarketplaceCreateListingScreenState
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
+ SizedBox(height: 4),
                         Text(
                           _endDate != null
                               ? DateFormat('dd MMM yyyy').format(_endDate!)
@@ -767,8 +767,8 @@ class _MarketplaceCreateListingScreenState
           ),
 
           if (_startDate == null || _endDate == null) ...[
-            const SizedBox(height: DesignTokens.space8),
-            const Text(
+ SizedBox(height: DesignTokens.space8),
+ Text(
               'Lütfen başlangıç ve bitiş tarihlerini seçin',
               style: TextStyle(
                 fontSize: 12,
@@ -783,12 +783,12 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildMarketplaceSettings() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+ Text(
             'Yayınlama Ayarları',
             style: TextStyle(
               fontSize: 18,
@@ -796,11 +796,11 @@ class _MarketplaceCreateListingScreenState
               color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           // Marketplace toggle
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+            padding: EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
               borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -816,7 +816,7 @@ class _MarketplaceCreateListingScreenState
                   color: DesignTokens.primaryCoral,
                   size: 24,
                 ),
-                const SizedBox(width: DesignTokens.space12),
+ SizedBox(width: DesignTokens.space12),
                 const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -829,7 +829,7 @@ class _MarketplaceCreateListingScreenState
                           color: DesignTokens.gray900,
                         ),
                       ),
-                      const SizedBox(height: 4),
+ SizedBox(height: 4),
                       Text(
                         'İlanınız tüm ustaların görebileceği pazar yerinde yayınlanacak',
                         style: TextStyle(
@@ -859,12 +859,12 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildSubmitSection() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
       child: Column(
         children: [
           // Summary info
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space12),
+            padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.info.withOpacity(0.05),
               borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
@@ -880,7 +880,7 @@ class _MarketplaceCreateListingScreenState
                   size: 20,
                   color: DesignTokens.info,
                 ),
-                const SizedBox(width: DesignTokens.space8),
+ SizedBox(width: DesignTokens.space8),
                 const Expanded(
                   child: Text(
                     'İlanınız yayınlandıktan sonra ustalar teklif verebilecek ve sizinle iletişime geçebilecek.',
@@ -894,7 +894,7 @@ class _MarketplaceCreateListingScreenState
             ),
           ),
 
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           // Submit button
           SizedBox(
@@ -957,7 +957,7 @@ class _MarketplaceCreateListingScreenState
     if (_selectedCategory.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: const Text('Lütfen bir kategori seçin'),
+          content: Text('Lütfen bir kategori seçin'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -967,7 +967,7 @@ class _MarketplaceCreateListingScreenState
     if (_startDate == null || _endDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: const Text('Lütfen tarih aralığını seçin'),
+          content: Text('Lütfen tarih aralığını seçin'),
           backgroundColor: DesignTokens.error,
         ),
       );
@@ -1030,7 +1030,7 @@ class _MarketplaceCreateListingScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Hata: ${e.toString()}'),
+            content: Text('Hata: ${e.toString()}'),
             backgroundColor: DesignTokens.error,
           ),
         );

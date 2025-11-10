@@ -122,7 +122,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Registration failed: $e'),
+            content: Text('Registration failed: $e'),
             backgroundColor: DesignTokens.error,
           ),
         );
@@ -158,7 +158,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 )
               : Text(
                   'register'.tr(locale),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -250,7 +250,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                 children: [
                                   Text(
                                     'register_title'.tr(locale),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
@@ -259,7 +259,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   const SizedBox(height: 4),
                                   Text(
                                     widget.userType == 'customer' ? 'customer'.tr(locale) : 'craftsman'.tr(locale),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -383,7 +383,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // Tax Document Upload (only for craftsman)
                   if (widget.userType == 'craftsman') ...[
                     Container(
-                      padding: const EdgeInsets.all(DesignTokens.space16),
+                      padding: EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.1),
                         borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -403,12 +403,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 12),
+ SizedBox(height: 12),
                           GestureDetector(
                             onTap: _pickTaxDocument,
                             child: Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.all(DesignTokens.space16),
+                              padding: EdgeInsets.all(DesignTokens.space16),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.1),
                                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
@@ -426,7 +426,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     color: Colors.white,
                                     size: 24,
                                   ),
-                                  const SizedBox(width: 12),
+ SizedBox(width: 12),
                                   Expanded(
                                     child: Text(
                                       _taxDocumentPath != null 
@@ -445,12 +445,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
                   ],
                   
                   // User Agreement Checkbox
                   Container(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
+                    padding: EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
                       borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -477,8 +477,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           ),
                         ),
                         Expanded(
-                          child: const Padding(
-                            padding: const EdgeInsets.only(top: 12),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 12),
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context, '/legal');
@@ -527,7 +527,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                   ),
                   
-                  const SizedBox(height: 32),
+ SizedBox(height: 32),
                   
                   // Register Button
                   Container(
@@ -539,7 +539,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     child: _buildRegisterButton(locale),
                   ),
                   
-                  const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
                   
                   // Login Link
                   Center(
@@ -552,9 +552,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             fontSize: 14,
                           ),
                         ),
-                        const SizedBox(height: 8),
+ SizedBox(height: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.15),
                             borderRadius: const Borderconst Radius.circular(20),
@@ -569,7 +569,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             },
                             child: Text(
                               'login'.tr(locale),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -581,7 +581,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                   ),
                   
-                  const SizedBox(height: 32),
+ SizedBox(height: 32),
                 ],
               ),
             ),

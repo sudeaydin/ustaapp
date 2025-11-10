@@ -182,7 +182,7 @@ class AppTheme {
             borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -199,7 +199,7 @@ class AppTheme {
             borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -215,7 +215,7 @@ class AppTheme {
             borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -283,11 +283,11 @@ class AppTheme {
         unselectedItemColor: dt.DesignTokens.textMuted,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        selectedLabelStyle: const TextStyle(
+        selectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: const TextStyle(
+        unselectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),

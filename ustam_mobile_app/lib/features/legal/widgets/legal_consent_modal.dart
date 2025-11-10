@@ -223,7 +223,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.gray900,
@@ -277,7 +277,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
     // This would open the specific document
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('$documentType belgesi açılıyor...'),
+        content: Text('$documentType belgesi açılıyor...'),
         backgroundColor: DesignTokens.primaryCoral,
       ),
     );
@@ -317,7 +317,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Hata: ${e.toString()}'),
+          content: Text('Hata: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

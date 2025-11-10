@@ -37,14 +37,14 @@ class ErrorMessage extends StatelessWidget {
             ),
           ),
           if (showRetryButton && onRetry != null) ...[
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             ElevatedButton(
               onPressed: onRetry,
               style: ElevatedButton.styleFrom(
                 backgroundColor: DesignTokens.primaryCoral,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Tekrar Dene'),
+              child: Text('Tekrar Dene'),
             ),
           ],
         ],
@@ -72,7 +72,7 @@ class ErrorCard extends StatelessWidget {
     return Card(
       color: DesignTokens.error.withOpacity(0.1),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -103,14 +103,14 @@ class ErrorCard extends StatelessWidget {
               style: TextStyle(color: DesignTokens.gray600),
             ),
             if (onRetry != null) ...[
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: DesignTokens.primaryCoral,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('Tekrar Dene'),
+                child: Text('Tekrar Dene'),
               ),
             ],
           ],

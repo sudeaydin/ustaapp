@@ -31,7 +31,7 @@ class LoadingSpinner extends StatelessWidget {
           ),
         ),
         if (message != null) ...[
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Text(
             message!,
             style: TextStyle(

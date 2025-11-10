@@ -434,7 +434,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             ),
             color: DesignTokens.primaryCoral,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -451,7 +451,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             ),
             color: DesignTokens.error,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -499,14 +499,14 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               Icons.flash_on,
               DesignTokens.info,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Portfolyo',
               'Daha fazla iş fotoğrafı ekleyerek güven oluşturun.',
               Icons.photo_library,
               DesignTokens.success,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Değerlendirmeler',
               'Müşterilerinizden değerlendirme istemeyi unutmayın.',
@@ -520,14 +520,14 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               Icons.account_balance_wallet,
               DesignTokens.primaryCoral,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Karşılaştırma',
               'Birden fazla teklif alarak en uygun fiyatı bulun.',
               Icons.compare,
               DesignTokens.info,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Planlama',
               'İşlerinizi önceden planlayarak daha iyi fiyatlar alın.',

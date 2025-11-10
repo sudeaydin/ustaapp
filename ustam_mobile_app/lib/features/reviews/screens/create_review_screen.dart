@@ -125,7 +125,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               const SizedBox(width: 8),
               Text(
                 'Usta: ${widget.craftsmanName}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -133,7 +133,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             ],
           ),
           if (widget.serviceName != null) ...[
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Row(
               children: [
                 Icon(
@@ -141,7 +141,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
                   color: DesignTokens.primaryCoral,
                   size: 20,
                 ),
-                const SizedBox(width: 8),
+ SizedBox(width: 8),
                 Text(
                   'Hizmet: ${widget.serviceName}',
                   style: const TextStyle(
@@ -159,7 +159,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildOverallRating() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -168,14 +168,14 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+ Text(
             'Genel Değerlendirme',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 12),
+ SizedBox(height: 12),
           Row(
             children: [
               StarRating(
@@ -186,7 +186,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               const Spacer(),
               if (_overallRating > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: const Borderconst Radius.circular(20),
@@ -203,7 +203,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             ],
           ),
           if (_overallRating == 0) ...[
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Text(
               'Aşağıdaki kategorileri puanlayın',
               style: TextStyle(
@@ -248,14 +248,14 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+ Text(
           'Kategoriler *',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8),
+ SizedBox(height: 8),
         Text(
           'Her kategoriyi puanlayın (Genel puan otomatik hesaplanacak)',
           style: TextStyle(
@@ -263,7 +263,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             color: DesignTokens.textLight,
           ),
         ),
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         CategoryRatingWidget(
           title: 'İletişim',
@@ -271,7 +271,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
           onRatingChanged: (rating) => setState(() => _communicationRating = rating),
         ),
         
-        const SizedBox(height: 12),
+ SizedBox(height: 12),
         
         CategoryRatingWidget(
           title: 'İş Kalitesi',
@@ -279,7 +279,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
           onRatingChanged: (rating) => setState(() => _qualityRating = rating),
         ),
         
-        const SizedBox(height: 12),
+ SizedBox(height: 12),
         
         CategoryRatingWidget(
           title: 'Hız & Dakiklik',
@@ -310,7 +310,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
         _speedRating == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: const Text('Lütfen tüm kategorileri puanlayın ve yorum yazın'),
+          content: Text('Lütfen tüm kategorileri puanlayın ve yorum yazın'),
           backgroundColor: Colors.red,
         ),
       );
@@ -336,7 +336,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: const Text('Değerlendirmeniz başarıyla gönderildi'),
+            content: Text('Değerlendirmeniz başarıyla gönderildi'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );

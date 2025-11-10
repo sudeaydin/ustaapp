@@ -22,7 +22,7 @@ class CreateAppointmentSheet extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: const Radius.circular(20)),
       ),
       child: const Padding(
-        padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
         child: Column(
           children: [
             // Handle bar
@@ -76,10 +76,10 @@ class CreateAppointmentSheet extends StatelessWidget {
                       ),
                     ),
                     if (selectedDate != null) ...[
-                      const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                       Text(
                         'Seçilen tarih: ${_formatDate(selectedDate!)}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

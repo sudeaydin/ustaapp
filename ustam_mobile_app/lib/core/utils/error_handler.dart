@@ -244,7 +244,7 @@ class ErrorStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: const Padding(
-        padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -272,7 +272,7 @@ class ErrorStateWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (error.details != null) ...[
-              const SizedBox(height: 8),
+ SizedBox(height: 8),
               Text(
                 error.details!,
                 style: TextStyle(
@@ -283,7 +283,7 @@ class ErrorStateWidget extends StatelessWidget {
               ),
             ],
             if (onRetry != null) ...[
-              const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
@@ -322,8 +322,8 @@ class EmptyStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: const Padding(
-        padding: const EdgeInsets.all(32),
+      child: Padding(
+        padding: EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -340,7 +340,7 @@ class EmptyStateWidget extends StatelessWidget {
                 color: DesignTokens.textMuted,
               ),
             ),
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
             Text(
               title,
               style: TextStyle(
@@ -351,7 +351,7 @@ class EmptyStateWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (subtitle != null) ...[
-              const SizedBox(height: 8),
+ SizedBox(height: 8),
               Text(
                 subtitle!,
                 style: TextStyle(
@@ -362,7 +362,7 @@ class EmptyStateWidget extends StatelessWidget {
               ),
             ],
             if (onAction != null) ...[
-              const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
               ElevatedButton(
                 onPressed: onAction,
                 style: ElevatedButton.styleFrom(

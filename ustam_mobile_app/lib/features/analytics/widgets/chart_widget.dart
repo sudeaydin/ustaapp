@@ -72,7 +72,7 @@ class ChartWidget extends StatelessWidget {
         
         return Expanded(
           child: const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -148,7 +148,7 @@ class ChartWidget extends StatelessWidget {
               final pieColor = _getPieColor(index);
               
               return const Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
                     Container(

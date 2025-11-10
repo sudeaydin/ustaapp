@@ -177,7 +177,7 @@ class AirbnbImageCard extends StatelessWidget {
           
           // Content section
           if (title != null || subtitle != null)
-            const Padding(
+ Padding(
               padding: DesignTokens.spacingCardPaddingInsets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +221,7 @@ class AirbnbStatsCard extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space8),
+              padding: EdgeInsets.all(DesignTokens.space8),
               decoration: BoxDecoration(
                 color: (iconColor ?? DesignTokens.primaryCoral).withOpacity(0.1),
                 borderRadius: const Borderconst Radius.circular(DesignTokens.space8),
@@ -240,7 +240,7 @@ class AirbnbStatsCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     color: DesignTokens.gray600,
                     fontWeight: FontWeight.w400,
@@ -249,7 +249,7 @@ class AirbnbStatsCard extends StatelessWidget {
                 DesignTokens.verticalSpaceXS,
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     color: DesignTokens.gray900,
                     fontWeight: FontWeight.w600,

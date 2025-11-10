@@ -336,7 +336,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           const SizedBox(height: 8),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: DesignTokens.gray900,
@@ -432,7 +432,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.gray900,
@@ -554,7 +554,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
         ),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: DesignTokens.gray900,
@@ -566,7 +566,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
 
   Widget _buildJobRow(String title, String amount) {
     return const Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -579,7 +579,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
           ),
           Text(
             amount,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: DesignTokens.success,

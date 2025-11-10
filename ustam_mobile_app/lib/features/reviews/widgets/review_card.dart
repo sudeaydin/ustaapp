@@ -22,7 +22,7 @@ class ReviewCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       onTap: onTap,
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,21 +39,21 @@ class ReviewCard extends StatelessWidget {
                       child: review.customer!.user.profileImage == null
                           ? Text(
                               review.customer!.user.firstName[0].toUpperCase(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: DesignTokens.primaryCoral,
                               ),
                             )
                           : null,
                     ),
-                    const SizedBox(width: 12),
+ SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             review.customer!.user.fullName,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
                             ),
@@ -85,18 +85,18 @@ class ReviewCard extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
 
               // Title if exists
               if (review.title != null) ...[
                 Text(
                   review.title!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 8),
+ SizedBox(height: 8),
               ],
 
               // Comment
@@ -113,7 +113,7 @@ class ReviewCard extends StatelessWidget {
               if (review.qualityRating != null || 
                   review.punctualityRating != null || 
                   review.communicationRating != null) ...[
-                const SizedBox(height: 12),
+ SizedBox(height: 12),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -145,16 +145,16 @@ class ReviewCard extends StatelessWidget {
 
               // Service info if available
               if (review.service != null) ...[
-                const SizedBox(height: 12),
+ SizedBox(height: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
                     borderRadius: const Borderconst Radius.circular(20),
                   ),
                   child: Text(
                     review.service!.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       color: DesignTokens.primaryCoral,
                       fontWeight: FontWeight.w500,
@@ -165,7 +165,7 @@ class ReviewCard extends StatelessWidget {
 
               // Verified badge
               if (review.isVerified) ...[
-                const SizedBox(height: 8),
+ SizedBox(height: 8),
                 Row(
                   children: [
                     Icon(
@@ -173,7 +173,7 @@ class ReviewCard extends StatelessWidget {
                       size: 16,
                       color: DesignTokens.primaryCoral,
                     ),
-                    const SizedBox(width: 4),
+ SizedBox(width: 4),
                     Text(
                       'Doğrulanmış Alım',
                       style: TextStyle(
@@ -188,9 +188,9 @@ class ReviewCard extends StatelessWidget {
 
               // Craftsman response if exists
               if (review.craftsmanResponse != null) ...[
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
                     borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
@@ -206,7 +206,7 @@ class ReviewCard extends StatelessWidget {
                             size: 16,
                             color: Colors.grey[600],
                           ),
-                          const SizedBox(width: 4),
+ SizedBox(width: 4),
                           Text(
                             'Usta Yanıtı',
                             style: TextStyle(
@@ -226,7 +226,7 @@ class ReviewCard extends StatelessWidget {
                             ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+ SizedBox(height: 8),
                       Text(
                         review.craftsmanResponse!,
                         style: const TextStyle(fontSize: 13),
@@ -264,8 +264,8 @@ class ReviewCard extends StatelessWidget {
   }
 
   Widget _buildRatingRow(String label, int rating) {
-    return const Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           SizedBox(

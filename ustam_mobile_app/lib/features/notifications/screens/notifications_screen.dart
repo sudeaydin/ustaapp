@@ -164,7 +164,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
           borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
           child: const Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
                 // Notification Icon

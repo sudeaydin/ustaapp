@@ -307,7 +307,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 children: [
                                   Text(
                                     currentStepData.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),

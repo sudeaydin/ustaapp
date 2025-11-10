@@ -20,7 +20,7 @@ class EmergencyServiceCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       backgroundColor: DesignTokens.error.withOpacity(0.05),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Row(

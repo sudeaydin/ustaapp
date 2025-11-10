@@ -451,7 +451,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,

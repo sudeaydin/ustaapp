@@ -90,7 +90,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Row(
           children: [
             Expanded(
@@ -99,7 +99,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -170,7 +170,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Tercihler kaydedilemedi: ${e.toString()}'),
+          content: Text('Tercihler kaydedilemedi: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

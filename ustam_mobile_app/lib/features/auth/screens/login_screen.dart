@@ -188,7 +188,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             Expanded(
                               child: Text(
                                 widget.userType == 'craftsman' ? 'Usta Girişi' : 'Müşteri Girişi',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -210,7 +210,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             widget.userType == 'craftsman' 
                               ? 'Usta hesabınızla giriş yapın'
                               : 'Müşteri hesabınızla giriş yapın',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -267,7 +267,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       const Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                         child: Text(
                           'veya',
                           style: TextStyle(
@@ -330,7 +330,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             },
                             child: Text(
                               'register'.tr(locale),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -410,7 +410,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 )
               : Text(
                   'login'.tr(locale),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -446,7 +446,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             _handleGoogleSignIn();
           },
           child: const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -479,7 +479,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(width: 12),
                 Text(
                   _isLoading ? 'Google ile giriş yapılıyor...' : 'Google ile Giriş Yap',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
@@ -487,8 +487,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                 ),
                 if (_isLoading) ...[
-                  const SizedBox(width: 12),
-                  const SizedBox(
+ SizedBox(width: 12),
+ SizedBox(
                     width: 16,
                     height: 16,
                     child: const CircularProgressIndicator(
@@ -593,7 +593,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Giriş başarısız: $e'),
+              content: Text('Giriş başarısız: $e'),
               backgroundColor: DesignTokens.error,
             ),
           );

@@ -176,7 +176,7 @@ class AccessibleButton extends StatelessWidget {
       children: [
         if (isLoading)
           const Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(right: 8.0),
             child: SizedBox(
               width: 16,
               height: 16,
@@ -185,7 +185,7 @@ class AccessibleButton extends StatelessWidget {
           ),
         if (icon != null && !isLoading)
           const Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(right: 8.0),
             child: icon!,
           ),
         if (text != null) Text(text!),
@@ -300,7 +300,7 @@ class AccessibleTextField extends StatelessWidget {
           // Error message with proper semantics
           if (errorText != null)
             const Padding(
-              padding: const EdgeInsets.only(top: 4),
+      padding: EdgeInsets.only(top: 4),
               child: Semantics(
                 liveRegion: true,
                 child: Text(

@@ -591,7 +591,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                 children: [
                   Text(
                     widget.conversation['name'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
@@ -705,11 +705,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                 ),
               ),
             ),
-            const SizedBox(width: 8),
+ SizedBox(width: 8),
           ],
           Flexible(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: _getMessageBackgroundColor(message, isMe),
                 borderRadius: const Borderconst Radius.circular(20).copyWith(
@@ -731,7 +731,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   // Quote message action buttons
                   if (message['messageType'] == 'quote_request' && !isMe) ...[
                     Container(
-                      margin: const EdgeInsets.only(bottom: 8),
+                      margin: EdgeInsets.only(bottom: 8),
                       child: ElevatedButton(
                         onPressed: () {
                           _showQuoteFormDialog(message['quote']);
@@ -739,11 +739,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFEA580C),
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           minimumSize: Size.zero,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        child: const Text(
+                        child: Text(
                           'Formu İncele',
                           style: TextStyle(fontSize: 12),
                         ),
@@ -752,7 +752,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   ],
                   if (message['messageType'] == 'quote_response' && !isMe && message['quote']?['status'] == 'quoted') ...[
                     Container(
-                      margin: const EdgeInsets.only(bottom: 8),
+                      margin: EdgeInsets.only(bottom: 8),
                       child: Row(
                         children: [
                           Expanded(
@@ -763,20 +763,20 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: DesignTokens.success,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 elevation: 3,
                                 shadowColor: DesignTokens.success.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Kabul Et',
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
-                          const SizedBox(width: 4),
+ SizedBox(width: 4),
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
@@ -785,20 +785,20 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: DesignTokens.error,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 elevation: 3,
                                 shadowColor: DesignTokens.error.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Reddet',
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
-                          const SizedBox(width: 4),
+ SizedBox(width: 4),
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
@@ -807,14 +807,14 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: DesignTokens.info,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 elevation: 3,
                                 shadowColor: DesignTokens.info.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Yeni Teklif',
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                               ),
@@ -831,7 +831,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                       color: _getMessageTextColor(message, isMe),
                     ),
                   ),
-                  const SizedBox(height: 4),
+ SizedBox(height: 4),
                   Text(
                     message['timestamp'],
                     style: TextStyle(
@@ -843,7 +843,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
               ),
             ),
           ),
-          if (isMe) const SizedBox(width: 40),
+          if (isMe) SizedBox(width: 40),
         ],
       ),
     );
@@ -920,7 +920,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Teklif Detayları'),
+        title: Text('Teklif Detayları'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -934,14 +934,14 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Kapat'),
+            child: Text('Kapat'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               // TODO: Navigate to quote response screen
             },
-            child: const Text('Teklif Ver'),
+            child: Text('Teklif Ver'),
           ),
         ],
       ),
@@ -954,35 +954,35 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Teklif Kararı'),
+        title: Text('Teklif Kararı'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildQuoteDetailRow('Fiyat', '₺${quote['quoted_price']}'),
             _buildQuoteDetailRow('Süre', '${quote['estimated_duration_days']} gün'),
-            const SizedBox(height: DesignTokens.space16),
-            const Text('Bu teklifi kabul ediyor musunuz?'),
+ SizedBox(height: DesignTokens.space16),
+ Text('Bu teklifi kabul ediyor musunuz?'),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               // TODO: Reject quote
             },
-            child: const Text('Reddet'),
+            child: Text('Reddet'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               // TODO: Accept quote and navigate to payment
             },
-            child: const Text('Kabul Et'),
+            child: Text('Kabul Et'),
           ),
         ],
       ),
@@ -990,8 +990,8 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
   }
 
   Widget _buildQuoteDetailRow(String label, String value) {
-    return const Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -999,7 +999,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
             width: 80,
             child: Text(
               '$label:',
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray600,
               ),
@@ -1024,12 +1024,12 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('✅ Teklif Kabul'),
-        content: const Text('Bu teklifi kabul etmek istediğinizden emin misiniz? Ödeme sayfasına yönlendirileceksiniz.'),
+        title: Text('✅ Teklif Kabul'),
+        content: Text('Bu teklifi kabul etmek istediğinizden emin misiniz? Ödeme sayfasına yönlendirileceksiniz.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -1049,7 +1049,7 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
                _showPaymentDialog(quote);
             },
             style: DesignTokens.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(DesignTokens.success)),
-            child: const Text('Kabul Et'),
+            child: Text('Kabul Et'),
           ),
         ],
       ),
@@ -1062,12 +1062,12 @@ Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('❌ Teklif Reddi'),
-        content: const Text('Bu teklifi reddetmek istediğinizden emin misiniz?'),
+        title: Text('❌ Teklif Reddi'),
+        content: Text('Bu teklifi reddetmek istediğinizden emin misiniz?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -1086,7 +1086,7 @@ Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
               _scrollToBottom();
             },
             style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFDC2626)),
-            child: const Text('Reddet'),
+            child: Text('Reddet'),
           ),
         ],
       ),
@@ -1099,12 +1099,12 @@ Teklifinizi reddediyorum. Bütçem bu iş için uygun değil. Teşekkürler.''',
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Yeni Teklif İsteği'),
-        content: const Text('Yeni bir teklif istemek istediğinizden emin misiniz?'),
+        title: Text('Yeni Teklif İsteği'),
+        content: Text('Yeni bir teklif istemek istediğinizden emin misiniz?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -1123,7 +1123,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               _scrollToBottom();
             },
             style: DesignTokens.getPrimaryButtonStyle(),
-            child: const Text('Yeni Teklif İste'),
+            child: Text('Yeni Teklif İste'),
           ),
         ],
       ),
@@ -1151,9 +1151,9 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: Row(
           children: [
-            const Icon(Icons.payment, color: DesignTokens.success),
-            const SizedBox(width: 8),
-            const Text('Ödeme'),
+ Icon(Icons.payment, color: DesignTokens.success),
+ SizedBox(width: 8),
+ Text('Ödeme'),
           ],
         ),
         content: Column(
@@ -1161,7 +1161,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: const Color(0xFFF0FDF4),
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -1170,21 +1170,21 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+ Text(
                     '✅ Teklif Kabul Edildi',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.success,
                     ),
                   ),
-                  const SizedBox(height: 8),
+ SizedBox(height: 8),
                   _buildQuoteDetailRow('Tutar', '₺${quote['quoted_price']}'),
                   _buildQuoteDetailRow('Süre', '${quote['estimated_duration_days']} gün'),
-                  const Divider(),
+ Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+ Text(
                         'Toplam:',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -1193,7 +1193,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
                       ),
                       Text(
                         '₺${quote['quoted_price']}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                           color: DesignTokens.success,
@@ -1204,24 +1204,24 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
                 ],
               ),
             ),
-            const SizedBox(height: DesignTokens.space16),
-            const Text(
+ SizedBox(height: DesignTokens.space16),
+ Text(
               'Ödeme yönteminizi seçin:',
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: DesignTokens.uclaBlue),
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
               ),
               child: const Row(
                 children: [
-                  const Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
-                  const SizedBox(width: 8),
-                  const Text('Kredi Kartı ile Öde'),
+ Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
+ SizedBox(width: 8),
+ Text('Kredi Kartı ile Öde'),
                 ],
               ),
             ),
@@ -1230,7 +1230,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -1240,7 +1240,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
             style: DesignTokens.getPrimaryButtonStyle().copyWith(
               backgroundColor: MaterialStateProperty.all(DesignTokens.success),
             ),
-            child: const Text(
+            child: Text(
               'Ödeme Yap',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -1257,9 +1257,9 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
       builder: (context) => AlertDialog(
         title: const Row(
           children: [
-            const Icon(Icons.check_circle, color: DesignTokens.success, size: 28),
-            const SizedBox(width: 8),
-            const Text('✅ Ödeme Başarılı'),
+ Icon(Icons.check_circle, color: DesignTokens.success, size: 28),
+ SizedBox(width: 8),
+ Text('✅ Ödeme Başarılı'),
           ],
         ),
         content: const Column(
@@ -1270,7 +1270,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               size: 64,
               color: DesignTokens.success,
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             Text(
               'Ödemeniz başarıyla tamamlandı!',
               style: TextStyle(
@@ -1279,7 +1279,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Text(
               'İş süreci başladı. Usta ile iletişimde kalabilirsiniz.',
               style: TextStyle(
@@ -1300,7 +1300,7 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
               backgroundColor: DesignTokens.success,
               minimumSize: const Size(double.infinity, 48),
             ),
-            child: const Text(
+            child: Text(
               'İşi Takip Et',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),

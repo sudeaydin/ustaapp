@@ -218,7 +218,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: const Text('Hata: $e')),
+        SnackBar(content: Text('Hata: $e')),
       );
     }
   }
@@ -239,7 +239,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: const Text('Hata: $e')),
+        SnackBar(content: Text('Hata: $e')),
       );
     }
   }

@@ -132,7 +132,7 @@ class _MarketplaceOfferComposeScreenState
           // Title
           Text(
             listing.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: DesignTokens.gray900,
@@ -155,7 +155,7 @@ class _MarketplaceOfferComposeScreenState
                 ),
                 child: Text(
                   listing.category,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.primaryCoral,
@@ -209,7 +209,7 @@ class _MarketplaceOfferComposeScreenState
                 ),
                 Text(
                   _formatBudget(listing.budget),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,
@@ -221,9 +221,9 @@ class _MarketplaceOfferComposeScreenState
 
           // Bids count
           if (listing.bidsCount > 0) ...[
-            const SizedBox(height: DesignTokens.space8),
+ SizedBox(height: DesignTokens.space8),
             Container(
-              padding: const EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 horizontal: DesignTokens.space8,
                 vertical: DesignTokens.space4,
               ),
@@ -239,10 +239,10 @@ class _MarketplaceOfferComposeScreenState
                     size: 14,
                     color: DesignTokens.info,
                   ),
-                  const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
                   Text(
                     '${listing.bidsCount} kişi teklif verdi',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: DesignTokens.info,
@@ -261,7 +261,7 @@ class _MarketplaceOfferComposeScreenState
     return Form(
       key: _formKey,
       child: AirbnbCard(
-        margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+        margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
             .copyWith(bottom: DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,8 +273,8 @@ class _MarketplaceOfferComposeScreenState
                   size: 24,
                   color: DesignTokens.primaryCoral,
                 ),
-                const SizedBox(width: DesignTokens.space8),
-                const Text(
+ SizedBox(width: DesignTokens.space8),
+ Text(
                   'Teklifinizi Oluşturun',
                   style: TextStyle(
                     fontSize: 18,
@@ -285,7 +285,7 @@ class _MarketplaceOfferComposeScreenState
               ],
             ),
 
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
 
             // Amount input
             AirbnbInput(
@@ -311,7 +311,7 @@ class _MarketplaceOfferComposeScreenState
               },
             ),
 
-            const SizedBox(height: DesignTokens.space20),
+ SizedBox(height: DesignTokens.space20),
 
             // ETA input
             AirbnbInput(
@@ -335,7 +335,7 @@ class _MarketplaceOfferComposeScreenState
               },
             ),
 
-            const SizedBox(height: DesignTokens.space20),
+ SizedBox(height: DesignTokens.space20),
 
             // Note input
             AirbnbInput(
@@ -352,11 +352,11 @@ class _MarketplaceOfferComposeScreenState
               },
             ),
 
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
 
             // Tips section
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               decoration: BoxDecoration(
                 color: DesignTokens.info.withOpacity(0.05),
                 borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
@@ -375,8 +375,8 @@ class _MarketplaceOfferComposeScreenState
                         size: 20,
                         color: DesignTokens.info,
                       ),
-                      const SizedBox(width: DesignTokens.space8),
-                      const Text(
+ SizedBox(width: DesignTokens.space8),
+ Text(
                         'Teklif İpuçları',
                         style: TextStyle(
                           fontSize: 14,
@@ -386,7 +386,7 @@ class _MarketplaceOfferComposeScreenState
                       ),
                     ],
                   ),
-                  const SizedBox(height: DesignTokens.space8),
+ SizedBox(height: DesignTokens.space8),
                   _buildTip('Gerçekçi bir fiyat belirleyin'),
                   _buildTip('Deneyiminizi ve uzmanlığınızı vurgulayın'),
                   _buildTip('İşin detayları hakkında sorularınızı belirtin'),
@@ -401,21 +401,21 @@ class _MarketplaceOfferComposeScreenState
   }
 
   Widget _buildTip(String text) {
-    return const Padding(
-      padding: const EdgeInsets.only(top: DesignTokens.space4),
+    return Padding(
+      padding: EdgeInsets.only(top: DesignTokens.space4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 4,
             height: 4,
-            margin: const EdgeInsets.only(top: 8),
+            margin: EdgeInsets.only(top: 8),
             decoration: BoxDecoration(
               color: DesignTokens.info,
               borderRadius: const Borderconst Radius.circular(2),
             ),
           ),
-          const SizedBox(width: DesignTokens.space8),
+ SizedBox(width: DesignTokens.space8),
           Expanded(
             child: Text(
               text,
@@ -432,12 +432,12 @@ class _MarketplaceOfferComposeScreenState
 
   Widget _buildSubmitSection(MarketplaceListing listing) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
       child: Column(
         children: [
           // Terms reminder
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space12),
+            padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.warning.withOpacity(0.05),
               borderRadius: const Borderconst Radius.circular(DesignTokens.radius8),
@@ -453,7 +453,7 @@ class _MarketplaceOfferComposeScreenState
                   size: 20,
                   color: DesignTokens.warning,
                 ),
-                const SizedBox(width: DesignTokens.space8),
+ SizedBox(width: DesignTokens.space8),
                 const Expanded(
                   child: Text(
                     'Teklif verdiğinizde müşteri ile iletişime geçebilir ve işi kabul edebilir.',
@@ -467,7 +467,7 @@ class _MarketplaceOfferComposeScreenState
             ),
           ),
 
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           // Submit button
           SizedBox(
@@ -495,8 +495,8 @@ class _MarketplaceOfferComposeScreenState
 
   Widget _buildErrorState(String error) {
     return Center(
-      child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space24),
+      child: Padding(
+        padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -505,8 +505,8 @@ class _MarketplaceOfferComposeScreenState
               size: 64,
               color: DesignTokens.error,
             ),
-            const SizedBox(height: DesignTokens.space16),
-            const Text(
+ SizedBox(height: DesignTokens.space16),
+ Text(
               'Bir hata oluştu',
               style: TextStyle(
                 fontSize: 18,
@@ -514,7 +514,7 @@ class _MarketplaceOfferComposeScreenState
                 color: DesignTokens.gray900,
               ),
             ),
-            const SizedBox(height: DesignTokens.space8),
+ SizedBox(height: DesignTokens.space8),
             Text(
               error,
               style: const TextStyle(
@@ -523,7 +523,7 @@ class _MarketplaceOfferComposeScreenState
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
             AirbnbButton(
               text: 'Tekrar Dene',
               onPressed: () {
@@ -578,7 +578,7 @@ class _MarketplaceOfferComposeScreenState
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: const Text('Teklifiniz başarıyla gönderildi!'),
+            content: Text('Teklifiniz başarıyla gönderildi!'),
             backgroundColor: DesignTokens.success,
             behavior: SnackBarBehavior.floating,
           ),
@@ -591,7 +591,7 @@ class _MarketplaceOfferComposeScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Hata: ${e.toString()}'),
+            content: Text('Hata: ${e.toString()}'),
             backgroundColor: DesignTokens.error,
             behavior: SnackBarBehavior.floating,
           ),

@@ -226,11 +226,11 @@ class CustomButton extends StatelessWidget {
   TextStyle _getTextStyle() {
     switch (size) {
       case ButtonSize.small:
-        return const TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
+        return TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
       case ButtonSize.medium:
-        return const TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
+        return TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
       case ButtonSize.large:
-        return const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+        return TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     }
   }
 }

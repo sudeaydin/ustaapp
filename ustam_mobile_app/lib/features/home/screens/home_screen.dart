@@ -39,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
               ),
               child: SafeArea(
                 child: const Padding(
-                  padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: [
                       // Logo
@@ -68,7 +68,7 @@ class HomeScreen extends ConsumerWidget {
                       Expanded(
                         child: Text(
                           'Merhaba, ${user?['first_name'] ?? 'Kullanıcı'}! 👋',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: DesignTokens.surfacePrimary,
@@ -170,7 +170,7 @@ class HomeScreen extends ConsumerWidget {
                           color: AppTheme.textPrimary,
                         ),
                       ),
-                      const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                       _buildPopularCategories(context),
                     ],
                   ],
@@ -335,7 +335,7 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             AnimatedContainer(
@@ -498,7 +498,7 @@ class HomeScreen extends ConsumerWidget {
         onTap: onTap,
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
         child: const Padding(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -506,7 +506,7 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -592,7 +592,7 @@ class HomeScreen extends ConsumerWidget {
                   const SizedBox(height: 8),
                   Text(
                     category['name'] as String,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -644,7 +644,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       child: Text(
         status,
-        style: const TextStyle(
+        style: TextStyle(
           color: DesignTokens.surfacePrimary,
           fontSize: 12,
           fontWeight: FontWeight.w600,

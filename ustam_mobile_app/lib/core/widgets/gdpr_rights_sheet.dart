@@ -83,7 +83,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
         leading: Icon(icon, color: DesignTokens.primaryCoral),
         title: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -165,7 +165,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('İşlem gerçekleştirilemedi: ${e.toString()}'),
+          content: Text('İşlem gerçekleştirilemedi: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

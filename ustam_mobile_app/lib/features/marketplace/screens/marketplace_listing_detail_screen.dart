@@ -119,7 +119,7 @@ class _MarketplaceListingDetailScreenState
                 ),
                 child: Text(
                   listing.category,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.primaryCoral,
@@ -137,7 +137,7 @@ class _MarketplaceListingDetailScreenState
           // Title
           Text(
             listing.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: DesignTokens.gray900,
@@ -155,7 +155,7 @@ class _MarketplaceListingDetailScreenState
                 backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                 child: Text(
                   listing.postedBy.name?.substring(0, 1).toUpperCase() ?? 'U',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.primaryCoral,
@@ -169,7 +169,7 @@ class _MarketplaceListingDetailScreenState
                   children: [
                     Text(
                       listing.postedBy.name ?? 'Anonim Kullanıcı',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.gray900,
@@ -207,7 +207,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(width: DesignTokens.space4),
                       Text(
                         '${listing.bidsCount} teklif',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.info,
@@ -321,7 +321,7 @@ class _MarketplaceListingDetailScreenState
                 ),
                 const SizedBox(height: DesignTokens.space4),
                 const Padding(
-                  padding: const EdgeInsets.only(left: 28),
+      padding: EdgeInsets.only(left: 28),
                   child: Text(
                     listing.location.city,
                     style: const TextStyle(
@@ -359,10 +359,10 @@ class _MarketplaceListingDetailScreenState
                 ),
                 const SizedBox(height: DesignTokens.space4),
                 const Padding(
-                  padding: const EdgeInsets.only(left: 28),
+      padding: EdgeInsets.only(left: 28),
                   child: Text(
                     _formatBudget(listing.budget),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: DesignTokens.gray900,
@@ -429,7 +429,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(height: 2),
                       Text(
                         DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.start) ?? DateTime.now()),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.gray900,
@@ -457,7 +457,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(height: 2),
                       Text(
                         DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.end) ?? DateTime.now()),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.gray900,
@@ -668,7 +668,7 @@ class _MarketplaceListingDetailScreenState
                 backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                 child: Text(
                   'U${index + 1}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.primaryCoral,
@@ -682,7 +682,7 @@ class _MarketplaceListingDetailScreenState
                   children: [
                     Text(
                       'Usta ${index + 1}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.gray900,
@@ -701,7 +701,7 @@ class _MarketplaceListingDetailScreenState
               ),
               Text(
                 '₺${(index + 1) * 500 + 1000}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.primaryCoral,
@@ -768,7 +768,7 @@ class _MarketplaceListingDetailScreenState
   Widget _buildErrorState(String error) {
     return Center(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -854,7 +854,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDetailRow(IconData icon, String label, String value) {
     return const Padding(
-      padding: const EdgeInsets.only(bottom: DesignTokens.space12),
+      padding: EdgeInsets.only(bottom: DesignTokens.space12),
       child: Row(
         children: [
           Icon(
@@ -874,7 +874,7 @@ class _MarketplaceListingDetailScreenState
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,

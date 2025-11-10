@@ -70,7 +70,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           
           // Header
           const Padding(
-            padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
             child: Row(
               children: [
                 const Text(
@@ -180,7 +180,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => const Text('Kategoriler yüklenemedi: $error'),
+              error: (error, stack) => Text('Kategoriler yüklenemedi: $error'),
             );
           },
         ),
@@ -238,7 +238,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => const Text('Şehirler yüklenemedi: $error'),
+              error: (error, stack) => Text('Şehirler yüklenemedi: $error'),
             );
           },
         ),
@@ -281,7 +281,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
       children: [
         Text(
           'Saatlik Ücret (₺${_priceRange.start.toInt()} - ₺${_priceRange.end.toInt()})',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -306,8 +306,8 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('₺${priceRange.min.toInt()}'),
-            const Text('₺${priceRange.max.toInt()}'),
+            Text('₺${priceRange.min.toInt()}'),
+            Text('₺${priceRange.max.toInt()}'),
           ],
         ),
       ],
@@ -320,7 +320,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
       children: [
         Text(
           'Puan (${_ratingRange.start.toStringAsFixed(1)} - ${_ratingRange.end.toStringAsFixed(1)})',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -348,13 +348,13 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
             Row(
               children: [
                 const Icon(Icons.star, size: 16, color: Colors.amber),
-                const Text(' ${_ratingRange.start.toStringAsFixed(1)}'),
+                Text(' ${_ratingRange.start.toStringAsFixed(1)}'),
               ],
             ),
             Row(
               children: [
                 const Icon(Icons.star, size: 16, color: Colors.amber),
-                const Text(' ${_ratingRange.end.toStringAsFixed(1)}'),
+                Text(' ${_ratingRange.end.toStringAsFixed(1)}'),
               ],
             ),
           ],

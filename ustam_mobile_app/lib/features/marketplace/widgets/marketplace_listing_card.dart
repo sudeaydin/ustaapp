@@ -38,7 +38,7 @@ class MarketplaceListingCard extends StatelessWidget {
                     children: [
                       Text(
                         listing.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: DesignTokens.gray900,
@@ -60,7 +60,7 @@ class MarketplaceListingCard extends StatelessWidget {
                         ),
                         child: Text(
                           listing.category,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.primaryCoral,
@@ -117,7 +117,7 @@ class MarketplaceListingCard extends StatelessWidget {
                 ),
                 Text(
                   _formatBudget(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,
@@ -142,9 +142,9 @@ class MarketplaceListingCard extends StatelessWidget {
                 
                 // Bids count
                 if (listing.bidsCount > 0) ...[
-                  const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                   Container(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: DesignTokens.space8,
                       vertical: DesignTokens.space4,
                     ),
@@ -160,10 +160,10 @@ class MarketplaceListingCard extends StatelessWidget {
                           size: 14,
                           color: DesignTokens.info,
                         ),
-                        const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
                         Text(
                           '${listing.bidsCount} teklif',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.info,
@@ -227,7 +227,7 @@ class MarketplaceListingCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: DesignTokens.space8,
         vertical: DesignTokens.space4,
       ),
@@ -243,7 +243,7 @@ class MarketplaceListingCard extends StatelessWidget {
             size: 14,
             color: textColor,
           ),
-          const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
           Text(
             text,
             style: TextStyle(

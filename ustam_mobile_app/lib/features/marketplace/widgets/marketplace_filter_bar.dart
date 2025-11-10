@@ -183,7 +183,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           children: [
             if (icon != null) ...[
               Icon(icon, size: 16, color: textColor),
-              const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
             ],
             Text(
               label,
@@ -278,10 +278,10 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
 
           // Title
           const Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: DesignTokens.gray900,
@@ -335,7 +335,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
             ),
           ),
           child: const Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -365,7 +365,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                 // Budget range
                 Text(
                   '₺${tempMinBudget.toInt()} - ₺${tempMaxBudget.toInt()}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.primaryCoral,

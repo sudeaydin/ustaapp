@@ -211,7 +211,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
         },
         borderRadius: const Borderconst Radius.circular(DesignTokens.radius16),
         child: const Padding(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -251,7 +251,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
               // Subject
               Text(
                 ticket['subject'] ?? '',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.gray900,

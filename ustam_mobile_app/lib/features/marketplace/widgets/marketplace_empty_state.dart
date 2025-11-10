@@ -9,7 +9,7 @@ class MarketplaceEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: const Padding(
-        padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -207,7 +207,7 @@ class MarketplaceEmptyState extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: DesignTokens.gray900,

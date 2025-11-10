@@ -666,8 +666,8 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         backgroundColor: DesignTokens.surfacePrimary,
         selectedItemColor: DesignTokens.uclaBlue,
         unselectedItemColor: DesignTokens.textLight,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
         items: const [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
@@ -695,7 +695,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: DesignTokens.surfacePrimary,
@@ -726,7 +726,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -774,7 +774,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -800,7 +800,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: const Text('$label seçiniz'),
+            hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
               value: item,
               child: Text(item),
@@ -834,7 +834,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Hata: $e'),
+              content: Text('Hata: $e'),
               backgroundColor: DesignTokens.error,
             ),
           );
