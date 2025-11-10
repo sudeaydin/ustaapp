@@ -84,7 +84,7 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
           scale: _pulseAnimation.value,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: BorderRadius.circular(DesignTokens.radius12),
               boxShadow: [
                 // Main glow
                 BoxShadow(
@@ -108,7 +108,7 @@ class _TutorialHighlightState extends ConsumerState<TutorialHighlight>
             ),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                 border: Border.all(
                   color: DesignTokens.primaryCoral.withOpacity(0.8 * _glowAnimation.value),
                   width: 3,
