@@ -58,6 +58,9 @@ class DesignTokens {
   static const Color darkSurfaceSecondary = Color(0xFF111827);
   static const Color darkSurfaceTertiary = Color(0xFF1F2937);
   
+  /// Overlay Colors (for modals, dialogs)
+  static const Color overlayColor = Color(0x80000000); // 50% black
+  
   // ========================================
   // SPACING SYSTEM - 4pt Grid
   // ========================================

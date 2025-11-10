@@ -413,7 +413,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/dashboard',
-        queryParameters: {
+        queryParams: {
           'days': days.toString(),
           if (userType != null) 'user_type': userType,
         },
@@ -433,7 +433,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/craftsman/$craftsmanId/overview',
-        queryParameters: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -450,7 +450,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/customer/$customerId/history',
-        queryParameters: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -527,7 +527,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/cost-calculator/pricing-recommendations/$craftsmanId',
-        queryParameters: {'category': category},
+        queryParams: {'category': category},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -544,7 +544,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/trends/categories',
-        queryParameters: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return (response.data as List)
@@ -563,7 +563,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/activity/recent',
-        queryParameters: {'limit': limit.toString()},
+        queryParams: {'limit': limit.toString()},
       );
       if (response.success && response.data != null) {
         return (response.data as List)
@@ -644,7 +644,7 @@ class AnalyticsDashboardService {
       final response = await _apiService.request(
         'GET',
         '/api/analytics-dashboard/performance/compare',
-        queryParameters: {
+        queryParams: {
           'days': days.toString(),
           if (category != null) 'category': category,
         },

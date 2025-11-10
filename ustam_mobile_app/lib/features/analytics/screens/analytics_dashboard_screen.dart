@@ -4,9 +4,10 @@ import '../../../core/utils/analytics_dashboard_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../widgets/cost_calculator_widget.dart';
-import '../widgets/performance_chart_widget.dart';
-import '../widgets/trend_chart_widget.dart';
+// TODO: Create these widget files
+// import '../widgets/cost_calculator_widget.dart';
+// import '../widgets/performance_chart_widget.dart';
+// import '../widgets/trend_chart_widget.dart';
 import '../../../core/theme/design_tokens.dart';
 
 class AnalyticsDashboardScreen extends ConsumerStatefulWidget {
@@ -227,11 +228,10 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: DesignTokens.space16),
-                    SizedBox(
+                    const SizedBox(
                       height: 200,
-                      child: PerformanceChartWidget(
-                        body: PerformanceTrends.fromJson(trends),
-                        userType: user?.userType ?? 'customer',
+                      child: Center(
+                        child: Text('Performance Chart - Coming Soon'),
                       ),
                     ),
                   ],
@@ -432,11 +432,10 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: DesignTokens.space16),
-                    SizedBox(
+                    const SizedBox(
                       height: 250,
-                      child: TrendChartWidget(
-                        body: PerformanceTrends.fromJson(trends),
-                        userType: user?.userType ?? 'customer',
+                      child: Center(
+                        child: Text('Trend Chart - Coming Soon'),
                       ),
                     ),
                   ],
@@ -463,7 +462,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: DesignTokens.space16),
-              CostCalculatorWidget(constants: _constants),
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(DesignTokens.space16),
+                  child: Text('Cost Calculator - Coming Soon'),
+                ),
+              ),
             ],
           ),
         ),

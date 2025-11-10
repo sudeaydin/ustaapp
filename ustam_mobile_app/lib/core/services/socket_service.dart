@@ -53,7 +53,7 @@ class SocketService {
           .setAuth({'token': token})
           .setTransports(['websocket', 'polling'])
           .setTimeout(20000)
-          .setForceNew(true)
+          .enableForceNew()
           .build()
       );
 
