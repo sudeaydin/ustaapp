@@ -47,17 +47,16 @@ class AppTheme {
           color: dt.DesignTokens.gray900,
           size: 24,
         ),
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomLeft: const Radius.circular(16),
-            bottomRight: const Radius.circular(16),
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
           ),
         ),
       ),
       
       // Text Theme - Typography scale
       textTheme: TextTheme(
-        // Display styles - For large text
         displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
@@ -76,8 +75,6 @@ class AppTheme {
           color: dt.DesignTokens.gray900,
           height: 1.3,
         ),
-        
-        // Headline styles - For section headers
         headlineLarge: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w600,
@@ -96,8 +93,6 @@ class AppTheme {
           color: dt.DesignTokens.gray900,
           height: 1.4,
         ),
-        
-        // Title styles - For card titles, list items
         titleLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -116,8 +111,6 @@ class AppTheme {
           color: dt.DesignTokens.gray600,
           height: 1.4,
         ),
-        
-        // Body styles - For main content
         bodyLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
@@ -136,8 +129,6 @@ class AppTheme {
           color: dt.DesignTokens.gray600,
           height: 1.5,
         ),
-        
-        // Label styles - For buttons, form labels
         labelLarge: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -159,12 +150,12 @@ class AppTheme {
       ),
       
       // Card Theme - Consistent card styling
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: dt.DesignTokens.surfacePrimary,
         elevation: 2,
         shadowColor: dt.DesignTokens.shadowLight,
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
         ),
         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
       ),
@@ -179,10 +170,10 @@ class AppTheme {
           elevation: 4,
           shadowColor: dt.DesignTokens.shadowMedium,
           shape: RoundedRectangleBorder(
-            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -196,10 +187,10 @@ class AppTheme {
           disabledForegroundColor: dt.DesignTokens.textMuted,
           side: BorderSide(color: dt.DesignTokens.primaryCoral, width: 2),
           shape: RoundedRectangleBorder(
-            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -212,10 +203,10 @@ class AppTheme {
           foregroundColor: dt.DesignTokens.primaryCoral,
           disabledForegroundColor: dt.DesignTokens.textMuted,
           shape: RoundedRectangleBorder(
-            borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -227,35 +218,35 @@ class AppTheme {
         filled: true,
         fillColor: dt.DesignTokens.surfacePrimary,
         border: OutlineInputBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.primaryCoral,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.error,
             width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
           borderSide: BorderSide(
             color: dt.DesignTokens.error,
             width: 2,
@@ -271,7 +262,6 @@ class AppTheme {
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
-        // Ensure input text is always visible
         counterStyle: TextStyle(color: dt.DesignTokens.gray600),
         helperStyle: TextStyle(color: dt.DesignTokens.gray600),
       ),
@@ -283,11 +273,11 @@ class AppTheme {
         unselectedItemColor: dt.DesignTokens.textMuted,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        selectedLabelStyle: TextStyle(
+        selectedLabelStyle: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(
+        unselectedLabelStyle: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
@@ -299,7 +289,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 6,
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
         ),
       ),
       
@@ -319,7 +309,7 @@ class AppTheme {
         secondaryLabelStyle: TextStyle(color: dt.DesignTokens.gray600),
         brightness: Brightness.light,
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius8),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
           side: BorderSide(
             color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
           ),
@@ -327,12 +317,12 @@ class AppTheme {
       ),
       
       // Dialog Theme
-      dialogTheme: DialogThemeData(
+      dialogTheme: DialogTheme(
         backgroundColor: dt.DesignTokens.surfacePrimary,
         elevation: 8,
         shadowColor: dt.DesignTokens.shadowMedium,
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
         ),
         titleTextStyle: TextStyle(
           color: dt.DesignTokens.gray900,
@@ -349,12 +339,12 @@ class AppTheme {
       // SnackBar Theme
       snackBarTheme: SnackBarThemeData(
         backgroundColor: dt.DesignTokens.gray900,
-        contentTextStyle: TextStyle(
+        contentTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 14,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
         ),
         behavior: SnackBarBehavior.floating,
         elevation: 6,
@@ -369,12 +359,11 @@ class AppTheme {
     );
   }
 
-  // Dark Theme - For future dark mode support
+  // Dark Theme
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      
       colorScheme: ColorScheme.dark(
         primary: dt.DesignTokens.primaryCoralLight,
         primaryContainer: dt.DesignTokens.primaryCoral,
@@ -390,33 +379,29 @@ class AppTheme {
         outline: dt.DesignTokens.nonPhotoBlue.withOpacity(0.5),
         shadow: dt.DesignTokens.shadowDark,
       ),
-      
       scaffoldBackgroundColor: dt.DesignTokens.darkSurfacePrimary,
-      
-      // Dark theme specific overrides
       appBarTheme: AppBarTheme(
         backgroundColor: dt.DesignTokens.darkSurfacePrimary,
         foregroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 2,
         shadowColor: dt.DesignTokens.shadowDark,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
           size: 24,
         ),
       ),
-      
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: dt.DesignTokens.darkSurfacePrimary.withOpacity(0.8),
         elevation: 4,
         shadowColor: dt.DesignTokens.shadowDark,
         shape: RoundedRectangleBorder(
-          borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius12),
+          borderRadius: BorderRadius.circular(dt.DesignTokens.radius12),
         ),
       ),
     );
@@ -430,54 +415,51 @@ class AppTheme {
 
   // Custom decoration helpers
   static BoxDecoration get neuomorphicDecoration => BoxDecoration(
-    color: dt.DesignTokens.surfacePrimary,
-    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
-    boxShadow: [
-      BoxShadow(
-        color: dt.DesignTokens.shadowLight,
-        offset: const Offset(-4, -4),
-        blurRadius: 8,
-        spreadRadius: 0,
-      ),
-      BoxShadow(
-        color: dt.DesignTokens.shadowMedium,
-        offset: const Offset(4, 4),
-        blurRadius: 8,
-        spreadRadius: 0,
-      ),
-    ],
-  );
+        color: dt.DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+        boxShadow: [
+          BoxShadow(
+            color: dt.DesignTokens.shadowLight,
+            offset: const Offset(-4, -4),
+            blurRadius: 8,
+          ),
+          BoxShadow(
+            color: dt.DesignTokens.shadowMedium,
+            offset: const Offset(4, 4),
+            blurRadius: 8,
+          ),
+        ],
+      );
 
   static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
-    color: dt.DesignTokens.surfacePrimary,
-    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
-    boxShadow: [
-      BoxShadow(
-        color: dt.DesignTokens.shadowMedium,
-        offset: const Offset(2, 2),
-        blurRadius: 4,
-        spreadRadius: 0,
-      ),
-    ],
-  );
+        color: dt.DesignTokens.surfacePrimary,
+        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+        boxShadow: [
+          BoxShadow(
+            color: dt.DesignTokens.shadowMedium,
+            offset: const Offset(2, 2),
+            blurRadius: 4,
+          ),
+        ],
+      );
 
   // Gradient decorations
   static BoxDecoration get primaryGradientDecoration => BoxDecoration(
-    gradient: dt.DesignTokens.primaryCoralGradient,
-    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
-    boxShadow: [dt.DesignTokens.getElevatedShadow()],
-  );
+        gradient: dt.DesignTokens.primaryCoralGradient,
+        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+        boxShadow: [dt.DesignTokens.getElevatedShadow()],
+      );
 
   static BoxDecoration get accentGradientDecoration => BoxDecoration(
-    gradient: dt.DesignTokens.getGradient(dt.DesignTokens.accentGradient),
-    borderRadius: const Borderconst Radius.circular(dt.DesignTokens.radius16),
-    boxShadow: [dt.DesignTokens.getElevatedShadow()],
-  );
+        gradient: dt.DesignTokens.getGradient(dt.DesignTokens.accentGradient),
+        borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
+        boxShadow: [dt.DesignTokens.getElevatedShadow()],
+      );
 
   // Animation durations
-  static const Duration fastAnimation = const Duration(milliseconds: 200);
-  static const Duration normalAnimation = const Duration(milliseconds: 300);
-  static const Duration slowAnimation = const Duration(milliseconds: 500);
+  static const Duration fastAnimation = Duration(milliseconds: 200);
+  static const Duration normalAnimation = Duration(milliseconds: 300);
+  static const Duration slowAnimation = Duration(milliseconds: 500);
 
   // Common curves
   static const Curve defaultCurve = Curves.easeInOut;
