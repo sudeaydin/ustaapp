@@ -250,20 +250,30 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       ),
                     ),
                     const SizedBox(height: DesignTokens.space16),
-                    _buildActivityCard(
-                      title: 'Elektrik Tesisatı',
-                      subtitle: 'Ahmet Usta ile mesajlaşma',
-                      status: 'Teklif Bekleniyor',
-                      statusColor: DesignTokens.warning,
-                      icon: Icons.electrical_services,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/messages');
+                      },
+                      child: _buildActivityCard(
+                        title: 'Elektrik Tesisatı',
+                        subtitle: 'Ahmet Usta ile mesajlaşma',
+                        status: 'Teklif Bekleniyor',
+                        statusColor: DesignTokens.warning,
+                        icon: Icons.electrical_services,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    _buildActivityCard(
-                      title: 'Boyama İşi',
-                      subtitle: 'Mehmet Usta - Teklif Verildi',
-                      status: 'İnceleme',
-                      statusColor: DesignTokens.info,
-                      icon: Icons.format_paint,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/messages');
+                      },
+                      child: _buildActivityCard(
+                        title: 'Boyama İşi',
+                        subtitle: 'Mehmet Usta - Teklif Verildi',
+                        status: 'İnceleme',
+                        statusColor: DesignTokens.info,
+                        icon: Icons.format_paint,
+                      ),
                     ),
                   ],
                 ),
@@ -447,12 +457,24 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: DesignTokens.gray600,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        subtitle,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: DesignTokens.gray600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14,
+                      color: DesignTokens.gray400,
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -43,14 +43,28 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
-        final reviews = List<Review>.from(
-          apiResponse.data!['reviews']?.map((json) => Review.fromJson(json)) ?? []
-        );
+        try {
+          final data = apiResponse.data;
+          final reviewsList = data is Map<String, dynamic> ? data['reviews'] : data;
+          final reviews = List<Review>.from(
+            (reviewsList as List?)?.map((json) {
+              if (json is Map<String, dynamic>) {
+                return Review.fromJson(json);
+              }
+              return null;
+            }).where((review) => review != null) ?? []
+          );
 
-        state = state.copyWith(
-          reviews: reviews,
-          isLoading: false,
-        );
+          state = state.copyWith(
+            reviews: reviews,
+            isLoading: false,
+          );
+        } catch (parseError) {
+          state = state.copyWith(
+            error: 'Değerlendirmeler işlenirken hata oluştu',
+            isLoading: false,
+          );
+        }
       } else {
         state = state.copyWith(
           error: apiResponse.error?.userFriendlyMessage ?? 'Değerlendirmeler getirilemedi',
@@ -72,11 +86,20 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
-        final statistics = ReviewStatistics.fromJson(apiResponse.data!);
-        state = state.copyWith(statistics: statistics);
+        try {
+          final data = apiResponse.data;
+          if (data is Map<String, dynamic>) {
+            final statistics = ReviewStatistics.fromJson(data);
+            state = state.copyWith(statistics: statistics);
+          }
+        } catch (parseError) {
+          // Statistics are optional, don't show error
+          print('Error parsing statistics: $parseError');
+        }
       }
     } catch (e) {
       // Statistics are optional, don't show error
+      print('Error loading statistics: $e');
     }
   }
 

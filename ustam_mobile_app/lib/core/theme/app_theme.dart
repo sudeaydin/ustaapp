@@ -272,6 +272,9 @@ class AppTheme {
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
+        // Ensure input text is always visible
+        counterStyle: TextStyle(color: dt.DesignTokens.gray600),
+        helperStyle: TextStyle(color: dt.DesignTokens.gray600),
       ),
       
       // Bottom Navigation Bar Theme
