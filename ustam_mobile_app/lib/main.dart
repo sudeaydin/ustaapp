@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,7 +67,7 @@ void main() async {
       ),
     );
   } catch (e) {
-    print('Error initializing SharedPreferences: $e');
+    debugPrint('Error initializing SharedPreferences: $e');
     // Fallback without SharedPreferences for web debugging
     runApp(const MyApp());
   }

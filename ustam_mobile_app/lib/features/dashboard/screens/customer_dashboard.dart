@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../messages/screens/messages_screen.dart';
@@ -126,7 +127,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Icons.search_rounded,
                             DesignTokens.primaryCoral,
                             () {
-                              print('🔍 Usta Bul butonuna tıklandı');
+                              debugPrint('🔍 Usta Bul butonuna tıklandı');
                               Navigator.pushNamed(context, '/search');
                             },
                           ),
@@ -139,7 +140,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Icons.campaign_rounded,
                             DesignTokens.warning,
                             () {
-                              print('📝 İlan Ver butonuna tıklandı');
+                              debugPrint('📝 İlan Ver butonuna tıklandı');
                               Navigator.pushNamed(context, '/marketplace/new');
                             },
                           ),
@@ -165,7 +166,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               Icons.chat_bubble_rounded,
                               DesignTokens.primaryCoral,
                               () {
-                                print('💬 Mesajlar butonuna tıklandı');
+                                debugPrint('💬 Mesajlar butonuna tıklandı');
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -183,7 +184,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                               Icons.list_alt_rounded,
                               DesignTokens.info,
                               () {
-                                print('📋 İlanlarım butonuna tıklandı');
+                                debugPrint('📋 İlanlarım butonuna tıklandı');
                                 Navigator.pushNamed(context, '/marketplace/mine');
                               },
                             ),
@@ -200,7 +201,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Icons.calendar_today,
                             DesignTokens.primaryCoral,
                             () {
-                              print('📅 Takvim butonuna tıklandı');
+                              debugPrint('📅 Takvim butonuna tıklandı');
                               Navigator.pushNamed(context, '/calendar', arguments: 'customer');
                             },
                           ),
@@ -213,7 +214,7 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                             Icons.support_agent,
                             DesignTokens.warning,
                             () {
-                              print('🆘 Destek butonuna tıklandı');
+                              debugPrint('🆘 Destek butonuna tıklandı');
                               Navigator.pushNamed(
                                 context, 
                                 '/support',

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../theme/design_tokens.dart';
 
@@ -40,7 +41,7 @@ class AirbnbCard extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                print('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
+                debugPrint('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
                 onTap!();
               },
               borderRadius: BorderRadius.circular(borderRadius ?? DesignTokens.radius16),

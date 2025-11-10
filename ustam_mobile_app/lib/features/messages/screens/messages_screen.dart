@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,17 +24,17 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
     try {
       // Check widget userType parameter first (most reliable when coming from dashboards)
       if (widget.userType == 'craftsman') {
-        print('✅ Widget param: Navigating to craftsman dashboard');
+        debugPrint('✅ Widget param: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
       
       // Try auth provider second
       final authState = ref.read(authProvider);
-      print('Messages Screen - Auth State: ${authState.user}');
+      debugPrint('Messages Screen - Auth State: ${authState.user}');
       
       if (authState.user != null && authState.user?['user_type'] == 'craftsman') {
-        print('✅ Auth Provider: Navigating to craftsman dashboard');
+        debugPrint('✅ Auth Provider: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
@@ -41,18 +42,18 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       // Fallback: Check SharedPreferences directly
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
-      print('Messages Screen - SharedPrefs User Type: $userType');
+      debugPrint('Messages Screen - SharedPrefs User Type: $userType');
       
       if (userType == 'craftsman') {
-        print('✅ SharedPrefs: Navigating to craftsman dashboard');
+        debugPrint('✅ SharedPrefs: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
       
-      print('❌ Fallback: Navigating to customer dashboard');
+      debugPrint('❌ Fallback: Navigating to customer dashboard');
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     } catch (e) {
-      print('⚠️ Error in navigation: $e');
+      debugPrint('⚠️ Error in navigation: $e');
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
   } // Messages is third tab

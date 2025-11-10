@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
@@ -390,7 +391,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return InkWell(
       borderRadius: BorderRadius.circular(DesignTokens.radius16),
       onTap: _isLoading ? null : () {
-        print('🔥 Login button tapped!'); // Debug print
+        debugPrint('🔥 Login button tapped!'); // Debug print
         _handleLogin();
       },
       child: Container(
@@ -441,7 +442,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: _isLoading ? null : () {
-            print('🔥 Google button tapped!'); // Debug print
+            debugPrint('🔥 Google button tapped!'); // Debug print
             _handleGoogleSignIn();
           },
           child: Padding(
@@ -505,7 +506,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _handleLogin() async {
-    print('🔥 _handleLogin called!'); // Debug print
+    debugPrint('🔥 _handleLogin called!'); // Debug print
     
     // Removed loading message per user request
     
@@ -513,7 +514,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final now = DateTime.now();
     if (_lastLoginAttempt != null && 
         now.difference(_lastLoginAttempt!).inMilliseconds < 2000) {
-      print('🚫 Login blocked - too soon after last attempt');
+      debugPrint('🚫 Login blocked - too soon after last attempt');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Lütfen bekleyin...'),
@@ -542,8 +543,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               : 'unknown',
         });
         
-        print('Login attempt - User type: ${widget.userType}');
-        print('📧 Email: ${_emailController.text}');
+        debugPrint('Login attempt - User type: ${widget.userType}');
+        debugPrint('📧 Email: ${_emailController.text}');
         
         // Login with auth provider
         final success = await authNotifier.login(
@@ -553,7 +554,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         );
         
         if (success && mounted) {
-          print('✅ Login successful, navigating to dashboard');
+          debugPrint('✅ Login successful, navigating to dashboard');
           
           // Track successful login
           AnalyticsService.getInstance().trackBusinessEvent('login_success', {
@@ -581,7 +582,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
         }
       } catch (e) {
-        print('❌ Login error: $e');
+        debugPrint('❌ Login error: $e');
         
         // Track login error
         AnalyticsService.getInstance().trackError('login_error', e.toString(), {
@@ -605,12 +606,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       }
     } else {
-      print('🚨 Form validation failed!'); // Debug print
+      debugPrint('🚨 Form validation failed!'); // Debug print
     }
   }
 
   Future<void> _handleGoogleSignIn() async {
-    print('🔥 _handleGoogleSignIn called!'); // Debug print
+    debugPrint('🔥 _handleGoogleSignIn called!'); // Debug print
     
     setState(() {
       _isLoading = true;
@@ -624,14 +625,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         'user_type': widget.userType,
       });
       
-      print('Google Sign-In attempt - User type: ${widget.userType}');
+      debugPrint('Google Sign-In attempt - User type: ${widget.userType}');
       
       final success = await authNotifier.signInWithGoogle(
         userType: widget.userType,
       );
 
       if (success && mounted) {
-        print('✅ Google Sign-In successful, navigating to dashboard');
+        debugPrint('✅ Google Sign-In successful, navigating to dashboard');
         
         // Track successful Google login
         AnalyticsService.getInstance().trackBusinessEvent('google_login_success', {
@@ -654,7 +655,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       }
     } catch (e) {
-      print('❌ Google Sign-In error: $e');
+      debugPrint('❌ Google Sign-In error: $e');
       
       // Track failed Google login
       AnalyticsService.getInstance().trackBusinessEvent('google_login_failed', {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -34,21 +35,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
       
-      print('Checking user type from SharedPreferences: $userType');
+      debugPrint('Checking user type from SharedPreferences: $userType');
       
       if (userType == 'craftsman') {
-        print('✅ Navigating to craftsman dashboard');
+        debugPrint('✅ Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
       } else if (userType == 'customer') {
-        print('✅ Navigating to customer dashboard');
+        debugPrint('✅ Navigating to customer dashboard');
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       } else {
-        print('⚠️ No user type found, defaulting to customer dashboard');
+        debugPrint('⚠️ No user type found, defaulting to customer dashboard');
         // Default fallback to customer dashboard
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       }
     } catch (e) {
-      print('❌ Error navigating to dashboard: $e');
+      debugPrint('❌ Error navigating to dashboard: $e');
       // Default fallback
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
@@ -61,10 +62,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final token = prefs.getString('authToken');
       
       if (token == null) {
-        print('No auth token found');
+        debugPrint('No auth token found');
         // Even without token, try to get user type for navigation
         final userType = prefs.getString('user_type');
-        print('User type from SharedPreferences: $userType');
+        debugPrint('User type from SharedPreferences: $userType');
         
         setState(() {
           _isLoading = false;
@@ -87,7 +88,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         },
       );
       
-      print('Profile API Response: ${response.statusCode} - ${response.body}');
+      debugPrint('Profile API Response: ${response.statusCode} - ${response.body}');
       
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -97,19 +98,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             _isLoading = false;
           });
         } else {
-          print('API Error: ${data['message']}');
+          debugPrint('API Error: ${data['message']}');
           setState(() {
             _isLoading = false;
           });
         }
       } else {
-        print('HTTP Error: ${response.statusCode} - ${response.body}');
+        debugPrint('HTTP Error: ${response.statusCode} - ${response.body}');
         setState(() {
           _isLoading = false;
         });
       }
     } catch (e) {
-      print('Error loading profile: $e');
+      debugPrint('Error loading profile: $e');
       setState(() {
         _isLoading = false;
       });

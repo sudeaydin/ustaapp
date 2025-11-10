@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -71,7 +72,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           isLoading: false,
         );
       } catch (e) {
-        print('Error parsing user body: $e');
+        debugPrint('Error parsing user body: $e');
         state = state.copyWith(
           isAuthenticated: false,
           isLoading: false,

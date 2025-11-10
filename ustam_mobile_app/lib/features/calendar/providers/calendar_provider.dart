@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/api_service.dart';
 import '../models/appointment_model.dart';
@@ -190,7 +191,7 @@ class CalendarNotifier extends StateNotifier<CalendarState> {
           try {
             return CalendarEvent.fromJson(json as Map<String, dynamic>);
           } catch (e) {
-            print('Error parsing event: $e');
+            debugPrint('Error parsing event: $e');
             return null;
           }
         }).where((event) => event != null).cast<CalendarEvent>().toList();

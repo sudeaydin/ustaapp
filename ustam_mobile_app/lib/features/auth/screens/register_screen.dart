@@ -1,9 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/custom_text_field.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
 
@@ -138,7 +139,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget _buildRegisterButton(Locale locale) {
     return InkWell(
       onTap: _isLoading ? null : () {
-        print('🔥 Register button tapped!'); // Debug print
+        debugPrint('🔥 Register button tapped!'); // Debug print
         _handleRegister();
       },
       borderRadius: BorderRadius.circular(DesignTokens.radius12),
