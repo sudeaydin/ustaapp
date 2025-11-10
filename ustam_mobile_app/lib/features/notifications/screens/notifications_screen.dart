@@ -173,7 +173,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                   height: 48,
                   decoration: BoxDecoration(
                     color: notification['color'].withOpacity(0.1),
-                    borderRadius: const Borderconst Radius.circular(DesignTokens.radius12),
+                    borderRadius:  Borderconst Radius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     notification['icon'],
@@ -181,7 +181,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                     size: 24,
                   ),
                 ),
-                const SizedBox(width: DesignTokens.space16),
+                SizedBox(width: DesignTokens.space16),
                 // Notification Content
                 Expanded(
                   child: Column(
@@ -205,14 +205,14 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                             Container(
                               width: 8,
                               height: 8,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: DesignTokens.uclaBlue,
                                 shape: BoxShape.circle,
                               ),
                             ),
                         ],
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Text(
                         notification['message'],
                         style: TextStyle(
@@ -224,10 +224,10 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8),
                       Text(
                         notification['timestamp'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           color: DesignTokens.textMuted,
                         ),
@@ -237,7 +237,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                 ),
                 // Action Button
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.more_vert,
                     color: DesignTokens.textMuted,
                   ),
@@ -286,8 +286,8 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         decoration: const BoxDecoration(
           color: DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(20),
-            topRight: const Radius.circular(20),
+            topLeft:  Radius.circular(20),
+            topRight:  Radius.circular(20),
           ),
         ),
         child: Column(
