@@ -160,7 +160,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
     return ListView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: state.listings.length + (state.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
         if (index == state.listings.length) {
@@ -188,7 +188,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
   Widget _buildLoadingSkeleton() {
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: 5,
       itemBuilder: (context, index) => _buildSkeletonCard(),
     );
@@ -196,7 +196,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
   Widget _buildSkeletonCard() {
     return Container(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: DesignTokens.space16),
       child: AirbnbCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +253,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
   Widget _buildLoadingMoreIndicator() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       alignment: Alignment.center,
       child: const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(DesignTokens.primaryCoral),
@@ -263,7 +263,7 @@ class _MarketplaceFeedScreenState extends ConsumerState<MarketplaceFeedScreen> {
 
   Widget _buildErrorState(String error) {
     return Center(
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

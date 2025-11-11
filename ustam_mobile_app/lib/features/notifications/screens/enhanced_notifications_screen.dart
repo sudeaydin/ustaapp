@@ -269,13 +269,13 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Push Notifications Card
           Card(
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +309,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Notification Types
           Card(
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,7 +348,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Quiet Hours
           Card(
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,7 +367,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                             const Text('Başlangıç'),
                             const SizedBox(height: 8),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: const BorderRadius.circular(DesignTokens.radius8),
@@ -385,7 +385,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                             const Text('Bitiş'),
                             const SizedBox(height: 8),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: const BorderRadius.circular(DesignTokens.radius8),
@@ -433,7 +433,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Metrics Grid
@@ -475,7 +475,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Channel Performance
           Card(
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,12 +521,12 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildLocationTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Start Location Sharing Button
           Card(
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [

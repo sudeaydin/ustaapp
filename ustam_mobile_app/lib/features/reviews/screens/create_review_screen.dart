@@ -62,7 +62,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -104,7 +104,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildHeaderInfo() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.primaryCoral.withOpacity(0.1),
         borderRadius: const BorderRadius.circular(DesignTokens.radius12),

@@ -119,7 +119,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildInfoRow(String label, String value, {IconData? icon}) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: const BorderRadius.circular(DesignTokens.radius16),

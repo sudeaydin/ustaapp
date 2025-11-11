@@ -8,7 +8,7 @@ class MarketplaceEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +130,7 @@ class MarketplaceEmptyState extends StatelessWidget {
             
             // Tips section
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space20),
+              padding: EdgeInsets.all(DesignTokens.space20),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.05),
                 borderRadius: const BorderRadius.circular(DesignTokens.radius16),
@@ -194,7 +194,7 @@ class MarketplaceEmptyState extends StatelessWidget {
         Container(
           width: 6,
           height: 6,
-          margin: const EdgeInsets.only(top: 6),
+          margin: EdgeInsets.only(top: 6),
           decoration: BoxDecoration(
             color: DesignTokens.primaryCoral,
             borderRadius: const BorderRadius.circular(3),

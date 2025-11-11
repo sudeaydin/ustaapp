@@ -155,7 +155,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
         await ref.read(reviewProvider.notifier).loadCraftsmanReviews(widget.craftsmanId);
       },
       child: ListView.builder(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: reviewState.reviews.length,
         itemBuilder: (context, index) {
           final review = reviewState.reviews[index];
@@ -198,7 +198,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: ReviewStatisticsWidget(
         statistics: reviewState.statistics!,
       ),

@@ -234,7 +234,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         content: Text(message),
         backgroundColor: backgroundColor,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: const BorderRadius.circular(DesignTokens.radius12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
       ),
     );
   }
@@ -293,7 +293,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                         DesignTokens.primaryCoral,
                       ],
                     ),
-                    borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +468,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                   padding: const EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.surfaceSecondaryColor,
-                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -522,7 +522,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       backgroundColor: DesignTokens.uclaBlue,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       ),
                     ),
                   ),
@@ -547,7 +547,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                                 image: DecorationImage(
                                   image: NetworkImage(_portfolioImages[index].startsWith('http') 
                                     ? _portfolioImages[index] 
@@ -583,7 +583,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                       height: 120,
                       decoration: BoxDecoration(
                         color: DesignTokens.surfacePrimary,
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
                         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                       ),
                       child: const Center(
@@ -736,13 +736,13 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
                 color: DesignTokens.shadowLight,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),
@@ -784,13 +784,13 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
                 color: DesignTokens.shadowLight,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),

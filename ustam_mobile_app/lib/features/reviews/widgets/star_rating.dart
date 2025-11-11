@@ -118,7 +118,7 @@ class CategoryRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -178,7 +178,7 @@ class CategoryRatingDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: const BorderRadius.circular(DesignTokens.radius8),

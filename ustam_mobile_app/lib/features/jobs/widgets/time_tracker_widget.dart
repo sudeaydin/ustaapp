@@ -23,7 +23,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -52,7 +52,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
           ),
           const SizedBox(height: DesignTokens.space24),
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space24),
+            padding: EdgeInsets.all(DesignTokens.space24),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
               borderRadius: const BorderRadius.circular(DesignTokens.radius16),
@@ -87,7 +87,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isTracking ? DesignTokens.error : DesignTokens.success,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
                     isTracking ? 'Durdur' : 'Başla',
@@ -100,7 +100,7 @@ class _TimeTrackerWidgetState extends State<TimeTrackerWidget> {
                 child: OutlinedButton(
                   onPressed: _resetTimer,
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text(
                     'Sıfırla',

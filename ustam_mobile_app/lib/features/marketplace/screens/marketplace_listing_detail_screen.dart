@@ -100,7 +100,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildHeaderSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -109,7 +109,7 @@ class _MarketplaceListingDetailScreenState
             children: [
               // Category chip
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space12,
                   vertical: DesignTokens.space6,
                 ),
@@ -188,7 +188,7 @@ class _MarketplaceListingDetailScreenState
               // Bids count
               if (listing.bidsCount > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: DesignTokens.space8,
                     vertical: DesignTokens.space4,
                   ),
@@ -225,7 +225,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDescriptionSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +254,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDetailsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -292,7 +292,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildLocationBudgetSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Row(
         children: [
@@ -320,7 +320,7 @@ class _MarketplaceListingDetailScreenState
                   ],
                 ),
                 const SizedBox(height: DesignTokens.space4),
-                const Padding(
+                Padding(
       padding: EdgeInsets.only(left: 28),
                   child: Text(
                     listing.location.city,
@@ -358,7 +358,7 @@ class _MarketplaceListingDetailScreenState
                   ],
                 ),
                 const SizedBox(height: DesignTokens.space4),
-                const Padding(
+                Padding(
       padding: EdgeInsets.only(left: 28),
                   child: Text(
                     _formatBudget(listing.budget),
@@ -379,7 +379,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDateRangeSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,7 +404,7 @@ class _MarketplaceListingDetailScreenState
           ),
           const SizedBox(height: DesignTokens.space12),
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space12),
+            padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
               borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -476,7 +476,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildAttachmentsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -505,7 +505,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildOwnerActionsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -559,7 +559,7 @@ class _MarketplaceListingDetailScreenState
   Widget _buildOffersSection(MarketplaceListing listing, String userType, bool isOwner) {
     // For now, we'll show a placeholder. In a real app, we'd load offers from the provider
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -606,7 +606,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildNoOffersState() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
       decoration: BoxDecoration(
         color: DesignTokens.gray50,
         borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -649,10 +649,10 @@ class _MarketplaceListingDetailScreenState
       children: List.generate(
         _showAllOffers ? count : (count > 3 ? 3 : count),
         (index) => Container(
-          margin: const EdgeInsets.only(
+          margin: EdgeInsets.only(
             bottom: index < (count - 1) ? DesignTokens.space12 : 0,
           ),
-          padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
             color: DesignTokens.gray50,
             borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -726,7 +726,7 @@ class _MarketplaceListingDetailScreenState
     }
 
     return Container(
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: DesignTokens.space16,
         right: DesignTokens.space16,
         top: DesignTokens.space16,
@@ -767,7 +767,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildErrorState(String error) {
     return Center(
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -833,7 +833,7 @@ class _MarketplaceListingDetailScreenState
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: DesignTokens.space8,
         vertical: DesignTokens.space4,
       ),
@@ -853,7 +853,7 @@ class _MarketplaceListingDetailScreenState
   }
 
   Widget _buildDetailRow(IconData icon, String label, String value) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(bottom: DesignTokens.space12),
       child: Row(
         children: [

@@ -124,7 +124,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
 
   Widget _buildListingsList() {
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _mockListings.length,
       itemBuilder: (context, index) {
         final listing = _mockListings[index];
@@ -135,7 +135,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
 
   Widget _buildListingCard(Map<String, dynamic> listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space12),
+      margin: EdgeInsets.only(bottom: DesignTokens.space12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -153,7 +153,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: listing['statusColor'].withOpacity(0.1),
                   borderRadius: const BorderRadius.circular(DesignTokens.radius8),
@@ -187,7 +187,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
                   borderRadius: const BorderRadius.circular(DesignTokens.radius8),

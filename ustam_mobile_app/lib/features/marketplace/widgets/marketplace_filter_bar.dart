@@ -50,7 +50,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
     final feedState = ref.watch(marketplaceFeedProvider);
 
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         boxShadow: [
@@ -84,7 +84,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                       )
                     : null,
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
+                contentPadding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space16,
                   vertical: DesignTokens.space12,
                 ),
@@ -164,7 +164,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: DesignTokens.space12,
           vertical: DesignTokens.space8,
         ),
@@ -269,7 +269,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           Container(
             width: 40,
             height: 4,
-            margin: const EdgeInsets.only(top: DesignTokens.space12),
+            margin: EdgeInsets.only(top: DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.gray300,
               borderRadius: const BorderRadius.circular(2),
@@ -277,7 +277,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           ),
 
           // Title
-          const Padding(
+          Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
             child: Text(
               title,
@@ -334,7 +334,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
               topRight: Radius.circular(DesignTokens.radius24),
             ),
           ),
-          child: const Padding(
+          child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -343,7 +343,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                 Container(
                   width: 40,
                   height: 4,
-                  margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+                  margin: EdgeInsets.only(bottom: DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.gray300,
                     borderRadius: const BorderRadius.circular(2),
@@ -406,7 +406,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: DesignTokens.primaryCoral,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: DesignTokens.space12),
+                      padding: EdgeInsets.symmetric(vertical: DesignTokens.space12),
                       shape: RoundedRectangleBorder(
                         borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                       ),

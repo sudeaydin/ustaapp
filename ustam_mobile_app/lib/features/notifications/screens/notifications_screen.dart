@@ -88,7 +88,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       body: _notifications.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               itemCount: _notifications.length,
               itemBuilder: (context, index) {
                 final notification = _notifications[index];
@@ -141,7 +141,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
 
   Widget _buildNotificationTile(Map<String, dynamic> notification) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: notification['isRead'] ? Colors.white : DesignTokens.primaryCoral.withOpacity(0.1),
         borderRadius: const BorderRadius.circular(DesignTokens.radius16),
@@ -163,7 +163,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         child: InkWell(
           borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           onTap: () => _handleNotificationTap(notification),
-          child: const Padding(
+          child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
@@ -282,7 +282,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         decoration: const BoxDecoration(
           color: DesignTokens.surfacePrimary,
           borderRadius: BorderRadius.only(

@@ -35,7 +35,7 @@ class AppointmentCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: appointment.statusColor.withOpacity(0.1),
-                      borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
                     ),
                     child: Icon(
                       appointment.typeIcon,
@@ -143,7 +143,7 @@ class AppointmentCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: appointment.statusColor.withOpacity(0.1),
-        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: appointment.statusColor.withOpacity(0.3),
         ),

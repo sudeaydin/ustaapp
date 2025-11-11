@@ -181,7 +181,7 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildHeaderSection() {
     return AirbnbCard(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -240,7 +240,7 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildBasicInfoSection() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,7 +304,7 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildCategorySection() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,7 +332,7 @@ class _MarketplaceCreateListingScreenState
                   });
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: DesignTokens.space16,
                     vertical: DesignTokens.space12,
                   ),
@@ -378,7 +378,7 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildLocationSection() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -410,7 +410,7 @@ class _MarketplaceCreateListingScreenState
                 labelText: 'Şehir',
                 prefixIcon: const Icon(Icons.location_city_outlined),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
+                contentPadding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space16,
                   vertical: DesignTokens.space12,
                 ),
@@ -441,7 +441,7 @@ class _MarketplaceCreateListingScreenState
 
   Widget _buildBudgetSection() {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +468,7 @@ class _MarketplaceCreateListingScreenState
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(DesignTokens.space12),
+                    padding: EdgeInsets.all(DesignTokens.space12),
                     decoration: BoxDecoration(
                       color: _selectedBudgetType == 'fixed'
                           ? DesignTokens.primaryCoral.withOpacity(0.1)
@@ -513,7 +513,7 @@ class _MarketplaceCreateListingScreenState
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(DesignTokens.space12),
+                    padding: EdgeInsets.all(DesignTokens.space12),
                     decoration: BoxDecoration(
                       color: _selectedBudgetType == 'range'
                           ? DesignTokens.primaryCoral.withOpacity(0.1)

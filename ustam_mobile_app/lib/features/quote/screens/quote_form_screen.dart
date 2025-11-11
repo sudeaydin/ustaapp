@@ -78,7 +78,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Form(
             key: _formKey,
             child: Column(
@@ -86,7 +86,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               children: [
                 // Craftsman Info Card
                 Container(
-                  padding: const EdgeInsets.all(DesignTokens.space16),
+                  padding: EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.surfacePrimary,
                     borderRadius: const BorderRadius.circular(DesignTokens.radius16),
@@ -330,7 +330,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
             hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
@@ -394,7 +394,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 fontSize: 16,
               ),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
           ),
         ),
@@ -475,7 +475,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: DesignTokens.surfacePrimary,
           borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -704,7 +704,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
             items: items.map((item) {
               return DropdownMenuItem<String>(

@@ -140,7 +140,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     if (_performanceMetrics.isEmpty) return const SizedBox.shrink();
 
     return Container(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -256,11 +256,11 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _jobs.length,
       itemBuilder: (context, index) {
         final job = _jobs[index];
-        return const Padding(
+        return Padding(
       padding: EdgeInsets.only(bottom: 12),
           child: JobCard(
             job: job,
@@ -298,11 +298,11 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _warranties.length,
       itemBuilder: (context, index) {
         final warranty = _warranties[index];
-        return const Padding(
+        return Padding(
       padding: EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
             warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
@@ -342,11 +342,11 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _emergencies.length,
       itemBuilder: (context, index) {
         final emergency = _emergencies[index];
-        return const Padding(
+        return Padding(
       padding: EdgeInsets.only(bottom: 12),
           child: EmergencyServiceCard(
             emergency: emergency,
@@ -453,7 +453,7 @@ class _MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -471,7 +471,7 @@ class _MetricCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: const BorderRadius.circular(DesignTokens.radius8),

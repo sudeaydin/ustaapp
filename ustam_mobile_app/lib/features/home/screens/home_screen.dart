@@ -126,7 +126,7 @@ class HomeScreen extends ConsumerWidget {
             // Body Content
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -340,7 +340,7 @@ class HomeScreen extends ConsumerWidget {
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: isPressed
@@ -523,7 +523,7 @@ class HomeScreen extends ConsumerWidget {
     return Column(
       children: List.generate(3, (index) {
         return Card(
-          margin: const EdgeInsets.only(bottom: 12),
+          margin: EdgeInsets.only(bottom: 12),
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: DesignTokens.uclaBlue.shade100,
@@ -570,7 +570,7 @@ class HomeScreen extends ConsumerWidget {
           final category = categories[index];
           return Container(
             width: 80,
-            margin: const EdgeInsets.only(right: 16),
+            margin: EdgeInsets.only(right: 16),
             child: InkWell(
               onTap: () => context.go('/search'),
               borderRadius: const BorderRadius.circular(DesignTokens.radius12),
@@ -630,7 +630,7 @@ class HomeScreen extends ConsumerWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: const BorderRadius.circular(20),

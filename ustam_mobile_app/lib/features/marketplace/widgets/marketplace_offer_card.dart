@@ -28,7 +28,7 @@ class MarketplaceOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space12),
+      margin: EdgeInsets.only(bottom: DesignTokens.space12),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

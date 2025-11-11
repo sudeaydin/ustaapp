@@ -118,7 +118,7 @@ class _ListingOffersScreenState extends ConsumerState<ListingOffersScreen> {
     final acceptedOffers = _mockOffers.where((offer) => offer['status'] == 'accepted').toList();
     
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

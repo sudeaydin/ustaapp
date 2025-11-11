@@ -70,7 +70,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -180,7 +180,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: DesignTokens.primaryCoral),
                   foregroundColor: DesignTokens.primaryCoral,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
             ),
@@ -191,7 +191,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
   }
 
   Widget _buildDetailRow(String label, String value, IconData icon) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(bottom: 12),
       child: Row(
         children: [

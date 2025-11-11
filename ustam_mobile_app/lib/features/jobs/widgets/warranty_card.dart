@@ -22,8 +22,8 @@ class WarrantyCard extends StatelessWidget {
     final expiryDate = warranty['expiry_date'];
     
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: const Padding(
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

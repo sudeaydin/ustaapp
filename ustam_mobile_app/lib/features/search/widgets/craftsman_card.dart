@@ -21,7 +21,7 @@ class CraftsmanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: DesignTokens.space16),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +143,7 @@ class CraftsmanCard extends StatelessWidget {
                   runSpacing: 6,
                   children: (craftsman['specialties'] as List).take(3).map((skill) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
                         borderRadius: const BorderRadius.circular(DesignTokens.radius12),

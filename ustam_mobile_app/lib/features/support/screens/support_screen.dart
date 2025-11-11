@@ -103,7 +103,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
 
   Widget _buildCreateTicketTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       child: CreateTicketForm(
         userType: widget.userType,
         onTicketCreated: () {
@@ -155,7 +155,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       itemCount: supportState.tickets.length,
       itemBuilder: (context, index) {
         final ticket = supportState.tickets[index];
@@ -191,7 +191,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: BorderRadius.circular(DesignTokens.radius16),
@@ -219,7 +219,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -366,7 +366,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+            padding: EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -427,7 +427,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
           ),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
               borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -466,7 +466,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
           ),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
               borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -543,7 +543,7 @@ class _CreateTicketFormState extends ConsumerState<CreateTicketForm> {
           
           // Info Card
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+            padding: EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
               borderRadius: BorderRadius.circular(DesignTokens.radius12),

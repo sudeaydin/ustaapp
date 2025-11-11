@@ -31,7 +31,7 @@ class WelcomeScreen extends ConsumerWidget {
       ),
       backgroundColor: DesignTokens.surfacePrimary,
       body: SafeArea(
-        child: const Padding(
+        child: Padding(
           padding: DesignTokens.getEdgeInsets(all: DesignTokens.spacingScreenEdge),
           child: Column(
             children: [
@@ -47,7 +47,7 @@ class WelcomeScreen extends ConsumerWidget {
                       height: 120,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral,
-                        borderRadius: const BorderRadius.circular(DesignTokens.radius24),
+                        borderRadius: BorderRadius.circular(DesignTokens.radius24),
                         boxShadow: DesignTokens.shadowElevated,
                       ),
                       child: Icon(

@@ -626,7 +626,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 final message = _messages[index];
@@ -637,7 +637,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
           
           // Message Input
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+            padding: EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.surfacePrimary,
               border: Border(
@@ -656,7 +656,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                       controller: _messageController,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         hintText: 'Mesajınızı yazın...',
                         hintStyle: TextStyle(color: DesignTokens.textMuted),
                       ),
@@ -689,7 +689,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
     final isMe = message['isMe'];
     
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [

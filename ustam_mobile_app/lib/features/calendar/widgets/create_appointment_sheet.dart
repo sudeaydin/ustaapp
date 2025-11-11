@@ -32,7 +32,7 @@ class CreateAppointmentSheet extends StatelessWidget {
               height: 4,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: const BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(2),
               ),
             ),
             

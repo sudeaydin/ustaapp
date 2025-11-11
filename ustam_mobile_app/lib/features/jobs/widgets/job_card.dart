@@ -24,9 +24,9 @@ class JobCard extends StatelessWidget {
     final String priority = job is Job ? job.priority.name : (job['priority'] ?? 'normal');
     
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       onTap: onTap,
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class JobCard extends StatelessWidget {
                 children: [
                   if (priority == 'high')
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.error.withOpacity(0.1),
                         borderRadius: const BorderRadius.circular(DesignTokens.radius8),
@@ -119,7 +119,7 @@ class JobCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: const BorderRadius.circular(DesignTokens.radius8),

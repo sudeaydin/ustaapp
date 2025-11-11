@@ -19,7 +19,7 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       onTap: onTap,
       child: const Padding(
       padding: EdgeInsets.all(DesignTokens.space16),

@@ -34,7 +34,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildOverallRating() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -274,7 +274,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: const BorderRadius.circular(DesignTokens.radius12),

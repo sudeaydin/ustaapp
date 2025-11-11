@@ -125,7 +125,7 @@ class _SearchMapViewState extends State<SearchMapView> {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: const BorderRadius.circular(DesignTokens.radius12)),
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +150,7 @@ class _SearchMapViewState extends State<SearchMapView> {
             const SizedBox(height: 12),
             ...cityGroups.entries.take(5).map((entry) {
               final percentage = (entry.value.length / widget.craftsmen.length * 100);
-              return const Padding(
+              return Padding(
       padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
@@ -200,7 +200,7 @@ class _SearchMapViewState extends State<SearchMapView> {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: const BorderRadius.circular(DesignTokens.radius12)),
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,7 +236,7 @@ class _SearchMapViewState extends State<SearchMapView> {
   }
 
   Widget _buildLegendItem(Color color, String label, IconData icon) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(vertical: 2),
       child: Row(
         mainAxisSize: MainAxisSize.min,

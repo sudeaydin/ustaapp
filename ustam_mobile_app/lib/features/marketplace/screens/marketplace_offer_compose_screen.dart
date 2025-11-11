@@ -104,7 +104,7 @@ class _MarketplaceOfferComposeScreenState
 
   Widget _buildListingSummary(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -145,7 +145,7 @@ class _MarketplaceOfferComposeScreenState
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space8,
                   vertical: DesignTokens.space4,
                 ),
@@ -183,7 +183,7 @@ class _MarketplaceOfferComposeScreenState
 
           // Budget range
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space12),
+            padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.gray50,
               borderRadius: const BorderRadius.circular(DesignTokens.radius8),

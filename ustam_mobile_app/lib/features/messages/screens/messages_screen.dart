@@ -212,7 +212,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       body: _conversations.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               itemCount: _conversations.length,
               itemBuilder: (context, index) {
                 final conversation = _conversations[index];
@@ -299,7 +299,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
 
   Widget _buildConversationTile(Map<String, dynamic> conversation) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         borderRadius: const BorderRadius.circular(DesignTokens.radius16),

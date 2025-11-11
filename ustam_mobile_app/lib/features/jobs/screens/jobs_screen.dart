@@ -31,7 +31,7 @@ class JobsScreen extends ConsumerWidget {
                 ],
               ),
               child: SafeArea(
-                child: const Padding(
+                child: Padding(
       padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: [
@@ -79,11 +79,11 @@ class JobsScreen extends ConsumerWidget {
             // Body Content
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: 8,
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(bottom: 16),
+            margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               gradient: AppTheme.cardGradient,
               borderRadius: const BorderRadius.circular(20),
@@ -102,7 +102,7 @@ class JobsScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            child: const Padding(
+            child: Padding(
       padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,7 +346,7 @@ class JobsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      child: const Padding(
+      child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Row(
           mainAxisSize: MainAxisSize.min,

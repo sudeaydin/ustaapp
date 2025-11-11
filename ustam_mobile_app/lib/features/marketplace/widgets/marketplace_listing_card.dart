@@ -22,7 +22,7 @@ class MarketplaceListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: DesignTokens.space16),
       child: AirbnbCard(
         onTap: onTap,
         child: Column(
@@ -50,7 +50,7 @@ class MarketplaceListingCard extends StatelessWidget {
                       
                       // Category chip
                       Container(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: DesignTokens.space8,
                           vertical: DesignTokens.space4,
                         ),

@@ -59,7 +59,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         children: [
           // Handle bar
           Container(
-            margin: const EdgeInsets.only(top: 8),
+            margin: EdgeInsets.only(top: 8),
             width: 40,
             height: 4,
             decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           ),
           
           // Header
-          const Padding(
+          Padding(
       padding: EdgeInsets.all(20),
             child: Row(
               children: [
@@ -92,7 +92,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           // Filters content
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -477,7 +477,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
 
   Widget _buildActionButtons() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
