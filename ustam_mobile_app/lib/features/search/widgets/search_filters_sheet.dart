@@ -59,18 +59,18 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
         children: [
           // Handle bar
           Container(
-            margin: const EdgeInsets.only(top: 8),
+            margin: EdgeInsets.only(top: 8),
             width: 40,
             height: 4,
             decoration: BoxDecoration(
               color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: const BorderRadius.circular(2),
             ),
           ),
           
           // Header
           Padding(
-            padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
             child: Row(
               children: [
                 const Text(
@@ -92,7 +92,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
           // Filters content
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -217,7 +217,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
                   items: [
                     const DropdownMenuItem<String>(
                       value: null,
-                      child: Text('Tüm Şehirler'),
+                      child: const Text('Tüm Şehirler'),
                     ),
                     ...cities.map((city) => DropdownMenuItem(
                       value: city,
@@ -256,7 +256,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
             items: [
               const DropdownMenuItem<String>(
                 value: null,
-                child: Text('Tüm İlçeler'),
+                child: const Text('Tüm İlçeler'),
               ),
               ...ref.watch(searchProvider).districts.map((district) => DropdownMenuItem(
                 value: district,
@@ -281,7 +281,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
       children: [
         Text(
           'Saatlik Ücret (₺${_priceRange.start.toInt()} - ₺${_priceRange.end.toInt()})',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -320,7 +320,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
       children: [
         Text(
           'Puan (${_ratingRange.start.toStringAsFixed(1)} - ${_ratingRange.end.toStringAsFixed(1)})',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -477,7 +477,7 @@ class _SearchFiltersSheetState extends ConsumerState<SearchFiltersSheet> {
 
   Widget _buildActionButtons() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [

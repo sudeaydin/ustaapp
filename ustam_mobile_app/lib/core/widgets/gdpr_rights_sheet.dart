@@ -1,7 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import '../theme/app_colors.dart';
 import '../utils/legal_utils.dart';
 
 class GDPRRightsSheet extends StatefulWidget {
@@ -85,7 +83,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
         leading: Icon(icon, color: DesignTokens.primaryCoral),
         title: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -113,8 +111,8 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
           content: Row(
             children: [
               CircularProgressIndicator(),
-              SizedBox(width: 16),
-              Text('İşlem gerçekleştiriliyor...'),
+              const SizedBox(width: 16),
+              const Text('İşlem gerçekleştiriliyor...'),
             ],
           ),
         ),
@@ -141,7 +139,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
           // Show info about contacting support
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Veri işlemeyi durdurma talebi için kvkk@ustam.app adresine başvurun.'),
+              content: const Text('Veri işlemeyi durdurma talebi için kvkk@ustam.app adresine başvurun.'),
               backgroundColor: Colors.blue,
             ),
           );
@@ -156,7 +154,7 @@ class _GDPRRightsSheetState extends State<GDPRRightsSheet> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('GDPR hakkınız başarıyla talep edildi. E-posta adresinizi kontrol edin.'),
+          content: const Text('GDPR hakkınız başarıyla talep edildi. E-posta adresinizi kontrol edin.'),
           backgroundColor: Colors.green,
         ),
       );

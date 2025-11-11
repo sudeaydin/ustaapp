@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_config.dart';
@@ -59,25 +60,25 @@ class ApiService {
       switch (method.toUpperCase()) {
         case 'GET':
           response = await _client.get(uri, headers: requestHeaders)
-              .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+              .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'POST':
           response = await _client.post(
             uri,
             headers: requestHeaders,
             body: body != null ? jsonEncode(body) : null,
-          ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+          ).timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'PUT':
           response = await _client.put(
             uri,
             headers: requestHeaders,
             body: body != null ? jsonEncode(body) : null,
-          ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+          ).timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         case 'DELETE':
           response = await _client.delete(uri, headers: requestHeaders)
-              .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+              .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds));
           break;
         default:
           throw ArgumentError('Unsupported HTTP method: $method');
@@ -114,14 +115,14 @@ class ApiService {
     } on SocketException {
       stopwatch.stop();
       _trackApiCall(url, method, 0, stopwatch.elapsedMilliseconds);
-      throw AppError(
+      throw const AppError(
         type: ErrorType.noInternet,
         message: 'İnternet bağlantınızı kontrol edin',
       );
     } on TimeoutException {
       stopwatch.stop();
       _trackApiCall(url, method, 408, stopwatch.elapsedMilliseconds);
-      throw AppError(
+      throw const AppError(
         type: ErrorType.timeout,
         message: 'İstek zaman aşımına uğradı',
       );
@@ -274,7 +275,7 @@ class ApiService {
       }
 
       final streamedResponse = await request.send()
-          .timeout(Duration(seconds: AppConfig.apiTimeoutSeconds * 2)); // Longer timeout for uploads
+          .timeout(const Duration(seconds: AppConfig.apiTimeoutSeconds * 2)); // Longer timeout for uploads
       
       final response = await http.Response.fromStream(streamedResponse);
       return ApiResponse<T>.fromResponse(response);
@@ -505,7 +506,7 @@ extension ApiServiceExtensions on ApiService {
       AnalyticsService.getInstance().trackApiCall(endpoint, method, statusCode, duration);
     } catch (e) {
       // Silently fail to avoid disrupting API calls
-      print('Failed to track API call: $e');
+      debugPrint('Failed to track API call: $e');
     }
   }
   

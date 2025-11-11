@@ -77,7 +77,7 @@ class iOSTheme {
       ),
       
       // Card Theme - Airbnb Style
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: DesignTokens.surfacePrimary,
         shadowColor: Colors.black.withOpacity(DesignTokens.shadowOpacityLight),
         elevation: DesignTokens.elevation2,

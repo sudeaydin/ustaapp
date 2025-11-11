@@ -1,6 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 
 class ErrorMessage extends StatelessWidget {
   final String message;
@@ -38,14 +37,14 @@ class ErrorMessage extends StatelessWidget {
             ),
           ),
           if (showRetryButton && onRetry != null) ...[
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             ElevatedButton(
               onPressed: onRetry,
               style: ElevatedButton.styleFrom(
                 backgroundColor: DesignTokens.primaryCoral,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Tekrar Dene'),
+              child: Text('Tekrar Dene'),
             ),
           ],
         ],
@@ -73,13 +72,13 @@ class ErrorCard extends StatelessWidget {
     return Card(
       color: DesignTokens.error.withOpacity(0.1),
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Icons.error, color: DesignTokens.error),
+                const Icon(Icons.error, color: DesignTokens.error),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -104,14 +103,14 @@ class ErrorCard extends StatelessWidget {
               style: TextStyle(color: DesignTokens.gray600),
             ),
             if (onRetry != null) ...[
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               ElevatedButton(
                 onPressed: onRetry,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: DesignTokens.primaryCoral,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('Tekrar Dene'),
+                child: Text('Tekrar Dene'),
               ),
             ],
           ],

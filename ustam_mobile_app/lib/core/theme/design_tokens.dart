@@ -58,6 +58,9 @@ class DesignTokens {
   static const Color darkSurfaceSecondary = Color(0xFF111827);
   static const Color darkSurfaceTertiary = Color(0xFF1F2937);
   
+  /// Overlay Colors (for modals, dialogs)
+  static const Color overlayColor = Color(0x80000000); // 50% black
+  
   // ========================================
   // SPACING SYSTEM - 4pt Grid
   // ========================================
@@ -127,9 +130,9 @@ class DesignTokens {
   // MOTION & ANIMATION
   // ========================================
   
-  static const Duration durationFast = Duration(milliseconds: 150);
-  static const Duration durationNormal = Duration(milliseconds: 250);
-  static const Duration durationSlow = Duration(milliseconds: 400);
+  static const Duration durationFast = const Duration(milliseconds: 150);
+  static const Duration durationNormal = const Duration(milliseconds: 250);
+  static const Duration durationSlow = const Duration(milliseconds: 400);
   
   static const Curve curveEaseOut = Curves.easeOut;
   static const Curve curveEaseIn = Curves.easeIn;
@@ -241,14 +244,14 @@ class DesignTokens {
   static const double elevation24 = 24.0;
   
   // Spacing shortcuts
-  static const SizedBox verticalSpaceXS = SizedBox(height: space4);
-  static const SizedBox verticalSpaceSM = SizedBox(height: space8);
-  static const SizedBox verticalSpaceMD = SizedBox(height: space16);
-  static const SizedBox horizontalSpaceXS = SizedBox(width: space4);
-  static const SizedBox horizontalSpaceSM = SizedBox(width: space8);
-  static const SizedBox horizontalSpaceMD = SizedBox(width: space16);
-  static const EdgeInsets spacingCardPaddingInsets = EdgeInsets.all(space16);
-  static const EdgeInsets spacingScreenEdgeInsets = EdgeInsets.all(spacingScreenEdge);
+  static const SizedBox verticalSpaceXS = const SizedBox(height: space4);
+  static const SizedBox verticalSpaceSM = const SizedBox(height: space8);
+  static const SizedBox verticalSpaceMD = const SizedBox(height: space16);
+  static const SizedBox horizontalSpaceXS = const SizedBox(width: space4);
+  static const SizedBox horizontalSpaceSM = const SizedBox(width: space8);
+  static const SizedBox horizontalSpaceMD = const SizedBox(width: space16);
+  static const EdgeInsets spacingCardPaddingInsets = const EdgeInsets.all(space16);
+  static const EdgeInsets spacingScreenEdgeInsets = const EdgeInsets.all(spacingScreenEdge);
   
   // ========================================
   // HELPER METHODS

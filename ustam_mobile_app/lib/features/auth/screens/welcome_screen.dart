@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
-import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/providers/language_provider.dart';
 
 /// iOS + Airbnb Design System Welcome Screen
@@ -13,7 +11,7 @@ class WelcomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(languageProvider);
+    // final locale = ref.watch(languageProvider); // Unused variable
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +57,7 @@ class WelcomeScreen extends ConsumerWidget {
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space24),
+                    const SizedBox(height: DesignTokens.space24),
                     
                     // Main title - iOS Large Title Style
                     Text(
@@ -71,7 +69,7 @@ class WelcomeScreen extends ConsumerWidget {
                       textAlign: TextAlign.center,
                     ),
                     
-                    SizedBox(height: DesignTokens.space12),
+                    const SizedBox(height: DesignTokens.space12),
                     
                     // Subtitle - iOS Body Style
                     Text(
@@ -107,14 +105,14 @@ class WelcomeScreen extends ConsumerWidget {
                               Icons.person_outline,
                               size: DesignTokens.iconSize20,
                             ),
-                            SizedBox(width: DesignTokens.space8),
-                            Text('Müşteri Girişi Yap'),
+                            const SizedBox(width: DesignTokens.space8),
+                            const Text('Müşteri Girişi Yap'),
                           ],
                         ),
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space16),
+                    const SizedBox(height: DesignTokens.space16),
                     
                     // Craftsman Login Button - Secondary Style
                     SizedBox(
@@ -131,21 +129,21 @@ class WelcomeScreen extends ConsumerWidget {
                               Icons.handyman_outlined,
                               size: DesignTokens.iconSize20,
                             ),
-                            SizedBox(width: DesignTokens.space8),
-                            Text('Usta Girişi Yap'),
+                            const SizedBox(width: DesignTokens.space8),
+                            const Text('Usta Girişi Yap'),
                           ],
                         ),
                       ),
                     ),
                     
-                    SizedBox(height: DesignTokens.space24),
+                    const SizedBox(height: DesignTokens.space24),
                     
                     // Register link - Tertiary Style
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/register');
                       },
-                      child: Text('Hesabın yok mu? Kayıt ol'),
+                      child: const Text('Hesabın yok mu? Kayıt ol'),
                     ),
                   ],
                 ),

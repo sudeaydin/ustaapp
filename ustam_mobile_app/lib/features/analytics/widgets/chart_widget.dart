@@ -60,7 +60,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildBarChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     final maxValue = data.map((e) => (e['value'] as num).toDouble()).reduce(math.max);
     
@@ -72,7 +72,7 @@ class ChartWidget extends StatelessWidget {
         
         return Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -88,7 +88,7 @@ class ChartWidget extends StatelessWidget {
                   height: height,
                   decoration: BoxDecoration(
                     color: color ?? DesignTokens.primaryCoral,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -108,7 +108,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildLineChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     return CustomPaint(
       size: const Size(double.infinity, 160),
@@ -120,7 +120,7 @@ class ChartWidget extends StatelessWidget {
   }
 
   Widget _buildPieChart() {
-    if (data.isEmpty) return const Center(child: Text('Veri bulunamadı'));
+    if (data.isEmpty) return const Center(child: const Text('Veri bulunamadı'));
 
     final total = data.fold<double>(0, (sum, item) => sum + (item['value'] as num).toDouble());
     
@@ -148,7 +148,7 @@ class ChartWidget extends StatelessWidget {
               final pieColor = _getPieColor(index);
               
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
                     Container(

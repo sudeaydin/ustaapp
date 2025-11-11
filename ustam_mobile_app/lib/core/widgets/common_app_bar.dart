@@ -50,7 +50,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 20,
@@ -70,7 +70,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               borderRadius: BorderRadius.circular(DesignTokens.radius12),
             ),
             child: IconButton(
-              icon: Icon(Icons.notifications_outlined, color: Colors.white),
+              icon: const Icon(Icons.notifications_outlined, color: Colors.white),
               onPressed: onNotificationTap ?? () {
                 Navigator.pushNamed(context, '/notifications');
               },

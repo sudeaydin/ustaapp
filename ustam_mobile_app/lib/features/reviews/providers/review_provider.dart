@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/api_service.dart';
 import '../models/review_model.dart';
@@ -46,14 +47,18 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
         try {
           final data = apiResponse.data;
           final reviewsList = data is Map<String, dynamic> ? data['reviews'] : data;
-          final reviews = List<Review>.from(
-            (reviewsList as List?)?.map((json) {
-              if (json is Map<String, dynamic>) {
-                return Review.fromJson(json);
-              }
-              return null;
-            }).where((review) => review != null) ?? []
-          );
+          
+          // Parse reviews with proper null handling
+          final reviews = (reviewsList as List?)
+              ?.map((json) {
+                if (json is Map<String, dynamic>) {
+                  return Review.fromJson(json);
+                }
+                return null;
+              })
+              .where((review) => review != null)
+              .cast<Review>()
+              .toList() ?? [];
 
           state = state.copyWith(
             reviews: reviews,
@@ -94,12 +99,12 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
           }
         } catch (parseError) {
           // Statistics are optional, don't show error
-          print('Error parsing statistics: $parseError');
+          debugPrint('Error parsing statistics: $parseError');
         }
       }
     } catch (e) {
       // Statistics are optional, don't show error
-      print('Error loading statistics: $e');
+      debugPrint('Error loading statistics: $e');
     }
   }
 

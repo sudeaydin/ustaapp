@@ -78,7 +78,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Form(
             key: _formKey,
             child: Column(
@@ -86,10 +86,10 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
               children: [
                 // Craftsman Info Card
                 Container(
-                  padding: const EdgeInsets.all(DesignTokens.space16),
+                  padding: EdgeInsets.all(DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.surfacePrimary,
-                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                     border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                     boxShadow: [
                       BoxShadow(
@@ -105,7 +105,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: const BorderRadius.circular(30),
                           image: DecorationImage(
                             image: NetworkImage(
                               widget.craftsman['avatar'] ?? 'https://picsum.photos/400/400?random=1',
@@ -121,7 +121,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                           children: [
                             Text(
                               widget.craftsman['name'] ?? '',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: DesignTokens.gray900,
@@ -306,7 +306,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -316,7 +316,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
@@ -358,7 +358,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16,
             color: DesignTokens.gray900,
@@ -368,7 +368,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(
@@ -394,7 +394,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
                 fontSize: 16,
               ),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
           ),
         ),
@@ -475,10 +475,10 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: DesignTokens.surfacePrimary,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: date != null 
                 ? DesignTokens.primaryCoral.withOpacity(0.5)
@@ -589,7 +589,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       if (_selectedCategory.isEmpty || _selectedAreaType.isEmpty || _selectedBudgetRange.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Lütfen zorunlu alanları doldurun'),
+            content: const Text('Lütfen zorunlu alanları doldurun'),
             backgroundColor: DesignTokens.error,
           ),
         );
@@ -635,7 +635,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
           if (data['success'] == true) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Teklif talebiniz başarıyla gönderildi!'),
+                content: const Text('Teklif talebiniz başarıyla gönderildi!'),
                 backgroundColor: DesignTokens.success,
               ),
             );
@@ -653,7 +653,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Teklif talebi gönderilirken bir hata oluştu'),
+              content: const Text('Teklif talebi gönderilirken bir hata oluştu'),
               backgroundColor: DesignTokens.error,
             ),
           );
@@ -680,7 +680,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -690,7 +690,7 @@ class _QuoteFormScreenState extends ConsumerState<QuoteFormScreen> {
         Container(
           decoration: BoxDecoration(
             color: DesignTokens.surfacePrimary,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
             boxShadow: [
               BoxShadow(

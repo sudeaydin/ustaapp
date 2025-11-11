@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'app_colors.dart';
 import 'design_tokens.dart' as dt;
 
 class AppTypography {
   // iOS San Francisco Font Family (Airbnb iOS style)
-  static const String _primaryFont = '.SF Pro Text'; // iOS system font
+  // static const String _primaryFont = '.SF Pro Text'; // iOS system font - unused
   static const String _displayFont = '.SF Pro Display'; // For large text
   
   // Airbnb Typography Scale

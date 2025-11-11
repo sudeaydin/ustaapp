@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/theme/app_theme.dart';
 
 class JobsScreen extends ConsumerWidget {
   const JobsScreen({super.key});
@@ -31,7 +32,7 @@ class JobsScreen extends ConsumerWidget {
               ),
               child: SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: [
                       Container(
@@ -39,7 +40,7 @@ class JobsScreen extends ConsumerWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: const Icon(
                           Icons.work_outline,
@@ -61,10 +62,10 @@ class JobsScreen extends ConsumerWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.filter_list, color: DesignTokens.surfacePrimary),
+                          icon: const Icon(Icons.filter_list, color: DesignTokens.surfacePrimary),
                           onPressed: () {
                             // Show filter options
                           },
@@ -78,14 +79,14 @@ class JobsScreen extends ConsumerWidget {
             // Body Content
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: 8,
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(bottom: 16),
+            margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               gradient: AppTheme.cardGradient,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: const BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: AppTheme.shadowDark,
@@ -102,7 +103,7 @@ class JobsScreen extends ConsumerWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -129,13 +130,13 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.person, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
+                      const Text('Mehmet K.', style: TextStyle(color: AppTheme.textSecondary)),
                       const SizedBox(width: DesignTokens.space16),
-                      Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.location_on, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
-                      Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
+                      const Text('İstanbul', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
                       Text(
                         '₺${[1500, 2000, 1800, 1200][index % 4]}',
@@ -151,7 +152,7 @@ class JobsScreen extends ConsumerWidget {
                   
                   Row(
                     children: [
-                      Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
+                      const Icon(Icons.calendar_today, size: 16, color: AppTheme.textSecondary),
                       const SizedBox(width: 4),
                       Text('${DateTime.now().day + index}.${DateTime.now().month}.2024', style: TextStyle(color: AppTheme.textSecondary)),
                       const Spacer(),
@@ -160,7 +161,7 @@ class JobsScreen extends ConsumerWidget {
                           gradient: LinearGradient(
                             colors: [AppTheme.primaryColor, AppTheme.primaryLight],
                           ),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                           boxShadow: [
                             BoxShadow(
                               color: AppTheme.primaryColor.withOpacity(0.3),
@@ -177,7 +178,7 @@ class JobsScreen extends ConsumerWidget {
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                             ),
                           ),
                           child: const Text(
@@ -204,7 +205,7 @@ class JobsScreen extends ConsumerWidget {
       floatingActionButton: Container(
         decoration: BoxDecoration(
           gradient: AppTheme.primaryGradient,
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: const BorderRadius.circular(28),
           boxShadow: [
             BoxShadow(
               color: AppTheme.primaryColor.withOpacity(0.4),
@@ -223,12 +224,12 @@ class JobsScreen extends ConsumerWidget {
           onPressed: () {
             // Add new job request
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Yeni iş talebi özelliği yakında!')),
+              const SnackBar(content: const Text('Yeni iş talebi özelliği yakında!')),
             );
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: Icon(Icons.add, color: DesignTokens.surfacePrimary, size: 28),
+          child: const Icon(Icons.add, color: DesignTokens.surfacePrimary, size: 28),
         ),
       ),
     );
@@ -297,7 +298,7 @@ class JobsScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('İş detayları güncellendi')),
+                const SnackBar(content: const Text('İş detayları güncellendi')),
               );
             },
             child: const Text('İşlem Yap'),
@@ -336,7 +337,7 @@ class JobsScreen extends ConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: gradient,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: gradient.colors.first.withOpacity(0.3),
@@ -346,7 +347,7 @@ class JobsScreen extends ConsumerWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -354,7 +355,7 @@ class JobsScreen extends ConsumerWidget {
             const SizedBox(width: 4),
             Text(
               status,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12, 
                 color: DesignTokens.surfacePrimary,
                 fontWeight: FontWeight.w600,

@@ -9,7 +9,7 @@ class MarketplaceEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -26,7 +26,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: const BorderRadius.circular(100),
               ),
               child: Stack(
                 alignment: Alignment.center,
@@ -40,7 +40,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                       height: 60,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: const BorderRadius.circular(30),
                       ),
                     ),
                   ),
@@ -52,7 +52,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: const BorderRadius.circular(20),
                       ),
                     ),
                   ),
@@ -63,7 +63,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                     height: 80,
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: const BorderRadius.circular(40),
                     ),
                     child: const Icon(
                       Icons.storefront_rounded,
@@ -130,10 +130,10 @@ class MarketplaceEmptyState extends StatelessWidget {
             
             // Tips section
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space20),
+              padding: EdgeInsets.all(DesignTokens.space20),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                 border: Border.all(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
                   width: 1,
@@ -148,7 +148,7 @@ class MarketplaceEmptyState extends StatelessWidget {
                         height: 40,
                         decoration: BoxDecoration(
                           color: DesignTokens.primaryCoral.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: const BorderRadius.circular(20),
                         ),
                         child: const Icon(
                           Icons.lightbulb_outline,
@@ -194,10 +194,10 @@ class MarketplaceEmptyState extends StatelessWidget {
         Container(
           width: 6,
           height: 6,
-          margin: const EdgeInsets.only(top: 6),
+          margin: EdgeInsets.only(top: 6),
           decoration: BoxDecoration(
             color: DesignTokens.primaryCoral,
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: const BorderRadius.circular(3),
           ),
         ),
         const SizedBox(width: DesignTokens.space12),
@@ -207,7 +207,7 @@ class MarketplaceEmptyState extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: DesignTokens.gray900,

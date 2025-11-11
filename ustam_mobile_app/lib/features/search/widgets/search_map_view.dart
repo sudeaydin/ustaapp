@@ -44,7 +44,7 @@ class _SearchMapViewState extends State<SearchMapView> {
                   height: 200,
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                     border: Border.all(
                       color: DesignTokens.primaryCoral.withOpacity(0.3),
                       width: 2,
@@ -124,9 +124,9 @@ class _SearchMapViewState extends State<SearchMapView> {
 
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
+      shape: RoundedRectangleBorder(borderRadius: const BorderRadius.circular(DesignTokens.radius12)),
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -151,7 +151,7 @@ class _SearchMapViewState extends State<SearchMapView> {
             ...cityGroups.entries.take(5).map((entry) {
               final percentage = (entry.value.length / widget.craftsmen.length * 100);
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
                     Container(
@@ -181,7 +181,7 @@ class _SearchMapViewState extends State<SearchMapView> {
               );
             }).toList(),
             if (cityGroups.length > 5) ...[
-              const SizedBox(height: 4),
+ SizedBox(height: 4),
               Text(
                 '+${cityGroups.length - 5} diğer şehir',
                 style: TextStyle(
@@ -199,9 +199,9 @@ class _SearchMapViewState extends State<SearchMapView> {
   Widget _buildMapLegend() {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DesignTokens.radius12)),
+      shape: RoundedRectangleBorder(borderRadius: const BorderRadius.circular(DesignTokens.radius12)),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -237,7 +237,7 @@ class _SearchMapViewState extends State<SearchMapView> {
 
   Widget _buildLegendItem(Color color, String label, IconData icon) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(vertical: 2),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

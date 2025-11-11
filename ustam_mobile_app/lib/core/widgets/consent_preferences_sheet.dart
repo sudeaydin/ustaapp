@@ -1,6 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 import '../utils/legal_utils.dart';
 
 class ConsentPreferencesSheet extends StatefulWidget {
@@ -25,7 +24,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Onay Tercihleri',
                   style: TextStyle(
@@ -91,7 +90,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
         child: Row(
           children: [
             Expanded(
@@ -100,7 +99,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -133,12 +132,12 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const AlertDialog(
+        builder: (context) => AlertDialog(
           content: Row(
             children: [
               CircularProgressIndicator(),
-              SizedBox(width: 16),
-              Text('Tercihler kaydediliyor...'),
+              const SizedBox(width: 16),
+              const Text('Tercihler kaydediliyor...'),
             ],
           ),
         ),
@@ -159,8 +158,8 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
       Navigator.pop(context);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Tercihleriniz başarıyla kaydedildi'),
+        SnackBar(
+          content: const Text('Tercihleriniz başarıyla kaydedildi'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );

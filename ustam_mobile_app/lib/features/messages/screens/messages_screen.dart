@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,17 +24,17 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
     try {
       // Check widget userType parameter first (most reliable when coming from dashboards)
       if (widget.userType == 'craftsman') {
-        print('✅ Widget param: Navigating to craftsman dashboard');
+        debugPrint('✅ Widget param: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
       
       // Try auth provider second
       final authState = ref.read(authProvider);
-      print('Messages Screen - Auth State: ${authState.user}');
+      debugPrint('Messages Screen - Auth State: ${authState.user}');
       
       if (authState.user != null && authState.user?['user_type'] == 'craftsman') {
-        print('✅ Auth Provider: Navigating to craftsman dashboard');
+        debugPrint('✅ Auth Provider: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
@@ -41,18 +42,18 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       // Fallback: Check SharedPreferences directly
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
-      print('Messages Screen - SharedPrefs User Type: $userType');
+      debugPrint('Messages Screen - SharedPrefs User Type: $userType');
       
       if (userType == 'craftsman') {
-        print('✅ SharedPrefs: Navigating to craftsman dashboard');
+        debugPrint('✅ SharedPrefs: Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
         return;
       }
       
-      print('❌ Fallback: Navigating to customer dashboard');
+      debugPrint('❌ Fallback: Navigating to customer dashboard');
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     } catch (e) {
-      print('⚠️ Error in navigation: $e');
+      debugPrint('⚠️ Error in navigation: $e');
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
   } // Messages is third tab
@@ -211,7 +212,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       body: _conversations.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               itemCount: _conversations.length,
               itemBuilder: (context, index) {
                 final conversation = _conversations[index];
@@ -240,7 +241,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             height: 120,
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondaryColor,
-              borderRadius: BorderRadius.circular(60),
+              borderRadius: const BorderRadius.circular(60),
             ),
             child: const Icon(
               Icons.message_outlined,
@@ -278,7 +279,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 backgroundColor: DesignTokens.uclaBlue,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 elevation: 0,
               ),
@@ -298,10 +299,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
 
   Widget _buildConversationTile(Map<String, dynamic> conversation) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -314,14 +315,14 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           onTap: () {
             Navigator.pushNamed(context, '/chat', arguments: {
               'conversation': conversation,
             });
           },
-          child: Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+          child: const Padding(
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Row(
               children: [
                 // Avatar with online status
@@ -331,7 +332,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                       width: 56,
                       height: 56,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(28),
+                        borderRadius: const BorderRadius.circular(28),
                         image: DecorationImage(
                           image: NetworkImage(conversation['avatar']),
                           fit: BoxFit.cover,
@@ -347,7 +348,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                           height: 16,
                           decoration: BoxDecoration(
                             color: DesignTokens.success,
-                            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                             border: Border.all(color: DesignTokens.surfacePrimary, width: 2),
                           ),
                         ),
@@ -367,7 +368,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                               children: [
                                 Text(
                                   conversation['name'],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                     color: DesignTokens.gray900,
@@ -392,7 +393,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                     Expanded(
                                       child: Text(
                                         conversation['jobTitle'] ?? '',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 11,
                                           color: DesignTokens.gray600,
                                           fontWeight: FontWeight.w500,
@@ -416,16 +417,16 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                                 ),
                               ),
                               if (conversation['unreadCount'] > 0) ...[
-                                const SizedBox(height: 4),
+ SizedBox(height: 4),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: DesignTokens.uclaBlue,
-                                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                                   ),
                                   child: Text(
                                     conversation['unreadCount'].toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 10,
                                       color: DesignTokens.surfacePrimary,
                                       fontWeight: FontWeight.bold,

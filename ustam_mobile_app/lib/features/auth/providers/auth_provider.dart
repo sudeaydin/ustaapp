@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../core/config/app_config.dart';
-import '../../../core/services/api_service.dart';
 import '../../../core/services/google_auth_service.dart';
 import '../../../core/utils/error_handler.dart';
 import '../../../core/providers/app_providers.dart';
@@ -72,7 +72,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           isLoading: false,
         );
       } catch (e) {
-        print('Error parsing user body: $e');
+        debugPrint('Error parsing user body: $e');
         state = state.copyWith(
           isAuthenticated: false,
           isLoading: false,

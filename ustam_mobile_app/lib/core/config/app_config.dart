@@ -16,6 +16,9 @@ class AppConfig {
   // API Endpoints
   static String get apiUrl => '$baseUrl/api';
   
+  // WebSocket URL
+  static String get socketUrl => baseUrl;
+  
   // Auth Endpoints
   static String get loginUrl => '$apiUrl/auth/login';
   static String get registerUrl => '$apiUrl/auth/register';

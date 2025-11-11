@@ -1,6 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 
 class HoverButton extends StatefulWidget {
   final Widget child;
@@ -10,7 +9,7 @@ class HoverButton extends StatefulWidget {
   final Duration animationDuration;
   final BorderRadius? borderRadius;
 
-  const HoverButton({
+  HoverButton({
     super.key,
     required this.child,
     this.onTap,

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
 import 'design_tokens.dart' as dt;
 
 class AppTheme {
-  // Private constructor to prevent instantiation
   AppTheme._();
 
-  // Light Theme - Primary theme for the app
+  // Light Theme
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      
-      // Color Scheme - Based on our custom palette
+
+      // Color Scheme
       colorScheme: ColorScheme.light(
         primary: dt.DesignTokens.primaryCoral,
         primaryContainer: dt.DesignTokens.primaryCoralLight,
@@ -28,23 +26,22 @@ class AppTheme {
         outline: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
         shadow: dt.DesignTokens.shadowMedium,
       ),
-      
-      // Scaffold Theme
+
       scaffoldBackgroundColor: dt.DesignTokens.surfacePrimary,
-      
-      // App Bar Theme - Consistent across all screens
+
+      // AppBar Theme
       appBarTheme: AppBarTheme(
         backgroundColor: dt.DesignTokens.surfacePrimary,
         foregroundColor: dt.DesignTokens.gray900,
         elevation: 0,
         scrolledUnderElevation: 2,
         shadowColor: dt.DesignTokens.shadowLight,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: dt.DesignTokens.gray900,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: dt.DesignTokens.gray900,
           size: 24,
         ),
@@ -55,10 +52,9 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Text Theme - Typography scale
-      textTheme: TextTheme(
-        // Display styles - For large text
+
+      // Text Theme
+      textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,
@@ -77,8 +73,6 @@ class AppTheme {
           color: dt.DesignTokens.gray900,
           height: 1.3,
         ),
-        
-        // Headline styles - For section headers
         headlineLarge: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w600,
@@ -97,8 +91,6 @@ class AppTheme {
           color: dt.DesignTokens.gray900,
           height: 1.4,
         ),
-        
-        // Title styles - For card titles, list items
         titleLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -117,8 +109,6 @@ class AppTheme {
           color: dt.DesignTokens.gray600,
           height: 1.4,
         ),
-        
-        // Body styles - For main content
         bodyLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
@@ -137,8 +127,6 @@ class AppTheme {
           color: dt.DesignTokens.gray600,
           height: 1.5,
         ),
-        
-        // Label styles - For buttons, form labels
         labelLarge: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -158,9 +146,9 @@ class AppTheme {
           height: 1.4,
         ),
       ),
-      
-      // Card Theme - Consistent card styling
-      cardTheme: CardThemeData(
+
+      // Card Theme
+      cardTheme: CardTheme(
         color: dt.DesignTokens.surfacePrimary,
         elevation: 2,
         shadowColor: dt.DesignTokens.shadowLight,
@@ -169,8 +157,8 @@ class AppTheme {
         ),
         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
       ),
-      
-      // Elevated Button Theme
+
+      // Elevated Button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: dt.DesignTokens.buttonPrimary,
@@ -189,8 +177,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Outlined Button Theme
+
+      // Outlined Button
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: dt.DesignTokens.primaryCoral,
@@ -206,8 +194,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Text Button Theme
+
+      // Text Button
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: dt.DesignTokens.primaryCoral,
@@ -222,8 +210,8 @@ class AppTheme {
           ),
         ),
       ),
-      
-      // Input Decoration Theme - Form styling
+
+      // Input Decoration
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: dt.DesignTokens.surfacePrimary,
@@ -263,38 +251,20 @@ class AppTheme {
           ),
         ),
         contentPadding: const EdgeInsets.all(dt.DesignTokens.space16),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: dt.DesignTokens.textMuted,
           fontSize: 16,
         ),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: dt.DesignTokens.gray600,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
-        // Ensure input text is always visible
-        counterStyle: TextStyle(color: dt.DesignTokens.gray600),
-        helperStyle: TextStyle(color: dt.DesignTokens.gray600),
+        counterStyle: const TextStyle(color: dt.DesignTokens.gray600),
+        helperStyle: const TextStyle(color: dt.DesignTokens.gray600),
       ),
-      
-      // Bottom Navigation Bar Theme
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        selectedItemColor: dt.DesignTokens.primaryCoral,
-        unselectedItemColor: dt.DesignTokens.textMuted,
-        type: BottomNavigationBarType.fixed,
-        elevation: 8,
-        selectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      
-      // Floating Action Button Theme
+
+      // Floating Action Button
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: dt.DesignTokens.accent,
         foregroundColor: Colors.white,
@@ -303,54 +273,18 @@ class AppTheme {
           borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
         ),
       ),
-      
-      // Divider Theme
+
+      // Divider
       dividerTheme: DividerThemeData(
         color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
         thickness: 1,
         space: 1,
       ),
-      
-      // Chip Theme
-      chipTheme: ChipThemeData(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        selectedColor: dt.DesignTokens.primaryCoral.withOpacity(0.1),
-        disabledColor: dt.DesignTokens.buttonDisabled,
-        labelStyle: TextStyle(color: dt.DesignTokens.gray900),
-        secondaryLabelStyle: TextStyle(color: dt.DesignTokens.gray600),
-        brightness: Brightness.light,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius8),
-          side: BorderSide(
-            color: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-          ),
-        ),
-      ),
-      
-      // Dialog Theme
-      dialogTheme: DialogThemeData(
-        backgroundColor: dt.DesignTokens.surfacePrimary,
-        elevation: 8,
-        shadowColor: dt.DesignTokens.shadowMedium,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-        ),
-        titleTextStyle: TextStyle(
-          color: dt.DesignTokens.gray900,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        contentTextStyle: TextStyle(
-          color: dt.DesignTokens.gray600,
-          fontSize: 14,
-          height: 1.5,
-        ),
-      ),
-      
-      // SnackBar Theme
+
+      // SnackBar
       snackBarTheme: SnackBarThemeData(
         backgroundColor: dt.DesignTokens.gray900,
-        contentTextStyle: TextStyle(
+        contentTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 14,
         ),
@@ -360,22 +294,14 @@ class AppTheme {
         behavior: SnackBarBehavior.floating,
         elevation: 6,
       ),
-      
-      // Progress Indicator Theme
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: dt.DesignTokens.primaryCoral,
-        linearTrackColor: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-        circularTrackColor: dt.DesignTokens.nonPhotoBlue.withOpacity(0.3),
-      ),
     );
   }
 
-  // Dark Theme - For future dark mode support
+  // Dark Theme
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      
       colorScheme: ColorScheme.dark(
         primary: dt.DesignTokens.primaryCoralLight,
         primaryContainer: dt.DesignTokens.primaryCoral,
@@ -391,28 +317,24 @@ class AppTheme {
         outline: dt.DesignTokens.nonPhotoBlue.withOpacity(0.5),
         shadow: dt.DesignTokens.shadowDark,
       ),
-      
       scaffoldBackgroundColor: dt.DesignTokens.darkSurfacePrimary,
-      
-      // Dark theme specific overrides
       appBarTheme: AppBarTheme(
         backgroundColor: dt.DesignTokens.darkSurfacePrimary,
         foregroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 2,
         shadowColor: dt.DesignTokens.shadowDark,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
           size: 24,
         ),
       ),
-      
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: dt.DesignTokens.darkSurfacePrimary.withOpacity(0.8),
         elevation: 4,
         shadowColor: dt.DesignTokens.shadowDark,
@@ -423,65 +345,9 @@ class AppTheme {
     );
   }
 
-  // Helper method to get current theme based on system
+  // Helper
   static ThemeData getTheme(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     return brightness == Brightness.dark ? darkTheme : lightTheme;
   }
-
-  // Custom decoration helpers
-  static BoxDecoration get neuomorphicDecoration => BoxDecoration(
-    color: dt.DesignTokens.surfacePrimary,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-    boxShadow: [
-      BoxShadow(
-        color: dt.DesignTokens.shadowLight,
-        offset: const Offset(-4, -4),
-        blurRadius: 8,
-        spreadRadius: 0,
-      ),
-      BoxShadow(
-        color: dt.DesignTokens.shadowMedium,
-        offset: const Offset(4, 4),
-        blurRadius: 8,
-        spreadRadius: 0,
-      ),
-    ],
-  );
-
-  static BoxDecoration get pressedNeuomorphicDecoration => BoxDecoration(
-    color: dt.DesignTokens.surfacePrimary,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-    boxShadow: [
-      BoxShadow(
-        color: dt.DesignTokens.shadowMedium,
-        offset: const Offset(2, 2),
-        blurRadius: 4,
-        spreadRadius: 0,
-      ),
-    ],
-  );
-
-  // Gradient decorations
-  static BoxDecoration get primaryGradientDecoration => BoxDecoration(
-    gradient: dt.DesignTokens.primaryCoralGradient,
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-    boxShadow: [dt.DesignTokens.getElevatedShadow()],
-  );
-
-  static BoxDecoration get accentGradientDecoration => BoxDecoration(
-    gradient: dt.DesignTokens.getGradient(dt.DesignTokens.accentGradient),
-    borderRadius: BorderRadius.circular(dt.DesignTokens.radius16),
-    boxShadow: [dt.DesignTokens.getElevatedShadow()],
-  );
-
-  // Animation durations
-  static const Duration fastAnimation = Duration(milliseconds: 200);
-  static const Duration normalAnimation = Duration(milliseconds: 300);
-  static const Duration slowAnimation = Duration(milliseconds: 500);
-
-  // Common curves
-  static const Curve defaultCurve = Curves.easeInOut;
-  static const Curve bouncyCurve = Curves.elasticOut;
-  static const Curve smoothCurve = Curves.fastOutSlowIn;
 }

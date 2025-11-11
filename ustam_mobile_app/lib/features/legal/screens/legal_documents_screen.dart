@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/services/api_service.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/design_tokens.dart';
 
 class LegalDocumentsScreen extends StatefulWidget {
@@ -77,7 +76,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   Widget _buildBody() {
     if (isLoading) {
       return const Center(
-        child: CircularProgressIndicator(
+        child: const CircularProgressIndicator(
           color: DesignTokens.primaryCoral,
         ),
       );
@@ -168,7 +167,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.circular(12),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.all(16),
@@ -177,7 +176,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
           height: 48,
           decoration: BoxDecoration(
             color: iconColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: const BorderRadius.circular(12),
           ),
           child: Icon(
             icon,
@@ -187,7 +186,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         ),
         title: Text(
           document.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -214,11 +213,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: const BorderRadius.circular(6),
                   ),
                   child: Text(
                     'v${document.version}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       color: DesignTokens.primaryCoral,
                       fontWeight: FontWeight.w500,
@@ -315,7 +314,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       appBar: AppBar(
         title: Text(
           widget.document.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Colors.white,
@@ -338,7 +337,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
   Widget _buildContent() {
     if (isLoading) {
       return const Center(
-        child: CircularProgressIndicator(
+        child: const CircularProgressIndicator(
           color: DesignTokens.primaryCoral,
         ),
       );
@@ -388,7 +387,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: const BorderRadius.circular(12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.2),
               ),
@@ -398,7 +397,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
               children: [
                 Text(
                   widget.document.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,
@@ -422,11 +421,11 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: const BorderRadius.circular(6),
                       ),
                       child: Text(
                         'Sürüm ${widget.document.version}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           color: DesignTokens.primaryCoral,
                           fontWeight: FontWeight.w500,
@@ -455,7 +454,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: const BorderRadius.circular(12),
                 border: Border.all(
                   color: Colors.grey[200]!,
                 ),
@@ -510,7 +509,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       Clipboard.setData(ClipboardData(text: documentContent!));
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Doküman panoya kopyalandı'),
+          content: const Text('Doküman panoya kopyalandı'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -522,7 +521,7 @@ class _LegalDocumentViewerScreenState extends State<LegalDocumentViewerScreen> {
       // Share functionality would be implemented here
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Paylaşım özelliği yakında eklenecek'),
+          content: const Text('Paylaşım özelliği yakında eklenecek'),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );

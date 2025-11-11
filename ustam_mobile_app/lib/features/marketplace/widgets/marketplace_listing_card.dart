@@ -22,7 +22,7 @@ class MarketplaceListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: DesignTokens.space16),
       child: AirbnbCard(
         onTap: onTap,
         child: Column(
@@ -38,7 +38,7 @@ class MarketplaceListingCard extends StatelessWidget {
                     children: [
                       Text(
                         listing.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: DesignTokens.gray900,
@@ -50,17 +50,17 @@ class MarketplaceListingCard extends StatelessWidget {
                       
                       // Category chip
                       Container(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: DesignTokens.space8,
                           vertical: DesignTokens.space4,
                         ),
                         decoration: BoxDecoration(
                           color: DesignTokens.primaryCoral.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                         ),
                         child: Text(
                           listing.category,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.primaryCoral,
@@ -117,7 +117,7 @@ class MarketplaceListingCard extends StatelessWidget {
                 ),
                 Text(
                   _formatBudget(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.gray900,
@@ -142,15 +142,15 @@ class MarketplaceListingCard extends StatelessWidget {
                 
                 // Bids count
                 if (listing.bidsCount > 0) ...[
-                  const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                   Container(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: DesignTokens.space8,
                       vertical: DesignTokens.space4,
                     ),
                     decoration: BoxDecoration(
                       color: DesignTokens.info.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -160,10 +160,10 @@ class MarketplaceListingCard extends StatelessWidget {
                           size: 14,
                           color: DesignTokens.info,
                         ),
-                        const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
                         Text(
                           '${listing.bidsCount} teklif',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.info,
@@ -227,13 +227,13 @@ class MarketplaceListingCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: DesignTokens.space8,
         vertical: DesignTokens.space4,
       ),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -243,7 +243,7 @@ class MarketplaceListingCard extends StatelessWidget {
             size: 14,
             color: textColor,
           ),
-          const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
           Text(
             text,
             style: TextStyle(

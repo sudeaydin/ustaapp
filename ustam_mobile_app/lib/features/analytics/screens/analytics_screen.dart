@@ -173,7 +173,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
     if (user == null) {
       return const Scaffold(
         body: Center(
-          child: Text('Lütfen giriş yapın'),
+          child: const Text('Lütfen giriş yapın'),
         ),
       );
     }
@@ -235,8 +235,8 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(),
-                  SizedBox(height: DesignTokens.space16),
-                  Text('Analitik veriler yükleniyor...'),
+                  const SizedBox(height: DesignTokens.space16),
+                  const Text('Analitik veriler yükleniyor...'),
                 ],
               ),
             )
@@ -434,7 +434,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             ),
             color: DesignTokens.primaryCoral,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -451,7 +451,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
             ),
             color: DesignTokens.error,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ChartWidget(
             title: 'İş Kategorileri',
             type: ChartType.pie,
@@ -479,7 +479,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
         children: [
           Row(
             children: [
-              Icon(Icons.lightbulb, color: DesignTokens.warning),
+              const Icon(Icons.lightbulb, color: DesignTokens.warning),
               const SizedBox(width: 8),
               Text(
                 'Performans Önerileri',
@@ -499,14 +499,14 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               Icons.flash_on,
               DesignTokens.info,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Portfolyo',
               'Daha fazla iş fotoğrafı ekleyerek güven oluşturun.',
               Icons.photo_library,
               DesignTokens.success,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Değerlendirmeler',
               'Müşterilerinizden değerlendirme istemeyi unutmayın.',
@@ -520,14 +520,14 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
               Icons.account_balance_wallet,
               DesignTokens.primaryCoral,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Karşılaştırma',
               'Birden fazla teklif alarak en uygun fiyatı bulun.',
               Icons.compare,
               DesignTokens.info,
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             _buildInsightCard(
               'Planlama',
               'İşlerinizi önceden planlayarak daha iyi fiyatlar alın.',

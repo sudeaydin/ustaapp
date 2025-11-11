@@ -1,11 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/auth_provider.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../../../core/widgets/airbnb_input.dart';
-import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/services/analytics_service.dart';
 
@@ -26,7 +25,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  bool _obscurePassword = true;
+  // bool _obscurePassword = true; // Unused field
   DateTime? _lastLoginAttempt;
 
   @override
@@ -62,11 +61,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
-                SizedBox(height: DesignTokens.space24),
+                const SizedBox(height: DesignTokens.space24),
                 Text(
                   'Giriş yapılıyor...',
                   style: TextStyle(
@@ -124,7 +123,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               BoxShadow(
                                 color: DesignTokens.primaryCoral.withOpacity(0.3),
                                 blurRadius: 20,
-                                offset: const Offset(0, 8),
+                                offset: Offset(0, 8),
                               ),
                             ],
                           ),
@@ -182,14 +181,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                               child: IconButton(
-                                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                                icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
                                 onPressed: () => Navigator.pop(context),
                               ),
                             ),
                             Expanded(
                               child: Text(
                                 widget.userType == 'craftsman' ? 'Usta Girişi' : 'Müşteri Girişi',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -211,7 +210,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             widget.userType == 'craftsman' 
                               ? 'Usta hesabınızla giriş yapın'
                               : 'Müşteri hesabınızla giriş yapın',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -268,7 +267,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                         child: Text(
                           'veya',
                           style: TextStyle(
@@ -331,7 +330,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             },
                             child: Text(
                               'register'.tr(locale),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -392,7 +391,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return InkWell(
       borderRadius: BorderRadius.circular(DesignTokens.radius16),
       onTap: _isLoading ? null : () {
-        print('🔥 Login button tapped!'); // Debug print
+        debugPrint('🔥 Login button tapped!'); // Debug print
         _handleLogin();
       },
       child: Container(
@@ -411,7 +410,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 )
               : Text(
                   'login'.tr(locale),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -434,7 +433,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 8,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
@@ -443,11 +442,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: _isLoading ? null : () {
-            print('🔥 Google button tapped!'); // Debug print
+            debugPrint('🔥 Google button tapped!'); // Debug print
             _handleGoogleSignIn();
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+          child: const Padding(
+      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -480,7 +479,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(width: 12),
                 Text(
                   _isLoading ? 'Google ile giriş yapılıyor...' : 'Google ile Giriş Yap',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
@@ -488,11 +487,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                 ),
                 if (_isLoading) ...[
-                  const SizedBox(width: 12),
-                  const SizedBox(
+ SizedBox(width: 12),
+ SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4285F4)),
                     ),
@@ -507,7 +506,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _handleLogin() async {
-    print('🔥 _handleLogin called!'); // Debug print
+    debugPrint('🔥 _handleLogin called!'); // Debug print
     
     // Removed loading message per user request
     
@@ -515,11 +514,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final now = DateTime.now();
     if (_lastLoginAttempt != null && 
         now.difference(_lastLoginAttempt!).inMilliseconds < 2000) {
-      print('🚫 Login blocked - too soon after last attempt');
+      debugPrint('🚫 Login blocked - too soon after last attempt');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lütfen bekleyin...'),
-          duration: Duration(seconds: 1),
+          content: const Text('Lütfen bekleyin...'),
+          duration: const Duration(seconds: 1),
           backgroundColor: DesignTokens.primaryCoral,
         ),
       );
@@ -544,8 +543,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               : 'unknown',
         });
         
-        print('Login attempt - User type: ${widget.userType}');
-        print('📧 Email: ${_emailController.text}');
+        debugPrint('Login attempt - User type: ${widget.userType}');
+        debugPrint('📧 Email: ${_emailController.text}');
         
         // Login with auth provider
         final success = await authNotifier.login(
@@ -555,7 +554,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         );
         
         if (success && mounted) {
-          print('✅ Login successful, navigating to dashboard');
+          debugPrint('✅ Login successful, navigating to dashboard');
           
           // Track successful login
           AnalyticsService.getInstance().trackBusinessEvent('login_success', {
@@ -577,13 +576,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Giriş başarısız'),
+              content: const Text('Giriş başarısız'),
               backgroundColor: DesignTokens.error,
             ),
           );
         }
       } catch (e) {
-        print('❌ Login error: $e');
+        debugPrint('❌ Login error: $e');
         
         // Track login error
         AnalyticsService.getInstance().trackError('login_error', e.toString(), {
@@ -607,12 +606,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       }
     } else {
-      print('🚨 Form validation failed!'); // Debug print
+      debugPrint('🚨 Form validation failed!'); // Debug print
     }
   }
 
   Future<void> _handleGoogleSignIn() async {
-    print('🔥 _handleGoogleSignIn called!'); // Debug print
+    debugPrint('🔥 _handleGoogleSignIn called!'); // Debug print
     
     setState(() {
       _isLoading = true;
@@ -626,14 +625,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         'user_type': widget.userType,
       });
       
-      print('Google Sign-In attempt - User type: ${widget.userType}');
+      debugPrint('Google Sign-In attempt - User type: ${widget.userType}');
       
       final success = await authNotifier.signInWithGoogle(
         userType: widget.userType,
       );
 
       if (success && mounted) {
-        print('✅ Google Sign-In successful, navigating to dashboard');
+        debugPrint('✅ Google Sign-In successful, navigating to dashboard');
         
         // Track successful Google login
         AnalyticsService.getInstance().trackBusinessEvent('google_login_success', {
@@ -656,7 +655,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       }
     } catch (e) {
-      print('❌ Google Sign-In error: $e');
+      debugPrint('❌ Google Sign-In error: $e');
       
       // Track failed Google login
       AnalyticsService.getInstance().trackBusinessEvent('google_login_failed', {
@@ -666,7 +665,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Google ile giriş sırasında hata oluştu')),
+          const SnackBar(content: const Text('Google ile giriş sırasında hata oluştu')),
         );
       }
     } finally {

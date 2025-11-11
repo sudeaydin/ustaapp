@@ -2,7 +2,6 @@ import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import '../theme/app_colors.dart';
 
 class CachedImageWidget extends StatelessWidget {
   final String imageUrl;

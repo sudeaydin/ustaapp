@@ -105,7 +105,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             size: 80,
             color: DesignTokens.textMuted,
           ),
-          SizedBox(height: DesignTokens.space16),
+          const SizedBox(height: DesignTokens.space16),
           Text(
             'Henüz Teklif Yok',
             style: TextStyle(
@@ -114,7 +114,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               color: DesignTokens.gray600,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Müşterilerden gelen teklif talepleri\nburada görünecek',
             style: TextStyle(
@@ -133,7 +133,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: _getStatusBorderColor(quote['status'])),
         boxShadow: [
           BoxShadow(
@@ -143,8 +143,8 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      child: const Padding(
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,7 +155,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _getStatusBackgroundColor(quote['status']),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -196,12 +196,12 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   height: 40,
                   decoration: BoxDecoration(
                     color: DesignTokens.uclaBlue,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Text(
                       quote['customer_name'][0],
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: DesignTokens.surfacePrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -215,7 +215,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                     children: [
                       Text(
                         quote['customer_name'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.gray900,
@@ -240,7 +240,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: DesignTokens.surfacePrimary,
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,25 +285,25 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             ),
             
             if (quote['my_response'] != null) ...[
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   border: Border.all(color: DesignTokens.primaryCoral),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Yanıtım:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.primaryCoral,
                       ),
                     ),
-                    const SizedBox(height: 4),
+ SizedBox(height: 4),
                     Text(
                       quote['my_response'],
                       style: const TextStyle(
@@ -318,23 +318,23 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
             
             // Action buttons
             if (quote['status'] == 'pending') ...[
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => _requestDetails(quote),
-                      child: const Text('Detay İste'),
+                      child: Text('Detay İste'),
                     ),
                   ),
-                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => _giveQuote(quote),
                       style: DesignTokens.getPrimaryButtonStyle().copyWith(
                         backgroundColor: MaterialStateProperty.all(DesignTokens.success),
                       ),
-                      child: const Text('Teklif Ver'),
+                      child: Text('Teklif Ver'),
                     ),
                   ),
                 ],
@@ -348,7 +348,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
+      padding: EdgeInsets.only(bottom: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -365,7 +365,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 color: DesignTokens.gray900,
                 fontWeight: FontWeight.w500,
@@ -469,12 +469,12 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Detay İste'),
+        title: Text('Detay İste'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Bu müşteriden daha fazla detay istemek istediğinizden emin misiniz?'),
-            const SizedBox(height: DesignTokens.space16),
+ Text('Bu müşteriden daha fazla detay istemek istediğinizden emin misiniz?'),
+ SizedBox(height: DesignTokens.space16),
             TextField(
               decoration: const InputDecoration(
                 labelText: 'Sormak istediğiniz detaylar',
@@ -488,7 +488,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -496,7 +496,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
               // TODO: Send detail request
             },
             style: DesignTokens.getPrimaryButtonStyle(),
-            child: const Text('Detay İste'),
+            child: Text('Detay İste'),
           ),
         ],
       ),
@@ -514,7 +514,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: const Text('Teklif Ver'),
+          title: Text('Teklif Ver'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -523,29 +523,29 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 // Show customer's preferred dates if available
                 if (quote['preferred_start_date'] != null || quote['preferred_end_date'] != null) ...[
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                      borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+ Text(
                           'Müşterinin Tercih Ettiği Tarihler:',
                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                         ),
-                        const SizedBox(height: 4),
+ SizedBox(height: 4),
                         if (quote['preferred_start_date'] != null)
-                          Text('Başlangıç: ${_formatDate(quote['preferred_start_date'])}'),
+ Text('Başlangıç: ${_formatDate(quote['preferred_start_date'])}'),
                         if (quote['preferred_end_date'] != null)
-                          Text('Bitiş: ${_formatDate(quote['preferred_end_date'])}'),
+ Text('Bitiş: ${_formatDate(quote['preferred_end_date'])}'),
                         if (quote['is_flexible_dates'] == true)
-                          const Text('(Tarihler esnek)', style: TextStyle(fontStyle: FontStyle.italic)),
+ Text('(Tarihler esnek)', style: TextStyle(fontStyle: FontStyle.italic)),
                       ],
                     ),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 ],
                 
                 TextField(
@@ -557,7 +557,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 TextField(
                   controller: durationController,
                   decoration: const InputDecoration(
@@ -567,14 +567,14 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 
                 // Proposed date range
-                const Text(
+ Text(
                   'Önerdiğiniz Tarih Aralığı:',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 ),
-                const SizedBox(height: 8),
+ SizedBox(height: 8),
                 Row(
                   children: [
                     Expanded(
@@ -596,15 +596,15 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                           }
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.calendar_today, size: 16),
-                              const SizedBox(width: 8),
+ Icon(Icons.calendar_today, size: 16),
+ SizedBox(width: 8),
                               Text(
                                 proposedStartDate != null
                                     ? '${proposedStartDate!.day}/${proposedStartDate!.month}/${proposedStartDate!.year}'
@@ -618,7 +618,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+ SizedBox(width: 8),
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
@@ -635,15 +635,15 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                           }
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.calendar_today, size: 16),
-                              const SizedBox(width: 8),
+ Icon(Icons.calendar_today, size: 16),
+ SizedBox(width: 8),
                               Text(
                                 proposedEndDate != null
                                     ? '${proposedEndDate!.day}/${proposedEndDate!.month}/${proposedEndDate!.year}'
@@ -659,7 +659,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 
                 TextField(
                   controller: notesController,
@@ -676,7 +676,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('İptal'),
+              child: Text('İptal'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -691,7 +691,7 @@ class _CraftsmanQuotesScreenState extends ConsumerState<CraftsmanQuotesScreen> {
                 // Include proposedStartDate and proposedEndDate in the API call
               },
               style: DesignTokens.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(DesignTokens.success)),
-              child: const Text('Teklif Gönder'),
+              child: Text('Teklif Gönder'),
             ),
           ],
         ),

@@ -28,7 +28,7 @@ class MarketplaceOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space12),
+      margin: EdgeInsets.only(bottom: DesignTokens.space12),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +46,7 @@ class MarketplaceOfferCard extends StatelessWidget {
                 child: offer.provider?.avatar == null
                     ? Text(
                         offer.provider?.name?.substring(0, 1).toUpperCase() ?? 'U',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: DesignTokens.primaryCoral,
@@ -63,7 +63,7 @@ class MarketplaceOfferCard extends StatelessWidget {
                   children: [
                     Text(
                       offer.provider?.name ?? 'Anonim Usta',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: DesignTokens.gray900,
@@ -80,16 +80,16 @@ class MarketplaceOfferCard extends StatelessWidget {
                               size: 14,
                               color: DesignTokens.warning,
                             ),
-                            const SizedBox(width: 2),
+ SizedBox(width: 2),
                             Text(
                               offer.provider!.rating.toStringAsFixed(1),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: DesignTokens.gray700,
                               ),
                             ),
-                            const SizedBox(width: 4),
+ SizedBox(width: 4),
                             Text(
                               '(${offer.provider!.reviewCount})',
                               style: const TextStyle(
@@ -102,19 +102,19 @@ class MarketplaceOfferCard extends StatelessWidget {
                           // Speciality
                           if (offer.provider!.speciality != null) ...[
                             if (offer.provider!.rating > 0) 
-                              const SizedBox(width: 8),
+ SizedBox(width: 8),
                             Container(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 6,
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
                                 color: DesignTokens.info.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: const BorderRadius.circular(8),
                               ),
                               child: Text(
                                 offer.provider!.speciality!,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
                                   color: DesignTokens.info,
@@ -134,7 +134,7 @@ class MarketplaceOfferCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           // Offer details
           Row(
@@ -144,17 +144,17 @@ class MarketplaceOfferCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Teklif Tutarı',
                       style: TextStyle(
                         fontSize: 12,
                         color: DesignTokens.gray600,
                       ),
                     ),
-                    const SizedBox(height: 2),
+ SizedBox(height: 2),
                     Text(
                       '₺${offer.amount.toInt()} ${offer.currency}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: DesignTokens.primaryCoral,
@@ -169,14 +169,14 @@ class MarketplaceOfferCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
+ Text(
                       'Teslim Süresi',
                       style: TextStyle(
                         fontSize: 12,
                         color: DesignTokens.gray600,
                       ),
                     ),
-                    const SizedBox(height: 2),
+ SizedBox(height: 2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -185,10 +185,10 @@ class MarketplaceOfferCard extends StatelessWidget {
                           size: 16,
                           color: DesignTokens.gray700,
                         ),
-                        const SizedBox(width: 4),
+ SizedBox(width: 4),
                         Text(
                           '${offer.etaDays} gün',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.gray900,
@@ -205,14 +205,14 @@ class MarketplaceOfferCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
+ Text(
                       'Teklif Tarihi',
                       style: TextStyle(
                         fontSize: 12,
                         color: DesignTokens.gray600,
                       ),
                     ),
-                    const SizedBox(height: 2),
+ SizedBox(height: 2),
                     Text(
                       _formatDate(DateTime.tryParse(offer.createdAt) ?? DateTime.now()),
                       style: const TextStyle(
@@ -228,12 +228,12 @@ class MarketplaceOfferCard extends StatelessWidget {
 
           // Note section (if exists)
           if (offer.note != null && offer.note!.isNotEmpty) ...[
-            const SizedBox(height: DesignTokens.space12),
+ SizedBox(height: DesignTokens.space12),
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space12),
+              padding: EdgeInsets.all(DesignTokens.space12),
               decoration: BoxDecoration(
                 color: DesignTokens.gray50,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 border: Border.all(
                   color: DesignTokens.gray200,
                   width: 1,
@@ -242,7 +242,7 @@ class MarketplaceOfferCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+ Text(
                     'Not',
                     style: TextStyle(
                       fontSize: 12,
@@ -250,7 +250,7 @@ class MarketplaceOfferCard extends StatelessWidget {
                       color: DesignTokens.gray700,
                     ),
                   ),
-                  const SizedBox(height: 4),
+ SizedBox(height: 4),
                   Text(
                     offer.note!,
                     style: const TextStyle(
@@ -266,7 +266,7 @@ class MarketplaceOfferCard extends StatelessWidget {
 
           // Actions section (if enabled)
           if (showActions) ...[
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             _buildActionButtons(),
           ],
         ],
@@ -307,20 +307,20 @@ class MarketplaceOfferCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: DesignTokens.space8,
         vertical: DesignTokens.space4,
       ),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
             Icon(icon, size: 12, color: color),
-            const SizedBox(width: 4),
+ SizedBox(width: 4),
           ],
           Text(
             text,
@@ -351,7 +351,7 @@ class MarketplaceOfferCard extends StatelessWidget {
               icon: Icons.close,
             ),
           ),
-          const SizedBox(width: DesignTokens.space8),
+ SizedBox(width: DesignTokens.space8),
           Expanded(
             flex: 2,
             child: AirbnbButton(

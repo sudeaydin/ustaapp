@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/services/api_service.dart';
 import '../../../core/theme/design_tokens.dart';
 
 enum AppointmentStatus {

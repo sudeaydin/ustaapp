@@ -1,8 +1,11 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/legal_utils.dart';
 import '../../features/auth/providers/auth_provider.dart';
+import 'user_agreement_modal.dart';
+import 'consent_preferences_sheet.dart';
 
 /// Widget that checks if user has accepted mandatory agreements
 /// and shows the agreement modal if needed
@@ -208,9 +211,9 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       setState(() => _showBanner = false);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Çerez tercihleri kaydedildi'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: const Text('Çerez tercihleri kaydedildi'),
+          duration: const Duration(seconds: 2),
         ),
       );
     } catch (e) {
@@ -229,9 +232,9 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
       setState(() => _showBanner = false);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Çerez kullanımı reddedildi'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: const Text('Çerez kullanımı reddedildi'),
+          duration: const Duration(seconds: 2),
         ),
       );
     } catch (e) {
@@ -288,7 +291,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
                   size: 24,
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Bu uygulama çerezler kullanır',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -297,7 +300,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
               ],
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Deneyiminizi iyileştirmek için çerezler kullanıyoruz. '
               'Devam ederek çerez kullanımını kabul etmiş olursunuz.',
               style: TextStyle(fontSize: 14, color: Colors.black87),

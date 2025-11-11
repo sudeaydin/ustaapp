@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +8,6 @@ import 'dart:convert';
 import 'dart:io';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/config/app_config.dart';
-import '../../auth/providers/auth_provider.dart';
 
 class BusinessProfileScreen extends ConsumerStatefulWidget {
   const BusinessProfileScreen({super.key});
@@ -28,7 +28,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
   String _selectedCity = '';
   String _selectedDistrict = '';
   List<String> _selectedSkills = [];
-  List<String> _selectedServiceAreas = [];
+  // List<String> _selectedServiceAreas = []; // Unused field
   List<String> _portfolioImages = [];
   bool _isLoading = false;
   bool _isUploading = false;
@@ -59,7 +59,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
     _selectedCity = 'İstanbul';
     _selectedDistrict = 'Üsküdar';
     _selectedSkills = ['Mobilya Yapımı', 'Ahşap Restorasyon', 'Dekoratif İşler'];
-    _selectedServiceAreas = ['Üsküdar', 'Kadıköy', 'Ataşehir'];
+    // _selectedServiceAreas = ['Üsküdar', 'Kadıköy', 'Ataşehir']; // Unused
     
     // Load portfolio images
     await _loadPortfolioImages();
@@ -99,7 +99,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         }
       }
     } catch (e) {
-      print('Portfolio görselleri yüklenemedi: $e');
+      debugPrint('Portfolio görselleri yüklenemedi: $e');
     }
   }
 
@@ -186,7 +186,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Sil', style: TextStyle(color: DesignTokens.error)),
+            child: const Text('Sil', style: TextStyle(color: DesignTokens.error)),
           ),
         ],
       ),
@@ -513,7 +513,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                           height: 16,
                           child: CircularProgressIndicator(strokeWidth: 2, color: DesignTokens.surfacePrimary),
                         )
-                      : Icon(Icons.add_a_photo, color: DesignTokens.surfacePrimary),
+                      : const Icon(Icons.add_a_photo, color: DesignTokens.surfacePrimary),
                     label: Text(
                       _isUploading ? 'Yükleniyor...' : 'Görsel Ekle',
                       style: TextStyle(color: DesignTokens.surfacePrimary, fontWeight: FontWeight.w600),
@@ -595,7 +595,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
                               size: 48,
                               color: DesignTokens.textMuted,
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               'Henüz portfolyo görseli eklenmemiş',
                               style: TextStyle(
@@ -666,23 +666,23 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         backgroundColor: DesignTokens.surfacePrimary,
         selectedItemColor: DesignTokens.uclaBlue,
         unselectedItemColor: DesignTokens.textLight,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             label: 'Ana Sayfa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: const Icon(Icons.business),
             label: 'İşletmem',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: const Icon(Icons.message),
             label: 'Mesajlar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             label: 'Profilim',
           ),
         ],
@@ -695,7 +695,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: DesignTokens.surfacePrimary,
@@ -726,7 +726,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -742,7 +742,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               BoxShadow(
                 color: DesignTokens.shadowLight,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),
@@ -774,7 +774,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: DesignTokens.gray900,
@@ -790,7 +790,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
               BoxShadow(
                 color: DesignTokens.shadowLight,
                 blurRadius: 8,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),
@@ -798,7 +798,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             value: value.isEmpty ? null : value,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(DesignTokens.space16),
+              contentPadding: const EdgeInsets.all(DesignTokens.space16),
             ),
             hint: Text('$label seçiniz'),
             items: items.map((item) => DropdownMenuItem(
@@ -825,7 +825,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Profil başarıyla güncellendi!'),
+              content: const Text('Profil başarıyla güncellendi!'),
               backgroundColor: DesignTokens.success,
             ),
           );

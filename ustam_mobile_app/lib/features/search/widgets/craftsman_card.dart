@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/hover_button.dart';
 import '../../reviews/widgets/star_rating.dart';
 
 class CraftsmanCard extends StatelessWidget {
@@ -23,7 +21,7 @@ class CraftsmanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: DesignTokens.space16),
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +39,7 @@ class CraftsmanCard extends StatelessWidget {
                     child: craftsman['avatar'] == null
                         ? Text(
                             _getInitials(craftsman['name']),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: DesignTokens.primaryCoral,
                               fontSize: 18,
@@ -62,7 +60,7 @@ class CraftsmanCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 craftsman['name'] ?? 'İsimsiz Usta',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -78,7 +76,7 @@ class CraftsmanCard extends StatelessWidget {
                         ),
                         
                         if (craftsman['business_name'] != null) ...[
-                          const SizedBox(height: 4),
+ SizedBox(height: 4),
                           Text(
                             craftsman['business_name'],
                             style: TextStyle(
@@ -89,7 +87,7 @@ class CraftsmanCard extends StatelessWidget {
                           ),
                         ],
                         
-                        const SizedBox(height: 8),
+ SizedBox(height: 8),
                         
                         // Rating and reviews
                         Row(
@@ -98,15 +96,15 @@ class CraftsmanCard extends StatelessWidget {
                               rating: (craftsman['average_rating'] ?? 0).toDouble(),
                               size: 16,
                             ),
-                            const SizedBox(width: 8),
+ SizedBox(width: 8),
                             Text(
                               '${craftsman['average_rating']?.toStringAsFixed(1) ?? '0.0'}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),
                             ),
-                            const SizedBox(width: 4),
+ SizedBox(width: 4),
                             Text(
                               '(${craftsman['total_reviews'] ?? 0} değerlendirme)',
                               style: TextStyle(
@@ -145,14 +143,14 @@ class CraftsmanCard extends StatelessWidget {
                   runSpacing: 6,
                   children: (craftsman['specialties'] as List).take(3).map((skill) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                       ),
                       child: Text(
                         skill.toString(),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           color: DesignTokens.primaryCoral,
                           fontWeight: FontWeight.w500,
@@ -187,14 +185,14 @@ class CraftsmanCard extends StatelessWidget {
                   // Price
                   if (craftsman['hourly_rate'] != null) ...[
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Text(
                         '₺${craftsman['hourly_rate']}/saat',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.primaryCoral,
@@ -207,26 +205,26 @@ class CraftsmanCard extends StatelessWidget {
               
               // Action buttons
               if (showReviewButton) ...[
-                const SizedBox(height: 12),
+ SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
                         onPressed: () => _showReviews(context),
-                        icon: const Icon(iOSIcons.rateReview, size: 16),
-                        label: const Text('Değerlendirmeler'),
+                        icon: Icon(iOSIcons.rateReview, size: 16),
+                        label: Text('Değerlendirmeler'),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: DesignTokens.primaryCoral,
                           side: BorderSide(color: DesignTokens.primaryCoral.withOpacity(0.5)),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+ SizedBox(width: 8),
                     Expanded(
                       child: ElevatedButton.icon(
                         onPressed: () => _requestQuote(context),
-                        icon: const Icon(Icons.request_quote, size: 16),
-                        label: const Text('Teklif Al'),
+                        icon: Icon(Icons.request_quote, size: 16),
+                        label: Text('Teklif Al'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: DesignTokens.primaryCoral,
                           foregroundColor: Colors.white,
@@ -239,12 +237,12 @@ class CraftsmanCard extends StatelessWidget {
               
               // Availability indicator
               if (craftsman['is_available'] == false) ...[
-                const SizedBox(height: 8),
+ SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.red.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -254,7 +252,7 @@ class CraftsmanCard extends StatelessWidget {
                         size: 14,
                         color: Colors.red[600],
                       ),
-                      const SizedBox(width: 4),
+ SizedBox(width: 4),
                       Text(
                         'Şu anda müsait değil',
                         style: TextStyle(

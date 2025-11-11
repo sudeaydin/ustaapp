@@ -6,9 +6,7 @@ import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_button.dart';
 import '../models/marketplace_listing.dart';
-import '../models/marketplace_offer.dart';
 import '../providers/marketplace_provider.dart';
-import '../widgets/marketplace_offer_card.dart';
 import '../../auth/providers/auth_provider.dart';
 
 class MarketplaceListingDetailScreen extends ConsumerStatefulWidget {
@@ -102,7 +100,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildHeaderSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -111,17 +109,17 @@ class _MarketplaceListingDetailScreenState
             children: [
               // Category chip
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space12,
                   vertical: DesignTokens.space6,
                 ),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                 ),
                 child: Text(
                   listing.category,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.primaryCoral,
@@ -139,7 +137,7 @@ class _MarketplaceListingDetailScreenState
           // Title
           Text(
             listing.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: DesignTokens.gray900,
@@ -157,7 +155,7 @@ class _MarketplaceListingDetailScreenState
                 backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                 child: Text(
                   listing.postedBy.name?.substring(0, 1).toUpperCase() ?? 'U',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.primaryCoral,
@@ -171,7 +169,7 @@ class _MarketplaceListingDetailScreenState
                   children: [
                     Text(
                       listing.postedBy.name ?? 'Anonim Kullanıcı',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.gray900,
@@ -190,13 +188,13 @@ class _MarketplaceListingDetailScreenState
               // Bids count
               if (listing.bidsCount > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: DesignTokens.space8,
                     vertical: DesignTokens.space4,
                   ),
                   decoration: BoxDecoration(
                     color: DesignTokens.info.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -209,7 +207,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(width: DesignTokens.space4),
                       Text(
                         '${listing.bidsCount} teklif',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.info,
@@ -227,7 +225,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDescriptionSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +254,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDetailsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,7 +292,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildLocationBudgetSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Row(
         children: [
@@ -323,7 +321,7 @@ class _MarketplaceListingDetailScreenState
                 ),
                 const SizedBox(height: DesignTokens.space4),
                 Padding(
-                  padding: const EdgeInsets.only(left: 28),
+      padding: EdgeInsets.only(left: 28),
                   child: Text(
                     listing.location.city,
                     style: const TextStyle(
@@ -361,10 +359,10 @@ class _MarketplaceListingDetailScreenState
                 ),
                 const SizedBox(height: DesignTokens.space4),
                 Padding(
-                  padding: const EdgeInsets.only(left: 28),
+      padding: EdgeInsets.only(left: 28),
                   child: Text(
                     _formatBudget(listing.budget),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: DesignTokens.gray900,
@@ -381,7 +379,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDateRangeSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,10 +404,10 @@ class _MarketplaceListingDetailScreenState
           ),
           const SizedBox(height: DesignTokens.space12),
           Container(
-            padding: const EdgeInsets.all(DesignTokens.space12),
+            padding: EdgeInsets.all(DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               border: Border.all(
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
                 width: 1,
@@ -431,7 +429,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(height: 2),
                       Text(
                         DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.start) ?? DateTime.now()),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.gray900,
@@ -459,7 +457,7 @@ class _MarketplaceListingDetailScreenState
                       const SizedBox(height: 2),
                       Text(
                         DateFormat('dd MMM yyyy').format(DateTime.tryParse(listing.dateRange.end) ?? DateTime.now()),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: DesignTokens.gray900,
@@ -478,7 +476,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildAttachmentsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -507,7 +505,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildOwnerActionsSection(MarketplaceListing listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -561,7 +559,7 @@ class _MarketplaceListingDetailScreenState
   Widget _buildOffersSection(MarketplaceListing listing, String userType, bool isOwner) {
     // For now, we'll show a placeholder. In a real app, we'd load offers from the provider
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16)
+      margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16)
           .copyWith(bottom: DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -608,10 +606,10 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildNoOffersState() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
       decoration: BoxDecoration(
         color: DesignTokens.gray50,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: DesignTokens.gray200,
           width: 1,
@@ -654,10 +652,10 @@ class _MarketplaceListingDetailScreenState
           margin: EdgeInsets.only(
             bottom: index < (count - 1) ? DesignTokens.space12 : 0,
           ),
-          padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
             color: DesignTokens.gray50,
-            borderRadius: BorderRadius.circular(DesignTokens.radius12),
+            borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             border: Border.all(
               color: DesignTokens.gray200,
               width: 1,
@@ -670,7 +668,7 @@ class _MarketplaceListingDetailScreenState
                 backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
                 child: Text(
                   'U${index + 1}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.primaryCoral,
@@ -684,7 +682,7 @@ class _MarketplaceListingDetailScreenState
                   children: [
                     Text(
                       'Usta ${index + 1}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: DesignTokens.gray900,
@@ -703,7 +701,7 @@ class _MarketplaceListingDetailScreenState
               ),
               Text(
                 '₺${(index + 1) * 500 + 1000}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.primaryCoral,
@@ -761,7 +759,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildLoadingState() {
     return const Center(
-      child: CircularProgressIndicator(
+      child: const CircularProgressIndicator(
         color: DesignTokens.primaryCoral,
       ),
     );
@@ -770,7 +768,7 @@ class _MarketplaceListingDetailScreenState
   Widget _buildErrorState(String error) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -835,13 +833,13 @@ class _MarketplaceListingDetailScreenState
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: DesignTokens.space8,
         vertical: DesignTokens.space4,
       ),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
       ),
       child: Text(
         text,
@@ -856,7 +854,7 @@ class _MarketplaceListingDetailScreenState
 
   Widget _buildDetailRow(IconData icon, String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: DesignTokens.space12),
+      padding: EdgeInsets.only(bottom: DesignTokens.space12),
       child: Row(
         children: [
           Icon(
@@ -876,7 +874,7 @@ class _MarketplaceListingDetailScreenState
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,
@@ -916,7 +914,7 @@ class _MarketplaceListingDetailScreenState
     // TODO: Implement listing status toggle
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('İlan durumu güncelleme özelliği yakında eklenecek'),
+        content: const Text('İlan durumu güncelleme özelliği yakında eklenecek'),
         backgroundColor: DesignTokens.info,
       ),
     );

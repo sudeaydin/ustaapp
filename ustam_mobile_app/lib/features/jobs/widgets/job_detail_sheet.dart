@@ -17,7 +17,7 @@ class JobDetailSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -27,7 +27,7 @@ class JobDetailSheet extends StatelessWidget {
               Expanded(
                 child: Text(
                   job is Job ? job.title : (job['title'] ?? 'İş Detayı'),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -55,7 +55,7 @@ class JobDetailSheet extends StatelessWidget {
                 const SizedBox(width: 8),
                                   Text(
                     'Bütçe: ₺${job is Job ? job.estimatedCost : job['budget']}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

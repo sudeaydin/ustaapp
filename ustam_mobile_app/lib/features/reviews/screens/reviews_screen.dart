@@ -6,7 +6,6 @@ import '../../../core/widgets/error_message.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../providers/review_provider.dart';
 import '../widgets/review_card.dart';
-import '../widgets/star_rating.dart';
 import '../widgets/review_statistics_widget.dart';
 
 class ReviewsScreen extends ConsumerStatefulWidget {
@@ -77,11 +76,11 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
               tabs: const [
                 Tab(
                   text: 'Değerlendirmeler',
-                  icon: Icon(Icons.rate_review),
+                  icon: const Icon(Icons.rate_review),
                 ),
                 Tab(
                   text: 'İstatistikler',
-                  icon: Icon(Icons.analytics),
+                  icon: const Icon(Icons.analytics),
                 ),
               ],
             ),
@@ -156,7 +155,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
         await ref.read(reviewProvider.notifier).loadCraftsmanReviews(widget.craftsmanId);
       },
       child: ListView.builder(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: reviewState.reviews.length,
         itemBuilder: (context, index) {
           final review = reviewState.reviews[index];
@@ -199,7 +198,7 @@ class _ReviewsScreenState extends ConsumerState<ReviewsScreen>
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: ReviewStatisticsWidget(
         statistics: reviewState.statistics!,
       ),

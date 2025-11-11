@@ -20,9 +20,9 @@ class ThemeToggle extends ConsumerWidget {
     final themeNotifier = ref.read(themeProvider.notifier);
     
     final isDark = themeMode == ThemeMode.dark;
-    final label = isDark 
-        ? 'light_mode'.tr(locale)
-        : 'dark_mode'.tr(locale);
+    // final label = isDark 
+    //     ? 'light_mode'.tr(locale)
+    //     : 'dark_mode'.tr(locale);
 
     return PopupMenuButton<ThemeMode>(
       icon: Icon(
@@ -44,8 +44,8 @@ class ThemeToggle extends ConsumerWidget {
               Text('light_mode'.tr(locale)),
               if (themeMode == ThemeMode.light)
                 const Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Icon(Icons.check, size: 16),
+      padding: EdgeInsets.only(left: 8),
+                  child: const Icon(Icons.check, size: 16),
                 ),
             ],
           ),
@@ -59,8 +59,8 @@ class ThemeToggle extends ConsumerWidget {
               Text('dark_mode'.tr(locale)),
               if (themeMode == ThemeMode.dark)
                 const Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Icon(Icons.check, size: 16),
+      padding: EdgeInsets.only(left: 8),
+                  child: const Icon(Icons.check, size: 16),
                 ),
             ],
           ),
@@ -74,8 +74,8 @@ class ThemeToggle extends ConsumerWidget {
               Text('system_mode'.tr(locale)),
               if (themeMode == ThemeMode.system)
                 const Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Icon(Icons.check, size: 16),
+      padding: EdgeInsets.only(left: 8),
+                  child: const Icon(Icons.check, size: 16),
                 ),
             ],
           ),

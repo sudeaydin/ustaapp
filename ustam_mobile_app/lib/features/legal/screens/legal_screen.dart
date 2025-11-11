@@ -108,9 +108,9 @@ class _LegalScreenState extends State<LegalScreen>
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.settings),
-                                SizedBox(width: 8),
-                                Text('Onay Tercihleri'),
+                                const Icon(Icons.settings),
+                                const SizedBox(width: 8),
+                                const Text('Onay Tercihleri'),
                               ],
                             ),
                           ),
@@ -124,9 +124,9 @@ class _LegalScreenState extends State<LegalScreen>
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.privacy_tip),
-                                SizedBox(width: 8),
-                                Text('KVKK Hakları'),
+                                const Icon(Icons.privacy_tip),
+                                const SizedBox(width: 8),
+                                const Text('KVKK Hakları'),
                               ],
                             ),
                           ),
@@ -267,7 +267,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: const Color(0xFF467599).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
             ),
             child: Row(
               children: [
@@ -283,7 +283,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                     children: [
                       Text(
                         _document!.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF467599),
@@ -312,7 +312,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.red[100],
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: const BorderRadius.circular(4),
                     ),
                     child: Text(
                       'ZORUNLU',
@@ -334,7 +334,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: Colors.grey[300]!),
             ),
             child: Text(
@@ -354,7 +354,7 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
             padding: const EdgeInsets.all(DesignTokens.space16),
             decoration: BoxDecoration(
               color: DesignTokens.primaryCoral.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius8),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius8),
               border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
             ),
             child: Column(
@@ -392,8 +392,8 @@ class _LegalDocumentViewState extends State<LegalDocumentView> {
   }
 
   Widget _buildContactRow(IconData icon, String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -480,7 +480,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Kullanıcı sözleşmesi yüklenemedi')),
+          const SnackBar(content: const Text('Kullanıcı sözleşmesi yüklenemedi')),
         );
       }
     }
@@ -489,7 +489,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
   Future<void> _acceptAgreement() async {
     if (!_mandatoryConsent) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Zorunlu onayları kabul etmelisiniz')),
+        const SnackBar(content: const Text('Zorunlu onayları kabul etmelisiniz')),
       );
       return;
     }
@@ -540,7 +540,7 @@ class _UserAgreementModalState extends State<UserAgreementModal> {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.grey[50],
-                          borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         child: Text(
@@ -654,7 +654,7 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
   Future<void> _updateConsent(ConsentType type, bool granted) async {
     if (LegalManager().isConsentRequired(type) && !granted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bu onay zorunludur')),
+        const SnackBar(content: const Text('Bu onay zorunludur')),
       );
       return;
     }
@@ -694,13 +694,13 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: const BorderRadius.circular(2),
                 ),
               ),
               
               // Header
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+              const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Icon(
@@ -741,15 +741,15 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
                               children: [
                                 Text(
                                   type.displayName,
-                                  style: const TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
                                 if (isRequired) ...[
-                                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: Colors.red[100],
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: const BorderRadius.circular(4),
                                     ),
                                     child: Text(
                                       'ZORUNLU',
@@ -781,8 +781,8 @@ class _ConsentPreferencesSheetState extends State<ConsentPreferencesSheet> {
               ),
               
               // Actions
-              Padding(
-                padding: const EdgeInsets.all(20),
+              const Padding(
+      padding: EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Expanded(
@@ -827,13 +827,13 @@ class GDPRRightsSheet extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: const BorderRadius.circular(2),
                 ),
               ),
               
               // Header
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+              const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Icon(
@@ -868,7 +868,7 @@ class GDPRRightsSheet extends StatelessWidget {
                       ),
                       title: Text(
                         LegalConstants.gdprRightDescriptions[right] ?? right.name,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
                         _getGDPRRightDescription(right),
@@ -882,8 +882,8 @@ class GDPRRightsSheet extends StatelessWidget {
               ),
               
               // Actions
-              Padding(
-                padding: const EdgeInsets.all(20),
+              const Padding(
+      padding: EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Expanded(
@@ -1106,7 +1106,7 @@ class _CookieConsentBannerState extends State<CookieConsentBanner> {
         padding: const EdgeInsets.all(DesignTokens.space16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),

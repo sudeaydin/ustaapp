@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/design_tokens.dart';
 import '../../core/widgets/airbnb_button.dart';
@@ -69,7 +68,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           children: [
             // Skip Button
             Padding(
-              padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -101,7 +100,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 itemBuilder: (context, index) {
                   final page = _pages[index];
                   return Padding(
-                    padding: const EdgeInsets.all(DesignTokens.space24),
+      padding: EdgeInsets.all(DesignTokens.space24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -114,7 +113,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               page.color.withOpacity(0.1),
                               page.color.withOpacity(0.05),
                             ]),
-                            borderRadius: BorderRadius.circular(35),
+                            borderRadius:  BorderRadius.circular(35),
                             border: Border.all(
                               color: page.color.withOpacity(0.3),
                               width: 2,
@@ -130,7 +129,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           ),
                         ),
                         
-                        const SizedBox(height: 50),
+                        SizedBox(height: 50),
                         
                         // Title
                         Text(
@@ -143,7 +142,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: DesignTokens.space16),
+                        SizedBox(height: DesignTokens.space16),
                         
                         // Subtitle
                         Text(
@@ -156,7 +155,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           textAlign: TextAlign.center,
                         ),
                         
-                        const SizedBox(height: DesignTokens.space24),
+                        SizedBox(height: DesignTokens.space24),
                         
                         // Description
                         Text(
@@ -177,7 +176,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             
             // Page Indicator & Navigation
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 children: [
                   // Page Dots
@@ -192,13 +191,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           color: _currentPage == index 
                               ? DesignTokens.uclaBlue
                               : DesignTokens.nonPhotoBlue.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: const BorderRadius.circular(4),
                         ),
                       ),
                     ),
                   ),
                   
-                  const Spacer(),
+                  Spacer(),
                   
                   // Next Button - Modern Design
                   Container(
@@ -211,7 +210,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         BoxShadow(
                           color: DesignTokens.uclaBlue.withOpacity(0.4),
                           blurRadius: 16,
-                          offset: const Offset(0, 4),
+                          offset:  Offset(0, 4),
                         ),
                       ],
                     ),

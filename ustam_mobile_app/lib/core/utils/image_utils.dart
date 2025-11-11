@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class ImageUtils {
       
       return compressedFile;
     } catch (e) {
-      print('Image compression error: $e');
+      debugPrint('Image compression error: $e');
       return null;
     }
   }
@@ -63,7 +64,7 @@ class ImageUtils {
       final thumbnail = img.copyResize(image, width: size, height: size);
       return Uint8List.fromList(img.encodePng(thumbnail));
     } catch (e) {
-      print('Thumbnail generation error: $e');
+      debugPrint('Thumbnail generation error: $e');
       return null;
     }
   }
@@ -112,13 +113,13 @@ class OptimizedNetworkImage extends StatelessWidget {
                 child: SizedBox(
                   width: 20,
                   height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
                 ),
               ),
             );

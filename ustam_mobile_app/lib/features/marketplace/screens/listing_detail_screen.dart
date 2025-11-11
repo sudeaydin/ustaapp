@@ -49,9 +49,9 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   value: 'edit',
                   child: Row(
                     children: [
-                      Icon(Icons.edit, size: 20),
-                      SizedBox(width: 8),
-                      Text('Düzenle'),
+                      const Icon(Icons.edit, size: 20),
+                      const SizedBox(width: 8),
+                      const Text('Düzenle'),
                     ],
                   ),
                 ),
@@ -59,9 +59,9 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                   value: 'delete',
                   child: Row(
                     children: [
-                      Icon(Icons.delete, size: 20, color: Colors.red),
-                      SizedBox(width: 8),
-                      Text('Sil', style: TextStyle(color: Colors.red)),
+                      const Icon(Icons.delete, size: 20, color: Colors.red),
+                      const SizedBox(width: 8),
+                      const Text('Sil', style: TextStyle(color: Colors.red)),
                     ],
                   ),
                 ),
@@ -70,7 +70,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -120,7 +120,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                 children: [
                   Text(
                     listing['title'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.gray900,
@@ -180,7 +180,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: DesignTokens.primaryCoral),
                   foregroundColor: DesignTokens.primaryCoral,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
             ),
@@ -192,7 +192,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
 
   Widget _buildDetailRow(String label, String value, IconData icon) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
           Icon(
@@ -212,7 +212,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: DesignTokens.gray900,
@@ -284,7 +284,7 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
     // For now, just show success message and go back
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('İlan başarıyla silindi'),
+        content: const Text('İlan başarıyla silindi'),
         backgroundColor: DesignTokens.success,
       ),
     );

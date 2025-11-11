@@ -75,7 +75,7 @@ class _CostCalculatorState extends State<CostCalculator> {
         'urgency': _selectedUrgency,
       });
 
-      final response = await ApiService.getInstance().post(
+      final response = await ApiService.getInstance().postWithOptions(
         '/analytics/cost-estimate',
         body: {
           'category': _selectedCategory,
@@ -143,7 +143,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           // Header
           Row(
             children: [
-              Icon(Icons.calculate, color: DesignTokens.primaryCoral),
+              const Icon(Icons.calculate, color: DesignTokens.primaryCoral),
               const SizedBox(width: 8),
               Text(
                 'Maliyet Hesaplayıcı',
@@ -183,7 +183,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _categories.map((category) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: category,
                         child: Text(category),
                       );
@@ -201,7 +201,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   
                   // Area Type Dropdown
                   DropdownButtonFormField<String>(
@@ -213,7 +213,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _areaTypes.map((type) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: type,
                         child: Text(type),
                       );
@@ -231,7 +231,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   
                   // Budget Range Dropdown
                   DropdownButtonFormField<String>(
@@ -243,7 +243,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _budgetRanges.map((range) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: range,
                         child: Text('₺$range'),
                       );
@@ -255,7 +255,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   
                   // Urgency Dropdown
                   DropdownButtonFormField<String>(
@@ -267,7 +267,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _urgencyLevels.map((level) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: level['value'],
                         child: Text(level['label']),
                       );
@@ -279,7 +279,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   
                   // Description Field
                   TextFormField(
@@ -296,7 +296,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   
                   // Location Field
                   TextFormField(
@@ -312,13 +312,13 @@ class _CostCalculatorState extends State<CostCalculator> {
                     },
                   ),
                   
-                  const SizedBox(height: 20),
+ SizedBox(height: 20),
                   
                   // Error Message
                   if (_error != null)
                     Container(
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
                         color: DesignTokens.error.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -326,8 +326,8 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
-                          const SizedBox(width: 8),
+ Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
+ SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               _error!,
@@ -345,21 +345,21 @@ class _CostCalculatorState extends State<CostCalculator> {
                       onPressed: _isLoading ? null : _calculateCost,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: DesignTokens.primaryCoral,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(DesignTokens.radius8),
                         ),
                       ),
                       child: _isLoading
-                          ? const SizedBox(
+                          ? SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
+                              child: const CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                               ),
                             )
-                          : const Text(
+                          : Text(
                               'Maliyeti Hesapla',
                               style: TextStyle(
                                 color: Colors.white,
@@ -387,7 +387,7 @@ class _CostCalculatorState extends State<CostCalculator> {
       children: [
         // Main Estimate
         Container(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
           decoration: BoxDecoration(
             color: DesignTokens.primaryCoral.withOpacity(0.1),
             borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -404,7 +404,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                   color: DesignTokens.primaryCoral,
                 ),
               ),
-              const SizedBox(height: 8),
+ SizedBox(height: 8),
               Text(
                 '₺${_estimate!['estimated_cost']?.toStringAsFixed(0) ?? '0'}',
                 style: TextStyle(
@@ -425,7 +425,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           ),
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Breakdown
         if (_estimate!['breakdown'] != null) ...[
@@ -437,9 +437,9 @@ class _CostCalculatorState extends State<CostCalculator> {
               color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.surfaceSecondary,
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -450,7 +450,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                   .entries
                   .map((entry) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  padding: EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -475,7 +475,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         ],
         
         // Factors
@@ -488,9 +488,9 @@ class _CostCalculatorState extends State<CostCalculator> {
               color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.warning.withOpacity(0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -499,7 +499,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             child: Column(
               children: (_estimate!['factors'] as List).map<Widget>((factor) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  padding: EdgeInsets.symmetric(vertical: 2),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -508,7 +508,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                         size: 6,
                         color: DesignTokens.warning,
                       ),
-                      const SizedBox(width: 8),
+ SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           factor.toString(),
@@ -524,7 +524,7 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         ],
         
         // Recommendations
@@ -537,9 +537,9 @@ class _CostCalculatorState extends State<CostCalculator> {
               color: DesignTokens.gray900,
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: DesignTokens.success.withOpacity(0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -548,7 +548,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             child: Column(
               children: (_estimate!['recommendations'] as List).map<Widget>((rec) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  padding: EdgeInsets.symmetric(vertical: 2),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -557,7 +557,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                         size: 16,
                         color: DesignTokens.success,
                       ),
-                      const SizedBox(width: 8),
+ SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           rec.toString(),
@@ -573,12 +573,12 @@ class _CostCalculatorState extends State<CostCalculator> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         ],
         
         // Disclaimer
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: DesignTokens.gray600.withOpacity(0.1),
             borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -612,7 +612,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _categories.map((category) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: category,
               child: Text(category),
             );
@@ -630,7 +630,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Area Type
         DropdownButtonFormField<String>(
@@ -642,7 +642,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _areaTypes.map((type) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: type,
               child: Text(type),
             );
@@ -660,7 +660,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Budget Range
         DropdownButtonFormField<String>(
@@ -672,7 +672,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _budgetRanges.map((range) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: range,
               child: Text('₺$range'),
             );
@@ -684,7 +684,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Urgency
         DropdownButtonFormField<String>(
@@ -696,7 +696,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _urgencyLevels.map((level) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: level['value'],
               child: Text(level['label']),
             );
@@ -708,7 +708,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Description
         TextFormField(
@@ -725,7 +725,7 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         // Location
         TextFormField(
@@ -741,13 +741,13 @@ class _CostCalculatorState extends State<CostCalculator> {
           },
         ),
         
-        const SizedBox(height: 20),
+ SizedBox(height: 20),
         
         // Error Message
         if (_error != null)
           Container(
-            padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.only(bottom: 16),
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: DesignTokens.error.withOpacity(0.1),
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
@@ -755,8 +755,8 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
             child: Row(
               children: [
-                Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
-                const SizedBox(width: 8),
+ Icon(Icons.error_outline, color: DesignTokens.error, size: 20),
+ SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     _error!,
@@ -774,21 +774,21 @@ class _CostCalculatorState extends State<CostCalculator> {
             onPressed: _isLoading ? null : _calculateCost,
             style: ElevatedButton.styleFrom(
               backgroundColor: DesignTokens.primaryCoral,
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(DesignTokens.radius8),
               ),
             ),
             child: _isLoading
-                ? const SizedBox(
+                ? SizedBox(
                     height: 20,
                     width: 20,
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
                   )
-                : const Text(
+                : Text(
                     'Maliyeti Hesapla',
                     style: TextStyle(
                       color: Colors.white,

@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import '../theme/design_tokens.dart';
 
 enum AirbnbButtonType { primary, secondary, outline, text, error }
@@ -36,12 +36,12 @@ class AirbnbButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            print('🎯 AirbnbButton tapped! Loading: $isLoading, OnPressed: ${onPressed != null}');
+            debugPrint('🎯 AirbnbButton tapped! Loading: $isLoading, OnPressed: ${onPressed != null}');
             if (!isLoading && onPressed != null) {
-              print('✅ Calling onPressed callback');
+              debugPrint('✅ Calling onPressed callback');
               onPressed!();
             } else {
-              print('❌ Button tap ignored - Loading: $isLoading, Callback: ${onPressed != null}');
+              debugPrint('❌ Button tap ignored - Loading: $isLoading, Callback: ${onPressed != null}');
             }
           },
           borderRadius: BorderRadius.circular(_getBorderRadius()),

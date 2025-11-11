@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/utils/job_management_utils.dart';
 
 class EmergencyServiceCard extends StatelessWidget {
   final dynamic emergency; // Can be Map or EmergencyService object
@@ -18,10 +17,10 @@ class EmergencyServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       backgroundColor: DesignTokens.error.withOpacity(0.05),
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           children: [
             Row(
@@ -64,9 +63,9 @@ class EmergencyServiceCard extends StatelessWidget {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, size: 20),
-                    SizedBox(width: 8),
-                    Text('Acil Servis Çağır'),
+                    const Icon(Icons.phone, size: 20),
+                    const SizedBox(width: 8),
+                    const Text('Acil Servis Çağır'),
                   ],
                 ),
               ),

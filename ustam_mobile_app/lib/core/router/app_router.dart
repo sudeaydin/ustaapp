@@ -40,7 +40,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/register',
-        builder: (context, state) => const RegisterScreen(),
+        builder: (context, state) {
+          final userType = state.uri.queryParameters['userType'] ?? 'customer';
+          return RegisterScreen(userType: userType);
+        },
       ),
       
       // Main App Routes (with bottom navigation)

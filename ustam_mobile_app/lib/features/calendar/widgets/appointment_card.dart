@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/airbnb_card.dart';
-import '../../../core/widgets/hover_button.dart';
 import '../models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -23,8 +22,8 @@ class AppointmentCard extends StatelessWidget {
     return AirbnbCard(
       margin: const EdgeInsets.only(bottom: 12),
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      child: const Padding(
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -54,7 +53,7 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         Text(
                           appointment.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -88,7 +87,7 @@ class AppointmentCard extends StatelessWidget {
               
               // Description
               if (appointment.description != null) ...[
-                const SizedBox(height: 12),
+ SizedBox(height: 12),
                 Text(
                   appointment.description!,
                   style: const TextStyle(
@@ -102,7 +101,7 @@ class AppointmentCard extends StatelessWidget {
               
               // Location
               if (appointment.location != null) ...[
-                const SizedBox(height: 8),
+ SizedBox(height: 8),
                 Row(
                   children: [
                     Icon(
@@ -110,7 +109,7 @@ class AppointmentCard extends StatelessWidget {
                       size: 14,
                       color: Colors.grey[600],
                     ),
-                    const SizedBox(width: 4),
+ SizedBox(width: 4),
                     Expanded(
                       child: Text(
                         appointment.location!,
@@ -125,12 +124,12 @@ class AppointmentCard extends StatelessWidget {
               ],
               
               // Participants info
-              const SizedBox(height: 12),
+ SizedBox(height: 12),
               _buildParticipantsInfo(),
               
               // Action buttons
               if (_canShowActions()) ...[
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 _buildActionButtons(context),
               ],
             ],
@@ -141,7 +140,7 @@ class AppointmentCard extends StatelessWidget {
 
   Widget _buildStatusBadge() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: appointment.statusColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -174,7 +173,7 @@ class AppointmentCard extends StatelessWidget {
             child: appointment.customer!.profileImage == null
                 ? Text(
                     appointment.customer!.name[0].toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.primaryCoral,
@@ -182,10 +181,10 @@ class AppointmentCard extends StatelessWidget {
                   )
                 : null,
           ),
-          const SizedBox(width: 6),
+ SizedBox(width: 6),
           Text(
             appointment.customer!.name,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -193,13 +192,13 @@ class AppointmentCard extends StatelessWidget {
         ],
         
         if (appointment.customer != null && appointment.craftsman != null) ...[
-          const SizedBox(width: 8),
+ SizedBox(width: 8),
           Icon(
             Icons.arrow_forward,
             size: 12,
             color: Colors.grey[400],
           ),
-          const SizedBox(width: 8),
+ SizedBox(width: 8),
         ],
         
         // Craftsman info
@@ -213,7 +212,7 @@ class AppointmentCard extends StatelessWidget {
             child: appointment.craftsman!.profileImage == null
                 ? Text(
                     appointment.craftsman!.name[0].toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.primaryCoral,
@@ -221,11 +220,11 @@ class AppointmentCard extends StatelessWidget {
                   )
                 : null,
           ),
-          const SizedBox(width: 6),
+ SizedBox(width: 6),
           Expanded(
             child: Text(
               appointment.craftsman!.businessName ?? appointment.craftsman!.name,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
@@ -251,7 +250,7 @@ class AppointmentCard extends StatelessWidget {
                 foregroundColor: DesignTokens.primaryCoral,
                 side: const BorderSide(color: DesignTokens.primaryCoral),
               ),
-              child: const Text('Onayla'),
+              child: Text('Onayla'),
             ),
           ),
         );
@@ -268,7 +267,7 @@ class AppointmentCard extends StatelessWidget {
               backgroundColor: DesignTokens.primaryCoral,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Başlat'),
+            child: Text('Başlat'),
           ),
         ),
       );
@@ -284,7 +283,7 @@ class AppointmentCard extends StatelessWidget {
               backgroundColor: DesignTokens.primaryCoral,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Tamamla'),
+            child: Text('Tamamla'),
           ),
         ),
       );
@@ -301,7 +300,7 @@ class AppointmentCard extends StatelessWidget {
               foregroundColor: Colors.red,
               side: const BorderSide(color: Colors.red),
             ),
-            child: const Text('İptal'),
+            child: Text('İptal'),
           ),
         ),
       );

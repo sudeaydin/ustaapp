@@ -1,14 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/widgets/common_app_bar.dart';
 import '../../../core/widgets/common_bottom_navigation.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../providers/calendar_provider.dart' as calendar_provider;
 import '../models/appointment_model.dart';
-import '../widgets/appointment_card.dart';
 import '../widgets/create_appointment_sheet.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
@@ -101,7 +99,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
             blurRadius: 20,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -130,7 +128,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
                 Text(
                   '${_getMonthName(_focusedDay.month)} ${_focusedDay.year}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -263,7 +261,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             BoxShadow(
               color: DesignTokens.primaryCoral.withOpacity(0.3),
               blurRadius: 8,
-              offset: const Offset(0, 2),
+              offset: Offset(0, 2),
             ),
           ] : null,
         ),
@@ -382,7 +380,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       _selectedDay != null 
                           ? '${_selectedDay!.day} ${_getMonthName(_selectedDay!.month)} ${_selectedDay!.year}'
                           : 'Tarih Seçin',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -451,7 +449,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   itemCount: selectedDayEvents.length,
                   itemBuilder: (context, index) {
                     final event = selectedDayEvents[index];
-                    print('📋 Building event card for: ${event.title} (${event.id})');
+                    debugPrint('📋 Building event card for: ${event.title} (${event.id})');
                     return _buildEventCard(event);
                   },
                 ),
@@ -461,8 +459,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   Widget _buildEventCard(calendar_provider.CalendarEvent event) {
-    print('🎨 _buildEventCard called for: ${event.title}');
-    print('🎨 Event details: ID=${event.id}, type=${event.type}, status=${event.status}');
+    debugPrint('🎨 _buildEventCard called for: ${event.title}');
+    debugPrint('🎨 Event details: ID=${event.id}, type=${event.type}, status=${event.status}');
     final isJob = event.isJob;
     final statusColor = _getEventStatusColor(event.status, isJob);
     final priorityColor = _getEventPriorityColor(event.priority);
@@ -476,22 +474,22 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
             blurRadius: 12,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(DesignTokens.radius16),
         onTap: () {
-          print('🎯 Event card tapped! Event: ${event.title}');
-          print('🎯 Event ID: ${event.id}');
-          print('🎯 Event type: ${event.type}');
+          debugPrint('🎯 Event card tapped! Event: ${event.title}');
+          debugPrint('🎯 Event ID: ${event.id}');
+          debugPrint('🎯 Event type: ${event.type}');
           try {
             _showEventDetails(event);
-            print('✅ _showEventDetails called successfully');
+            debugPrint('✅ _showEventDetails called successfully');
           } catch (e, stackTrace) {
-            print('❌ Error in _showEventDetails: $e');
-            print('❌ Stack trace: $stackTrace');
+            debugPrint('❌ Error in _showEventDetails: $e');
+            debugPrint('❌ Stack trace: $stackTrace');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Event detayı açılırken hata: $e'),
@@ -502,10 +500,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           }
         },
         onTapDown: (details) {
-          print('👆 InkWell onTapDown detected for: ${event.title}');
+          debugPrint('👆 InkWell onTapDown detected for: ${event.title}');
         },
         onTapCancel: () {
-          print('❌ InkWell onTapCancel for: ${event.title}');
+          debugPrint('❌ InkWell onTapCancel for: ${event.title}');
         },
         child: Container(
             padding: const EdgeInsets.all(20),
@@ -534,7 +532,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       children: [
                         Text(
                           event.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: DesignTokens.gray900,
@@ -578,9 +576,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               ),
               
               if (event.description != null) ...[
-                const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
                     borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -598,13 +596,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 ),
               ],
               
-              const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
               
               // Time and Status Row
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: DesignTokens.primaryCoral.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -617,10 +615,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           size: 16,
                           color: DesignTokens.primaryCoral,
                         ),
-                        const SizedBox(width: 6),
+ SizedBox(width: 6),
                         Text(
                           '${_formatTime(event.startTime)} - ${_formatTime(event.endTime)}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             color: DesignTokens.primaryCoral,
                             fontWeight: FontWeight.w600,
@@ -631,7 +629,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: statusColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -647,7 +645,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                             shape: BoxShape.circle,
                           ),
                         ),
-                        const SizedBox(width: 6),
+ SizedBox(width: 6),
                         Text(
                           _getStatusText(event.status, isJob),
                           style: TextStyle(
@@ -678,7 +676,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             size: 64,
             color: Colors.grey[400],
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           Text(
             _selectedDay != null && _selectedDay!.isAtSameMomentAs(DateTime.now())
                 ? 'Bugün randevunuz yok'
@@ -689,7 +687,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Text(
             'Yeni randevu oluşturmak için + butonuna tıklayın',
             style: TextStyle(
@@ -698,10 +696,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           CustomButton(
             text: 'Randevu Oluştur',
-            icon: const Icon(Icons.add, size: 18),
+            icon: Icon(Icons.add, size: 18),
             onPressed: () => _showCreateAppointmentSheet(context),
           ),
         ],
@@ -879,14 +877,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   void _showEventDetails(calendar_provider.CalendarEvent event) {
-    print('🔥 _showEventDetails started for event: ${event.title}');
+    debugPrint('🔥 _showEventDetails started for event: ${event.title}');
     try {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (context) {
-          print('✅ Modal bottom sheet builder called');
+          debugPrint('✅ Modal bottom sheet builder called');
           return Container(
         height: MediaQuery.of(context).size.height * 0.8,
         decoration: const BoxDecoration(
@@ -902,7 +900,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             Container(
               width: 40,
               height: 4,
-              margin: const EdgeInsets.only(top: 12),
+              margin: EdgeInsets.only(top: 12),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(2),
@@ -911,8 +909,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             
             // Header with gradient
             Container(
-              margin: const EdgeInsets.all(DesignTokens.space16),
-              padding: const EdgeInsets.all(20),
+              margin: EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: DesignTokens.primaryCoralGradient,
                 borderRadius: BorderRadius.circular(DesignTokens.radius16),
@@ -920,7 +918,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -931,20 +929,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       size: 24,
                     ),
                   ),
-                  const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           event.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 4),
+ SizedBox(height: 4),
                         Text(
                           event.isJob ? 'İş Randevusu' : 'Etkinlik',
                           style: TextStyle(
@@ -956,7 +954,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
+                    icon: Icon(Icons.close, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -966,7 +964,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             // Content
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1016,7 +1014,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       ),
                     ],
                     
-                    const SizedBox(height: 20),
+ SizedBox(height: 20),
                     
                     // Action Buttons
                     Row(
@@ -1027,31 +1025,31 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                               Navigator.pop(context);
                               // TODO: Navigate to edit appointment
                             },
-                            icon: const Icon(Icons.edit_outlined),
-                            label: const Text('Düzenle'),
+                            icon: Icon(Icons.edit_outlined),
+                            label: Text('Düzenle'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: DesignTokens.primaryCoral,
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+ SizedBox(width: 12),
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () {
                               Navigator.pop(context);
                               // TODO: Cancel appointment
                             },
-                            icon: const Icon(Icons.cancel_outlined),
-                            label: const Text('İptal Et'),
+                            icon: Icon(Icons.cancel_outlined),
+                            label: Text('İptal Et'),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.red,
                               side: const BorderSide(color: Colors.red),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
@@ -1069,14 +1067,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       );
         },
       ).then((value) {
-      print('✅ Modal bottom sheet closed');
+      debugPrint('✅ Modal bottom sheet closed');
     }).catchError((error) {
-      print('❌ Modal bottom sheet error: $error');
+      debugPrint('❌ Modal bottom sheet error: $error');
     });
-    print('✅ showModalBottomSheet call completed');
+    debugPrint('✅ showModalBottomSheet call completed');
     } catch (e, stackTrace) {
-      print('❌ Error in _showEventDetails: $e');
-      print('❌ Stack trace: $stackTrace');
+      debugPrint('❌ Error in _showEventDetails: $e');
+      debugPrint('❌ Stack trace: $stackTrace');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Modal açılırken hata: $e'),
@@ -1094,8 +1092,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     required Color color,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -1105,14 +1103,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withOpacity(0.2),
               borderRadius: BorderRadius.circular(DesignTokens.radius8),
             ),
             child: Icon(icon, color: color, size: 20),
           ),
-          const SizedBox(width: 12),
+ SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1125,7 +1123,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     color: color,
                   ),
                 ),
-                const SizedBox(height: 4),
+ SizedBox(height: 4),
                 Text(
                   content,
                   style: const TextStyle(

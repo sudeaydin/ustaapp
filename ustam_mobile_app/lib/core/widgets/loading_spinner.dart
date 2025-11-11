@@ -1,6 +1,5 @@
 import '../theme/design_tokens.dart';
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 
 class LoadingSpinner extends StatelessWidget {
   final double size;
@@ -32,7 +31,7 @@ class LoadingSpinner extends StatelessWidget {
           ),
         ),
         if (message != null) ...[
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
           Text(
             message!,
             style: TextStyle(

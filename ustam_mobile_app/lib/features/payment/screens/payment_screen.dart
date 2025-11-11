@@ -13,7 +13,7 @@ class PaymentScreen extends ConsumerWidget {
         title: const Text('Ödeme'),
       ),
       body: const Center(
-        child: Text('Ödeme Ekranı - Geliştiriliyor'),
+        child: const Text('Ödeme Ekranı - Geliştiriliyor'),
       ),
     );
   }

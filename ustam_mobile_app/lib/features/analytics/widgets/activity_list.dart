@@ -51,7 +51,7 @@ class ActivityList extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: activities.length,
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: DesignTokens.gray300,
           height: 1,
         ),

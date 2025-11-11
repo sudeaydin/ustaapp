@@ -84,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+ SizedBox(height: 8),
         ],
         Container(
           decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               prefixIcon: widget.prefixIcon,
               suffixIcon: _getSuffixIcon(),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(DesignTokens.space16),
+              contentPadding: EdgeInsets.all(DesignTokens.space16),
               counterText: '', // Hide character counter
             ),
           ),

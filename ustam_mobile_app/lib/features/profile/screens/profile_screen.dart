@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -34,21 +35,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       final userType = prefs.getString('user_type');
       
-      print('Checking user type from SharedPreferences: $userType');
+      debugPrint('Checking user type from SharedPreferences: $userType');
       
       if (userType == 'craftsman') {
-        print('✅ Navigating to craftsman dashboard');
+        debugPrint('✅ Navigating to craftsman dashboard');
         Navigator.pushReplacementNamed(context, '/craftsman-dashboard');
       } else if (userType == 'customer') {
-        print('✅ Navigating to customer dashboard');
+        debugPrint('✅ Navigating to customer dashboard');
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       } else {
-        print('⚠️ No user type found, defaulting to customer dashboard');
+        debugPrint('⚠️ No user type found, defaulting to customer dashboard');
         // Default fallback to customer dashboard
         Navigator.pushReplacementNamed(context, '/customer-dashboard');
       }
     } catch (e) {
-      print('❌ Error navigating to dashboard: $e');
+      debugPrint('❌ Error navigating to dashboard: $e');
       // Default fallback
       Navigator.pushReplacementNamed(context, '/customer-dashboard');
     }
@@ -61,10 +62,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final token = prefs.getString('authToken');
       
       if (token == null) {
-        print('No auth token found');
+        debugPrint('No auth token found');
         // Even without token, try to get user type for navigation
         final userType = prefs.getString('user_type');
-        print('User type from SharedPreferences: $userType');
+        debugPrint('User type from SharedPreferences: $userType');
         
         setState(() {
           _isLoading = false;
@@ -87,7 +88,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         },
       );
       
-      print('Profile API Response: ${response.statusCode} - ${response.body}');
+      debugPrint('Profile API Response: ${response.statusCode} - ${response.body}');
       
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -97,19 +98,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             _isLoading = false;
           });
         } else {
-          print('API Error: ${data['message']}');
+          debugPrint('API Error: ${data['message']}');
           setState(() {
             _isLoading = false;
           });
         }
       } else {
-        print('HTTP Error: ${response.statusCode} - ${response.body}');
+        debugPrint('HTTP Error: ${response.statusCode} - ${response.body}');
         setState(() {
           _isLoading = false;
         });
       }
     } catch (e) {
-      print('Error loading profile: $e');
+      debugPrint('Error loading profile: $e');
       setState(() {
         _isLoading = false;
       });
@@ -118,10 +119,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildInfoRow(String label, String value, {IconData? icon}) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -135,14 +136,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           if (icon != null) ...[
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: DesignTokens.primaryCoral.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               ),
               child: Icon(icon, size: 20, color: DesignTokens.primaryCoral),
             ),
-            const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
           ],
           Expanded(
             child: Column(
@@ -150,16 +151,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: DesignTokens.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+ SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: DesignTokens.gray900,
                     fontWeight: FontWeight.w600,
@@ -176,17 +177,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget _buildActionButton(String title, IconData icon, VoidCallback onTap, {Color? color}) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
                           decoration: BoxDecoration(
                 color: color ?? Colors.white,
-                borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                 border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.3)),
                 boxShadow: [
                   BoxShadow(
@@ -199,10 +200,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: color != null ? Colors.white.withOpacity(0.2) : DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                   ),
                   child: Icon(
                     icon,
@@ -210,7 +211,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     color: color != null ? Colors.white : DesignTokens.primaryCoral,
                   ),
                 ),
-                const SizedBox(width: DesignTokens.space16),
+ SizedBox(width: DesignTokens.space16),
                 Expanded(
                   child: Text(
                     title,
@@ -247,11 +248,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   strokeWidth: 4,
                 ),
-                SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
                 Text(
                   'Profil yükleniyor...',
                   style: TextStyle(
@@ -274,7 +275,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // App Bar for customers
           if (_profileData?['user_type'] != 'craftsman')
             SliverAppBar(
-              title: const Text(
+              title: Text(
                 'Profil',
                 style: TextStyle(
                   color: Colors.white,
@@ -314,7 +315,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   child: SafeArea(
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.all(20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -324,7 +325,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
+                              borderRadius: const BorderRadius.circular(40),
                               border: Border.all(color: DesignTokens.surfacePrimary, width: 4),
                               image: _profileData?['avatar'] != null && 
                                      _profileData!['avatar'].toString().isNotEmpty && 
@@ -338,23 +339,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             child: _profileData?['avatar'] == null || 
                                     _profileData!['avatar'].toString().isEmpty ||
                                     _profileData!['avatar'].toString() == 'null'
-                                ? const Icon(
+                                ? Icon(
                                     Icons.person,
                                     size: 40,
                                     color: DesignTokens.surfacePrimary,
                                   )
                                 : null,
                           ),
-                          const SizedBox(height: 12),
+ SizedBox(height: 12),
                           Text(
                             '${_profileData?['first_name'] ?? ''} ${_profileData?['last_name'] ?? ''}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: DesignTokens.surfacePrimary,
                             ),
                           ),
-                          const SizedBox(height: 4),
+ SizedBox(height: 4),
                           Text(
                             _profileData?['email'] ?? '',
                             style: const TextStyle(
@@ -362,15 +363,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               color: DesignTokens.surfacePrimary70,
                             ),
                           ),
-                          const SizedBox(height: 12),
+ SizedBox(height: 12),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: DesignTokens.surfacePrimary.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: const BorderRadius.circular(20),
                               border: Border.all(color: DesignTokens.surfacePrimary.withOpacity(0.3)),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Usta',
                               style: TextStyle(
                                 fontSize: 14,
@@ -399,12 +400,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // Profile Content - Figma Design
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Basic Info Section
-                  const Text(
+ Text(
                     'Kişisel Bilgiler',
                     style: TextStyle(
                       fontSize: 20,
@@ -412,15 +413,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       color: DesignTokens.gray900,
                     ),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   _buildInfoRow('Telefon', _profileData?['phone'] ?? 'Belirtilmemiş', icon: Icons.phone),
-                  const SizedBox(height: 12),
+ SizedBox(height: 12),
                   _buildInfoRow('E-posta', _profileData?['email'] ?? 'Belirtilmemiş', icon: Icons.email),
 
                   // Craftsman Specific Info
                   if (_profileData?['user_type'] == 'craftsman' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 32),
-                    const Text(
+                    SizedBox(height: 32),
+                    Text(
                       'İşletme Bilgileri',
                       style: TextStyle(
                         fontSize: 20,
@@ -428,21 +429,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+                    SizedBox(height: DesignTokens.space16),
                     _buildInfoRow('İşletme Adı', _profileData!['profile']['business_name'] ?? 'Belirtilmemiş', icon: Icons.business),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Saatlik Ücret', '${_profileData!['profile']['hourly_rate'] ?? 0}₺', icon: Icons.attach_money),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Deneyim', '${_profileData!['profile']['experience_years'] ?? 0} yıl', icon: Icons.work),
 
                     // Skills Section - Figma Style
                     if (_profileData!['profile']['skills'] != null && (_profileData!['profile']['skills'] as List).isNotEmpty) ...[
-                      const SizedBox(height: 32),
-                      const Text(
+ SizedBox(height: 32),
+ Text(
                         'Yetenekler',
                         style: TextStyle(
                           fontSize: 20,
@@ -450,12 +451,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           color: DesignTokens.gray900,
                         ),
                       ),
-                      const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                       Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: DesignTokens.surfacePrimary,
-                          borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                           border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.3)),
                           boxShadow: [
                             BoxShadow(
@@ -470,24 +471,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           runSpacing: 12,
                           children: (_profileData!['profile']['skills'] as List).map((skill) {
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
                                 color: DesignTokens.primaryCoral.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: const BorderRadius.circular(20),
                                 border: Border.all(color: DesignTokens.primaryCoral),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(
+ Icon(
                                     Icons.psychology,
                                     size: 16,
                                     color: DesignTokens.primaryCoral,
                                   ),
-                                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                                   Text(
                                     skill.toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 14,
                                       color: DesignTokens.primaryCoral,
                                       fontWeight: FontWeight.w600,
@@ -504,8 +505,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
                   // Customer Specific Info
                   if (_profileData?['user_type'] == 'customer' && _profileData?['profile'] != null) ...[
-                    const SizedBox(height: 32),
-                    const Text(
+ SizedBox(height: 32),
+ Text(
                       'Adres Bilgileri',
                       style: TextStyle(
                         fontSize: 20,
@@ -513,17 +514,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: DesignTokens.gray900,
                       ),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     _buildInfoRow('Adres', _profileData!['profile']['address'] ?? 'Belirtilmemiş', icon: Icons.home),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('Şehir', _profileData!['profile']['city'] ?? 'Belirtilmemiş', icon: Icons.location_on),
-                    const SizedBox(height: 12),
+ SizedBox(height: 12),
                     _buildInfoRow('İlçe', _profileData!['profile']['district'] ?? 'Belirtilmemiş', icon: Icons.location_city),
                   ],
 
                   // Action Buttons - Figma Style
-                  const SizedBox(height: 40),
-                  const Text(
+ SizedBox(height: 40),
+ Text(
                     'Hesap Ayarları',
                     style: TextStyle(
                       fontSize: 20,
@@ -531,7 +532,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       color: DesignTokens.gray900,
                     ),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   _buildActionButton(
                     'Profili Düzenle',
                     Icons.edit,
@@ -636,24 +637,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             return AlertDialog(
               title: const Row(
                 children: [
-                  Icon(Icons.warning, color: DesignTokens.error, size: 28),
-                  SizedBox(width: 8),
-                  Text('Hesabımı Sil'),
+ Icon(Icons.warning, color: DesignTokens.error, size: 28),
+ SizedBox(width: 8),
+ Text('Hesabımı Sil'),
                 ],
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+ Text(
                     'KVKK Uyarısı - Önemli Bilgilendirme:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: DesignTokens.error,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     '• Hesabınız kalıcı olarak silinecektir\n'
                     '• Tüm kişisel verileriniz sistemden kaldırılacaktır\n'
                     '• Mesaj geçmişiniz silinecektir\n'
@@ -661,17 +662,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     '• Bu işlem geri alınamaz',
                     style: TextStyle(fontSize: 12, color: DesignTokens.error),
                   ),
-                  const SizedBox(height: DesignTokens.space16),
-                  const Text(
+ SizedBox(height: DesignTokens.space16),
+ Text(
                     'Hesabınızın kalıcı olarak silinmesini onaylıyor musunuz?',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     'Onaylamak için "HESABIMI SIL" yazın:',
                     style: TextStyle(fontSize: 12),
                   ),
-                  const SizedBox(height: 8),
+ SizedBox(height: 8),
                   TextField(
                     onChanged: (value) {
                       confirmText = value;
@@ -686,7 +687,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               actions: [
                 TextButton(
                   onPressed: isDeleting ? null : () => Navigator.of(context).pop(),
-                  child: const Text('İptal'),
+                  child: Text('İptal'),
                 ),
                 ElevatedButton(
                   onPressed: isDeleting ? null : () async {
@@ -766,15 +767,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     foregroundColor: Colors.white,
                   ),
                   child: isDeleting 
-                    ? const SizedBox(
+                    ? SizedBox(
                         width: 16,
                         height: 16,
-                        child: CircularProgressIndicator(
+                        child: const CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
-                    : const Text('Hesabımı Sil'),
+                    : Text('Hesabımı Sil'),
                 ),
               ],
             );

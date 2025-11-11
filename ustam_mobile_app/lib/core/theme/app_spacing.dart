@@ -43,47 +43,47 @@ class DesignTokens {
   static const double inputBorderRadius = 8.0;   // Airbnb input radius
   
   // Edge Insets helpers
-  static const EdgeInsets cardPaddingInsets = EdgeInsets.all(cardPadding);
-  static const EdgeInsets screenPaddingInsets = EdgeInsets.all(screenPadding);
-  static const EdgeInsets contentPaddingInsets = EdgeInsets.all(contentSpacing);
+  static const EdgeInsets cardPaddingInsets =  EdgeInsets.all(cardPadding);
+  static const EdgeInsets screenPaddingInsets =  EdgeInsets.all(screenPadding);
+  static const EdgeInsets contentPaddingInsets =  EdgeInsets.all(contentSpacing);
   
-  static const EdgeInsets buttonPaddingInsets = EdgeInsets.symmetric(
+  static const EdgeInsets buttonPaddingInsets =  EdgeInsets.symmetric(
     horizontal: buttonPaddingHorizontal,
     vertical: buttonPaddingVertical,
   );
   
-  static const EdgeInsets listItemPaddingInsets = EdgeInsets.symmetric(
+  static const EdgeInsets listItemPaddingInsets =  EdgeInsets.symmetric(
     horizontal: listItemPadding,
     vertical: listItemSpacing,
   );
   
   // Vertical spacing widgets
-  static const Widget verticalSpaceXS = SizedBox(height: xs);
-  static const Widget verticalSpaceSM = SizedBox(height: sm);
-  static const Widget verticalSpaceMD = SizedBox(height: md);
-  static const Widget verticalSpaceLG = SizedBox(height: lg);
-  static const Widget verticalSpaceXL = SizedBox(height: xl);
-  static const Widget verticalSpaceXXL = SizedBox(height: xxl);
+  static const Widget verticalSpaceXS =  SizedBox(height: xs);
+  static const Widget verticalSpaceSM =  SizedBox(height: sm);
+  static const Widget verticalSpaceMD =  SizedBox(height: md);
+  static const Widget verticalSpaceLG =  SizedBox(height: lg);
+  static const Widget verticalSpaceXL =  SizedBox(height: xl);
+  static const Widget verticalSpaceXXL =  SizedBox(height: xxl);
   
   // Horizontal spacing widgets
-  static const Widget horizontalSpaceXS = SizedBox(width: xs);
-  static const Widget horizontalSpaceSM = SizedBox(width: sm);
-  static const Widget horizontalSpaceMD = SizedBox(width: md);
-  static const Widget horizontalSpaceLG = SizedBox(width: lg);
-  static const Widget horizontalSpaceXL = SizedBox(width: xl);
-  static const Widget horizontalSpaceXXL = SizedBox(width: xxl);
+  static const Widget horizontalSpaceXS =  SizedBox(width: xs);
+  static const Widget horizontalSpaceSM =  SizedBox(width: sm);
+  static const Widget horizontalSpaceMD =  SizedBox(width: md);
+  static const Widget horizontalSpaceLG =  SizedBox(width: lg);
+  static const Widget horizontalSpaceXL =  SizedBox(width: xl);
+  static const Widget horizontalSpaceXXL =  SizedBox(width: xxl);
   
   // Border radius helpers
   static const BorderRadius cardBorderRadiusGeometry = BorderRadius.all(
-    Radius.circular(cardBorderRadius),
+     Radius.circular(cardBorderRadius),
   );
   
   static const BorderRadius buttonBorderRadiusGeometry = BorderRadius.all(
-    Radius.circular(buttonBorderRadius),
+     Radius.circular(buttonBorderRadius),
   );
   
   static const BorderRadius inputBorderRadiusGeometry = BorderRadius.all(
-    Radius.circular(inputBorderRadius),
+     Radius.circular(inputBorderRadius),
   );
   
   // Shadow helpers (Airbnb style)

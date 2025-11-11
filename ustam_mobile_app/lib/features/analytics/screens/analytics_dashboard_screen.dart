@@ -4,9 +4,10 @@ import '../../../core/utils/analytics_dashboard_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../widgets/cost_calculator_widget.dart';
-import '../widgets/performance_chart_widget.dart';
-import '../widgets/trend_chart_widget.dart';
+// TODO: Create these widget files
+// import '../widgets/cost_calculator_widget.dart';
+// import '../widgets/performance_chart_widget.dart';
+// import '../widgets/trend_chart_widget.dart';
 import '../../../core/theme/design_tokens.dart';
 
 class AnalyticsDashboardScreen extends ConsumerStatefulWidget {
@@ -19,12 +20,12 @@ class AnalyticsDashboardScreen extends ConsumerStatefulWidget {
 class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  final AnalyticsDashboardService _analyticsService = AnalyticsDashboardService();
+  // final AnalyticsDashboardService _analyticsService = AnalyticsDashboardService(); // Unused
   final AnalyticsDashboardManager _manager = AnalyticsDashboardManager();
   
   Map<String, dynamic>? _dashboardData;
   RealtimeMetrics? _realtimeMetrics;
-  Map<String, dynamic>? _constants;
+  // Map<String, dynamic>? _constants; // Unused
   
   bool _isLoading = true;
   String? _error;
@@ -103,7 +104,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildOverviewTab() {
     if (_dashboardData == null) {
-      return const Center(child: Text('Veri yüklenemedi'));
+      return const Center(child: const Text('Veri yüklenemedi'));
     }
 
     final user = ref.watch(authProvider);
@@ -119,11 +120,11 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
         children: [
           // Realtime Metrics
           if (_realtimeMetrics != null) ...[
-            const Text(
+ Text(
               'Anlık Metrikler',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -140,16 +141,16 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 );
               }).toList(),
             ),
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
           ],
 
           // Overview Metrics
           if (overview != null) ...[
-            const Text(
+ Text(
               'Genel Bakış',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -211,53 +212,52 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ],
               ],
             ),
-            const SizedBox(height: DesignTokens.space24),
+ SizedBox(height: DesignTokens.space24),
           ],
 
           // Performance Trends
           if (trends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       user?.userType == 'craftsman' ? 'Performans Trendi' : 'Harcama Trendi',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
-                    SizedBox(
+ SizedBox(height: DesignTokens.space16),
+ SizedBox(
                       height: 200,
-                      child: PerformanceChartWidget(
-                        body: PerformanceTrends.fromJson(trends),
-                        userType: user?.userType ?? 'customer',
+                      child: Center(
+                        child: Text('Performance Chart - Coming Soon'),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ],
 
           // Top Categories
           if (categories != null && categories.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       user?.userType == 'craftsman' ? 'En İyi Kategoriler' : 'Tercih Edilen Kategoriler',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     ...categories.take(5).map<Widget>((category) {
                       final categoryData = CategoryPerformance.fromJson(category);
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: EdgeInsets.only(bottom: 12),
                         child: Row(
                           children: [
                             Container(
@@ -270,21 +270,21 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               child: Center(
                                 child: Text(
                                   '${categories.indexOf(category) + 1}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 12),
+ SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     _manager.getCategoryDisplayName(categoryData.category),
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     user?.userType == 'craftsman'
@@ -300,7 +300,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                             ),
                             Text(
                               _manager.formatCurrency(categoryData.revenue),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: DesignTokens.primaryCoral,
                               ),
@@ -313,26 +313,26 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ],
 
           // Recent Activity (for craftsmen)
           if (user?.userType == 'craftsman' && recentActivity != null && recentActivity.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Son Aktiviteler',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     ...recentActivity.take(5).map<Widget>((activity) {
                       final activityData = RecentActivity.fromJson(activity);
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: EdgeInsets.only(bottom: 12),
                         child: Row(
                           children: [
                             Icon(
@@ -340,14 +340,14 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               color: activityData.statusColor,
                               size: 24,
                             ),
-                            const SizedBox(width: 12),
+ SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     activityData.title,
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     activityData.description,
@@ -370,7 +370,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: activityData.statusColor.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(DesignTokens.radius12),
@@ -379,12 +379,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                     _manager.getStatusText(activityData.status),
                                     style: TextStyle(
                                       fontSize: 10,
-                                      fontWeight: FontWeight.medium,
+                                      fontWeight: FontWeight.w500,
                                       color: activityData.statusColor,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+ SizedBox(height: 4),
                                 Text(
                                   _formatDateTime(activityData.date),
                                   style: const TextStyle(
@@ -417,26 +417,25 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final trends = _dashboardData!['trends'] ?? _dashboardData!['spending_trends'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           if (trends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       user?.userType == 'craftsman' ? 'Performans Trendi' : 'Harcama Trendi',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
-                    SizedBox(
+ SizedBox(height: DesignTokens.space16),
+ SizedBox(
                       height: 250,
-                      child: TrendChartWidget(
-                        body: PerformanceTrends.fromJson(trends),
-                        userType: user?.userType ?? 'customer',
+                      child: Center(
+                        child: Text('Trend Chart - Coming Soon'),
                       ),
                     ),
                   ],
@@ -451,19 +450,24 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
   Widget _buildCostCalculatorTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(DesignTokens.space16),
+          padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+ Text(
                 'Maliyet Hesaplayıcı',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: DesignTokens.space16),
-              CostCalculatorWidget(constants: _constants),
+ SizedBox(height: DesignTokens.space16),
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(DesignTokens.space16),
+                  child: Text('Cost Calculator - Coming Soon'),
+                ),
+              ),
             ],
           ),
         ),
@@ -481,32 +485,32 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     final revenueAnalytics = _dashboardData!['revenue_analytics'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Conversion Funnel
           if (conversionFunnel != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Dönüşüm Hunisi',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     ...conversionFunnel['stages'].entries.map<Widget>((entry) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding: EdgeInsets.only(bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(entry.key.toString().replaceAll('_', ' ').toUpperCase()),
                             Text(
                               entry.value.toString(),
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -516,38 +520,38 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ],
 
           // Revenue Analytics
           if (revenueAnalytics != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Gelir Analizi',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     Container(
-                      padding: const EdgeInsets.all(DesignTokens.space16),
+                      padding: EdgeInsets.all(DesignTokens.space16),
                       decoration: BoxDecoration(
                         color: DesignTokens.primaryCoral.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.attach_money, color: DesignTokens.primaryCoral, size: 32),
-                          const SizedBox(width: 12),
+ Icon(Icons.attach_money, color: DesignTokens.primaryCoral, size: 32),
+ SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 _manager.formatCurrency(revenueAnalytics['total_revenue']),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: DesignTokens.primaryCoral,
@@ -579,26 +583,26 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
     }
 
     final platformTrends = _dashboardData!['platform_trends'];
-    final categoryTrends = _dashboardData!['category_trends'];
+    // final categoryTrends = _dashboardData!['category_trends']; // Unused
     final geographicTrends = _dashboardData!['geographic_trends'];
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Platform Overview
           if (platformTrends != null) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Platform Genel Bakış',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -631,25 +635,25 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                 ),
               ),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
           ],
 
           // Geographic Trends
           if (geographicTrends != null && geographicTrends.isNotEmpty) ...[
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(DesignTokens.space16),
+                padding: EdgeInsets.all(DesignTokens.space16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+ Text(
                       'Coğrafi Dağılım',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                     ...geographicTrends.take(10).map<Widget>((city) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding: EdgeInsets.only(bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -659,7 +663,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                                 children: [
                                   Text(
                                     city['city'],
-                                    style: const TextStyle(fontWeight: FontWeight.medium),
+                                    style: TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                   Text(
                                     '${city['quote_count']} teklif',
@@ -673,7 +677,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                               children: [
                                 Text(
                                   _manager.formatCurrency(city['revenue']),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: DesignTokens.primaryCoral,
                                   ),
@@ -701,12 +705,12 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 24, color: color),
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Text(
               value,
               style: TextStyle(
@@ -716,7 +720,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 4),
+ SizedBox(height: 4),
             Text(
               title,
               style: const TextStyle(
@@ -763,7 +767,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Analitik Dashboard'),
+        title: Text('Analitik Dashboard'),
         actions: [
           // Period Selector
           PopupMenuButton<int>(
@@ -780,7 +784,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     ))
                 .toList(),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -788,7 +792,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
                     'Son $_selectedPeriod gün',
                     style: const TextStyle(fontSize: 14),
                   ),
-                  const Icon(Icons.arrow_drop_down),
+ Icon(Icons.arrow_drop_down),
                 ],
               ),
             ),
@@ -796,7 +800,7 @@ class _AnalyticsDashboardScreenState extends ConsumerState<AnalyticsDashboardScr
           // Refresh Button
           IconButton(
             onPressed: _loadData,
-            icon: const Icon(Icons.refresh),
+            icon: Icon(Icons.refresh),
           ),
         ],
         bottom: TabBar(

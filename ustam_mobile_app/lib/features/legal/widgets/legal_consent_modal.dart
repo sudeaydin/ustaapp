@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/services/api_service.dart';
 
@@ -30,7 +29,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: const BorderRadius.circular(16),
       ),
       child: Container(
         width: double.infinity,
@@ -48,7 +47,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                   height: 40,
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: const BorderRadius.circular(10),
                   ),
                   child: const Icon(
                     Icons.gavel,
@@ -171,7 +170,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                         ? const SizedBox(
                             width: 20,
                             height: 20,
-                            child: CircularProgressIndicator(
+                            child: const CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
@@ -204,7 +203,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.circular(12),
         border: Border.all(
           color: isAccepted 
               ? DesignTokens.primaryCoral.withOpacity(0.3)
@@ -224,7 +223,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: DesignTokens.gray900,
@@ -308,7 +307,7 @@ class _LegalConsentModalState extends State<LegalConsentModal> {
         
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Yasal onaylar başarıyla kaydedildi'),
+            content: const Text('Yasal onaylar başarıyla kaydedildi'),
             backgroundColor: Colors.green,
           ),
         );

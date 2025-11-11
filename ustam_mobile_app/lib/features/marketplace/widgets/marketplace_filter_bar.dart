@@ -50,7 +50,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
     final feedState = ref.watch(marketplaceFeedProvider);
 
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
         boxShadow: [
@@ -67,7 +67,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           Container(
             decoration: BoxDecoration(
               color: DesignTokens.gray100,
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
             ),
             child: TextField(
               controller: _searchController,
@@ -84,7 +84,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                       )
                     : null,
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
+                contentPadding: EdgeInsets.symmetric(
                   horizontal: DesignTokens.space16,
                   vertical: DesignTokens.space12,
                 ),
@@ -164,13 +164,13 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: DesignTokens.space12,
           vertical: DesignTokens.space8,
         ),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(DesignTokens.radius12),
+          borderRadius: const BorderRadius.circular(DesignTokens.radius12),
           border: Border.all(
             color: isSelected 
                 ? (color ?? DesignTokens.primaryCoral)
@@ -183,7 +183,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           children: [
             if (icon != null) ...[
               Icon(icon, size: 16, color: textColor),
-              const SizedBox(width: DesignTokens.space4),
+ SizedBox(width: DesignTokens.space4),
             ],
             Text(
               label,
@@ -269,19 +269,19 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
           Container(
             width: 40,
             height: 4,
-            margin: const EdgeInsets.only(top: DesignTokens.space12),
+            margin: EdgeInsets.only(top: DesignTokens.space12),
             decoration: BoxDecoration(
               color: DesignTokens.gray300,
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: const BorderRadius.circular(2),
             ),
           ),
 
           // Title
           Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: DesignTokens.gray900,
@@ -335,7 +335,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -343,10 +343,10 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                 Container(
                   width: 40,
                   height: 4,
-                  margin: const EdgeInsets.only(bottom: DesignTokens.space16),
+                  margin: EdgeInsets.only(bottom: DesignTokens.space16),
                   decoration: BoxDecoration(
                     color: DesignTokens.gray300,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: const BorderRadius.circular(2),
                   ),
                 ),
 
@@ -365,7 +365,7 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                 // Budget range
                 Text(
                   '₺${tempMinBudget.toInt()} - ₺${tempMaxBudget.toInt()}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: DesignTokens.primaryCoral,
@@ -406,9 +406,9 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: DesignTokens.primaryCoral,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: DesignTokens.space12),
+                      padding: EdgeInsets.symmetric(vertical: DesignTokens.space12),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
                       ),
                     ),
                     child: const Text('Uygula'),

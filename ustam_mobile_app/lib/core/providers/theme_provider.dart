@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../theme/app_colors.dart';
 import '../theme/design_tokens.dart' as dt;
 
 class ThemeNotifier extends StateNotifier<ThemeMode> {
@@ -39,12 +38,12 @@ class AppThemes {
         seedColor: dt.DesignTokens.primaryCoral,
         brightness: Brightness.light,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: dt.DesignTokens.primaryCoral,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: dt.DesignTokens.surfaceSecondaryColor,
         elevation: 2,
         shape: RoundedRectangleBorder(
@@ -60,7 +59,7 @@ class AppThemes {
           ),
         ),
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         bodyLarge: TextStyle(color: dt.DesignTokens.gray900),
         bodyMedium: TextStyle(color: dt.DesignTokens.gray600),
       ),
@@ -81,11 +80,11 @@ class AppThemes {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      cardTheme: const CardThemeData(
+      cardTheme: CardTheme(
         color: Color(0xFF1E293B),
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

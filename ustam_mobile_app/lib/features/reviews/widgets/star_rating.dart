@@ -32,7 +32,7 @@ class StarRating extends StatelessWidget {
           );
         }),
         if (showRating) ...[
-          const SizedBox(width: 4),
+ SizedBox(width: 4),
           Text(
             rating.toStringAsFixed(1),
             style: TextStyle(
@@ -118,10 +118,10 @@ class CategoryRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.nonPhotoBlue.withOpacity(0.2)),
       ),
       child: Column(
@@ -129,7 +129,7 @@ class CategoryRatingWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: DesignTokens.gray900,
@@ -178,10 +178,10 @@ class CategoryRatingDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Row(

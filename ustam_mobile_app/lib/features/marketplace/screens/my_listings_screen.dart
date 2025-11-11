@@ -124,7 +124,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
 
   Widget _buildListingsList() {
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _mockListings.length,
       itemBuilder: (context, index) {
         final listing = _mockListings[index];
@@ -135,7 +135,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
 
   Widget _buildListingCard(Map<String, dynamic> listing) {
     return AirbnbCard(
-      margin: const EdgeInsets.only(bottom: DesignTokens.space12),
+      margin: EdgeInsets.only(bottom: DesignTokens.space12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -145,7 +145,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               Expanded(
                 child: Text(
                   listing['title'],
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: DesignTokens.gray900,
@@ -153,10 +153,10 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: listing['statusColor'].withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Text(
                   listing['status'],
@@ -187,14 +187,14 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: DesignTokens.primaryCoral.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Text(
                   listing['category'],
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: DesignTokens.primaryCoral,
                     fontWeight: FontWeight.w600,
@@ -204,7 +204,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               const SizedBox(width: 8),
               Text(
                 listing['budget'],
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.gray900,
@@ -247,7 +247,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               const SizedBox(width: 4),
               Text(
                 '${listing['offersCount']} Teklif',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12,
                   color: DesignTokens.info,
                   fontWeight: FontWeight.w600,
@@ -260,24 +260,24 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
           // Accepted offer info for completed listings
           if (listing['hasAcceptedOffer'] == true) ...[
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: DesignTokens.success.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: const BorderRadius.circular(8),
                 border: Border.all(color: DesignTokens.success.withOpacity(0.3)),
               ),
               child: Row(
                 children: [
-                  const Icon(
+ Icon(
                     Icons.check_circle,
                     color: DesignTokens.success,
                     size: 16,
                   ),
-                  const SizedBox(width: 8),
+ SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       '${listing['acceptedOfferCraftsman']} adlı usta ile anlaştınız',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         color: DesignTokens.success,
                         fontWeight: FontWeight.w600,
@@ -287,7 +287,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+ SizedBox(height: 12),
           ],
           
           // Action Buttons
@@ -306,10 +306,10 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                     side: BorderSide(color: DesignTokens.primaryCoral),
                     foregroundColor: DesignTokens.primaryCoral,
                   ),
-                  child: const Text('Detay'),
+                  child: Text('Detay'),
                 ),
               ),
-              const SizedBox(width: 8),
+ SizedBox(width: 8),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {

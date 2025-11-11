@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import '../theme/design_tokens.dart';
 
 enum AirbnbCardType { standard, elevated, flat }
@@ -29,7 +29,7 @@ class AirbnbCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardWidget = Container(
-      margin: margin ?? EdgeInsets.symmetric(vertical: DesignTokens.space8),
+      margin: margin ?? const EdgeInsets.symmetric(vertical: DesignTokens.space8),
       decoration: BoxDecoration(
         color: backgroundColor ?? DesignTokens.surfacePrimary,
         borderRadius: BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
@@ -41,7 +41,7 @@ class AirbnbCard extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                print('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
+                debugPrint('🎯 AirbnbCard onTap called - RESPONSIVE VERSION');
                 onTap!();
               },
               borderRadius: BorderRadius.circular(borderRadius ?? DesignTokens.radius16),
@@ -155,7 +155,7 @@ class AirbnbImageCard extends StatelessWidget {
         children: [
           // Image section
           ClipRRect(
-            borderRadius: const BorderRadius.only(
+            borderRadius: BorderRadius.only(
               topLeft: Radius.circular(DesignTokens.radius16),
               topRight: Radius.circular(DesignTokens.radius16),
             ),
@@ -177,7 +177,7 @@ class AirbnbImageCard extends StatelessWidget {
           
           // Content section
           if (title != null || subtitle != null)
-            Padding(
+ Padding(
               padding: DesignTokens.spacingCardPaddingInsets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +221,7 @@ class AirbnbStatsCard extends StatelessWidget {
         children: [
           if (icon != null) ...[
             Container(
-              padding: const EdgeInsets.all(DesignTokens.space8),
+              padding: EdgeInsets.all(DesignTokens.space8),
               decoration: BoxDecoration(
                 color: (iconColor ?? DesignTokens.primaryCoral).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(DesignTokens.space8),
@@ -240,7 +240,7 @@ class AirbnbStatsCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     color: DesignTokens.gray600,
                     fontWeight: FontWeight.w400,
@@ -249,7 +249,7 @@ class AirbnbStatsCard extends StatelessWidget {
                 DesignTokens.verticalSpaceXS,
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     color: DesignTokens.gray900,
                     fontWeight: FontWeight.w600,

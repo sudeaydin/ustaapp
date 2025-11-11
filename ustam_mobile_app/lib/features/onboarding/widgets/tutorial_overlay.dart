@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,7 +59,7 @@ class HighlightPainter extends CustomPainter {
           targetSize.width,
           targetSize.height,
         ),
-        const Radius.circular(8),
+        Radius.circular(8),
       ),
       paint,
     );
@@ -254,7 +255,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                         padding: const EdgeInsets.all(20),
                                                   decoration: BoxDecoration(
                             color: DesignTokens.surfacePrimary,
-                            borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                             border: Border.all(
                               color: DesignTokens.primaryCoral.withOpacity(0.3),
                               width: 2,
@@ -284,13 +285,13 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 const Spacer(),
                                 TextButton(
                                   onPressed: _skipTutorial,
-                                  child: Text('skip'.tr(locale)),
+                                  child: const Text('skip'.tr(locale)),
                                 ),
                               ],
                             ),
                             
                             // Progress bar
-                            LinearProgressIndicator(
+                            const LinearProgressIndicator(
                               value: (_currentStep + 1) / widget.steps.length,
                               backgroundColor: DesignTokens.gray300,
                               valueColor: AlwaysStoppedAnimation<Color>(DesignTokens.primaryCoral),
@@ -306,7 +307,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 children: [
                                   Text(
                                     currentStepData.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -333,7 +334,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                 if (_currentStep > 0)
                                   TextButton(
                                     onPressed: _previousStep,
-                                    child: Text('previous'.tr(locale)),
+                                    child: const Text('previous'.tr(locale)),
                                   )
                                 else
                                   const SizedBox.shrink(),
@@ -368,7 +369,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                                     backgroundColor: DesignTokens.primaryCoral,
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                      borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                                     ),
                                   ),
                                   child: Text(
@@ -416,7 +417,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
                 color: DesignTokens.primaryCoral.withOpacity(_fadeAnimation.value),
                 width: 3,
               ),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
+              borderRadius: const BorderRadius.circular(DesignTokens.radius12),
               boxShadow: [
                 // Main glow
                 BoxShadow(
@@ -441,7 +442,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay>
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.8 * _fadeAnimation.value),
                   width: 2,
@@ -623,7 +624,7 @@ class TutorialManager extends ConsumerWidget {
           userType: userType,
           onComplete: () {
             // Tutorial completed - no snackbar to avoid dispose issues
-            print('Tutorial completed for $userType');
+            debugPrint('Tutorial completed for $userType');
           },
         ),
       ],

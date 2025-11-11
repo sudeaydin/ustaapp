@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import '../../../core/utils/enhanced_notifications_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
-import '../../auth/providers/auth_provider.dart';
 
 class EnhancedNotificationsScreen extends ConsumerStatefulWidget {
   const EnhancedNotificationsScreen({super.key});
@@ -87,7 +86,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Push bildirimleri başarıyla etkinleştirildi!'),
+            content: const Text('Push bildirimleri başarıyla etkinleştirildi!'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -114,7 +113,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Tercihler güncellendi'),
+              content: const Text('Tercihler güncellendi'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -164,7 +163,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Konum paylaşımı başlatıldı'),
+              content: const Text('Konum paylaşımı başlatıldı'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -192,7 +191,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Konum paylaşımı durduruldu'),
+              content: const Text('Konum paylaşımı durduruldu'),
               backgroundColor: DesignTokens.primaryCoral,
             ),
           );
@@ -224,7 +223,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (event != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Takvim etkinliği oluşturuldu'),
+            content: const Text('Takvim etkinliği oluşturuldu'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -247,7 +246,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Test bildirimi gönderildi!'),
+            content: const Text('Test bildirimi gönderildi!'),
             backgroundColor: DesignTokens.primaryCoral,
           ),
         );
@@ -266,18 +265,18 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildPreferencesTab() {
     if (_preferences == null) {
-      return const Center(child: Text('Tercihler yüklenemedi'));
+      return const Center(child: const Text('Tercihler yüklenemedi'));
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Push Notifications Card
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -311,7 +310,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           // Notification Types
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -350,7 +349,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           // Quiet Hours
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -368,10 +367,10 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                             const Text('Başlangıç'),
                             const SizedBox(height: 8),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['start'] ?? '22:00'),
                             ),
@@ -386,10 +385,10 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                             const Text('Bitiş'),
                             const SizedBox(height: 8),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                                borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                               ),
                               child: Text(_preferences!.quietHours['end'] ?? '08:00'),
                             ),
@@ -430,11 +429,11 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildAnalyticsTab() {
     if (_analytics == null) {
-      return const Center(child: Text('Analitik veriler yüklenemedi'));
+      return const Center(child: const Text('Analitik veriler yüklenemedi'));
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Metrics Grid
@@ -477,7 +476,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
           // Channel Performance
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -522,13 +521,13 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildLocationTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           // Start Location Sharing Button
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
                   const Icon(Icons.location_on, size: 48, color: DesignTokens.primaryCoral),
@@ -562,11 +561,11 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
           // Active Location Shares
           if (_locationShares.isNotEmpty) ...[
-            const Text(
+ Text(
               'Aktif Konum Paylaşımları',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             ..._locationShares.map((share) => Card(
               child: ListTile(
                 leading: Icon(
@@ -577,18 +576,18 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Başladı: ${_formatDateTime(share.createdAt)}'),
-                    Text('Bitiş: ${_formatDateTime(share.expiresAt)}'),
+ Text('Başladı: ${_formatDateTime(share.createdAt)}'),
+ Text('Bitiş: ${_formatDateTime(share.expiresAt)}'),
                     if (!share.isExpired)
-                      Text('Kalan süre: ${_formatDuration(share.remainingTime)}'),
+ Text('Kalan süre: ${_formatDuration(share.remainingTime)}'),
                   ],
                 ),
                 trailing: share.isActive
                     ? IconButton(
-                        icon: const Icon(Icons.stop, color: Colors.red),
+                        icon: Icon(Icons.stop, color: Colors.red),
                         onPressed: () => _stopLocationSharing(share.id),
                       )
-                    : const Icon(Icons.check_circle, color: Colors.grey),
+                    : Icon(Icons.check_circle, color: Colors.grey),
               ),
             )).toList(),
           ] else
@@ -597,8 +596,8 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 padding: EdgeInsets.all(32),
                 child: Column(
                   children: [
-                    Icon(Icons.location_off, size: 48, color: Colors.grey),
-                    SizedBox(height: DesignTokens.space16),
+ Icon(Icons.location_off, size: 48, color: Colors.grey),
+ SizedBox(height: DesignTokens.space16),
                     Text(
                       'Aktif konum paylaşımı yok',
                       style: TextStyle(color: Colors.grey),
@@ -614,61 +613,61 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
 
   Widget _buildTestTab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         children: [
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
-                  const Icon(Icons.notification_add, size: 48, color: DesignTokens.primaryCoral),
-                  const SizedBox(height: DesignTokens.space16),
-                  const Text(
+ Icon(Icons.notification_add, size: 48, color: DesignTokens.primaryCoral),
+ SizedBox(height: DesignTokens.space16),
+ Text(
                     'Test Bildirimi',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     'Bildirim sisteminizi test edin',
                     style: TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   ElevatedButton.icon(
                     onPressed: _sendTestNotification,
-                    icon: const Icon(Icons.send),
-                    label: const Text('Test Bildirimi Gönder'),
+                    icon: Icon(Icons.send),
+                    label: Text('Test Bildirimi Gönder'),
                   ),
                 ],
               ),
             ),
           ),
 
-          const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
 
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(DesignTokens.space16),
+              padding: EdgeInsets.all(DesignTokens.space16),
               child: Column(
                 children: [
-                  const Icon(Icons.calendar_today, size: 48, color: DesignTokens.primaryCoral),
-                  const SizedBox(height: DesignTokens.space16),
-                  const Text(
+ Icon(Icons.calendar_today, size: 48, color: DesignTokens.primaryCoral),
+ SizedBox(height: DesignTokens.space16),
+ Text(
                     'Takvim Etkinliği',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+ SizedBox(height: 8),
+ Text(
                     'Test takvim etkinliği oluşturun',
                     style: TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
                   ElevatedButton.icon(
                     onPressed: _createTestCalendarEvent,
-                    icon: const Icon(Icons.event),
-                    label: const Text('Test Etkinliği Oluştur'),
+                    icon: Icon(Icons.event),
+                    label: Text('Test Etkinliği Oluştur'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: DesignTokens.primaryCoral,
                       foregroundColor: Colors.white,
@@ -686,12 +685,12 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 32, color: color),
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Text(
               value,
               style: TextStyle(
@@ -700,7 +699,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
                 color: color,
               ),
             ),
-            const SizedBox(height: 4),
+ SizedBox(height: 4),
             Text(
               title,
               style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -747,7 +746,7 @@ class _EnhancedNotificationsScreenState extends ConsumerState<EnhancedNotificati
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gelişmiş Bildirimler'),
+        title: Text('Gelişmiş Bildirimler'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

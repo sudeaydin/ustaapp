@@ -34,7 +34,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildOverallRating() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -42,7 +42,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             DesignTokens.primaryCoral.withOpacity(0.1),
           ],
         ),
-        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(
           color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
@@ -54,7 +54,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             children: [
               Text(
                 statistics.averageRating.toStringAsFixed(1),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
                   color: DesignTokens.primaryCoral,
@@ -93,7 +93,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   _getRatingDescription(statistics.averageRating),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: DesignTokens.primaryCoral,
@@ -134,8 +134,8 @@ class ReviewStatisticsWidget extends StatelessWidget {
   }
 
   Widget _buildRatingBar(int stars, int count, double percentage) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           // Star count
@@ -143,7 +143,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
             width: 20,
             child: Text(
               '$stars',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
@@ -167,7 +167,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
               height: 8,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: const BorderRadius.circular(4),
               ),
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
@@ -175,7 +175,7 @@ class ReviewStatisticsWidget extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral,
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: const BorderRadius.circular(4),
                   ),
                 ),
               ),
@@ -274,10 +274,10 @@ class ReviewStatisticsWidget extends StatelessWidget {
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: color.withOpacity(0.2),
         ),

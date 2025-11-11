@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/theme/ios_icons.dart';
-import '../../../core/config/app_config.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../core/widgets/airbnb_button.dart';
-import '../../../core/widgets/airbnb_card.dart';
 import '../../../core/widgets/airbnb_input.dart';
-import '../../../core/widgets/airbnb_bottom_navigation.dart';
 import '../../../core/widgets/common_app_bar.dart';
-import '../../../core/services/analytics_service.dart';
 import '../../../core/utils/accessibility_utils.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../models/search_filters.dart';
@@ -19,7 +14,6 @@ import '../widgets/craftsman_card.dart' as search_widgets;
 import '../widgets/search_filters_sheet.dart';
 import '../../../core/widgets/error_message.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -136,7 +130,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(DesignTokens.radius16),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
                         border: Border.all(
                           color: Colors.grey.withOpacity(0.3),
                           width: 1,
@@ -171,7 +165,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.city != null) ...[
                           _buildQuickFilterChip(
@@ -181,7 +175,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.minRating != null) ...[
                           _buildQuickFilterChip(
@@ -191,7 +185,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                         if (_filters.isVerified == true) ...[
                           _buildQuickFilterChip(
@@ -201,12 +195,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
                               _performSearch();
                             }),
                           ),
-                          const SizedBox(width: 8),
+ SizedBox(width: 8),
                         ],
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8),
+ SizedBox(height: 8),
                 ],
               ],
             ),
@@ -223,10 +217,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
   Widget _buildQuickFilterChip(String label, VoidCallback onRemove) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const BorderRadius.circular(20),
         border: Border.all(
           color: Colors.white.withOpacity(0.3),
           width: 1,
@@ -237,16 +231,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(width: 4),
+ SizedBox(width: 4),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(
+            child: Icon(
               iOSIcons.close,
               color: Colors.white,
               size: 16,
@@ -289,7 +283,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               size: 64,
               color: DesignTokens.gray600.withOpacity(0.5),
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             Text(
               isInitialState 
                 ? 'Usta aramak için yukarıdaki arama çubuğunu kullanın'
@@ -300,7 +294,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
             ElevatedButton.icon(
               onPressed: () {
                 if (isInitialState) {
@@ -329,12 +323,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
       onRefresh: _performSearch,
       color: DesignTokens.primaryCoral,
       child: ListView.builder(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+        padding: EdgeInsets.all(DesignTokens.space16),
         itemCount: searchState.craftsmen.length,
         itemBuilder: (context, index) {
           final craftsman = searchState.craftsmen[index];
           return Padding(
-            padding: const EdgeInsets.only(bottom: 16),
+            padding: EdgeInsets.only(bottom: 16),
                          child: search_widgets.CraftsmanCard(
                craftsman: craftsman,
                onTap: () => _navigateToCraftsmanDetail(craftsman),

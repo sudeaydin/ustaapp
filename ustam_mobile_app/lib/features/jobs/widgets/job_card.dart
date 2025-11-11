@@ -24,10 +24,10 @@ class JobCard extends StatelessWidget {
     final String priority = job is Job ? job.priority.name : (job['priority'] ?? 'normal');
     
     return AirbnbCard(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,7 +36,7 @@ class JobCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       job is Job ? job.title : (job['title'] ?? 'İsimsiz İş'),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -60,10 +60,10 @@ class JobCard extends StatelessWidget {
                 children: [
                   if (priority == 'high')
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: DesignTokens.error.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                       ),
                       child: Text(
                         'Acil',
@@ -119,10 +119,10 @@ class JobCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius8),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
       ),
       child: Text(
         text,

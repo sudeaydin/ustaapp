@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/utils/error_handler.dart';
@@ -150,21 +151,21 @@ class SearchNotifier extends StateNotifier<SearchState> {
       );
 
       if (apiResponse.isSuccess && apiResponse.data != null) {
-        print('🔍 Search API Response: ${apiResponse.data}');
+        debugPrint('🔍 Search API Response: ${apiResponse.data}');
         
         // Fix: API response has nested structure: {data: {craftsmen: [...]}}
         final responseData = apiResponse.data!['data'] as Map<String, dynamic>? ?? {};
         final craftsmen = List<Map<String, dynamic>>.from(
           responseData['craftsmen'] ?? []
         );
-        print('🔍 Parsed craftsmen count: ${craftsmen.length}');
+        debugPrint('🔍 Parsed craftsmen count: ${craftsmen.length}');
 
         state = state.copyWith(
           craftsmen: craftsmen,
           isLoading: false,
         );
       } else {
-        print('❌ Search API Failed: ${apiResponse.error}');
+        debugPrint('❌ Search API Failed: ${apiResponse.error}');
         state = state.copyWith(
           error: AppError(
             type: ErrorType.server,

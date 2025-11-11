@@ -62,7 +62,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -104,10 +104,10 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildHeaderInfo() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.primaryCoral.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(
           color: DesignTokens.primaryCoral.withOpacity(0.2),
         ),
@@ -125,7 +125,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               const SizedBox(width: 8),
               Text(
                 'Usta: ${widget.craftsmanName}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -133,7 +133,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             ],
           ),
           if (widget.serviceName != null) ...[
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Row(
               children: [
                 Icon(
@@ -141,7 +141,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
                   color: DesignTokens.primaryCoral,
                   size: 20,
                 ),
-                const SizedBox(width: 8),
+ SizedBox(width: 8),
                 Text(
                   'Hizmet: ${widget.serviceName}',
                   style: const TextStyle(
@@ -159,23 +159,23 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
 
   Widget _buildOverallRating() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: DesignTokens.surfacePrimary,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         border: Border.all(color: DesignTokens.primaryCoral.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+ Text(
             'Genel Değerlendirme',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 12),
+ SizedBox(height: 12),
           Row(
             children: [
               StarRating(
@@ -186,10 +186,10 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
               const Spacer(),
               if (_overallRating > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: DesignTokens.primaryCoral.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const BorderRadius.circular(20),
                   ),
                   child: Text(
                     _getRatingText(_overallRating),
@@ -203,7 +203,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             ],
           ),
           if (_overallRating == 0) ...[
-            const SizedBox(height: 8),
+ SizedBox(height: 8),
             Text(
               'Aşağıdaki kategorileri puanlayın',
               style: TextStyle(
@@ -248,14 +248,14 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+ Text(
           'Kategoriler *',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8),
+ SizedBox(height: 8),
         Text(
           'Her kategoriyi puanlayın (Genel puan otomatik hesaplanacak)',
           style: TextStyle(
@@ -263,7 +263,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
             color: DesignTokens.textLight,
           ),
         ),
-        const SizedBox(height: DesignTokens.space16),
+ SizedBox(height: DesignTokens.space16),
         
         CategoryRatingWidget(
           title: 'İletişim',
@@ -271,7 +271,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
           onRatingChanged: (rating) => setState(() => _communicationRating = rating),
         ),
         
-        const SizedBox(height: 12),
+ SizedBox(height: 12),
         
         CategoryRatingWidget(
           title: 'İş Kalitesi',
@@ -279,7 +279,7 @@ class _CreateReviewScreenState extends ConsumerState<CreateReviewScreen> {
           onRatingChanged: (rating) => setState(() => _qualityRating = rating),
         ),
         
-        const SizedBox(height: 12),
+ SizedBox(height: 12),
         
         CategoryRatingWidget(
           title: 'Hız & Dakiklik',

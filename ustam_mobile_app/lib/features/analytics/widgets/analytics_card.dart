@@ -40,8 +40,8 @@ class AnalyticsCard extends StatelessWidget {
     }
 
     return AirbnbCard(
-      child: Padding(
-        padding: const EdgeInsets.all(DesignTokens.space16),
+      child: const Padding(
+      padding: EdgeInsets.all(DesignTokens.space16),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,7 +49,7 @@ class AnalyticsCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(DesignTokens.radius8),

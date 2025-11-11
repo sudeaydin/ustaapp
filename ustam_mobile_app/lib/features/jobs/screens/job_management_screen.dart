@@ -140,7 +140,7 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     if (_performanceMetrics.isEmpty) return const SizedBox.shrink();
 
     return Container(
-      margin: const EdgeInsets.all(DesignTokens.space16),
+      margin: EdgeInsets.all(DesignTokens.space16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -256,12 +256,12 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _jobs.length,
       itemBuilder: (context, index) {
         final job = _jobs[index];
         return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: JobCard(
             job: job,
             userType: ref.read(authProvider)?.userType ?? 'customer',
@@ -298,12 +298,12 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _warranties.length,
       itemBuilder: (context, index) {
         final warranty = _warranties[index];
         return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: WarrantyCard(
             warranty: {'status': 'active', 'description': 'Garanti kapsamında'}, // Mock warranty data
             job: warranty is Map<String, dynamic> 
@@ -342,12 +342,12 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       itemCount: _emergencies.length,
       itemBuilder: (context, index) {
         final emergency = _emergencies[index];
         return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12),
           child: EmergencyServiceCard(
             emergency: emergency,
             onUpdate: _loadData,
@@ -375,24 +375,24 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           indicatorColor: Colors.white,
           tabs: [
             const Tab(
-              icon: Icon(Icons.work),
+              icon: const Icon(Icons.work),
               text: 'Aktif',
             ),
             const Tab(
-              icon: Icon(Icons.check_circle),
+              icon: const Icon(Icons.check_circle),
               text: 'Tamamlanan',
             ),
             const Tab(
-              icon: Icon(Icons.security),
+              icon: const Icon(Icons.security),
               text: 'Garantiler',
             ),
             const Tab(
-              icon: Icon(Icons.list),
+              icon: const Icon(Icons.list),
               text: 'Tümü',
             ),
             if (!isCustomer)
               const Tab(
-                icon: Icon(Icons.emergency),
+                icon: const Icon(Icons.emergency),
                 text: 'Acil Servis',
               ),
           ],
@@ -453,10 +453,10 @@ class _MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.space16),
+      padding: EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+        borderRadius: const BorderRadius.circular(DesignTokens.radius12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -471,10 +471,10 @@ class _MetricCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(DesignTokens.radius8),
+                  borderRadius: const BorderRadius.circular(DesignTokens.radius8),
                 ),
                 child: Icon(
                   icon,
@@ -488,7 +488,7 @@ class _MetricCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),

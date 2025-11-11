@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import '../services/api_service.dart';
 import '../theme/design_tokens.dart';
 
@@ -410,9 +409,10 @@ class AnalyticsDashboardService {
   /// Get dashboard data
   Future<Map<String, dynamic>?> getDashboardData({int days = 30, String? userType}) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/dashboard',
-        params: {
+        queryParams: {
           'days': days.toString(),
           if (userType != null) 'user_type': userType,
         },
@@ -429,9 +429,10 @@ class AnalyticsDashboardService {
   /// Get craftsman overview
   Future<Map<String, dynamic>?> getCraftsmanOverview(int craftsmanId, {int days = 30}) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/craftsman/$craftsmanId/overview',
-        params: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -445,9 +446,10 @@ class AnalyticsDashboardService {
   /// Get customer history
   Future<Map<String, dynamic>?> getCustomerHistory(int customerId, {int days = 30}) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/customer/$customerId/history',
-        params: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -470,7 +472,8 @@ class AnalyticsDashboardService {
     int craftsmanExperience = 1,
   }) async {
     try {
-      final response = await _apiService.postWithOptions(
+      final response = await _apiService.request(
+        'POST',
         '/api/analytics-dashboard/cost-calculator',
         body: {
           'category': category,
@@ -499,7 +502,8 @@ class AnalyticsDashboardService {
     int days = 90,
   }) async {
     try {
-      final response = await _apiService.postWithOptions(
+      final response = await _apiService.request(
+        'POST',
         '/api/analytics-dashboard/cost-calculator/market-comparison',
         body: {
           'category': category,
@@ -519,9 +523,10 @@ class AnalyticsDashboardService {
   /// Get pricing recommendations
   Future<Map<String, dynamic>?> getPricingRecommendations(int craftsmanId, String category) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/cost-calculator/pricing-recommendations/$craftsmanId',
-        params: {'category': category},
+        queryParams: {'category': category},
       );
       if (response.success && response.data != null) {
         return response.data;
@@ -535,9 +540,10 @@ class AnalyticsDashboardService {
   /// Get category trends
   Future<List<CategoryPerformance>> getCategoryTrends({int days = 30}) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/trends/categories',
-        params: {'days': days.toString()},
+        queryParams: {'days': days.toString()},
       );
       if (response.success && response.data != null) {
         return (response.data as List)
@@ -553,9 +559,10 @@ class AnalyticsDashboardService {
   /// Get recent activity
   Future<List<RecentActivity>> getRecentActivity({int limit = 20}) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/activity/recent',
-        params: {'limit': limit.toString()},
+        queryParams: {'limit': limit.toString()},
       );
       if (response.success && response.data != null) {
         return (response.data as List)
@@ -571,7 +578,8 @@ class AnalyticsDashboardService {
   /// Get realtime metrics
   Future<RealtimeMetrics?> getRealtimeMetrics() async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/realtime/metrics',
       );
       if (response.success && response.data != null) {
@@ -586,7 +594,8 @@ class AnalyticsDashboardService {
   /// Get analytics constants
   Future<Map<String, dynamic>?> getAnalyticsConstants() async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/constants',
       );
       if (response.success && response.data != null) {
@@ -606,7 +615,8 @@ class AnalyticsDashboardService {
     String exportFormat = 'json',
   }) async {
     try {
-      final response = await _apiService.postWithOptions(
+      final response = await _apiService.request(
+        'POST',
         '/api/analytics-dashboard/reports/custom',
         body: {
           'start_date': startDate.toIso8601String(),
@@ -630,9 +640,10 @@ class AnalyticsDashboardService {
     String? category,
   }) async {
     try {
-      final response = await _apiService.get(
+      final response = await _apiService.request(
+        'GET',
         '/api/analytics-dashboard/performance/compare',
-        params: {
+        queryParams: {
           'days': days.toString(),
           if (category != null) 'category': category,
         },

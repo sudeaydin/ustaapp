@@ -103,7 +103,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   Colors.transparent,
                                 ],
                               ),
-                              borderRadius: BorderRadius.circular(90),
+                              borderRadius: const BorderRadius.circular(90),
                             ),
                           ),
                           // Main logo container
@@ -115,7 +115,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                 DesignTokens.surfacePrimary,
                                 DesignTokens.surfaceSecondaryColor,
                               ]),
-                              borderRadius: BorderRadius.circular(35),
+                              borderRadius: const BorderRadius.circular(35),
                               border: Border.all(
                                 color: DesignTokens.nonPhotoBlue.withOpacity(0.5),
                                 width: 3,
@@ -138,7 +138,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   height: 80,
                                   decoration: BoxDecoration(
                                     gradient: DesignTokens.primaryCoralGradient,
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: const BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
                                         color: DesignTokens.uclaBlue.withOpacity(0.4),
@@ -148,7 +148,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                     ],
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: const BorderRadius.circular(20),
                                     child: Image.asset(
                                       'assets/images/app_logo.png',
                                       width: 60,
@@ -225,7 +225,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: const BorderRadius.circular(20),
                               border: Border.all(
                                 color: Colors.white.withOpacity(0.3),
                                 width: 1,
@@ -256,7 +256,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: const BorderRadius.circular(25),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.3),
                       width: 2,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 import 'dart:math' show pow;
 
 /// Accessibility utilities for WCAG compliance in Flutter
@@ -177,7 +176,7 @@ class AccessibleButton extends StatelessWidget {
       children: [
         if (isLoading)
           const Padding(
-            padding: EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(right: 8.0),
             child: SizedBox(
               width: 16,
               height: 16,
@@ -186,7 +185,7 @@ class AccessibleButton extends StatelessWidget {
           ),
         if (icon != null && !isLoading)
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: icon!,
           ),
         if (text != null) Text(text!),
@@ -301,7 +300,7 @@ class AccessibleTextField extends StatelessWidget {
           // Error message with proper semantics
           if (errorText != null)
             Padding(
-              padding: const EdgeInsets.only(top: 4),
+              padding: EdgeInsets.only(top: 4),
               child: Semantics(
                 liveRegion: true,
                 child: Text(
@@ -555,8 +554,8 @@ mixin AccessibilityMixin<T extends StatefulWidget> on State<T> {
 
 /// Accessibility constants
 class AccessibilityConstants {
-  static const Duration announcementDelay = Duration(milliseconds: 500);
-  static const Duration focusDelay = Duration(milliseconds: 100);
+  static const Duration announcementDelay = const Duration(milliseconds: 500);
+  static const Duration focusDelay = const Duration(milliseconds: 100);
   
   // Semantic labels
   static const String loading = 'Yükleniyor';
