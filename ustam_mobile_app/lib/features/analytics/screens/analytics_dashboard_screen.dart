@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// TODO: Fix API methods in analytics_dashboard_utils.dart
-// import '../../../core/utils/analytics_dashboard_utils.dart';
+import '../../../core/utils/analytics_dashboard_utils.dart';
 import '../../../core/widgets/loading_spinner.dart';
 import '../../../core/widgets/error_message.dart';
 import '../../auth/providers/auth_provider.dart';

@@ -118,12 +118,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
-                            borderRadius: const BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(25),
                             boxShadow: [
                               BoxShadow(
                                 color: DesignTokens.primaryCoral.withOpacity(0.3),
                                 blurRadius: 20,
-                                offset: const Offset(0, 8),
+                                offset: Offset(0, 8),
                               ),
                             ],
                           ),
@@ -164,7 +164,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.15),
-                      borderRadius: const BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.3),
                         width: 1,
@@ -178,7 +178,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.2),
-                                borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                                borderRadius: BorderRadius.circular(DesignTokens.radius12),
                               ),
                               child: IconButton(
                                 icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
@@ -204,7 +204,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.15),
-                            borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+                            borderRadius: BorderRadius.circular(DesignTokens.radius16),
                           ),
                           child: Text(
                             widget.userType == 'craftsman' 
@@ -266,8 +266,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           color: Colors.white.withOpacity(0.3),
                         ),
                       ),
-                      const Padding(
-      padding: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+                      Padding(
+      padding: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
                         child: Text(
                           'veya',
                           style: TextStyle(
@@ -290,7 +290,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   // Google Sign-In Button
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius16),
                       boxShadow: [DesignTokens.getElevatedShadow()],
                     ),
                     child: _buildGoogleSignInButton(),
@@ -314,7 +314,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.15),
-                            borderRadius: const BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: Colors.white.withOpacity(0.3),
                               width: 1,
@@ -349,7 +349,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.all(DesignTokens.space16),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
-                      borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.2),
                         width: 1,
@@ -389,7 +389,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _buildLoginButton(Locale locale) {
     return InkWell(
-      borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+      borderRadius: BorderRadius.circular(DesignTokens.radius16),
       onTap: _isLoading ? null : () {
         debugPrint('🔥 Login button tapped!'); // Debug print
         _handleLogin();
@@ -399,7 +399,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: DesignTokens.primaryCoralGradient,
-          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
           boxShadow: [DesignTokens.getElevatedShadow()],
         ),
         child: Center(
@@ -427,20 +427,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+        borderRadius: BorderRadius.circular(DesignTokens.radius16),
         border: Border.all(color: Colors.grey[300]!, width: 1),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 8,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: const BorderRadius.circular(DesignTokens.radius16),
+          borderRadius: BorderRadius.circular(DesignTokens.radius16),
           onTap: _isLoading ? null : () {
             debugPrint('🔥 Google button tapped!'); // Debug print
             _handleGoogleSignIn();
@@ -455,7 +455,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   width: 24,
                   height: 24,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.circular(DesignTokens.radius12),
+                    borderRadius: BorderRadius.circular(DesignTokens.radius12),
                     gradient: const LinearGradient(
                       colors: [
                         Color(0xFF4285F4), // Google Blue
