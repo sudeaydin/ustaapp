@@ -449,7 +449,7 @@ class _AccessibilityTestScreenState extends ConsumerState<AccessibilityTestScree
       padding: const EdgeInsets.all(DesignTokens.space16),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: const BorderRadius.circular(DesignTokens.radius8),
+        borderRadius: BorderRadius.circular(DesignTokens.radius8),
         border: Border.all(color: Colors.grey.shade300),
       ),
       child: Column(

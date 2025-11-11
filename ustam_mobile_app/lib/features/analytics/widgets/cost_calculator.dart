@@ -75,7 +75,7 @@ class _CostCalculatorState extends State<CostCalculator> {
         'urgency': _selectedUrgency,
       });
 
-      final response = await ApiService.getInstance().post(
+      final response = await ApiService.getInstance().postWithOptions(
         '/analytics/cost-estimate',
         body: {
           'category': _selectedCategory,
@@ -183,7 +183,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _categories.map((category) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: category,
                         child: Text(category),
                       );
@@ -213,7 +213,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _areaTypes.map((type) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: type,
                         child: Text(type),
                       );
@@ -243,7 +243,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _budgetRanges.map((range) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: range,
                         child: Text('₺$range'),
                       );
@@ -267,7 +267,7 @@ class _CostCalculatorState extends State<CostCalculator> {
                       ),
                     ),
                     items: _urgencyLevels.map((level) {
-                      return DropdownMenuItem(
+                      return DropdownMenuItem<String>(
                         value: level['value'],
                         child: Text(level['label']),
                       );
@@ -612,7 +612,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _categories.map((category) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: category,
               child: Text(category),
             );
@@ -642,7 +642,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _areaTypes.map((type) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: type,
               child: Text(type),
             );
@@ -672,7 +672,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _budgetRanges.map((range) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: range,
               child: Text('₺$range'),
             );
@@ -696,7 +696,7 @@ class _CostCalculatorState extends State<CostCalculator> {
             ),
           ),
           items: _urgencyLevels.map((level) {
-            return DropdownMenuItem(
+            return DropdownMenuItem<String>(
               value: level['value'],
               child: Text(level['label']),
             );

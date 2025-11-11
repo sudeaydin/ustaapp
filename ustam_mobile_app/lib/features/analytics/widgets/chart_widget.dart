@@ -71,7 +71,7 @@ class ChartWidget extends StatelessWidget {
         final height = (value / maxValue) * 160;
         
         return Expanded(
-          child: const Padding(
+          child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -88,7 +88,7 @@ class ChartWidget extends StatelessWidget {
                   height: height,
                   decoration: BoxDecoration(
                     color: color ?? DesignTokens.primaryCoral,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -147,7 +147,7 @@ class ChartWidget extends StatelessWidget {
               final percentage = ((value / total) * 100).toStringAsFixed(1);
               final pieColor = _getPieColor(index);
               
-              return const Padding(
+              return Padding(
       padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
