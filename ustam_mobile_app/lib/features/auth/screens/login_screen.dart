@@ -32,14 +32,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Set default values for testing
-    if (widget.userType == 'craftsman') {
-      _emailController.text = 'ahmet@test.com';
-      _passwordController.text = '123456';
-    } else {
-      _emailController.text = 'customer@test.com';
-      _passwordController.text = '123456';
-    }
   }
 
   @override
@@ -338,44 +330,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 32),
-                  
-                  // Test Credentials
-                  Container(
-                    padding: const EdgeInsets.all(DesignTokens.space16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          '🧪 Test Hesapları',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          widget.userType == 'craftsman' 
-                              ? 'E-posta: ahmet@test.com\nŞifre: 123456'
-                              : 'E-posta: customer@test.com\nŞifre: 123456',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
