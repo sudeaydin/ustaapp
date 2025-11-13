@@ -751,7 +751,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             maxLines: maxLines,
             keyboardType: keyboardType,
             style: const TextStyle(
-              color: DesignTokens.gray900,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -802,7 +802,7 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             style: const TextStyle(
-              color: DesignTokens.gray900,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),

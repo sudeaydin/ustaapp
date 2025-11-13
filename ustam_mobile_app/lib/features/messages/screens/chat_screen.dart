@@ -656,7 +656,7 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     child: TextField(
                       controller: _messageController,
                       style: const TextStyle(
-                        color: DesignTokens.gray900,
+                        color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

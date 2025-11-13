@@ -677,7 +677,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       confirmText = value;
                     },
                     style: const TextStyle(
-                      color: DesignTokens.gray900,
+                      color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),

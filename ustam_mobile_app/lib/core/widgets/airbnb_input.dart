@@ -134,7 +134,7 @@ class _AirbnbInputState extends State<AirbnbInput> {
             maxLength: widget.maxLength,
             validator: widget.validator,
             style: const TextStyle(
-              color: DesignTokens.gray900,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -276,7 +276,7 @@ class AirbnbSearchInput extends StatelessWidget {
         onTap: onTap,
         readOnly: readOnly,
         style: const TextStyle(
-          color: DesignTokens.gray900,
+          color: Colors.black,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
