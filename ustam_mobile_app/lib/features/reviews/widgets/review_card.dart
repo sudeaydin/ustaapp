@@ -33,18 +33,13 @@ class ReviewCard extends StatelessWidget {
                     CircleAvatar(
                       radius: 20,
                       backgroundColor: DesignTokens.primaryCoral.withOpacity(0.1),
-                      backgroundImage: review.customer!.user.profileImage != null
-                          ? NetworkImage(review.customer!.user.profileImage!)
-                          : null,
-                      child: review.customer!.user.profileImage == null
-                          ? Text(
-                              review.customer!.user.firstName[0].toUpperCase(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: DesignTokens.primaryCoral,
-                              ),
-                            )
-                          : null,
+                      child: Text(
+                        _getAnonymousInitial(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: DesignTokens.primaryCoral,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -52,7 +47,7 @@ class ReviewCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            review.customer!.user.fullName,
+                            _getAnonymousName(),
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
@@ -306,6 +301,36 @@ class ReviewCard extends StatelessWidget {
     } else {
       final years = (difference.inDays / 365).floor();
       return '$years yıl önce';
+    }
+  }
+
+  /// Anonymize customer name for privacy
+  /// Example: "Ahmet Yılmaz" -> "Ahmet Y."
+  String _getAnonymousName() {
+    try {
+      if (review.customer == null) return 'Müşteri';
+      
+      final firstName = review.customer!.user.firstName;
+      final lastName = review.customer!.user.lastName;
+      
+      if (firstName.isEmpty) return 'Müşteri';
+      if (lastName.isEmpty) return firstName;
+      
+      return '$firstName ${lastName[0]}.';
+    } catch (e) {
+      return 'Müşteri';
+    }
+  }
+
+  /// Get anonymous initial for avatar
+  String _getAnonymousInitial() {
+    try {
+      if (review.customer == null) return 'M';
+      final firstName = review.customer!.user.firstName;
+      if (firstName.isEmpty) return 'M';
+      return firstName[0].toUpperCase();
+    } catch (e) {
+      return 'M';
     }
   }
 }
