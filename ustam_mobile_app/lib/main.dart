@@ -163,6 +163,9 @@ class MyApp extends ConsumerWidget {
         '/legal': (context) => const LegalScreen(),
         '/legal/documents': (context) => const LegalDocumentsScreen(),
         '/job-management': (context) => const JobManagementScreen(),
+        '/jobs': (context) => const JobManagementScreen(),
+        '/earnings': (context) => const JobManagementScreen(), // TODO: Create dedicated earnings screen
+        '/quotes': (context) => const CraftsmanQuotesScreen(),
         '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
         '/settings': (context) => const ProfileScreen(), // Settings redirects to profile for now
         
