@@ -1,200 +1,105 @@
-# 🔨 ustam - Güvenilir Usta Bulma Platformu
+# Travel Booking App - Flutter UI Components
 
-Modern, güvenilir ve kullanıcı dostu usta bulma platformu. React.js frontend ve Flask backend ile geliştirilmiştir.
+Bu Flutter projesi, gösterilen görseldeki seyahat rezervasyon uygulamasının tüm UI bileşenlerini içermektedir. Modern ve kullanıcı dostu arayüz tasarımı ile geliştirilmiştir.
 
-## 🚀 Hızlı Başlangıç
+## Özellikler
 
-### Otomatik Kurulum (Önerilen)
-```bash
-# Projeyi klonla
-git clone https://github.com/sudeaydin/ustaapp.git
-cd ustaapp
+- **Arama Çubuğu**: Destinasyon arama özelliği
+- **Alt Navigasyon**: Explore, Wishlist, Trips, Inbox, Profile sekmeli navigasyon
+- **Mülk Kartları**: Otel/villa listesi kartları (resim, rating, fiyat bilgileri ile)
+- **Tarih Seçici**: İnteraktif takvim ile tarih seçimi
+- **Süre Seçici**: Dairesel progress indicator ile süre seçimi
+- **Modal Pencereler**: Bottom sheet tarzı modal pencereler
 
-# Otomatik kurulum
-chmod +x setup.sh
-./setup.sh
-```
+## Kurulum
 
-### Manuel Kurulum
+1. Flutter SDK'nın yüklü olduğundan emin olun
+2. Proje dizinine gidin:
+   ```bash
+   cd travel_booking_app
+   ```
+3. Bağımlılıkları yükleyin:
+   ```bash
+   flutter pub get
+   ```
+4. Uygulamayı çalıştırın:
+   ```bash
+   flutter run
+   ```
 
-#### Backend Kurulumu
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python create_db_with_data.py
-python run.py
-```
-
-#### Frontend Kurulumu
-```bash
-cd web
-npm install
-npm start
-```
-
-## 📱 Özellikler
-
-### 🏠 Ana Özellikler
-- **Modern Web Arayüzü:** Responsive, PWA desteği
-- **Usta Arama:** Gelişmiş filtreleme ve arama
-- **İş Yönetimi:** Talep oluşturma, takip, tamamlama
-- **Mesajlaşma:** Real-time chat sistemi
-- **Ödeme Sistemi:** iyzico entegrasyonu
-- **Bildirimler:** Real-time bildirim sistemi
-- **Analitik Dashboard:** İstatistikler ve raporlar
-
-### 👥 Kullanıcı Tipleri
-- **Müşteriler:** İş talebi oluşturma, usta arama
-- **Ustalar:** İş teklifleri, portföy yönetimi
-- **Admin:** Sistem yönetimi, analitikler
-
-## 🛠️ Teknoloji Stack
-
-### Frontend
-- **React.js 18** - UI framework
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **React Router** - Navigation
-- **Socket.io Client** - Real-time communication
-- **React Query** - Data fetching
-
-### Backend
-- **Flask** - Web framework
-- **SQLAlchemy** - ORM
-- **Flask-SocketIO** - WebSocket support
-- **Flask-JWT-Extended** - Authentication
-- **SQLite** - Database
-
-## 🌐 API Endpoints
-
-### Kimlik Doğrulama
-- `POST /api/auth/login` - Giriş
-- `POST /api/auth/register` - Kayıt
-- `POST /api/auth/logout` - Çıkış
-
-### Usta İşlemleri
-- `GET /api/search/craftsmen` - Usta arama
-- `GET /api/craftsmen/:id` - Usta detayı
-- `GET /api/categories` - Kategoriler
-
-### İş Yönetimi
-- `GET /api/jobs` - İş listesi
-- `POST /api/jobs` - İş oluştur
-- `PUT /api/jobs/:id` - İş güncelle
-- `DELETE /api/jobs/:id` - İş sil
-
-### Ödeme
-- `POST /api/payment/process` - Ödeme işle
-- `GET /api/payment/history` - Ödeme geçmişi
-
-## 🧪 Test Kullanıcıları
+## Proje Yapısı
 
 ```
-Müşteri:
-Email: customer@example.com
-Şifre: password123
-
-Usta:
-Email: craftsman@example.com  
-Şifre: password123
-
-Admin:
-Email: admin@example.com
-Şifre: admin123
+lib/
+├── main.dart                          # Ana uygulama dosyası
+├── screens/
+│   └── travel_booking_screen.dart     # Ana ekran
+└── components/
+    ├── search_bar_component.dart      # Arama çubuğu bileşeni
+    ├── filter_tabs_component.dart     # Alt navigasyon sekmeleri
+    ├── property_card_component.dart   # Mülk kartı bileşeni
+    ├── trip_date_selector.dart        # Tarih seçici bileşeni
+    └── duration_selector.dart         # Süre seçici bileşeni
 ```
 
-## 📦 Proje Yapısı
+## Bileşen Detayları
 
-```
-ustam/
-├── backend/                # Flask backend
-│   ├── app/
-│   │   ├── models/        # Database models
-│   │   ├── routes/        # API endpoints
-│   │   └── utils/         # Utility functions
-│   ├── config/            # Configuration
-│   └── requirements.txt   # Python dependencies
-├── web/                   # React frontend
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   ├── pages/         # Page components
-│   │   ├── context/       # React contexts
-│   │   ├── services/      # API services
-│   │   └── utils/         # Utility functions
-│   ├── public/            # Static assets
-│   └── package.json       # Node dependencies
-└── setup.sh              # Otomatik kurulum scripti
-```
+### SearchBarComponent
+- Destinasyon arama özelliği
+- "Clear all" butonu
+- Beyaz arka plan, gölge efekti
 
-## 🔧 Geliştirme
+### FilterTabsComponent
+- 5 sekme: Explore, Wishlist, Trips, Inbox, Profile
+- Inbox sekmesinde bildirim göstergesi
+- Seçili sekme pembe renkte vurgulanır
 
-### Frontend Geliştirme
-```bash
-cd web
-npm run dev    # Development server
-npm run build  # Production build
-npm run lint   # Code linting
-```
+### PropertyCardComponent
+- Mülk resmi (carousel göstergeleri ile)
+- Rating ve yorum sayısı
+- Konum, başlık, yatak bilgisi
+- Mesafe ve tarih bilgileri
+- Fiyat bilgileri (gecelik ve toplam)
+- Favori butonu
 
-### Backend Geliştirme
-```bash
-cd backend
-source venv/bin/activate
-python run.py              # Development server
-python create_db_with_data.py  # Reset database
-```
+### TripDateSelector
+- Bottom sheet modal
+- 3 sekme: Dates, Months, Flexible
+- İnteraktif takvim
+- Tarih aralığı seçimi
 
-## 🚀 Production Deployment
+### DurationSelector
+- Süre seçenekleri (Weekend, Week, Month)
+- Ay seçici kartları
+- Dairesel progress indicator (animasyonlu)
+- Skip ve Next butonları
 
-### Frontend Build
-```bash
-cd web
-npm run build
-# dist/ klasörü static hosting'e deploy edilebilir
-```
+## Renk Paleti
 
-### Backend Production
-```bash
-cd backend
-pip install gunicorn
-gunicorn -w 4 -b 0.0.0.0:5000 run:app
-```
+- **Ana Renk**: #E91E63 (Pembe)
+- **Arka Plan**: #F8F8F8 (Açık gri)
+- **Metin**: Siyah ve gri tonları
+- **Kartlar**: Beyaz arka plan
 
-## 📱 PWA Özellikleri
+## Kullanım
 
-- **Offline çalışma** (Service Worker)
-- **Ana ekrana ekleme** (Add to Home Screen)
-- **Push notifications** (Bildirimler)
-- **Responsive design** (Mobil uyumlu)
+1. Ana ekranda mülk kartlarını görüntüleyebilirsiniz
+2. Mülk kartına tıklayarak tarih seçici modalını açabilirsiniz
+3. Tarih seçtikten sonra süre seçici modalı açılır
+4. Alt navigasyon ile farklı sekmeler arasında geçiş yapabilirsiniz
 
-## 🔒 Güvenlik
+## Özelleştirme
 
-- JWT token authentication
-- CORS protection
-- Input validation
-- SQL injection protection
-- XSS protection
+Bileşenler tamamen özelleştirilebilir parametreler ile tasarlanmıştır. Her bileşenin kendi constructor parametreleri vardır ve kolayca değiştirilebilir.
 
-## 🤝 Katkıda Bulunma
+## Gereksinimler
 
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/yeni-ozellik`)
-3. Commit yapın (`git commit -m 'Yeni özellik eklendi'`)
-4. Push yapın (`git push origin feature/yeni-ozellik`)
-5. Pull Request oluşturun
+- Flutter SDK 3.0.0 veya üzeri
+- Dart 3.0.0 veya üzeri
 
-## 📄 Lisans
+## Notlar
 
-Bu proje MIT lisansı altında lisanslanmıştır.
-
-## 📞 İletişim
-
-- **Geliştirici:** Sude Aydın
-- **GitHub:** https://github.com/sudeaydin/ustaapp
-- **Email:** info@ustam.com
-
----
-
-⭐ Bu projeyi beğendiyseniz star vermeyi unutmayın!
+- Resimler için Unsplash URL'leri kullanılmıştır
+- Font olarak Roboto kullanılmıştır
+- Responsive tasarım için MediaQuery kullanımı önerilir
+- Gerçek bir uygulamada state management (Provider, Bloc, Riverpod) kullanılması önerilir
