@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 
 class AppConfig {
   // API Configuration
-  static const String _devBaseUrl = 'https://ustaapp-analytics.appspot.com';
-  static const String _prodBaseUrl = 'https://ustaapp-analytics.appspot.com'; // Production URL
+  static const String _devBaseUrl = 'https://ustaapp-analytics.uc.r.appspot.com';
+  static const String _prodBaseUrl = 'https://ustaapp-analytics.uc.r.appspot.com'; // Production URL
   
   // Force production mode for testing (set to true to use production API)
   static const bool _forceProduction = true;
