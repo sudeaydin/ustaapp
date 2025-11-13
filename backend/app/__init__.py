@@ -22,7 +22,14 @@ def create_app(config_name='default'):
     app.url_map.strict_slashes = False
     
     # Configuration
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
+    # SECRET_KEY: Must be set in production environment
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
+        if os.environ.get('FLASK_ENV') == 'production':
+            raise ValueError("SECRET_KEY must be set in production! Generate with: python -c 'import secrets; print(secrets.token_hex(32))'")
+        SECRET_KEY = 'dev-secret-key-CHANGE-IN-PRODUCTION'
+    
+    app.config['SECRET_KEY'] = SECRET_KEY
     
     # Database configuration - App Engine compatible
     if os.environ.get('GAE_ENV', '').startswith('standard'):
@@ -33,7 +40,20 @@ def create_app(config_name='default'):
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///app.db'
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
+    
+    # JWT_SECRET_KEY: Must be set in production environment
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    if not JWT_SECRET_KEY:
+        if os.environ.get('FLASK_ENV') == 'production':
+            raise ValueError("JWT_SECRET_KEY must be set in production! Generate with: python -c 'import secrets; print(secrets.token_hex(32))'")
+        JWT_SECRET_KEY = 'jwt-secret-key-CHANGE-IN-PRODUCTION'
+    
+    app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
+    
+    # JWT Token Expiration
+    from datetime import timedelta
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES', 3600)) // 3600)
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=int(os.environ.get('JWT_REFRESH_TOKEN_EXPIRES', 2592000)) // 86400)
     
     # Initialize extensions with app
     db.init_app(app)
@@ -41,10 +61,22 @@ def create_app(config_name='default'):
     socketio.init_app(app, cors_allowed_origins=['*'])
     
     # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['*'], 
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-         supports_credentials=True)
+    # PRODUCTION: Only allow specific domains
+    allowed_origins = os.environ.get('CORS_ORIGINS', '*').split(',')
+    
+    # For development, allow all origins; for production, restrict to specific domains
+    if os.environ.get('FLASK_ENV') == 'production':
+        # Production: Use strict CORS
+        CORS(app, origins=allowed_origins, 
+             allow_headers=['Content-Type', 'Authorization'],
+             methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+             supports_credentials=True)
+    else:
+        # Development: Allow all origins for testing
+        CORS(app, origins=['*'], 
+             allow_headers=['Content-Type', 'Authorization'],
+             methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+             supports_credentials=True)
     
     # Initialize security and analytics middleware
     from app.utils.security import init_security_middleware

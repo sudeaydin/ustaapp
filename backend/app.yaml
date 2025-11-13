@@ -1,18 +1,42 @@
 # Google App Engine Configuration for ustam App
 runtime: python39
 
-# Environment variables
+# Environment variables - PRODUCTION
 env_variables:
   FLASK_ENV: production
-  BIGQUERY_LOGGING_ENABLED: true
-  BIGQUERY_PROJECT_ID: ustaapp-analytics
+  DEBUG: "False"
+  BIGQUERY_LOGGING_ENABLED: "true"
+  BIGQUERY_PROJECT_ID: ustam-production
+  BIGQUERY_DATASET_ID: ustam_analytics
+  BIGQUERY_LOCATION: EU
   
-# Automatic scaling
+  # Security
+  CORS_ORIGINS: https://ustam.com,https://www.ustam.com
+  RATE_LIMIT_ENABLED: "true"
+  FORCE_HTTPS: "true"
+  
+  # JWT Configuration
+  JWT_ACCESS_TOKEN_EXPIRES: "3600"
+  JWT_REFRESH_TOKEN_EXPIRES: "2592000"
+  
+  # Analytics
+  ANALYTICS_ENVIRONMENT: production
+  MONITORING_ENABLED: "true"
+  
+  # ⚠️ IMPORTANT: Set these in Secret Manager, not here!
+  # SECRET_KEY: Use Google Secret Manager
+  # JWT_SECRET_KEY: Use Google Secret Manager
+  # IYZICO_API_KEY: Use Google Secret Manager
+  # IYZICO_SECRET_KEY: Use Google Secret Manager
+  
+# Automatic scaling - PRODUCTION OPTIMIZED
 automatic_scaling:
   min_instances: 1
-  max_instances: 10
-  target_cpu_utilization: 0.6
-  target_throughput_utilization: 0.6
+  max_instances: 20
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.65
+  min_idle_instances: 1
+  max_idle_instances: 2
 
 # Instance resources
 resources:
