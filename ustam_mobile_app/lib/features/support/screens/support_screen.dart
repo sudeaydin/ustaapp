@@ -47,6 +47,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
     final supportState = ref.watch(supportProvider);
 
     return Scaffold(
+      backgroundColor: DesignTokens.surfacePrimary,
       appBar: CommonAppBar(
         title: 'Destek',
         showBackButton: true,
@@ -102,27 +103,35 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
   }
 
   Widget _buildCreateTicketTab() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+    return Container(
+      color: DesignTokens.surfacePrimary,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
       child: CreateTicketForm(
         userType: widget.userType,
         onTicketCreated: () {
           // Switch to tickets tab when ticket is created
           _tabController.animateTo(1);
         },
+        ),
       ),
     );
   }
 
   Widget _buildMyTicketsTab(SupportState supportState) {
     if (supportState.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Container(
+        color: DesignTokens.surfacePrimary,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
       );
     }
 
     if (supportState.tickets.isEmpty) {
-      return Center(
+      return Container(
+        color: DesignTokens.surfacePrimary,
+        child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -150,17 +159,21 @@ class _SupportScreenState extends ConsumerState<SupportScreen>
               textAlign: TextAlign.center,
             ),
           ],
+          ),
         ),
       );
     }
 
-    return ListView.builder(
+    return Container(
+      color: DesignTokens.surfacePrimary,
+      child: ListView.builder(
       padding: const EdgeInsets.all(20),
       itemCount: supportState.tickets.length,
       itemBuilder: (context, index) {
         final ticket = supportState.tickets[index];
         return _buildTicketCard(ticket);
       },
+      ),
     );
   }
 
