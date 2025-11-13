@@ -750,11 +750,16 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
             controller: controller,
             maxLines: maxLines,
             keyboardType: keyboardType,
+            style: const TextStyle(
+              color: DesignTokens.gray900,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(DesignTokens.space16),
               hintText: hint,
-              hintStyle: TextStyle(color: DesignTokens.textMuted),
+              hintStyle: const TextStyle(color: DesignTokens.textMuted),
             ),
             validator: validator,
           ),
@@ -796,11 +801,19 @@ class _BusinessProfileScreenState extends ConsumerState<BusinessProfileScreen> {
           ),
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
+            style: const TextStyle(
+              color: DesignTokens.gray900,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(DesignTokens.space16),
             ),
-            hint: Text('$label seçiniz'),
+            hint: const Text(
+              'Seçiniz',
+              style: TextStyle(color: DesignTokens.textMuted),
+            ),
             items: items.map((item) => DropdownMenuItem(
               value: item,
               child: Text(item),
