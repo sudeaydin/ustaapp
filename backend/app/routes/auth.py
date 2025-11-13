@@ -14,6 +14,11 @@ from app.utils.validators import (
 )
 # Temporarily disable analytics import for deployment
 # from app.utils.analytics import AnalyticsTracker
+from app.utils.password_validator import validate_password_strength
+from app.utils.rate_limiter import (
+    rate_limit_login, record_failed_login, clear_failed_attempts,
+    is_account_locked, get_remaining_attempts
+)
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -78,12 +83,13 @@ def register():
                 'code': 'INVALID_PHONE'
             }), 400
         
-        # Validate password length
-        if len(data['password']) < 6:
+        # Validate password strength
+        is_valid, error_message = validate_password_strength(data['password'])
+        if not is_valid:
             return jsonify({
                 'error': True,
-                'message': 'Şifre en az 6 karakter olmalıdır',
-                'code': 'PASSWORD_TOO_SHORT'
+                'message': error_message,
+                'code': 'WEAK_PASSWORD'
             }), 400
         
         # Validate user type
@@ -145,10 +151,21 @@ def register():
         db.session.rollback()
         return jsonify({@auth_bp.route('/login', methods=['POST'])
 @validate_json(UserLoginSchema)
+@rate_limit_login
 def login(validated_data):
     """User login endpoint"""
     try:
         print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
+        
+        # Check if account is locked (already checked by decorator but get message for logging)
+        is_locked, lock_message = is_account_locked(validated_data['email'])
+        if is_locked:
+            print(f"🔒 LOGIN BLOCKED: Account locked - {validated_data['email']}")
+            return jsonify({
+                'error': True,
+                'message': lock_message,
+                'code': 'ACCOUNT_LOCKED'
+            }), 429
         
         # Find user
         user = User.query.filter_by(email=validated_data['email']).first()
@@ -156,6 +173,16 @@ def login(validated_data):
         
         if not user or not user.check_password(validated_data['password']):
             print(f"❌ LOGIN FAILED: Invalid credentials")
+            
+            # Record failed login attempt
+            record_failed_login(validated_data['email'])
+            remaining = get_remaining_attempts(validated_data['email'])
+            
+            error_message = 'E-posta veya şifre hatalı'
+            if remaining > 0:
+                error_message += f'. Kalan deneme hakkı: {remaining}'
+            else:
+                error_message = 'Çok fazla başarısız deneme. Hesap 15 dakika süreyle kilitlendi.'
             # Track failed login attempt (temporarily disabled)
             # AnalyticsTracker.track_user_action(
             #     user_id=user.id if user else None,
@@ -163,10 +190,12 @@ def login(validated_data):
             #     details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
             #     page='/api/auth/login'
             # )
-            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')'invalid_credentials'},
-                page='/api/auth/login'
-            )
-            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
+            return jsonify({
+                'error': True,
+                'message': error_message,
+                'code': 'INVALID_CREDENTIALS',
+                'remaining_attempts': remaining
+            }), 401
         
         if not user.is_active:
             print(f"❌ LOGIN FAILED: User inactive")
@@ -180,6 +209,9 @@ def login(validated_data):
             return ResponseHelper.unauthorized('Hesabınız deaktif durumda')
         
         print(f"✅ LOGIN SUCCESS: User {user.id} - {user.email}")
+        
+        # Clear failed login attempts on successful login
+        clear_failed_attempts(validated_data['email'])
         
         # Update last login
         user.last_login = datetime.utcnow()

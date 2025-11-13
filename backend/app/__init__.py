@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_socketio import SocketIO
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
 import json
 
@@ -10,6 +12,11 @@ import json
 db = SQLAlchemy()
 jwt = JWTManager()
 socketio = SocketIO()
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://"  # Use memory storage for now, migrate to Redis in production
+)
 
 def create_app(config_name='default'):
     # Configure Flask for App Engine (no instance folder)
@@ -38,13 +45,18 @@ def create_app(config_name='default'):
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
+    limiter.init_app(app)
     socketio.init_app(app, cors_allowed_origins=['*'])
     
-    # CORS ayarları - Frontend ile backend arasında iletişim için
-    CORS(app, origins=['*'], 
+    # CORS ayarları - Secure configuration
+    # TODO: Replace '*' with actual production domains before deployment
+    allowed_origins = os.environ.get('ALLOWED_ORIGINS', '*').split(',')
+    CORS(app, 
+         origins=allowed_origins,  # Change to specific domains in production
          allow_headers=['Content-Type', 'Authorization'],
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-         supports_credentials=True)
+         supports_credentials=True,
+         max_age=3600)  # Cache preflight requests for 1 hour
     
     # Initialize security and analytics middleware
     from app.utils.security import init_security_middleware
