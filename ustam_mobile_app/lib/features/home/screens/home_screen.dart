@@ -440,12 +440,13 @@ class HomeScreen extends ConsumerWidget {
             color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
-          _buildActionCard(
-            title: 'Ödeme Geçmişi',
-            icon: Icons.payment,
-            color: AppTheme.secondaryLight,
-            onTap: () => context.push('/payment-history'),
-          ),
+          // Payment history temporarily disabled - online payment system under development
+          // _buildActionCard(
+          //   title: 'Ödeme Geçmişi',
+          //   icon: Icons.payment,
+          //   color: AppTheme.secondaryLight,
+          //   onTap: () => context.push('/payment-history'),
+          // ),
         ],
       );
     } else {

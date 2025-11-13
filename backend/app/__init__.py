@@ -59,12 +59,14 @@ def create_app(config_name='default'):
     
     # Import models
     from app.models import user, craftsman, customer, category, quote, payment, notification, job, message, review, support_ticket, appointment
+    # Payment model imported but payment routes temporarily disabled
     
     # Register new API blueprints
     from app.routes.profile import profile_bp
     from app.routes.messages import messages_bp
     from app.routes.search import search_bp
-    from app.routes.payment import payment_bp
+    # Payment routes temporarily disabled for security
+    # from app.routes.payment import payment_bp
     from app.routes.notification import notification_bp
     from app.routes.analytics_simple import analytics_bp
     from app.routes.job import job_bp
@@ -91,7 +93,8 @@ def create_app(config_name='default'):
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
     app.register_blueprint(search_bp, url_prefix='/api/search')
-    app.register_blueprint(payment_bp, url_prefix='/api/payment')
+    # Payment blueprint temporarily disabled - online payment system under development
+    # app.register_blueprint(payment_bp, url_prefix='/api/payment')
     app.register_blueprint(notification_bp, url_prefix='/api/notification')
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')

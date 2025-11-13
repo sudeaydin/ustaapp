@@ -11,7 +11,8 @@ import '../../features/search/screens/search_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../../features/messages/screens/messages_screen.dart';
 import '../../features/jobs/screens/jobs_screen.dart';
-import '../../features/payment/screens/payment_screen.dart';
+// Payment screen temporarily disabled
+// import '../../features/payment/screens/payment_screen.dart';
 import '../../features/notifications/screens/notifications_screen.dart';
 import '../../features/marketplace/screens/marketplace_feed_screen.dart';
 import '../../features/marketplace/screens/marketplace_listing_detail_screen.dart';
@@ -95,13 +96,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/marketplace/new',
         builder: (context, state) => const MarketplaceCreateListingScreen(),
       ),
-      GoRoute(
-        path: '/payment/:jobId',
-        builder: (context, state) {
-          final jobId = state.pathParameters['jobId']!;
-          return PaymentScreen(jobId: jobId);
-        },
-      ),
+      // Payment route temporarily disabled - online payment system under development
+      // GoRoute(
+      //   path: '/payment/:jobId',
+      //   builder: (context, state) {
+      //     final jobId = state.pathParameters['jobId']!;
+      //     return PaymentScreen(jobId: jobId);
+      //   },
+      // ),
       GoRoute(
         path: '/notifications',
         builder: (context, state) => const NotificationsScreen(),
