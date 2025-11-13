@@ -22,7 +22,6 @@ import 'features/support/screens/support_screen.dart';
 
 import 'features/reviews/screens/reviews_screen.dart';
 import 'features/reviews/screens/create_review_screen.dart';
-import 'features/calendar/screens/calendar_screen.dart';
 import 'features/dashboard/screens/customer_dashboard.dart';
 import 'features/dashboard/screens/craftsman_dashboard.dart';
 import 'features/search/screens/search_screen.dart';
@@ -131,10 +130,6 @@ class MyApp extends ConsumerWidget {
             serviceName: args['serviceName'],
           );
         },
-        '/calendar': (context) {
-          final userType = ModalRoute.of(context)!.settings.arguments as String? ?? 'customer';
-          return CalendarScreen(userType: userType);
-        },
         '/customer-dashboard': (context) => const CustomerDashboard(),
         '/craftsman-dashboard': (context) => const CraftsmanDashboard(),
         '/search': (context) => const SearchScreen(),
@@ -168,6 +163,9 @@ class MyApp extends ConsumerWidget {
         '/legal': (context) => const LegalScreen(),
         '/legal/documents': (context) => const LegalDocumentsScreen(),
         '/job-management': (context) => const JobManagementScreen(),
+        '/jobs': (context) => const JobManagementScreen(),
+        '/earnings': (context) => const JobManagementScreen(), // TODO: Create dedicated earnings screen
+        '/quotes': (context) => const CraftsmanQuotesScreen(),
         '/enhanced-notifications': (context) => const EnhancedNotificationsScreen(),
         '/settings': (context) => const ProfileScreen(), // Settings redirects to profile for now
         

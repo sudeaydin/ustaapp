@@ -202,13 +202,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _buildQuickActionCard(
-                        'Takvim',
-                        'Randevularınızı yönetin',
-                        Icons.calendar_today,
-                        DesignTokens.primaryCoral,
-                        () => Navigator.pushNamed(context, '/calendar', arguments: 'craftsman'),
-                      ),
+                      child: Container(), // Empty space to maintain layout
                     ),
                   ],
                 ),
@@ -256,22 +250,36 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                         ),
                       ),
                       const SizedBox(height: DesignTokens.space16),
-                      _buildQuoteRequestCard(
-                        title: 'Elektrik Tesisatı',
-                        customer: 'Ayşe Yılmaz',
-                        budget: '₺500-800',
-                        location: 'Kadıköy, İstanbul',
-                        status: 'Yeni',
-                        statusColor: DesignTokens.primaryCoral,
+                      InkWell(
+                        onTap: () {
+                          // Navigate to quote detail or chat
+                          Navigator.pushNamed(context, '/craftsman-quotes');
+                        },
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        child: _buildQuoteRequestCard(
+                          title: 'Elektrik Tesisatı',
+                          customer: 'Ayşe Yılmaz',
+                          budget: '₺500-800',
+                          location: 'Kadıköy, İstanbul',
+                          status: 'Yeni',
+                          statusColor: DesignTokens.primaryCoral,
+                        ),
                       ),
                       const SizedBox(height: 12),
-                      _buildQuoteRequestCard(
-                        title: 'Boyama İşi',
-                        customer: 'Mehmet Kaya',
-                        budget: '₺1000-1500',
-                        location: 'Beşiktaş, İstanbul',
-                        status: 'Teklif Verildi',
-                        statusColor: DesignTokens.info,
+                      InkWell(
+                        onTap: () {
+                          // Navigate to quote detail or chat
+                          Navigator.pushNamed(context, '/craftsman-quotes');
+                        },
+                        borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                        child: _buildQuoteRequestCard(
+                          title: 'Boyama İşi',
+                          customer: 'Mehmet Kaya',
+                          budget: '₺1000-1500',
+                          location: 'Beşiktaş, İstanbul',
+                          status: 'Teklif Verildi',
+                          statusColor: DesignTokens.info,
+                        ),
                       ),
                     ],
                   ),

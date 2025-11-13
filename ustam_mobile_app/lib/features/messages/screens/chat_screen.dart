@@ -655,6 +655,11 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                     ),
                     child: TextField(
                       controller: _messageController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -1040,14 +1045,22 @@ Notlar: Salon duvarlarını modern renklerle boyayacağım. Kaliteli boya kullan
                   'id': DateTime.now().millisecondsSinceEpoch.toString(),
                   'text': '''✅ Teklif Kararı:
 
-Teklifinizi kabul ediyorum. Ödeme yapmaya hazırım.''',
+Teklifinizi kabul ediyorum. İş başlayabilir.''',
                   'timestamp': _getCurrentTime(),
                   'isMe': true,
                   'messageType': 'quote_decision',
                 });
               });
-                             _scrollToBottom();
-               _showPaymentDialog(quote);
+              _scrollToBottom();
+              
+              // Show success message instead of payment
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('✅ Teklif başarıyla kabul edildi! Usta ile devam edebilirsiniz.'),
+                  backgroundColor: DesignTokens.success,
+                  duration: Duration(seconds: 3),
+                ),
+              );
             },
             style: DesignTokens.getPrimaryButtonStyle().copyWith(backgroundColor: MaterialStateProperty.all(DesignTokens.success)),
             child: const Text('Kabul Et'),
@@ -1143,115 +1156,12 @@ Teklifinizi reddediyorum. Daha uygun bir teklif verebilir misiniz?''',
     });
   }
 
-  void _showPaymentDialog(Map<String, dynamic>? quote) {
-    if (quote == null) return;
-    
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(Icons.payment, color: DesignTokens.success),
-            const SizedBox(width: 8),
-            const Text('Ödeme'),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF0FDF4),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
-                border: Border.all(color: DesignTokens.success),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '✅ Teklif Kabul Edildi',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: DesignTokens.success,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildQuoteDetailRow('Tutar', '₺${quote['quoted_price']}'),
-                  _buildQuoteDetailRow('Süre', '${quote['estimated_duration_days']} gün'),
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Toplam:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        '₺${quote['quoted_price']}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: DesignTokens.success,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: DesignTokens.space16),
-            const Text(
-              'Ödeme yönteminizi seçin:',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border.all(color: DesignTokens.uclaBlue),
-                borderRadius: BorderRadius.circular(DesignTokens.radius12),
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.credit_card, color: DesignTokens.uclaBlue),
-                  SizedBox(width: 8),
-                  Text('Kredi Kartı ile Öde'),
-                ],
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('İptal'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _showPaymentSuccessDialog();
-            },
-            style: DesignTokens.getPrimaryButtonStyle().copyWith(
-              backgroundColor: MaterialStateProperty.all(DesignTokens.success),
-            ),
-            child: const Text(
-              'Ödeme Yap',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showPaymentSuccessDialog() {
+  // Payment dialog removed - online payment temporarily disabled
+  // void _showPaymentDialog() { ... }
+  // void _showPaymentSuccessDialog() { ... }
+  
+  void _showPaymentSuccessDialogOLD() {
+    // DISABLED: Online payment temporarily disabled
     showDialog(
       context: context,
       barrierDismissible: false,

@@ -256,6 +256,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       status: 'Teklif Bekleniyor',
                       statusColor: DesignTokens.warning,
                       icon: Icons.electrical_services,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MessagesScreen(userType: 'customer'),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 12),
                     _buildActivityCard(
@@ -264,6 +272,14 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
                       status: 'İnceleme',
                       statusColor: DesignTokens.info,
                       icon: Icons.format_paint,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MessagesScreen(userType: 'customer'),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -415,63 +431,85 @@ class _CustomerDashboardState extends ConsumerState<CustomerDashboard> {
     required String status,
     required Color statusColor,
     required IconData icon,
+    VoidCallback? onTap,
   }) {
     return AirbnbCard(
       backgroundColor: DesignTokens.surfaceSecondaryColor,
-      child: Row(
+      onTap: onTap,
+      child: Column(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            ),
-            child: Icon(
-              icon,
-              color: statusColor,
-              size: 24,
-            ),
-          ),
-          const SizedBox(width: DesignTokens.space16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
+          Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                ),
+                child: Icon(
+                  icon,
+                  color: statusColor,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: DesignTokens.space16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: DesignTokens.gray900,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: DesignTokens.gray600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: statusColor,
                     fontWeight: FontWeight.w600,
-                    color: DesignTokens.gray900,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: DesignTokens.gray600,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(DesignTokens.radius12),
-            ),
-            child: Text(
-              status,
-              style: TextStyle(
-                fontSize: 12,
-                color: statusColor,
-                fontWeight: FontWeight.w600,
+          if (onTap != null) ...[            const SizedBox(height: 12),
+            ElevatedButton.icon(
+              onPressed: onTap,
+              icon: const Icon(Icons.chat_bubble_outline, size: 16),
+              label: const Text('Chat\'e Git'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: DesignTokens.primaryCoral,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(DesignTokens.radius12),
+                ),
+                elevation: 0,
               ),
             ),
-          ),
+          ],
         ],
       ),
     );

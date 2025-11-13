@@ -71,8 +71,17 @@ class _MarketplaceFilterBarState extends ConsumerState<MarketplaceFilterBar> {
             ),
             child: TextField(
               controller: _searchController,
+              style: const TextStyle(
+                color: DesignTokens.gray900,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
               decoration: InputDecoration(
                 hintText: 'İş ara...',
+                hintStyle: const TextStyle(
+                  color: DesignTokens.gray500,
+                  fontSize: 16,
+                ),
                 prefixIcon: const Icon(Icons.search, color: DesignTokens.gray500),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(

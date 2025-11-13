@@ -429,7 +429,7 @@ class HomeScreen extends ConsumerWidget {
             onTap: () => context.push('/job-request/new'),
           ),
           _buildActionCard(
-            title: 'Usta Ara',
+            title: 'Usta Bul',
             icon: Icons.search,
             color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
@@ -440,12 +440,13 @@ class HomeScreen extends ConsumerWidget {
             color: AppTheme.primaryLight,
             onTap: () => context.go('/messages'),
           ),
-          _buildActionCard(
-            title: 'Ödeme Geçmişi',
-            icon: Icons.payment,
-            color: AppTheme.secondaryLight,
-            onTap: () => context.push('/payment-history'),
-          ),
+          // Payment history temporarily disabled - online payment system under development
+          // _buildActionCard(
+          //   title: 'Ödeme Geçmişi',
+          //   icon: Icons.payment,
+          //   color: AppTheme.secondaryLight,
+          //   onTap: () => context.push('/payment-history'),
+          // ),
         ],
       );
     } else {

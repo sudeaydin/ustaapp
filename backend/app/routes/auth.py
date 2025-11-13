@@ -96,12 +96,13 @@ def register():
                 'code': 'INVALID_PHONE'
             }), 400
         
-        # Validate password length
-        if len(data['password']) < 6:
+        # Validate password strength
+        is_valid, error_message = validate_password_strength(data['password'])
+        if not is_valid:
             return jsonify({
                 'error': True,
-                'message': 'Şifre en az 6 karakter olmalıdır',
-                'code': 'PASSWORD_TOO_SHORT'
+                'message': error_message,
+                'code': 'WEAK_PASSWORD'
             }), 400
         
         # Validate user type

@@ -96,8 +96,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
 
     return Scaffold(
       backgroundColor: Colors.white, // Clean white background
-             appBar: CommonAppBar(
-         title: 'Usta Ara',
+      appBar: CommonAppBar(
+        title: 'Usta Bul',
          showBackButton: true,
          showTutorialTrigger: true,
          userType: authState.user?['user_type'],
@@ -292,7 +292,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen>
             const SizedBox(height: DesignTokens.space16),
             Text(
               isInitialState 
-                ? 'Usta aramak için yukarıdaki arama çubuğunu kullanın'
+                ? 'Usta bulmak için yukarıdaki arama çubuğunu kullanın'
                 : 'Arama kriterlerinize uygun usta bulunamadı',
               style: TextStyle(
                 color: DesignTokens.gray600,

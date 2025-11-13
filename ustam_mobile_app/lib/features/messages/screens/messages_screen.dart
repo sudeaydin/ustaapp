@@ -283,7 +283,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 elevation: 0,
               ),
               child: const Text(
-                'Usta Ara',
+                'Usta Bul',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
