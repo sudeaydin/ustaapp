@@ -202,13 +202,7 @@ class _CraftsmanDashboardState extends ConsumerState<CraftsmanDashboard> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _buildQuickActionCard(
-                        'Takvim',
-                        'Randevularınızı yönetin',
-                        Icons.calendar_today,
-                        DesignTokens.primaryCoral,
-                        () => Navigator.pushNamed(context, '/calendar', arguments: 'craftsman'),
-                      ),
+                      child: Container(), // Empty space to maintain layout
                     ),
                   ],
                 ),
