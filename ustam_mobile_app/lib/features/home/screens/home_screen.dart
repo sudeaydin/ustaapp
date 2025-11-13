@@ -429,7 +429,7 @@ class HomeScreen extends ConsumerWidget {
             onTap: () => context.push('/job-request/new'),
           ),
           _buildActionCard(
-            title: 'Usta Ara',
+            title: 'Usta Bul',
             icon: Icons.search,
             color: AppTheme.secondaryColor,
             onTap: () => context.go('/search'),
