@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, or_
 from sqlalchemy.pool import QueuePool
 from sqlalchemy.orm import sessionmaker
 from flask import current_app
@@ -86,14 +86,20 @@ class QueryOptimizer:
     @staticmethod
     def optimize_search_query(query, search_term):
         """Optimize search queries with proper indexing"""
-        # Use LIKE with proper wildcard placement for index usage
+        if not search_term:
+            return query
+
+        # Use bound parameters instead of interpolating user input to avoid SQL injection
+        from app.models.craftsman import Craftsman  # imported here to avoid circular deps
+
         search_pattern = f"%{search_term}%"
-        
-        # For SQLite, use LIKE with proper collation
+
         return query.filter(
-            f"business_name LIKE '{search_pattern}' COLLATE NOCASE OR "
-            f"description LIKE '{search_pattern}' COLLATE NOCASE OR "
-            f"specialties LIKE '{search_pattern}' COLLATE NOCASE"
+            or_(
+                Craftsman.business_name.ilike(search_pattern),
+                Craftsman.description.ilike(search_pattern),
+                Craftsman.specialties.ilike(search_pattern),
+            )
         )
 
 class CacheManager:

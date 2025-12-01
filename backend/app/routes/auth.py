@@ -3,7 +3,12 @@ import json
 import time
 from werkzeug.utils import secure_filename
 from flask import Blueprint, request, jsonify, current_app
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import (
+    create_access_token,
+    create_refresh_token,
+    jwt_required,
+    get_jwt_identity,
+)
 from werkzeug.security import check_password_hash
 from app import db
 from app.models.user import User, UserType
@@ -14,6 +19,7 @@ from app.utils.validators import (
 )
 from app.utils.security import rate_limit
 from app.utils.analytics import AnalyticsTracker
+from app.services.auth_service import AuthService
 from datetime import datetime
 import re
 from app.models.job import Job, JobStatus
@@ -67,106 +73,22 @@ def validate_phone(phone):
 @rate_limit(max_requests=10, window_minutes=5, namespace='auth-register')
 def register():
     """User registration"""
-    try:
-        data = request.get_json()
-        
-        # Validate required fields
-        required_fields = ['email', 'password', 'first_name', 'last_name', 'phone', 'user_type']
-        for field in required_fields:
-            if not data.get(field):
-                return jsonify({
-                    'error': True,
-                    'message': f'{field} alanı zorunludur',
-                    'code': 'MISSING_FIELD'
-                }), 400
-        
-        # Validate email format
-        if not validate_email(data['email']):
-            return jsonify({
-                'error': True,
-                'message': 'Geçerli bir e-posta adresi girin',
-                'code': 'INVALID_EMAIL'
-            }), 400
-        
-        # Validate phone format
-        if not validate_phone(data['phone']):
-            return jsonify({
-                'error': True,
-                'message': 'Geçerli bir telefon numarası girin',
-                'code': 'INVALID_PHONE'
-            }), 400
-        
-        # Validate password strength
-        is_valid, error_message = validate_password_strength(data['password'])
-        if not is_valid:
-            return jsonify({
-                'error': True,
-                'message': error_message,
-                'code': 'WEAK_PASSWORD'
-            }), 400
-        
-        # Validate user type
-        if data['user_type'] not in ['customer', 'craftsman']:
-            return jsonify({
-                'error': True,
-                'message': 'Geçersiz kullanıcı tipi',
-                'code': 'INVALID_USER_TYPE'
-            }), 400
-        
-        # Check if user already exists
-        existing_user = User.query.filter(
-            (User.email == data['email']) | (User.phone == data['phone'])
-        ).first()
-        
-        if existing_user:
-            field = 'E-posta' if existing_user.email == data['email'] else 'Telefon'
-            return jsonify({
-                'error': True,
-                'message': f'{field} adresi zaten kullanımda',
-                'code': 'USER_EXISTS'
-            }), 400
-        
-        # Create user
-        user = User(
-            email=data['email'],
-            phone=data['phone'],
-            user_type=UserType.CUSTOMER if data['user_type'] == 'customer' else UserType.CRAFTSMAN,
-            first_name=data['first_name'],
-            last_name=data['last_name']
-        )
-        user.set_password(data['password'])
-        
-        db.session.add(user)
-        db.session.flush()  # Get user ID
-        
-        # Create profile based on user type
-        if data['user_type'] == 'customer':
-            profile = Customer(user_id=user.id)
-        else:
-            profile = Craftsman(user_id=user.id)
-        
-        db.session.add(profile)
-        db.session.commit()
-        
-        # Create access token
-        access_token = create_access_token(identity=str(user.id))
-        
-        return jsonify({
-            'success': True,
-            'message': 'Hesabınız başarıyla oluşturuldu',
-            'data': {
-                'user': user.to_dict(),
-                'access_token': access_token
-            }
-        }), 201
-        
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({
-            'error': True,
-            'message': 'Kayıt işlemi sırasında bir hata oluştu',
-            'code': 'REGISTER_ERROR'
-        }), 500
+    data = request.get_json() or {}
+    user, error = AuthService.register_user(data)
+    if error:
+        return jsonify({'error': True, 'message': error, 'code': 'REGISTER_ERROR'}), 400
+
+    access_token = create_access_token(identity=str(user.id))
+    refresh_token = create_refresh_token(identity=str(user.id))
+    return jsonify({
+        'success': True,
+        'message': 'Hesabınız başarıyla oluşturuldu',
+        'data': {
+            'user': user.to_dict(),
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+        }
+    }), 201
 
 
 @auth_bp.route('/login', methods=['POST'])
@@ -175,73 +97,49 @@ def register():
 def login(validated_data):
     """User login endpoint"""
     try:
-        print(f"🔐 LOGIN ATTEMPT: {validated_data['email']}")
+        user_payload, error = AuthService.login_user(validated_data['email'], validated_data['password'])
 
-        # Find user
-        user = User.query.filter_by(email=validated_data['email']).first()
-        print(f"🔍 USER FOUND: {user is not None}")
-
-        if not user or not user.check_password(validated_data['password']):
-            print("❌ LOGIN FAILED: Invalid credentials")
+        if error:
             AnalyticsTracker.track_user_action(
-                user_id=user.id if user else None,
+                user_id=None,
                 action='login_failed',
-                details={'email': validated_data['email'], 'reason': 'invalid_credentials'},
+                details={'email': validated_data['email'], 'reason': error},
                 page='/api/auth/login'
             )
-            return ResponseHelper.unauthorized('E-posta veya şifre hatalı')
-
-        if not user.is_active:
-            print("❌ LOGIN FAILED: User inactive")
-            AnalyticsTracker.track_user_action(
-                user_id=user.id,
-                action='login_failed',
-                details={'email': validated_data['email'], 'reason': 'user_inactive'},
-                page='/api/auth/login'
-            )
-            return ResponseHelper.unauthorized('Hesabınız deaktif durumda')
-
-        print(f"✅ LOGIN SUCCESS: User {user.id} - {user.email}")
-
-        # Update last login
-        user.last_login = datetime.utcnow()
-        db.session.commit()
-
-        user_type_value = getattr(user.user_type, 'value', user.user_type)
+            return ResponseHelper.unauthorized(error)
 
         AnalyticsTracker.track_user_action(
-            user_id=user.id,
+            user_id=user_payload['user']['id'],
             action='login_success',
             details={
-                'email': user.email,
-                'user_type': user_type_value,
-                'login_time': user.last_login.isoformat()
+                'email': user_payload['user']['email'],
+                'user_type': user_payload['user']['user_type'],
+                'login_time': datetime.utcnow().isoformat()
             },
             page='/api/auth/login'
         )
 
-        access_token = create_access_token(identity=str(user.id))
-
-        print(f"🎫 TOKEN CREATED: {access_token[:20]}...")
-
         return ResponseHelper.success(
-            data={
-                'user': user.to_dict(),
-                'access_token': access_token
-            },
+            data=user_payload,
             message='Başarıyla giriş yapıldı'
         )
 
     except Exception as e:
-        print(f"💥 LOGIN ERROR: {str(e)}")
         db.session.rollback()
-        AnalyticsTracker.track_user_action(
-            user_id=None,
-            action='login_error',
-            details={'error': str(e), 'email': validated_data.get('email')},
-            page='/api/auth/login'
-        )
-        return ResponseHelper.server_error('Giriş sırasında bir hata oluştu', str(e))
+        return ResponseHelper.server_error('Giriş sırasında bir hata oluştu')
+
+
+@auth_bp.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+@rate_limit(max_requests=10, window_minutes=5, namespace='auth-refresh')
+def refresh():
+    """Issue a new access token using a refresh token"""
+    try:
+        user_id = get_jwt_identity()
+        access_token = create_access_token(identity=str(user_id))
+        return ResponseHelper.success({'access_token': access_token}, 'Token yenilendi')
+    except Exception:
+        return ResponseHelper.server_error('Token yenileme başarısız')
 
 @auth_bp.route('/me', methods=['GET'])
 @jwt_required()
@@ -730,4 +628,3 @@ def google_auth():
     except Exception as e:
         db.session.rollback()
         return ResponseHelper.server_error('Google authentication failed', str(e))
-

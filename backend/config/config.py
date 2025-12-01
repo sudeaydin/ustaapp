@@ -14,7 +14,7 @@ def _comma_separated_list(value: str, default: List[str]) -> List[str]:
         return default
     items = [item.strip() for item in value.split(',') if item.strip()]
     return items or default
-
+ 
 
 def _build_production_db_uri() -> str:
     """Construct a SQLAlchemy URI for Cloud SQL Postgres if credentials exist."""
@@ -44,7 +44,7 @@ def _build_production_db_uri() -> str:
         f"@/{settings.db_name}?host={unix_socket}"
     )
 
-
+ 
 class Config:
     """Base configuration"""
 

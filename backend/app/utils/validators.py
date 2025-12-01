@@ -2,6 +2,7 @@ import re
 from functools import wraps
 from flask import request, jsonify
 from marshmallow import Schema, fields, ValidationError, validates, validates_schema
+from app.utils.password_validator import validate_password_strength
 
 class ResponseHelper:
     """Helper class for standardized API responses"""
@@ -60,16 +61,8 @@ class ValidationUtils:
     
     @staticmethod
     def is_strong_password(password):
-        """Check if password meets strength requirements"""
-        if len(password) < 6:
-            return False, "Şifre en az 6 karakter olmalıdır"
-        
-        # Optional: Add more complex rules
-        # has_upper = any(c.isupper() for c in password)
-        # has_lower = any(c.islower() for c in password)
-        # has_digit = any(c.isdigit() for c in password)
-        
-        return True, "Valid"
+        """Check if password meets strength requirements (delegates to password_validator)."""
+        return validate_password_strength(password)
     
     @staticmethod
     def sanitize_string(text, max_length=None):
@@ -88,7 +81,7 @@ class UserRegistrationSchema(Schema):
     first_name = fields.Str(required=True, validate=lambda x: len(x.strip()) >= 2)
     last_name = fields.Str(required=True, validate=lambda x: len(x.strip()) >= 2)
     email = fields.Email(required=True)
-    password = fields.Str(required=True, validate=lambda x: len(x) >= 6)
+    password = fields.Str(required=True)
     user_type = fields.Str(required=True, validate=lambda x: x in ['customer', 'craftsman'])
     phone = fields.Str(required=False)
     
@@ -101,6 +94,12 @@ class UserRegistrationSchema(Schema):
     def validate_phone(self, value):
         if value and not ValidationUtils.is_valid_phone(value):
             raise ValidationError('Geçerli bir telefon numarası girin')
+
+    @validates('password')
+    def validate_password(self, value):
+        is_valid, error_message = ValidationUtils.is_strong_password(value)
+        if not is_valid:
+            raise ValidationError(error_message or 'Şifre gereksinimleri karşılanmıyor')
 
 class UserLoginSchema(Schema):
     email = fields.Email(required=True)

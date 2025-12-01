@@ -1,50 +1,76 @@
 import bcrypt
 from flask_jwt_extended import create_access_token
-from ..models.user import User
+from ..models.user import User, UserType
 from ..models.customer import Customer
 from ..models.craftsman import Craftsman
 from .. import db
+from app.utils.password_validator import validate_password_strength
+from app.utils.validators import ValidationUtils
+from flask_jwt_extended import create_refresh_token
 
 class AuthService:
     @staticmethod
-    def register_user(data, user_type='customer'):
-        """Register a new user"""
-        # Check if user already exists
-        if User.query.filter_by(email=data['email']).first():
-            return None, "Bu email adresi zaten kullanılıyor"
-        
-        # Check if passwords match
-        if data['password'] != data['confirm_password']:
-            return None, "Şifreler eşleşmiyor"
-        
+    def register_user(data):
+        """Register a new user with strong validation."""
+        required_fields = ['email', 'password', 'first_name', 'last_name', 'phone', 'user_type']
+        for field in required_fields:
+            if not data.get(field):
+                return None, f'{field} alanı zorunludur'
+
+        # Validate email/phone
+        if not ValidationUtils.is_valid_email(data['email']):
+            return None, 'Geçerli bir e-posta adresi girin'
+
+        if not ValidationUtils.is_valid_phone(data['phone']):
+            return None, 'Geçerli bir telefon numarası girin'
+
+        # Password strength
+        is_valid, error_message = validate_password_strength(data['password'])
+        if not is_valid:
+            return None, error_message or 'Şifre gereksinimleri karşılanmıyor'
+
+        # User type
+        if data['user_type'] not in ['customer', 'craftsman']:
+            return None, 'Geçersiz kullanıcı tipi'
+
+        # Existing user checks
+        existing_user = User.query.filter(
+            (User.email == data['email']) | (User.phone == data['phone'])
+        ).first()
+        if existing_user:
+            field = 'E-posta' if existing_user.email == data['email'] else 'Telefon'
+            return None, f'{field} adresi zaten kullanımda'
+
         # Create user
+        user_type_value = UserType.CUSTOMER if data['user_type'] == 'customer' else UserType.CRAFTSMAN
         user = User(
             email=data['email'],
+            phone=data['phone'],
+            user_type=user_type_value,
             first_name=data['first_name'],
             last_name=data['last_name'],
-            phone=data['phone'],
-            user_type=user_type
+            is_active=True,
         )
         user.set_password(data['password'])
-        
+
         db.session.add(user)
         db.session.flush()  # Get user ID
-        
+
         # Create profile based on user type
-        if user_type == 'customer':
+        if data['user_type'] == 'customer':
             profile = Customer(user_id=user.id)
-            db.session.add(profile)
-        elif user_type == 'craftsman':
+        else:
             profile = Craftsman(
                 user_id=user.id,
-                business_name=data.get('business_name', ''),
-                description=data.get('description', ''),
-                address=data.get('address', ''),
-                city=data.get('city', ''),
-                district=data.get('district', '')
+                business_name=data.get('business_name'),
+                description=data.get('description'),
+                address=data.get('address'),
+                city=data.get('city'),
+                district=data.get('district'),
+                is_available=True,
             )
-            db.session.add(profile)
-        
+        db.session.add(profile)
+
         db.session.commit()
         return user, None
     
@@ -58,9 +84,11 @@ class AuthService:
         
         # Create access token
         access_token = create_access_token(identity=str(user.id))
-        
+        refresh_token = create_refresh_token(identity=str(user.id))
+
         return {
             'access_token': access_token,
+            'refresh_token': refresh_token,
             'user': {
                 'id': user.id,
                 'email': user.email,
