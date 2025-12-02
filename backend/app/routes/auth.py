@@ -1,7 +1,5 @@
-import os
-import json
-import time
-from werkzeug.utils import secure_filename
+import re
+import logging
 from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import (
     create_access_token,
@@ -9,11 +7,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
 )
-from werkzeug.security import check_password_hash
 from app import db
-from app.models.user import User, UserType
-from app.models.customer import Customer
-from app.models.craftsman import Craftsman
 from app.utils.validators import (
     validate_json, UserLoginSchema, ResponseHelper, ValidationUtils
 )
@@ -21,18 +15,12 @@ from app.utils.security import rate_limit
 from app.utils.analytics import AnalyticsTracker
 from app.services.auth_service import AuthService
 from datetime import datetime
-import re
-from app.models.job import Job, JobStatus
-from app.models.quote import Quote
-from app.models.message import Message
-from app.models.notification import Notification
-from app.models.review import Review
-from app.models.payment import Payment
+from app.utils.auth_utils import get_current_user_id
+
+logger = logging.getLogger(__name__)
 
 auth_bp = Blueprint('auth', __name__)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
-UPLOAD_FOLDER = 'uploads/portfolio'
 
 
 def _auth_user_rate_limit_key():
@@ -124,7 +112,7 @@ def login(validated_data):
             message='Başarıyla giriş yapıldı'
         )
 
-    except Exception as e:
+    except Exception:
         db.session.rollback()
         return ResponseHelper.server_error('Giriş sırasında bir hata oluştu')
 
@@ -147,36 +135,13 @@ def get_current_user():
     """Get current user profile"""
     try:
         user_id = get_jwt_identity()
-        user = User.query.get(user_id)
-        
-        if not user:
-            return jsonify({
-                'error': True,
-                'message': 'Kullanıcı bulunamadı',
-                'code': 'USER_NOT_FOUND'
-            }), 404
-        
-        # Include profile data
-        profile_data = None
-        if user.user_type == UserType.CUSTOMER and user.customer_profile:
-            profile_data = user.customer_profile.to_dict(include_user=False)
-        elif user.user_type == UserType.CRAFTSMAN and user.craftsman_profile:
-            profile_data = user.craftsman_profile.to_dict(include_user=False)
-        
-        return jsonify({
-            'success': True,
-            'data': {
-                'user': user.to_dict(),
-                'profile': profile_data
-            }
-        })
-        
-    except Exception as e:
-        return jsonify({
-            'error': True,
-            'message': 'Profil bilgileri alınamadı',
-            'code': 'PROFILE_ERROR'
-        }), 500
+        profile, error = AuthService.get_profile_with_details(user_id)
+        if error:
+            return jsonify({'error': True, 'message': error, 'code': 'USER_NOT_FOUND'}), 404
+
+        return jsonify({'success': True, 'data': profile})
+    except Exception:
+        return ResponseHelper.server_error('Profil bilgileri alınamadı')
 
 @auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
@@ -194,57 +159,15 @@ def change_password():
     """Change user password"""
     try:
         user_id = get_jwt_identity()
-        user = User.query.get(user_id)
-        
-        if not user:
-            return jsonify({
-                'error': True,
-                'message': 'Kullanıcı bulunamadı',
-                'code': 'USER_NOT_FOUND'
-            }), 404
-        
         data = request.get_json()
-        
-        # Validate required fields
-        if not data.get('current_password') or not data.get('new_password'):
-            return jsonify({
-                'error': True,
-                'message': 'Mevcut şifre ve yeni şifre gereklidir',
-                'code': 'MISSING_PASSWORDS'
-            }), 400
-        
-        # Validate current password
-        if not user.check_password(data['current_password']):
-            return jsonify({
-                'error': True,
-                'message': 'Mevcut şifre hatalı',
-                'code': 'INVALID_CURRENT_PASSWORD'
-            }), 400
-        
-        # Validate new password length
-        if len(data['new_password']) < 6:
-            return jsonify({
-                'error': True,
-                'message': 'Yeni şifre en az 6 karakter olmalıdır',
-                'code': 'PASSWORD_TOO_SHORT'
-            }), 400
-        
-        # Update password
-        user.set_password(data['new_password'])
-        db.session.commit()
-        
-        return jsonify({
-            'success': True,
-            'message': 'Şifreniz başarıyla güncellendi'
-        })
-        
-    except Exception as e:
+        ok, message = AuthService.change_password(user_id, data.get('current_password'), data.get('new_password'))
+        if not ok:
+            return jsonify({'error': True, 'message': message, 'code': 'PASSWORD_ERROR'}), 400
+        return jsonify({'success': True, 'message': message})
+
+    except Exception:
         db.session.rollback()
-        return jsonify({
-            'error': True,
-            'message': 'Şifre güncellenirken bir hata oluştu',
-            'code': 'PASSWORD_UPDATE_ERROR'
-        }), 500
+        return ResponseHelper.server_error('Şifre güncellenirken bir hata oluştu')
 
 @auth_bp.route('/delete-account', methods=['DELETE'])
 @jwt_required()
@@ -252,280 +175,33 @@ def delete_account():
     """Delete user account permanently (KVKK compliance)"""
     try:
         current_user_id = get_jwt_identity()
-        
-        # Get user
-        user = User.query.get(current_user_id)
-        if not user:
-            return jsonify({
-                'error': True,
-                'message': 'Kullanıcı bulunamadı',
-                'code': 'USER_NOT_FOUND'
-            }), 404
-        
-        # Check if user has active jobs or payments
-        if user.user_type == UserType.CUSTOMER.value:
-            customer = Customer.query.filter_by(user_id=user.id).first()
-            if customer:
-                # Check for active jobs
-                active_jobs = Job.query.filter(
-                    Job.customer_id == customer.id,
-                    Job.status.in_([
-                        JobStatus.OPEN.value,
-                        JobStatus.ASSIGNED.value,
-                        JobStatus.IN_PROGRESS.value
-                    ])
-                ).first()
-                
-                if active_jobs:
-                    return jsonify({
-                        'error': True,
-                        'message': 'Aktif işleriniz bulunduğu için hesabınızı silemezsiniz. Önce işlerinizi tamamlayın.',
-                        'code': 'ACTIVE_JOBS_EXIST'
-                    }), 400
-        
-        elif user.user_type == UserType.CRAFTSMAN.value:
-            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
-            if craftsman:
-                # Check for active assignments
-                active_assignments = Job.query.filter(
-                    Job.assigned_craftsman_id == craftsman.id,
-                    Job.status.in_([
-                        JobStatus.ASSIGNED.value,
-                        JobStatus.IN_PROGRESS.value
-                    ])
-                ).first()
-                
-                if active_assignments:
-                    return jsonify({
-                        'error': True,
-                        'message': 'Aktif işleriniz bulunduğu için hesabınızı silemezsiniz. Önce işlerinizi tamamlayın.',
-                        'code': 'ACTIVE_ASSIGNMENTS_EXIST'
-                    }), 400
-        
-        # Delete related data (KVKK compliance - complete data removal)
-        try:
-            # Delete quotes
-            Quote.query.filter(
-                (Quote.customer_id == user.id) | (Quote.craftsman_id == user.id)
-            ).delete()
-            
-            # Delete messages
-            Message.query.filter(
-                (Message.sender_id == user.id) | (Message.receiver_id == user.id)
-            ).delete()
-            
-            # Delete notifications
-            Notification.query.filter_by(user_id=user.id).delete()
-            
-            # Delete reviews
-            Review.query.filter(
-                (Review.customer_id == user.id) | (Review.craftsman_id == user.id)
-            ).delete()
-            
-            # Delete payments
-            Payment.query.filter_by(user_id=user.id).delete()
-            
-            # Delete customer/craftsman specific data
-            if user.user_type == UserType.CUSTOMER.value:
-                customer = Customer.query.filter_by(user_id=user.id).first()
-                if customer:
-                    db.session.delete(customer)
-            
-            elif user.user_type == UserType.CRAFTSMAN.value:
-                craftsman = Craftsman.query.filter_by(user_id=user.id).first()
-                if craftsman:
-                    db.session.delete(craftsman)
-            
-            # Finally delete the user
-            db.session.delete(user)
-            db.session.commit()
-            
-            return jsonify({
-                'success': True,
-                'message': 'Hesabınız ve tüm verileriniz başarıyla silindi'
-            })
-            
-        except Exception as delete_error:
-            db.session.rollback()
-            return jsonify({
-                'error': True,
-                'message': 'Hesap silme işlemi sırasında bir hata oluştu',
-                'code': 'DELETE_PROCESS_ERROR'
-            }), 500
-        
-    except Exception as e:
+        ok, message, status = AuthService.delete_account(current_user_id)
+        if not ok:
+            return jsonify({'error': True, 'message': message}), status
+        return jsonify({'success': True, 'message': message}), status
+    except Exception:
         db.session.rollback()
-        return jsonify({
-            'error': True,
-            'message': 'Hesap silme işlemi başarısız oldu',
-            'code': 'DELETE_ACCOUNT_ERROR'
-        }), 500
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@auth_bp.route('/upload-portfolio-image', methods=['POST'])
-@jwt_required()
-def upload_portfolio_image():
-    """Upload portfolio image for craftsman"""
-    try:
-        current_user_id = get_jwt_identity()
-        user = User.query.get(current_user_id)
-        
-        if not user or user.user_type != 'craftsman':
-            return jsonify({'error': True, 'message': 'Sadece ustalar görsel yükleyebilir', 'code': 'UNAUTHORIZED'}), 403
-            
-        craftsman = Craftsman.query.filter_by(user_id=current_user_id).first()
-        if not craftsman:
-            return jsonify({'error': True, 'message': 'Usta profili bulunamadı', 'code': 'CRAFTSMAN_NOT_FOUND'}), 404
-        
-        if 'image' not in request.files:
-            return jsonify({'error': True, 'message': 'Görsel dosyası bulunamadı', 'code': 'NO_FILE'}), 400
-            
-        file = request.files['image']
-        if file.filename == '':
-            return jsonify({'error': True, 'message': 'Dosya seçilmedi', 'code': 'NO_FILE_SELECTED'}), 400
-            
-        if file and allowed_file(file.filename):
-            # Create upload directory if it doesn't exist
-            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-            
-            # Generate secure filename
-            filename = secure_filename(file.filename)
-            timestamp = str(int(time.time()))
-            filename = f"{current_user_id}_{timestamp}_{filename}"
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
-            
-            # Save file
-            file.save(file_path)
-            
-            # Update craftsman portfolio images
-            current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
-            image_url = f"/uploads/portfolio/{filename}"
-            current_images.append(image_url)
-            
-            # Limit to 10 images
-            if len(current_images) > 10:
-                # Remove oldest image file
-                oldest_image = current_images.pop(0)
-                try:
-                    old_file_path = os.path.join('uploads/portfolio', os.path.basename(oldest_image))
-                    if os.path.exists(old_file_path):
-                        os.remove(old_file_path)
-                except:
-                    pass
-            
-            craftsman.portfolio_images = json.dumps(current_images)
-            db.session.commit()
-            
-            return jsonify({
-                'success': True, 
-                'message': 'Görsel başarıyla yüklendi',
-                'image_url': image_url,
-                'portfolio_images': current_images
-            })
-        else:
-            return jsonify({'error': True, 'message': 'Geçersiz dosya formatı. PNG, JPG, JPEG, GIF veya WEBP dosyası yükleyin', 'code': 'INVALID_FILE_TYPE'}), 400
-            
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': True, 'message': 'Görsel yükleme başarısız oldu', 'code': 'UPLOAD_ERROR'}), 500
-
-@auth_bp.route('/delete-portfolio-image', methods=['DELETE'])
-@jwt_required()
-def delete_portfolio_image():
-    """Delete portfolio image for craftsman"""
-    try:
-        current_user_id = get_jwt_identity()
-        user = User.query.get(current_user_id)
-        
-        if not user or user.user_type != 'craftsman':
-            return jsonify({'error': True, 'message': 'Sadece ustalar görsel silebilir', 'code': 'UNAUTHORIZED'}), 403
-            
-        craftsman = Craftsman.query.filter_by(user_id=current_user_id).first()
-        if not craftsman:
-            return jsonify({'error': True, 'message': 'Usta profili bulunamadı', 'code': 'CRAFTSMAN_NOT_FOUND'}), 404
-        
-        data = request.get_json()
-        image_url = data.get('image_url')
-        
-        if not image_url:
-            return jsonify({'error': True, 'message': 'Görsel URL\'si gerekli', 'code': 'IMAGE_URL_REQUIRED'}), 400
-        
-        current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
-        
-        if image_url in current_images:
-            current_images.remove(image_url)
-            craftsman.portfolio_images = json.dumps(current_images)
-            
-            # Delete physical file
-            try:
-                file_path = os.path.join('uploads/portfolio', os.path.basename(image_url))
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-            except:
-                pass
-            
-            db.session.commit()
-            return jsonify({
-                'success': True, 
-                'message': 'Görsel başarıyla silindi',
-                'portfolio_images': current_images
-            })
-        else:
-            return jsonify({'error': True, 'message': 'Görsel bulunamadı', 'code': 'IMAGE_NOT_FOUND'}), 404
-            
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': True, 'message': 'Görsel silme başarısız oldu', 'code': 'DELETE_ERROR'}), 500
+        return ResponseHelper.server_error('Hesap silme işlemi başarısız oldu')
 
 @auth_bp.route('/profile', methods=['GET'])
+@jwt_required()
 def get_profile():
     """Get user profile with craftsman/customer data"""
     try:
-        from app.utils.auth_utils import get_current_user_id_with_mock
+        current_user_id = get_current_user_id()
+        logger.debug("GET /profile current_user_id=%s", current_user_id)
+
+
+        profile = AuthService.get_user_profile(current_user_id)
+        logger.debug("GET /profile profile=%s", profile)
         
-        # Get user ID with mock token support
-        current_user_id, error_response = get_current_user_id_with_mock()
-        if error_response:
-            return error_response
-        
-        print(f"🔍 Looking for user with ID: {current_user_id}")
-        user = User.query.get(current_user_id)
-        
-        if not user:
-            print(f"❌ User not found with ID: {current_user_id}")
+        if not profile:
+            logger.warning("GET /profile user not found user_id=%s", current_user_id)
             return jsonify({'error': True, 'message': 'Kullanıcı bulunamadı', 'code': 'USER_NOT_FOUND'}), 404
-        
-        print(f"✅ User found: {user.email}, type: {user.user_type}")
-        profile_data = user.to_dict()
-        
-        # Add specific profile data based on user type
-        if user.user_type == 'craftsman':
-            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
-            if craftsman:
-                print(f"✅ Craftsman profile found for {user.email}")
-                profile_data['craftsman_profile'] = craftsman.to_dict(include_user=False)
-            else:
-                print(f"❌ No craftsman profile found for {user.email}")
-        elif user.user_type == 'customer':
-            customer = Customer.query.filter_by(user_id=user.id).first()
-            if customer:
-                print(f"✅ Customer profile found for {user.email}")
-                profile_data['customer_profile'] = customer.to_dict(include_user=False)
-            else:
-                print(f"❌ No customer profile found for {user.email}")
-        
-        print(f"✅ Returning profile data for {user.email}")
-        return jsonify({
-            'success': True,
-            'data': profile_data
-        })
+        return jsonify({'success': True, 'data': profile}), 200
         
     except Exception as e:
-        print(f"❌ Profile API Error: {str(e)}")
-        import traceback
-        traceback.print_exc()
+        logger.exception("GET /profile sırasında hata oluştu")
         return jsonify({'error': True, 'message': 'Profil bilgileri alınamadı', 'code': 'PROFILE_ERROR'}), 500
 
 @auth_bp.route('/google', methods=['POST'])
@@ -533,98 +209,11 @@ def google_auth():
     """Google OAuth authentication"""
     try:
         data = request.get_json()
-        
-        # Validate required fields
-        required_fields = ['user_type', 'google_id', 'email']
-        for field in required_fields:
-            if not data.get(field):
-                return ResponseHelper.validation_error(f'{field} is required')
-        
-        user_type = data['user_type']
-        google_id = data['google_id']
-        email = data['email']
-        display_name = data.get('display_name', '')
-        photo_url = data.get('photo_url', '')
-        
-        # Check if user already exists with this Google ID
-        existing_user = User.query.filter_by(google_id=google_id).first()
-        
-        if existing_user:
-            # User exists, log them in
-            if not existing_user.is_active:
-                return ResponseHelper.validation_error('Hesabınız deaktif durumda')
+        payload, error = AuthService.google_auth(data)
+        if error:
+            return jsonify({'error': True, 'message': error, 'code': 'GOOGLE_AUTH_ERROR'}), 400
+        return ResponseHelper.success(payload, 'Google ile işlem başarılı')
             
-            # Generate JWT token
-            access_token = create_access_token(identity=str(existing_user.id))
-            
-            return ResponseHelper.success(
-                data={
-                    'token': access_token,
-                    'user': {
-                        'id': existing_user.id,
-                        'email': existing_user.email,
-                        'first_name': existing_user.first_name,
-                        'last_name': existing_user.last_name,
-                        'user_type': existing_user.user_type,
-                        'phone': existing_user.phone,
-                        'google_id': existing_user.google_id,
-                    }
-                },
-                message='Google ile giriş başarılı'
-            )
-        else:
-            # Create new user
-            # Parse display name
-            name_parts = display_name.split(' ', 1)
-            first_name = name_parts[0] if name_parts else 'Google'
-            last_name = name_parts[1] if len(name_parts) > 1 else 'User'
-            
-            # Create user
-            new_user = User(
-                email=email,
-                first_name=first_name,
-                last_name=last_name,
-                user_type=user_type,
-                google_id=google_id,
-                avatar_url=photo_url,
-                is_active=True,
-                email_verified=True,  # Google accounts are pre-verified
-            )
-            
-            db.session.add(new_user)
-            db.session.flush()  # Get the user ID
-            
-            # Create craftsman profile if needed
-            if user_type == 'craftsman':
-                craftsman = Craftsman(
-                    user_id=new_user.id,
-                    business_name=f"{first_name} {last_name}",
-                    is_available=True,
-                    is_verified=False,
-                )
-                db.session.add(craftsman)
-            
-            db.session.commit()
-            
-            # Generate JWT token
-            access_token = create_access_token(identity=str(new_user.id))
-            
-            return ResponseHelper.success(
-                data={
-                    'token': access_token,
-                    'user': {
-                        'id': new_user.id,
-                        'email': new_user.email,
-                        'first_name': new_user.first_name,
-                        'last_name': new_user.last_name,
-                        'user_type': new_user.user_type,
-                        'phone': new_user.phone,
-                        'google_id': new_user.google_id,
-                    }
-                },
-                message='Google ile kayıt başarılı'
-            )
-            
-    except Exception as e:
+    except Exception:
         db.session.rollback()
-        return ResponseHelper.server_error('Google authentication failed', str(e))
+        return ResponseHelper.server_error('Google authentication failed')

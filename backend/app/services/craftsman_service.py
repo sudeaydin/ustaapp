@@ -1,4 +1,8 @@
 from sqlalchemy import and_, or_
+import os
+import json
+import logging
+from werkzeug.utils import secure_filename
 from ..models.craftsman import Craftsman
 from ..models.user import User
 from ..models.category import Category
@@ -6,6 +10,8 @@ from ..models.review import Review
 from .. import db
 
 class CraftsmanService:
+    logger = logging.getLogger(__name__)
+
     @staticmethod
     def get_all(page=1, per_page=10, filters=None):
         """Get all craftsmen with pagination and filters"""
@@ -112,3 +118,75 @@ class CraftsmanService:
             craftsman.average_rating = round(average_rating, 2)
             craftsman.total_reviews = len(reviews)
             db.session.commit()
+
+    @staticmethod
+    def upload_portfolio_image(user_id, file_storage, upload_folder):
+        """Handle portfolio image upload for craftsmen."""
+        CraftsmanService.logger.debug("upload_portfolio_image:start user_id=%s", user_id)
+        user = User.query.get(user_id)
+        if not user or getattr(user.user_type, 'value', user.user_type) != 'craftsman':
+            return None, 'Sadece ustalar görsel yükleyebilir', 403
+
+        craftsman = Craftsman.query.filter_by(user_id=user_id).first()
+        if not craftsman:
+            return None, 'Usta profili bulunamadı', 404
+
+        try:
+            os.makedirs(upload_folder, exist_ok=True)
+            filename = file_storage.filename
+            from time import time
+            timestamp = str(int(time()))
+            filename = f"{user_id}_{timestamp}_{secure_filename(filename)}"
+            file_path = os.path.join(upload_folder, filename)
+            file_storage.save(file_path)
+
+            current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
+            image_url = f"/uploads/portfolio/{filename}"
+            current_images.append(image_url)
+            if len(current_images) > 10:
+                oldest = current_images.pop(0)
+                old_path = os.path.join(upload_folder, os.path.basename(oldest))
+                if os.path.exists(old_path):
+                    os.remove(old_path)
+
+            craftsman.portfolio_images = json.dumps(current_images)
+            db.session.commit()
+            CraftsmanService.logger.debug("upload_portfolio_image:success user_id=%s", user_id)
+            return {
+                'image_url': image_url,
+                'portfolio_images': current_images
+            }, None, 200
+        except Exception:
+            CraftsmanService.logger.exception("upload_portfolio_image:error user_id=%s", user_id)
+            db.session.rollback()
+            return None, 'Görsel yükleme başarısız oldu', 500
+
+    @staticmethod
+    def delete_portfolio_image(user_id, image_url, upload_folder):
+        """Delete portfolio image for craftsmen."""
+        CraftsmanService.logger.debug("delete_portfolio_image:start user_id=%s", user_id)
+        user = User.query.get(user_id)
+        if not user or getattr(user.user_type, 'value', user.user_type) != 'craftsman':
+            return None, 'Sadece ustalar görsel silebilir', 403
+
+        craftsman = Craftsman.query.filter_by(user_id=user_id).first()
+        if not craftsman:
+            return None, 'Usta profili bulunamadı', 404
+
+        current_images = json.loads(craftsman.portfolio_images) if craftsman.portfolio_images else []
+        if image_url not in current_images:
+            return None, 'Görsel bulunamadı', 404
+
+        try:
+            current_images.remove(image_url)
+            craftsman.portfolio_images = json.dumps(current_images)
+            file_path = os.path.join(upload_folder, os.path.basename(image_url))
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            db.session.commit()
+            CraftsmanService.logger.debug("delete_portfolio_image:success user_id=%s", user_id)
+            return {'portfolio_images': current_images}, None, 200
+        except Exception:
+            CraftsmanService.logger.exception("delete_portfolio_image:error user_id=%s", user_id)
+            db.session.rollback()
+            return None, 'Görsel silme başarısız oldu', 500
