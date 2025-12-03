@@ -379,7 +379,7 @@ def get_statistics():
             'average_rating': craftsman.average_rating or 0,
             'total_services': Service.query.filter_by(craftsman_id=craftsman.id).count()
         }
-
+ 
         return jsonify({
             'success': True,
             'statistics': stats
@@ -390,7 +390,7 @@ def get_statistics():
         return jsonify({'error': 'Internal server error'}), 500
 
 
-@craftsman_bp.route('/auth/upload-portfolio-image', methods=['POST'])
+@craftsman_bp.route('/craftsman/upload-portfolio-image', methods=['POST'])
 @jwt_required()
 def upload_portfolio_image():
     """Protected: upload portfolio image for craftsman"""
@@ -415,7 +415,7 @@ def upload_portfolio_image():
         return jsonify({'error': True, 'message': 'Görsel yükleme başarısız oldu', 'code': 'UPLOAD_ERROR'}), 500
 
 
-@craftsman_bp.route('/auth/delete-portfolio-image', methods=['DELETE'])
+@craftsman_bp.route('/craftsman/delete-portfolio-image', methods=['DELETE'])
 @jwt_required()
 def delete_portfolio_image():
     """Protected: delete portfolio image for craftsman"""
