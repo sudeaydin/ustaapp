@@ -83,15 +83,20 @@ def register():
 @validate_json(UserLoginSchema)
 @rate_limit(max_requests=5, window_minutes=1, namespace='auth-login')
 def login(validated_data):
-    """User login endpoint"""
+    """User login endpoint with enhanced security"""
     try:
-        user_payload, error = AuthService.login_user(validated_data['email'], validated_data['password'])
+        # Normalize email
+        email = validated_data['email'].lower().strip()
+        password = validated_data['password']
+
+        user_payload, error = AuthService.login_user(email, password)
 
         if error:
+            logger.warning(f"Failed login attempt for email: {email}")
             AnalyticsTracker.track_user_action(
                 user_id=None,
                 action='login_failed',
-                details={'email': validated_data['email'], 'reason': error},
+                details={'email': email, 'reason': error},
                 page='/api/auth/login'
             )
             return ResponseHelper.unauthorized(error)
@@ -107,12 +112,15 @@ def login(validated_data):
             page='/api/auth/login'
         )
 
+        logger.info(f"Successful login for user: {email}")
+
         return ResponseHelper.success(
             data=user_payload,
             message='Başarıyla giriş yapıldı'
         )
 
-    except Exception:
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
         db.session.rollback()
         return ResponseHelper.server_error('Giriş sırasında bir hata oluştu')
 
@@ -213,7 +221,58 @@ def google_auth():
         if error:
             return jsonify({'error': True, 'message': error, 'code': 'GOOGLE_AUTH_ERROR'}), 400
         return ResponseHelper.success(payload, 'Google ile işlem başarılı')
-            
+
     except Exception:
         db.session.rollback()
         return ResponseHelper.server_error('Google authentication failed')
+
+@auth_bp.route('/profile', methods=['PUT', 'PATCH'])
+@jwt_required()
+@rate_limit(max_requests=20, window_minutes=5, namespace='auth-update-profile')
+def update_profile():
+    """Update user profile (comprehensive)"""
+    try:
+        current_user_id = get_current_user_id()
+        data = request.get_json()
+
+        user, error = AuthService.update_user_profile(current_user_id, data)
+        if error:
+            return jsonify({'error': True, 'message': error, 'code': 'PROFILE_UPDATE_ERROR'}), 400
+
+        return jsonify({
+            'success': True,
+            'message': 'Profil başarıyla güncellendi'
+        }), 200
+
+    except Exception as e:
+        logger.exception("Update profile error")
+        db.session.rollback()
+        return ResponseHelper.server_error('Profil güncellenirken bir hata oluştu')
+
+@auth_bp.route('/avatar', methods=['POST'])
+@jwt_required()
+@rate_limit(max_requests=10, window_minutes=10, namespace='auth-upload-avatar')
+def upload_avatar():
+    """Upload user avatar image"""
+    try:
+        current_user_id = get_current_user_id()
+
+        if 'avatar' not in request.files:
+            return jsonify({'error': True, 'message': 'Avatar dosyası gerekli'}), 400
+
+        file = request.files['avatar']
+        avatar_url, error = AuthService.upload_avatar(current_user_id, file)
+
+        if error:
+            return jsonify({'error': True, 'message': error}), 400
+
+        return jsonify({
+            'success': True,
+            'message': 'Avatar başarıyla yüklendi',
+            'data': {'avatar_url': avatar_url}
+        }), 200
+
+    except Exception as e:
+        logger.exception("Upload avatar error")
+        db.session.rollback()
+        return ResponseHelper.server_error('Avatar yüklenirken bir hata oluştu')

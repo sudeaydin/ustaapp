@@ -75,7 +75,6 @@ def create_app(config_name='default'):
     # Payment model imported but payment routes temporarily disabled
     
     # Register new API blueprints
-    from app.routes.profile import profile_bp
     from app.routes.messages import messages_bp
     from app.routes.search import search_bp
     # Payment routes temporarily disabled for security
@@ -84,7 +83,6 @@ def create_app(config_name='default'):
     from app.routes.analytics_simple import analytics_bp
     from app.routes.job import job_bp
     from app.routes.craftsman import craftsman_bp
-    from app.routes.production_api import production_api
     from app.routes.mobile_api import mobile_api
     from app.routes.quotes import quotes_bp
     from app.routes.notifications import notifications_bp
@@ -103,8 +101,7 @@ def create_app(config_name='default'):
     from app.routes.marketplace import marketplace_bp
     from app.routes.cloud_scheduler import scheduler_bp
     # from app.routes.enhanced_analytics import enhanced_analytics_bp
-    
-    app.register_blueprint(profile_bp, url_prefix='/api/profile')
+
     app.register_blueprint(messages_bp, url_prefix='/api/messages')
     app.register_blueprint(search_bp, url_prefix='/api/search')
     # Payment blueprint temporarily disabled - online payment system under development
@@ -130,9 +127,8 @@ def create_app(config_name='default'):
     app.register_blueprint(marketplace_bp, url_prefix='/api/marketplace')
     app.register_blueprint(scheduler_bp)  # No prefix - direct /cron/ endpoints
     # app.register_blueprint(enhanced_analytics_bp)  # Enhanced analytics API (temporarily disabled)
-    
-    # Production and Mobile APIs
-    app.register_blueprint(production_api, url_prefix='/api/v2')
+
+    # Mobile API
     app.register_blueprint(mobile_api, url_prefix='/api/mobile')
     
     # Initialize SocketIO events

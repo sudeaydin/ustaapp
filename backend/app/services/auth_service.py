@@ -95,30 +95,70 @@ class AuthService:
     
     @staticmethod
     def login_user(email, password):
-        """Login user"""
+        """Login user with enhanced JWT claims"""
+        from datetime import datetime
         logger.debug("login_user:start email=%s", email)
         user = User.query.filter_by(email=email, is_active=True).first()
-        
+
         if not user or not user.check_password(password):
             logger.debug("login_user:invalid_credentials")
             return None, "Geçersiz email veya şifre"
-        
-        # Create access token
-        access_token = create_access_token(identity=str(user.id))
+
+        # Update last login timestamp
+        user.last_login = datetime.utcnow()
+        db.session.commit()
+
+        # Create access token with additional claims
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={
+                'user_type': user.user_type,
+                'email': user.email
+            }
+        )
         refresh_token = create_refresh_token(identity=str(user.id))
+
+        # Get profile data with customer/craftsman info
+        profile_data = {
+            'id': user.id,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'user_type': user.user_type,
+            'avatar': user.avatar_url,
+            'is_active': user.is_active
+        }
+
+        # Add customer/craftsman profile
+        if user.user_type == 'customer':
+            customer = Customer.query.filter_by(user_id=user.id).first()
+            if customer:
+                profile_data['customer_profile'] = {
+                    'id': customer.id,
+                    'address': customer.billing_address,
+                    'city': customer.city,
+                    'district': customer.district
+                }
+        elif user.user_type == 'craftsman':
+            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
+            if craftsman:
+                profile_data['craftsman_profile'] = {
+                    'id': craftsman.id,
+                    'business_name': craftsman.business_name,
+                    'description': craftsman.description,
+                    'city': craftsman.city,
+                    'district': craftsman.district,
+                    'hourly_rate': str(craftsman.hourly_rate) if craftsman.hourly_rate else None,
+                    'average_rating': craftsman.average_rating,
+                    'is_available': craftsman.is_available,
+                    'is_verified': craftsman.is_verified
+                }
 
         logger.debug("login_user:success user_id=%s", user.id)
         return {
             'access_token': access_token,
             'refresh_token': refresh_token,
-            'user': {
-                'id': user.id,
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'user_type': user.user_type,
-                'avatar': user.avatar_url
-            }
+            'user': profile_data
         }, None
     
     @staticmethod
@@ -173,18 +213,89 @@ class AuthService:
     
     @staticmethod
     def update_user_profile(user_id, data):
-        """Update user profile"""
+        """Update comprehensive user profile including customer/craftsman data"""
         logger.debug("update_user_profile:start user_id=%s", user_id)
         user = User.query.get(user_id)
         if not user:
             logger.debug("update_user_profile:not_found user_id=%s", user_id)
             return None, "Kullanıcı bulunamadı"
-        
-        # Update user fields
-        for key, value in data.items():
-            if key in ['first_name', 'last_name', 'phone'] and hasattr(user, key):
-                setattr(user, key, value)
-        
+
+        # Update user basic info
+        if 'first_name' in data:
+            user.first_name = data['first_name']
+        if 'last_name' in data:
+            user.last_name = data['last_name']
+        if 'phone' in data:
+            # Validate phone
+            if not ValidationUtils.is_valid_phone(data['phone']):
+                return None, "Geçerli bir telefon numarası girin"
+            user.phone = data['phone']
+        if 'avatar' in data:
+            user.avatar_url = data['avatar']
+
+        from datetime import datetime
+        user.updated_at = datetime.utcnow()
+
+        # Update profile based on user type
+        if user.user_type == 'customer':
+            customer = Customer.query.filter_by(user_id=user.id).first()
+            if not customer:
+                customer = Customer(user_id=user.id)
+                db.session.add(customer)
+
+            if 'address' in data:
+                customer.billing_address = data['address']
+            if 'city' in data:
+                customer.city = data['city']
+            if 'district' in data:
+                customer.district = data['district']
+
+            customer.updated_at = datetime.utcnow()
+
+        elif user.user_type == 'craftsman':
+            import json
+            craftsman = Craftsman.query.filter_by(user_id=user.id).first()
+            if not craftsman:
+                craftsman = Craftsman(user_id=user.id)
+                db.session.add(craftsman)
+
+            if 'business_name' in data:
+                craftsman.business_name = data['business_name']
+            if 'description' in data:
+                craftsman.description = data['description']
+            if 'address' in data:
+                craftsman.address = data['address']
+            if 'city' in data:
+                craftsman.city = data['city']
+            if 'district' in data:
+                craftsman.district = data['district']
+            if 'hourly_rate' in data:
+                try:
+                    craftsman.hourly_rate = float(data['hourly_rate'])
+                except (ValueError, TypeError):
+                    pass
+            if 'experience_years' in data:
+                try:
+                    craftsman.experience_years = int(data['experience_years'])
+                except (ValueError, TypeError):
+                    pass
+            if 'skills' in data:
+                craftsman.skills = json.dumps(data['skills']) if isinstance(data['skills'], list) else data['skills']
+            if 'certifications' in data:
+                craftsman.certifications = json.dumps(data['certifications']) if isinstance(data['certifications'], list) else data['certifications']
+            if 'working_hours' in data:
+                craftsman.working_hours = json.dumps(data['working_hours']) if isinstance(data['working_hours'], dict) else data['working_hours']
+            if 'service_areas' in data:
+                craftsman.service_areas = json.dumps(data['service_areas']) if isinstance(data['service_areas'], list) else data['service_areas']
+            if 'website' in data:
+                craftsman.website = data['website']
+            if 'response_time' in data:
+                craftsman.response_time = data['response_time']
+            if 'is_available' in data:
+                craftsman.is_available = bool(data['is_available'])
+
+            craftsman.updated_at = datetime.utcnow()
+
         db.session.commit()
         logger.debug("update_user_profile:success user_id=%s", user_id)
         return user, None
@@ -361,3 +472,43 @@ class AuthService:
             logger.exception("google_auth:error email=%s", email)
             db.session.rollback()
             return None, 'Google authentication failed'
+
+    @staticmethod
+    def upload_avatar(user_id, file):
+        """Upload user avatar with validation"""
+        import uuid
+        from datetime import datetime
+        logger.debug("upload_avatar:start user_id=%s", user_id)
+
+        user = User.query.get(user_id)
+        if not user:
+            return None, "Kullanıcı bulunamadı"
+
+        if not file or file.filename == '':
+            return None, "Dosya seçilmedi"
+
+        # Validate file extension
+        allowed_extensions = {'png', 'jpg', 'jpeg', 'gif'}
+        file_extension = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else ''
+        if file_extension not in allowed_extensions:
+            return None, "Sadece PNG, JPG, JPEG ve GIF dosyaları kabul edilir"
+
+        # Generate unique filename
+        filename = f"{uuid.uuid4()}.{file_extension}"
+
+        # Create uploads directory if it doesn't exist
+        upload_dir = os.path.join(os.getcwd(), 'uploads', 'avatars')
+        os.makedirs(upload_dir, exist_ok=True)
+
+        # Save file
+        file_path = os.path.join(upload_dir, filename)
+        file.save(file_path)
+
+        # Update user avatar
+        user.avatar_url = f"/uploads/avatars/{filename}"
+        user.updated_at = datetime.utcnow()
+
+        db.session.commit()
+        logger.debug("upload_avatar:success user_id=%s filename=%s", user_id, filename)
+
+        return user.avatar_url, None
