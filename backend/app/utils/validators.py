@@ -60,11 +60,6 @@ class ValidationUtils:
         return len(clean_phone) in [10, 11, 12] and clean_phone.isdigit()
     
     @staticmethod
-    def is_strong_password(password):
-        """Check if password meets strength requirements (delegates to password_validator)."""
-        return validate_password_strength(password)
-    
-    @staticmethod
     def sanitize_string(text, max_length=None):
         """Sanitize and trim string input"""
         if not text:
