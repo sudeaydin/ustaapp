@@ -41,6 +41,13 @@ class Quote(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     craftsman_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
+    # 🔹 Service ilişkisi için ForeignKey
+    service_id = db.Column(
+        db.Integer,
+        db.ForeignKey('services.id'),
+        nullable=False                  # zorunlu yapmak istiyorsan False yaparsın
+    )
+
     # Quote Request Details (from customer)
     category = db.Column(db.String(100), nullable=False)
     job_type = db.Column(db.String(100), nullable=False)
@@ -113,6 +120,7 @@ class Quote(db.Model):
         return {
             'id': self.id,
             'customer_id': self.customer_id,
+            'service_id': self.service_id,
             'craftsman_id': self.craftsman_id,
             'category': self.category,
             'job_type': self.job_type,
