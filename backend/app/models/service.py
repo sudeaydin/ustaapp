@@ -34,7 +34,7 @@ class Service(db.Model):
     
     # Status
     is_active = db.Column(db.Boolean, default=True)
-    
+     
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

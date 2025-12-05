@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields, validate
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from ..models.craftsman import Craftsman
-
+ 
 class CraftsmanSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Craftsman
