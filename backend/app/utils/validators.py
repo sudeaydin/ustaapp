@@ -92,7 +92,7 @@ class UserRegistrationSchema(Schema):
 
     @validates('password')
     def validate_password(self, value):
-        is_valid, error_message = ValidationUtils.is_strong_password(value)
+        is_valid, error_message = validate_password_strength(value)
         if not is_valid:
             raise ValidationError(error_message or 'Şifre gereksinimleri karşılanmıyor')
 
