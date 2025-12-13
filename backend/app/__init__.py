@@ -1,17 +1,10 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from flask_socketio import SocketIO
 import os
 import json
 
 from config.config import config as app_config
-
-# Initialize extensions
-db = SQLAlchemy(session_options={'expire_on_commit': False})
-jwt = JWTManager()
-socketio = SocketIO()
+from app.extensions import init_extensions, db, jwt, socketio, csrf
 
 def create_app(config_name='default'):
     gae_env = os.environ.get('GAE_ENV', '').startswith('standard')
@@ -31,27 +24,15 @@ def create_app(config_name='default'):
     app.config.from_object(configuration)
     app.config['ACTIVE_CONFIG_NAME'] = config_name
 
-    # Initialize extensions with app
-    db.init_app(app)
-    jwt.init_app(app)
-
-    @jwt.unauthorized_loader
-    def _missing_jwt_callback(error):
-        return jsonify({'success': False, 'message': error}), 422
-
-    @jwt.invalid_token_loader
-    def _invalid_token_callback(error):
-        return jsonify({'success': False, 'message': error}), 422
-
-    @jwt.user_identity_loader
-    def _user_identity_lookup(identity):
-        return str(identity) if identity is not None else identity
+    # Parse CORS origins for extensions
     cors_origins = app.config.get('CORS_ALLOWED_ORIGINS') or app.config.get('CORS_ORIGINS') or ['*']
     if isinstance(cors_origins, str):
         cors_origins = [origin.strip() for origin in cors_origins.split(',') if origin.strip()]
     if not cors_origins:
         cors_origins = ['*']
-    socketio.init_app(app, cors_allowed_origins=cors_origins)
+
+    # Initialize all extensions
+    init_extensions(app, cors_origins=cors_origins)
 
     # CORS ayarları - Frontend ile backend arasında iletişim için
     CORS(app, origins=cors_origins,

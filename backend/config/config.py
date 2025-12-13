@@ -58,6 +58,14 @@ class Config:
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-change-this'
     JWT_ACCESS_TOKEN_EXPIRES = int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES', 3600))
 
+    # CSRF Protection Configuration
+    # For JWT API: CSRF is less critical since JWT in Authorization headers is CSRF-safe
+    # However, enabled for defense-in-depth and future web forms
+    WTF_CSRF_ENABLED = os.environ.get('WTF_CSRF_ENABLED', 'false').lower() == 'true'
+    WTF_CSRF_TIME_LIMIT = None  # No expiration for API tokens
+    WTF_CSRF_SSL_STRICT = True  # Require HTTPS in production
+    WTF_CSRF_CHECK_DEFAULT = False  # Manual opt-in per endpoint (JWT endpoints don't need CSRF)
+
     # Feature toggles
     RUN_DB_CREATE_ALL = os.environ.get('RUN_DB_CREATE_ALL', 'false').lower() == 'true'
     ENABLE_INIT_DB_ENDPOINT = os.environ.get('ENABLE_INIT_DB_ENDPOINT', 'false').lower() == 'true'
@@ -88,6 +96,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///ustalar_dev.db'
     RUN_DB_CREATE_ALL = True
     ENABLE_INIT_DB_ENDPOINT = True
+    WTF_CSRF_SSL_STRICT = False  # Allow HTTP in development
 
 
 class TestingConfig(Config):
@@ -114,6 +123,9 @@ class ProductionConfig(Config):
             'https://app.ustaapp.com',
         ],
     )
+
+    # Enable CSRF in production for defense-in-depth (JWT APIs are exempt by default)
+    WTF_CSRF_ENABLED = os.environ.get('WTF_CSRF_ENABLED', 'true').lower() == 'true'
 
 
 config = {
