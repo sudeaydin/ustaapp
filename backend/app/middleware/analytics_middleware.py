@@ -3,6 +3,9 @@ Enhanced Analytics Middleware for ustam App
 Automatically captures and logs all user interactions and system events
 """
 
+# NOTE: This module is currently disabled.
+
+
 import time
 import uuid
 import logging
