@@ -25,7 +25,7 @@ Thumbs.db
 # Logs
 *.log
 logs/
-
+ 
 # Database
 *.db
 *.sqlite
@@ -89,3 +89,7 @@ instance/
 dmypy.json
 flutter_linux_3.24.5-stable.tar.xz
 flutter/
+
+.venv/
+backend/.venv/
+

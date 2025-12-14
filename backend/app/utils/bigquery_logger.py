@@ -3,6 +3,9 @@ Real-time BigQuery Logging Utility
 Streams logs and analytics data to BigQuery in real-time
 """
 
+# NOTE: This module is currently disabled.
+
+
 import os
 import json
 import uuid

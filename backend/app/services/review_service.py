@@ -1,5 +1,5 @@
 from ..models.review import Review
-from .. import db
+from app.extensions import db
 
 class ReviewService:
     @staticmethod

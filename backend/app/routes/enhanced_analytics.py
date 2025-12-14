@@ -2,6 +2,7 @@
 Enhanced Analytics API Endpoints for ustam App
 Provides comprehensive business intelligence and real-time analytics
 """
+# NOTE: This module is currently disabled.
 
 from flask import Blueprint, request, jsonify, g
 from datetime import datetime, timedelta

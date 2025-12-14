@@ -1,5 +1,5 @@
 from ..models.service import Service
-from .. import db
+from app.extensions import db
 
 class ServiceService:
     @staticmethod

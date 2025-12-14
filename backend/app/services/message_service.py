@@ -1,5 +1,5 @@
 from ..models.message import Message
-from .. import db
+from app.extensions import db
 
 class MessageService:
     @staticmethod

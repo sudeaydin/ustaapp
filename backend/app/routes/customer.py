@@ -1,324 +1,527 @@
+"""
+Customer Routes
+
+Thin controllers for customer-related endpoints.
+All business logic is delegated to CustomerService.
+"""
+
+import logging
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..models.customer import Customer
-from ..models.quote import Quote
-from ..models.review import Review
-from ..models.craftsman import Craftsman
-from ..schemas.customer import CustomerSchema
-from datetime import datetime
-import logging
+from marshmallow import ValidationError
 
-customer_bp = Blueprint('customer', __name__)
+from app.services.customer_service import CustomerService
+from app.schemas.customer import CustomerSchema
+from app.exceptions import (
+    CustomerError,
+    CustomerNotFoundError,
+    QuoteNotFoundError,
+    QuoteAccessDeniedError,
+    QuoteStatusError,
+    ReviewValidationError,
+    ReviewAlreadyExistsError,
+    NoCompletedJobError
+)
+
+logger = logging.getLogger(__name__)
+
+customer_bp = Blueprint('customers', __name__)
 customer_schema = CustomerSchema()
+
+
+def _get_current_customer():
+    """
+    Get current customer from JWT token.
+
+    Returns:
+        Customer object
+
+    Raises:
+        CustomerNotFoundError: If customer not found
+    """
+    user_id = get_jwt_identity()
+    customer = CustomerService.get_by_user_id(user_id)
+
+    if not customer:
+        raise CustomerNotFoundError(f"Customer not found for user {user_id}")
+
+    return customer
+
 
 @customer_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
-    """Get customer profile"""
+    """
+    Get customer profile.
+
+    Returns:
+        200: Customer profile data
+        404: Customer not found
+        500: Server error
+    """
     try:
         user_id = get_jwt_identity()
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
+        customer = CustomerService.get_profile(user_id)
+
         return jsonify({
             'success': True,
-            'customer': customer_schema.dump(customer)
+            'data': customer_schema.dump(customer)
         }), 200
-        
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error getting customer profile: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error getting customer profile: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/profile', methods=['PUT'])
 @jwt_required()
 def update_profile():
-    """Update customer profile"""
+    """
+    Update customer profile.
+
+    Request body:
+        first_name: string (optional)
+        last_name: string (optional)
+        phone: string (optional)
+        billing_address: string (optional)
+        city: string (optional)
+        district: string (optional)
+
+    Returns:
+        200: Updated customer profile
+        400: Validation error
+        404: Customer not found
+        500: Server error
+    """
     try:
         user_id = get_jwt_identity()
-        data = request.get_json()
-        
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        # Update fields
-        if 'first_name' in data:
-            customer.first_name = data['first_name']
-        if 'last_name' in data:
-            customer.last_name = data['last_name']
-        if 'phone' in data:
-            customer.phone = data['phone']
-        if 'address' in data:
-            customer.address = data['address']
-        if 'city' in data:
-            customer.city = data['city']
-        if 'preferences' in data:
-            customer.preferences = data['preferences']
-            
-        customer.updated_at = datetime.utcnow()
-        customer.save()
-        
+        data = request.get_json() or {}
+
+        # Validate with schema (partial=True allows partial updates)
+        validated_data = customer_schema.load(data, partial=True)
+
+        # Update profile
+        customer = CustomerService.update_profile(user_id, validated_data)
+
         return jsonify({
             'success': True,
             'message': 'Profile updated successfully',
-            'customer': customer_schema.dump(customer)
+            'data': customer_schema.dump(customer)
         }), 200
-        
+
+    except ValidationError as e:
+        logger.warning(f"Validation error: {e.messages}")
+        return jsonify({
+            'success': False,
+            'error': 'Validation error',
+            'details': e.messages
+        }), 400
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error updating customer profile: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error updating customer profile: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/quotes', methods=['GET'])
 @jwt_required()
 def get_quotes():
-    """Get customer's quote requests"""
+    """
+    Get customer's quotes with optional filtering.
+
+    Query parameters:
+        status: string (optional) - Filter by status
+        page: int (optional) - Page number (default: 1)
+        per_page: int (optional) - Items per page (default: 10)
+
+    Returns:
+        200: List of quotes with pagination
+        404: Customer not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
+        customer = _get_current_customer()
+
+        # Get query parameters
         status = request.args.get('status')
         page = request.args.get('page', 1, type=int)
         per_page = request.args.get('per_page', 10, type=int)
-        
-        query = Quote.query.filter_by(customer_id=customer.id)
-        
-        if status:
-            query = query.filter_by(status=status)
-            
-        quotes = query.order_by(Quote.created_at.desc()).paginate(
-            page=page, per_page=per_page, error_out=False
+
+        # Get quotes
+        quotes_pagination = CustomerService.get_quotes_for_customer(
+            customer.id,
+            status=status,
+            page=page,
+            per_page=per_page
         )
-        
+
         return jsonify({
             'success': True,
-            'quotes': [quote.to_dict() for quote in quotes.items],
-            'pagination': {
-                'page': page,
-                'pages': quotes.pages,
-                'per_page': per_page,
-                'total': quotes.total
+            'data': {
+                'quotes': [quote.to_dict() for quote in quotes_pagination.items],
+                'pagination': {
+                    'page': quotes_pagination.page,
+                    'pages': quotes_pagination.pages,
+                    'per_page': quotes_pagination.per_page,
+                    'total': quotes_pagination.total
+                }
             }
         }), 200
-        
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error getting customer quotes: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error getting customer quotes: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/quotes/<int:quote_id>/accept', methods=['POST'])
 @jwt_required()
-def accept_quote():
-    """Accept a quote"""
+def accept_quote(quote_id):
+    """
+    Accept a quote.
+
+    Args:
+        quote_id: Quote ID from URL
+
+    Returns:
+        200: Quote accepted successfully
+        400: Quote cannot be accepted (wrong status)
+        403: Quote doesn't belong to customer
+        404: Quote not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        quote_id = request.view_args['quote_id']
-        
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        quote = Quote.query.filter_by(id=quote_id, customer_id=customer.id).first()
-        if not quote:
-            return jsonify({'error': 'Quote not found'}), 404
-            
-        if quote.status != 'quoted':
-            return jsonify({'error': 'Quote cannot be accepted'}), 400
-            
-        quote.status = 'accepted'
-        quote.accepted_at = datetime.utcnow()
-        quote.save()
-        
+        customer = _get_current_customer()
+
+        # Accept quote
+        quote = CustomerService.accept_quote(customer.id, quote_id)
+
         return jsonify({
             'success': True,
             'message': 'Quote accepted successfully',
-            'quote': quote.to_dict()
+            'data': quote.to_dict()
         }), 200
-        
+
+    except QuoteNotFoundError as e:
+        logger.warning(f"Quote not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
+    except QuoteAccessDeniedError as e:
+        logger.warning(f"Quote access denied: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'You do not have permission to accept this quote'
+        }), 403
+
+    except QuoteStatusError as e:
+        logger.warning(f"Quote status error: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
     except Exception as e:
-        logging.error(f"Error accepting quote: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error accepting quote: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/quotes/<int:quote_id>/reject', methods=['POST'])
 @jwt_required()
-def reject_quote():
-    """Reject a quote"""
+def reject_quote(quote_id):
+    """
+    Reject a quote.
+
+    Args:
+        quote_id: Quote ID from URL
+
+    Request body (optional):
+        reason: string - Rejection reason
+
+    Returns:
+        200: Quote rejected successfully
+        400: Quote cannot be rejected (wrong status)
+        403: Quote doesn't belong to customer
+        404: Quote not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        quote_id = request.view_args['quote_id']
-        data = request.get_json()
-        
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        quote = Quote.query.filter_by(id=quote_id, customer_id=customer.id).first()
-        if not quote:
-            return jsonify({'error': 'Quote not found'}), 404
-            
-        quote.status = 'rejected'
-        quote.rejection_reason = data.get('reason')
-        quote.rejected_at = datetime.utcnow()
-        quote.save()
-        
+        customer = _get_current_customer()
+        data = request.get_json() or {}
+        reason = data.get('reason')
+
+        # Reject quote
+        quote = CustomerService.reject_quote(customer.id, quote_id, reason=reason)
+
         return jsonify({
             'success': True,
-            'message': 'Quote rejected successfully'
+            'message': 'Quote rejected successfully',
+            'data': quote.to_dict()
         }), 200
-        
+
+    except QuoteNotFoundError as e:
+        logger.warning(f"Quote not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
+    except QuoteAccessDeniedError as e:
+        logger.warning(f"Quote access denied: {e}")
+        return jsonify({
+            'success': False,
+            'error': 'You do not have permission to reject this quote'
+        }), 403
+
+    except QuoteStatusError as e:
+        logger.warning(f"Quote status error: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
     except Exception as e:
-        logging.error(f"Error rejecting quote: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error rejecting quote: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/reviews', methods=['GET'])
 @jwt_required()
 def get_reviews():
-    """Get customer's reviews"""
+    """
+    Get all reviews written by the customer.
+
+    Returns:
+        200: List of reviews
+        404: Customer not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        page = request.args.get('page', 1, type=int)
-        per_page = request.args.get('per_page', 10, type=int)
-        
-        reviews = Review.query.filter_by(customer_id=customer.id).order_by(
-            Review.created_at.desc()
-        ).paginate(page=page, per_page=per_page, error_out=False)
-        
+        customer = _get_current_customer()
+
+        # Get reviews
+        reviews = CustomerService.get_reviews(customer.id)
+
         return jsonify({
             'success': True,
-            'reviews': [review.to_dict() for review in reviews.items],
-            'pagination': {
-                'page': page,
-                'pages': reviews.pages,
-                'per_page': per_page,
-                'total': reviews.total
+            'data': {
+                'reviews': [review.to_dict() for review in reviews]
             }
         }), 200
-        
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error getting customer reviews: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error getting customer reviews: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/reviews', methods=['POST'])
 @jwt_required()
 def create_review():
-    """Create a review for a craftsman"""
+    """
+    Create a review for a craftsman.
+
+    Request body:
+        craftsman_id: int (required)
+        rating: float (required) - Between 1 and 5
+        comment: string (required) - At least 10 characters
+
+    Returns:
+        201: Review created successfully
+        400: Validation error or business rule violation
+        404: Customer not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        data = request.get_json()
-        
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        # Validate required fields
-        required_fields = ['craftsman_id', 'rating', 'comment']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({'error': f'{field} is required'}), 400
-                
-        # Check if customer has completed job with this craftsman
-        completed_quote = Quote.query.filter_by(
-            customer_id=customer.id,
-            craftsman_id=data['craftsman_id'],
-            status='completed'
-        ).first()
-        
-        if not completed_quote:
-            return jsonify({'error': 'You can only review craftsmen you have worked with'}), 400
-            
-        # Check if review already exists
-        existing_review = Review.query.filter_by(
-            customer_id=customer.id,
-            craftsman_id=data['craftsman_id'],
-            quote_id=completed_quote.id
-        ).first()
-        
-        if existing_review:
-            return jsonify({'error': 'Review already exists for this job'}), 400
-            
-        review = Review(
-            customer_id=customer.id,
-            craftsman_id=data['craftsman_id'],
-            quote_id=completed_quote.id,
-            rating=data['rating'],
-            comment=data['comment']
+        customer = _get_current_customer()
+        data = request.get_json() or {}
+
+        # Extract and validate required fields
+        craftsman_id = data.get('craftsman_id')
+        rating = data.get('rating')
+        comment = data.get('comment')
+
+        if not craftsman_id:
+            return jsonify({
+                'success': False,
+                'error': 'craftsman_id is required'
+            }), 400
+
+        if rating is None:
+            return jsonify({
+                'success': False,
+                'error': 'rating is required'
+            }), 400
+
+        if not comment:
+            return jsonify({
+                'success': False,
+                'error': 'comment is required'
+            }), 400
+
+        # Create review
+        review = CustomerService.create_review(
+            customer.id,
+            craftsman_id,
+            rating,
+            comment
         )
-        
-        review.save()
-        
-        # Update craftsman's average rating
-        craftsman = Craftsman.query.get(data['craftsman_id'])
-        if craftsman:
-            craftsman.update_average_rating()
-        
+
         return jsonify({
             'success': True,
             'message': 'Review created successfully',
-            'review': review.to_dict()
+            'data': review.to_dict()
         }), 201
-        
+
+    except (ReviewValidationError, NoCompletedJobError, ReviewAlreadyExistsError) as e:
+        logger.warning(f"Review error: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error creating review: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error creating review: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/favorites', methods=['GET'])
 @jwt_required()
 def get_favorites():
-    """Get customer's favorite craftsmen"""
+    """
+    Get customer's favorite craftsmen.
+
+    Returns:
+        200: List of favorite craftsmen
+        404: Customer not found
+        500: Server error
+
+    Note:
+        Currently returns empty list - favorites functionality not implemented.
+    """
     try:
-        user_id = get_jwt_identity()
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        # This would require a favorites table, for now return empty
+        customer = _get_current_customer()
+
+        # Get favorites
+        favorites = CustomerService.get_favorites(customer.id)
+
         return jsonify({
             'success': True,
-            'favorites': []
+            'data': {
+                'favorites': [fav.to_dict() for fav in favorites]
+            }
         }), 200
-        
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error getting customer favorites: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error getting favorites: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500
+
 
 @customer_bp.route('/statistics', methods=['GET'])
 @jwt_required()
 def get_statistics():
-    """Get customer's statistics"""
+    """
+    Get customer statistics.
+
+    Returns statistics including:
+    - Total quotes
+    - Active quotes
+    - Completed jobs
+    - Total reviews given
+    - Total spent
+    - Member since date
+
+    Returns:
+        200: Statistics data
+        404: Customer not found
+        500: Server error
+    """
     try:
-        user_id = get_jwt_identity()
-        customer = Customer.query.filter_by(user_id=user_id).first()
-        
-        if not customer:
-            return jsonify({'error': 'Customer not found'}), 404
-            
-        # Calculate basic statistics
-        total_quotes = Quote.query.filter_by(customer_id=customer.id).count()
-        completed_quotes = Quote.query.filter_by(customer_id=customer.id, status='completed').count()
-        total_reviews = Review.query.filter_by(customer_id=customer.id).count()
-        
-        stats = {
-            'total_quotes_requested': total_quotes,
-            'completed_jobs': completed_quotes,
-            'total_reviews_given': total_reviews,
-            'member_since': customer.created_at.strftime('%Y-%m-%d'),
-            'total_spent': 0  # Would need to calculate from completed quotes
-        }
-        
+        customer = _get_current_customer()
+
+        # Get statistics
+        statistics = CustomerService.get_statistics(customer.id)
+
         return jsonify({
             'success': True,
-            'statistics': stats
+            'data': statistics
         }), 200
-        
+
+    except CustomerNotFoundError as e:
+        logger.warning(f"Customer not found: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 404
+
     except Exception as e:
-        logging.error(f"Error getting customer statistics: {str(e)}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Error getting customer statistics: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': 'Internal server error'
+        }), 500

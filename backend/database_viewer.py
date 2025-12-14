@@ -1,15 +1,27 @@
-#!/usr/bin/env python3
+# !!! DEVELOPMENT TOOL ONLY - DO NOT DEPLOY IN PRODUCTION !!!
+
 """
 Database Viewer - Web-based database administration tool
 Provides a simple web interface to view and manage the database
 """
-
+import re
 import os
 import sys
 import sqlite3
-from flask import Flask, render_template_string, request, jsonify, redirect, url_for
+from flask import Flask, render_template_string, request, abort, jsonify, redirect, url_for
 import json
 from datetime import datetime
+
+# --- ENV GUARD ---
+APP_ENV = os.getenv("USTAM_ENV", "development").lower()
+if APP_ENV == "production":
+    raise RuntimeError(
+        "database_viewer.py should NOT be imported or run in production (USTAM_ENV=production)."
+    )
+
+# --- TABLE NAME REGEX (global) ---
+VALID_TABLE_NAME_RE = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
+
 
 # Add the backend directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -34,22 +46,27 @@ def create_viewer_app():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Get all tables
+        # Get all tables (excluding sqlite internal tables)
         cursor.execute("""
             SELECT name FROM sqlite_master 
             WHERE type='table' AND name NOT LIKE 'sqlite_%'
             ORDER BY name
         """)
-        tables = cursor.fetchall()
+        tables = [row['name'] for row in cursor.fetchall()]
         
+        def _quote_identifier(name: str) -> str:
+            # Double any double-quotes to prevent injection, then wrap in quotes
+            safe = name.replace('"', '""')
+            return f'"{safe}"'
+
         table_info = []
-        for table in tables:
-            table_name = table['name']
-            cursor.execute(f"SELECT COUNT(*) as count FROM {table_name}")
+        for table_name in tables:
+            quoted = _quote_identifier(table_name)
+            cursor.execute(f"SELECT COUNT(*) as count FROM {quoted}")
             count = cursor.fetchone()['count']
             
             # Get table schema
-            cursor.execute(f"PRAGMA table_info({table_name})")
+            cursor.execute(f"PRAGMA table_info({quoted})")
             columns = cursor.fetchall()
             
             table_info.append({
@@ -178,31 +195,49 @@ def create_viewer_app():
     @app.route('/table/<table_name>')
     def view_table(table_name):
         """View table data"""
+
+        if not VALID_TABLE_NAME_RE.match(table_name):
+            abort(400)  # Bad Request
+
         page = request.args.get('page', 1, type=int)
         per_page = 50
         offset = (page - 1) * per_page
         
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        # Validate table name against actual tables to prevent injection
+        cursor.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name NOT LIKE 'sqlite_%'
+        """)
+        valid_tables = {row['name'] for row in cursor.fetchall()}
+        if table_name not in valid_tables:
+            conn.close()
+            abort(404)
+
+        def _quote_identifier(name: str) -> str:
+            safe = name.replace('"', '""')
+            return f'"{safe}"'
+
+        quoted = _quote_identifier(table_name)
         
         # Get table schema
-        cursor.execute(f"PRAGMA table_info({table_name})")
+        cursor.execute(f"PRAGMA table_info({quoted})")
         columns = [col['name'] for col in cursor.fetchall()]
         
         # Get total count
-        cursor.execute(f"SELECT COUNT(*) as count FROM {table_name}")
+        cursor.execute(f"SELECT COUNT(*) as count FROM {quoted}")
         total_count = cursor.fetchone()['count']
         
         # Get data with pagination
-        cursor.execute(f"SELECT * FROM {table_name} LIMIT {per_page} OFFSET {offset}")
+        cursor.execute(f"SELECT * FROM {quoted} LIMIT ? OFFSET ?", (per_page, offset))
         rows = cursor.fetchall()
         
         conn.close()
         
         # Convert rows to list of dicts
-        data = []
-        for row in rows:
-            data.append(dict(row))
+        data = [dict(row) for row in rows]
         
         total_pages = (total_count // per_page) + (1 if total_count % per_page > 0 else 0)
         
