@@ -4,7 +4,7 @@ from flask_jwt_extended import decode_token, get_jwt_identity
 from app.models.user import User
 from app.models.message import Message
 from app.models.notification import Notification
-from app import db
+from app.extensions import db
 from datetime import datetime
 import logging
 

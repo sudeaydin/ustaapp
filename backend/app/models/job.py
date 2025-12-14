@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import Column, Integer, String, Text, Float, Boolean, DateTime, ForeignKey, Enum as SQLEnum, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from app import db
+from app.extensions import db
 import enum
 
 # Job status enumeration

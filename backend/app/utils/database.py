@@ -170,7 +170,7 @@ def cache_response(ttl=300):
 # Database health check
 def check_database_health():
     """Check database connection and performance"""
-    from app import db
+    from app.extensions import db
     import time
     
     try:

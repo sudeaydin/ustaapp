@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-from app import db
+from app.extensions import db
 from app.models.customer import Customer
 from app.models.craftsman import Craftsman
 

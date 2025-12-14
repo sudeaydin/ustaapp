@@ -7,7 +7,7 @@ from ..models.craftsman import Craftsman
 from ..models.user import User
 from ..models.category import Category
 from ..models.review import Review
-from .. import db
+from app.extensions import db
 
 class CraftsmanService:
     logger = logging.getLogger(__name__)

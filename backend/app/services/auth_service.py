@@ -13,7 +13,7 @@ from ..models.quote import Quote
 from ..models.message import Message
 from ..models.notification import Notification
 from ..models.payment import Payment
-from .. import db
+from app.extensions import db
 from app.utils.password_validator import validate_password_strength
 from app.utils.validators import ValidationUtils
 

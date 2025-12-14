@@ -62,6 +62,7 @@ def create_app(config_name='default'):
     from app.routes.analytics import analytics_bp
     from app.routes.job import job_bp
     from app.routes.craftsman import craftsman_bp
+    from app.routes.customer import customer_bp
     from app.routes.mobile_api import mobile_api
     from app.routes.quotes import quotes_bp
     from app.routes.notifications import notifications_bp
@@ -89,6 +90,7 @@ def create_app(config_name='default'):
     app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')
     app.register_blueprint(craftsman_bp, url_prefix='/api')
+    app.register_blueprint(customer_bp, url_prefix='/api/customers')
     app.register_blueprint(quotes_bp, url_prefix='/api/quotes')
     app.register_blueprint(notifications_bp, url_prefix='/api/notifications')
     app.register_blueprint(quote_request_bp, url_prefix='/api/quote-requests')

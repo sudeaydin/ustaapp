@@ -1,5 +1,5 @@
 from ..models.quote import Quote
-from .. import db
+from app.extensions import db
 
 class QuoteService:
     @staticmethod
